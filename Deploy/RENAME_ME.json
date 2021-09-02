@@ -1,0 +1,19 @@
+{
+    "binDir": "./../src/build/Debug/RENAME_MEEaxample",
+    "clear": true,
+    "libDir": "./../",
+    "recursiveDepth": "10",
+    "deploySystem": false,
+    "qmlDir": "../",
+    "ignoreEnv": [
+        "./../installer",
+        "./../Distro",
+        "./../parts",
+        "./../snap",
+        "./../prime",
+        "./../stage"
+        ],
+    "extraLib": "crypto",
+    "targetDir": "./../DisttibutionKit"
+}
+
