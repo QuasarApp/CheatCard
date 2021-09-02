@@ -14,6 +14,8 @@ inline void initRegularCustomerResources() { Q_INIT_RESOURCE(RegularCustomer); }
 
 namespace RC {
 
+class DataBase;
+
 /**
  * @brief The RegularCustomer class
  */
@@ -27,5 +29,9 @@ public:
      * @return true if initialization finished successful
      */
     bool init(QQmlApplicationEngine *engine);
+
+private:
+
+    DataBase * _db = nullptr;
 };
 };

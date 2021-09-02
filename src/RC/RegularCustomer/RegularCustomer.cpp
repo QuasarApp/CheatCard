@@ -7,11 +7,13 @@
 
 #include "RegularCustomer.h"
 
+#include <database.h>
+
 
 namespace RC {
 
 RegularCustomer::RegularCustomer() {
-
+    _db = new DataBase();
 }
 
 bool RegularCustomer::init(QQmlApplicationEngine *engine) {

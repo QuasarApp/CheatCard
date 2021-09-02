@@ -9,4 +9,7 @@
     <qresource prefix="/RegularCustomerTr">
         <file>languages/en.qm</file>
     </qresource>
+    <qresource prefix="/DataBase">
+        <file>private/sql/DataBase.sql</file>
+    </qresource>
 </RCC>

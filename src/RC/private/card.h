@@ -5,51 +5,46 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-
-#ifndef USER_H
-#define USER_H
-
-#include "heart.h"
-
 #include <dbobject.h>
+
+#ifndef CARD_H
+#define CARD_H
 
 namespace RC {
 
 /**
- * @brief The User class This is maic class for contatins all information about user
+ * @brief The Card class
  */
-class User: public QH::PKG::DBObject
+class Card: public QH::PKG::DBObject
 {
 public:
-    User();
-
-    // DBObject interface
-public:
+    Card();
     QH::PKG::DBObject *createDBObject() const;
 
     QH::PKG::DBVariantMap variantMap() const;
 
-    /**
-     * @brief name This is name of user;
-     * @return return na,e of user.
-     */
     const QString &name() const;
     void setName(const QString &newName);
 
-    /**
-     * @brief cardID This is id of the user card.
-     * @return user card id .
-     */
-    int cardID() const;
-    void setCardID(int newCardID);
+    const QByteArray &image() const;
+    void setImage(const QByteArray &newImage);
+
+    int getPurchasesNumber() const;
+    void setPurchasesNumber(int newPurchasesNumber);
+
+    int getFreeIndex() const;
+    void setFreeIndex(int newFreeIndex);
 
 protected:
     QString primaryKey() const;
 
 private:
     QString _name;
-    int _cardID;
+    QByteArray _image;
+    int purchasesNumber = 0;
+    int freeIndex = 1;
+
 };
 
 }
-#endif // USER_H
+#endif // CARD_H
