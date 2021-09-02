@@ -8,10 +8,19 @@
 #include "RegularCustomer.h"
 
 
-namespace RegularCustomer {
+namespace RC {
 
-bool init() {
+RegularCustomer::RegularCustomer() {
+
+}
+
+bool RegularCustomer::init(QQmlApplicationEngine *engine) {
     initRegularCustomerResources();
+
+    engine->load("qrc:/RegularCustomerModule/RegularCustomer.qml");
+    if (engine->rootObjects().isEmpty())
+        return false;
+
     return true;
 }
 

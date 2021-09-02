@@ -5,13 +5,12 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-import QtQuick
-import QtQuick.Controls
-import QtQuick.Controls.Material
-import QtQuick.Layouts
 
-ApplicationWindow {
-    visible: true
-    height: 800
-    width: 600
+#include "user.h"
+namespace RC {
+
+User::User()
+{
+
+}
 }

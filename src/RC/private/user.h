@@ -5,13 +5,20 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-import QtQuick
-import QtQuick.Controls
-import QtQuick.Controls.Material
-import QtQuick.Layouts
 
-ApplicationWindow {
-    visible: true
-    height: 800
-    width: 600
+#ifndef USER_H
+#define USER_H
+
+namespace RC {
+
+/**
+ * @brief The User class This is maic class for contatins all information about user
+ */
+class User
+{
+public:
+    User();
+};
+
 }
+#endif // USER_H

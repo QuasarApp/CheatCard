@@ -5,13 +5,23 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-import QtQuick
-import QtQuick.Controls
-import QtQuick.Controls.Material
-import QtQuick.Layouts
+#ifndef MAINMODEL_H
+#define MAINMODEL_H
 
-ApplicationWindow {
-    visible: true
-    height: 800
-    width: 600
+#include <QObject>
+
+namespace RC {
+
+/**
+ * @brief The MainModel class is main model of the application.
+ */
+class MainModel : public QObject
+{
+    Q_OBJECT
+
+public:
+    MainModel();
+};
+
 }
+#endif // MAINMODEL_H

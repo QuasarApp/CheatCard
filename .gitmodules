@@ -1,6 +1,6 @@
 [submodule "submodules/qca"]
 	path = submodules/qca
 	url = git@github.com:QuasarApp/qca.git
-[submodule "submodules/QuasarAppLib"]
-	path = submodules/QuasarAppLib
-	url = git@github.com:QuasarApp/QuasarAppLib.git
+[submodule "submodules/Heart"]
+	path = submodules/Heart
+	url = git@github.com:QuasarApp/Heart.git

@@ -7,10 +7,25 @@
 
 #include "RegularCustomer_global.h"
 
+#include <QQmlApplicationEngine>
+#include <QQmlContext>
+
 inline void initRegularCustomerResources() { Q_INIT_RESOURCE(RegularCustomer); }
 
-namespace RegularCustomer {
+namespace RC {
 
-bool RegularCustomer_EXPORT init();
+/**
+ * @brief The RegularCustomer class
+ */
+class RegularCustomer_EXPORT RegularCustomer {
 
+public:
+    RegularCustomer();
+
+    /**
+     * @brief init This method initialize the main application class.
+     * @return true if initialization finished successful
+     */
+    bool init(QQmlApplicationEngine *engine);
+};
 };

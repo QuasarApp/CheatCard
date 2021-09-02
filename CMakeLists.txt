@@ -25,7 +25,7 @@ if (NOT DEFINED QT_VERSION_MAJOR)
 endif()
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Test QUIET)
 
-include(submodules/CMake/QuasarApp.cmake)
+include(submodules/Heart/QuasarAppLib/CMake/QuasarApp.cmake)
 
 if (NOT DEFINED RegularCustomer_TESTS)
     set(RegularCustomer_TESTS ON)
@@ -44,6 +44,17 @@ if (NOT DEFINED RegularCustomer_TESTS)
         set(RegularCustomer_TESTS OFF)
     endif()
 endif()
+
+add_subdirectory(submodules/Heart)
+
+if (${QT_VERSION_MAJOR} EQUAL 6)
+    option(QT6 "" ON)
+else()
+    option(QT6 "" OFF)
+endif()
+option(BUILD_TOOLS "" OFF)
+option(BUILD_TESTS "" OFF)
+add_subdirectory(submodules/qca)
 
 add_subdirectory(src/RC)
 add_subdirectory(src/RCApp)
