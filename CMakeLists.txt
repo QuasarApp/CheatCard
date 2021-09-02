@@ -6,7 +6,7 @@
 #
 
 cmake_minimum_required(VERSION 3.14)
-project(RENAME_ME)
+project(RegularCustomer)
 if(TARGET ${PROJECT_NAME})
   message("The ${PROJECT_NAME} arledy included in main Project")
   return()
@@ -27,43 +27,29 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Test QUIET)
 
 include(submodules/CMake/QuasarApp.cmake)
 
-if (NOT DEFINED RENAME_ME_TESTS)
-    set(RENAME_ME_TESTS ON)
+if (NOT DEFINED RegularCustomer_TESTS)
+    set(RegularCustomer_TESTS ON)
 
     if (DEFINED TARGET_PLATFORM_TOOLCHAIN)
         if (${TARGET_PLATFORM_TOOLCHAIN} STREQUAL "wasm32")
-            set(RENAME_ME_TESTS OFF)
+            set(RegularCustomer_TESTS OFF)
         endif()
     endif()
 
     if (ANDROID)
-        set(RENAME_ME_TESTS OFF)
+        set(RegularCustomer_TESTS OFF)
     endif()
 
     if (NOT QT_VERSION_MAJOR)
-        set(RENAME_ME_TESTS OFF)
+        set(RegularCustomer_TESTS OFF)
     endif()
 endif()
 
-if (NOT DEFINED RENAME_ME_EXAMPLE)
-    set(RENAME_ME_EXAMPLE ON)
+add_subdirectory(src/RC)
+add_subdirectory(src/RCApp)
 
-    if (ANDROID)
-        set(RENAME_ME_EXAMPLE OFF)
-    endif()
 
-    if (NOT QT_VERSION_MAJOR)
-        set(RENAME_ME_EXAMPLE OFF)
-    endif()
-endif()
-
-add_subdirectory(src/Library)
-
-if (DEFINED RENAME_ME_EXAMPLE)
-    add_subdirectory(src/Example)
-endif()
-
-if (RENAME_ME_TESTS)
+if (RegularCustomer_TESTS)
     add_subdirectory(tests)
 else()
     message("The ${PROJECT_NAME} tests is disabled.")
@@ -72,4 +58,4 @@ endif()
 initAll()
 
 addDoc(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/doxygen.conf)
-addDeployFromCustomFile("RENAME_ME" "${CMAKE_CURRENT_SOURCE_DIR}/Deploy/RENAME_ME.json")
+addDeployFromCustomFile("RegularCustomer" "${CMAKE_CURRENT_SOURCE_DIR}/Deploy/RegularCustomer.json")

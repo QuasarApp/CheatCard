@@ -7,18 +7,18 @@
 
 cmake_minimum_required(VERSION 3.14)
 
-add_definitions(-DRENAME_ME_LIBRARY)
+add_definitions(-DRegularCustomer_LIBRARY)
 
 
 file(GLOB SOURCE_CPP
-    "*RENAME_ME/*.cpp"
+    "*RegularCustomer/*.cpp"
      "private/*.cpp"
 )
 
 if (${QT_VERSION_MAJOR})
     file(GLOB SOURCE_QRC
         "*.qrc"
-        "RENAME_ME/*.qrc"
+        "RegularCustomer/*.qrc"
         "private/*.qrc"
     )
 

@@ -5,13 +5,13 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#include "RENAME_ME.h"
+#include "RegularCustomer.h"
 
 
-namespace RENAME_ME {
+namespace RegularCustomer {
 
 bool init() {
-    initRENAME_MEResources();
+    initRegularCustomerResources();
     return true;
 }
 

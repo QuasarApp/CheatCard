@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>RegularCustomerModule/qmldir</file>
+        <file>RegularCustomerModule/RegularCustomer.qml</file>
+    </qresource>
+    <qresource prefix="/RegularCustomerTr">
+        <file>languages/en.qm</file>
+    </qresource>
+</RCC>

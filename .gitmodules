@@ -1,3 +1,9 @@
 [submodule "CMake"]
 	path = submodules/CMake
 	url = https://github.com/QuasarApp/CMake.git
+[submodule "submodules/qca"]
+	path = submodules/qca
+	url = git@github.com:QuasarApp/qca.git
+[submodule "submodules/QuasarAppLib"]
+	path = submodules/QuasarAppLib
+	url = git@github.com:QuasarApp/QuasarAppLib.git

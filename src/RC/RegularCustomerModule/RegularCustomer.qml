@@ -5,7 +5,7 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-import QtQuick 2.15
+import QtQuick
 
 Item {
 
