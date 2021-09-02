@@ -45,6 +45,7 @@ if (NOT DEFINED RegularCustomer_TESTS)
     endif()
 endif()
 
+set(HEART_SSL OFF)
 add_subdirectory(submodules/Heart)
 
 if (${QT_VERSION_MAJOR} EQUAL 6)
