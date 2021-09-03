@@ -24,7 +24,6 @@ class User: public QObject, public QH::PKG::DBObject
     Q_OBJECT
 
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
-    Q_PROPERTY(int cardID READ cardID WRITE setCardID NOTIFY cardIDChanged)
 
     QML_ELEMENT
 public:
@@ -38,21 +37,16 @@ public:
 
     const QString &name() const;
     void setName(const QString &newName);
-
-    int cardID() const;
-    void setCardID(int newCardID);
+    bool fromSqlRecord(const QSqlRecord &q);
 
 signals:
     void nameChanged();
-
-    void cardIDChanged();
 
 protected:
     QString primaryKey() const;
 
 private:
     QString _name;
-    int _cardID;
 };
 
 }

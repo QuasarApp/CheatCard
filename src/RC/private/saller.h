@@ -21,7 +21,6 @@ class Saller : public QObject, public QH::PKG::DBObject
     Q_OBJECT
 
     Q_PROPERTY(QString name READ getName WRITE setName NOTIFY nameChanged)
-    Q_PROPERTY(int cardID READ getCardID WRITE setCardID NOTIFY cardIDChanged)
 
     QML_ELEMENT
 public:
@@ -32,21 +31,16 @@ public:
 
     const QString &getName() const;
     void setName(const QString &newName);
-
-    int getCardID() const;
-    void setCardID(int newCardID);
+    bool fromSqlRecord(const QSqlRecord &q);
 
 signals:
     void nameChanged();
-
-    void cardIDChanged();
 
 protected:
     QString primaryKey() const;
 
 private:
     QString name;
-    int cardID;
 };
 
 }

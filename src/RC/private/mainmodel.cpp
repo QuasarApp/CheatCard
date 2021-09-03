@@ -8,26 +8,40 @@
 #include "mainmodel.h"
 
 #include "database.h"
+#include "saller.h"
 
 namespace RC {
+
+void noDelete(Saller *) {};
 
 MainModel::MainModel(DB *db) {
     _db = db;
 }
 
-bool MainModel::getFSeller() const {
-    return fSeller;
+bool MainModel::fSeller() const {
+    return _sallerModel;
 }
 
 void MainModel::makeSaller(Saller *saller) {
 
+    QSharedPointer<Saller> obj{saller, noDelete};
+    if (!_db->updateObject(obj, true)) {
+        _db->insertObject(obj);
+    }
+
+    setSallerModel(saller);
 }
 
-void MainModel::setFSeller(bool newFSeller) {
-    if (fSeller == newFSeller)
+QObject *MainModel::sallerModel() const{
+    return _sallerModel;
+}
+
+void MainModel::setSallerModel(Saller *newSallerModel)
+{
+    if (_sallerModel == newSallerModel)
         return;
-    fSeller = newFSeller;
-    emit fSellerChanged();
+    _sallerModel = newSallerModel;
+    emit sallerModelChanged();
 }
 
 }

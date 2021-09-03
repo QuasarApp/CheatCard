@@ -19,38 +19,33 @@ QH::PKG::DBObject *User::createDBObject() const {
 
 QH::PKG::DBVariantMap User::variantMap() const {
     return {{"id",          {getId(),    QH::PKG::MemberType::PrimaryKeyAutoIncrement}},
-            {"name",        {_name,      QH::PKG::MemberType::Insert}},
-            {"card",        {_cardID,    QH::PKG::MemberType::InsertUpdate}}};
+            {"name",        {_name,      QH::PKG::MemberType::PrimaryKey}}
+    };
 }
 
 QString User::primaryKey() const {
     return "id";
 }
 
-int User::cardID() const
-{
-    return _cardID;
-}
-
-void User::setCardID(int newCardID)
-{
-    if (_cardID == newCardID)
-        return;
-    _cardID = newCardID;
-    emit cardIDChanged();
-}
-
-const QString &User::name() const
-{
+const QString &User::name() const {
     return _name;
 }
 
-void User::setName(const QString &newName)
-{
+void User::setName(const QString &newName) {
     if (_name == newName)
         return;
     _name = newName;
     emit nameChanged();
+}
+
+bool User::fromSqlRecord(const QSqlRecord &q) {
+    if (!DBObject::fromSqlRecord(q)) {
+        return false;
+    }
+
+    setName(q.value("name").toString());
+
+    return true;
 }
 
 }

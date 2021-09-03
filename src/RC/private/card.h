@@ -34,6 +34,8 @@ public:
 
     int getFreeIndex() const;
     void setFreeIndex(int newFreeIndex);
+    bool fromSqlRecord(const QSqlRecord &q);
+
 
 protected:
     QString primaryKey() const;

@@ -22,24 +22,27 @@ class Saller;
 class MainModel : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(bool fSeller READ getFSeller NOTIFY fSellerChanged)
+    Q_PROPERTY(bool fSeller READ fSeller NOTIFY fSellerChanged)
+    Q_PROPERTY(QObject * sallerModel READ sallerModel NOTIFY sallerModelChanged)
 
 public:
     MainModel(DB* db);
 
-    bool getFSeller() const;
+    bool fSeller() const;
     Q_INVOKABLE void makeSaller(Saller * saller);
 
-protected:
-    void setFSeller(bool newFSeller);
+    QObject *sallerModel() const;
+    void setSallerModel(Saller *newSallerModel);
 
 signals:
     void fSellerChanged();
+    void sallerModelChanged();
 
 private:
     DB * _db = nullptr;
     User *_currentUser = nullptr;
-    bool fSeller = false;
+    Saller *_sallerModel = nullptr;
+
 };
 
 }

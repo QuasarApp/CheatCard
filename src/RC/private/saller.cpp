@@ -22,17 +22,6 @@ QString Saller::primaryKey() const {
     return "id";
 }
 
-int Saller::getCardID() const {
-    return cardID;
-}
-
-void Saller::setCardID(int newCardID) {
-    if (cardID == newCardID)
-        return;
-    cardID = newCardID;
-    emit cardIDChanged();
-}
-
 const QString &Saller::getName() const {
     return name;
 }
@@ -44,11 +33,20 @@ void Saller::setName(const QString &newName) {
     emit nameChanged();
 }
 
+bool Saller::fromSqlRecord(const QSqlRecord &q) {
+    if (!DBObject::fromSqlRecord(q)) {
+        return false;
+    }
+
+    setName(q.value("name").toString());
+
+    return true;
+}
+
 QH::PKG::DBVariantMap Saller::variantMap() const {
     return
         {{"id",   {getId(), QH::PKG::MemberType::PrimaryKeyAutoIncrement}},
-        {"name",  {name,    QH::PKG::MemberType::Insert}},
-        {"image", {cardID,  QH::PKG::MemberType::InsertUpdate}},
+        {"name",  {name,    QH::PKG::MemberType::PrimaryKey}}
     };
 }
 

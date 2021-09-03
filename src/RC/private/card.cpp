@@ -19,7 +19,7 @@ QH::PKG::DBObject *Card::createDBObject() const {
 
 QH::PKG::DBVariantMap Card::variantMap() const {
     return {{"id",              {getId(),         QH::PKG::MemberType::PrimaryKeyAutoIncrement}},
-            {"name",            {_name,           QH::PKG::MemberType::Insert}},
+            {"name",            {_name,           QH::PKG::MemberType::PrimaryKey}},
             {"image",           {_image,          QH::PKG::MemberType::InsertUpdate}},
             {"purchasesNumber", {purchasesNumber, QH::PKG::MemberType::InsertUpdate}},
             {"freeIndex",       {freeIndex,       QH::PKG::MemberType::InsertUpdate}}};
@@ -55,6 +55,19 @@ int Card::getFreeIndex() const {
 
 void Card::setFreeIndex(int newFreeIndex) {
     freeIndex = newFreeIndex;
+}
+
+bool Card::fromSqlRecord(const QSqlRecord &q) {
+    if (!DBObject::fromSqlRecord(q)) {
+        return false;
+    }
+
+    setName(q.value("name").toString());
+    setImage(q.value("image").toByteArray());
+    setPurchasesNumber(q.value("purchasesNumber").toInt());
+    setFreeIndex(q.value("freeIndex").toInt());
+
+    return true;
 }
 
 QString Card::primaryKey() const {
