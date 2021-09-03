@@ -14,12 +14,12 @@ Saller::Saller(): QH::PKG::DBObject("Sallers") {
 
 }
 
-const QString &Saller::getName() const {
-    return name;
+QH::PKG::DBObject *Saller::createDBObject() const {
+    return new Saller();
 }
 
-void Saller::setName(const QString &newName) {
-    name = newName;
+QString Saller::primaryKey() const {
+    return "id";
 }
 
 int Saller::getCardID() const {
@@ -27,15 +27,21 @@ int Saller::getCardID() const {
 }
 
 void Saller::setCardID(int newCardID) {
+    if (cardID == newCardID)
+        return;
     cardID = newCardID;
+    emit cardIDChanged();
 }
 
-QH::PKG::DBObject *Saller::createDBObject() const {
-    return new Saller();
+const QString &Saller::getName() const {
+    return name;
 }
 
-QString Saller::primaryKey() const {
-    return "id";
+void Saller::setName(const QString &newName) {
+    if (name == newName)
+        return;
+    name = newName;
+    emit nameChanged();
 }
 
 QH::PKG::DBVariantMap Saller::variantMap() const {

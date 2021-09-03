@@ -9,8 +9,12 @@
 #define MAINMODEL_H
 
 #include <QObject>
+#include "database.h"
 
 namespace RC {
+
+class User;
+class Saller;
 
 /**
  * @brief The MainModel class is main model of the application.
@@ -18,9 +22,24 @@ namespace RC {
 class MainModel : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(bool fSeller READ getFSeller NOTIFY fSellerChanged)
 
 public:
-    MainModel();
+    MainModel(DB* db);
+
+    bool getFSeller() const;
+    Q_INVOKABLE void makeSaller(Saller * saller);
+
+protected:
+    void setFSeller(bool newFSeller);
+
+signals:
+    void fSellerChanged();
+
+private:
+    DB * _db = nullptr;
+    User *_currentUser = nullptr;
+    bool fSeller = false;
 };
 
 }

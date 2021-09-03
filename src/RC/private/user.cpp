@@ -27,19 +27,30 @@ QString User::primaryKey() const {
     return "id";
 }
 
-int User::cardID() const {
+int User::cardID() const
+{
     return _cardID;
 }
 
-void User::setCardID(int newCardID) {
+void User::setCardID(int newCardID)
+{
+    if (_cardID == newCardID)
+        return;
     _cardID = newCardID;
+    emit cardIDChanged();
 }
 
-const QString &User::name() const {
+const QString &User::name() const
+{
     return _name;
 }
 
-void User::setName(const QString &newName) {
+void User::setName(const QString &newName)
+{
+    if (_name == newName)
+        return;
     _name = newName;
+    emit nameChanged();
 }
+
 }

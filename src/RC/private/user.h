@@ -10,6 +10,7 @@
 #define USER_H
 
 #include "heart.h"
+#include <qqml.h>
 
 #include <dbobject.h>
 
@@ -18,8 +19,14 @@ namespace RC {
 /**
  * @brief The User class This is maic class for contatins all information about user
  */
-class User: public QH::PKG::DBObject
+class User: public QObject, public QH::PKG::DBObject
 {
+    Q_OBJECT
+
+    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
+    Q_PROPERTY(int cardID READ cardID WRITE setCardID NOTIFY cardIDChanged)
+
+    QML_ELEMENT
 public:
     User();
 
@@ -29,19 +36,16 @@ public:
 
     QH::PKG::DBVariantMap variantMap() const;
 
-    /**
-     * @brief name This is name of user;
-     * @return return na,e of user.
-     */
     const QString &name() const;
     void setName(const QString &newName);
 
-    /**
-     * @brief cardID This is id of the user card.
-     * @return user card id .
-     */
     int cardID() const;
     void setCardID(int newCardID);
+
+signals:
+    void nameChanged();
+
+    void cardIDChanged();
 
 protected:
     QString primaryKey() const;

@@ -7,11 +7,27 @@
 
 #include "mainmodel.h"
 
+#include "database.h"
+
 namespace RC {
 
-MainModel::MainModel()
-{
+MainModel::MainModel(DB *db) {
+    _db = db;
+}
 
+bool MainModel::getFSeller() const {
+    return fSeller;
+}
+
+void MainModel::makeSaller(Saller *saller) {
+
+}
+
+void MainModel::setFSeller(bool newFSeller) {
+    if (fSeller == newFSeller)
+        return;
+    fSeller = newFSeller;
+    emit fSellerChanged();
 }
 
 }

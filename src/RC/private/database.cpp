@@ -6,11 +6,16 @@
 //#
 
 #include "database.h"
-
 namespace RC {
 
-DataBase::DataBase()
-{
+DataBase::DataBase() {
+}
 
+DB *DataBase::db() const {
+    return QH::DataBaseNode::db();
+}
+
+QStringList DataBase::SQLSources() const {
+    return QH::DataBaseNode::SQLSources() << "qrc:/DataBase/private/sql/DataBase.sql";
 }
 }

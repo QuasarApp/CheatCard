@@ -9,16 +9,26 @@
 #define SELLER_H
 
 #include <dbobject.h>
+#include <qqml.h>
 
 namespace RC {
 
 /**
  * @brief The Seller class
  */
-class Saller : public QH::PKG::DBObject
+class Saller : public QObject, public QH::PKG::DBObject
 {
+    Q_OBJECT
+
+    Q_PROPERTY(QString name READ getName WRITE setName NOTIFY nameChanged)
+    Q_PROPERTY(int cardID READ getCardID WRITE setCardID NOTIFY cardIDChanged)
+
+    QML_ELEMENT
 public:
     Saller();
+
+    QH::PKG::DBObject *createDBObject() const;
+    QH::PKG::DBVariantMap variantMap() const;
 
     const QString &getName() const;
     void setName(const QString &newName);
@@ -26,8 +36,11 @@ public:
     int getCardID() const;
     void setCardID(int newCardID);
 
-    QH::PKG::DBObject *createDBObject() const;
-    QH::PKG::DBVariantMap variantMap() const;
+signals:
+    void nameChanged();
+
+    void cardIDChanged();
+
 protected:
     QString primaryKey() const;
 
@@ -37,4 +50,5 @@ private:
 };
 
 }
+
 #endif // SELLER_H

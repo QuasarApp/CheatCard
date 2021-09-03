@@ -15,6 +15,7 @@ inline void initRegularCustomerResources() { Q_INIT_RESOURCE(RegularCustomer); }
 namespace RC {
 
 class DataBase;
+class MainModel;
 
 /**
  * @brief The RegularCustomer class
@@ -23,6 +24,7 @@ class RegularCustomer_EXPORT RegularCustomer {
 
 public:
     RegularCustomer();
+    ~RegularCustomer();
 
     /**
      * @brief init This method initialize the main application class.
@@ -33,5 +35,6 @@ public:
 private:
 
     DataBase * _db = nullptr;
+    MainModel* _model = nullptr;
 };
 };

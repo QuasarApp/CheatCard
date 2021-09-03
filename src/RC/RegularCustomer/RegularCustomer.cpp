@@ -8,16 +8,35 @@
 #include "RegularCustomer.h"
 
 #include <database.h>
-
+#include <imageprovider.h>
+#include "mainmodel.h"
+#include "quasarapp.h"
+#include "mainmodel.h"
 
 namespace RC {
 
 RegularCustomer::RegularCustomer() {
     _db = new DataBase();
+    _model = new MainModel(_db->db());
+
+}
+
+RegularCustomer::~RegularCustomer() {
+    delete _db;
 }
 
 bool RegularCustomer::init(QQmlApplicationEngine *engine) {
     initRegularCustomerResources();
+
+    engine->addImageProvider(QLatin1String("userItems"), new ImageProvider(_db));
+
+    auto root = engine->rootContext();
+
+    root->setContextProperty("mainModel", QVariant::fromValue(_model));
+
+    if (!_db->initSqlDb()) {
+        QuasarAppUtils::Params::log("Failed to load database", QuasarAppUtils::Error);
+    }
 
     engine->load("qrc:/RegularCustomerModule/RegularCustomer.qml");
     if (engine->rootObjects().isEmpty())

@@ -10,8 +10,13 @@
 #define DATABASE_H
 
 #include "heart.h"
+#include "isqldbcache.h"
+
 
 namespace RC {
+
+using DB = QH::ISqlDBCache;
+
 /**
  * @brief The DataBase class This is main databae object.
  */
@@ -20,6 +25,11 @@ class DataBase: public QH::DataBaseNode
     Q_OBJECT
 public:
     DataBase();
+    DB *db() const;
+
+    // DataBaseNode interface
+protected:
+    QStringList SQLSources() const;
 };
 
 }
