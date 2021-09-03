@@ -7,6 +7,7 @@
 
 #include "cardmodel.h"
 #include "card.h"
+
 namespace RC {
 CardModel::CardModel() {
 

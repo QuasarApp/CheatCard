@@ -14,4 +14,14 @@ ApplicationWindow {
     visible: true
     height: 800
     width: 600
+
+    property var model: mainModel
+
+    Dialog {
+        id: firstRun;
+        visible: (model)? model.fFirst : false
+        FirstRunPage {
+            anchors.fill: parent
+        }
+    }
 }

@@ -19,12 +19,25 @@ QH::PKG::DBObject *User::createDBObject() const {
 
 QH::PKG::DBVariantMap User::variantMap() const {
     return {{"id",          {getId(),    QH::PKG::MemberType::PrimaryKeyAutoIncrement}},
-            {"name",        {_name,      QH::PKG::MemberType::PrimaryKey}}
+            {"name",        {_name,      QH::PKG::MemberType::PrimaryKey}},
+            {"fSaller",     {_fSaller,   QH::PKG::MemberType::PrimaryKey}}
+
     };
 }
 
 QString User::primaryKey() const {
     return "id";
+}
+
+bool User::fSaller() const {
+    return _fSaller;
+}
+
+void User::setFSaller(bool newFSaller) {
+    if (_fSaller == newFSaller)
+        return;
+    _fSaller = newFSaller;
+    emit fSallerChanged();
 }
 
 const QString &User::name() const {
@@ -44,6 +57,7 @@ bool User::fromSqlRecord(const QSqlRecord &q) {
     }
 
     setName(q.value("name").toString());
+    setFSaller(q.value("fSaller").toBool());
 
     return true;
 }

@@ -10,8 +10,8 @@
 
 namespace RC {
 
-Contacts::Contacts(int saller, int user ): QH::PKG::DBObject("Contacts") {
-    this->saller = saller;
+Contacts::Contacts(int user, int contactUser ): QH::PKG::DBObject("Contacts") {
+    this->contactUser = contactUser;
     this->user = user;
 }
 
@@ -20,8 +20,8 @@ QH::PKG::DBObject *Contacts::createDBObject() const {
 }
 
 QH::PKG::DBVariantMap Contacts::variantMap() const {
-    return {{"saller",      {saller,        QH::PKG::MemberType::Insert}},
-            {"user",        {user,          QH::PKG::MemberType::Insert}},
+    return {{"user",               {user,        QH::PKG::MemberType::Insert}},
+            {"contactUser",        {contactUser, QH::PKG::MemberType::Insert}},
     };
 }
 
@@ -31,7 +31,7 @@ QString Contacts::primaryKey() const {
 
 bool Contacts::fromSqlRecord(const QSqlRecord &q) {
 
-    saller = q.value("saller").toInt();
+    contactUser = q.value("contactUser").toInt();
     user = q.value("user").toInt();
 
     return true;

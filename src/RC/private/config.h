@@ -5,31 +5,40 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-
-#ifndef SALLERSCARDS_H
-#define SALLERSCARDS_H
-
 #include <dbobject.h>
+
+
+#ifndef RC_CONFIG_H
+#define RC_CONFIG_H
+
 
 namespace RC {
 
-class SallersCards: public QH::PKG::DBObject
+class Config: public QH::PKG::DBObject
 {
 public:
-    SallersCards(int saller, int card );
+    Config();
 
     // DBObject interface
 public:
     QH::PKG::DBObject *createDBObject() const override;
-    QH::PKG::DBVariantMap variantMap() const override;
     bool fromSqlRecord(const QSqlRecord &q) override;
+    QH::PKG::DBVariantMap variantMap() const override;
+    bool isValid() const override;
+    int getUserId() const;
+    void setUserId(int newUserId);
+
+    bool getFirstRun() const;
+    void setFirstRun(bool newFirstRun);
 
 protected:
     QString primaryKey() const override;
 
 private:
-    int saller = 0;
-    int card = 0;
+    int userId = -1;
+    bool firstRun = true;
+
 };
+
 }
-#endif // SALLERSCARDS_H
+#endif // RC_CONFIG_H

@@ -5,8 +5,8 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#ifndef MAINMODEL_H
-#define MAINMODEL_H
+#ifndef RC_MAINMODEL_H
+#define RC_MAINMODEL_H
 
 #include <QObject>
 #include "database.h"
@@ -14,7 +14,7 @@
 namespace RC {
 
 class User;
-class Saller;
+class Config;
 
 /**
  * @brief The MainModel class is main model of the application.
@@ -22,28 +22,28 @@ class Saller;
 class MainModel : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(bool fSeller READ fSeller NOTIFY fSellerChanged)
-    Q_PROPERTY(QObject * sallerModel READ sallerModel NOTIFY sallerModelChanged)
+    Q_PROPERTY(bool fFirst READ fFirst NOTIFY fFirstChanged)
+    Q_PROPERTY(QObject * currentUser READ currentUser NOTIFY currentUserChanged)
 
 public:
     MainModel(DB* db);
 
-    bool fSeller() const;
-    Q_INVOKABLE void makeSaller(Saller * saller);
+    bool fFirst() const;
 
-    QObject *sallerModel() const;
-    void setSallerModel(Saller *newSallerModel);
+    QObject *currentUser() const;
+    void setCurrentUser(User *newCurrentUser);
 
 signals:
-    void fSellerChanged();
-    void sallerModelChanged();
+
+    void fFirstChanged();
+
+    void currentUserChanged();
 
 private:
     DB * _db = nullptr;
-    User *_currentUser = nullptr;
-    Saller *_sallerModel = nullptr;
-
+    QSharedPointer<User> _currentUser;
+    QSharedPointer<Config> _config;
 };
 
 }
-#endif // MAINMODEL_H
+#endif // RC_MAINMODEL_H

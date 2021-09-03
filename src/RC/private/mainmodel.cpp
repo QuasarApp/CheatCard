@@ -8,40 +8,43 @@
 #include "mainmodel.h"
 
 #include "database.h"
-#include "saller.h"
+#include "user.h"
+#include "dbobjectsrequest.h"
+
+#include "config.h"
 
 namespace RC {
 
-void noDelete(Saller *) {};
-
 MainModel::MainModel(DB *db) {
     _db = db;
-}
 
-bool MainModel::fSeller() const {
-    return _sallerModel;
-}
+    QH::PKG::DBObjectsRequest<User> request("Users", "*");
 
-void MainModel::makeSaller(Saller *saller) {
+    auto result = _db->getObject(request);
 
-    QSharedPointer<Saller> obj{saller, noDelete};
-    if (!_db->updateObject(obj, true)) {
-        _db->insertObject(obj);
+    if (result && result->data().size()) {
+        setCurrentUser(result->data().first());
+        Config requestConfig;
+        requestConfig.setUserId(_currentUser->getId().toInt());
+        _config = _db->getObject(requestConfig);
     }
-
-    setSallerModel(saller);
 }
 
-QObject *MainModel::sallerModel() const{
-    return _sallerModel;
+bool MainModel::fFirst() const {
+    return _config && _config->getFirstRun();
 }
 
-void MainModel::setSallerModel(Saller *newSallerModel)
-{
-    if (_sallerModel == newSallerModel)
+QObject *MainModel::currentUser() const {
+    return _currentUser.data();
+}
+
+void MainModel::setCurrentUser(User *newCurrentUser) {
+    auto value = QSharedPointer<User>(newCurrentUser);
+
+    if (_currentUser == value)
         return;
-    _sallerModel = newSallerModel;
-    emit sallerModelChanged();
+    _currentUser = value;
+    emit currentUserChanged();
 }
 
 }

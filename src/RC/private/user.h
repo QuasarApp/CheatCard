@@ -24,6 +24,7 @@ class User: public QObject, public QH::PKG::DBObject
     Q_OBJECT
 
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
+    Q_PROPERTY(bool fSaller READ fSaller WRITE setFSaller NOTIFY fSallerChanged)
 
     QML_ELEMENT
 public:
@@ -39,14 +40,19 @@ public:
     void setName(const QString &newName);
     bool fromSqlRecord(const QSqlRecord &q);
 
+    bool fSaller() const;
+    void setFSaller(bool newFSaller);
+
 signals:
     void nameChanged();
+    void fSallerChanged();
 
 protected:
     QString primaryKey() const;
 
 private:
     QString _name;
+    bool _fSaller;
 };
 
 }

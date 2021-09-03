@@ -11,9 +11,10 @@
 
 namespace RC {
 
-UsersCards::UsersCards(int user, int card ): QH::PKG::DBObject("UsersCards") {
+UsersCards::UsersCards(int user, int card, bool owner): QH::PKG::DBObject("UsersCards") {
     this->user = user;
     this->card = card;
+    this->owner = owner;
 }
 
 QH::PKG::DBObject *UsersCards::createDBObject() const {
@@ -23,6 +24,7 @@ QH::PKG::DBObject *UsersCards::createDBObject() const {
 QH::PKG::DBVariantMap UsersCards::variantMap() const {
     return {{"user",      {user,        QH::PKG::MemberType::Insert}},
             {"card",      {card,        QH::PKG::MemberType::Insert}},
+            {"owner",     {owner,       QH::PKG::MemberType::Insert}},
     };
 }
 
@@ -34,8 +36,13 @@ bool UsersCards::fromSqlRecord(const QSqlRecord &q) {
 
     user = q.value("user").toInt();
     card = q.value("card").toInt();
+    owner = q.value("owner").toBool();
 
     return true;
+}
+
+bool UsersCards::isValid() const {
+    return user >= 0 && card >= 0;
 }
 
 }

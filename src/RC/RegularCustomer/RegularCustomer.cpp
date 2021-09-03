@@ -17,7 +17,6 @@ namespace RC {
 
 RegularCustomer::RegularCustomer() {
     _db = new DataBase();
-    _model = new MainModel(_db->db());
 
 }
 
@@ -28,15 +27,17 @@ RegularCustomer::~RegularCustomer() {
 bool RegularCustomer::init(QQmlApplicationEngine *engine) {
     initRegularCustomerResources();
 
+    if (!_db->initSqlDb()) {
+        QuasarAppUtils::Params::log("Failed to load database", QuasarAppUtils::Error);
+    }
+
     engine->addImageProvider(QLatin1String("userItems"), new ImageProvider(_db));
 
     auto root = engine->rootContext();
 
-    root->setContextProperty("mainModel", QVariant::fromValue(_model));
+    _model = new MainModel(_db->db());
 
-    if (!_db->initSqlDb()) {
-        QuasarAppUtils::Params::log("Failed to load database", QuasarAppUtils::Error);
-    }
+    root->setContextProperty("mainModel", QVariant::fromValue(_model));
 
     engine->load("qrc:/RegularCustomerModule/RegularCustomer.qml");
     if (engine->rootObjects().isEmpty())
