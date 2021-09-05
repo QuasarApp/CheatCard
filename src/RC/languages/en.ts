@@ -2,37 +2,67 @@
 <!DOCTYPE TS>
 <TS version="2.1">
 <context>
-    <name>FirstRunPage</name>
+    <name>ColorPicker</name>
     <message>
-        <source>Registration</source>
+        <source>Random collor</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>EditCardView</name>
+    <message>
+        <source>Editing: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Why you are?</source>
+        <source>No card selected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>I am client</source>
+        <source>Enter card name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>I am saller</source>
+        <source>Enter telegramm chennal name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>What your name?</source>
+        <source>Enter your instagramm page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>What name of your comapny?</source>
+        <source>Enter your physical address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Next</source>
+        <source>Enter your web site domain</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please Enter your name or name your company here</source>
+        <source>Pick card color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please choose a color</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>RegistrationFinishedPage</name>
+    <message>
+        <source>Registaration passed!!!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The registration of the new user finished successful. Now you can use you card.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Go to use</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

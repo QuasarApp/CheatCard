@@ -4,7 +4,18 @@ BEGIN TRANSACTION;
 CREATE TABLE IF NOT EXISTS "Cards" (
         "id"                INTEGER NOT NULL,
         "name"              TEXT NOT NULL UNIQUE,
-        "image"             BLOB DEFAULT NULL,
+
+        "logo"              BLOB DEFAULT NULL,
+        "seal"              BLOB DEFAULT NULL,
+
+        "phone"             TEXT NOT NULL DEFAULT "",
+        "telegramm"         TEXT NOT NULL DEFAULT "",
+        "instagramm"        TEXT NOT NULL DEFAULT "",
+        "physicalAddress"   TEXT NOT NULL DEFAULT "",
+        "webSite"           TEXT NOT NULL DEFAULT "",
+
+        "color"             INTEGER DEFAULT 0x00777777,
+
         "purchasesNumber"   INTEGER DEFAULT 0,
         "freeIndex"         INTEGER DEFAULT 0,
         PRIMARY KEY("id" AUTOINCREMENT)

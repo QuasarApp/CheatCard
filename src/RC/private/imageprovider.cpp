@@ -31,15 +31,13 @@ QPixmap ImageProvider::requestPixmap(const QString &id,
     auto request = id.split('/');
 
     QPixmap result(1,1);
+    auto type = request.value(0);
 
-    if (request.value(0) == "card") {
-
-        if (_db) {
-            int id = request.value(1).toInt();
-            QH::PKG::GetSingleValue request(QH::DbAddress("cards", id), "image");
-            _db->db()->getObject(request);
-            result.loadFromData(request.value().toByteArray(), "PNG");
-        }
+    if (_db) {
+        int id = request.value(1).toInt();
+        QH::PKG::GetSingleValue request(QH::DbAddress("cards", id), type);
+        _db->db()->getObject(request);
+        result.loadFromData(request.value().toByteArray(), "PNG");
 
         return result.scaled(requestedSize);
     }

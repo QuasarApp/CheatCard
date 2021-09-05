@@ -37,7 +37,7 @@ bool RegularCustomer::init(QQmlApplicationEngine *engine) {
         QuasarAppUtils::Params::log("Failed to load database", QuasarAppUtils::Error);
     }
 
-    engine->addImageProvider(QLatin1String("userItems"), new ImageProvider(_db));
+    engine->addImageProvider(QLatin1String("cards"), new ImageProvider(_db));
 
     auto root = engine->rootContext();
 

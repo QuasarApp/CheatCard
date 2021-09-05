@@ -15,6 +15,7 @@ namespace RC {
 
 class User;
 class Config;
+class CardsListModel;
 
 /**
  * @brief The MainModel class is main model of the application.
@@ -24,6 +25,7 @@ class MainModel : public QObject
     Q_OBJECT
     Q_PROPERTY(bool fFirst READ fFirst  NOTIFY fFirstChanged)
     Q_PROPERTY(QObject * currentUser READ currentUser NOTIFY currentUserChanged)
+    Q_PROPERTY(QObject * cardsList READ cardsList NOTIFY cardsListChanged)
 
 public:
     MainModel(DB* db);
@@ -35,10 +37,14 @@ public:
     void setCurrentUser(User *newCurrentUser);
     void setCurrentUser(QSharedPointer<User> newCurrentUser);
 
+    QObject *cardsList() const;
+
 signals:
 
     void fFirstChanged();
     void currentUserChanged();
+
+    void cardsListChanged();
 
 private slots:
     void handleUserChanged();
@@ -52,6 +58,7 @@ private:
     DB * _db = nullptr;
     QSharedPointer<User> _currentUser;
     QSharedPointer<Config> _config;
+    CardsListModel *_cardsListModel = nullptr;
 };
 
 }

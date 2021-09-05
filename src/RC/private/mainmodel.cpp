@@ -12,6 +12,7 @@
 #include "dbobjectsrequest.h"
 
 #include "config.h"
+#include "cardslistmodel.h"
 
 namespace RC {
 
@@ -20,10 +21,13 @@ MainModel::MainModel(DB *db) {
 
     setCurrentUser(initUser());
     _config = initConfig(_currentUser->getId().toInt());
+
+    _cardsListModel = new CardsListModel(_db);
 }
 
 MainModel::~MainModel() {
     saveConfig();
+    delete _cardsListModel;
 }
 
 bool MainModel::fFirst() const {
@@ -105,6 +109,10 @@ QSharedPointer<Config> MainModel::initConfig(int userId) {
     }
 
     return QSharedPointer<Config>::create(userId);
+}
+
+QObject *MainModel::cardsList() const {
+    return _cardsListModel;
 }
 
 }

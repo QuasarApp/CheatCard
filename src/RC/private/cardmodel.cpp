@@ -13,6 +13,10 @@ CardModel::CardModel() {
 
 }
 
+CardModel::CardModel(Card *card) {
+    setCard(card);
+}
+
 int CardModel::id() const {
     if (!_card)
         return -1;
@@ -48,5 +52,139 @@ void CardModel::setCard(Card *newCard) {
 
     emit objChanged();
 }
+
+void CardModel::setName(const QString &newName) {
+    if (!_card)
+        return;
+
+    if (_card->name() == newName)
+        return;
+
+    _card->setName(newName);
+}
+
+void CardModel::setPurchasesNumber(int newPurchasesNumber) {
+    if (!_card)
+        return;
+
+    if (_card->getPurchasesNumber() == newPurchasesNumber)
+        return;
+
+    _card->setPurchasesNumber(newPurchasesNumber);
+}
+
+void CardModel::setFreeIndex(int newFreeIndex) {
+
+    if (!_card)
+        return;
+
+    if (_card->getFreeIndex() == newFreeIndex)
+        return;
+
+    _card->setFreeIndex(newFreeIndex);
+}
+
+void CardModel::save() {
+    if (_card)
+        emit editFinished(_card);
+}
+
+QString CardModel::phone() const {
+    if (!_card)
+        return "";
+    return _card->phone();
+}
+
+void CardModel::setPhone(const QString &newPhone) {
+    if (!_card)
+        return;
+
+    if (_card->phone() == newPhone)
+        return;
+
+    _card->setPhone(newPhone);
+}
+
+QString CardModel::telegramm() const {
+    if (!_card)
+        return "";
+    return _card->telegramm();
+}
+
+void CardModel::setTelegramm(const QString &newTelegramm) {
+    if (!_card)
+        return;
+
+    if (_card->telegramm() == newTelegramm)
+        return;
+
+    _card->setTelegramm(newTelegramm);
+}
+
+QString CardModel::instagramm() const {
+    if (!_card)
+        return "";
+    return _card->instagramm();
+}
+
+void CardModel::setInstagramm(const QString &newInstagramm) {
+    if (!_card)
+        return;
+
+    if (_card->telegramm() == newInstagramm)
+        return;
+
+    _card->setInstagramm(newInstagramm);
+}
+
+QString CardModel::physicalAddress() const {
+    if (!_card)
+        return "";
+    return _card->physicalAddress();
+}
+
+void CardModel::setPhysicalAddress(const QString &newPhysicalAddress) {
+    if (!_card)
+        return;
+
+    if (_card->physicalAddress() == newPhysicalAddress)
+        return;
+
+    _card->setPhysicalAddress(newPhysicalAddress);
+}
+
+QString CardModel::webSite() const {
+    if (!_card)
+        return "";
+    return _card->webSite();
+}
+
+void CardModel::setWebSite(const QString &newWebSite) {
+    if (!_card)
+        return;
+
+    if (_card->webSite() == newWebSite)
+        return;
+
+    _card->setWebSite(newWebSite);
+}
+
+QString CardModel::getColor() const {
+    if (!_card)
+        return "#777777";
+    return _card->getColor().name();
+}
+
+void CardModel::setColor(const QString &newColor) {
+    if (!_card)
+        return;
+
+    if (_card->getColor() == newColor)
+        return;
+
+    _card->setColor(newColor);
+}
+
+
 
 }

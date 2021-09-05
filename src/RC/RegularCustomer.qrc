@@ -7,6 +7,7 @@
         <file>RegularCustomerModule/ClientPage.qml</file>
         <file>RegularCustomerModule/EditCardView.qml</file>
         <file>RegularCustomerModule/RegistrationFinishedPage.qml</file>
+        <file>RegularCustomerModule/ColorPicker.qml</file>
     </qresource>
     <qresource prefix="/RegularCustomerTr">
         <file>languages/en.qm</file>

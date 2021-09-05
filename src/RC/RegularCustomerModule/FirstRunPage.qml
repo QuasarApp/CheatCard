@@ -124,6 +124,7 @@ Page {
 
         EditCardView {
             id: settingsSallerCard
+//            model: (root.model) ? root.model.
         }
 
         RegistrationFinishedPage {
