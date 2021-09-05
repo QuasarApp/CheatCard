@@ -14,10 +14,7 @@ CREATE TABLE IF NOT EXISTS "Users" (
         "id"	INTEGER NOT NULL,
         "name"	TEXT NOT NULL UNIQUE,
         "fSaller" BOOLEAN DEFAULT false,
-        PRIMARY KEY("id" AUTOINCREMENT),
-        FOREIGN KEY("Card") REFERENCES "Cards"("id")
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
+        PRIMARY KEY("id" AUTOINCREMENT)
 );
 
 -- Confiuration tabel
@@ -28,7 +25,7 @@ CREATE TABLE IF NOT EXISTS "Config" (
        FOREIGN KEY(user) REFERENCES Users(id)
                ON UPDATE CASCADE
                ON DELETE CASCADE
-)
+);
 
 -- Matches tables
 CREATE TABLE IF NOT EXISTS "UsersCards" (
@@ -42,7 +39,7 @@ CREATE TABLE IF NOT EXISTS "UsersCards" (
        FOREIGN KEY(card) REFERENCES Cards(id)
                ON UPDATE CASCADE
                ON DELETE CASCADE
-)
+);
 
 CREATE TABLE IF NOT EXISTS "Contacts" (
        "user"   INTEGER NOT NULL,
@@ -54,11 +51,11 @@ CREATE TABLE IF NOT EXISTS "Contacts" (
        FOREIGN KEY(contactUser) REFERENCES Users(id)
                ON UPDATE CASCADE
                ON DELETE CASCADE
-)
+);
 
 -- Indexes
 CREATE UNIQUE INDEX IF NOT EXISTS UsersCardsIndex ON UsersCards(user, card);
-CREATE UNIQUE INDEX IF NOT EXISTS ContactsIndex ON Contacts(user, saller);
+CREATE UNIQUE INDEX IF NOT EXISTS ContactsIndex ON Contacts(user, contactUser);
 
 
 COMMIT;

@@ -6,6 +6,7 @@
         <file>RegularCustomerModule/SallerPage.qml</file>
         <file>RegularCustomerModule/ClientPage.qml</file>
         <file>RegularCustomerModule/EditCardView.qml</file>
+        <file>RegularCustomerModule/RegistrationFinishedPage.qml</file>
     </qresource>
     <qresource prefix="/RegularCustomerTr">
         <file>languages/en.qm</file>

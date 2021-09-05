@@ -11,6 +11,7 @@ import QtQuick.Controls.Material
 import QtQuick.Layouts
 
 ApplicationWindow {
+    id: mainWindow
     visible: true
     height: 800
     width: 600
@@ -20,8 +21,18 @@ ApplicationWindow {
     Dialog {
         id: firstRun;
         visible: (model)? model.fFirst : false
+
+        height: mainWindow.height * 0.95
+        width: mainWindow.width * 0.95
+        x: (mainWindow.width - width) / 2
+        y: (mainWindow.height - height) / 2
+
         FirstRunPage {
             anchors.fill: parent
+            model: mainModel
+            onFinished: () => {
+                firstRun.close()
+            }
         }
     }
 }

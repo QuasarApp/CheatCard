@@ -16,6 +16,6 @@ DB *DataBase::db() const {
 }
 
 QStringList DataBase::SQLSources() const {
-    return QH::DataBaseNode::SQLSources() << "qrc:/DataBase/private/sql/DataBase.sql";
+    return QH::DataBaseNode::SQLSources() << ":/DataBase/private/sql/DataBase.sql";
 }
 }

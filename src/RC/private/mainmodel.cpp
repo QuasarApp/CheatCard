@@ -18,20 +18,23 @@ namespace RC {
 MainModel::MainModel(DB *db) {
     _db = db;
 
-    QH::PKG::DBObjectsRequest<User> request("Users", "*");
+    setCurrentUser(initUser());
+    _config = initConfig(_currentUser->getId().toInt());
+}
 
-    auto result = _db->getObject(request);
-
-    if (result && result->data().size()) {
-        setCurrentUser(result->data().first());
-        Config requestConfig;
-        requestConfig.setUserId(_currentUser->getId().toInt());
-        _config = _db->getObject(requestConfig);
-    }
+MainModel::~MainModel() {
+    saveConfig();
 }
 
 bool MainModel::fFirst() const {
-    return _config && _config->getFirstRun();
+    if (!_config)
+        return true;
+
+    return _config->getFirstRun();
+}
+
+void MainModel::configureFinished() {
+    _config->setFirstRun(false);
 }
 
 QObject *MainModel::currentUser() const {
@@ -39,12 +42,69 @@ QObject *MainModel::currentUser() const {
 }
 
 void MainModel::setCurrentUser(User *newCurrentUser) {
-    auto value = QSharedPointer<User>(newCurrentUser);
+    setCurrentUser(QSharedPointer<User>(newCurrentUser));
+}
+
+void MainModel::setCurrentUser(QSharedPointer<User> value) {
 
     if (_currentUser == value)
         return;
+
+    if (_currentUser) {
+        disconnect(_currentUser.data(), &User::nameChanged, this , &MainModel::handleUserChanged);
+        disconnect(_currentUser.data(), &User::fSallerChanged, this , &MainModel::handleUserChanged);
+    }
+
     _currentUser = value;
+
+    if (_currentUser) {
+        connect(_currentUser.data(), &User::nameChanged, this , &MainModel::handleUserChanged);
+        connect(_currentUser.data(), &User::fSallerChanged, this , &MainModel::handleUserChanged);
+    }
+
     emit currentUserChanged();
+}
+
+void MainModel::handleUserChanged() {
+    if(!_db->insertObject(_currentUser)) {
+        _db->updateObject(_currentUser);
+    }
+}
+
+void MainModel::saveConfig() {
+    if(!_db->insertObject(_config)) {
+        _db->updateObject(_config);
+    }
+}
+
+QSharedPointer<User> MainModel::initUser() {
+    if (_currentUser) {
+        return _currentUser;
+    }
+
+    QH::PKG::DBObjectsRequest<User> request("Users");
+
+    auto result = _db->getObject(request);
+
+    if (result && result->data().size()) {
+        return QSharedPointer<User>(result->data().first());
+    }
+
+    return QSharedPointer<User>::create();
+}
+
+QSharedPointer<Config> MainModel::initConfig(int userId) {
+    if (_config) {
+        return _config;
+    }
+
+    Config requestConfig;
+    requestConfig.setUserId(userId);
+    if (auto conf = _db->getObject(requestConfig)) {
+        return conf;
+    }
+
+    return QSharedPointer<Config>::create(userId);
 }
 
 }

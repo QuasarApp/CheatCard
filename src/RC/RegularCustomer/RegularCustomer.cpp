@@ -21,11 +21,17 @@ RegularCustomer::RegularCustomer() {
 }
 
 RegularCustomer::~RegularCustomer() {
-    delete _db;
+    delete _model;
+
+    _db->softDelete();
 }
 
 bool RegularCustomer::init(QQmlApplicationEngine *engine) {
     initRegularCustomerResources();
+
+    if (!QH::init()) {
+        return false;
+    }
 
     if (!_db->initSqlDb()) {
         QuasarAppUtils::Params::log("Failed to load database", QuasarAppUtils::Error);

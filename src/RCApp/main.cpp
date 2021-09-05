@@ -26,7 +26,7 @@ void initLang() {
 
 int main(int argc, char *argv[]) {
     QCoreApplication::setOrganizationName("QuasarApp");
-    QCoreApplication::setApplicationName("Snake");
+    QCoreApplication::setApplicationName("RegularCustomer");
 
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;

@@ -22,24 +22,33 @@ class Config;
 class MainModel : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(bool fFirst READ fFirst NOTIFY fFirstChanged)
+    Q_PROPERTY(bool fFirst READ fFirst  NOTIFY fFirstChanged)
     Q_PROPERTY(QObject * currentUser READ currentUser NOTIFY currentUserChanged)
 
 public:
     MainModel(DB* db);
+    ~MainModel();
 
     bool fFirst() const;
-
+    Q_INVOKABLE void configureFinished();
     QObject *currentUser() const;
     void setCurrentUser(User *newCurrentUser);
+    void setCurrentUser(QSharedPointer<User> newCurrentUser);
 
 signals:
 
     void fFirstChanged();
-
     void currentUserChanged();
 
+private slots:
+    void handleUserChanged();
+
 private:
+    void saveConfig();
+
+    QSharedPointer<User> initUser();
+    QSharedPointer<Config> initConfig(int userId);
+
     DB * _db = nullptr;
     QSharedPointer<User> _currentUser;
     QSharedPointer<Config> _config;

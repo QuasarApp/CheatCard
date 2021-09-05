@@ -15,17 +15,25 @@ Page {
     id: root
     title: qsTr("Registration");
 
+    property var model: null
+
+    signal finished();
+
     SwipeView {
         id: view
 
-        currentIndex: 1
+        currentIndex: 0
         anchors.fill: parent
-
+        clip: true
         Page {
             id: selectTypePage
-            title: qsTr("Why you are?");
+            header: Label {
+                horizontalAlignment: Label.AlignHCenter
+                text: qsTr("Why you are?");
+                font.bold: true
+            }
 
-            contentItem: Frame {
+            contentItem: Item {
                 ButtonGroup {
                     buttons: column.children
                 }
@@ -33,14 +41,35 @@ Page {
                 ColumnLayout {
                     id: column
                     anchors.fill: parent
+
+                    Item {
+                        Layout.fillHeight: true
+                    }
+
                     RadioButton {
                         checked: true
+                        Layout.alignment: Qt.AlignHCenter
                         text: qsTr("I am client")
                     }
 
                     RadioButton {
                         id: rSaller
+
+                        Layout.alignment: Qt.AlignHCenter
                         text: qsTr("I am saller")
+                    }
+
+                    Button {
+                        text: qsTr("Next")
+                        Layout.alignment: Qt.AlignHCenter
+
+                        onClicked: () => {
+                                       view.currentIndex++;
+                                   }
+                    }
+
+                    Item {
+                        Layout.fillHeight: true
                     }
                 }
             }
@@ -48,24 +77,68 @@ Page {
 
         Page {
             id: selectName
-            title: (rSaller.checked)? qsTr("What your name?") :
-                                      qsTr("What name of your comapny?");
 
-            contentItem: Frame {
+            header: Label {
+                horizontalAlignment: Label.AlignHCenter
+                text: (rSaller.checked)? qsTr("What your name?") :
+                                         qsTr("What name of your comapny?");
+                font.bold: true
+            }
+
+
+            contentItem: Item {
 
                 ColumnLayout {
                     anchors.fill: parent
 
+                    Item {
+                        Layout.fillHeight: true
+                    }
+
                     TextField {
                         id: name
+                        Layout.alignment: Qt.AlignHCenter
+                        Layout.fillWidth: true
+                        placeholderText: qsTr("Please Enter your name or name your company here")
+                    }
+
+                    Button {
+                        text: qsTr("Next")
+                        Layout.alignment: Qt.AlignHCenter
+
+                        onClicked: () => {
+                                       if (rSaller.checked) {
+                                           view.currentIndex = 2;
+                                       } else {
+                                           view.currentIndex = 3;
+                                       }
+                                   }
+                    }
+
+                    Item {
+                        Layout.fillHeight: true
                     }
                 }
             }
         }
 
-
         EditCardView {
             id: settingsSallerCard
+        }
+
+        RegistrationFinishedPage {
+            onFinished: {
+                if (!model)
+                    return;
+
+                const object = model.currentUser;
+                object.name = name.text;
+                object.fSaller = rSaller.checked;
+
+                model.configureFinished();
+
+                root.finished();
+            }
         }
     }
 
@@ -74,15 +147,9 @@ Page {
 
         count: view.count
         currentIndex: view.currentIndex
-
+        interactive: false
         anchors.bottom: view.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-    }
-
-    Item {
-        id: privateRoot
-
-        property bool fSaller: false
     }
 
 }

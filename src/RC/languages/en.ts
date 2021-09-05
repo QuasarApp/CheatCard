@@ -27,5 +27,13 @@
         <source>What name of your comapny?</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Next</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please Enter your name or name your company here</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>

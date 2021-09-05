@@ -8,8 +8,16 @@
 
 namespace RC {
 
-Config::Config() : QH::PKG::DBObject("Config"){
+Config::Config():
+    QH::PKG::DBObject("Config") {
 
+}
+
+Config::Config(int userId, bool firstRun):
+    QH::PKG::DBObject("Config") {
+
+    setUserId(userId);
+    setFirstRun(firstRun);
 }
 
 QH::PKG::DBObject *Config::createDBObject() const {

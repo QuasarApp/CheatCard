@@ -18,6 +18,7 @@ class Config: public QH::PKG::DBObject
 {
 public:
     Config();
+    Config(int userId, bool firstRun = true);
 
     // DBObject interface
 public:
