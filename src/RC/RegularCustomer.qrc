@@ -9,11 +9,20 @@
         <file>RegularCustomerModule/RegistrationFinishedPage.qml</file>
         <file>RegularCustomerModule/ColorPicker.qml</file>
         <file>RegularCustomerModule/CardsListView.qml</file>
+        <file>RegularCustomerModule/TextFieldWithLogo.qml</file>
     </qresource>
     <qresource prefix="/RegularCustomerTr">
         <file>languages/en.qm</file>
     </qresource>
     <qresource prefix="/DataBase">
         <file>private/sql/DataBase.sql</file>
+    </qresource>
+    <qresource prefix="/images">
+        <file>private/resources/CoffeLogo.png</file>
+        <file>private/resources/coffeSign.png</file>
+        <file>private/resources/mapLogo.png</file>
+        <file>private/resources/telegramm.png</file>
+        <file>private/resources/instagramm.png</file>
+        <file>private/resources/www.png</file>
     </qresource>
 </RCC>

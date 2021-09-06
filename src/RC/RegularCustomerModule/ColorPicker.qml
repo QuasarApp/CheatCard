@@ -12,8 +12,8 @@ Dialog {
         Rectangle {
             id: preview
             color:  Qt.rgba(red.value, green.value,  blue.value);
-            radius: 2
-            Layout.preferredWidth:  parent.width / 3
+            radius: 4
+            Layout.preferredWidth:  parent.width / 5
             Layout.fillHeight: true
 
         }

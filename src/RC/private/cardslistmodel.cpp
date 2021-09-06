@@ -75,6 +75,7 @@ void CardsListModel::setCards(const QList<QSharedPointer<Card> > &newCards) {
 void CardsListModel::addCard(const QString& name) {
     auto card = QSharedPointer<Card>::create();
     card->setName(name);
+    card->setTitle(name);
 
     auto cardModel = QSharedPointer<CardModel>::create(card.data());
 

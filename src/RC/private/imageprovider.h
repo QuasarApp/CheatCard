@@ -26,6 +26,9 @@ public:
                           const QSize &requestedSize) override;
 
 private:
+
+    void getDefaultImage(const QString &type, QPixmap &result);
+
     DataBase *_db = nullptr;
 };
 

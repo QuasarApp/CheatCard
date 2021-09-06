@@ -2,6 +2,17 @@
 <!DOCTYPE TS>
 <TS version="2.1">
 <context>
+    <name>CardsListView</name>
+    <message>
+        <source>Add card</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter new nama</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ColorPicker</name>
     <message>
         <source>Random collor</source>
@@ -16,10 +27,6 @@
     </message>
     <message>
         <source>No card selected</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enter card name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -48,6 +55,18 @@
     </message>
     <message>
         <source>Please choose a color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter card title</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Free</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Free index: </source>
         <translation type="unfinished"></translation>
     </message>
 </context>

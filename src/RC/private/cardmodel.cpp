@@ -46,8 +46,9 @@ Card *CardModel::card() const {
 }
 
 void CardModel::setCard(Card *newCard) {
-    if (_card != newCard)
+    if (_card == newCard)
         return;
+
     _card = newCard;
 
     emit objChanged();

@@ -37,12 +37,29 @@ QPixmap ImageProvider::requestPixmap(const QString &id,
         int id = request.value(1).toInt();
         QH::PKG::GetSingleValue request(QH::DbAddress("cards", id), type);
         _db->db()->getObject(request);
+
+        if (request.value().isNull()) {
+            getDefaultImage(type, result);
+            return result;
+        }
+
         result.loadFromData(request.value().toByteArray(), "PNG");
 
-        return result.scaled(requestedSize);
+        return result.scaled(requestedSize,Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
     }
 
     return result;
 
+}
+
+void ImageProvider::getDefaultImage(const QString &type, QPixmap& result) {
+
+    if (type == "logo") {
+        result = QPixmap(":/images/private/resources/CoffeLogo.png");
+    } else if (type == "seal") {
+        result = QPixmap(":/images/private/resources/coffeSign.png");
+    } else {
+        result = {};
+    }
 }
 }

@@ -76,9 +76,9 @@ private:
     QString _physicalAddress;
     QString _webSite;
 
-    int purchasesNumber = 0;
+    int purchasesNumber = 1;
     int freeIndex = 1;
-    QColor color;
+    QColor color = QColor("#777777");
 
 };
 

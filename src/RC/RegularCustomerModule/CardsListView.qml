@@ -13,7 +13,7 @@ Page {
         ListView {
             id: list
             model: root.model
-
+            currentIndex: 0;
             Layout.fillWidth: true
             Layout.fillHeight: true
 
@@ -21,9 +21,12 @@ Page {
                 id: delegateItem
 
                 EditCardView {
+
                     model: card
-                    height: width * 0.3
+                    height: width * 0.5
                     width: list.width
+                    clip: true
+//                    opacity: (list.currentIndex == index)? 1: 0.5
                 }
             }
 
