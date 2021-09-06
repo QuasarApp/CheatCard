@@ -20,10 +20,23 @@ QH::PKG::DBObject *Card::createDBObject() const {
 QH::PKG::DBVariantMap Card::variantMap() const {
     return {{"id",              {getId(),         QH::PKG::MemberType::PrimaryKeyAutoIncrement}},
             {"name",            {_name,           QH::PKG::MemberType::PrimaryKey}},
-            {"image",           {_logo,          QH::PKG::MemberType::InsertUpdate}},
+            {"title",           {_title,           QH::PKG::MemberType::InsertUpdate}},
+            {"logo",            {_logo,           QH::PKG::MemberType::InsertUpdate}},
+            {"seal",            {_seal,           QH::PKG::MemberType::InsertUpdate}},
             {"color",           {color,           QH::PKG::MemberType::InsertUpdate}},
+
+            {"phone",           {_phone,          QH::PKG::MemberType::InsertUpdate}},
+            {"telegramm",       {_telegramm,      QH::PKG::MemberType::InsertUpdate}},
+            {"instagramm",      {_instagramm,     QH::PKG::MemberType::InsertUpdate}},
+            {"physicalAddress", {_physicalAddress,QH::PKG::MemberType::InsertUpdate}},
+            {"webSite",         {_webSite,        QH::PKG::MemberType::InsertUpdate}},
+
             {"purchasesNumber", {purchasesNumber, QH::PKG::MemberType::InsertUpdate}},
             {"freeIndex",       {freeIndex,       QH::PKG::MemberType::InsertUpdate}}};
+}
+
+bool Card::isValid() const {
+    return _name.size();
 }
 
 const QString &Card::name() const {
@@ -64,6 +77,7 @@ bool Card::fromSqlRecord(const QSqlRecord &q) {
     }
 
     setName(q.value("name").toString());
+    setTitle(q.value("title").toString());
     setLogo(q.value("logo").toByteArray());
     setSeal(q.value("seal").toByteArray());
 
@@ -82,6 +96,14 @@ bool Card::fromSqlRecord(const QSqlRecord &q) {
 
 QString Card::primaryKey() const {
     return "id";
+}
+
+const QString &Card::title() const {
+    return _title;
+}
+
+void Card::setTitle(const QString &newTitle) {
+    _title = newTitle;
 }
 
 const QString &Card::webSite() const {

@@ -30,12 +30,12 @@ QVariant CardsListModel::data(const QModelIndex &index, int role) const {
         return {};
     }
 
-    int cardId = _cards[index.row()];
+    QString cardName = _cards[index.row()];
 
-    auto cacheData = _cache.value(cardId, {});
+    auto cacheData = _cache.value(cardName, {});
 
     if (cacheData.isValid()) {
-        return QVariant::fromValue(cacheData.model);
+        return QVariant::fromValue(cacheData.model.data());
     }
 
     return {};
@@ -49,22 +49,56 @@ QHash<int, QByteArray> CardsListModel::roleNames() const {
     return roles;
 }
 
-const QList<int> &CardsListModel::cards() const {
+const QList<QString> &CardsListModel::cards() const {
     return _cards;
 }
 
-void CardsListModel::setCards(const QHash<int, QSharedPointer<Card> > &newCards) {
+void CardsListModel::setCards(const QList<QSharedPointer<Card> > &newCards) {
     beginResetModel();
 
     _cache.clear();
 
     for (const QSharedPointer<Card>& card : newCards) {
-        _cache.insert(card->getId().toInt(), TableCache{card, QSharedPointer<CardModel>::create(card.data())});
+        _cache.insert(card->name(),
+                      TableCache
+                      {
+                          card,
+                          QSharedPointer<CardModel>::create(card.data())
+                      }
+                      );
+        _cards.push_back(card->name());
     }
 
-    _cards = QList(newCards.keyBegin(), newCards.keyEnd());
-
     endResetModel();
+}
+
+void CardsListModel::addCard(const QString& name) {
+    auto card = QSharedPointer<Card>::create();
+    card->setName(name);
+
+    auto cardModel = QSharedPointer<CardModel>::create(card.data());
+
+    beginInsertRows({}, _cards.size(), _cards.size());
+
+    _cache.insert(name, TableCache{card, cardModel});
+    _cards.push_back(name);
+
+    endInsertRows();
+}
+
+void CardsListModel::removeCard(const QString& cardId) {
+
+    int index = _cards.indexOf(cardId);
+
+    if (index < 0)
+        return;
+
+    beginRemoveRows({}, index, index);
+
+    _cache.remove(cardId);
+    _cards.removeAt(index);
+
+    endRemoveRows();
 }
 
 TableCache::TableCache() {

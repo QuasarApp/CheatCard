@@ -4,6 +4,7 @@ BEGIN TRANSACTION;
 CREATE TABLE IF NOT EXISTS "Cards" (
         "id"                INTEGER NOT NULL,
         "name"              TEXT NOT NULL UNIQUE,
+        "title"             TEXT NOT NULL,
 
         "logo"              BLOB DEFAULT NULL,
         "seal"              BLOB DEFAULT NULL,

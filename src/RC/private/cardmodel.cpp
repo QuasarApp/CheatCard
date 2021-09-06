@@ -185,6 +185,22 @@ void CardModel::setColor(const QString &newColor) {
     _card->setColor(newColor);
 }
 
+QString CardModel::title() const {
+    if (!_card)
+        return "";
+    return _card->title();
+}
+
+void CardModel::setTitle(const QString &newTitle) {
+    if (!_card)
+        return;
+
+    if (_card->title() == newTitle)
+        return;
+
+    _card->setTitle(newTitle);
+}
+
 
 
 }

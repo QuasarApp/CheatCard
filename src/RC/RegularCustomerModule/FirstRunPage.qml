@@ -19,138 +19,144 @@ Page {
 
     signal finished();
 
-    SwipeView {
-        id: view
-
-        currentIndex: 0
+    ColumnLayout {
         anchors.fill: parent
-        clip: true
-        Page {
-            id: selectTypePage
-            header: Label {
-                horizontalAlignment: Label.AlignHCenter
-                text: qsTr("Why you are?");
-                font.bold: true
-            }
 
-            contentItem: Item {
-                ButtonGroup {
-                    buttons: column.children
+
+        SwipeView {
+            id: view
+            currentIndex: 0
+            clip: true
+            interactive: false
+
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+
+            Page {
+                id: selectTypePage
+                header: Label {
+                    horizontalAlignment: Label.AlignHCenter
+                    text: qsTr("Why you are?");
+                    font.bold: true
                 }
 
-                ColumnLayout {
-                    id: column
-                    anchors.fill: parent
-
-                    Item {
-                        Layout.fillHeight: true
+                contentItem: Item {
+                    ButtonGroup {
+                        buttons: column.children
                     }
 
-                    RadioButton {
-                        checked: true
-                        Layout.alignment: Qt.AlignHCenter
-                        text: qsTr("I am client")
-                    }
+                    ColumnLayout {
+                        id: column
+                        anchors.fill: parent
 
-                    RadioButton {
-                        id: rSaller
+                        Item {
+                            Layout.fillHeight: true
+                        }
 
-                        Layout.alignment: Qt.AlignHCenter
-                        text: qsTr("I am saller")
-                    }
+                        RadioButton {
+                            checked: true
+                            Layout.alignment: Qt.AlignHCenter
+                            text: qsTr("I am client")
+                        }
 
-                    Button {
-                        text: qsTr("Next")
-                        Layout.alignment: Qt.AlignHCenter
+                        RadioButton {
+                            id: rSaller
 
-                        onClicked: () => {
-                                       view.currentIndex++;
-                                   }
-                    }
+                            Layout.alignment: Qt.AlignHCenter
+                            text: qsTr("I am saller")
+                        }
 
-                    Item {
-                        Layout.fillHeight: true
-                    }
-                }
-            }
-        }
+                        Button {
+                            text: qsTr("Next")
+                            Layout.alignment: Qt.AlignHCenter
 
-        Page {
-            id: selectName
-
-            header: Label {
-                horizontalAlignment: Label.AlignHCenter
-                text: (rSaller.checked)? qsTr("What your name?") :
-                                         qsTr("What name of your comapny?");
-                font.bold: true
-            }
-
-
-            contentItem: Item {
-
-                ColumnLayout {
-                    anchors.fill: parent
-
-                    Item {
-                        Layout.fillHeight: true
-                    }
-
-                    TextField {
-                        id: name
-                        Layout.alignment: Qt.AlignHCenter
-                        Layout.fillWidth: true
-                        placeholderText: qsTr("Please Enter your name or name your company here")
-                    }
-
-                    Button {
-                        text: qsTr("Next")
-                        Layout.alignment: Qt.AlignHCenter
-
-                        onClicked: () => {
-                                       if (rSaller.checked) {
-                                           view.currentIndex = 2;
-                                       } else {
-                                           view.currentIndex = 3;
+                            onClicked: () => {
+                                           view.currentIndex++;
                                        }
-                                   }
-                    }
+                        }
 
-                    Item {
-                        Layout.fillHeight: true
+                        Item {
+                            Layout.fillHeight: true
+                        }
                     }
+                }
+            }
+
+            Page {
+                id: selectName
+
+                header: Label {
+                    horizontalAlignment: Label.AlignHCenter
+                    text: (rSaller.checked)? qsTr("What your name?") :
+                                             qsTr("What name of your comapny?");
+                    font.bold: true
+                }
+
+
+                contentItem: Item {
+
+                    ColumnLayout {
+                        anchors.fill: parent
+
+                        Item {
+                            Layout.fillHeight: true
+                        }
+
+                        TextField {
+                            id: name
+                            Layout.alignment: Qt.AlignHCenter
+                            Layout.fillWidth: true
+                            placeholderText: qsTr("Please Enter your name or name your company here")
+                        }
+
+                        Button {
+                            text: qsTr("Next")
+                            Layout.alignment: Qt.AlignHCenter
+
+                            onClicked: () => {
+                                           if (rSaller.checked) {
+                                               view.currentIndex = 2;
+                                           } else {
+                                               view.currentIndex = 3;
+                                           }
+                                       }
+                        }
+
+                        Item {
+                            Layout.fillHeight: true
+                        }
+                    }
+                }
+            }
+
+            CardsListView {
+                id: settingsSallerCard
+                model: (root.model) ? root.model.cardsList: null
+            }
+
+            RegistrationFinishedPage {
+                onFinished: {
+                    if (!model)
+                        return;
+
+                    const object = model.currentUser;
+                    object.name = name.text;
+                    object.fSaller = rSaller.checked;
+
+                    model.configureFinished();
+
+                    root.finished();
                 }
             }
         }
 
-        EditCardView {
-            id: settingsSallerCard
-//            model: (root.model) ? root.model.
-        }
+        PageIndicator {
+            id: indicator
+            Layout.alignment: Qt.AlignHCenter
 
-        RegistrationFinishedPage {
-            onFinished: {
-                if (!model)
-                    return;
-
-                const object = model.currentUser;
-                object.name = name.text;
-                object.fSaller = rSaller.checked;
-
-                model.configureFinished();
-
-                root.finished();
-            }
+            count: view.count
+            currentIndex: view.currentIndex
+            interactive: false
         }
     }
-
-    PageIndicator {
-        id: indicator
-
-        count: view.count
-        currentIndex: view.currentIndex
-        interactive: false
-        anchors.bottom: view.bottom
-        anchors.horizontalCenter: parent.horizontalCenter
-    }
-
 }

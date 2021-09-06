@@ -7,21 +7,20 @@ import QtQuick.Layouts
 Dialog {
     id: root
     property alias color: preview.color
-    Item  {
-        anchors.fill: parent
+    RowLayout {
+
+        Rectangle {
+            id: preview
+            color:  Qt.rgba(red.value, green.value,  blue.value);
+            radius: 2
+            Layout.preferredWidth:  parent.width / 3
+            Layout.fillHeight: true
+
+        }
 
         ColumnLayout {
-            anchors.fill: parent
-
-            Rectangle {
-                id: preview
-                color:  Qt.rgba(red.value, green.value,  blue.value);
-                radius: 2
-                Layout.fillWidth: true
-                Layout.preferredHeight: parent.height / 3
-
-
-            }
+            Layout.fillHeight: true
+            Layout.fillWidth: true
 
             RowLayout {
                 Layout.fillWidth: true
@@ -120,10 +119,7 @@ Dialog {
         }
     }
 
-    height: parent.height * 0.95
-    width: parent.width * 0.95
-    x: (parent.width - width) / 2
-    y: (parent.height - height) / 2
+    anchors.centerIn: parent
 
     standardButtons: Dialog.Ok | Dialog.Close
 }

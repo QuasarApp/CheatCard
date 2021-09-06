@@ -9,20 +9,22 @@
 
 #include "database.h"
 #include "user.h"
+#include "card.h"
 #include "dbobjectsrequest.h"
 
 #include "config.h"
 #include "cardslistmodel.h"
+#include "userscards.h"
 
 namespace RC {
 
 MainModel::MainModel(DB *db) {
     _db = db;
+    _cardsListModel = new CardsListModel(_db);
 
     setCurrentUser(initUser());
     _config = initConfig(_currentUser->getId().toInt());
 
-    _cardsListModel = new CardsListModel(_db);
 }
 
 MainModel::~MainModel() {
@@ -62,6 +64,16 @@ void MainModel::setCurrentUser(QSharedPointer<User> value) {
     _currentUser = value;
 
     if (_currentUser) {
+
+        QString where = QString("Id IN (SELECT card FROM UsersCards WHERE user = %0 AND owner = %1)").
+                arg(_currentUser->getId().toInt()).
+                arg((_currentUser->fSaller())? "true": "false");
+
+        QH::PKG::DBObjectsRequest<Card> request("Cards", where);
+        if (auto result =_db->getObject(request)) {
+            _cardsListModel->setCards(result->data());
+        }
+
         connect(_currentUser.data(), &User::nameChanged, this , &MainModel::handleUserChanged);
         connect(_currentUser.data(), &User::fSallerChanged, this , &MainModel::handleUserChanged);
     }

@@ -18,6 +18,7 @@ namespace RC {
 class UsersCards: public QH::PKG::DBObject
 {
 public:
+    UsersCards();
     UsersCards(int user, int card, bool owner = false);
 
 public:
@@ -26,6 +27,15 @@ public:
 
     bool fromSqlRecord(const QSqlRecord &q) override;
     bool isValid() const override;
+    int getUser() const;
+    void setUser(int newUser);
+
+    int getCard() const;
+    void setCard(int newCard);
+
+    bool getOwner() const;
+    void setOwner(bool newOwner);
+
 protected:
     QString primaryKey() const override;
 

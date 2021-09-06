@@ -40,21 +40,21 @@ public:
 
     CardsListModel(DB* db);
 
-    // QAbstractItemModel interface
-public:
     int rowCount(const QModelIndex &parent = {}) const override;
     QVariant data(const QModelIndex &index, int role) const override;
 
     QHash<int, QByteArray> roleNames() const override;
 
-    const QList<int> &cards() const;
-    void setCards(const QHash<int, QSharedPointer<Card>> &newCards);
+    const QList<QString> &cards() const;
+    void setCards(const QList<QSharedPointer<Card>> &newCards);
+    Q_INVOKABLE void addCard(const QString &name);
+    Q_INVOKABLE void removeCard(const QString &cardId);
 
 private:
-    QHash<int, TableCache> _cache;
+    QHash<QString, TableCache> _cache;
     DB * _db = nullptr;
 
-    QList<int> _cards;
+    QList<QString> _cards;
 };
 
 }

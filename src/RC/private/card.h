@@ -20,9 +20,11 @@ class Card: public QH::PKG::DBObject
 {
 public:
     Card();
-    QH::PKG::DBObject *createDBObject() const;
+    QH::PKG::DBObject *createDBObject() const override;
 
-    QH::PKG::DBVariantMap variantMap() const;
+    QH::PKG::DBVariantMap variantMap() const override;
+    bool isValid() const override;
+    bool fromSqlRecord(const QSqlRecord &q) override;
 
     const QString &name() const;
     void setName(const QString &newName);
@@ -35,7 +37,6 @@ public:
 
     int getFreeIndex() const;
     void setFreeIndex(int newFreeIndex);
-    bool fromSqlRecord(const QSqlRecord &q);
 
     const QColor &getColor() const;
     void setColor(const QColor &newColor);
@@ -58,11 +59,15 @@ public:
     const QString &webSite() const;
     void setWebSite(const QString &newWebSite);
 
+    const QString &title() const;
+    void setTitle(const QString &newTitle);
+
 protected:
-    QString primaryKey() const;
+    QString primaryKey() const override;
 
 private:
     QString _name;
+    QString _title;
     QByteArray _logo;
     QByteArray _seal;
     QString _phone;

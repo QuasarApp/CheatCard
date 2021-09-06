@@ -22,6 +22,8 @@ class CardModel: public QObject
     Q_OBJECT
     Q_PROPERTY(int id READ id NOTIFY objChanged)
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY objChanged)
+    Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY objChanged)
+
     Q_PROPERTY(int purchasesNumber READ purchasesNumber WRITE setPurchasesNumber NOTIFY objChanged)
     Q_PROPERTY(int freeIndex READ freeIndex WRITE setFreeIndex NOTIFY objChanged)
 
@@ -70,13 +72,15 @@ public:
     void setFreeIndex(int newFreeIndex);
 
     Q_INVOKABLE void save();
+    QString title() const;
+    void setTitle(const QString &newTitle);
+
 signals:
     void objChanged();
     void editFinished(Card* card);
 
 private:
     Card *_card = nullptr;
-
 };
 
 }

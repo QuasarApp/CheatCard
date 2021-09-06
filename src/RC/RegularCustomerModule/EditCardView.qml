@@ -30,7 +30,7 @@ Page {
                 Layout.fillWidth: true
                 Layout.preferredHeight: width * 0.4
 
-                color: (model)? model.color : "#777777"
+                color: (root.model)? root.model.color : "#777777"
                 radius: 10
 
                 GridLayout {

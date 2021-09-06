@@ -22,6 +22,8 @@ ApplicationWindow {
         id: firstRun;
         visible: (model)? model.fFirst : false
 
+        closePolicy: Popup.NoAutoClose
+
         height: mainWindow.height * 0.95
         width: mainWindow.width * 0.95
         x: (mainWindow.width - width) / 2
