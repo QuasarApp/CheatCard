@@ -34,21 +34,52 @@ Page {
 
                 Item {
                     id: cardItem
-                    height: (cardItem.ListView.isCurrentItem)? list.itemHeight * 1.2: list.itemHeight
+                    height: (cardItem.ListView.isCurrentItem)? list.itemHeight * 1.3: list.itemHeight
                     width: list.itemWidth
                     x: list.width / 2 - width / 2
 
                     EditCardView {
                         id: cardView
                         model: card
-                        editable: cardItem.ListView.isCurrentItem
                         clip: true
                         opacity: (cardItem.ListView.isCurrentItem)? 1: 0.5
+                        editable: false
+                        onFinished: () => {
+                                        editable = false
+                                    }
+                        Behavior on width {
+                            NumberAnimation {
+                                id: animation
+                                easing.type: Easing.InQuad
 
+                            }
+                        }
+
+                        Behavior on height {
+                            NumberAnimation {
+                                easing.type: Easing.InQuad
+
+                            }
+                        }
+
+                        Behavior on opacity {
+                            NumberAnimation {
+                                easing.type: Easing.InQuad
+                            }
+                        }
 
                         height: parent.height * ((cardItem.ListView.isCurrentItem)? 1: 0.9)
                         width: parent.width * ((cardItem.ListView.isCurrentItem)? 1: 0.9)
                         anchors.centerIn: parent
+                    }
+
+                    ToolButton {
+                        text: qsTr("✎")
+                        font.bold: true
+                        visible:  cardItem.ListView.isCurrentItem && !cardView.editable
+                        onClicked: () => {
+                                        cardView.editable = true
+                                   }
                     }
                 }
 

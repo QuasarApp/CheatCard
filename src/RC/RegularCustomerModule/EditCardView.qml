@@ -184,6 +184,7 @@ Page {
                 enabled: cardTitle.text.length
                 onClicked: () => {
                                if (root.model) {
+                                   root.finished()
                                    root.model.save()
                                }
                            }
