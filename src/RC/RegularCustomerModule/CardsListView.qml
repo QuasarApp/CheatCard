@@ -16,18 +16,43 @@ Page {
             currentIndex: 0;
             Layout.fillWidth: true
             Layout.fillHeight: true
+            Layout.alignment: Qt.AlignHCenter
+
+            snapMode: ListView.NoSnap
+            boundsBehavior:Flickable.StopAtBounds
+            preferredHighlightBegin: list.height / 2 - itemHeight / 2
+            preferredHighlightEnd: preferredHighlightBegin
+            highlightRangeMode: ListView.StrictlyEnforceRange
+            ScrollBar.vertical: ScrollBar {}
+
+
+            property int itemHeight: (itemWidth * 0.5)
+            property int itemWidth: Math.min(list.width, list.height)
 
             Component {
                 id: delegateItem
 
-                EditCardView {
+                Item {
+                    id: cardItem
+                    height: (cardItem.ListView.isCurrentItem)? list.itemHeight * 1.2: list.itemHeight
+                    width: list.itemWidth
+                    x: list.width / 2 - width / 2
 
-                    model: card
-                    height: width * 0.5
-                    width: list.width
-                    clip: true
-//                    opacity: (list.currentIndex == index)? 1: 0.5
+                    EditCardView {
+                        id: cardView
+                        model: card
+                        editable: cardItem.ListView.isCurrentItem
+                        clip: true
+                        opacity: (cardItem.ListView.isCurrentItem)? 1: 0.5
+
+
+                        height: parent.height * ((cardItem.ListView.isCurrentItem)? 1: 0.9)
+                        width: parent.width * ((cardItem.ListView.isCurrentItem)? 1: 0.9)
+                        anchors.centerIn: parent
+                    }
                 }
+
+
             }
 
             delegate: delegateItem

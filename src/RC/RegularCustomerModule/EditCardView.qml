@@ -60,12 +60,14 @@ Page {
                         Layout.fillWidth: true
                         text: (root.model)? root.model.title : ""
                         placeholderText: qsTr("Enter card title");
+                        readOnly: !editable
                     }
 
                     TextFieldWithLogo {
 
                         textField.text: (root.model)? root.model.telegramm : ""
                         textField.placeholderText: qsTr("Enter telegramm chennal name");
+                        textField.readOnly: !editable
                         image: "qrc:/images/private/resources/telegramm.png"
                     }
 
@@ -74,6 +76,8 @@ Page {
 
                         textField.text: (root.model)? root.model.instagramm : ""
                         textField.placeholderText: qsTr("Enter your instagramm page");
+                        textField.readOnly: !editable
+
                         image: "qrc:/images/private/resources/instagramm.png"
 
                     }
@@ -82,6 +86,8 @@ Page {
 
                         textField.text: (root.model)? root.model.physicalAddress : ""
                         textField.placeholderText: qsTr("Enter your physical address");
+                        textField.readOnly: !editable
+
                         image: "qrc:/images/private/resources/mapLogo.png"
 
                     }
@@ -90,65 +96,66 @@ Page {
 
                         textField.text: (root.model)? root.model.webSite : ""
                         textField.placeholderText: qsTr("Enter your web site domain");
+                        textField.readOnly: !editable
+
                         image: "qrc:/images/private/resources/www.png"
 
                     }
                 }
 
-                Item {
+                GridLayout {
+                    id: freeFridLayout
+
                     Layout.rowSpan: 1
                     Layout.columnSpan: 2
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
-                    GridLayout {
-                        id: freeFridLayout
-                        anchors.fill: parent
+                    columns: freeIndex.value / rows
+                    rows: Math.ceil(freeIndex.value / privateRoot.rowSignCount)
 
-                        columns: freeIndex.value / rows
-                        rows: Math.ceil(freeIndex.value / privateRoot.rowSignCount)
+                    Repeater {
+                        id: reppit
+                        model:  freeIndex.value
+                        delegate: signZone
+                        Component {
+                            id: signZone
+                            Rectangle {
+                                Layout.alignment: Qt.AlignHCenter
 
-                        Repeater {
-                            id: reppit
-                            model:  freeIndex.value
-                            delegate: signZone
-                            Component {
-                                id: signZone
-                                Rectangle {
-                                    Layout.alignment: Qt.AlignHCenter
+                                Layout.fillHeight: true
+                                Layout.maximumHeight: cardTitle.height
+                                Layout.preferredWidth: height
+                                radius: Math.min(width, height) / 2
 
-                                    width: (cardTitle.height * 1.5) / freeFridLayout.rows
-                                    height: width
-                                    radius: Math.min(width, height) / 2
+                                Label {
+                                    visible: Boolean(index === (freeIndex.value - 1))
+                                    text: qsTr("Free")
+                                    font.bold: true
+                                    anchors.centerIn: parent
+                                }
 
-                                    Label {
-                                        visible: Boolean(index === (freeIndex.value - 1))
-                                        text: qsTr("Free")
-                                        font.bold: true
-                                        anchors.centerIn: parent
-                                    }
+                                Image {
+                                    visible: root.model &&
+                                             ((root.model.purchasesNumber %
+                                              freeIndex.value) > index)
 
-                                    Image {
-                                        visible: root.model &&
-                                                 ((root.model.purchasesNumber %
-                                                  freeIndex.value) > index)
+                                    anchors.centerIn: parent
+                                    width: parent.width * 0.9
+                                    height: parent.width * 0.9
 
-                                        anchors.centerIn: parent
-                                        width: parent.width * 0.9
-                                        height: parent.width * 0.9
-
-                                        source: "image://cards/seal/" +
-                                                ((root.model)? root.model.id : "0")
-                                    }
+                                    source: "image://cards/seal/" +
+                                            ((root.model)? root.model.id : "0")
                                 }
                             }
                         }
                     }
                 }
+
             }
         }
 
         RowLayout {
+            visible: editable
             Layout.alignment: Qt.AlignHCenter
 
             Button {
@@ -172,13 +179,12 @@ Page {
 
             }
 
-
             Button {
                 text: qsTr("Save");
                 enabled: cardTitle.text.length
                 onClicked: () => {
                                if (root.model) {
-                                   root.model.finished()
+                                   root.model.save()
                                }
                            }
             }
