@@ -136,14 +136,16 @@ Page {
 
             RegistrationFinishedPage {
                 onFinished: {
-                    if (!model)
+                    if (!root.model)
                         return;
 
-                    const object = model.currentUser;
+
+                    const object = root.model.currentUser;
+
                     object.name = name.text;
                     object.fSaller = rSaller.checked;
 
-                    model.configureFinished();
+                    root.model.configureFinished();
 
                     root.finished();
                 }

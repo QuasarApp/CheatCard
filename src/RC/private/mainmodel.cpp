@@ -16,6 +16,8 @@
 #include "cardslistmodel.h"
 #include "userscards.h"
 
+#include <getsinglevalue.h>
+
 namespace RC {
 
 MainModel::MainModel(DB *db) {
@@ -40,6 +42,15 @@ bool MainModel::fFirst() const {
 }
 
 void MainModel::configureFinished() {
+    // First run setiing id.
+
+    auto actualUser = _db->getObject(*_currentUser.data());
+
+    if (!actualUser)
+        return;
+
+    _config->setUserId(actualUser->getId().toInt());
+
     _config->setFirstRun(false);
 }
 
@@ -88,8 +99,8 @@ void MainModel::handleUserChanged() {
 }
 
 void MainModel::saveConfig() {
-    if(!_db->insertObject(_config)) {
-        _db->updateObject(_config);
+    if(!_db->insertObject(_config, true)) {
+        _db->updateObject(_config, true);
     }
 }
 
@@ -104,7 +115,7 @@ QSharedPointer<User> MainModel::initUser() {
 
     if (result && result->data().size()) {
         return QSharedPointer<User>(result->data().first());
-    }
+    }    
 
     return QSharedPointer<User>::create();
 }

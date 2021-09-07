@@ -42,7 +42,7 @@ bool Config::isValid() const {
 }
 
 QString Config::primaryKey() const {
-    return "";
+    return "user";
 }
 
 bool Config::getFirstRun() const {

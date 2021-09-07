@@ -20,7 +20,7 @@ QH::PKG::DBObject *User::createDBObject() const {
 QH::PKG::DBVariantMap User::variantMap() const {
     return {{"id",          {getId(),    QH::PKG::MemberType::PrimaryKeyAutoIncrement}},
             {"name",        {_name,      QH::PKG::MemberType::PrimaryKey}},
-            {"fSaller",     {_fSaller,   QH::PKG::MemberType::PrimaryKey}}
+            {"fSaller",     {_fSaller,   QH::PKG::MemberType::InsertUpdate}}
 
     };
 }
