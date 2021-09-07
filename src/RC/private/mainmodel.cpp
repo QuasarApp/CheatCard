@@ -93,15 +93,11 @@ void MainModel::setCurrentUser(QSharedPointer<User> value) {
 }
 
 void MainModel::handleUserChanged() {
-    if(!_db->insertObject(_currentUser)) {
-        _db->updateObject(_currentUser);
-    }
+    _db->insertIfExistsUpdateObject(_currentUser);
 }
 
 void MainModel::saveConfig() {
-    if(!_db->insertObject(_config, true)) {
-        _db->updateObject(_config, true);
-    }
+    _db->insertIfExistsUpdateObject(_config);
 }
 
 QSharedPointer<User> MainModel::initUser() {
