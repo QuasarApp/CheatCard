@@ -109,6 +109,12 @@ Dialog {
 
                 text: qsTr("Random collor")
 
+                Component.onCompleted: () => {
+                                           blue.value = Math.random()
+                                           red.value = Math.random()
+                                           green.value = Math.random()
+                                       }
+
                 onClicked: () => {
                                blue.value = Math.random()
                                red.value = Math.random()

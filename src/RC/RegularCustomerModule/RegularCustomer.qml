@@ -17,6 +17,98 @@ ApplicationWindow {
     width: 600
 
     property var model: mainModel
+    property var user: (mainModel)? mainModel.currentUser: mainModel
+
+
+    header: ToolBar {
+        position: ToolBar.Header
+        RowLayout {
+            anchors.fill: parent
+            ToolButton {
+                text: (userPanel.visible)? qsTr("<<") : qsTr("☰")
+                onClicked: (userPanel.visible)? userPanel.close() : userPanel.open()
+            }
+
+            Label {
+                text: (user)?
+                          qsTr("Hello ") + user.visibleName +
+                          ((user.fSaller)? qsTr(" (Saller mode)"):"")
+                        : ""
+
+                elide: Label.ElideRight
+                horizontalAlignment: Qt.AlignHCenter
+                verticalAlignment: Qt.AlignVCenter
+                Layout.fillWidth: true
+            }
+
+            ToolButton {
+                text: qsTr("⋮")
+
+                onClicked: mainMenu.popup()
+            }
+        }
+    }
+
+    Menu {
+        id: mainMenu
+
+        MenuItem {
+            text: qsTr("Contact with developers")
+        }
+
+        MenuItem {
+            text: qsTr("About")
+        }
+    }
+
+    ColumnLayout {
+        anchors.fill: parent
+
+        SwipeView {
+            id: view
+
+            clip: true
+            interactive: user && user.fSaller
+            currentIndex: 0
+
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+
+            CardsListView {
+                model: (mainWindow.model) ? mainWindow.model.ownCardsList: null
+                visible: user && user.fSaller
+
+                editable: user && user.fSaller
+            }
+
+            CardsListView {
+                model: (mainWindow.model) ? mainWindow.model.cardsList: null
+                editable: false
+            }
+
+        }
+
+        PageIndicator {
+            id: indicator
+            Layout.alignment: Qt.AlignHCenter
+            visible: user && user.fSaller
+            count: view.count
+            currentIndex: view.currentIndex
+            interactive: view.interactive
+        }
+    }
+
+    Drawer {
+        id: userPanel
+        y: header.height
+        width: 0.6 * mainWindow.width
+        height: mainWindow.height
+
+        contentItem: EditUserView {
+            model: user
+        }
+    }
+
 
     Dialog {
         id: firstRun;
@@ -33,8 +125,8 @@ ApplicationWindow {
             anchors.fill: parent
             model: mainModel
             onFinished: () => {
-                firstRun.close()
-            }
+                            firstRun.close()
+                        }
         }
     }
 }

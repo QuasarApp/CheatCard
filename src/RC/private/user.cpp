@@ -7,10 +7,11 @@
 
 
 #include "user.h"
+#include "QCryptographicHash"
 namespace RC {
 
 User::User(): QH::PKG::DBObject("Users") {
-
+    _key = QCryptographicHash::hash(randomArray(), QCryptographicHash::Sha256);
 }
 
 QH::PKG::DBObject *User::createDBObject() const {
@@ -18,9 +19,11 @@ QH::PKG::DBObject *User::createDBObject() const {
 }
 
 QH::PKG::DBVariantMap User::variantMap() const {
-    return {{"id",          {getId(),    QH::PKG::MemberType::PrimaryKeyAutoIncrement}},
-            {"name",        {_name,      QH::PKG::MemberType::PrimaryKey}},
-            {"fSaller",     {_fSaller,   QH::PKG::MemberType::InsertUpdate}}
+    return {{"id",          {getId(),     QH::PKG::MemberType::PrimaryKeyAutoIncrement}},
+            {"name",        {_name,       QH::PKG::MemberType::PrimaryKey}},
+            {"key",         {_key,        QH::PKG::MemberType::InsertUpdate}},
+            {"visiblename", {_visibleName,QH::PKG::MemberType::InsertUpdate}},
+            {"fSaller",     {_fSaller,    QH::PKG::MemberType::InsertUpdate}}
 
     };
 }
@@ -29,15 +32,38 @@ QString User::primaryKey() const {
     return "id";
 }
 
+QByteArray User::randomArray() const {
+
+    QByteArray result;
+    for (int length = 64 ;length >= 0 ; length--) {
+        result.push_back(rand());
+    }
+
+    return result;
+}
+
+const QByteArray &User::getKey() const {
+    return _key;
+}
+
+void User::setKey(const QByteArray &newKey){
+    _key = newKey;
+}
+
+const QString &User::visibleName() const {
+    return _visibleName;
+}
+
+void User::setVisibleName(const QString &newVisibleName) {
+    _visibleName = newVisibleName;
+}
+
 bool User::fSaller() const {
     return _fSaller;
 }
 
 void User::setFSaller(bool newFSaller) {
-    if (_fSaller == newFSaller)
-        return;
     _fSaller = newFSaller;
-    emit fSallerChanged();
 }
 
 const QString &User::name() const {
@@ -45,18 +71,17 @@ const QString &User::name() const {
 }
 
 void User::setName(const QString &newName) {
-    if (_name == newName)
-        return;
     _name = newName;
-    emit nameChanged();
+    setVisibleName(newName);
 }
 
 bool User::fromSqlRecord(const QSqlRecord &q) {
-    if (!DBObject::fromSqlRecord(q)) {
-        return false;
-    }
 
+    setId(q.value("id").toInt());
     setName(q.value("name").toString());
+    setKey(q.value("key").toByteArray());
+    setVisibleName(q.value("visiblename").toString());
+
     setFSaller(q.value("fSaller").toBool());
 
     return true;

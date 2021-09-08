@@ -59,6 +59,12 @@ Page {
                         horizontalAlignment:  Text.AlignHCenter
                         Layout.fillWidth: true
                         text: (root.model)? root.model.title : ""
+                        onTextChanged: {
+                            if (!root.model)
+                                return
+                            root.model.title = text
+                        }
+
                         placeholderText: qsTr("Enter card title");
                         readOnly: !editable
                     }
@@ -68,7 +74,20 @@ Page {
                         textField.text: (root.model)? root.model.telegramm : ""
                         textField.placeholderText: qsTr("Enter telegramm chennal name");
                         textField.readOnly: !editable
+                        textField.onTextChanged: {
+                            if (!root.model)
+                                return
+
+                            root.model.telegramm = textField.text
+                        }
+
+                        onClicked: () => {
+                                       Qt.openUrlExternally("https://t.me/" + textField.text)
+                                   }
+
                         image: "qrc:/images/private/resources/telegramm.png"
+                        visible: root.editable || textField.text.length
+
                     }
 
 
@@ -77,8 +96,18 @@ Page {
                         textField.text: (root.model)? root.model.instagramm : ""
                         textField.placeholderText: qsTr("Enter your instagramm page");
                         textField.readOnly: !editable
+                        textField.onTextChanged: {
+                            if (!root.model)
+                                return
+                            root.model.instagramm = textField.text
+                        }
+
+                        onClicked: () => {
+                                       Qt.openUrlExternally("https://www.instagram.com/" + textField.text)
+                                   }
 
                         image: "qrc:/images/private/resources/instagramm.png"
+                        visible: root.editable || textField.text.length
 
                     }
 
@@ -87,18 +116,41 @@ Page {
                         textField.text: (root.model)? root.model.physicalAddress : ""
                         textField.placeholderText: qsTr("Enter your physical address");
                         textField.readOnly: !editable
+                        textField.onTextChanged: {
+                            if (!root.model)
+                                return
+                            root.model.physicalAddress = textField.text
+                        }
+
+                        onClicked: () => {
+                                       Qt.openUrlExternally("https://www.google.com/maps/search/" + textField.text)
+                                   }
 
                         image: "qrc:/images/private/resources/mapLogo.png"
+                        visible: root.editable || textField.text.length
 
                     }
 
                     TextFieldWithLogo {
 
                         textField.text: (root.model)? root.model.webSite : ""
+
+                        textField.onTextChanged: {
+                            if (!root.model)
+                                return
+                            root.model.webSite = textField.text
+                        }
+
+                        onClicked: () => {
+                                       Qt.openUrlExternally(textField.text)
+                                   }
+
                         textField.placeholderText: qsTr("Enter your web site domain");
                         textField.readOnly: !editable
 
                         image: "qrc:/images/private/resources/www.png"
+
+                        visible: root.editable || textField.text.length
 
                     }
                 }
@@ -137,7 +189,7 @@ Page {
                                 Image {
                                     visible: root.model &&
                                              ((root.model.purchasesNumber %
-                                              freeIndex.value) > index)
+                                               freeIndex.value) > index)
 
                                     anchors.centerIn: parent
                                     width: parent.width * 0.9
@@ -177,6 +229,11 @@ Page {
                 to: privateRoot.rowSignCount * privateRoot.maximumRowSignCount
                 from: 2
 
+                onValueChanged: () => {
+                                    if (!root.model)
+                                        return
+                                    root.model.freeIndex = freeIndex.value
+                                }
             }
 
             Button {

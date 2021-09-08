@@ -10,7 +10,6 @@
 #define USER_H
 
 #include "heart.h"
-#include <qqml.h>
 
 #include <dbobject.h>
 
@@ -19,19 +18,12 @@ namespace RC {
 /**
  * @brief The User class This is maic class for contatins all information about user
  */
-class User: public QObject, public QH::PKG::DBObject
+class User: public QH::PKG::DBObject
 {
-    Q_OBJECT
 
-    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
-    Q_PROPERTY(bool fSaller READ fSaller WRITE setFSaller NOTIFY fSallerChanged)
-
-    QML_ELEMENT
 public:
     User();
 
-    // DBObject interface
-public:
     QH::PKG::DBObject *createDBObject() const;
 
     QH::PKG::DBVariantMap variantMap() const;
@@ -43,15 +35,22 @@ public:
     bool fSaller() const;
     void setFSaller(bool newFSaller);
 
-signals:
-    void nameChanged();
-    void fSallerChanged();
+    const QString &visibleName() const;
+    void setVisibleName(const QString &newVisibleName);
+
+    const QByteArray &getKey() const;
+    void setKey(const QByteArray &newKey);
 
 protected:
     QString primaryKey() const;
 
 private:
+
+    QByteArray randomArray() const;
+
+    QByteArray _key;
     QString _name;
+    QString _visibleName;
     bool _fSaller;
 };
 

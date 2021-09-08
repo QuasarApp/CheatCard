@@ -13,7 +13,7 @@ CardModel::CardModel() {
 
 }
 
-CardModel::CardModel(Card *card) {
+CardModel::CardModel(QSharedPointer<Card> card) {
     setCard(card);
 }
 
@@ -41,11 +41,11 @@ int CardModel::freeIndex() const {
     return _card->getFreeIndex();
 }
 
-Card *CardModel::card() const {
+QSharedPointer<Card> CardModel::card() const {
     return _card;
 }
 
-void CardModel::setCard(Card *newCard) {
+void CardModel::setCard(const QSharedPointer<Card> &newCard) {
     if (_card == newCard)
         return;
 
@@ -173,7 +173,7 @@ void CardModel::setWebSite(const QString &newWebSite) {
 QString CardModel::getColor() const {
     if (!_card)
         return "#777777";
-    return _card->getColor().name();
+    return _card->getColor();
 }
 
 void CardModel::setColor(const QString &newColor) {

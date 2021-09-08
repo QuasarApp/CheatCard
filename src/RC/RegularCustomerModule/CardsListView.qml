@@ -6,6 +6,10 @@ import QtQuick.Layouts
 Page {
     id: root
     property var model: null
+    property bool editable: true
+    property alias cardCount: list.count
+
+    signal finished()
 
     ColumnLayout {
         anchors.fill: parent
@@ -25,6 +29,20 @@ Page {
             highlightRangeMode: ListView.StrictlyEnforceRange
             ScrollBar.vertical: ScrollBar {}
 
+            Label {
+                text: qsTr("You do not have any card. ") +
+                      (root.editable)? qsTr("Visit any coffee to get a new card and their bonuses"):
+                                       qsTr("Please create a new card for work")
+
+                font.pointSize: 20
+                color: "#999999"
+                wrapMode: Label.WordWrap
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+
+                visible: !list.count
+                anchors.fill: parent
+            }
 
             property int itemHeight: (itemWidth * 0.5)
             property int itemWidth: Math.min(list.width, list.height)
@@ -46,7 +64,9 @@ Page {
                         editable: false
                         onFinished: () => {
                                         editable = false
+                                        root.finished()
                                     }
+
                         Behavior on width {
                             NumberAnimation {
                                 id: animation
@@ -76,7 +96,7 @@ Page {
                     ToolButton {
                         text: qsTr("✎")
                         font.bold: true
-                        visible:  cardItem.ListView.isCurrentItem && !cardView.editable
+                        visible:  cardItem.ListView.isCurrentItem && !cardView.editable && root.editable
                         onClicked: () => {
                                         cardView.editable = true
                                    }
@@ -92,12 +112,11 @@ Page {
         Button {
             text: qsTr("Add card")
             Layout.alignment: Qt.AlignHCenter
-
+            visible: root.editable
             onClicked: () => {
                            inputName.open()
                        }
         }
-
     }
 
     Dialog {

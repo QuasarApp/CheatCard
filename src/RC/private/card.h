@@ -38,8 +38,8 @@ public:
     int getFreeIndex() const;
     void setFreeIndex(int newFreeIndex);
 
-    const QColor &getColor() const;
-    void setColor(const QColor &newColor);
+    const QString &getColor() const;
+    void setColor(const QString &newColor);
 
     const QByteArray &seal() const;
     void setSeal(const QByteArray &newSeal);
@@ -78,7 +78,7 @@ private:
 
     int purchasesNumber = 1;
     int freeIndex = 1;
-    QColor color = QColor("#777777");
+    QString color = "#777777";
 
 };
 

@@ -38,7 +38,7 @@ public:
         CardRole = Qt::UserRole
     };
 
-    CardsListModel(DB* db);
+    CardsListModel();
 
     int rowCount(const QModelIndex &parent = {}) const override;
     QVariant data(const QModelIndex &index, int role) const override;
@@ -50,9 +50,18 @@ public:
     Q_INVOKABLE void addCard(const QString &name);
     Q_INVOKABLE void removeCard(const QString &cardId);
 
+    const QHash<QString, TableCache> &cache() const;
+
+signals:
+    void sigCardAdded(QSharedPointer<CardModel> card);
+    void sigCardRemoved(const QString& cardName);
+    void sigEditFinished(const QSharedPointer<Card>& card);
+
 private:
+
+    void configureModel(const QSharedPointer<CardModel>& cardModel);
+
     QHash<QString, TableCache> _cache;
-    DB * _db = nullptr;
 
     QList<QString> _cards;
 };

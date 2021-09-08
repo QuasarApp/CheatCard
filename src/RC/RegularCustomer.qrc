@@ -10,6 +10,7 @@
         <file>RegularCustomerModule/ColorPicker.qml</file>
         <file>RegularCustomerModule/CardsListView.qml</file>
         <file>RegularCustomerModule/TextFieldWithLogo.qml</file>
+        <file>RegularCustomerModule/EditUserView.qml</file>
     </qresource>
     <qresource prefix="/RegularCustomerTr">
         <file>languages/en.qm</file>

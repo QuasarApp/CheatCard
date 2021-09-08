@@ -23,8 +23,10 @@ CREATE TABLE IF NOT EXISTS "Cards" (
 );
 
 CREATE TABLE IF NOT EXISTS "Users" (
-        "id"	INTEGER NOT NULL,
-        "name"	TEXT NOT NULL UNIQUE,
+        "id"            INTEGER NOT NULL,
+        "name"          TEXT NOT NULL UNIQUE,
+        "key"           BLOB NOT NULL,
+        "visiblename"	TEXT NOT NULL,
         "fSaller" BOOLEAN DEFAULT false,
         PRIMARY KEY("id" AUTOINCREMENT)
 );

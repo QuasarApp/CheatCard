@@ -114,11 +114,7 @@ Page {
                             Layout.alignment: Qt.AlignHCenter
 
                             onClicked: () => {
-                                           if (rSaller.checked) {
-                                               view.currentIndex = 2;
-                                           } else {
-                                               view.currentIndex = 3;
-                                           }
+                                           view.currentIndex = 2;
                                        }
                         }
 
@@ -127,11 +123,6 @@ Page {
                         }
                     }
                 }
-            }
-
-            CardsListView {
-                id: settingsSallerCard
-                model: (root.model) ? root.model.cardsList: null
             }
 
             RegistrationFinishedPage {

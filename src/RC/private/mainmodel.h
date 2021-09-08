@@ -13,9 +13,12 @@
 
 namespace RC {
 
+class Card;
+class CardModel;
 class User;
 class Config;
 class CardsListModel;
+class UserModel;
 
 /**
  * @brief The MainModel class is main model of the application.
@@ -26,6 +29,7 @@ class MainModel : public QObject
     Q_PROPERTY(bool fFirst READ fFirst  NOTIFY fFirstChanged)
     Q_PROPERTY(QObject * currentUser READ currentUser NOTIFY currentUserChanged)
     Q_PROPERTY(QObject * cardsList READ cardsList NOTIFY cardsListChanged)
+    Q_PROPERTY(QObject * ownCardsList READ ownCardsList NOTIFY ownCardsListChanged)
 
 public:
     MainModel(DB* db);
@@ -34,10 +38,11 @@ public:
     bool fFirst() const;
     Q_INVOKABLE void configureFinished();
     QObject *currentUser() const;
-    void setCurrentUser(User *newCurrentUser);
-    void setCurrentUser(QSharedPointer<User> newCurrentUser);
+    void setCurrentUser(UserModel *newCurrentUser);
+    void setCurrentUser(QSharedPointer<UserModel> newCurrentUser);
 
     QObject *cardsList() const;
+    QObject *ownCardsList() const;
 
 signals:
 
@@ -45,20 +50,28 @@ signals:
     void currentUserChanged();
 
     void cardsListChanged();
+    void ownCardsListChanged();
 
 private slots:
-    void handleUserChanged();
+    void handleCardCreated(QSharedPointer<CardModel> card);
+    void handleCardEditFinished(const QSharedPointer<RC::Card> &card);
+
+    void handleCardRemoved(const QString& id);
 
 private:
     void saveConfig();
+    void saveUser();
 
-    QSharedPointer<User> initUser();
+    QSharedPointer<UserModel> initUser();
+
     QSharedPointer<Config> initConfig(int userId);
 
     DB * _db = nullptr;
-    QSharedPointer<User> _currentUser;
+    QSharedPointer<UserModel> _currentUser;
     QSharedPointer<Config> _config;
     CardsListModel *_cardsListModel = nullptr;
+    CardsListModel *_ownCardsListModel = nullptr;
+
 };
 
 }

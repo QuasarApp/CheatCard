@@ -9,11 +9,11 @@
 #include "cardslistmodel.h"
 #include "card.h"
 #include "cardmodel.h"
+#include "userscards.h"
 
 namespace RC {
 
-CardsListModel::CardsListModel(DB *db) {
-    _db = db;
+CardsListModel::CardsListModel() {
 }
 
 int CardsListModel::rowCount(const QModelIndex &) const {
@@ -59,14 +59,18 @@ void CardsListModel::setCards(const QList<QSharedPointer<Card> > &newCards) {
     _cache.clear();
 
     for (const QSharedPointer<Card>& card : newCards) {
+        auto cardModel =  QSharedPointer<CardModel>::create(card);
         _cache.insert(card->name(),
                       TableCache
                       {
                           card,
-                          QSharedPointer<CardModel>::create(card.data())
+                          cardModel
                       }
                       );
         _cards.push_back(card->name());
+
+        configureModel(cardModel);
+
     }
 
     endResetModel();
@@ -77,7 +81,9 @@ void CardsListModel::addCard(const QString& name) {
     card->setName(name);
     card->setTitle(name);
 
-    auto cardModel = QSharedPointer<CardModel>::create(card.data());
+    auto cardModel = QSharedPointer<CardModel>::create(card);
+
+    configureModel(cardModel);
 
     beginInsertRows({}, _cards.size(), _cards.size());
 
@@ -85,6 +91,8 @@ void CardsListModel::addCard(const QString& name) {
     _cards.push_back(name);
 
     endInsertRows();
+
+    emit sigCardAdded(cardModel);
 }
 
 void CardsListModel::removeCard(const QString& cardId) {
@@ -100,6 +108,16 @@ void CardsListModel::removeCard(const QString& cardId) {
     _cards.removeAt(index);
 
     endRemoveRows();
+
+    emit sigCardRemoved(cardId);
+}
+
+const QHash<QString, TableCache> &CardsListModel::cache() const {
+    return _cache;
+}
+
+void CardsListModel::configureModel(const QSharedPointer<CardModel> &cardModel) {
+    connect(cardModel.data(), &CardModel::editFinished, this, &CardsListModel::sigEditFinished);
 }
 
 TableCache::TableCache() {

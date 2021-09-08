@@ -20,7 +20,7 @@ QH::PKG::DBObject *Card::createDBObject() const {
 QH::PKG::DBVariantMap Card::variantMap() const {
     return {{"id",              {getId(),         QH::PKG::MemberType::PrimaryKeyAutoIncrement}},
             {"name",            {_name,           QH::PKG::MemberType::PrimaryKey}},
-            {"title",           {_title,           QH::PKG::MemberType::InsertUpdate}},
+            {"title",           {_title,          QH::PKG::MemberType::InsertUpdate}},
             {"logo",            {_logo,           QH::PKG::MemberType::InsertUpdate}},
             {"seal",            {_seal,           QH::PKG::MemberType::InsertUpdate}},
             {"color",           {color,           QH::PKG::MemberType::InsertUpdate}},
@@ -72,10 +72,9 @@ void Card::setFreeIndex(int newFreeIndex) {
 }
 
 bool Card::fromSqlRecord(const QSqlRecord &q) {
-    if (!DBObject::fromSqlRecord(q)) {
-        return false;
-    }
 
+
+    setId(q.value("id").toInt());
     setName(q.value("name").toString());
     setTitle(q.value("title").toString());
     setLogo(q.value("logo").toByteArray());
@@ -86,7 +85,7 @@ bool Card::fromSqlRecord(const QSqlRecord &q) {
     setInstagramm(q.value("instagramm").toByteArray());
     setPhysicalAddress(q.value("physicalAddress").toByteArray());
     setWebSite(q.value("webSite").toByteArray());
-    setColor(q.value("color").toUInt());
+    setColor(q.value("color").toString());
 
     setPurchasesNumber(q.value("purchasesNumber").toInt());
     setFreeIndex(q.value("freeIndex").toInt());
@@ -154,11 +153,11 @@ void Card::setSeal(const QByteArray &newSeal) {
     _seal = newSeal;
 }
 
-const QColor &Card::getColor() const {
+const QString &Card::getColor() const {
     return color;
 }
 
-void Card::setColor(const QColor &newColor) {
+void Card::setColor(const QString &newColor) {
     color = newColor;
 }
 }

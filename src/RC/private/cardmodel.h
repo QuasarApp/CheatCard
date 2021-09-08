@@ -37,15 +37,15 @@ class CardModel: public QObject
     QML_ELEMENT
 public:
     CardModel();
-    CardModel(Card* card);
+    CardModel(QSharedPointer<Card> card);
 
     int id() const;
     QString name() const;
     int purchasesNumber() const;
     int freeIndex() const;
 
-    Card *card() const;
-    void setCard(Card *newCard);
+    QSharedPointer<Card> card() const;
+    void setCard(const QSharedPointer<Card> &newCard);
 
     QString phone() const;
     void setPhone(const QString &newPhone);
@@ -77,10 +77,10 @@ public:
 
 signals:
     void objChanged();
-    void editFinished(Card* card);
+    void editFinished(const QSharedPointer<Card>& card);
 
 private:
-    Card *_card = nullptr;
+    QSharedPointer<Card> _card = nullptr;
 };
 
 }

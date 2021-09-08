@@ -12,12 +12,24 @@ import QtQuick.Layouts
 
 
 RowLayout {
+    id: root
     property alias textField: source
     property alias image: img.source
+
+    signal clicked(var mouse)
 
     Image {
         Layout.preferredHeight: source.height * 0.9
         Layout.preferredWidth: height
+
+        MouseArea {
+
+            onClicked: (mouse) => {
+                            root.clicked(mouse)
+                        }
+
+            anchors.fill: parent
+        }
 
         id: img
         fillMode: Image.PreserveAspectFit
