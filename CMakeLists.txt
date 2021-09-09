@@ -23,9 +23,16 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 if (NOT DEFINED QT_VERSION_MAJOR)
     find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Test QUIET)
 endif()
+
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Test QUIET)
 
 include(submodules/Heart/QuasarAppLib/CMake/QuasarApp.cmake)
+
+if (QT_VERSION_MAJOR LESS_EQUAL 5)
+    message("The ${PROJECT_NAME} requires qt6, project build is skipped " )
+    initAll()
+    return()
+endif()
 
 if (NOT DEFINED RegularCustomer_TESTS)
     set(RegularCustomer_TESTS ON)
