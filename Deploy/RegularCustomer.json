@@ -1,10 +1,13 @@
 {
-    "binDir": "./../src/build/Debug/RC",
+    "bin": [
+        "src/RC/RegularCustomer",
+        "src/RC/RegularCustomer.exe"
+    ],
     "clear": true,
     "libDir": "./../",
     "recursiveDepth": "10",
     "deploySystem": false,
-    "qmlDir": "../",
+    "qmlDir": "../src",
     "ignoreEnv": [
         "./../installer",
         "./../Distro",
