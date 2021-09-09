@@ -33,6 +33,8 @@ if (NOT DEFINED RegularCustomer_TESTS)
     if (DEFINED TARGET_PLATFORM_TOOLCHAIN)
         if (${TARGET_PLATFORM_TOOLCHAIN} STREQUAL "wasm32")
             set(RegularCustomer_TESTS OFF)
+            initAll()
+
             return()
         endif()
     endif()
