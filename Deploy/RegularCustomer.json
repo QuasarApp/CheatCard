@@ -17,6 +17,6 @@
         "./../stage"
         ],
     "extraLib": "crypto",
-    "targetDir": "./../DisttibutionKit"
+    "targetDir": "./../Distro"
 }
 
