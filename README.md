@@ -1,4 +1,5 @@
 # CMakeProject
+
 Template repository for cmake project
 Fork me and replase RegularCustomer to Name of your new project.
 
