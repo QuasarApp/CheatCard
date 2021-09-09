@@ -1,6 +1,3 @@
-[submodule "submodules/qca"]
-	path = submodules/qca
-	url = git@github.com:QuasarApp/qca.git
 [submodule "submodules/Heart"]
 	path = submodules/Heart
 	url = git@github.com:QuasarApp/Heart.git
