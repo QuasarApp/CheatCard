@@ -68,7 +68,7 @@ if (ANDROID)
 
 else()
     # Desctop deploying
-    addDeployFromCustomFile("RegularCustomer" "${CMAKE_CURRENT_SOURCE_DIR}/Deploy/RegularCustomer.json")
+    addDeployFromCustomFile("RegularCustomer" "${CMAKE_CURRENT_SOURCE_DIR}/../../Deploy/RegularCustomer.json")
 
 endif()
 
