@@ -54,6 +54,7 @@ if (${QT_VERSION_MAJOR} EQUAL 6)
 else()
     option(QT6 "" OFF)
 endif()
+
 option(BUILD_TOOLS "" OFF)
 option(BUILD_TESTS "" OFF)
 add_subdirectory(submodules/qca)
