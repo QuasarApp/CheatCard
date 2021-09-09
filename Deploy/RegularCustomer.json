@@ -1,5 +1,5 @@
 {
-    "binDir": "./../src/build/Debug/RegularCustomerEaxample",
+    "binDir": "./../src/build/Debug/RC",
     "clear": true,
     "libDir": "./../",
     "recursiveDepth": "10",
