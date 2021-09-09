@@ -72,4 +72,3 @@ endif()
 initAll()
 
 addDoc(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/doxygen.conf)
-addDeployFromCustomFile("RegularCustomer" "${CMAKE_CURRENT_SOURCE_DIR}/Deploy/RegularCustomer.json")
