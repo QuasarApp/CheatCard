@@ -17,6 +17,9 @@
         "./../stage"
         ],
     "extraLib": "crypto",
-    "targetDir": "./../Distro"
+    "targetDir": "./../Distro",
+    "qif",
+    "zip",
+    "deb"
 }
 
