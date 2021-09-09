@@ -77,15 +77,3 @@ if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(${CURRENT_PROJECT})
 endif()
 
-set(LANGS ${CMAKE_CURRENT_SOURCE_DIR}/languages/en.ts
-          ${CMAKE_CURRENT_SOURCE_DIR}/languages/ru.ts
-          ${CMAKE_CURRENT_SOURCE_DIR}/languages/uk.ts
-          ${CMAKE_CURRENT_SOURCE_DIR}/languages/ja.ts
-          ${CMAKE_CURRENT_SOURCE_DIR}/languages/tr.ts
-          ${CMAKE_CURRENT_SOURCE_DIR}/languages/zh.ts
-          ${CMAKE_CURRENT_SOURCE_DIR}/languages/de.ts
-          ${CMAKE_CURRENT_SOURCE_DIR}/languages/fr.ts
-          ${CMAKE_CURRENT_SOURCE_DIR}/languages/es.ts
-          ${CMAKE_CURRENT_SOURCE_DIR}/languages/pl.ts)
-
-prepareQM(${CURRENT_PROJECT} ${CMAKE_CURRENT_SOURCE_DIR}/../ "${LANGS}")
