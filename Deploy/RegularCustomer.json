@@ -1,7 +1,7 @@
 {
     "bin": [
-        "src/RC/RegularCustomerApp",
-        "src/RC/RegularCustomerApp.exe"
+        "src/RCApp/RegularCustomerApp",
+        "src/RCApp/RegularCustomerApp.exe"
         ],
     "clear": true,
     "libDir": "./../",
