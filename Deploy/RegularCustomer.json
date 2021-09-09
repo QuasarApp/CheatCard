@@ -2,7 +2,7 @@
     "bin": [
         "src/RC/RegularCustomer",
         "src/RC/RegularCustomer.exe"
-    ],
+        ],
     "clear": true,
     "libDir": "./../",
     "recursiveDepth": "10",
