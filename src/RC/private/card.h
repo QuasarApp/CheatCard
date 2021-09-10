@@ -62,6 +62,9 @@ public:
     const QString &title() const;
     void setTitle(const QString &newTitle);
 
+    const QByteArray &background() const;
+    void setBackground(const QByteArray &newBackground);
+
 protected:
     QString primaryKey() const override;
 
@@ -70,6 +73,8 @@ private:
     QString _title;
     QByteArray _logo;
     QByteArray _seal;
+    QByteArray _background;
+
     QString _phone;
     QString _telegramm;
     QString _instagramm;

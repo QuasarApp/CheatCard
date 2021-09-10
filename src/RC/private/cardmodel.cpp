@@ -8,6 +8,11 @@
 #include "cardmodel.h"
 #include "card.h"
 
+#include <QBuffer>
+#include <QPixmap>
+
+#define MAXIMUM_IMAGE_SIZE 200.0f
+
 namespace RC {
 CardModel::CardModel() {
 
@@ -88,6 +93,28 @@ void CardModel::setFreeIndex(int newFreeIndex) {
 void CardModel::save() {
     if (_card)
         emit editFinished(_card);
+}
+
+void CardModel::setNewBackGround(const QString& backgroundPath) {
+
+    if (!_card)
+        return;
+
+    _card->setBackground(convert(backgroundPath));
+}
+
+void CardModel::setNewLogo(const QString &logoPath) {
+    if (!_card)
+        return;
+
+    _card->setLogo(convert(logoPath));
+}
+
+void CardModel::setNewSeel(const QString &seelPath) {
+    if (!_card)
+        return;
+
+    _card->setSeal(convert(seelPath));
 }
 
 QString CardModel::phone() const {
@@ -202,6 +229,34 @@ void CardModel::setTitle(const QString &newTitle) {
     _card->setTitle(newTitle);
 }
 
+QByteArray CardModel::convert(const QString& imagePath) {
+    QPixmap tmpImage(imagePath.left(3) == "qrc"? imagePath.right(imagePath.size() - 3): imagePath);
+
+    float scaleFactor = 0;
+
+    if (tmpImage.height() > MAXIMUM_IMAGE_SIZE) {
+        scaleFactor = tmpImage.height() / MAXIMUM_IMAGE_SIZE;
+    } else if (tmpImage.width() > MAXIMUM_IMAGE_SIZE) {
+        scaleFactor = std::max(scaleFactor,
+                               tmpImage.width() / static_cast<float>(MAXIMUM_IMAGE_SIZE));
+    }
+
+    if (scaleFactor > 0) {
+        tmpImage = tmpImage.scaled( tmpImage.width() / scaleFactor,
+                                    tmpImage.height() / scaleFactor,
+                                    Qt::IgnoreAspectRatio,
+                                    Qt::TransformationMode::SmoothTransformation);
+    }
+
+    QByteArray result;
+    QBuffer buf(&result);
+    if (buf.open(QIODevice::WriteOnly)) {
+        tmpImage.save(&buf, "PNG");
+        buf.close();
+    }
+
+    return result;;
+}
 
 
 }

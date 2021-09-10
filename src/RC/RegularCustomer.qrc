@@ -12,6 +12,7 @@
         <file>RegularCustomerModule/TextFieldWithLogo.qml</file>
         <file>RegularCustomerModule/EditUserView.qml</file>
         <file>qtquickcontrols2.conf</file>
+        <file>RegularCustomerModule/ItemsView.qml</file>
     </qresource>
     <qresource prefix="/RegularCustomerTr">
         <file>languages/en.qm</file>

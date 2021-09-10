@@ -17,15 +17,14 @@ ApplicationWindow {
     width: 350
 
     property var model: mainModel
-    property var user: (mainModel)? mainModel.currentUser: mainModel
-
+    property var user: (mainModel)? mainModel.currentUser: null
 
     header: ToolBar {
         position: ToolBar.Header
         RowLayout {
             anchors.fill: parent
             ToolButton {
-                text: (userPanel.visible)? qsTr("<<") : qsTr("☰")
+                text: (userPanel.visible)? qsTr("<<") : qsTr("三")
                 onClicked: (userPanel.visible)? userPanel.close() : userPanel.open()
                 font.bold: true
             }
@@ -45,6 +44,7 @@ ApplicationWindow {
             ToolButton {
                 text: qsTr("⋮")
                 font.bold: true
+                font.pointSize: 14
 
                 onClicked: mainMenu.popup()
             }
@@ -111,7 +111,6 @@ ApplicationWindow {
         }
     }
 
-
     Dialog {
         id: firstRun;
         visible: (model)? model.fFirst : false
@@ -131,4 +130,5 @@ ApplicationWindow {
                         }
         }
     }
+
 }

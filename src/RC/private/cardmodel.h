@@ -72,6 +72,11 @@ public:
     void setFreeIndex(int newFreeIndex);
 
     Q_INVOKABLE void save();
+
+    Q_INVOKABLE void setNewBackGround(const QString &backgroundPath);
+    Q_INVOKABLE void setNewLogo(const QString &logoPath);
+    Q_INVOKABLE void setNewSeel(const QString &seelPath);
+
     QString title() const;
     void setTitle(const QString &newTitle);
 
@@ -80,6 +85,9 @@ signals:
     void editFinished(const QSharedPointer<Card>& card);
 
 private:
+
+    QByteArray convert(const QString& imagePath);
+
     QSharedPointer<Card> _card = nullptr;
 };
 

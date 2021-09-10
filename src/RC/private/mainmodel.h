@@ -19,6 +19,7 @@ class User;
 class Config;
 class CardsListModel;
 class UserModel;
+class ItemsModel;
 
 /**
  * @brief The MainModel class is main model of the application.
@@ -30,6 +31,10 @@ class MainModel : public QObject
     Q_PROPERTY(QObject * currentUser READ currentUser NOTIFY currentUserChanged)
     Q_PROPERTY(QObject * cardsList READ cardsList NOTIFY cardsListChanged)
     Q_PROPERTY(QObject * ownCardsList READ ownCardsList NOTIFY ownCardsListChanged)
+
+    Q_PROPERTY(QObject * defaultLogosModel READ defaultLogosModel NOTIFY defaultLogosModelChanged)
+    Q_PROPERTY(QObject * defaultBackgroundsModel READ defaultBackgroundsModel NOTIFY defaultBackgroundsModelChanged)
+
 
 public:
     MainModel(DB* db);
@@ -43,6 +48,8 @@ public:
 
     QObject *cardsList() const;
     QObject *ownCardsList() const;
+    QObject *defaultLogosModel() const;
+    QObject *defaultBackgroundsModel() const;
 
 signals:
 
@@ -51,6 +58,10 @@ signals:
 
     void cardsListChanged();
     void ownCardsListChanged();
+
+    void defaultLogosModelChanged();
+
+    void defaultBackgroundsModelChanged();
 
 private slots:
     void handleCardCreated(QSharedPointer<CardModel> card);
@@ -71,6 +82,8 @@ private:
     QSharedPointer<Config> _config;
     CardsListModel *_cardsListModel = nullptr;
     CardsListModel *_ownCardsListModel = nullptr;
+    ItemsModel *_defaultLogosModel = nullptr;
+    ItemsModel *_defaultBackgroundsModel = nullptr;
 
 };
 

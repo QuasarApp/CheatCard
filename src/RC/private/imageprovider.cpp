@@ -36,16 +36,26 @@ QPixmap ImageProvider::requestPixmap(const QString &id,
     if (_db) {
         int id = request.value(1).toInt();
         QH::PKG::GetSingleValue request(QH::DbAddress("cards", id), type);
-        _db->db()->getObject(request);
+        auto dbObj = _db->db()->getObject(request);
 
-        if (request.value().isNull()) {
+        if (!dbObj || dbObj->value().isNull()) {
             getDefaultImage(type, result);
             return result;
         }
 
-        result.loadFromData(request.value().toByteArray(), "PNG");
+        auto array = dbObj->value().toByteArray();
 
-        return result.scaled(requestedSize,Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+        if (array.size()) {
+            result.loadFromData(array, "PNG");
+
+            if (requestedSize.isValid()) {
+                return result.scaled(requestedSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+            }
+            return result;
+        }
+
+        getDefaultImage(type, result);
+        return result;
     }
 
     return result;
@@ -59,7 +69,8 @@ void ImageProvider::getDefaultImage(const QString &type, QPixmap& result) {
     } else if (type == "seal") {
         result = QPixmap(":/images/private/resources/coffeSign.png");
     } else {
-        result = {};
+        result = QPixmap(1,1);
+        result.fill(QColor::fromRgba(0x00000000));
     }
 }
 }

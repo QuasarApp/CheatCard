@@ -6,6 +6,7 @@
 //#
 
 #include "cardmodel.h"
+#include "itemsmodel.h"
 #include "mainmodel.h"
 
 #include "database.h"
@@ -29,6 +30,18 @@ MainModel::MainModel(DB *db) {
     _cardsListModel = new CardsListModel();
     _ownCardsListModel = new CardsListModel();
 
+    _defaultLogosModel = new ItemsModel();
+    _defaultBackgroundsModel = new ItemsModel();
+
+    _defaultLogosModel->setStringList({
+                                          "qrc:/images/private/resources/CoffeLogo.png",
+                                          "qrc:/images/private/resources/coffeSign.png"
+                                      });
+
+    _defaultBackgroundsModel->setStringList({
+                                                ""
+                                            });
+
     connect(_ownCardsListModel, &CardsListModel::sigCardAdded,
             this, &MainModel::handleCardCreated);
 
@@ -46,9 +59,12 @@ MainModel::MainModel(DB *db) {
 MainModel::~MainModel() {
     saveConfig();
     saveUser();
+
     delete _cardsListModel;
     delete _ownCardsListModel;
 
+    delete _defaultLogosModel;
+    delete _defaultBackgroundsModel;
 }
 
 bool MainModel::fFirst() const {
@@ -134,7 +150,7 @@ QSharedPointer<UserModel> MainModel::initUser() {
 
     if (result && result->data().size()) {
         return QSharedPointer<UserModel>::create(result->data().first());
-    }    
+    }
 
     return QSharedPointer<UserModel>::create(QSharedPointer<User>::create());
 }
@@ -181,6 +197,14 @@ void MainModel::handleCardRemoved(const QString &id) {
     reqest->setName(id);
 
     _db->deleteObject(reqest);
+}
+
+QObject *MainModel::defaultLogosModel() const {
+    return _defaultLogosModel;
+}
+
+QObject *MainModel::defaultBackgroundsModel() const {
+    return _defaultBackgroundsModel;
 }
 
 }

@@ -22,12 +22,22 @@ Page {
 
         Rectangle {
             id: cardRectangle
+
+            property string seelTmpImage: ""
+
+
             Layout.alignment: Qt.AlignHCenter
             Layout.fillWidth: true
             Layout.fillHeight: true
 
             color: (root.model)? root.model.color : "#777777"
             radius: 10
+            clip: true
+            Image {
+                id: cardBackground
+                source: "image://cards/background/" + ((root.model)? root.model.id : "0")
+                anchors.fill: parent
+            }
 
             GridLayout {
                 anchors.fill: parent
@@ -35,7 +45,7 @@ Page {
                 columns: 2
 
                 Image {
-
+                    id: cardLogoIamge
                     fillMode: Image.PreserveAspectFit
                     source: "image://cards/logo/" + ((root.model)? root.model.id : "0")
                     Layout.alignment: Qt.AlignHCenter
@@ -189,6 +199,7 @@ Page {
                                 }
 
                                 Image {
+                                    id: seelImage
                                     visible: root.model &&
                                              ((root.model.purchasesNumber %
                                                freeIndex.value) > index)
@@ -199,6 +210,14 @@ Page {
 
                                     source: "image://cards/seal/" +
                                             ((root.model)? root.model.id : "0")
+
+                                    Connections {
+                                        target: cardRectangle
+
+                                        function onSeelTmpImageChanged() {
+                                            seelImage.source = cardRectangle.seelTmpImage
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -213,11 +232,12 @@ Page {
             Layout.alignment: Qt.AlignHCenter
 
 
-            Button {
-                text: qsTr("Color");
-
+            ToolButton {
+                text: qsTr("⋮")
+                font.bold: true
+                font.pointSize: 14
                 onClicked: () => {
-                               colorDialog.open()
+                               customisationMenu.popup()
                            }
             }
 
@@ -230,7 +250,7 @@ Page {
 
                 onValueChanged: () => {
                                     if (!root.model)
-                                        return
+                                    return
                                     root.model.freeIndex = freeIndex.value
                                 }
             }
@@ -246,7 +266,6 @@ Page {
                            }
             }
         }
-
 
         Item {
             id: privateRoot
@@ -275,10 +294,127 @@ Page {
 
             close()
         }
+
         onRejected: {
             close()
         }
     }
 
 
+    Dialog {
+        id: defaultImages
+
+        ItemsView {
+            title: qsTr("Select Image")
+            id: sourceImages
+            model: (mainModel)? mainModel.defaultBackgroundsModel: null
+
+            anchors.fill: parent
+
+        }
+
+        width: root.width * 0.9
+        height: root.height * 0.9
+
+        anchors.centerIn: parent
+
+        onAccepted: () => {
+                        if (!root.model) {
+                            return
+                        };
+
+                        cardBackground.source = sourceImages.currentSelectedItem
+                        root.model.setNewBackGround(sourceImages.currentSelectedItem);
+                    }
+
+        standardButtons: Dialog.Open | Dialog.Close
+    }
+
+    Dialog {
+        id: defaultLogos
+
+        contentItem: ItemsView {
+            id: sourceLogos
+            model: (mainModel)? mainModel.defaultLogosModel: null
+
+        }
+
+        onAccepted: () => {
+                        if (!root.model) {
+                            return
+                        };
+
+                        cardLogoIamge.source = sourceLogos.currentSelectedItem
+                        root.model.setNewLogo(sourceLogos.currentSelectedItem);
+                    }
+
+        anchors.centerIn: parent
+        width: root.width * 0.9
+        height: root.height * 0.9
+
+        standardButtons: Dialog.Open | Dialog.Close
+    }
+
+    Dialog {
+        id: defaultSeels
+
+        contentItem: ItemsView {
+            id: sourceSeels
+            model: (mainModel)? mainModel.defaultLogosModel: null
+
+        }
+
+        onAccepted: () => {
+                        if (!root.model) {
+                            return
+                        };
+
+                        cardRectangle.seelTmpImage = sourceSeels.currentSelectedItem
+                        root.model.setNewSeel(sourceSeels.currentSelectedItem);
+                    }
+
+        width: root.width * 0.9
+        height: root.height * 0.9
+
+        anchors.centerIn: parent
+
+        standardButtons: Dialog.Open | Dialog.Close
+    }
+
+
+    Menu {
+        id: customisationMenu
+
+        MenuItem {
+            text: qsTr("Change background color")
+
+            onClicked: () => {
+                           colorDialog.open()
+                       }
+        }
+
+        MenuItem {
+            text: qsTr("Change background image")
+
+            onClicked: () => {
+                           defaultImages.open()
+                       }
+        }
+
+        MenuItem {
+            text: qsTr("Change card logo")
+
+            onClicked: () => {
+                           defaultLogos.open()
+                       }
+        }
+
+        MenuItem {
+            text: qsTr("Change card seel")
+
+            onClicked: () => {
+                           defaultSeels.open()
+                       }
+        }
+    }
 }

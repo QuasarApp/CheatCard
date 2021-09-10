@@ -23,6 +23,7 @@ QH::PKG::DBVariantMap Card::variantMap() const {
             {"title",           {_title,          QH::PKG::MemberType::InsertUpdate}},
             {"logo",            {_logo,           QH::PKG::MemberType::InsertUpdate}},
             {"seal",            {_seal,           QH::PKG::MemberType::InsertUpdate}},
+            {"background",      {_background,     QH::PKG::MemberType::InsertUpdate}},
             {"color",           {color,           QH::PKG::MemberType::InsertUpdate}},
 
             {"phone",           {_phone,          QH::PKG::MemberType::InsertUpdate}},
@@ -79,6 +80,7 @@ bool Card::fromSqlRecord(const QSqlRecord &q) {
     setTitle(q.value("title").toString());
     setLogo(q.value("logo").toByteArray());
     setSeal(q.value("seal").toByteArray());
+    setSeal(q.value("background").toByteArray());
 
     setPhone(q.value("phone").toByteArray());
     setTelegramm(q.value("telegramm").toByteArray());
@@ -95,6 +97,14 @@ bool Card::fromSqlRecord(const QSqlRecord &q) {
 
 QString Card::primaryKey() const {
     return "id";
+}
+
+const QByteArray &Card::background() const {
+    return _background;
+}
+
+void Card::setBackground(const QByteArray &newBackground) {
+    _background = newBackground;
 }
 
 const QString &Card::title() const {

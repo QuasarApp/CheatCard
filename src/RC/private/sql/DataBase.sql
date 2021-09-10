@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS "Cards" (
 
         "logo"              BLOB DEFAULT NULL,
         "seal"              BLOB DEFAULT NULL,
+        "background"        BLOB DEFAULT NULL,
 
         "phone"             TEXT NOT NULL DEFAULT "",
         "telegramm"         TEXT NOT NULL DEFAULT "",

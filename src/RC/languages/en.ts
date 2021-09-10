@@ -62,10 +62,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Pick card color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
@@ -82,7 +78,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Free index: </source>
+        <source>Color</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
