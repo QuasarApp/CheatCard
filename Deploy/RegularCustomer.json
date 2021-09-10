@@ -18,8 +18,8 @@
         ],
     "extraLib": "crypto",
     "targetDir": "./../Distro",
-    "qif",
-    "zip",
-    "deb"
+    "qif": true,
+    "zip": true,
+    "deb": true
 }
 
