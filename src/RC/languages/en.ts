@@ -12,10 +12,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>✎</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>You do not have any card. </source>
         <translation type="unfinished"></translation>
     </message>
@@ -25,6 +21,10 @@
     </message>
     <message>
         <source>Please create a new card for work</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -89,10 +89,6 @@
 <context>
     <name>EditUserView</name>
     <message>
-        <source>Editing information of : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>No user selected</source>
         <translation type="unfinished"></translation>
     </message>
@@ -114,6 +110,10 @@
     </message>
     <message>
         <source>Are you sure you want to become a seller? </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Editing : </source>
         <translation type="unfinished"></translation>
     </message>
 </context>

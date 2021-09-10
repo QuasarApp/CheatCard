@@ -7,14 +7,14 @@ import QtQuick.Layouts
 Dialog {
     id: root
     property alias color: preview.color
-    RowLayout {
+    ColumnLayout {
 
         Rectangle {
             id: preview
             color:  Qt.rgba(red.value, green.value,  blue.value);
             radius: 4
-            Layout.preferredWidth:  parent.width / 5
-            Layout.fillHeight: true
+            Layout.preferredHeight:  parent.height / 8
+            Layout.fillWidth: true
 
         }
 
@@ -23,7 +23,6 @@ Dialog {
             Layout.fillWidth: true
 
             RowLayout {
-                Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter
 
                 Slider {
@@ -33,6 +32,7 @@ Dialog {
                     value: 0
                     stepSize: 0.001
                     Material.accent : Material.Red
+                    Layout.fillWidth: true
 
                 }
 
@@ -43,7 +43,7 @@ Dialog {
                         bottom: red.from;
                         top: red.to;
                     }
-
+                    horizontalAlignment: Text.AlignHCenter
                     onEditingFinished: {
                         red.value = text
                     }
@@ -52,7 +52,6 @@ Dialog {
             }
 
             RowLayout {
-                Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter
 
                 Slider {
@@ -62,6 +61,8 @@ Dialog {
                     value: 0
                     stepSize: 0.001
                     Material.accent : Material.Green
+                    Layout.fillWidth: true
+
                 }
 
                 TextField {
@@ -70,6 +71,7 @@ Dialog {
                         bottom: green.from;
                         top: green.to;
                     }
+                    horizontalAlignment: Text.AlignHCenter
 
                     onEditingFinished: {
                         green.value = text
@@ -78,7 +80,6 @@ Dialog {
             }
 
             RowLayout {
-                Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter
 
                 Slider {
@@ -88,6 +89,7 @@ Dialog {
                     value: 0
                     stepSize: 0.001
                     Material.accent : Material.Blue
+                    Layout.fillWidth: true
 
                 }
 
@@ -97,6 +99,7 @@ Dialog {
                         bottom: blue.from;
                         top: blue.to;
                     }
+                    horizontalAlignment: Text.AlignHCenter
 
                     onEditingFinished: {
                         blue.value = text

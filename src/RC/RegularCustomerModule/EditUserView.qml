@@ -10,9 +10,9 @@ Page {
 
     header: Label {
         horizontalAlignment: Label.AlignHCenter
-        text: (root.model)? qsTr("Editing information of : ") + root.model.name : qsTr("No user selected")
+        text: (root.model)? qsTr("Editing : ") + root.model.name : qsTr("No user selected")
         font.bold: true
-        font.pointSize: 15
+        font.pointSize: 14
         visible: editable
 
         padding: 20

@@ -44,14 +44,16 @@ Page {
                     Layout.fillWidth: true
                     Layout.preferredHeight: parent.height / 2
 
+                    opacity: height > 50 && width > 50
 
                 }
 
                 GridLayout {
-                    rows: 4
+                    rows: 3
                     columns: 2
                     Layout.alignment: Qt.AlignRight | Qt.AlignTop
                     Layout.rightMargin: 10
+                    flow: GridLayout.TopToBottom
 
                     TextField {
                         id: cardTitle
@@ -210,16 +212,13 @@ Page {
             visible: editable
             Layout.alignment: Qt.AlignHCenter
 
+
             Button {
-                text: qsTr("Pick card color");
+                text: qsTr("Color");
 
                 onClicked: () => {
                                colorDialog.open()
                            }
-            }
-
-            Label {
-                text: qsTr("Free index: ")
             }
 
             SpinBox {

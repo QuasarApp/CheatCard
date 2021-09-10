@@ -24,10 +24,14 @@ Page {
 
             snapMode: ListView.NoSnap
             boundsBehavior:Flickable.StopAtBounds
-            preferredHighlightBegin: list.height / 2 - itemHeight / 2
+            preferredHighlightBegin: (orientation == ListView.Vertical)? list.height / 2 - itemHeight / 2 : list.width / 2 - itemWidth / 2
             preferredHighlightEnd: preferredHighlightBegin
+
+
             highlightRangeMode: ListView.StrictlyEnforceRange
             ScrollBar.vertical: ScrollBar {}
+
+            orientation: (root.width < root.height)? ListView.Vertical : ListView.Horizontal
 
             Label {
                 text: qsTr("You do not have any card. ") +
@@ -44,17 +48,18 @@ Page {
                 anchors.fill: parent
             }
 
-            property int itemHeight: (itemWidth * 0.5)
-            property int itemWidth: Math.min(list.width, list.height)
+            property int itemHeight: (itemWidth * 0.65)
+            property int itemWidth: Math.min(list.width, buttonAddCard.y / 0.65)
 
             Component {
                 id: delegateItem
 
                 Item {
                     id: cardItem
-                    height: (cardItem.ListView.isCurrentItem)? list.itemHeight * 1.3: list.itemHeight
+                    height: list.itemHeight
                     width: list.itemWidth
                     x: list.width / 2 - width / 2
+                    y: list.height / 2 - height / 2
 
                     EditCardView {
                         id: cardView
@@ -93,8 +98,8 @@ Page {
                         anchors.centerIn: parent
                     }
 
-                    ToolButton {
-                        text: qsTr("✎")
+                    Button {
+                        text: qsTr("Edit")
                         font.bold: true
                         visible:  cardItem.ListView.isCurrentItem && !cardView.editable && root.editable
                         onClicked: () => {
@@ -102,14 +107,13 @@ Page {
                                    }
                     }
                 }
-
-
             }
 
             delegate: delegateItem
         }
 
         Button {
+            id: buttonAddCard
             text: qsTr("Add card")
             Layout.alignment: Qt.AlignHCenter
             visible: root.editable

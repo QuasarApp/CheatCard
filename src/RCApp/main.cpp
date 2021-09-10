@@ -25,6 +25,7 @@ void initLang() {
 }
 
 int main(int argc, char *argv[]) {
+
     QCoreApplication::setOrganizationName("QuasarApp");
     QCoreApplication::setApplicationName("RegularCustomer");
 

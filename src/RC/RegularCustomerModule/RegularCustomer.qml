@@ -13,8 +13,8 @@ import QtQuick.Layouts
 ApplicationWindow {
     id: mainWindow
     visible: true
-    height: 800
-    width: 600
+    height: 550
+    width: 350
 
     property var model: mainModel
     property var user: (mainModel)? mainModel.currentUser: mainModel
@@ -27,6 +27,7 @@ ApplicationWindow {
             ToolButton {
                 text: (userPanel.visible)? qsTr("<<") : qsTr("☰")
                 onClicked: (userPanel.visible)? userPanel.close() : userPanel.open()
+                font.bold: true
             }
 
             Label {
@@ -43,6 +44,7 @@ ApplicationWindow {
 
             ToolButton {
                 text: qsTr("⋮")
+                font.bold: true
 
                 onClicked: mainMenu.popup()
             }
@@ -101,7 +103,7 @@ ApplicationWindow {
     Drawer {
         id: userPanel
         y: header.height
-        width: 0.6 * mainWindow.width
+//        width: 0.6 * mainWindow.width
         height: mainWindow.height
 
         contentItem: EditUserView {
