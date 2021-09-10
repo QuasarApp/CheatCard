@@ -7,7 +7,7 @@
     "libDir": "./../",
     "recursiveDepth": "10",
     "deploySystem": false,
-    "qmlDir": "../src",
+    "qmlDir": "./../src",
     "ignoreEnv": [
         "./../installer",
         "./../Distro",
