@@ -7,10 +7,15 @@
 
 
 #include "iconnectorbackend.h"
+#include "quasarapp.h"
+#include "user.h"
+#include "card.h"
+#include "datastructures.h"
 
 namespace RC {
-IConnectorBackEnd::IConnectorBackEnd()
-{
+
+
+IConnectorBackEnd::IConnectorBackEnd() {
 
 }
 
@@ -22,20 +27,60 @@ bool IConnectorBackEnd::stop() {
     return close();
 }
 
-void IConnectorBackEnd::receiveMessage(const QByteArray &message) {
+void IConnectorBackEnd::connectionReceived(ITargetNode *obj) {
 
+    _currentTarget = QSharedPointer<ITargetNode>(obj);
 }
 
-bool IConnectorBackEnd::sendMessage(const QByteArray &message) {
+void IConnectorBackEnd::connectionLost( ITargetNode *id) {
+    if (_currentTarget != id) {
+        QuasarAppUtils::Params::log("Try drop another connection!!", QuasarAppUtils::Error);
+    }
 
+    _currentTarget.reset();
 }
 
-void IConnectorBackEnd::connectionReceived(const QByteArray &id) {
+void IConnectorBackEnd::handleReceiveMessage(const QByteArray &message) {
+    QH::Package pkg;
 
+    pkg.fromBytes(message);
+
+    if (!pkg.isValid()) {
+        QuasarAppUtils::Params::log("Received invalid package", QuasarAppUtils::Error);
+
+        return;
+    }
+
+    if (pkg.hdr.command == UserId) {
+
+        if (message.size() != sizeof(UserHeader)) {
+            QuasarAppUtils::Params::log("user id is invalid", QuasarAppUtils::Error);
+            return;
+        }
+
+        // very dangerous
+        UserHeader user = *reinterpret_cast<UserHeader*>(const_cast<char*>((message.data())));
+
+        if (user.userId == 0) {
+            QuasarAppUtils::Params::log("user id is invalid", QuasarAppUtils::Error);
+            return;
+        }
+
+        if (_mode == Saller) {
+            CardStatus status;
+            status.cardId = _activeCard->cardId();
+//            status.purchasesCount =
+//            ;
+        }
+    }
 }
 
-void IConnectorBackEnd::connectionLost(const QByteArray &id) {
+QSharedPointer<Card> IConnectorBackEnd::activeCard() const {
+    return _activeCard;
+}
 
+void IConnectorBackEnd::setActiveCard(QSharedPointer<Card> newActiveCard) {
+    _activeCard = newActiveCard;
 }
 
 }

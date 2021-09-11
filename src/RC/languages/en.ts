@@ -8,10 +8,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enter new nama</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>You do not have any card. </source>
         <translation type="unfinished"></translation>
     </message>
@@ -37,14 +33,6 @@
 </context>
 <context>
     <name>EditCardView</name>
-    <message>
-        <source>Editing: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No card selected</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Enter telegramm chennal name</source>
         <translation type="unfinished"></translation>

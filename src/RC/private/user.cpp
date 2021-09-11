@@ -12,7 +12,7 @@ namespace RC {
 
 User::User(): QH::PKG::DBObject("Users") {
     _key = QCryptographicHash::hash(randomArray(), QCryptographicHash::Sha256);
-    setId(qHash(_key));
+    setId(QVariant::fromValue(qHash(_key)));
 }
 
 QH::PKG::DBObject *User::createDBObject() const {

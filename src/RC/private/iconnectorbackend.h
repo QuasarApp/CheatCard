@@ -10,8 +10,12 @@
 #define ICONNECTORBACKEND_H
 
 #include <QByteArray>
+#include <QSharedPointer>
 
 namespace RC {
+
+class Card;
+class ITargetNode;
 
 class IConnectorBackEnd
 {
@@ -22,10 +26,22 @@ public:
         Saller,
     };
 
+    enum Commands {
+        UserId,
+        SallerId,
+        CardId,
+        CardData,
+        UserData,
+        PurchasesCount
+    };
+
     IConnectorBackEnd();
 
     bool start(Mode mode);
     bool stop();
+
+    QSharedPointer<Card> activeCard() const;
+    void setActiveCard(QSharedPointer<Card> newActiveCard);
 
 protected:
 
@@ -33,11 +49,17 @@ protected:
 
     virtual bool close() = 0;
 
-    void receiveMessage(const QByteArray& message);
-    bool sendMessage(const QByteArray& message);
+    void connectionReceived( ITargetNode *obj);
+    void connectionLost(ITargetNode* id);
 
-    void connectionReceived(const QByteArray& id);
-    void connectionLost(const QByteArray& id);
+protected slots:
+    void handleReceiveMessage(const QByteArray& message);
+
+private:
+
+    Mode _mode = Client;
+    QSharedPointer<ITargetNode> _currentTarget;
+    QSharedPointer<Card> _activeCard;
 };
 
 }
