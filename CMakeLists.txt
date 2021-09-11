@@ -29,8 +29,8 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Test QUIET)
 
 include(submodules/Heart/QuasarAppLib/CMake/QuasarApp.cmake)
 
-if (QT_VERSION_MAJOR LESS_EQUAL 5)
-    message("The ${PROJECT_NAME} requires qt6, project build is skipped " )
+if (NOT QT_VERSION_MAJOR EQUAL 5)
+    message("The ${PROJECT_NAME} requires qt5, project build is skipped " )
     initAll()
     return()
 endif()

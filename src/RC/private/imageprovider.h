@@ -16,7 +16,7 @@ namespace RC {
 class DataBase;
 
 class ImageProvider: public QQuickImageProvider {
-    Q_OBJECT
+
 public:
     explicit ImageProvider(DataBase* db);
     ~ImageProvider() override;

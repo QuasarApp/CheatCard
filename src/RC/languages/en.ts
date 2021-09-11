@@ -78,7 +78,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Color</source>
+        <source>⋮</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select Image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change background color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change background image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change card logo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change card seel</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -166,10 +186,6 @@
 <context>
     <name>RegularCustomer</name>
     <message>
-        <source>☰</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Hello </source>
         <translation type="unfinished"></translation>
     </message>
@@ -191,6 +207,10 @@
     </message>
     <message>
         <source>About</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>三</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
