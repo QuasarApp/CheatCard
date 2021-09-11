@@ -3,33 +3,31 @@ BEGIN TRANSACTION;
 -- Base data tables:
 CREATE TABLE IF NOT EXISTS "Cards" (
         "id"                INTEGER NOT NULL,
-        "name"              TEXT NOT NULL UNIQUE,
-        "title"             TEXT NOT NULL,
 
         "logo"              BLOB DEFAULT NULL,
         "seal"              BLOB DEFAULT NULL,
         "background"        BLOB DEFAULT NULL,
 
-        "phone"             TEXT NOT NULL DEFAULT "",
-        "telegramm"         TEXT NOT NULL DEFAULT "",
-        "instagramm"        TEXT NOT NULL DEFAULT "",
-        "physicalAddress"   TEXT NOT NULL DEFAULT "",
-        "webSite"           TEXT NOT NULL DEFAULT "",
+        "title"             TEXT DEFAULT "",
+        "phone"             TEXT DEFAULT "",
+        "telegramm"         TEXT DEFAULT "",
+        "instagramm"        TEXT DEFAULT "",
+        "physicalAddress"   TEXT DEFAULT "",
+        "webSite"           TEXT DEFAULT "",
 
         "color"             INTEGER DEFAULT 0x00777777,
 
         "purchasesNumber"   INTEGER DEFAULT 0,
         "freeIndex"         INTEGER DEFAULT 0,
-        PRIMARY KEY("id" AUTOINCREMENT)
+        PRIMARY KEY("id")
 );
 
 CREATE TABLE IF NOT EXISTS "Users" (
         "id"            INTEGER NOT NULL,
-        "name"          TEXT NOT NULL UNIQUE,
+        "name"          TEXT NOT NULL,
         "key"           BLOB NOT NULL,
-        "visiblename"	TEXT NOT NULL,
-        "fSaller" BOOLEAN DEFAULT false,
-        PRIMARY KEY("id" AUTOINCREMENT)
+        "fSaller"       BOOLEAN DEFAULT false,
+        PRIMARY KEY("id")
 );
 
 -- Confiuration tabel

@@ -19,7 +19,7 @@ class UsersCards: public QH::PKG::DBObject
 {
 public:
     UsersCards();
-    UsersCards(int user, int card, bool owner = false);
+    UsersCards(unsigned int user, unsigned int card, bool owner = false);
 
 public:
     QH::PKG::DBObject *createDBObject() const override;
@@ -40,8 +40,8 @@ protected:
     QString primaryKey() const override;
 
 private:
-    int user = 0;
-    int card = 0;
+    unsigned int user = 0;
+    unsigned int card = 0;
     bool owner = false;
 };
 

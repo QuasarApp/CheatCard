@@ -29,7 +29,6 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Test QUIET)
 
 include(submodules/Heart/QuasarAppLib/CMake/QuasarApp.cmake)
 
-
 if (NOT DEFINED RegularCustomer_TESTS)
     set(RegularCustomer_TESTS ON)
 

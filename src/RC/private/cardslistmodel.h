@@ -45,25 +45,25 @@ public:
 
     QHash<int, QByteArray> roleNames() const override;
 
-    const QList<QString> &cards() const;
+    const QList<int> &cards() const;
     void setCards(const QList<QSharedPointer<Card>> &newCards);
-    Q_INVOKABLE void addCard(const QString &name);
-    Q_INVOKABLE void removeCard(const QString &cardId);
+    Q_INVOKABLE void addCard();
+    Q_INVOKABLE void removeCard(int cardId);
 
-    const QHash<QString, TableCache> &cache() const;
+    const QHash<int, TableCache> &cache() const;
 
 signals:
     void sigCardAdded(QSharedPointer<CardModel> card);
-    void sigCardRemoved(const QString& cardName);
+    void sigCardRemoved(int cardName);
     void sigEditFinished(const QSharedPointer<Card>& card);
 
 private:
 
     void configureModel(const QSharedPointer<CardModel>& cardModel);
 
-    QHash<QString, TableCache> _cache;
+    QHash<int, TableCache> _cache;
 
-    QList<QString> _cards;
+    QList<int> _cards;
 };
 
 }

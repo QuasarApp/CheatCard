@@ -34,7 +34,7 @@ QPixmap ImageProvider::requestPixmap(const QString &id,
     auto type = request.value(0);
 
     if (_db) {
-        int id = request.value(1).toInt();
+        unsigned int id = request.value(1).toUInt();
         QH::PKG::GetSingleValue request(QH::DbAddress("cards", id), type);
         auto dbObj = _db->db()->getObject(request);
 

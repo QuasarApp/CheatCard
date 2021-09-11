@@ -10,13 +10,6 @@ Page {
 
     signal finished();
 
-    header: Label {
-        horizontalAlignment: Label.AlignHCenter
-        text: (root.model)? qsTr("Editing: ") + root.model.name: qsTr("No card selected")
-        font.bold: true
-        visible: editable
-    }
-
     contentItem: ColumnLayout {
         anchors.fill: parent
 

@@ -25,7 +25,7 @@ QH::PKG::DBObject *Config::createDBObject() const {
 }
 
 bool Config::fromSqlRecord(const QSqlRecord &q) {
-    userId = q.value("user").toInt();
+    userId = q.value("user").toUInt();
     firstRun = q.value("fFirst").toBool();
 
     return true;

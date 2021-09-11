@@ -15,7 +15,7 @@ namespace RC {
 class Contacts: public QH::PKG::DBObject
 {
 public:
-    Contacts(int user, int contactUser);
+    Contacts(unsigned int user, unsigned int contactUser);
     // DBObject interface
 public:
     QH::PKG::DBObject *createDBObject() const override;
@@ -26,8 +26,8 @@ protected:
     QString primaryKey() const override;
 
 private:
-    int contactUser = 0;
-    int user = 0;
+    unsigned int contactUser = 0;
+    unsigned int user = 0;
 };
 
 }

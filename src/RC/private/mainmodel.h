@@ -9,6 +9,7 @@
 #define RC_MAINMODEL_H
 
 #include <QObject>
+#include <QSettings>
 #include "database.h"
 
 namespace RC {
@@ -67,7 +68,7 @@ private slots:
     void handleCardCreated(QSharedPointer<CardModel> card);
     void handleCardEditFinished(const QSharedPointer<RC::Card> &card);
 
-    void handleCardRemoved(const QString& id);
+    void handleCardRemoved(int id);
 
 private:
     void saveConfig();
@@ -84,6 +85,8 @@ private:
     CardsListModel *_ownCardsListModel = nullptr;
     ItemsModel *_defaultLogosModel = nullptr;
     ItemsModel *_defaultBackgroundsModel = nullptr;
+
+    QSettings _settings;
 
 };
 

@@ -26,9 +26,6 @@ public:
     bool isValid() const override;
     bool fromSqlRecord(const QSqlRecord &q) override;
 
-    const QString &name() const;
-    void setName(const QString &newName);
-
     const QByteArray &logo() const;
     void setLogo(const QByteArray &newImage);
 
@@ -65,11 +62,12 @@ public:
     const QByteArray &background() const;
     void setBackground(const QByteArray &newBackground);
 
+    unsigned int cardId() const;
+
 protected:
     QString primaryKey() const override;
 
 private:
-    QString _name;
     QString _title;
     QByteArray _logo;
     QByteArray _seal;

@@ -16,12 +16,28 @@ namespace RC {
 class IConnectorBackEnd
 {
 public:
+
+    enum Mode {
+        Client,
+        Saller,
+    };
+
     IConnectorBackEnd();
+
+    bool start(Mode mode);
+    bool stop();
 
 protected:
 
-    virtual void receiveMessage(const QByteArray& message) = 0;
-    virtual bool sendMessage(const QByteArray& message) = 0;
+    virtual bool listen(Mode mode) = 0;
+
+    virtual bool close() = 0;
+
+    void receiveMessage(const QByteArray& message);
+    bool sendMessage(const QByteArray& message);
+
+    void connectionReceived(const QByteArray& id);
+    void connectionLost(const QByteArray& id);
 };
 
 }

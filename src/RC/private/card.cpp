@@ -6,11 +6,12 @@
 //#
 
 #include "card.h"
+#include <ctime>
 
 namespace RC {
 
 Card::Card(): QH::PKG::DBObject("Cards") {
-
+    setId(QVariant::fromValue(rand() + time(0)));
 }
 
 QH::PKG::DBObject *Card::createDBObject() const {
@@ -18,8 +19,7 @@ QH::PKG::DBObject *Card::createDBObject() const {
 }
 
 QH::PKG::DBVariantMap Card::variantMap() const {
-    return {{"id",              {getId(),         QH::PKG::MemberType::PrimaryKeyAutoIncrement}},
-            {"name",            {_name,           QH::PKG::MemberType::PrimaryKey}},
+    return {{"id",              {getId(),         QH::PKG::MemberType::PrimaryKey}},
             {"title",           {_title,          QH::PKG::MemberType::InsertUpdate}},
             {"logo",            {_logo,           QH::PKG::MemberType::InsertUpdate}},
             {"seal",            {_seal,           QH::PKG::MemberType::InsertUpdate}},
@@ -37,15 +37,7 @@ QH::PKG::DBVariantMap Card::variantMap() const {
 }
 
 bool Card::isValid() const {
-    return _name.size();
-}
-
-const QString &Card::name() const {
-    return _name;
-}
-
-void Card::setName(const QString &newName) {
-    _name = newName;
+    return getId().isValid();
 }
 
 const QByteArray &Card::logo() const {
@@ -75,8 +67,7 @@ void Card::setFreeIndex(int newFreeIndex) {
 bool Card::fromSqlRecord(const QSqlRecord &q) {
 
 
-    setId(q.value("id").toInt());
-    setName(q.value("name").toString());
+    setId(q.value("id").toUInt());
     setTitle(q.value("title").toString());
     setLogo(q.value("logo").toByteArray());
     setSeal(q.value("seal").toByteArray());
@@ -105,6 +96,10 @@ const QByteArray &Card::background() const {
 
 void Card::setBackground(const QByteArray &newBackground) {
     _background = newBackground;
+}
+
+unsigned int Card::cardId() const {
+    return getId().toUInt();
 }
 
 const QString &Card::title() const {

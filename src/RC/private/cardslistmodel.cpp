@@ -30,9 +30,9 @@ QVariant CardsListModel::data(const QModelIndex &index, int role) const {
         return {};
     }
 
-    QString cardName = _cards[index.row()];
+    int cardId = _cards[index.row()];
 
-    auto cacheData = _cache.value(cardName, {});
+    auto cacheData = _cache.value(cardId, {});
 
     if (cacheData.isValid()) {
         return QVariant::fromValue(cacheData.model.data());
@@ -49,7 +49,7 @@ QHash<int, QByteArray> CardsListModel::roleNames() const {
     return roles;
 }
 
-const QList<QString> &CardsListModel::cards() const {
+const QList<int> &CardsListModel::cards() const {
     return _cards;
 }
 
@@ -60,14 +60,14 @@ void CardsListModel::setCards(const QList<QSharedPointer<Card> > &newCards) {
 
     for (const QSharedPointer<Card>& card : newCards) {
         auto cardModel =  QSharedPointer<CardModel>::create(card);
-        _cache.insert(card->name(),
+        _cache.insert(card->cardId(),
                       TableCache
                       {
                           card,
                           cardModel
                       }
                       );
-        _cards.push_back(card->name());
+        _cards.push_back(card->cardId());
 
         configureModel(cardModel);
 
@@ -76,10 +76,8 @@ void CardsListModel::setCards(const QList<QSharedPointer<Card> > &newCards) {
     endResetModel();
 }
 
-void CardsListModel::addCard(const QString& name) {
+void CardsListModel::addCard() {
     auto card = QSharedPointer<Card>::create();
-    card->setName(name);
-    card->setTitle(name);
 
     auto cardModel = QSharedPointer<CardModel>::create(card);
 
@@ -87,15 +85,15 @@ void CardsListModel::addCard(const QString& name) {
 
     beginInsertRows({}, _cards.size(), _cards.size());
 
-    _cache.insert(name, TableCache{card, cardModel});
-    _cards.push_back(name);
+    _cache.insert(card->cardId(), TableCache{card, cardModel});
+    _cards.push_back(card->cardId());
 
     endInsertRows();
 
     emit sigCardAdded(cardModel);
 }
 
-void CardsListModel::removeCard(const QString& cardId) {
+void CardsListModel::removeCard(int cardId) {
 
     int index = _cards.indexOf(cardId);
 
@@ -112,7 +110,7 @@ void CardsListModel::removeCard(const QString& cardId) {
     emit sigCardRemoved(cardId);
 }
 
-const QHash<QString, TableCache> &CardsListModel::cache() const {
+const QHash<int, TableCache> &CardsListModel::cache() const {
     return _cache;
 }
 

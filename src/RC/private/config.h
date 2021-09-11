@@ -36,7 +36,7 @@ protected:
     QString primaryKey() const override;
 
 private:
-    int userId = -1;
+    unsigned int userId = 0;
     bool firstRun = true;
 
 };

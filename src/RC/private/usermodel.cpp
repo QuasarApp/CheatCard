@@ -42,24 +42,6 @@ void UserModel::setName(const QString &newName) {
     emit objChanged();
 }
 
-QString UserModel::visibleName() const {
-    if (!_user)
-        return "Unknown";
-    return _user->visibleName();
-}
-
-void UserModel::setVisibleName(const QString &newName) {
-    if (!_user)
-        return;
-
-    if (_user->visibleName() == newName)
-        return;
-
-    _user->setVisibleName(newName);
-
-    emit objChanged();
-}
-
 QSharedPointer<User> UserModel::user() const {
     return _user;
 }

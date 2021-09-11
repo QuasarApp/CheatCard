@@ -23,6 +23,8 @@
 
 #include <QCoreApplication>
 
+#define CURRENT_USER "CURRENT_USER"
+
 namespace RC {
 
 MainModel::MainModel(DB *db) {
@@ -52,7 +54,7 @@ MainModel::MainModel(DB *db) {
             this, &MainModel::handleCardRemoved);
 
     setCurrentUser(initUser());
-    _config = initConfig(_currentUser->user()->getId().toInt());
+    _config = initConfig(_currentUser->user()->userId());
 
 }
 
@@ -78,14 +80,7 @@ void MainModel::configureFinished() {
     // First run setiing id.
     saveUser();
 
-    auto actualUser = _db->getObject(*_currentUser->user().data());
-    _currentUser->user()->setId(actualUser->getId());
-
-    if (!actualUser)
-        return;
-
-    _config->setUserId(actualUser->getId().toInt());
-
+    _config->setUserId(_currentUser->user()->userId());
     _config->setFirstRun(false);
 
     saveConfig();
@@ -109,7 +104,7 @@ void MainModel::setCurrentUser(QSharedPointer<UserModel> value) {
     if (_currentUser) {
 
         QString where = QString("Id IN (SELECT card FROM UsersCards WHERE user = %0 AND owner = %1)").
-                arg(_currentUser->user()->getId().toInt()).
+                arg(_currentUser->user()->userId()).
                 arg("true");
 
         QH::PKG::DBObjectsRequest<Card> request("Cards", where);
@@ -119,13 +114,15 @@ void MainModel::setCurrentUser(QSharedPointer<UserModel> value) {
 
 
         where = QString("Id IN (SELECT card FROM UsersCards WHERE user = %0 AND owner = %1)").
-                arg(_currentUser->user()->getId().toInt()).
+                arg(_currentUser->user()->userId()).
                 arg("false");
 
         request.setConditions(where);
         if (auto result =_db->getObject(request)) {
             _cardsListModel->setCards(result->data());
         }
+
+        _settings.setValue(CURRENT_USER, _currentUser->user()->userId());
     }
 
     emit currentUserChanged();
@@ -142,6 +139,15 @@ void MainModel::saveConfig() {
 QSharedPointer<UserModel> MainModel::initUser() {
     if (_currentUser) {
         return _currentUser;
+    }
+
+    User requestLstUser;
+    requestLstUser.setId(_settings.value(CURRENT_USER).toUInt());
+
+    auto lastUser = _db->getObject(requestLstUser);
+
+    if (lastUser && lastUser->isValid()) {
+        return QSharedPointer<UserModel>::create(lastUser);
     }
 
     QH::PKG::DBObjectsRequest<User> request("Users");
@@ -180,10 +186,8 @@ QObject *MainModel::ownCardsList() const {
 void MainModel::handleCardCreated(QSharedPointer<CardModel> card) {
     _db->insertIfExistsUpdateObject(card->card());
 
-    auto actualyCard = _db->getObject(*card->card().data());
-
-    auto cards = QSharedPointer<UsersCards>::create(_currentUser->user()->getId().toInt(),
-                                                    actualyCard->getId().toInt(), true);
+    auto cards = QSharedPointer<UsersCards>::create(_currentUser->user()->userId(),
+                                                    card->card()->cardId(), true);
     _db->insertIfExistsUpdateObject(cards);
 }
 
@@ -191,10 +195,10 @@ void MainModel::handleCardEditFinished(const QSharedPointer<Card>& card) {
     _db->insertIfExistsUpdateObject(card);
 }
 
-void MainModel::handleCardRemoved(const QString &id) {
+void MainModel::handleCardRemoved(int id) {
 
     QSharedPointer<Card> reqest;
-    reqest->setName(id);
+    reqest->setId(id);
 
     _db->deleteObject(reqest);
 }

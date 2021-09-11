@@ -22,16 +22,10 @@ CardModel::CardModel(QSharedPointer<Card> card) {
     setCard(card);
 }
 
-int CardModel::id() const {
+unsigned int CardModel::id() const {
     if (!_card)
         return -1;
-    return _card->getId().toInt();
-}
-
-QString CardModel::name() const {
-    if (!_card)
-        return "";
-    return _card->name();
+    return _card->cardId();
 }
 
 int CardModel::purchasesNumber() const {
@@ -57,16 +51,6 @@ void CardModel::setCard(const QSharedPointer<Card> &newCard) {
     _card = newCard;
 
     emit objChanged();
-}
-
-void CardModel::setName(const QString &newName) {
-    if (!_card)
-        return;
-
-    if (_card->name() == newName)
-        return;
-
-    _card->setName(newName);
 }
 
 void CardModel::setPurchasesNumber(int newPurchasesNumber) {

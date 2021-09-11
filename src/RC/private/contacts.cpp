@@ -10,7 +10,7 @@
 
 namespace RC {
 
-Contacts::Contacts(int user, int contactUser ): QH::PKG::DBObject("Contacts") {
+Contacts::Contacts(unsigned int user, unsigned int contactUser ): QH::PKG::DBObject("Contacts") {
     this->contactUser = contactUser;
     this->user = user;
 }
@@ -31,8 +31,8 @@ QString Contacts::primaryKey() const {
 
 bool Contacts::fromSqlRecord(const QSqlRecord &q) {
 
-    contactUser = q.value("contactUser").toInt();
-    user = q.value("user").toInt();
+    contactUser = q.value("contactUser").toUInt();
+    user = q.value("user").toUInt();
 
     return true;
 }

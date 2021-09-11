@@ -31,7 +31,7 @@ ApplicationWindow {
 
             Label {
                 text: (user)?
-                          qsTr("Hello ") + user.visibleName +
+                          qsTr("Hello ") + user.name +
                           ((user.fSaller)? qsTr(" (Saller mode)"):"")
                         : ""
 

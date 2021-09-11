@@ -14,5 +14,29 @@ IConnectorBackEnd::IConnectorBackEnd()
 
 }
 
+bool IConnectorBackEnd::start(Mode mode) {
+    return listen(mode);
+}
+
+bool IConnectorBackEnd::stop() {
+    return close();
+}
+
+void IConnectorBackEnd::receiveMessage(const QByteArray &message) {
+
+}
+
+bool IConnectorBackEnd::sendMessage(const QByteArray &message) {
+
+}
+
+void IConnectorBackEnd::connectionReceived(const QByteArray &id) {
+
+}
+
+void IConnectorBackEnd::connectionLost(const QByteArray &id) {
+
+}
+
 }
 

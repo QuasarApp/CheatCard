@@ -118,39 +118,8 @@ Page {
             Layout.alignment: Qt.AlignHCenter
             visible: root.editable
             onClicked: () => {
-                           inputName.open()
+                           root.model.addCard()
                        }
         }
-    }
-
-    Dialog {
-        id: inputName;
-
-        x: (parent.width - width) / 2
-        y: (parent.height - height) / 2
-
-        TextField {
-            id: input
-            placeholderText: qsTr("Enter new nama");
-            Layout.alignment: Qt.AlignHCenter
-
-        }
-
-        Component.onCompleted: {
-            var applayButton = standardButton(Dialog.Ok)
-
-            applayButton.enabled = input.length
-            input.onTextChanged.connect(()=> {applayButton.enabled = input.length})
-        }
-
-        onAccepted: () => {
-                        if (!root.model) {
-                            return;
-                        }
-
-                        root.model.addCard(input.text)
-                    }
-
-        standardButtons: Dialog.Ok | Dialog.Cancel
     }
 }

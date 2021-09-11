@@ -22,7 +22,6 @@ class UserModel: public QObject
     Q_OBJECT
 
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY objChanged)
-    Q_PROPERTY(QString visibleName READ visibleName WRITE setVisibleName NOTIFY objChanged)
 
     Q_PROPERTY(bool fSaller READ fSaller WRITE setFSaller NOTIFY objChanged)
 
@@ -35,9 +34,6 @@ public:
     void setFSaller(bool newFSaller);
     QString name() const;
     void setName(const QString &newName);
-
-    QString visibleName() const;
-    void setVisibleName(const QString &newName);
 
     QSharedPointer<User> user() const;
     void setUser(const QSharedPointer<User> &newUser);

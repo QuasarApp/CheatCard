@@ -20,8 +20,7 @@ namespace RC {
 class CardModel: public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(int id READ id NOTIFY objChanged)
-    Q_PROPERTY(QString name READ name WRITE setName NOTIFY objChanged)
+    Q_PROPERTY(unsigned int id READ id NOTIFY objChanged)
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY objChanged)
 
     Q_PROPERTY(int purchasesNumber READ purchasesNumber WRITE setPurchasesNumber NOTIFY objChanged)
@@ -39,8 +38,7 @@ public:
     CardModel();
     CardModel(QSharedPointer<Card> card);
 
-    int id() const;
-    QString name() const;
+    unsigned int id() const;
     int purchasesNumber() const;
     int freeIndex() const;
 
@@ -64,8 +62,6 @@ public:
 
     QString getColor() const;
     void setColor(const QString &newColor);
-
-    void setName(const QString &newName);
 
     void setPurchasesNumber(int newPurchasesNumber);
 

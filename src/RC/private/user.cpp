@@ -12,6 +12,7 @@ namespace RC {
 
 User::User(): QH::PKG::DBObject("Users") {
     _key = QCryptographicHash::hash(randomArray(), QCryptographicHash::Sha256);
+    setId(qHash(_key));
 }
 
 QH::PKG::DBObject *User::createDBObject() const {
@@ -19,10 +20,9 @@ QH::PKG::DBObject *User::createDBObject() const {
 }
 
 QH::PKG::DBVariantMap User::variantMap() const {
-    return {{"id",          {getId(),     QH::PKG::MemberType::PrimaryKeyAutoIncrement}},
-            {"name",        {_name,       QH::PKG::MemberType::PrimaryKey}},
+    return {{"id",          {getId(),     QH::PKG::MemberType::PrimaryKey}},
+            {"name",        {_name,       QH::PKG::MemberType::InsertUpdate}},
             {"key",         {_key,        QH::PKG::MemberType::InsertUpdate}},
-            {"visiblename", {_visibleName,QH::PKG::MemberType::InsertUpdate}},
             {"fSaller",     {_fSaller,    QH::PKG::MemberType::InsertUpdate}}
 
     };
@@ -50,12 +50,8 @@ void User::setKey(const QByteArray &newKey){
     _key = newKey;
 }
 
-const QString &User::visibleName() const {
-    return _visibleName;
-}
-
-void User::setVisibleName(const QString &newVisibleName) {
-    _visibleName = newVisibleName;
+unsigned int User::userId() const {
+    return getId().toUInt();
 }
 
 bool User::fSaller() const {
@@ -72,15 +68,13 @@ const QString &User::name() const {
 
 void User::setName(const QString &newName) {
     _name = newName;
-    setVisibleName(newName);
 }
 
 bool User::fromSqlRecord(const QSqlRecord &q) {
 
-    setId(q.value("id").toInt());
+    setId(q.value("id").toUInt());
     setName(q.value("name").toString());
     setKey(q.value("key").toByteArray());
-    setVisibleName(q.value("visiblename").toString());
 
     setFSaller(q.value("fSaller").toBool());
 

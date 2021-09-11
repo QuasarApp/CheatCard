@@ -40,7 +40,7 @@ Page {
 
         TextField {
             id: nameEditor
-            text: (root.model)? root.model.visibleName: ""
+            text: (root.model)? root.model.name: ""
             horizontalAlignment: Text.AlignHCenter
             Layout.fillWidth: true
 
@@ -50,7 +50,7 @@ Page {
                 if (!root.model && nameEditor.text.length)
                     return
 
-                root.model.visibleName = nameEditor.text
+                root.model.name = nameEditor.text
             }
         }
 

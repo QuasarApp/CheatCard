@@ -15,7 +15,7 @@ UsersCards::UsersCards():QH::PKG::DBObject("UsersCards") {
 
 }
 
-UsersCards::UsersCards(int user, int card, bool owner): QH::PKG::DBObject("UsersCards") {
+UsersCards::UsersCards(unsigned int user, unsigned int card, bool owner): QH::PKG::DBObject("UsersCards") {
     this->user = user;
     this->card = card;
     this->owner = owner;
@@ -62,15 +62,15 @@ void UsersCards::setUser(int newUser) {
 
 bool UsersCards::fromSqlRecord(const QSqlRecord &q) {
 
-    user = q.value("user").toInt();
-    card = q.value("card").toInt();
+    user = q.value("user").toUInt();
+    card = q.value("card").toUInt();
     owner = q.value("owner").toBool();
 
     return true;
 }
 
 bool UsersCards::isValid() const {
-    return user >= 0 && card >= 0;
+    return user != 0 && card != 0;
 }
 
 }

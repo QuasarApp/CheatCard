@@ -35,12 +35,10 @@ public:
     bool fSaller() const;
     void setFSaller(bool newFSaller);
 
-    const QString &visibleName() const;
-    void setVisibleName(const QString &newVisibleName);
-
     const QByteArray &getKey() const;
     void setKey(const QByteArray &newKey);
 
+    unsigned int userId() const;
 protected:
     QString primaryKey() const;
 
@@ -50,7 +48,6 @@ private:
 
     QByteArray _key;
     QString _name;
-    QString _visibleName;
     bool _fSaller;
 };
 
