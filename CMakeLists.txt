@@ -29,11 +29,6 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Test QUIET)
 
 include(submodules/Heart/QuasarAppLib/CMake/QuasarApp.cmake)
 
-if (NOT QT_VERSION_MAJOR EQUAL 5)
-    message("The ${PROJECT_NAME} requires qt5, project build is skipped " )
-    initAll()
-    return()
-endif()
 
 if (NOT DEFINED RegularCustomer_TESTS)
     set(RegularCustomer_TESTS ON)
