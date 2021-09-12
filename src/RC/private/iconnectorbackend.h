@@ -31,9 +31,8 @@ public:
     };
 
     enum Commands {
-        UserId,
-        SallerId,
-        CardId,
+        Undefined = 0,
+        UserId = 1,
         CardData,
 
         CardDataRequest,
@@ -74,6 +73,10 @@ private:
     bool workWithCardStatus(const QByteArray &message);
 
     bool workWithUserRequest(const QByteArray &message);
+
+    bool workWithCardRequest(const QByteArray &message);
+    bool workWithCardData(const QByteArray &message);
+
 
     bool sendCardStatus(const QSharedPointer<UsersCards>& usersCardsData);
 

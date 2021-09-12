@@ -22,7 +22,7 @@ struct CardStatus {
 struct UserHeader {
     unsigned char command = 0;
     unsigned int userId = 0;
-    unsigned char token[32];
+    char token[32];
 };
 
 struct DataRequest {
@@ -32,7 +32,7 @@ struct DataRequest {
 struct RawData {
     unsigned char command = 0;
     unsigned int size = 0;
-    unsigned char *data;
+    char *data;
 };
 }
 

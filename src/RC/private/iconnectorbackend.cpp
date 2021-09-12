@@ -54,11 +54,36 @@ void IConnectorBackEnd::handleReceiveMessage(const QByteArray &message) {
     switch (command) {
     case UserId : {
         if (!workWithUserRequest(message)) {
-            QuasarAppUtils::Params::log("Failed to parse package", QuasarAppUtils::Error);
+            QuasarAppUtils::Params::log("Failed to parse package (UserId)", QuasarAppUtils::Error);
 
         }
+        break;
+
+    }
+    case PurchasesCount: {
+        if (!workWithCardStatus(message)) {
+            QuasarAppUtils::Params::log("Failed to parse package (PurchasesCount)", QuasarAppUtils::Error);
+
+        }
+
+        break;
     }
 
+    case CardDataRequest: {
+        if (!workWithCardRequest(message)) {
+            QuasarAppUtils::Params::log("Failed to parse package (CardDataRequest)", QuasarAppUtils::Error);
+
+        }
+        break;
+    }
+
+    case CardData: {
+        if (!workWithCardData(message)) {
+            QuasarAppUtils::Params::log("Failed to parse package (workWithCardData)", QuasarAppUtils::Error);
+
+        }
+        break;
+    }
     }
 }
 
@@ -76,51 +101,53 @@ bool IConnectorBackEnd::workWithCardStatus(const QByteArray &message) {
         return false;
     }
 
-    if (_mode == Client) {
+    if (_mode != Client) {
+        return false;
+    }
 
-        Card userrquest;
-        userrquest.setId(cardStatus.cardId);
+    Card userrquest;
+    userrquest.setId(cardStatus.cardId);
 
-        auto dbCard = _db->getObject(userrquest);
+    auto dbCard = _db->getObject(userrquest);
 
 
-        if (!dbCard) {
-            DataRequest request;
-            request.command = CardDataRequest;
+    if (!dbCard) {
+        DataRequest request;
+        request.command = CardDataRequest;
 
-            if (!_currentTarget->sendMessage(QByteArray::fromRawData(reinterpret_cast<char*>(&request), sizeof(request)))) {
-                QuasarAppUtils::Params::log("Failed to send responce", QuasarAppUtils::Error);
-
-                return false;
-            }
-
-            return true;
-
-        }
-
-        QSharedPointer<UsersCards> userCardsData;
-
-        userCardsData->setCard(cardStatus.cardId);
-        userCardsData->setOwner(false);
-        userCardsData->setUser(_activeUser->userId());
-
-        if (!_db->insertIfExistsUpdateObject(userCardsData)) {
-            QuasarAppUtils::Params::log("Failed to update data", QuasarAppUtils::Error);
-            return false;
-        }
-
-        DataRequest responce;
-        responce.command = Successful;
-        if (!_currentTarget->sendMessage(QByteArray::fromRawData(reinterpret_cast<char*>(&responce), sizeof(responce)))) {
+        if (!_currentTarget->sendMessage(QByteArray::fromRawData(reinterpret_cast<char*>(&request), sizeof(request)))) {
             QuasarAppUtils::Params::log("Failed to send responce", QuasarAppUtils::Error);
 
             return false;
         }
 
-        emit sigCardPurchaseWasSuccessful(dbCard);
+        return true;
+
     }
 
-    return false;
+    QSharedPointer<UsersCards> userCardsData;
+
+    userCardsData->setCard(cardStatus.cardId);
+    userCardsData->setOwner(false);
+    userCardsData->setUser(_activeUser->userId());
+
+    if (!_db->insertIfExistsUpdateObject(userCardsData)) {
+        QuasarAppUtils::Params::log("Failed to update data", QuasarAppUtils::Error);
+        return false;
+    }
+
+    DataRequest responce;
+    responce.command = Successful;
+    if (!_currentTarget->sendMessage(QByteArray::fromRawData(reinterpret_cast<char*>(&responce), sizeof(responce)))) {
+        QuasarAppUtils::Params::log("Failed to send responce", QuasarAppUtils::Error);
+
+        return false;
+    }
+
+    emit sigCardPurchaseWasSuccessful(dbCard);
+
+
+    return true;
 }
 
 bool IConnectorBackEnd::workWithUserRequest(const QByteArray &message) {
@@ -137,57 +164,137 @@ bool IConnectorBackEnd::workWithUserRequest(const QByteArray &message) {
         return false;
     }
 
-    if (_mode == Saller) {
-        User userrquest;
-        userrquest.setId(user.userId);
-
-        auto dbUser = _db->getObject(userrquest);
-
-        QSharedPointer<UsersCards> userCardsData;
-
-        if (!dbUser) {
-
-            dbUser = QSharedPointer<User>::create();
-            dbUser->setKey(QByteArray::fromRawData(reinterpret_cast<char*>(&user.token), sizeof (user.token)));
-            dbUser->setId(user.userId);
-
-            if (_db->insertIfExistsUpdateObject(dbUser)) {
-                QuasarAppUtils::Params::log("Failed to update data", QuasarAppUtils::Warning);
-
-            }
-
-        } else {
-
-            QString where = QString("user = %0 AND card = %1)").
-                    arg(user.userId).
-                    arg(_activeCard->cardId());
-            QH::PKG::DBObjectsRequest<UsersCards> requestPurchase("UsersCards", where);
-
-            auto purches = _db->getObject(requestPurchase);
-            if (!purches->data().size()) {
-                userCardsData = purches->data().first();
-            }
-        }
-
-        if (!incrementPurchases(userCardsData)) {
-            QuasarAppUtils::Params::log("Failed to update data", QuasarAppUtils::Error);
-
-            return false;
-        }
-
-        if (!sendCardStatus(userCardsData)) {
-            return false;
-        }
-
-        emit sigUserPurchaseWasSuccessful(dbUser);
-
+    if (_mode != Saller) {
+        return false;
     }
 
-    return false;
+    User userrquest;
+    userrquest.setId(user.userId);
+
+    auto dbUser = _db->getObject(userrquest);
+
+    QSharedPointer<UsersCards> userCardsData;
+
+    if (!dbUser) {
+
+        dbUser = QSharedPointer<User>::create();
+        dbUser->setKey(QByteArray::fromRawData(reinterpret_cast<char*>(&user.token), sizeof (user.token)));
+        dbUser->setId(user.userId);
+
+        if (_db->insertIfExistsUpdateObject(dbUser)) {
+            QuasarAppUtils::Params::log("Failed to update data", QuasarAppUtils::Warning);
+
+        }
+
+    } else {
+
+        QString where = QString("user = %0 AND card = %1)").
+                arg(user.userId).
+                arg(_activeCard->cardId());
+        QH::PKG::DBObjectsRequest<UsersCards> requestPurchase("UsersCards", where);
+
+        auto purches = _db->getObject(requestPurchase);
+        if (!purches->data().size()) {
+            userCardsData = purches->data().first();
+        }
+    }
+
+    if (!incrementPurchases(userCardsData)) {
+        QuasarAppUtils::Params::log("Failed to update data", QuasarAppUtils::Error);
+
+        return false;
+    }
+
+    if (!sendCardStatus(userCardsData)) {
+        return false;
+    }
+
+    emit sigUserPurchaseWasSuccessful(dbUser);
+    return true;
+}
+
+bool IConnectorBackEnd::workWithCardRequest(const QByteArray &message) {
+    if (message.size() != sizeof(DataRequest)) {
+        QuasarAppUtils::Params::log("user id is invalid", QuasarAppUtils::Error);
+        return false;
+    }
+
+    // very dangerous
+    DataRequest user = *reinterpret_cast<DataRequest*>(const_cast<char*>((message.data())));
+
+    if (user.command == Undefined) {
+        QuasarAppUtils::Params::log("user id is invalid", QuasarAppUtils::Error);
+        return false;
+    }
+
+    if (_mode != Saller) {
+        return false;
+    }
+
+    auto rawData = _activeCard->toBytes();
+
+
+    RawData responce;
+    responce.command = CardData;
+    responce.size = rawData.size();
+    responce.data = rawData.data();
+
+
+    if (!_currentTarget->sendMessage(
+                QByteArray::fromRawData(reinterpret_cast<char*>(&responce),
+                                        responce.size + sizeof (responce.command) + sizeof (responce.size)))) {
+
+        QuasarAppUtils::Params::log("Failed to send responce", QuasarAppUtils::Error);
+
+        return false;
+    }
+
+    return true;
+}
+
+bool IConnectorBackEnd::workWithCardData(const QByteArray &message) {
+
+    if (message.size() <= 5) {
+        return false;
+    }
+
+    unsigned int dataSize = *reinterpret_cast<unsigned int*>(message.data()[1]);
+
+    if (static_cast<unsigned int>(message.size()) != dataSize + 5) {
+        QuasarAppUtils::Params::log("user id is invalid", QuasarAppUtils::Error);
+        return false;
+    }
+
+    if (_mode != Client) {
+        return false;
+    }
+
+    auto card = QSharedPointer<Card>::create();
+    card->fromBytes(message.right(dataSize));
+
+    if (!card->isValid())
+        return false;
+
+
+    DataRequest responce;
+    responce.command = Successful;
+
+    if (!_currentTarget->sendMessage(
+                QByteArray::fromRawData(reinterpret_cast<char*>(&responce),
+                                        sizeof (responce) ))) {
+
+        QuasarAppUtils::Params::log("Failed to send responce", QuasarAppUtils::Error);
+
+        return false;
+    }
+
+    emit sigCardPurchaseWasSuccessful(card);
+    return true;
 }
 
 bool IConnectorBackEnd::sendCardStatus(const QSharedPointer<UsersCards> &usersCardsData) {
     CardStatus status;
+    status.command = PurchasesCount;
     status.cardId = _activeCard->cardId();
     status.purchasesCount = usersCardsData->getPurchasesNumber();
 
