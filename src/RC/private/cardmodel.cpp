@@ -29,9 +29,7 @@ unsigned int CardModel::id() const {
 }
 
 int CardModel::purchasesNumber() const {
-    if (!_card)
-        return 0;
-    return _card->getPurchasesNumber();
+    return _purchasesNumber;
 }
 
 int CardModel::freeIndex() const {
@@ -54,13 +52,13 @@ void CardModel::setCard(const QSharedPointer<Card> &newCard) {
 }
 
 void CardModel::setPurchasesNumber(int newPurchasesNumber) {
-    if (!_card)
+    if (_purchasesNumber == newPurchasesNumber) {
         return;
+    }
 
-    if (_card->getPurchasesNumber() == newPurchasesNumber)
-        return;
+    _purchasesNumber = newPurchasesNumber;
 
-    _card->setPurchasesNumber(newPurchasesNumber);
+    emit purchasesNumberChanged();
 }
 
 void CardModel::setFreeIndex(int newFreeIndex) {

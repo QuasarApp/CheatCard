@@ -26,14 +26,23 @@ QH::PKG::DBObject *UsersCards::createDBObject() const {
 }
 
 QH::PKG::DBVariantMap UsersCards::variantMap() const {
-    return {{"user",      {user,        QH::PKG::MemberType::Insert}},
-            {"card",      {card,        QH::PKG::MemberType::Insert}},
-            {"owner",     {owner,       QH::PKG::MemberType::Insert}},
+    return {{"user",           {user,           QH::PKG::MemberType::Insert}},
+            {"card",           {card,           QH::PKG::MemberType::Insert}},
+            {"purchasesNumber",{purchasesNumber,QH::PKG::MemberType::Insert}},
+            {"owner",          {owner,          QH::PKG::MemberType::Insert}},
     };
 }
 
 QString UsersCards::primaryKey() const {
     return "";
+}
+
+unsigned int UsersCards::getPurchasesNumber() const {
+    return purchasesNumber;
+}
+
+void UsersCards::setPurchasesNumber(unsigned int newPurchasesNumber) {
+    purchasesNumber = newPurchasesNumber;
 }
 
 bool UsersCards::getOwner() const {
@@ -63,7 +72,9 @@ void UsersCards::setUser(int newUser) {
 bool UsersCards::fromSqlRecord(const QSqlRecord &q) {
 
     user = q.value("user").toUInt();
+    purchasesNumber = q.value("purchasesNumber").toUInt();
     card = q.value("card").toUInt();
+
     owner = q.value("owner").toBool();
 
     return true;

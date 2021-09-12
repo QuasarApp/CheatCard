@@ -103,6 +103,7 @@ void MainModel::setCurrentUser(QSharedPointer<UserModel> value) {
 
     if (_currentUser) {
 
+        // get list of owned cards
         QString where = QString("Id IN (SELECT card FROM UsersCards WHERE user = %0 AND owner = %1)").
                 arg(_currentUser->user()->userId()).
                 arg("true");
@@ -112,7 +113,7 @@ void MainModel::setCurrentUser(QSharedPointer<UserModel> value) {
             _ownCardsListModel->setCards(result->data());
         }
 
-
+        // get list of included cards
         where = QString("Id IN (SELECT card FROM UsersCards WHERE user = %0 AND owner = %1)").
                 arg(_currentUser->user()->userId()).
                 arg("false");
@@ -120,6 +121,16 @@ void MainModel::setCurrentUser(QSharedPointer<UserModel> value) {
         request.setConditions(where);
         if (auto result =_db->getObject(request)) {
             _cardsListModel->setCards(result->data());
+        }
+
+        // get list of cards usings statuses
+        where = QString("user = %0 AND owner = %1)").
+                arg(_currentUser->user()->userId()).
+                arg("false");
+
+        QH::PKG::DBObjectsRequest<UsersCards> requestPurchase("UsersCards", where);
+        if (auto result =_db->getObject(requestPurchase)) {
+            _cardsListModel->setPurchasesNumbers(requestPurchase.data());
         }
 
         _settings.setValue(CURRENT_USER, _currentUser->user()->userId());

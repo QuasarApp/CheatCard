@@ -41,18 +41,11 @@ void IConnectorBackEnd::connectionLost( ITargetNode *id) {
 }
 
 void IConnectorBackEnd::handleReceiveMessage(const QByteArray &message) {
-    QH::Package pkg;
 
-    pkg.fromBytes(message);
+    unsigned char command = *message.begin();
 
-    if (!pkg.isValid()) {
-        QuasarAppUtils::Params::log("Received invalid package", QuasarAppUtils::Error);
-
-        return;
-    }
-
-    if (pkg.hdr.command == UserId) {
-
+    switch (command) {
+    case UserId : {
         if (message.size() != sizeof(UserHeader)) {
             QuasarAppUtils::Params::log("user id is invalid", QuasarAppUtils::Error);
             return;
@@ -69,9 +62,10 @@ void IConnectorBackEnd::handleReceiveMessage(const QByteArray &message) {
         if (_mode == Saller) {
             CardStatus status;
             status.cardId = _activeCard->cardId();
-//            status.purchasesCount =
-//            ;
+
         }
+    }
+
     }
 }
 

@@ -23,7 +23,7 @@ class CardModel: public QObject
     Q_PROPERTY(unsigned int id READ id NOTIFY objChanged)
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY objChanged)
 
-    Q_PROPERTY(int purchasesNumber READ purchasesNumber WRITE setPurchasesNumber NOTIFY objChanged)
+    Q_PROPERTY(int purchasesNumber READ purchasesNumber NOTIFY purchasesNumberChanged)
     Q_PROPERTY(int freeIndex READ freeIndex WRITE setFreeIndex NOTIFY objChanged)
 
     Q_PROPERTY(QString phone READ phone WRITE setPhone NOTIFY objChanged)
@@ -79,12 +79,13 @@ public:
 signals:
     void objChanged();
     void editFinished(const QSharedPointer<Card>& card);
-
+    void purchasesNumberChanged();
 private:
 
     QByteArray convert(const QString& imagePath);
 
     QSharedPointer<Card> _card = nullptr;
+    int _purchasesNumber = 1;
 };
 
 }

@@ -36,12 +36,16 @@ public:
     bool getOwner() const;
     void setOwner(bool newOwner);
 
+    unsigned int getPurchasesNumber() const;
+    void setPurchasesNumber(unsigned int newPurchasesNumber);
+
 protected:
     QString primaryKey() const override;
 
 private:
     unsigned int user = 0;
     unsigned int card = 0;
+    unsigned int purchasesNumber = 0;
     bool owner = false;
 };
 

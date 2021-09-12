@@ -29,9 +29,6 @@ public:
     const QByteArray &logo() const;
     void setLogo(const QByteArray &newImage);
 
-    int getPurchasesNumber() const;
-    void setPurchasesNumber(int newPurchasesNumber);
-
     int getFreeIndex() const;
     void setFreeIndex(int newFreeIndex);
 
@@ -79,7 +76,6 @@ private:
     QString _physicalAddress;
     QString _webSite;
 
-    int purchasesNumber = 1;
     int freeIndex = 1;
     QString color = "#777777";
 

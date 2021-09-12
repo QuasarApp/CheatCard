@@ -17,7 +17,6 @@ CREATE TABLE IF NOT EXISTS "Cards" (
 
         "color"             INTEGER DEFAULT 0x00777777,
 
-        "purchasesNumber"   INTEGER DEFAULT 0,
         "freeIndex"         INTEGER DEFAULT 0,
         PRIMARY KEY("id")
 );
@@ -44,7 +43,9 @@ CREATE TABLE IF NOT EXISTS "Config" (
 CREATE TABLE IF NOT EXISTS "UsersCards" (
        "user" INTEGER NOT NULL,
        "card" INTEGER NOT NULL,
+
        "owner" BOOLEAN NOT NULL DEFAULT false,
+       "purchasesNumber" INTEGER DEFAULT 1,
 
        FOREIGN KEY(user) REFERENCES Users(id)
                ON UPDATE CASCADE

@@ -13,12 +13,14 @@
 namespace RC {
 
 struct CardStatus {
+    unsigned char command;
     unsigned int cardId;
     unsigned int purchasesCount;
 };
 
 
 struct UserHeader {
+    unsigned char command;
     unsigned int userId;
     unsigned char token[32];
 };

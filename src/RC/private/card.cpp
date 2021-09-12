@@ -32,7 +32,6 @@ QH::PKG::DBVariantMap Card::variantMap() const {
             {"physicalAddress", {_physicalAddress,QH::PKG::MemberType::InsertUpdate}},
             {"webSite",         {_webSite,        QH::PKG::MemberType::InsertUpdate}},
 
-            {"purchasesNumber", {purchasesNumber, QH::PKG::MemberType::InsertUpdate}},
             {"freeIndex",       {freeIndex,       QH::PKG::MemberType::InsertUpdate}}};
 }
 
@@ -46,14 +45,6 @@ const QByteArray &Card::logo() const {
 
 void Card::setLogo(const QByteArray &newImage) {
     _logo = newImage;
-}
-
-int Card::getPurchasesNumber() const {
-    return purchasesNumber;
-}
-
-void Card::setPurchasesNumber(int newPurchasesNumber) {
-    purchasesNumber = newPurchasesNumber;
 }
 
 int Card::getFreeIndex() const {
@@ -80,7 +71,6 @@ bool Card::fromSqlRecord(const QSqlRecord &q) {
     setWebSite(q.value("webSite").toByteArray());
     setColor(q.value("color").toString());
 
-    setPurchasesNumber(q.value("purchasesNumber").toInt());
     setFreeIndex(q.value("freeIndex").toInt());
 
     return true;

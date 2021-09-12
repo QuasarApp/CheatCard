@@ -76,6 +76,14 @@ void CardsListModel::setCards(const QList<QSharedPointer<Card> > &newCards) {
     endResetModel();
 }
 
+void CardsListModel::setPurchasesNumbers(const QList<QSharedPointer<UsersCards>> &purchasesNumbers) {
+    for (const auto &sp:  purchasesNumbers) {
+        if (auto model = _cache.value(sp->getCard()).model) {
+            model->setPurchasesNumber(sp->getPurchasesNumber());
+        }
+    }
+}
+
 void CardsListModel::addCard() {
     auto card = QSharedPointer<Card>::create();
 

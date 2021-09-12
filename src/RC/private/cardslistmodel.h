@@ -15,6 +15,7 @@ namespace RC {
 
 class CardModel;
 class Card;
+class UsersCards;
 
 struct TableCache {
 
@@ -47,6 +48,8 @@ public:
 
     const QList<int> &cards() const;
     void setCards(const QList<QSharedPointer<Card>> &newCards);
+    void setPurchasesNumbers(const QList<QSharedPointer<RC::UsersCards> > &purchasesNumbers);
+
     Q_INVOKABLE void addCard();
     Q_INVOKABLE void removeCard(int cardId);
 
