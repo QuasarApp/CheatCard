@@ -20,7 +20,7 @@ public:
     ITargetNode();
     virtual ~ITargetNode();
     virtual bool sendMessage(const QByteArray& array) = 0;
-
+    virtual void close() = 0;
 signals:
     void sigMessageReceived(QByteArray message);
 

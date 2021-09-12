@@ -53,7 +53,7 @@ void IConnectorBackEnd::handleReceiveMessage(const QByteArray &message) {
 
     switch (command) {
     case UserId : {
-        if (!workWithUserRequest(message)) {
+        if (!processUserRequest(message)) {
             QuasarAppUtils::Params::log("Failed to parse package (UserId)", QuasarAppUtils::Error);
 
         }
@@ -61,7 +61,7 @@ void IConnectorBackEnd::handleReceiveMessage(const QByteArray &message) {
 
     }
     case PurchasesCount: {
-        if (!workWithCardStatus(message)) {
+        if (!processCardStatus(message)) {
             QuasarAppUtils::Params::log("Failed to parse package (PurchasesCount)", QuasarAppUtils::Error);
 
         }
@@ -70,7 +70,7 @@ void IConnectorBackEnd::handleReceiveMessage(const QByteArray &message) {
     }
 
     case CardDataRequest: {
-        if (!workWithCardRequest(message)) {
+        if (!processCardRequest(message)) {
             QuasarAppUtils::Params::log("Failed to parse package (CardDataRequest)", QuasarAppUtils::Error);
 
         }
@@ -78,16 +78,28 @@ void IConnectorBackEnd::handleReceiveMessage(const QByteArray &message) {
     }
 
     case CardData: {
-        if (!workWithCardData(message)) {
-            QuasarAppUtils::Params::log("Failed to parse package (workWithCardData)", QuasarAppUtils::Error);
+        if (!processCardData(message)) {
+            QuasarAppUtils::Params::log("Failed to parse package (processCardData)", QuasarAppUtils::Error);
+
+        }
+        break;
+    }
+
+    case Successful: {
+        if (!processSuccessful()) {
+            QuasarAppUtils::Params::log("Failed to parse package (processCardData)", QuasarAppUtils::Error);
 
         }
         break;
     }
     }
+
+
+    QuasarAppUtils::Params::log("Undefined command received",
+                                QuasarAppUtils::Error);
 }
 
-bool IConnectorBackEnd::workWithCardStatus(const QByteArray &message) {
+bool IConnectorBackEnd::processCardStatus(const QByteArray &message) {
     if (message.size() != sizeof(CardStatus)) {
         QuasarAppUtils::Params::log("CardStatus id is invalid", QuasarAppUtils::Error);
         return false;
@@ -109,7 +121,6 @@ bool IConnectorBackEnd::workWithCardStatus(const QByteArray &message) {
     userrquest.setId(cardStatus.cardId);
 
     auto dbCard = _db->getObject(userrquest);
-
 
     if (!dbCard) {
         DataRequest request;
@@ -150,7 +161,7 @@ bool IConnectorBackEnd::workWithCardStatus(const QByteArray &message) {
     return true;
 }
 
-bool IConnectorBackEnd::workWithUserRequest(const QByteArray &message) {
+bool IConnectorBackEnd::processUserRequest(const QByteArray &message) {
     if (message.size() != sizeof(UserHeader)) {
         QuasarAppUtils::Params::log("user id is invalid", QuasarAppUtils::Error);
         return false;
@@ -213,7 +224,7 @@ bool IConnectorBackEnd::workWithUserRequest(const QByteArray &message) {
     return true;
 }
 
-bool IConnectorBackEnd::workWithCardRequest(const QByteArray &message) {
+bool IConnectorBackEnd::processCardRequest(const QByteArray &message) {
     if (message.size() != sizeof(DataRequest)) {
         QuasarAppUtils::Params::log("user id is invalid", QuasarAppUtils::Error);
         return false;
@@ -252,7 +263,7 @@ bool IConnectorBackEnd::workWithCardRequest(const QByteArray &message) {
     return true;
 }
 
-bool IConnectorBackEnd::workWithCardData(const QByteArray &message) {
+bool IConnectorBackEnd::processCardData(const QByteArray &message) {
 
     if (message.size() <= 5) {
         return false;
@@ -289,6 +300,15 @@ bool IConnectorBackEnd::workWithCardData(const QByteArray &message) {
     }
 
     emit sigCardPurchaseWasSuccessful(card);
+
+    emit sigsSessionWasFinshed();
+    return true;
+}
+
+bool IConnectorBackEnd::processSuccessful() {
+    _currentTarget->close();
+
+    emit sigsSessionWasFinshed();
     return true;
 }
 

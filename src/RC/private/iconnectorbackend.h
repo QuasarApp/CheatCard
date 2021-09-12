@@ -56,6 +56,7 @@ public:
 signals:
     void sigUserPurchaseWasSuccessful(QSharedPointer<User>);
     void sigCardPurchaseWasSuccessful(QSharedPointer<Card>);
+    void sigsSessionWasFinshed();
 
 protected:
 
@@ -63,24 +64,25 @@ protected:
 
     virtual bool close() = 0;
 
-    void connectionReceived( ITargetNode *obj);
+    void connectionReceived(ITargetNode *obj);
     void connectionLost(ITargetNode* id);
 
 protected slots:
     void handleReceiveMessage(const QByteArray& message);
 
 private:
-    bool workWithCardStatus(const QByteArray &message);
+    bool processCardStatus(const QByteArray &message);
 
-    bool workWithUserRequest(const QByteArray &message);
+    bool processUserRequest(const QByteArray &message);
 
-    bool workWithCardRequest(const QByteArray &message);
-    bool workWithCardData(const QByteArray &message);
-
+    bool processCardRequest(const QByteArray &message);
+    bool processCardData(const QByteArray &message);
+    bool processSuccessful();
 
     bool sendCardStatus(const QSharedPointer<UsersCards>& usersCardsData);
 
     bool incrementPurchases(const QSharedPointer<UsersCards>& usersCardsData);
+
 
     Mode _mode = Client;
     QSharedPointer<ITargetNode> _currentTarget;
