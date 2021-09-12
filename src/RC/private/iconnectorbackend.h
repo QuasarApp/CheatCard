@@ -17,9 +17,12 @@ namespace RC {
 
 class Card;
 class ITargetNode;
+class User;
+class UsersCards;
 
-class IConnectorBackEnd
+class IConnectorBackEnd : public QObject
 {
+    Q_OBJECT
 public:
 
     enum Mode {
@@ -32,12 +35,12 @@ public:
         SallerId,
         CardId,
         CardData,
-        UserData,
 
         CardDataRequest,
-        UserDataRequest,
 
-        PurchasesCount
+        PurchasesCount,
+
+        Successful
     };
 
     IConnectorBackEnd(DB *db);
@@ -47,6 +50,13 @@ public:
 
     QSharedPointer<Card> activeCard() const;
     void setActiveCard(QSharedPointer<Card> newActiveCard);
+
+    QSharedPointer<User> activeUser() const;
+    void setActiveUser(QSharedPointer<User> newActiveUser);
+
+signals:
+    void sigUserPurchaseWasSuccessful(QSharedPointer<User>);
+    void sigCardPurchaseWasSuccessful(QSharedPointer<Card>);
 
 protected:
 
@@ -61,12 +71,21 @@ protected slots:
     void handleReceiveMessage(const QByteArray& message);
 
 private:
+    bool workWithCardStatus(const QByteArray &message);
 
     bool workWithUserRequest(const QByteArray &message);
+
+    bool sendCardStatus(const QSharedPointer<UsersCards>& usersCardsData);
+
+    bool incrementPurchases(const QSharedPointer<UsersCards>& usersCardsData);
 
     Mode _mode = Client;
     QSharedPointer<ITargetNode> _currentTarget;
     QSharedPointer<Card> _activeCard;
+    QSharedPointer<User> _activeUser;
+
+    QHash<unsigned long long, unsigned int> _lastUpdates;
+
     DB * _db = nullptr;
 
 };

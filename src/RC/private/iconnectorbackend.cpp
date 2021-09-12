@@ -16,6 +16,9 @@
 #include "dbobjectsrequest.h"
 #include "getsinglevalue.h"
 
+
+#define TIME_LIMIT_SEC 60
+
 namespace RC {
 
 
@@ -59,6 +62,67 @@ void IConnectorBackEnd::handleReceiveMessage(const QByteArray &message) {
     }
 }
 
+bool IConnectorBackEnd::workWithCardStatus(const QByteArray &message) {
+    if (message.size() != sizeof(CardStatus)) {
+        QuasarAppUtils::Params::log("CardStatus id is invalid", QuasarAppUtils::Error);
+        return false;
+    }
+
+    // very dangerous
+    CardStatus cardStatus = *reinterpret_cast<CardStatus*>(const_cast<char*>((message.data())));
+
+    if (cardStatus.cardId == 0) {
+        QuasarAppUtils::Params::log("card id is invalid", QuasarAppUtils::Error);
+        return false;
+    }
+
+    if (_mode == Client) {
+
+        Card userrquest;
+        userrquest.setId(cardStatus.cardId);
+
+        auto dbCard = _db->getObject(userrquest);
+
+
+        if (!dbCard) {
+            DataRequest request;
+            request.command = CardDataRequest;
+
+            if (!_currentTarget->sendMessage(QByteArray::fromRawData(reinterpret_cast<char*>(&request), sizeof(request)))) {
+                QuasarAppUtils::Params::log("Failed to send responce", QuasarAppUtils::Error);
+
+                return false;
+            }
+
+            return true;
+
+        }
+
+        QSharedPointer<UsersCards> userCardsData;
+
+        userCardsData->setCard(cardStatus.cardId);
+        userCardsData->setOwner(false);
+        userCardsData->setUser(_activeUser->userId());
+
+        if (!_db->insertIfExistsUpdateObject(userCardsData)) {
+            QuasarAppUtils::Params::log("Failed to update data", QuasarAppUtils::Error);
+            return false;
+        }
+
+        DataRequest responce;
+        responce.command = Successful;
+        if (!_currentTarget->sendMessage(QByteArray::fromRawData(reinterpret_cast<char*>(&responce), sizeof(responce)))) {
+            QuasarAppUtils::Params::log("Failed to send responce", QuasarAppUtils::Error);
+
+            return false;
+        }
+
+        emit sigCardPurchaseWasSuccessful(dbCard);
+    }
+
+    return false;
+}
+
 bool IConnectorBackEnd::workWithUserRequest(const QByteArray &message) {
     if (message.size() != sizeof(UserHeader)) {
         QuasarAppUtils::Params::log("user id is invalid", QuasarAppUtils::Error);
@@ -79,35 +143,90 @@ bool IConnectorBackEnd::workWithUserRequest(const QByteArray &message) {
 
         auto dbUser = _db->getObject(userrquest);
 
+        QSharedPointer<UsersCards> userCardsData;
+
         if (!dbUser) {
 
-            DataRequest responce;
-            responce.command = UserDataRequest;
+            dbUser = QSharedPointer<User>::create();
+            dbUser->setKey(QByteArray::fromRawData(reinterpret_cast<char*>(&user.token), sizeof (user.token)));
+            dbUser->setId(user.userId);
 
-            _currentTarget->sendMessage(QByteArray::fromRawData(reinterpret_cast<char*>(&responce), sizeof(responce)));
-            return true;
+            if (_db->insertIfExistsUpdateObject(dbUser)) {
+                QuasarAppUtils::Params::log("Failed to update data", QuasarAppUtils::Warning);
+
+            }
+
+        } else {
+
+            QString where = QString("user = %0 AND card = %1)").
+                    arg(user.userId).
+                    arg(_activeCard->cardId());
+            QH::PKG::DBObjectsRequest<UsersCards> requestPurchase("UsersCards", where);
+
+            auto purches = _db->getObject(requestPurchase);
+            if (!purches->data().size()) {
+                userCardsData = purches->data().first();
+            }
         }
 
-        CardStatus status;
-        status.cardId = _activeCard->cardId();
+        if (!incrementPurchases(userCardsData)) {
+            QuasarAppUtils::Params::log("Failed to update data", QuasarAppUtils::Error);
 
-        QString where = QString("user = %0 AND card = %1)").
-                arg(user.userId).
-                arg(status.cardId);
-        QH::PKG::DBObjectsRequest<UsersCards> requestPurchase("UsersCards", where);
-
-        auto purches = _db->getObject(requestPurchase);
-        if (!purches->data().size()) {
-            status.purchasesCount = purches->data().first()->getPurchasesNumber();
+            return false;
         }
 
-        status.purchasesCount++;
+        if (!sendCardStatus(userCardsData)) {
+            return false;
+        }
 
-        _currentTarget->sendMessage(QByteArray::fromRawData(reinterpret_cast<char*>(&status), sizeof(status)));
-        return true;
+        emit sigUserPurchaseWasSuccessful(dbUser);
+
     }
 
     return false;
+}
+
+bool IConnectorBackEnd::sendCardStatus(const QSharedPointer<UsersCards> &usersCardsData) {
+    CardStatus status;
+    status.cardId = _activeCard->cardId();
+    status.purchasesCount = usersCardsData->getPurchasesNumber();
+
+    if (!_currentTarget->sendMessage(QByteArray::fromRawData(reinterpret_cast<char*>(&status), sizeof(status)))) {
+        QuasarAppUtils::Params::log("Failed to send responce", QuasarAppUtils::Error);
+        return false;
+    }
+
+    if (!_db->insertIfExistsUpdateObject(usersCardsData)) {
+        QuasarAppUtils::Params::log("Failed to update data", QuasarAppUtils::Error);
+        return false;
+    }
+
+    return true;
+}
+
+bool IConnectorBackEnd::incrementPurchases(const QSharedPointer<UsersCards> &usersCardsData) {
+
+    unsigned int unixTime = time(0);
+
+    unsigned long long uniqueCarduserId = usersCardsData->getUser();
+    uniqueCarduserId = uniqueCarduserId | static_cast<unsigned long long>(usersCardsData->getCard()) << 32;
+
+    if (unixTime - _lastUpdates.value(uniqueCarduserId) < TIME_LIMIT_SEC) {
+        return false;
+    }
+
+    _lastUpdates[uniqueCarduserId] = unixTime;
+    usersCardsData->setPurchasesNumber(usersCardsData->getPurchasesNumber() + 1);
+
+    return true;
+}
+
+QSharedPointer<User> IConnectorBackEnd::activeUser() const {
+    return _activeUser;
+}
+
+void IConnectorBackEnd::setActiveUser(QSharedPointer<User> newActiveUser) {
+    _activeUser = newActiveUser;
 }
 
 QSharedPointer<Card> IConnectorBackEnd::activeCard() const {
