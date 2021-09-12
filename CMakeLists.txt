@@ -25,15 +25,17 @@ if (NOT DEFINED QT_VERSION_MAJOR)
     find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Test QUIET)
 endif()
 
+
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Test QUIET)
+
+include(submodules/Heart/QuasarAppLib/CMake/QuasarApp.cmake)
+
 if (${QT_VERSION_MAJOR} EQUAL 6)
     message("This project support only qt5")
     initAll()
     return()
 endif()
 
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Test QUIET)
-
-include(submodules/Heart/QuasarAppLib/CMake/QuasarApp.cmake)
 
 if (NOT DEFINED RegularCustomer_TESTS)
     set(RegularCustomer_TESTS ON)
