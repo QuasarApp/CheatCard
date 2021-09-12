@@ -13,16 +13,26 @@
 namespace RC {
 
 struct CardStatus {
-    unsigned char command;
-    unsigned int cardId;
-    unsigned int purchasesCount;
+    unsigned char command = 0;
+    unsigned int cardId = 0;
+    unsigned int purchasesCount = 0;
 };
 
 
 struct UserHeader {
-    unsigned char command;
-    unsigned int userId;
+    unsigned char command = 0;
+    unsigned int userId = 0;
     unsigned char token[32];
+};
+
+struct DataRequest {
+    unsigned char command = 0;
+};
+
+struct RawData {
+    unsigned char command = 0;
+    unsigned int size = 0;
+    unsigned char *data;
 };
 }
 

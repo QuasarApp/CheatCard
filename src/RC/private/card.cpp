@@ -80,6 +80,42 @@ QString Card::primaryKey() const {
     return "id";
 }
 
+QDataStream &Card::fromStream(QDataStream &stream) {
+    DBObject::fromStream(stream);
+
+    stream >> _title;
+    stream >> _logo;
+    stream >> _seal;
+    stream >> _background;
+    stream >> _phone;
+    stream >> _telegramm;
+    stream >> _instagramm;
+    stream >> _physicalAddress;
+    stream >> _webSite;
+    stream >> freeIndex;
+    stream >> color;
+
+    return stream;
+}
+
+QDataStream &Card::toStream(QDataStream &stream) const {
+    DBObject::toStream(stream);
+
+    stream << _title;
+    stream << _logo;
+    stream << _seal;
+    stream << _background;
+    stream << _phone;
+    stream << _telegramm;
+    stream << _instagramm;
+    stream << _physicalAddress;
+    stream << _webSite;
+    stream << freeIndex;
+    stream << color;
+
+    return stream;
+}
+
 const QByteArray &Card::background() const {
     return _background;
 }

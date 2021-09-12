@@ -11,6 +11,7 @@
 
 #include <QByteArray>
 #include <QSharedPointer>
+#include <database.h>
 
 namespace RC {
 
@@ -32,10 +33,14 @@ public:
         CardId,
         CardData,
         UserData,
+
+        CardDataRequest,
+        UserDataRequest,
+
         PurchasesCount
     };
 
-    IConnectorBackEnd();
+    IConnectorBackEnd(DB *db);
 
     bool start(Mode mode);
     bool stop();
@@ -57,9 +62,13 @@ protected slots:
 
 private:
 
+    bool workWithUserRequest(const QByteArray &message);
+
     Mode _mode = Client;
     QSharedPointer<ITargetNode> _currentTarget;
     QSharedPointer<Card> _activeCard;
+    DB * _db = nullptr;
+
 };
 
 }

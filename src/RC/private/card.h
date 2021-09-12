@@ -63,6 +63,8 @@ public:
 
 protected:
     QString primaryKey() const override;
+    QDataStream &fromStream(QDataStream &stream) override;
+    QDataStream &toStream(QDataStream &stream) const override;
 
 private:
     QString _title;
@@ -78,6 +80,7 @@ private:
 
     int freeIndex = 1;
     QString color = "#777777";
+
 
 };
 
