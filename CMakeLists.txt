@@ -31,16 +31,6 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Test QUIET)
 include(submodules/Heart/QuasarAppLib/CMake/QuasarApp.cmake)
 
 
-initAll()
-
-addDoc(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/doxygen.conf)
-
-if (${QT_VERSION_MAJOR} EQUAL 6)
-    message("This project support only qt5")
-    initAll()
-    return()
-endif()
-
 if (NOT DEFINED RegularCustomer_TESTS)
     set(RegularCustomer_TESTS ON)
 
@@ -73,4 +63,8 @@ if (RegularCustomer_TESTS)
 else()
     message("The ${PROJECT_NAME} tests is disabled.")
 endif()
+
+initAll()
+
+addDoc(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/doxygen.conf)
 
