@@ -13,14 +13,19 @@
 
 #include <QtTest>
 
-class ExampleTest: public Test, protected TestUtils
+class ConnectionTest: public Test, protected TestUtils
 {
 public:
-    ExampleTest();
-    ~ExampleTest();
+    ConnectionTest();
+    ~ConnectionTest();
 
     void test();
 
+private:
+    void firstContact();
+    void userTrySendWrongData();
+    void multipleUsersConnect();
+    void longTimeWorkdTest();
 };
 
 #endif // EXAMPLE_TEST_H

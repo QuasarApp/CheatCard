@@ -348,6 +348,14 @@ bool IConnectorBackEnd::incrementPurchases(const QSharedPointer<UsersCards> &use
     return true;
 }
 
+IConnectorBackEnd::Mode IConnectorBackEnd::mode() const {
+    return _mode;
+}
+
+void IConnectorBackEnd::setMode(Mode newMode) {
+    _mode = newMode;
+}
+
 QSharedPointer<User> IConnectorBackEnd::activeUser() const {
     return _activeUser;
 }

@@ -11,7 +11,8 @@
 
 #include <QByteArray>
 #include <QSharedPointer>
-#include <database.h>
+#include "RegularCustomer_global.h"
+#include <QHash>
 
 namespace RC {
 
@@ -20,7 +21,13 @@ class ITargetNode;
 class User;
 class UsersCards;
 
-class IConnectorBackEnd : public QObject
+namespace QH {
+    class ISqlDBCache;
+}
+
+using DB = QH::ISqlDBCache;
+
+class RegularCustomer_EXPORT IConnectorBackEnd : public QObject
 {
     Q_OBJECT
 public:
@@ -52,6 +59,9 @@ public:
 
     QSharedPointer<User> activeUser() const;
     void setActiveUser(QSharedPointer<User> newActiveUser);
+
+    IConnectorBackEnd::Mode mode() const;
+    void setMode(Mode newMode);
 
 signals:
     void sigUserPurchaseWasSuccessful(QSharedPointer<User>);
