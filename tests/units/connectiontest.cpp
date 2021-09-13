@@ -9,7 +9,6 @@
 #include "connectiontest.h"
 #include "testdatatransfer.h"
 
-
 ConnectionTest::ConnectionTest() {
 
 }
@@ -26,6 +25,12 @@ void ConnectionTest::test() {
 }
 
 void ConnectionTest::firstContact() {
+
+    auto saller = makeNode(TestDataTransfer::Saller);
+    auto client = makeNode(TestDataTransfer::Client);
+
+    connectNodes(saller, client);
+
     QVERIFY(false);
 }
 
@@ -39,4 +44,28 @@ void ConnectionTest::multipleUsersConnect() {
 
 void ConnectionTest::longTimeWorkdTest() {
     QVERIFY(false);
+}
+
+QSharedPointer<TestDataTransfer>
+ConnectionTest::makeNode(RC::IConnectorBackEnd::Mode mode) {
+    QString randomNodeName = QByteArray::number(rand()).toHex();
+    auto sallerDb = QSharedPointer<RC::DataBase>::create(randomNodeName);
+    sallerDb->initSqlDb();
+    auto result = QSharedPointer<TestDataTransfer>::create(
+                mode);
+
+
+    return result;
+}
+
+void ConnectionTest::connectNodes(const QSharedPointer<TestDataTransfer> &nodeA,
+                                  const QSharedPointer<TestDataTransfer> &nodeB) {
+
+    TestDataTransferSocket *socket1 = new TestDataTransferSocket(nullptr);
+    TestDataTransferSocket *socket2 = new TestDataTransferSocket(socket1);
+    socket1->setAnother(socket2);
+
+    nodeA->addTestConnection(socket1);
+    nodeB->addTestConnection(socket2);
+
 }

@@ -15,8 +15,6 @@
 
 namespace RC {
 
-using DB = QH::ISqlDBCache;
-
 /**
  * @brief The DataBase class This is main databae object.
  */
@@ -24,8 +22,8 @@ class DataBase: public QH::DataBaseNode
 {
     Q_OBJECT
 public:
-    DataBase();
-    DB *db() const;
+    DataBase(const QString& name = "");
+    QH::ISqlDBCache *db() const;
 
     // DataBaseNode interface
 protected:

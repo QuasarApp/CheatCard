@@ -9,7 +9,7 @@
 #include "itemsmodel.h"
 #include "mainmodel.h"
 
-#include "database.h"
+#include <RegularCustomer/database.h>
 #include "user.h"
 #include "card.h"
 #include "dbobjectsrequest.h"
@@ -27,7 +27,7 @@
 
 namespace RC {
 
-MainModel::MainModel(DB *db) {
+MainModel::MainModel(QH::ISqlDBCache *db) {
     _db = db;
     _cardsListModel = new CardsListModel();
     _ownCardsListModel = new CardsListModel();

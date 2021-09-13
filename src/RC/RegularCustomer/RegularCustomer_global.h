@@ -10,6 +10,7 @@
 
 #include <QtCore/qglobal.h>
 
+
 #if defined(RegularCustomer_LIBRARY)
 #  define RegularCustomer_EXPORT Q_DECL_EXPORT
 #else

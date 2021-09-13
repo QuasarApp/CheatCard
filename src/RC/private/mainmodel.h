@@ -10,7 +10,7 @@
 
 #include <QObject>
 #include <QSettings>
-#include "database.h"
+#include <RegularCustomer/database.h>
 
 namespace RC {
 
@@ -38,7 +38,7 @@ class MainModel : public QObject
 
 
 public:
-    MainModel(DB* db);
+    MainModel(QH::ISqlDBCache* db);
     ~MainModel();
 
     bool fFirst() const;
@@ -78,7 +78,7 @@ private:
 
     QSharedPointer<Config> initConfig(int userId);
 
-    DB * _db = nullptr;
+    QH::ISqlDBCache * _db = nullptr;
     QSharedPointer<UserModel> _currentUser;
     QSharedPointer<Config> _config;
     CardsListModel *_cardsListModel = nullptr;

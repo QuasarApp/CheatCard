@@ -13,6 +13,9 @@
 #include <QSharedPointer>
 #include "RegularCustomer_global.h"
 #include <QHash>
+#include <isqldbcache.h>
+
+#define DB QH::ISqlDBCache
 
 namespace RC {
 
@@ -20,12 +23,6 @@ class Card;
 class ITargetNode;
 class User;
 class UsersCards;
-
-namespace QH {
-    class ISqlDBCache;
-}
-
-using DB = QH::ISqlDBCache;
 
 class RegularCustomer_EXPORT IConnectorBackEnd : public QObject
 {
