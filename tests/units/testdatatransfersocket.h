@@ -14,6 +14,7 @@ public:
 
 private:
     TestDataTransferSocket * another = nullptr;
+    QByteArray _buffer;
 };
 
 #endif // TESTDATATRANSFERSOCKET_H

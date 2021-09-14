@@ -41,7 +41,17 @@ void ConnectionTest::firstContact() {
 
     connectNodes(saller, client);
 
-    QVERIFY(wait([saller, client](){
+    QVERIFY(wait([saller, client]() {
+        if (saller->isFinished()) {
+            if (saller->finishedResult() != TestDataTransfer::NoError)
+                return true;
+        }
+
+        if (client->isFinished()) {
+            if (client->finishedResult() != TestDataTransfer::NoError)
+                return true;
+        }
+
         return saller->isFinished() && client->isFinished();
     }, RC_WAIT_TIME + 1000));
 
