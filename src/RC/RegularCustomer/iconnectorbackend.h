@@ -17,12 +17,18 @@
 
 #define DB QH::ISqlDBCache
 
+#ifdef QT_DEBUG
+#define RC_WAIT_TIME 50000
+#else
+#define RC_WAIT_TIME 5000
+#endif
 namespace RC {
 
 class Card;
 class ITargetNode;
 class User;
 class UsersCards;
+class CardStatus;
 
 class RegularCustomer_EXPORT IConnectorBackEnd : public QObject
 {
@@ -46,7 +52,15 @@ public:
         Successful
     };
 
+    enum Error {
+        NoError,
+        ConnectionLost,
+        TimeOut,
+        WrongPackage,
+    };
+
     IConnectorBackEnd(DB *db);
+    ~IConnectorBackEnd();
 
     bool start(Mode mode);
     bool stop();
@@ -63,7 +77,8 @@ public:
 signals:
     void sigUserPurchaseWasSuccessful(QSharedPointer<User>);
     void sigCardPurchaseWasSuccessful(QSharedPointer<Card>);
-    void sigsSessionWasFinshed();
+    void sigSessionWasFinshed(Error err);
+    void sigSessionWasBegin();
 
 protected:
 
@@ -71,11 +86,13 @@ protected:
 
     virtual bool close() = 0;
 
+    void reset();
+
     void connectionReceived(ITargetNode *obj);
     void connectionLost(ITargetNode* id);
 
 protected slots:
-    void handleReceiveMessage(const QByteArray& message);
+    void handleReceiveMessage(QByteArray message);
 
 private:
     bool processCardStatus(const QByteArray &message);
@@ -99,6 +116,8 @@ private:
     QHash<unsigned long long, unsigned int> _lastUpdates;
 
     DB * _db = nullptr;
+
+    CardStatus* _lastReceivedCardStatus = nullptr;
 
 };
 

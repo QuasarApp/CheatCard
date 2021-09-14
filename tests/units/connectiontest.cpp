@@ -29,9 +29,9 @@ ConnectionTest::~ConnectionTest() {
 
 void ConnectionTest::test() {
     firstContact();
-    userTrySendWrongData();
-    multipleUsersConnect();
-    longTimeWorkdTest();
+//    userTrySendWrongData();
+//    multipleUsersConnect();
+//    longTimeWorkdTest();
 }
 
 void ConnectionTest::firstContact() {
@@ -41,7 +41,13 @@ void ConnectionTest::firstContact() {
 
     connectNodes(saller, client);
 
-    QVERIFY(false);
+    QVERIFY(wait([saller, client](){
+        return saller->isFinished() && client->isFinished();
+    }, RC_WAIT_TIME + 1000));
+
+    QVERIFY(saller->finishedResult() == TestDataTransfer::NoError);
+    QVERIFY(client->finishedResult() == TestDataTransfer::NoError);
+
 }
 
 void ConnectionTest::userTrySendWrongData() {

@@ -26,6 +26,11 @@ IConnectorBackEnd::IConnectorBackEnd(DB *db) {
     _db = db;
 }
 
+IConnectorBackEnd::~IConnectorBackEnd() {
+    if(_lastReceivedCardStatus)
+        delete _lastReceivedCardStatus;
+}
+
 bool IConnectorBackEnd::start(Mode mode) {
     return listen(mode);
 }
@@ -34,9 +39,26 @@ bool IConnectorBackEnd::stop() {
     return close();
 }
 
+void IConnectorBackEnd::reset() {
+
+    close();
+
+    _currentTarget.reset();
+}
+
 void IConnectorBackEnd::connectionReceived(ITargetNode *obj) {
 
+    if (_currentTarget) {
+        disconnect(_currentTarget.data(), &ITargetNode::sigMessageReceived,
+                this, &IConnectorBackEnd::handleReceiveMessage);
+    }
+
     _currentTarget = QSharedPointer<ITargetNode>(obj);
+
+    if (_currentTarget) {
+        connect(_currentTarget.data(), &ITargetNode::sigMessageReceived,
+                this, &IConnectorBackEnd::handleReceiveMessage, Qt::QueuedConnection);
+    }
 
     if (mode() == Client) {
         UserHeader request;
@@ -44,11 +66,19 @@ void IConnectorBackEnd::connectionReceived(ITargetNode *obj) {
         request.command = UserId;
         std::memcpy(request.token, _activeUser->getKey().data(), sizeof(request.token));
 
-        if (!_currentTarget->sendMessage(QByteArray::fromRawData(reinterpret_cast<char*>(&request), sizeof(request)))) {
+        auto data = QByteArray::fromRawData(reinterpret_cast<char*>(&request), sizeof(request));
+        if (!_currentTarget->sendMessage(data)) {
             QuasarAppUtils::Params::log("Failed to send responce", QuasarAppUtils::Error);
             return;
         }
     }
+
+    emit sigSessionWasBegin();
+
+    QTimer::singleShot(RC_WAIT_TIME, this, [this]() {
+        reset();
+        emit sigSessionWasFinshed(TimeOut);
+    });
 }
 
 void IConnectorBackEnd::connectionLost( ITargetNode *id) {
@@ -57,9 +87,11 @@ void IConnectorBackEnd::connectionLost( ITargetNode *id) {
     }
 
     _currentTarget.reset();
+
+    emit sigSessionWasFinshed(ConnectionLost);
 }
 
-void IConnectorBackEnd::handleReceiveMessage(const QByteArray &message) {
+void IConnectorBackEnd::handleReceiveMessage(QByteArray message) {
 
     unsigned char command = *message.begin();
 
@@ -67,7 +99,7 @@ void IConnectorBackEnd::handleReceiveMessage(const QByteArray &message) {
     case UserId : {
         if (!processUserRequest(message)) {
             QuasarAppUtils::Params::log("Failed to parse package (UserId)", QuasarAppUtils::Error);
-
+            emit sigSessionWasFinshed(WrongPackage);
         }
         break;
 
@@ -75,6 +107,7 @@ void IConnectorBackEnd::handleReceiveMessage(const QByteArray &message) {
     case PurchasesCount: {
         if (!processCardStatus(message)) {
             QuasarAppUtils::Params::log("Failed to parse package (PurchasesCount)", QuasarAppUtils::Error);
+            emit sigSessionWasFinshed(WrongPackage);
 
         }
 
@@ -84,6 +117,7 @@ void IConnectorBackEnd::handleReceiveMessage(const QByteArray &message) {
     case CardDataRequest: {
         if (!processCardRequest(message)) {
             QuasarAppUtils::Params::log("Failed to parse package (CardDataRequest)", QuasarAppUtils::Error);
+            emit sigSessionWasFinshed(WrongPackage);
 
         }
         break;
@@ -92,6 +126,7 @@ void IConnectorBackEnd::handleReceiveMessage(const QByteArray &message) {
     case CardData: {
         if (!processCardData(message)) {
             QuasarAppUtils::Params::log("Failed to parse package (processCardData)", QuasarAppUtils::Error);
+            emit sigSessionWasFinshed(WrongPackage);
 
         }
         break;
@@ -100,15 +135,18 @@ void IConnectorBackEnd::handleReceiveMessage(const QByteArray &message) {
     case Successful: {
         if (!processSuccessful()) {
             QuasarAppUtils::Params::log("Failed to parse package (processCardData)", QuasarAppUtils::Error);
+            emit sigSessionWasFinshed(WrongPackage);
 
         }
         break;
     }
+    default: {
+        QuasarAppUtils::Params::log("Undefined command received",
+                                    QuasarAppUtils::Error);
+        emit sigSessionWasFinshed(WrongPackage);
+        break;
     }
-
-
-    QuasarAppUtils::Params::log("Undefined command received",
-                                QuasarAppUtils::Error);
+    }
 }
 
 bool IConnectorBackEnd::processCardStatus(const QByteArray &message) {
@@ -144,6 +182,10 @@ bool IConnectorBackEnd::processCardStatus(const QByteArray &message) {
             return false;
         }
 
+        if (!_lastReceivedCardStatus)
+            _lastReceivedCardStatus = new CardStatus;
+
+        *_lastReceivedCardStatus = cardStatus;
         return true;
 
     }
@@ -299,6 +341,19 @@ bool IConnectorBackEnd::processCardData(const QByteArray &message) {
         return false;
 
 
+    if (!_lastReceivedCardStatus) {
+        return false;
+    }
+
+    auto requset = QSharedPointer<UsersCards>::create();
+    requset->setCard(_lastReceivedCardStatus->cardId);
+    requset->setOwner(false);
+    requset->setPurchasesNumber(_lastReceivedCardStatus->purchasesCount);
+
+    if (_db->insertIfExistsUpdateObject(requset)) {
+        return false;
+    }
+
     DataRequest responce;
     responce.command = Successful;
 
@@ -313,14 +368,14 @@ bool IConnectorBackEnd::processCardData(const QByteArray &message) {
 
     emit sigCardPurchaseWasSuccessful(card);
 
-    emit sigsSessionWasFinshed();
+    emit sigSessionWasFinshed(NoError);
     return true;
 }
 
 bool IConnectorBackEnd::processSuccessful() {
     _currentTarget->close();
 
-    emit sigsSessionWasFinshed();
+    emit sigSessionWasFinshed(NoError);
     return true;
 }
 

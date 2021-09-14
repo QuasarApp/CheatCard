@@ -7,10 +7,25 @@ TestDataTransfer::TestDataTransfer(RC::IConnectorBackEnd::Mode mode,
 
     _dataBase = dataBase;
     setMode(mode);
+
+    connect(this, &TestDataTransfer::sigSessionWasFinshed,
+            this, &TestDataTransfer::handleWasFinished);
+
+
+    connect(this, &TestDataTransfer::sigSessionWasBegin,
+            this, &TestDataTransfer::handleWasBegin);
 }
 
 void TestDataTransfer::addTestConnection(TestDataTransferSocket *target) {
     connectionReceived(target);
+}
+
+bool TestDataTransfer::isFinished() const {
+    return _finished;
+}
+
+RC::IConnectorBackEnd::Error TestDataTransfer::finishedResult() {
+    return _lastFinishedResult;
 }
 
 bool TestDataTransfer::listen(IConnectorBackEnd::Mode mode) {
@@ -20,4 +35,13 @@ bool TestDataTransfer::listen(IConnectorBackEnd::Mode mode) {
 
 bool TestDataTransfer::close() {
     return true;
+}
+
+void TestDataTransfer::handleWasFinished(Error err) {
+    _lastFinishedResult = err;
+    _finished = true;
+}
+
+void TestDataTransfer::handleWasBegin() {
+    _finished = false;
 }

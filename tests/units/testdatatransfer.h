@@ -14,12 +14,21 @@ public:
     void addTestConnection(TestDataTransferSocket *target);
     void removeTestConnection();
     // IConnectorBackEnd interface
+
+    bool isFinished() const;
+    Error finishedResult();
+
 protected:
     bool listen(RC::IConnectorBackEnd::Mode mode) override;
     bool close() override;
 
+private slots:
+    void handleWasFinished(Error err);
+    void handleWasBegin();
 private:
     QSharedPointer<RC::DataBase> _dataBase = nullptr;
+    Error _lastFinishedResult;
+    bool _finished = false;
 };
 
 #endif // TESTDATATRANSFER_H
