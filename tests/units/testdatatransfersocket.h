@@ -4,6 +4,7 @@
 
 class TestDataTransferSocket: public RC::ITargetNode
 {
+    Q_OBJECT
 public:
     TestDataTransferSocket(TestDataTransferSocket * another);
     bool sendMessage(const QByteArray &array);
@@ -13,8 +14,10 @@ public:
     void setAnother(TestDataTransferSocket *newAnother);
 
 private:
+
+    void messageReceived(const QByteArray &data);
+
     TestDataTransferSocket * another = nullptr;
-    QByteArray _buffer;
 };
 
 #endif // TESTDATATRANSFERSOCKET_H

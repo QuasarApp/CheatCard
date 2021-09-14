@@ -6,8 +6,7 @@ TestDataTransferSocket::TestDataTransferSocket(TestDataTransferSocket *another) 
 
 bool TestDataTransferSocket::sendMessage(const QByteArray &array) {
     if (another) {
-        _buffer = array;
-        emit another->sigMessageReceived(_buffer);
+        another->messageReceived(array);
     }
 
     return another;
@@ -23,4 +22,10 @@ TestDataTransferSocket *TestDataTransferSocket::getAnother() const {
 
 void TestDataTransferSocket::setAnother(TestDataTransferSocket *newAnother) {
     another = newAnother;
+}
+
+void TestDataTransferSocket::messageReceived(const QByteArray& data) {
+    QByteArray buf;
+    buf.append(data);
+    emit sigMessageReceived(buf);
 }

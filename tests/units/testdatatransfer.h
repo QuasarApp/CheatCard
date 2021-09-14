@@ -9,7 +9,7 @@ class TestDataTransfer: public RC::IConnectorBackEnd {
     Q_OBJECT
 public:
     TestDataTransfer(RC::IConnectorBackEnd::Mode mode,
-                     QSharedPointer<RC::DataBase> db = QSharedPointer<RC::DataBase>::create());
+                     QSharedPointer<RC::DataBase> db);
 
     void addTestConnection(TestDataTransferSocket *target);
     void removeTestConnection();

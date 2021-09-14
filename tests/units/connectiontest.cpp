@@ -85,7 +85,7 @@ ConnectionTest::makeNode(RC::IConnectorBackEnd::Mode mode) {
 
     sallerDb->initSqlDb();
     auto result = QSharedPointer<TestDataTransfer>::create(
-                mode);
+                mode, sallerDb);
 
 
     if (mode == RC::IConnectorBackEnd::Saller) {

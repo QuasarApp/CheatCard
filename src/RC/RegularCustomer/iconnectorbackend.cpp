@@ -61,12 +61,15 @@ void IConnectorBackEnd::connectionReceived(ITargetNode *obj) {
     }
 
     if (mode() == Client) {
+
         UserHeader request;
         request.userId = _activeUser->userId();
         request.command = UserId;
+
         std::memcpy(request.token, _activeUser->getKey().data(), sizeof(request.token));
 
-        auto data = QByteArray::fromRawData(reinterpret_cast<char*>(&request), sizeof(request));
+        QByteArray data = QByteArray::fromRawData(reinterpret_cast<char*>(&request), sizeof(request));
+
         if (!_currentTarget->sendMessage(data)) {
             QuasarAppUtils::Params::log("Failed to send responce", QuasarAppUtils::Error);
             return;
@@ -251,6 +254,12 @@ bool IConnectorBackEnd::processUserRequest(const QByteArray &message) {
 
         }
 
+        userCardsData = QSharedPointer<UsersCards>::create();
+
+        userCardsData->setOwner(false);
+        userCardsData->setUser(user.userId);
+        userCardsData->setPurchasesNumber(0);
+
     } else {
 
         QString where = QString("user = %0 AND card = %1)").
@@ -399,6 +408,9 @@ bool IConnectorBackEnd::sendCardStatus(const QSharedPointer<UsersCards> &usersCa
 }
 
 bool IConnectorBackEnd::incrementPurchases(const QSharedPointer<UsersCards> &usersCardsData) {
+
+    if (!usersCardsData)
+        return false;
 
     unsigned int unixTime = time(0);
 
