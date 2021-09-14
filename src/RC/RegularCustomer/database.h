@@ -25,6 +25,8 @@ public:
     DataBase(const QString& name = "");
     QH::ISqlDBCache *db() const;
 
+    QString localFilePath() const;
+
     // DataBaseNode interface
 protected:
     QStringList SQLSources() const;

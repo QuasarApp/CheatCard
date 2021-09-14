@@ -37,6 +37,18 @@ bool IConnectorBackEnd::stop() {
 void IConnectorBackEnd::connectionReceived(ITargetNode *obj) {
 
     _currentTarget = QSharedPointer<ITargetNode>(obj);
+
+    if (mode() == Client) {
+        UserHeader request;
+        request.userId = _activeUser->userId();
+        request.command = UserId;
+        std::memcpy(request.token, _activeUser->getKey().data(), sizeof(request.token));
+
+        if (!_currentTarget->sendMessage(QByteArray::fromRawData(reinterpret_cast<char*>(&request), sizeof(request)))) {
+            QuasarAppUtils::Params::log("Failed to send responce", QuasarAppUtils::Error);
+            return;
+        }
+    }
 }
 
 void IConnectorBackEnd::connectionLost( ITargetNode *id) {

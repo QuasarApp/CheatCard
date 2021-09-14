@@ -17,6 +17,10 @@ QH::ISqlDBCache *DataBase::db() const {
     return QH::DataBaseNode::db();
 }
 
+QString DataBase::localFilePath() const {
+    return dbLocation();
+}
+
 QStringList DataBase::SQLSources() const {
     return QH::DataBaseNode::SQLSources() << ":/DataBase/private/sql/DataBase.sql";
 }

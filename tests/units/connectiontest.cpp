@@ -7,7 +7,17 @@
 
 
 #include "connectiontest.h"
+#include "testdatabasewrapper.h"
 #include "testdatatransfer.h"
+
+#include <private/card.h>
+#include <private/user.h>
+
+
+void softDeleteWrap(TestDataBaseWrapper* obj) {
+    obj->softDelete();
+}
+
 
 ConnectionTest::ConnectionTest() {
 
@@ -48,12 +58,30 @@ void ConnectionTest::longTimeWorkdTest() {
 
 QSharedPointer<TestDataTransfer>
 ConnectionTest::makeNode(RC::IConnectorBackEnd::Mode mode) {
+
+
+
     QString randomNodeName = QByteArray::number(rand()).toHex();
-    auto sallerDb = QSharedPointer<RC::DataBase>::create(randomNodeName);
+    auto sallerDb = QSharedPointer<TestDataBaseWrapper>(
+                new TestDataBaseWrapper(randomNodeName), softDeleteWrap);
+
+    QFile::remove(sallerDb->localFilePath());
+
     sallerDb->initSqlDb();
     auto result = QSharedPointer<TestDataTransfer>::create(
                 mode);
 
+
+    if (mode == RC::IConnectorBackEnd::Saller) {
+
+        RC::Card card;
+        card.setId(QVariant::fromValue(3618836081));
+        auto activeCard = sallerDb->db()->getObject(card);
+
+        result->setActiveCard(activeCard);
+    } else {
+        result->setActiveUser(QSharedPointer<RC::User>::create());
+    }
 
     return result;
 }
