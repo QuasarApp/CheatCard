@@ -18,6 +18,8 @@ public:
     bool isFinished() const;
     Error finishedResult();
 
+    int getPurchasesCount(unsigned int user, unsigned int card);
+
 protected:
     bool listen(RC::IConnectorBackEnd::Mode mode) override;
     bool close() override;

@@ -76,11 +76,15 @@ void IConnectorBackEnd::connectionReceived(ITargetNode *obj) {
         }
     }
 
-    emit sigSessionWasBegin();
+    beginWork();
 
     QTimer::singleShot(RC_WAIT_TIME, this, [this]() {
-        reset();
-        emit sigSessionWasFinshed(TimeOut);
+
+        if (_lastStatus == InProgress) {
+            reset();
+            endWork(TimeOut);
+        }
+
     });
 }
 
@@ -91,7 +95,25 @@ void IConnectorBackEnd::connectionLost( ITargetNode *id) {
 
     _currentTarget.reset();
 
-    emit sigSessionWasFinshed(ConnectionLost);
+    endWork(ConnectionLost);
+
+}
+
+int IConnectorBackEnd::getPurchasesCount(unsigned int userId,
+                                         unsigned int cardId) {
+
+    QString where = QString("user = %0 AND card = %1").
+            arg(userId).
+            arg(cardId);
+    QH::PKG::DBObjectsRequest<UsersCards> requestPurchase("UsersCards", where);
+
+    auto purches = _db->getObject(requestPurchase);
+
+    if (purches && purches->data().size()) {
+        return purches->data().first()->getPurchasesNumber();
+    }
+
+    return 0;
 }
 
 void IConnectorBackEnd::handleReceiveMessage(QByteArray message) {
@@ -102,7 +124,7 @@ void IConnectorBackEnd::handleReceiveMessage(QByteArray message) {
     case UserId : {
         if (!processUserRequest(message)) {
             QuasarAppUtils::Params::log("Failed to parse package (UserId)", QuasarAppUtils::Error);
-            emit sigSessionWasFinshed(WrongPackage);
+            endWork(WrongPackage);
         }
         break;
 
@@ -110,7 +132,7 @@ void IConnectorBackEnd::handleReceiveMessage(QByteArray message) {
     case PurchasesCount: {
         if (!processCardStatus(message)) {
             QuasarAppUtils::Params::log("Failed to parse package (PurchasesCount)", QuasarAppUtils::Error);
-            emit sigSessionWasFinshed(WrongPackage);
+            endWork(WrongPackage);
 
         }
 
@@ -120,7 +142,7 @@ void IConnectorBackEnd::handleReceiveMessage(QByteArray message) {
     case CardDataRequest: {
         if (!processCardRequest(message)) {
             QuasarAppUtils::Params::log("Failed to parse package (CardDataRequest)", QuasarAppUtils::Error);
-            emit sigSessionWasFinshed(WrongPackage);
+            endWork(WrongPackage);
 
         }
         break;
@@ -129,7 +151,7 @@ void IConnectorBackEnd::handleReceiveMessage(QByteArray message) {
     case CardData: {
         if (!processCardData(message)) {
             QuasarAppUtils::Params::log("Failed to parse package (processCardData)", QuasarAppUtils::Error);
-            emit sigSessionWasFinshed(WrongPackage);
+            endWork(WrongPackage);
 
         }
         break;
@@ -138,7 +160,7 @@ void IConnectorBackEnd::handleReceiveMessage(QByteArray message) {
     case Successful: {
         if (!processSuccessful()) {
             QuasarAppUtils::Params::log("Failed to parse package (processCardData)", QuasarAppUtils::Error);
-            emit sigSessionWasFinshed(WrongPackage);
+            endWork(WrongPackage);
 
         }
         break;
@@ -146,7 +168,8 @@ void IConnectorBackEnd::handleReceiveMessage(QByteArray message) {
     default: {
         QuasarAppUtils::Params::log("Undefined command received",
                                     QuasarAppUtils::Error);
-        emit sigSessionWasFinshed(WrongPackage);
+        endWork(WrongPackage);
+
         break;
     }
     }
@@ -193,11 +216,17 @@ bool IConnectorBackEnd::processCardStatus(const QByteArray &message) {
 
     }
 
-    QSharedPointer<UsersCards> userCardsData;
+    return applayPurchases(dbCard, cardStatus.purchasesCount);
+}
 
-    userCardsData->setCard(cardStatus.cardId);
+bool IConnectorBackEnd::applayPurchases(QSharedPointer<RC::Card> dbCard,
+                                        unsigned int purchases) {
+    auto userCardsData = QSharedPointer<UsersCards>::create();
+
+    userCardsData->setCard(dbCard->cardId());
     userCardsData->setOwner(false);
     userCardsData->setUser(_activeUser->userId());
+    userCardsData->setPurchasesNumber(purchases);
 
     if (!_db->insertIfExistsUpdateObject(userCardsData)) {
         QuasarAppUtils::Params::log("Failed to update data", QuasarAppUtils::Error);
@@ -213,9 +242,10 @@ bool IConnectorBackEnd::processCardStatus(const QByteArray &message) {
     }
 
     emit sigCardPurchaseWasSuccessful(dbCard);
-
+    endWork(FinishedSuccessful);
 
     return true;
+
 }
 
 bool IConnectorBackEnd::processUserRequest(const QByteArray &message) {
@@ -241,37 +271,25 @@ bool IConnectorBackEnd::processUserRequest(const QByteArray &message) {
 
     auto dbUser = _db->getObject(userrquest);
 
-    QSharedPointer<UsersCards> userCardsData;
-
     if (!dbUser) {
 
         dbUser = QSharedPointer<User>::create();
         dbUser->setKey(QByteArray::fromRawData(reinterpret_cast<char*>(&user.token), sizeof (user.token)));
         dbUser->setId(user.userId);
 
-        if (_db->insertIfExistsUpdateObject(dbUser)) {
+        if (!_db->insertIfExistsUpdateObject(dbUser)) {
             QuasarAppUtils::Params::log("Failed to update data", QuasarAppUtils::Warning);
 
         }
 
-        userCardsData = QSharedPointer<UsersCards>::create();
-
-        userCardsData->setOwner(false);
-        userCardsData->setUser(user.userId);
-        userCardsData->setPurchasesNumber(0);
-
-    } else {
-
-        QString where = QString("user = %0 AND card = %1)").
-                arg(user.userId).
-                arg(_activeCard->cardId());
-        QH::PKG::DBObjectsRequest<UsersCards> requestPurchase("UsersCards", where);
-
-        auto purches = _db->getObject(requestPurchase);
-        if (!purches->data().size()) {
-            userCardsData = purches->data().first();
-        }
     }
+
+    auto userCardsData = QSharedPointer<UsersCards>::create();
+
+    userCardsData->setOwner(false);
+    userCardsData->setUser(user.userId);
+    userCardsData->setPurchasesNumber(getPurchasesCount(user.userId, _activeCard->cardId()));
+    userCardsData->setCard(_activeCard->cardId());
 
     if (!incrementPurchases(userCardsData)) {
         QuasarAppUtils::Params::log("Failed to update data", QuasarAppUtils::Error);
@@ -307,16 +325,13 @@ bool IConnectorBackEnd::processCardRequest(const QByteArray &message) {
 
     auto rawData = _activeCard->toBytes();
 
+    unsigned int size = rawData.size();
+    QByteArray responce;
+    responce.push_back(CardData);
+    responce.push_back(QByteArray::fromRawData(reinterpret_cast<char*>(&size), sizeof (size)));
+    responce.push_back(rawData);
 
-    RawData responce;
-    responce.command = CardData;
-    responce.size = rawData.size();
-    responce.data = rawData.data();
-
-
-    if (!_currentTarget->sendMessage(
-                QByteArray::fromRawData(reinterpret_cast<char*>(&responce),
-                                        responce.size + sizeof (responce.command) + sizeof (responce.size)))) {
+    if (!_currentTarget->sendMessage(responce)) {
 
         QuasarAppUtils::Params::log("Failed to send responce", QuasarAppUtils::Error);
 
@@ -332,7 +347,7 @@ bool IConnectorBackEnd::processCardData(const QByteArray &message) {
         return false;
     }
 
-    unsigned int dataSize = *reinterpret_cast<unsigned int*>(message.data()[1]);
+    unsigned int dataSize = *(reinterpret_cast<unsigned int*>(message.mid(1, 4).data()));
 
     if (static_cast<unsigned int>(message.size()) != dataSize + 5) {
         QuasarAppUtils::Params::log("user id is invalid", QuasarAppUtils::Error);
@@ -355,11 +370,12 @@ bool IConnectorBackEnd::processCardData(const QByteArray &message) {
     }
 
     auto requset = QSharedPointer<UsersCards>::create();
+    requset->setUser(_activeUser->userId());
     requset->setCard(_lastReceivedCardStatus->cardId);
     requset->setOwner(false);
     requset->setPurchasesNumber(_lastReceivedCardStatus->purchasesCount);
 
-    if (_db->insertIfExistsUpdateObject(requset)) {
+    if (!_db->insertIfExistsUpdateObject(requset)) {
         return false;
     }
 
@@ -375,16 +391,14 @@ bool IConnectorBackEnd::processCardData(const QByteArray &message) {
         return false;
     }
 
-    emit sigCardPurchaseWasSuccessful(card);
-
-    emit sigSessionWasFinshed(NoError);
-    return true;
+    return applayPurchases(card, _lastReceivedCardStatus->purchasesCount);
 }
 
 bool IConnectorBackEnd::processSuccessful() {
     _currentTarget->close();
 
-    emit sigSessionWasFinshed(NoError);
+    endWork(FinishedSuccessful);
+
     return true;
 }
 
@@ -425,6 +439,15 @@ bool IConnectorBackEnd::incrementPurchases(const QSharedPointer<UsersCards> &use
     usersCardsData->setPurchasesNumber(usersCardsData->getPurchasesNumber() + 1);
 
     return true;
+}
+
+void IConnectorBackEnd::beginWork() {
+    _lastStatus = InProgress;
+}
+
+void IConnectorBackEnd::endWork(Error status) {
+    _lastStatus = status;
+    emit sigSessionWasFinshed(status);
 }
 
 IConnectorBackEnd::Mode IConnectorBackEnd::mode() const {

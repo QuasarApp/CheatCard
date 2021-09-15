@@ -53,7 +53,9 @@ public:
     };
 
     enum Error {
-        NoError,
+        UndefinedStatus,
+        InProgress,
+        FinishedSuccessful,
         ConnectionLost,
         TimeOut,
         WrongPackage,
@@ -91,6 +93,10 @@ protected:
     void connectionReceived(ITargetNode *obj);
     void connectionLost(ITargetNode* id);
 
+
+    int getPurchasesCount(unsigned int userId,
+                          unsigned int cardId);
+
 protected slots:
     void handleReceiveMessage(QByteArray message);
 
@@ -106,8 +112,13 @@ private:
     bool sendCardStatus(const QSharedPointer<UsersCards>& usersCardsData);
 
     bool incrementPurchases(const QSharedPointer<UsersCards>& usersCardsData);
+    bool applayPurchases(QSharedPointer<RC::Card> dbCard,
+                         unsigned int purchases);
 
+    void beginWork();
+    void endWork(Error status);
 
+    Error _lastStatus = UndefinedStatus;
     Mode _mode = Client;
     QSharedPointer<ITargetNode> _currentTarget;
     QSharedPointer<Card> _activeCard;
