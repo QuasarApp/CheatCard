@@ -11,16 +11,26 @@
 
 #include <QByteArray>
 #include <QSharedPointer>
-#include <database.h>
+#include "RegularCustomer_global.h"
+#include <QHash>
+#include <isqldbcache.h>
 
+#define DB QH::ISqlDBCache
+
+#ifdef QT_DEBUG
+#define RC_WAIT_TIME 50000
+#else
+#define RC_WAIT_TIME 5000
+#endif
 namespace RC {
 
 class Card;
 class ITargetNode;
 class User;
 class UsersCards;
+class CardStatus;
 
-class IConnectorBackEnd : public QObject
+class RegularCustomer_EXPORT IConnectorBackEnd : public QObject
 {
     Q_OBJECT
 public:
@@ -42,7 +52,17 @@ public:
         Successful
     };
 
+    enum Error {
+        UndefinedStatus,
+        InProgress,
+        FinishedSuccessful,
+        ConnectionLost,
+        TimeOut,
+        WrongPackage,
+    };
+
     IConnectorBackEnd(DB *db);
+    ~IConnectorBackEnd();
 
     bool start(Mode mode);
     bool stop();
@@ -53,9 +73,14 @@ public:
     QSharedPointer<User> activeUser() const;
     void setActiveUser(QSharedPointer<User> newActiveUser);
 
+    IConnectorBackEnd::Mode mode() const;
+    void setMode(Mode newMode);
+
 signals:
     void sigUserPurchaseWasSuccessful(QSharedPointer<User>);
     void sigCardPurchaseWasSuccessful(QSharedPointer<Card>);
+    void sigSessionWasFinshed(Error err);
+    void sigSessionWasBegin();
 
 protected:
 
@@ -63,25 +88,37 @@ protected:
 
     virtual bool close() = 0;
 
-    void connectionReceived( ITargetNode *obj);
+    void reset();
+
+    void connectionReceived(ITargetNode *obj);
     void connectionLost(ITargetNode* id);
 
+
+    int getPurchasesCount(unsigned int userId,
+                          unsigned int cardId);
+
 protected slots:
-    void handleReceiveMessage(const QByteArray& message);
+    void handleReceiveMessage(QByteArray message);
 
 private:
-    bool workWithCardStatus(const QByteArray &message);
+    bool processCardStatus(const QByteArray &message);
 
-    bool workWithUserRequest(const QByteArray &message);
+    bool processUserRequest(const QByteArray &message);
 
-    bool workWithCardRequest(const QByteArray &message);
-    bool workWithCardData(const QByteArray &message);
-
+    bool processCardRequest(const QByteArray &message);
+    bool processCardData(const QByteArray &message);
+    bool processSuccessful();
 
     bool sendCardStatus(const QSharedPointer<UsersCards>& usersCardsData);
 
     bool incrementPurchases(const QSharedPointer<UsersCards>& usersCardsData);
+    bool applayPurchases(QSharedPointer<RC::Card> dbCard,
+                         unsigned int purchases);
 
+    void beginWork();
+    void endWork(Error status);
+
+    Error _lastStatus = UndefinedStatus;
     Mode _mode = Client;
     QSharedPointer<ITargetNode> _currentTarget;
     QSharedPointer<Card> _activeCard;
@@ -90,6 +127,8 @@ private:
     QHash<unsigned long long, unsigned int> _lastUpdates;
 
     DB * _db = nullptr;
+
+    CardStatus* _lastReceivedCardStatus = nullptr;
 
 };
 

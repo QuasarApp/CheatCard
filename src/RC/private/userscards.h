@@ -27,6 +27,8 @@ public:
 
     bool fromSqlRecord(const QSqlRecord &q) override;
     bool isValid() const override;
+    QString condition() const override;
+
     int getUser() const;
     void setUser(int newUser);
 

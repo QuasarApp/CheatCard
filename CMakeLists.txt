@@ -32,6 +32,12 @@ include(submodules/Heart/QuasarAppLib/CMake/QuasarApp.cmake)
 
 initAll()
 
+
+if (${QT_VERSION_MAJOR} LESS_EQUAL 5)
+    message("This project support only qt6")
+    return()
+endif()
+
 if (NOT DEFINED RegularCustomer_TESTS)
     set(RegularCustomer_TESTS ON)
 
@@ -53,6 +59,7 @@ endif()
 
 set(HEART_BUILD_LVL 1)
 set(HEART_SSL OFF)
+set(HEART_TESTS OFF)
 add_subdirectory(submodules/Heart)
 
 add_subdirectory(src/RC)

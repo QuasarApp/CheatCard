@@ -7,7 +7,7 @@
 
 #include "RegularCustomer.h"
 
-#include <database.h>
+#include <RegularCustomer/database.h>
 #include <imageprovider.h>
 #include "mainmodel.h"
 #include "quasarapp.h"

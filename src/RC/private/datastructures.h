@@ -12,12 +12,13 @@
 
 namespace RC {
 
+#pragma pack(push, 1)
+
 struct CardStatus {
     unsigned char command = 0;
     unsigned int cardId = 0;
     unsigned int purchasesCount = 0;
 };
-
 
 struct UserHeader {
     unsigned char command = 0;
@@ -34,6 +35,8 @@ struct RawData {
     unsigned int size = 0;
     char *data;
 };
+#pragma pack(pop)
+
 }
 
 #endif // DATASTRUCTURES_H

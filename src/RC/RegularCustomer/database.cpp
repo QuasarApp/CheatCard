@@ -8,11 +8,17 @@
 #include "database.h"
 namespace RC {
 
-DataBase::DataBase() {
+DataBase::DataBase(const QString &name) {
+    if (name.size())
+        setLocalNodeName(name);
 }
 
-DB *DataBase::db() const {
+QH::ISqlDBCache *DataBase::db() const {
     return QH::DataBaseNode::db();
+}
+
+QString DataBase::localFilePath() const {
+    return dbLocation();
 }
 
 QStringList DataBase::SQLSources() const {
