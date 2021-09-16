@@ -143,13 +143,13 @@ Page {
             }
         }
 
-        PageIndicator {
-            id: indicator
-            Layout.alignment: Qt.AlignHCenter
+//        PageIndicator {
+//            id: indicator
+//            Layout.alignment: Qt.AlignHCenter
 
-            count: view.count
-            currentIndex: view.currentIndex
-            interactive: false
-        }
+//            count: view.count
+//            currentIndex: view.currentIndex
+//            interactive: false
+//        }
     }
 }

@@ -90,14 +90,14 @@ ApplicationWindow {
 
         }
 
-        PageIndicator {
-            id: indicator
-            Layout.alignment: Qt.AlignHCenter
-            visible: user && user.fSaller
-            count: view.count
-            currentIndex: view.currentIndex
-            interactive: view.interactive
-        }
+//        PageIndicator {
+//            id: indicator
+//            Layout.alignment: Qt.AlignHCenter
+//            visible: user && user.fSaller
+//            count: view.count
+//            currentIndex: view.currentIndex
+//            interactive: view.interactive
+//        }
     }
 
     Drawer {
