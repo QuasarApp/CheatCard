@@ -1,10 +1,13 @@
 #include "testdatabasewrapper.h"
-
-TestDataBaseWrapper::TestDataBaseWrapper(const QString &name):
+#include "RegularCustomer/iconnectorbackend.h"
+TestDataBaseWrapper::TestDataBaseWrapper(const QString &name, int mode):
     RC::DataBase(name) {
-
+    _mode = mode;
 }
 
 QStringList TestDataBaseWrapper::SQLSources() const {
-    return {":/sql/units/sql/TestSallerDb.sql"};
+    if (_mode == RC::IConnectorBackEnd::Mode::Saller)
+        return {":/sql/units/sql/TestSallerDb.sql"};
+
+    return RC::DataBase::SQLSources();
 }

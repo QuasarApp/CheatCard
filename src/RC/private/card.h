@@ -81,7 +81,6 @@ private:
     int freeIndex = 1;
     QString color = "#777777";
 
-
 };
 
 }

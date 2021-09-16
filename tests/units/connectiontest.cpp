@@ -9,7 +9,6 @@
 #include "connectiontest.h"
 #include "testdatabasewrapper.h"
 #include "testdatatransfer.h"
-
 #include <private/card.h>
 #include <private/user.h>
 
@@ -28,6 +27,8 @@ ConnectionTest::~ConnectionTest() {
 }
 
 void ConnectionTest::test() {
+    QDir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)).removeRecursively();
+
     firstContact();
 //    userTrySendWrongData();
 //    multipleUsersConnect();
@@ -43,20 +44,26 @@ void ConnectionTest::firstContact() {
 
     QVERIFY(wait([saller, client]() {
         if (saller->isFinished()) {
-            if (saller->finishedResult() != TestDataTransfer::NoError)
+            if (saller->finishedResult() != TestDataTransfer::FinishedSuccessful)
                 return true;
         }
 
         if (client->isFinished()) {
-            if (client->finishedResult() != TestDataTransfer::NoError)
+            if (client->finishedResult() != TestDataTransfer::FinishedSuccessful)
                 return true;
         }
 
         return saller->isFinished() && client->isFinished();
     }, RC_WAIT_TIME + 1000));
 
-    QVERIFY(saller->finishedResult() == TestDataTransfer::NoError);
-    QVERIFY(client->finishedResult() == TestDataTransfer::NoError);
+    QVERIFY(saller->finishedResult() == TestDataTransfer::FinishedSuccessful);
+    QVERIFY(client->finishedResult() == TestDataTransfer::FinishedSuccessful);
+
+    QVERIFY(saller->getPurchasesCount(client->activeUser()->userId(),
+                              saller->activeCard()->cardId()) == 1);
+
+    QVERIFY(client->getPurchasesCount(client->activeUser()->userId(),
+                              saller->activeCard()->cardId()) == 1);
 
 }
 
@@ -75,13 +82,11 @@ void ConnectionTest::longTimeWorkdTest() {
 QSharedPointer<TestDataTransfer>
 ConnectionTest::makeNode(RC::IConnectorBackEnd::Mode mode) {
 
-
-
+    srand(time(0) + rand());
     QString randomNodeName = QByteArray::number(rand()).toHex();
     auto sallerDb = QSharedPointer<TestDataBaseWrapper>(
-                new TestDataBaseWrapper(randomNodeName), softDeleteWrap);
+                new TestDataBaseWrapper(randomNodeName, mode), softDeleteWrap);
 
-    QFile::remove(sallerDb->localFilePath());
 
     sallerDb->initSqlDb();
     auto result = QSharedPointer<TestDataTransfer>::create(

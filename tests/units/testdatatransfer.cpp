@@ -28,6 +28,11 @@ RC::IConnectorBackEnd::Error TestDataTransfer::finishedResult() {
     return _lastFinishedResult;
 }
 
+int TestDataTransfer::getPurchasesCount(unsigned int user,
+                                        unsigned int card) {
+    return IConnectorBackEnd::getPurchasesCount(user, card);
+}
+
 bool TestDataTransfer::listen(IConnectorBackEnd::Mode mode) {
     setMode(mode);
     return true;

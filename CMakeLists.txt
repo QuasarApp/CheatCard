@@ -32,6 +32,12 @@ include(submodules/Heart/QuasarAppLib/CMake/QuasarApp.cmake)
 
 initAll()
 
+
+if (${QT_VERSION_MAJOR} LESS_EQUAL 5)
+    message("This project support only qt6")
+    return()
+endif()
+
 if (NOT DEFINED RegularCustomer_TESTS)
     set(RegularCustomer_TESTS ON)
 
