@@ -7,8 +7,9 @@ class TestDataTransferSocket: public RC::ITargetNode
     Q_OBJECT
 public:
     TestDataTransferSocket(TestDataTransferSocket * another);
-    bool sendMessage(const QByteArray &array);
-    void close();
+    ~TestDataTransferSocket() override;
+    bool sendMessage(const QByteArray &array) override final;
+    void close() override final;
 
     TestDataTransferSocket *getAnother() const;
     void setAnother(TestDataTransferSocket *newAnother);

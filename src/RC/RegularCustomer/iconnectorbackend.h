@@ -76,6 +76,8 @@ public:
     IConnectorBackEnd::Mode mode() const;
     void setMode(Mode newMode);
 
+    Error lastStatus() const;
+
 signals:
     void sigUserPurchaseWasSuccessful(QSharedPointer<User>);
     void sigCardPurchaseWasSuccessful(QSharedPointer<Card>);
@@ -99,6 +101,7 @@ protected:
 
 protected slots:
     void handleReceiveMessage(QByteArray message);
+    void handleConnectionClosed(ITargetNode *id);
 
 private:
     bool processCardStatus(const QByteArray &message);
@@ -120,6 +123,7 @@ private:
 
     Error _lastStatus = UndefinedStatus;
     Mode _mode = Client;
+    int _workID = 0;
     QSharedPointer<ITargetNode> _currentTarget;
     QSharedPointer<Card> _activeCard;
     QSharedPointer<User> _activeUser;

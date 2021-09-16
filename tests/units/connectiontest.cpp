@@ -11,7 +11,8 @@
 #include "testdatatransfer.h"
 #include <private/card.h>
 #include <private/user.h>
-
+#include <thread>
+#include <chrono>
 
 void softDeleteWrap(TestDataBaseWrapper* obj) {
     obj->softDelete();
@@ -40,21 +41,19 @@ void ConnectionTest::firstContact() {
     auto saller = makeNode(TestDataTransfer::Saller);
     auto client = makeNode(TestDataTransfer::Client);
 
-    connectNodes(saller, client);
+    auto connectionNodeJonb = [this](QSharedPointer<TestDataTransfer> saller,
+                                QSharedPointer<TestDataTransfer> client){
+        connectNodes(saller, client);
 
-    QVERIFY(wait([saller, client]() {
-        if (saller->isFinished()) {
-            if (saller->finishedResult() != TestDataTransfer::FinishedSuccessful)
-                return true;
-        }
+        QVERIFY(wait([saller, client]() {
+            return saller->isFinished() && client->isFinished();
+        }, RC_WAIT_TIME + 1000));
 
-        if (client->isFinished()) {
-            if (client->finishedResult() != TestDataTransfer::FinishedSuccessful)
-                return true;
-        }
 
-        return saller->isFinished() && client->isFinished();
-    }, RC_WAIT_TIME + 1000));
+    };
+
+    // first connect should be finsished successful
+    connectionNodeJonb(saller, client);
 
     QVERIFY(saller->finishedResult() == TestDataTransfer::FinishedSuccessful);
     QVERIFY(client->finishedResult() == TestDataTransfer::FinishedSuccessful);
@@ -64,6 +63,36 @@ void ConnectionTest::firstContact() {
 
     QVERIFY(client->getPurchasesCount(client->activeUser()->userId(),
                               saller->activeCard()->cardId()) == 1);
+
+
+    // second connect should be failed because second connect is very fast
+
+    connectionNodeJonb(saller, client);
+
+    QVERIFY(saller->finishedResult() == TestDataTransfer::WrongPackage);
+    QVERIFY(client->finishedResult() == TestDataTransfer::ConnectionLost);
+
+    QVERIFY(saller->getPurchasesCount(client->activeUser()->userId(),
+                              saller->activeCard()->cardId()) == 1);
+
+    QVERIFY(client->getPurchasesCount(client->activeUser()->userId(),
+                              saller->activeCard()->cardId()) == 1);
+
+    // waiting for availabe next connection
+    std::this_thread::sleep_for(std::chrono::seconds(10));
+
+
+    connectionNodeJonb(saller, client);
+
+    QVERIFY(saller->finishedResult() == TestDataTransfer::FinishedSuccessful);
+    QVERIFY(client->finishedResult() == TestDataTransfer::FinishedSuccessful);
+
+    QVERIFY(saller->getPurchasesCount(client->activeUser()->userId(),
+                              saller->activeCard()->cardId()) == 2);
+
+    QVERIFY(client->getPurchasesCount(client->activeUser()->userId(),
+                              saller->activeCard()->cardId()) == 2);
+
 
 }
 

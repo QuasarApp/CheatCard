@@ -17,7 +17,7 @@
 #include "getsinglevalue.h"
 
 
-#define TIME_LIMIT_SEC 60
+#define TIME_LIMIT_SEC 10
 
 namespace RC {
 
@@ -51,6 +51,9 @@ void IConnectorBackEnd::connectionReceived(ITargetNode *obj) {
     if (_currentTarget) {
         disconnect(_currentTarget.data(), &ITargetNode::sigMessageReceived,
                 this, &IConnectorBackEnd::handleReceiveMessage);
+
+        disconnect(_currentTarget.data(), &ITargetNode::sigConnectionClosed,
+                this, &IConnectorBackEnd::handleConnectionClosed);
     }
 
     _currentTarget = QSharedPointer<ITargetNode>(obj);
@@ -58,6 +61,9 @@ void IConnectorBackEnd::connectionReceived(ITargetNode *obj) {
     if (_currentTarget) {
         connect(_currentTarget.data(), &ITargetNode::sigMessageReceived,
                 this, &IConnectorBackEnd::handleReceiveMessage, Qt::QueuedConnection);
+        connect(_currentTarget.data(), &ITargetNode::sigConnectionClosed,
+                this, &IConnectorBackEnd::handleConnectionClosed, Qt::QueuedConnection);
+
     }
 
     if (mode() == Client) {
@@ -77,15 +83,6 @@ void IConnectorBackEnd::connectionReceived(ITargetNode *obj) {
     }
 
     beginWork();
-
-    QTimer::singleShot(RC_WAIT_TIME, this, [this]() {
-
-        if (_lastStatus == InProgress) {
-            reset();
-            endWork(TimeOut);
-        }
-
-    });
 }
 
 void IConnectorBackEnd::connectionLost( ITargetNode *id) {
@@ -93,10 +90,7 @@ void IConnectorBackEnd::connectionLost( ITargetNode *id) {
         QuasarAppUtils::Params::log("Try drop another connection!!", QuasarAppUtils::Error);
     }
 
-    _currentTarget.reset();
-
     endWork(ConnectionLost);
-
 }
 
 int IConnectorBackEnd::getPurchasesCount(unsigned int userId,
@@ -172,6 +166,13 @@ void IConnectorBackEnd::handleReceiveMessage(QByteArray message) {
 
         break;
     }
+    }
+}
+
+void IConnectorBackEnd::handleConnectionClosed(ITargetNode* id) {
+    if (_lastStatus == Error::InProgress) {
+        connectionLost(id);
+        return;
     }
 }
 
@@ -379,23 +380,10 @@ bool IConnectorBackEnd::processCardData(const QByteArray &message) {
         return false;
     }
 
-    DataRequest responce;
-    responce.command = Successful;
-
-    if (!_currentTarget->sendMessage(
-                QByteArray::fromRawData(reinterpret_cast<char*>(&responce),
-                                        sizeof (responce) ))) {
-
-        QuasarAppUtils::Params::log("Failed to send responce", QuasarAppUtils::Error);
-
-        return false;
-    }
-
     return applayPurchases(card, _lastReceivedCardStatus->purchasesCount);
 }
 
 bool IConnectorBackEnd::processSuccessful() {
-    _currentTarget->close();
 
     endWork(FinishedSuccessful);
 
@@ -443,11 +431,34 @@ bool IConnectorBackEnd::incrementPurchases(const QSharedPointer<UsersCards> &use
 
 void IConnectorBackEnd::beginWork() {
     _lastStatus = InProgress;
+    emit sigSessionWasBegin();
+    int workId;
+
+    srand(rand());
+
+    _workID = workId = rand();
+    QTimer::singleShot(RC_WAIT_TIME, this, [this, workId]() {
+
+        if (_workID != workId) {
+            return ;
+        }
+
+        if (_lastStatus == InProgress) {
+            endWork(TimeOut);
+        }
+
+    });
 }
 
 void IConnectorBackEnd::endWork(Error status) {
     _lastStatus = status;
     emit sigSessionWasFinshed(status);
+    reset();
+
+}
+
+IConnectorBackEnd::Error IConnectorBackEnd::lastStatus() const {
+    return _lastStatus;
 }
 
 IConnectorBackEnd::Mode IConnectorBackEnd::mode() const {

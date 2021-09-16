@@ -4,6 +4,10 @@ TestDataTransferSocket::TestDataTransferSocket(TestDataTransferSocket *another) 
     this->another = another;
 }
 
+TestDataTransferSocket::~TestDataTransferSocket() {
+    close();
+}
+
 bool TestDataTransferSocket::sendMessage(const QByteArray &array) {
     if (another) {
         another->messageReceived(array);
@@ -13,7 +17,12 @@ bool TestDataTransferSocket::sendMessage(const QByteArray &array) {
 }
 
 void TestDataTransferSocket::close() {
-
+    if (another) {
+        auto tmp = another;
+        another = nullptr;
+        tmp->close();
+        emit sigConnectionClosed(this);
+    }
 }
 
 TestDataTransferSocket *TestDataTransferSocket::getAnother() const {

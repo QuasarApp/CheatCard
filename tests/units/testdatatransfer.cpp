@@ -13,7 +13,7 @@ TestDataTransfer::TestDataTransfer(RC::IConnectorBackEnd::Mode mode,
 
 
     connect(this, &TestDataTransfer::sigSessionWasBegin,
-            this, &TestDataTransfer::handleWasBegin, Qt::QueuedConnection);
+            this, &TestDataTransfer::handleWasBegin);
 }
 
 void TestDataTransfer::addTestConnection(TestDataTransferSocket *target) {

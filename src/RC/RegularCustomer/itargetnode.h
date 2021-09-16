@@ -23,6 +23,7 @@ public:
     virtual void close() = 0;
 signals:
     void sigMessageReceived(QByteArray message);
+    void sigConnectionClosed(ITargetNode*);
 
 };
 
