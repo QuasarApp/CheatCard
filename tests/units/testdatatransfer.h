@@ -1,8 +1,8 @@
 #ifndef TESTDATATRANSFER_H
 #define TESTDATATRANSFER_H
 
-#include <RegularCustomer/iconnectorbackend.h>
-#include <RegularCustomer/database.h>
+#include <CheatCard/iconnectorbackend.h>
+#include <CheatCard/database.h>
 #include "testdatatransfersocket.h"
 
 class TestDataTransfer: public RC::IConnectorBackEnd {

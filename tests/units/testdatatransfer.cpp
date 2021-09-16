@@ -1,5 +1,5 @@
 #include "testdatatransfer.h"
-#include "RegularCustomer/database.h"
+#include "CheatCard/database.h"
 
 TestDataTransfer::TestDataTransfer(RC::IConnectorBackEnd::Mode mode,
                                    QSharedPointer<RC::DataBase> dataBase):

@@ -9,7 +9,7 @@
 #define CARDSLISTMODEL_H
 
 #include <QAbstractListModel>
-#include <RegularCustomer/database.h>
+#include <CheatCard/database.h>
 
 namespace RC {
 

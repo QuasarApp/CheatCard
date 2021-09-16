@@ -1,7 +1,7 @@
 {
     "bin": [
-        "src/RCApp/RegularCustomerApp",
-        "src/RCApp/RegularCustomerApp.exe"
+        "src/RCApp/CheatCardApp",
+        "src/RCApp/CheatCardApp.exe"
         ],
     "clear": true,
     "libDir": "./../",

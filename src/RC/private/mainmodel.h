@@ -10,7 +10,7 @@
 
 #include <QObject>
 #include <QSettings>
-#include <RegularCustomer/database.h>
+#include <CheatCard/database.h>
 
 namespace RC {
 

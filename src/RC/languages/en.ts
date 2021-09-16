@@ -25,6 +25,37 @@
     </message>
 </context>
 <context>
+    <name>CheatCard</name>
+    <message>
+        <source>&lt;&lt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>三</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hello </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> (Saller mode)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>⋮</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Contact with developers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ColorPicker</name>
     <message>
         <source>Random collor</source>
@@ -168,37 +199,6 @@
     </message>
     <message>
         <source>Go to use</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>RegularCustomer</name>
-    <message>
-        <source>Hello </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>⋮</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;&lt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> (Saller mode)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Contact with developers</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>About</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>三</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

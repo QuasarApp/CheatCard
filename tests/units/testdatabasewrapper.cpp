@@ -1,5 +1,5 @@
 #include "testdatabasewrapper.h"
-#include "RegularCustomer/iconnectorbackend.h"
+#include "CheatCard/iconnectorbackend.h"
 TestDataBaseWrapper::TestDataBaseWrapper(const QString &name, int mode):
     RC::DataBase(name) {
     _mode = mode;

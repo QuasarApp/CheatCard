@@ -1,6 +1,6 @@
 #ifndef TESTDATATRANSFERSOCKET_H
 #define TESTDATATRANSFERSOCKET_H
-#include "RegularCustomer/itargetnode.h"
+#include "CheatCard/itargetnode.h"
 
 class TestDataTransferSocket: public RC::ITargetNode
 {

@@ -7,18 +7,18 @@
 
 cmake_minimum_required(VERSION 3.14)
 
-add_definitions(-DRegularCustomer_LIBRARY)
+add_definitions(-DCheatCard_LIBRARY)
 
 
 file(GLOB SOURCE_CPP
-    "*RegularCustomer/*.cpp"
+    "*CheatCard/*.cpp"
      "private/*.cpp"
 )
 
 if (${QT_VERSION_MAJOR})
     file(GLOB SOURCE_QRC
         "*.qrc"
-        "RegularCustomer/*.qrc"
+        "CheatCard/*.qrc"
         "private/*.qrc"
     )
 
