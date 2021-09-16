@@ -5,13 +5,13 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#include "RegularCustomer_global.h"
+#include "CheatCard_global.h"
 
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
-inline void initRegularCustomerResources() {
-    Q_INIT_RESOURCE(RegularCustomer);
+inline void initCheatCardResources() {
+    Q_INIT_RESOURCE(CheatCard);
     Q_INIT_RESOURCE(CardsIcons);
 }
 
@@ -21,13 +21,13 @@ class DataBase;
 class MainModel;
 
 /**
- * @brief The RegularCustomer class
+ * @brief The CheatCard class
  */
-class RegularCustomer_EXPORT RegularCustomer {
+class CheatCard_EXPORT CheatCard {
 
 public:
-    RegularCustomer();
-    ~RegularCustomer();
+    CheatCard();
+    ~CheatCard();
 
     /**
      * @brief init This method initialize the main application class.

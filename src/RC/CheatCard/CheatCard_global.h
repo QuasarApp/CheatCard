@@ -5,17 +5,17 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#ifndef RegularCustomer_GLOBAL_H
-#define RegularCustomer_GLOBAL_H
+#ifndef CheatCard_GLOBAL_H
+#define CheatCard_GLOBAL_H
 
 #include <QtCore/qglobal.h>
 
 
-#if defined(RegularCustomer_LIBRARY)
-#  define RegularCustomer_EXPORT Q_DECL_EXPORT
+#if defined(CheatCard_LIBRARY)
+#  define CheatCard_EXPORT Q_DECL_EXPORT
 #else
-#  define RegularCustomer_EXPORT Q_DECL_IMPORT
+#  define CheatCard_EXPORT Q_DECL_IMPORT
 #endif
 
-#endif //RegularCustomer_GLOBAL_H
+#endif //CheatCard_GLOBAL_H
 

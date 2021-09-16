@@ -6,7 +6,7 @@
 #
 
 cmake_minimum_required(VERSION 3.14)
-project(RegularCustomer)
+project(CheatCard)
 if(TARGET ${PROJECT_NAME})
   message("The ${PROJECT_NAME} arledy included in main Project")
   return()
@@ -38,22 +38,22 @@ if (${QT_VERSION_MAJOR} LESS_EQUAL 5)
     return()
 endif()
 
-if (NOT DEFINED RegularCustomer_TESTS)
-    set(RegularCustomer_TESTS ON)
+if (NOT DEFINED CheatCard_TESTS)
+    set(CheatCard_TESTS ON)
 
     if (DEFINED TARGET_PLATFORM_TOOLCHAIN)
         if (${TARGET_PLATFORM_TOOLCHAIN} STREQUAL "wasm32")
-            set(RegularCustomer_TESTS OFF)
+            set(CheatCard_TESTS OFF)
             return()
         endif()
     endif()
 
     if (ANDROID)
-        set(RegularCustomer_TESTS OFF)
+        set(CheatCard_TESTS OFF)
     endif()
 
     if (NOT QT_VERSION_MAJOR)
-        set(RegularCustomer_TESTS OFF)
+        set(CheatCard_TESTS OFF)
     endif()
 endif()
 
@@ -66,7 +66,7 @@ add_subdirectory(src/RC)
 add_subdirectory(src/RCApp)
 
 
-if (RegularCustomer_TESTS)
+if (CheatCard_TESTS)
     add_subdirectory(tests)
 else()
     message("The ${PROJECT_NAME} tests is disabled.")

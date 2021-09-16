@@ -11,7 +11,7 @@
 
 #include <QByteArray>
 #include <QSharedPointer>
-#include "RegularCustomer_global.h"
+#include "CheatCard_global.h"
 #include <QHash>
 #include <isqldbcache.h>
 
@@ -30,7 +30,7 @@ class User;
 class UsersCards;
 class CardStatus;
 
-class RegularCustomer_EXPORT IConnectorBackEnd : public QObject
+class CheatCard_EXPORT IConnectorBackEnd : public QObject
 {
     Q_OBJECT
 public:

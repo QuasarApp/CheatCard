@@ -7,7 +7,7 @@
 
 #include <QGuiApplication>
 #include <quasarapp.h>
-#include "RegularCustomer/RegularCustomer.h"
+#include "CheatCard/CheatCard.h"
 
 void initLang() {
     QLocale locale = QLocale::system();
@@ -27,12 +27,12 @@ void initLang() {
 int main(int argc, char *argv[]) {
 
     QCoreApplication::setOrganizationName("QuasarApp");
-    QCoreApplication::setApplicationName("RegularCustomer");
+    QCoreApplication::setApplicationName("CheatCard");
 
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
 
-    RC::RegularCustomer rc;
+    RC::CheatCard rc;
     initLang();
 
     if (!rc.init(&engine)) {

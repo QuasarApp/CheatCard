@@ -1,7 +1,7 @@
 #ifndef TESTDATABASEWRAPPER_H
 #define TESTDATABASEWRAPPER_H
 
-#include "RegularCustomer/database.h"
+#include "CheatCard/database.h"
 
 class TestDataBaseWrapper: public RC::DataBase
 {

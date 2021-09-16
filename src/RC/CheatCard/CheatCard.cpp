@@ -5,9 +5,9 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#include "RegularCustomer.h"
+#include "CheatCard.h"
 
-#include <RegularCustomer/database.h>
+#include <CheatCard/database.h>
 #include <imageprovider.h>
 #include "mainmodel.h"
 #include "quasarapp.h"
@@ -15,19 +15,19 @@
 
 namespace RC {
 
-RegularCustomer::RegularCustomer() {
+CheatCard::CheatCard() {
     _db = new DataBase();
 
 }
 
-RegularCustomer::~RegularCustomer() {
+CheatCard::~CheatCard() {
     delete _model;
 
     _db->softDelete();
 }
 
-bool RegularCustomer::init(QQmlApplicationEngine *engine) {
-    initRegularCustomerResources();
+bool CheatCard::init(QQmlApplicationEngine *engine) {
+    initCheatCardResources();
 
     if (!QH::init()) {
         return false;
@@ -45,7 +45,7 @@ bool RegularCustomer::init(QQmlApplicationEngine *engine) {
 
     root->setContextProperty("mainModel", QVariant::fromValue(_model));
 
-    engine->load("qrc:/RegularCustomerModule/RegularCustomer.qml");
+    engine->load("qrc:/CheatCardModule/CheatCard.qml");
     if (engine->rootObjects().isEmpty())
         return false;
 

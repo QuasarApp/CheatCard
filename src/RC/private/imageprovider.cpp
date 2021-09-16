@@ -9,7 +9,7 @@
 #include <QQuickImageResponse>
 #include <QtConcurrent>
 #include "quasarapp.h"
-#include <RegularCustomer/database.h>
+#include <CheatCard/database.h>
 #include "getsinglevalue.h"
 
 namespace RC {
