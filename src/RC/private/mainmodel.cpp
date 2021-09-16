@@ -35,13 +35,46 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
     _defaultLogosModel = new ItemsModel();
     _defaultBackgroundsModel = new ItemsModel();
 
+#define r_prefix QString("qrc:/images/private/resources/")
     _defaultLogosModel->setStringList({
-                                          "qrc:/images/private/resources/CoffeLogo.png",
-                                          "qrc:/images/private/resources/coffeSign.png"
+                                          r_prefix + "/CoffeLogo.png",
+                                          r_prefix + "/coffeSign.png",
+                                          r_prefix + "/Icons/Cup_icon_1.png",
+                                          r_prefix + "/Icons/Cup_icon_2.png",
+                                          r_prefix + "/Icons/Cup_icon_3.png",
+                                          r_prefix + "/Icons/Cup_icon_4.png",
+                                          r_prefix + "/Icons/Cup_icon_5.png",
+                                          r_prefix + "/Icons/Cup_icon_6.png",
+                                          r_prefix + "/Icons/Cup_icon_7.png",
+                                          r_prefix + "/Icons/Cup_icon_8.png",
+                                          r_prefix + "/Icons/Cup_icon_9.png",
+                                          r_prefix + "/Icons/Cup_icon_10.png",
+                                          r_prefix + "/Icons/Cup_icon_11.png",
+                                          r_prefix + "/Icons/Cup_icon_12.png",
+
                                       });
 
     _defaultBackgroundsModel->setStringList({
-                                                ""
+                                                r_prefix + "/Backgrounds/Layer_1.png",
+                                                r_prefix + "/Backgrounds/Layer_2.png",
+                                                r_prefix + "/Backgrounds/Layer_3.png",
+                                                r_prefix + "/Backgrounds/Layer_4.png",
+                                                r_prefix + "/Backgrounds/Layer_5.png",
+                                                r_prefix + "/Backgrounds/Layer_6.png",
+                                                r_prefix + "/Backgrounds/Layer_7.png",
+                                                r_prefix + "/Backgrounds/Layer_8.png",
+                                                r_prefix + "/Backgrounds/Layer_9.png",
+                                                r_prefix + "/Backgrounds/Layer_10.png",
+                                                r_prefix + "/Backgrounds/Layer_11.png",
+                                                r_prefix + "/Backgrounds/Layer_12.png",
+                                                r_prefix + "/Backgrounds/Layer_13.png",
+                                                r_prefix + "/Backgrounds/Layer_14.png",
+                                                r_prefix + "/Backgrounds/Layer_15.png",
+                                                r_prefix + "/Backgrounds/Layer_16.png",
+                                                r_prefix + "/Backgrounds/Layer_17.png",
+                                                r_prefix + "/Backgrounds/Layer_18.png",
+                                                r_prefix + "/Backgrounds/Layer_19.png",
+
                                             });
 
     connect(_ownCardsListModel, &CardsListModel::sigCardAdded,

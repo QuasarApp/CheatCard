@@ -1,0 +1,41 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>private/resources/CoffeLogo.png</file>
+        <file>private/resources/coffeSign.png</file>
+        <file>private/resources/mapLogo.png</file>
+        <file>private/resources/telegramm.png</file>
+        <file>private/resources/instagramm.png</file>
+        <file>private/resources/www.png</file>
+        <file>private/resources/Icons/Cup_icon_9.png</file>
+        <file>private/resources/Icons/Cup_icon_8.png</file>
+        <file>private/resources/Icons/Cup_icon_7.png</file>
+        <file>private/resources/Icons/Cup_icon_6.png</file>
+        <file>private/resources/Icons/Cup_icon_5.png</file>
+        <file>private/resources/Icons/Cup_icon_4.png</file>
+        <file>private/resources/Icons/Cup_icon_3.png</file>
+        <file>private/resources/Icons/Cup_icon_2.png</file>
+        <file>private/resources/Icons/Cup_icon_12.png</file>
+        <file>private/resources/Icons/Cup_icon_11.png</file>
+        <file>private/resources/Icons/Cup_icon_10.png</file>
+        <file>private/resources/Backgrounds/Layer_9.png</file>
+        <file>private/resources/Backgrounds/Layer_8.png</file>
+        <file>private/resources/Backgrounds/Layer_7.png</file>
+        <file>private/resources/Backgrounds/Layer_6.png</file>
+        <file>private/resources/Backgrounds/Layer_5.png</file>
+        <file>private/resources/Backgrounds/Layer_4.png</file>
+        <file>private/resources/Backgrounds/Layer_3.png</file>
+        <file>private/resources/Backgrounds/Layer_2.png</file>
+        <file>private/resources/Backgrounds/Layer_19.png</file>
+        <file>private/resources/Backgrounds/Layer_18.png</file>
+        <file>private/resources/Backgrounds/Layer_17.png</file>
+        <file>private/resources/Backgrounds/Layer_16.png</file>
+        <file>private/resources/Backgrounds/Layer_15.png</file>
+        <file>private/resources/Backgrounds/Layer_14.png</file>
+        <file>private/resources/Backgrounds/Layer_13.png</file>
+        <file>private/resources/Backgrounds/Layer_12.png</file>
+        <file>private/resources/Backgrounds/Layer_11.png</file>
+        <file>private/resources/Backgrounds/Layer_10.png</file>
+        <file>private/resources/Backgrounds/Layer_1.png</file>
+        <file>private/resources/Icons/Cup_icon_1.png</file>
+    </qresource>
+</RCC>

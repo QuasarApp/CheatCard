@@ -10,7 +10,10 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
-inline void initRegularCustomerResources() { Q_INIT_RESOURCE(RegularCustomer); }
+inline void initRegularCustomerResources() {
+    Q_INIT_RESOURCE(RegularCustomer);
+    Q_INIT_RESOURCE(CardsIcons);
+}
 
 namespace RC {
 
