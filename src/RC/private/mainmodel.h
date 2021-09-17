@@ -39,6 +39,7 @@ class MainModel : public QObject
 
     Q_PROPERTY(QObject * defaultLogosModel READ defaultLogosModel NOTIFY defaultLogosModelChanged)
     Q_PROPERTY(QObject * defaultBackgroundsModel READ defaultBackgroundsModel NOTIFY defaultBackgroundsModelChanged)
+    Q_PROPERTY(QObject * waitModel READ waitModel NOTIFY waitModelChanged)
 
 
 public:
@@ -59,6 +60,8 @@ public:
     int getMode() const;
     void setMode(int newMode);
 
+    QObject *waitModel() const;
+
 signals:
 
     void fFirstChanged();
@@ -78,6 +81,8 @@ signals:
 
     void modeChanged();
 
+    void waitModelChanged();
+
 private slots:
     void handleCardCreated(QSharedPointer<CardModel> card);
     void handleCardReceived(QSharedPointer<Card> card);
@@ -85,7 +90,7 @@ private slots:
     void handleCardEditFinished(const QSharedPointer<RC::Card> &card);
 
     void handleCardRemoved(int id);
-
+    void handleCardSelectedForWork(const QSharedPointer<CardModel>& card);
     void handleConnectWasBegin();
     void handleConnectWasFinished();
 

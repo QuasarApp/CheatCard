@@ -1,3 +1,10 @@
+//#
+//# Copyright (C) 2021-2021 QuasarApp.
+//# Distributed under the lgplv3 software license, see the accompanying
+//# Everyone is permitted to copy and distribute verbatim copies
+//# of this license document, but changing it is not allowed.
+//#
+
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Controls.Material
@@ -27,7 +34,6 @@ Page {
             preferredHighlightBegin: (orientation == ListView.Vertical)? list.height / 2 - itemHeight / 2 : list.width / 2 - itemWidth / 2
             preferredHighlightEnd: preferredHighlightBegin
 
-
             highlightRangeMode: ListView.StrictlyEnforceRange
             ScrollBar.vertical: ScrollBar {}
 
@@ -36,7 +42,7 @@ Page {
             Label {
                 text: qsTr("You do not have any card. ") +
                       (root.editable)? qsTr("Visit any coffee to get a new card and their bonuses"):
-                                       qsTr("Please create a new card for work")
+                                       qsTr("Please create a new card for work. Press \"Add Card \" button")
 
                 font.pointSize: 20
                 color: "#999999"
@@ -72,6 +78,14 @@ Page {
                                         root.finished()
                                     }
 
+                        TapHandler {
+                            onLongPressed:  {
+                                if (root.model) {
+                                    root.model.cardSelected(card.id)
+                                }
+                                waitConnect.open()
+                            }
+                        }
                         Behavior on width {
                             NumberAnimation {
                                 id: animation
@@ -121,5 +135,23 @@ Page {
                            root.model.addCard()
                        }
         }
+    }
+
+    Dialog {
+        id: waitConnect
+
+        contentItem: WaitConnectView {
+            id: waitConnectView
+            model: (mainModel)? mainModel.waitModel: null
+
+            onComplete: {
+                waitConnect.close();
+            }
+        }
+
+        anchors.centerIn: parent
+        width: root.width * 0.9
+        height: root.height * 0.9
+
     }
 }

@@ -186,6 +186,9 @@ void MainModel::initCardsListModels() {
 
     connect(_ownCardsListModel, &CardsListModel::sigCardRemoved,
             this, &MainModel::handleCardRemoved);
+
+    connect(_ownCardsListModel, &CardsListModel::sigCardSelectedForWork,
+            this, &MainModel::handleCardSelectedForWork);
 }
 
 void MainModel::initImagesModels() {
@@ -262,6 +265,10 @@ void MainModel::initWaitConnectionModel() {
             this, &MainModel::handleListenStop);
 }
 
+QObject *MainModel::waitModel() const {
+    return _waitModel;
+}
+
 int MainModel::getMode() const {
     return _mode;
 }
@@ -303,6 +310,10 @@ void MainModel::handleCardRemoved(int id) {
     reqest->setId(id);
 
     _db->deleteObject(reqest);
+}
+
+void MainModel::handleCardSelectedForWork(const QSharedPointer<CardModel> &card) {
+    _waitModel->setCard(card);
 }
 
 void MainModel::handleConnectWasBegin() {

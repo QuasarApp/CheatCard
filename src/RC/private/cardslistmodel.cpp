@@ -123,6 +123,10 @@ void CardsListModel::removeCard(int cardId) {
     emit sigCardRemoved(cardId);
 }
 
+void CardsListModel::cardSelected(int cardId) {
+    emit sigCardSelectedForWork(_cache.value(cardId).model);
+}
+
 const QHash<int, TableCache> &CardsListModel::cache() const {
     return _cache;
 }

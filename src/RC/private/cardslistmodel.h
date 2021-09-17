@@ -53,6 +53,7 @@ public:
 
     Q_INVOKABLE void addCard();
     Q_INVOKABLE void removeCard(int cardId);
+    Q_INVOKABLE void cardSelected(int cardId);
 
     const QHash<int, TableCache> &cache() const;
 
@@ -60,6 +61,8 @@ signals:
     void sigCardAdded(QSharedPointer<CardModel> card);
     void sigCardRemoved(int cardName);
     void sigEditFinished(const QSharedPointer<Card>& card);
+    void sigCardSelectedForWork(const QSharedPointer<CardModel>& card);
+
 
 private:
 

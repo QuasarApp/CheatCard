@@ -57,23 +57,11 @@ void WaitConnectionModel::setTimeOut(int newTimeOut) {
 }
 
 void WaitConnectionModel::begin() {
-    setVisible(false);
 
     setTimeOut(10);
     _timer->start();
 
     emit purchaseTaskCompleted(purchaseCount(), _card);
-}
-
-bool WaitConnectionModel::visible() const {
-    return _visible;
-}
-
-void WaitConnectionModel::setVisible(bool newVisible) {
-    if (_visible == newVisible)
-        return;
-    _visible = newVisible;
-    emit visibleChanged();
 }
 
 void WaitConnectionModel::handleTick() {

@@ -23,7 +23,6 @@ class WaitConnectionModel: public QObject
     Q_PROPERTY(QObject card READ card NOTIFY cardChanged)
     Q_PROPERTY(int purchaseCount READ purchaseCount WRITE setPurchaseCount NOTIFY purchaseCountChanged)
     Q_PROPERTY(int timeOut READ timeOut NOTIFY timeOutChanged)
-    Q_PROPERTY(bool visible READ visible NOTIFY visibleChanged)
 
 public:
     WaitConnectionModel();
@@ -38,14 +37,11 @@ public:
     void setTimeOut(int newTimeOut);
 
     Q_INVOKABLE void begin();
-    bool visible() const;
-    void setVisible(bool newVisible);
 
 signals:
     void cardChanged();
     void purchaseCountChanged();
     void timeOutChanged();
-    void visibleChanged();
     void purchaseTaskCompleted(int purchasesCount,
                                QSharedPointer<CardModel> card);
     void purchaseTaskCanceled();
@@ -54,10 +50,9 @@ private slots:
     void handleTick();
 private:
 
-    QSharedPointer<CardModel> _card;
+    QSharedPointer<CardModel> _card = nullptr;
     int _purchaseCount = 1;
     int _timeOut = 10; //secundes
-    bool _visible = false;
 
     QTimer *_timer = nullptr;
 };

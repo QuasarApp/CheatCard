@@ -193,7 +193,7 @@ Page {
 
                                 Image {
                                     id: seelImage
-                                    visible: root.model &&
+                                    visible: Boolean(root.model) &&
                                              ((root.model.purchasesNumber %
                                                freeIndex.value) > index)
 
