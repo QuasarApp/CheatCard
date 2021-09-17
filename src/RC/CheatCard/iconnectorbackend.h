@@ -79,8 +79,9 @@ public:
     Error lastStatus() const;
 
 signals:
-    void sigUserPurchaseWasSuccessful(QSharedPointer<User>);
-    void sigCardPurchaseWasSuccessful(QSharedPointer<Card>);
+    void sigPurchaseWasSuccessful(QSharedPointer<UsersCards> data);
+    void sigCardReceived(QSharedPointer<Card> err);
+
     void sigSessionWasFinshed(Error err);
     void sigSessionWasBegin();
 
@@ -93,7 +94,7 @@ protected:
     void reset();
 
     void connectionReceived(ITargetNode *obj);
-    void connectionLost(ITargetNode* id);
+    void connectionLost(unsigned int nodeID);
 
 
     int getPurchasesCount(unsigned int userId,

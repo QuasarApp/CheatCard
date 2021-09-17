@@ -21,6 +21,7 @@ public:
     virtual ~ITargetNode();
     virtual bool sendMessage(const QByteArray& array) = 0;
     virtual void close() = 0;
+    virtual unsigned int nodeId() const = 0 ;
 signals:
     void sigMessageReceived(QByteArray message);
     void sigConnectionClosed(ITargetNode*);

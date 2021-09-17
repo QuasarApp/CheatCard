@@ -76,16 +76,8 @@ void CardsListModel::setCards(const QList<QSharedPointer<Card> > &newCards) {
     endResetModel();
 }
 
-void CardsListModel::setPurchasesNumbers(const QList<QSharedPointer<UsersCards>> &purchasesNumbers) {
-    for (const auto &sp:  purchasesNumbers) {
-        if (auto model = _cache.value(sp->getCard()).model) {
-            model->setPurchasesNumber(sp->getPurchasesNumber());
-        }
-    }
-}
-
-void CardsListModel::addCard() {
-    auto card = QSharedPointer<Card>::create();
+QSharedPointer<CardModel>
+CardsListModel::importCard(const QSharedPointer<Card> &card) {
 
     auto cardModel = QSharedPointer<CardModel>::create(card);
 
@@ -98,7 +90,20 @@ void CardsListModel::addCard() {
 
     endInsertRows();
 
-    emit sigCardAdded(cardModel);
+    return cardModel;
+}
+
+void CardsListModel::setPurchasesNumbers(const QList<QSharedPointer<UsersCards>> &purchasesNumbers) {
+    for (const auto &sp:  purchasesNumbers) {
+        if (auto model = _cache.value(sp->getCard()).model) {
+            model->setPurchasesNumber(sp->getPurchasesNumber());
+        }
+    }
+}
+
+void CardsListModel::addCard() {
+    auto card = QSharedPointer<Card>::create();
+    emit sigCardAdded(importCard(card));
 }
 
 void CardsListModel::removeCard(int cardId) {

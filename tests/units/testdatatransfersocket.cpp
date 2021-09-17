@@ -25,6 +25,10 @@ void TestDataTransferSocket::close() {
     }
 }
 
+unsigned int TestDataTransferSocket::nodeId() const {
+    return qHash(reinterpret_cast<unsigned long long>(another));
+}
+
 TestDataTransferSocket *TestDataTransferSocket::getAnother() const {
     return another;
 }

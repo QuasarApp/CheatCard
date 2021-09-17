@@ -22,6 +22,7 @@
 #include <getsinglevalue.h>
 
 #include <QCoreApplication>
+#include "nfcbackend.h"
 
 #define CURRENT_USER "CURRENT_USER"
 
@@ -34,6 +35,8 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
 
     _defaultLogosModel = new ItemsModel();
     _defaultBackgroundsModel = new ItemsModel();
+
+    _backEndModel = new NFCBackEnd(_db);
 
 #define r_prefix QString("qrc:/images/private/resources/")
     _defaultLogosModel->setStringList({
@@ -86,6 +89,18 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
     connect(_ownCardsListModel, &CardsListModel::sigCardRemoved,
             this, &MainModel::handleCardRemoved);
 
+    connect(_backEndModel, &IConnectorBackEnd::sigSessionWasBegin,
+            this, &MainModel::handleConnectWasBegin);
+
+    connect(_backEndModel, &IConnectorBackEnd::sigSessionWasFinshed,
+            this, &MainModel::handleConnectWasFinished);
+
+    connect(_backEndModel, &IConnectorBackEnd::sigPurchaseWasSuccessful,
+            this, &MainModel::handlePurchaseWasSuccessful);
+
+    connect(_backEndModel, &IConnectorBackEnd::sigCardReceived,
+            this, &MainModel::handleCardReceived);
+
     setCurrentUser(initUser());
     _config = initConfig(_currentUser->user()->userId());
 
@@ -100,6 +115,8 @@ MainModel::~MainModel() {
 
     delete _defaultLogosModel;
     delete _defaultBackgroundsModel;
+
+    delete _backEndModel;
 }
 
 bool MainModel::fFirst() const {
@@ -235,6 +252,10 @@ void MainModel::handleCardCreated(QSharedPointer<CardModel> card) {
     _db->insertIfExistsUpdateObject(cards);
 }
 
+void MainModel::handleCardReceived(QSharedPointer<Card> card) {
+    _cardsListModel->importCard(card);
+}
+
 void MainModel::handleCardEditFinished(const QSharedPointer<Card>& card) {
     _db->insertIfExistsUpdateObject(card);
 }
@@ -245,6 +266,23 @@ void MainModel::handleCardRemoved(int id) {
     reqest->setId(id);
 
     _db->deleteObject(reqest);
+}
+
+void MainModel::handleConnectWasBegin() {
+    emit connectionWasBegin();
+}
+
+void MainModel::handleConnectWasFinished() {
+    emit connectionWasEnd();
+}
+
+void MainModel::handlePurchaseWasSuccessful(QSharedPointer<UsersCards> card){
+
+    if (_backEndModel->mode() == IConnectorBackEnd::Mode::Client) {
+        _cardsListModel->setPurchasesNumbers({card});
+    }
+
+    emit purchaseWasSuccessful(card->getCard(), card->getPurchasesNumber());
 }
 
 QObject *MainModel::defaultLogosModel() const {

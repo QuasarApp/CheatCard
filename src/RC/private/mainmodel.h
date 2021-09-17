@@ -11,6 +11,7 @@
 #include <QObject>
 #include <QSettings>
 #include <CheatCard/database.h>
+#include "CheatCard/iconnectorbackend.h"
 
 namespace RC {
 
@@ -21,6 +22,7 @@ class Config;
 class CardsListModel;
 class UserModel;
 class ItemsModel;
+
 
 /**
  * @brief The MainModel class is main model of the application.
@@ -64,11 +66,24 @@ signals:
 
     void defaultBackgroundsModelChanged();
 
+    void connectionWasBegin();
+    void connectionWasEnd();
+    void purchaseWasSuccessful(unsigned int cardId, unsigned int purcaseCount);
+
+
 private slots:
     void handleCardCreated(QSharedPointer<CardModel> card);
+    void handleCardReceived(QSharedPointer<Card> card);
+
     void handleCardEditFinished(const QSharedPointer<RC::Card> &card);
 
     void handleCardRemoved(int id);
+
+    void handleConnectWasBegin();
+    void handleConnectWasFinished();
+
+    void handlePurchaseWasSuccessful(QSharedPointer<UsersCards>);
+
 
 private:
     void saveConfig();
@@ -85,6 +100,7 @@ private:
     CardsListModel *_ownCardsListModel = nullptr;
     ItemsModel *_defaultLogosModel = nullptr;
     ItemsModel *_defaultBackgroundsModel = nullptr;
+    IConnectorBackEnd * _backEndModel = nullptr;
 
     QSettings _settings;
 

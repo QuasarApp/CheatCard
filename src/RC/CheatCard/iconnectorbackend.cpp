@@ -85,8 +85,8 @@ void IConnectorBackEnd::connectionReceived(ITargetNode *obj) {
     beginWork();
 }
 
-void IConnectorBackEnd::connectionLost( ITargetNode *id) {
-    if (_currentTarget != id) {
+void IConnectorBackEnd::connectionLost(unsigned int nodeID) {
+    if (_currentTarget->nodeId() != nodeID) {
         QuasarAppUtils::Params::log("Try drop another connection!!", QuasarAppUtils::Error);
     }
 
@@ -171,7 +171,7 @@ void IConnectorBackEnd::handleReceiveMessage(QByteArray message) {
 
 void IConnectorBackEnd::handleConnectionClosed(ITargetNode* id) {
     if (_lastStatus == Error::InProgress) {
-        connectionLost(id);
+        connectionLost(id->nodeId());
         return;
     }
 }
@@ -242,7 +242,7 @@ bool IConnectorBackEnd::applayPurchases(QSharedPointer<RC::Card> dbCard,
         return false;
     }
 
-    emit sigCardPurchaseWasSuccessful(dbCard);
+    emit sigPurchaseWasSuccessful(userCardsData);
     endWork(FinishedSuccessful);
 
     return true;
@@ -302,7 +302,8 @@ bool IConnectorBackEnd::processUserRequest(const QByteArray &message) {
         return false;
     }
 
-    emit sigUserPurchaseWasSuccessful(dbUser);
+    emit sigPurchaseWasSuccessful(userCardsData);
+
     return true;
 }
 
@@ -365,6 +366,9 @@ bool IConnectorBackEnd::processCardData(const QByteArray &message) {
     if (!card->isValid())
         return false;
 
+    if (!_db->insertIfExistsUpdateObject(card)) {
+        return false;
+    }
 
     if (!_lastReceivedCardStatus) {
         return false;
@@ -379,6 +383,8 @@ bool IConnectorBackEnd::processCardData(const QByteArray &message) {
     if (!_db->insertIfExistsUpdateObject(requset)) {
         return false;
     }
+
+    emit sigCardReceived(card);
 
     return applayPurchases(card, _lastReceivedCardStatus->purchasesCount);
 }
@@ -425,6 +431,7 @@ bool IConnectorBackEnd::incrementPurchases(const QSharedPointer<UsersCards> &use
 
     _lastUpdates[uniqueCarduserId] = unixTime;
     usersCardsData->setPurchasesNumber(usersCardsData->getPurchasesNumber() + 1);
+
 
     return true;
 }
