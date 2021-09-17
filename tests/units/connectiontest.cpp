@@ -128,7 +128,7 @@ ConnectionTest::makeNode(RC::IConnectorBackEnd::Mode mode) {
         card.setId(QVariant::fromValue(3618836081));
         auto activeCard = sallerDb->db()->getObject(card);
 
-        result->setActiveCard(activeCard);
+        result->setActiveCard(activeCard, 1);
     } else {
         result->setActiveUser(QSharedPointer<RC::User>::create());
     }

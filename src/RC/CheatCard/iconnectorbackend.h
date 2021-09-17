@@ -68,7 +68,7 @@ public:
     bool stop();
 
     QSharedPointer<Card> activeCard() const;
-    void setActiveCard(QSharedPointer<Card> newActiveCard);
+    void setActiveCard(QSharedPointer<Card> newActiveCard, int pusrchasesCount);
 
     QSharedPointer<User> activeUser() const;
     void setActiveUser(QSharedPointer<User> newActiveUser);
@@ -127,6 +127,7 @@ private:
     int _workID = 0;
     QSharedPointer<ITargetNode> _currentTarget;
     QSharedPointer<Card> _activeCard;
+    int _purchasesCount = 0;
     QSharedPointer<User> _activeUser;
 
     QHash<unsigned long long, unsigned int> _lastUpdates;

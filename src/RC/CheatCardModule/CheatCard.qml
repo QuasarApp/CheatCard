@@ -73,6 +73,12 @@ ApplicationWindow {
             interactive: user && user.fSaller
             currentIndex: 0
 
+            onCurrentIndexChanged: () => {
+                                       if (mainWindow.model) {
+                                           mainWindow.model.mode = user && user.fSaller && currentIndex === 0;
+                                       }
+                                   }
+
             Layout.fillWidth: true
             Layout.fillHeight: true
 
@@ -97,13 +103,14 @@ ApplicationWindow {
             count: view.count
             currentIndex: view.currentIndex
             interactive: view.interactive
+
         }
     }
 
     Drawer {
         id: userPanel
         y: header.height
-//        width: 0.6 * mainWindow.width
+        //        width: 0.6 * mainWindow.width
         height: mainWindow.height
 
         contentItem: EditUserView {

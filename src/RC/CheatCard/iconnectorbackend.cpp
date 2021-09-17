@@ -430,7 +430,7 @@ bool IConnectorBackEnd::incrementPurchases(const QSharedPointer<UsersCards> &use
     }
 
     _lastUpdates[uniqueCarduserId] = unixTime;
-    usersCardsData->setPurchasesNumber(usersCardsData->getPurchasesNumber() + 1);
+    usersCardsData->setPurchasesNumber(usersCardsData->getPurchasesNumber() + _purchasesCount);
 
 
     return true;
@@ -488,8 +488,10 @@ QSharedPointer<Card> IConnectorBackEnd::activeCard() const {
     return _activeCard;
 }
 
-void IConnectorBackEnd::setActiveCard(QSharedPointer<Card> newActiveCard) {
+void IConnectorBackEnd::setActiveCard(QSharedPointer<Card> newActiveCard,
+                                      int purchasesCount) {
     _activeCard = newActiveCard;
+    _purchasesCount = purchasesCount;
 }
 
 }

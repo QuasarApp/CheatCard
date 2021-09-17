@@ -22,6 +22,7 @@ class Config;
 class CardsListModel;
 class UserModel;
 class ItemsModel;
+class WaitConnectionModel;
 
 
 /**
@@ -34,6 +35,7 @@ class MainModel : public QObject
     Q_PROPERTY(QObject * currentUser READ currentUser NOTIFY currentUserChanged)
     Q_PROPERTY(QObject * cardsList READ cardsList NOTIFY cardsListChanged)
     Q_PROPERTY(QObject * ownCardsList READ ownCardsList NOTIFY ownCardsListChanged)
+    Q_PROPERTY(int mode READ getMode WRITE setMode NOTIFY modeChanged)
 
     Q_PROPERTY(QObject * defaultLogosModel READ defaultLogosModel NOTIFY defaultLogosModelChanged)
     Q_PROPERTY(QObject * defaultBackgroundsModel READ defaultBackgroundsModel NOTIFY defaultBackgroundsModelChanged)
@@ -54,6 +56,9 @@ public:
     QObject *defaultLogosModel() const;
     QObject *defaultBackgroundsModel() const;
 
+    int getMode() const;
+    void setMode(int newMode);
+
 signals:
 
     void fFirstChanged();
@@ -71,6 +76,8 @@ signals:
     void purchaseWasSuccessful(unsigned int cardId, unsigned int purcaseCount);
 
 
+    void modeChanged();
+
 private slots:
     void handleCardCreated(QSharedPointer<CardModel> card);
     void handleCardReceived(QSharedPointer<Card> card);
@@ -83,6 +90,8 @@ private slots:
     void handleConnectWasFinished();
 
     void handlePurchaseWasSuccessful(QSharedPointer<UsersCards>);
+    void handleListenStart(int purchasesCount, QSharedPointer<CardModel> model);
+    void handleListenStop();
 
 
 private:
@@ -93,6 +102,11 @@ private:
 
     QSharedPointer<Config> initConfig(int userId);
 
+    void initCardsListModels();
+    void initImagesModels();
+    void initBackEndModel();
+    void initWaitConnectionModel();
+
     QH::ISqlDBCache * _db = nullptr;
     QSharedPointer<UserModel> _currentUser;
     QSharedPointer<Config> _config;
@@ -101,8 +115,10 @@ private:
     ItemsModel *_defaultLogosModel = nullptr;
     ItemsModel *_defaultBackgroundsModel = nullptr;
     IConnectorBackEnd * _backEndModel = nullptr;
-
+    WaitConnectionModel * _waitModel = nullptr;
     QSettings _settings;
+
+    int _mode;
 
 };
 

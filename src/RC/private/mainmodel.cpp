@@ -8,6 +8,7 @@
 #include "cardmodel.h"
 #include "itemsmodel.h"
 #include "mainmodel.h"
+#include "waitconnectionmodel.h"
 
 #include <CheatCard/database.h>
 #include "user.h"
@@ -30,80 +31,15 @@ namespace RC {
 
 MainModel::MainModel(QH::ISqlDBCache *db) {
     _db = db;
-    _cardsListModel = new CardsListModel();
-    _ownCardsListModel = new CardsListModel();
 
-    _defaultLogosModel = new ItemsModel();
-    _defaultBackgroundsModel = new ItemsModel();
+    initCardsListModels();
+    initImagesModels();
+    initBackEndModel();
+    initWaitConnectionModel();
 
-    _backEndModel = new NFCBackEnd(_db);
-
-#define r_prefix QString("qrc:/images/private/resources/")
-    _defaultLogosModel->setStringList({
-                                          r_prefix + "/CoffeLogo.png",
-                                          r_prefix + "/coffeSign.png",
-                                          r_prefix + "/Icons/Cup_icon_1.png",
-                                          r_prefix + "/Icons/Cup_icon_2.png",
-                                          r_prefix + "/Icons/Cup_icon_3.png",
-                                          r_prefix + "/Icons/Cup_icon_4.png",
-                                          r_prefix + "/Icons/Cup_icon_5.png",
-                                          r_prefix + "/Icons/Cup_icon_6.png",
-                                          r_prefix + "/Icons/Cup_icon_7.png",
-                                          r_prefix + "/Icons/Cup_icon_8.png",
-                                          r_prefix + "/Icons/Cup_icon_9.png",
-                                          r_prefix + "/Icons/Cup_icon_10.png",
-                                          r_prefix + "/Icons/Cup_icon_11.png",
-                                          r_prefix + "/Icons/Cup_icon_12.png",
-
-                                      });
-
-    _defaultBackgroundsModel->setStringList({
-                                                r_prefix + "/Backgrounds/Layer_1.png",
-                                                r_prefix + "/Backgrounds/Layer_2.png",
-                                                r_prefix + "/Backgrounds/Layer_3.png",
-                                                r_prefix + "/Backgrounds/Layer_4.png",
-                                                r_prefix + "/Backgrounds/Layer_5.png",
-                                                r_prefix + "/Backgrounds/Layer_6.png",
-                                                r_prefix + "/Backgrounds/Layer_7.png",
-                                                r_prefix + "/Backgrounds/Layer_8.png",
-                                                r_prefix + "/Backgrounds/Layer_9.png",
-                                                r_prefix + "/Backgrounds/Layer_10.png",
-                                                r_prefix + "/Backgrounds/Layer_11.png",
-                                                r_prefix + "/Backgrounds/Layer_12.png",
-                                                r_prefix + "/Backgrounds/Layer_13.png",
-                                                r_prefix + "/Backgrounds/Layer_14.png",
-                                                r_prefix + "/Backgrounds/Layer_15.png",
-                                                r_prefix + "/Backgrounds/Layer_16.png",
-                                                r_prefix + "/Backgrounds/Layer_17.png",
-                                                r_prefix + "/Backgrounds/Layer_18.png",
-                                                r_prefix + "/Backgrounds/Layer_19.png",
-
-                                            });
-
-    connect(_ownCardsListModel, &CardsListModel::sigCardAdded,
-            this, &MainModel::handleCardCreated);
-
-    connect(_ownCardsListModel, &CardsListModel::sigEditFinished,
-            this, &MainModel::handleCardEditFinished);
-
-    connect(_ownCardsListModel, &CardsListModel::sigCardRemoved,
-            this, &MainModel::handleCardRemoved);
-
-    connect(_backEndModel, &IConnectorBackEnd::sigSessionWasBegin,
-            this, &MainModel::handleConnectWasBegin);
-
-    connect(_backEndModel, &IConnectorBackEnd::sigSessionWasFinshed,
-            this, &MainModel::handleConnectWasFinished);
-
-    connect(_backEndModel, &IConnectorBackEnd::sigPurchaseWasSuccessful,
-            this, &MainModel::handlePurchaseWasSuccessful);
-
-    connect(_backEndModel, &IConnectorBackEnd::sigCardReceived,
-            this, &MainModel::handleCardReceived);
 
     setCurrentUser(initUser());
     _config = initConfig(_currentUser->user()->userId());
-
 }
 
 MainModel::~MainModel() {
@@ -117,6 +53,8 @@ MainModel::~MainModel() {
     delete _defaultBackgroundsModel;
 
     delete _backEndModel;
+
+    delete _waitModel;
 }
 
 bool MainModel::fFirst() const {
@@ -236,6 +174,105 @@ QSharedPointer<Config> MainModel::initConfig(int userId) {
     return QSharedPointer<Config>::create(userId);
 }
 
+void MainModel::initCardsListModels() {
+    _cardsListModel = new CardsListModel();
+    _ownCardsListModel = new CardsListModel();
+
+    connect(_ownCardsListModel, &CardsListModel::sigCardAdded,
+            this, &MainModel::handleCardCreated);
+
+    connect(_ownCardsListModel, &CardsListModel::sigEditFinished,
+            this, &MainModel::handleCardEditFinished);
+
+    connect(_ownCardsListModel, &CardsListModel::sigCardRemoved,
+            this, &MainModel::handleCardRemoved);
+}
+
+void MainModel::initImagesModels() {
+    _defaultLogosModel = new ItemsModel();
+    _defaultBackgroundsModel = new ItemsModel();
+
+#define r_prefix QString("qrc:/images/private/resources/")
+    _defaultLogosModel->setStringList({
+                                          r_prefix + "/CoffeLogo.png",
+                                          r_prefix + "/coffeSign.png",
+                                          r_prefix + "/Icons/Cup_icon_1.png",
+                                          r_prefix + "/Icons/Cup_icon_2.png",
+                                          r_prefix + "/Icons/Cup_icon_3.png",
+                                          r_prefix + "/Icons/Cup_icon_4.png",
+                                          r_prefix + "/Icons/Cup_icon_5.png",
+                                          r_prefix + "/Icons/Cup_icon_6.png",
+                                          r_prefix + "/Icons/Cup_icon_7.png",
+                                          r_prefix + "/Icons/Cup_icon_8.png",
+                                          r_prefix + "/Icons/Cup_icon_9.png",
+                                          r_prefix + "/Icons/Cup_icon_10.png",
+                                          r_prefix + "/Icons/Cup_icon_11.png",
+                                          r_prefix + "/Icons/Cup_icon_12.png",
+
+                                      });
+
+    _defaultBackgroundsModel->setStringList({
+                                                r_prefix + "/Backgrounds/Layer_1.png",
+                                                r_prefix + "/Backgrounds/Layer_2.png",
+                                                r_prefix + "/Backgrounds/Layer_3.png",
+                                                r_prefix + "/Backgrounds/Layer_4.png",
+                                                r_prefix + "/Backgrounds/Layer_5.png",
+                                                r_prefix + "/Backgrounds/Layer_6.png",
+                                                r_prefix + "/Backgrounds/Layer_7.png",
+                                                r_prefix + "/Backgrounds/Layer_8.png",
+                                                r_prefix + "/Backgrounds/Layer_9.png",
+                                                r_prefix + "/Backgrounds/Layer_10.png",
+                                                r_prefix + "/Backgrounds/Layer_11.png",
+                                                r_prefix + "/Backgrounds/Layer_12.png",
+                                                r_prefix + "/Backgrounds/Layer_13.png",
+                                                r_prefix + "/Backgrounds/Layer_14.png",
+                                                r_prefix + "/Backgrounds/Layer_15.png",
+                                                r_prefix + "/Backgrounds/Layer_16.png",
+                                                r_prefix + "/Backgrounds/Layer_17.png",
+                                                r_prefix + "/Backgrounds/Layer_18.png",
+                                                r_prefix + "/Backgrounds/Layer_19.png",
+
+                                            });
+
+
+}
+
+void MainModel::initBackEndModel() {
+    _backEndModel = new NFCBackEnd(_db);
+    connect(_backEndModel, &IConnectorBackEnd::sigSessionWasBegin,
+            this, &MainModel::handleConnectWasBegin);
+
+    connect(_backEndModel, &IConnectorBackEnd::sigSessionWasFinshed,
+            this, &MainModel::handleConnectWasFinished);
+
+    connect(_backEndModel, &IConnectorBackEnd::sigPurchaseWasSuccessful,
+            this, &MainModel::handlePurchaseWasSuccessful);
+
+    connect(_backEndModel, &IConnectorBackEnd::sigCardReceived,
+            this, &MainModel::handleCardReceived);
+}
+
+void MainModel::initWaitConnectionModel() {
+    _waitModel = new WaitConnectionModel();
+
+    connect(_waitModel, &WaitConnectionModel::purchaseTaskCompleted,
+            this, &MainModel::handleListenStart);
+
+    connect(_waitModel, &WaitConnectionModel::purchaseTaskCanceled,
+            this, &MainModel::handleListenStop);
+}
+
+int MainModel::getMode() const {
+    return _mode;
+}
+
+void MainModel::setMode(int newMode) {
+    if (_mode == newMode)
+        return;
+    _mode = newMode;
+    emit modeChanged();
+}
+
 QObject *MainModel::cardsList() const {
     return _cardsListModel;
 }
@@ -283,6 +320,17 @@ void MainModel::handlePurchaseWasSuccessful(QSharedPointer<UsersCards> card){
     }
 
     emit purchaseWasSuccessful(card->getCard(), card->getPurchasesNumber());
+}
+
+void MainModel::handleListenStart(int purchasesCount, QSharedPointer<CardModel> model) {
+    _backEndModel->start(static_cast<IConnectorBackEnd::Mode>(_mode));
+    _backEndModel->setActiveCard(model->card(), purchasesCount);
+}
+
+void MainModel::handleListenStop() {
+    if (_backEndModel->mode() == IConnectorBackEnd::Saller) {
+        _backEndModel->stop();
+    }
 }
 
 QObject *MainModel::defaultLogosModel() const {
