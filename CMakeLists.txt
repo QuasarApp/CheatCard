@@ -33,9 +33,12 @@ include(submodules/Heart/QuasarAppLib/CMake/QuasarApp.cmake)
 initAll()
 
 
+if (ANDROID)
+
 if (${QT_VERSION_MAJOR} LESS_EQUAL 5)
     message("This project support only qt6")
     return()
+endif()
 endif()
 
 if (NOT DEFINED CheatCard_TESTS)

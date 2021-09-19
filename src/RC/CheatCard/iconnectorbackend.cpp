@@ -15,6 +15,7 @@
 #include "userscards.h"
 #include "dbobjectsrequest.h"
 #include "getsinglevalue.h"
+#include <cstring>
 
 
 #define TIME_LIMIT_SEC 10

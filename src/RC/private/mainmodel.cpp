@@ -34,9 +34,9 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
 
     initCardsListModels();
     initImagesModels();
-    initBackEndModel();
     initWaitConnectionModel();
 
+    initBackEndModel();
 
     setCurrentUser(initUser());
     _config = initConfig(_currentUser->user()->userId());
@@ -247,6 +247,9 @@ void MainModel::initBackEndModel() {
 
     connect(_backEndModel, &IConnectorBackEnd::sigSessionWasFinshed,
             this, &MainModel::handleConnectWasFinished);
+
+    connect(_backEndModel, &IConnectorBackEnd::sigSessionWasFinshed,
+            _waitModel, &WaitConnectionModel::handlePurchaseTaskFinished);
 
     connect(_backEndModel, &IConnectorBackEnd::sigPurchaseWasSuccessful,
             this, &MainModel::handlePurchaseWasSuccessful);

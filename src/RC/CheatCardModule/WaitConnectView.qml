@@ -6,10 +6,10 @@
 //#
 
 
-import QtQuick
-import QtQuick.Controls
-import QtQuick.Controls.Material
-import QtQuick.Layouts
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Controls.Material 2.15
+import QtQuick.Layouts 1.15
 
 Page {
     id: root
@@ -18,6 +18,12 @@ Page {
 
     contentItem:
         ColumnLayout {
+
+        Item {
+            Layout.fillHeight: true
+
+        }
+
         EditCardView {
             Layout.fillWidth: true
             Layout.preferredHeight: width * 0.7
@@ -26,6 +32,7 @@ Page {
         }
 
         RowLayout {
+
             SpinBox {
                 id: purchaseInput
                 Layout.alignment: Qt.AlignHCenter
@@ -38,6 +45,9 @@ Page {
                 onValueChanged: () => {
                                     if (root.model) {
                                         root.model.purchaseCount = value
+
+                                        if (root.model.card)
+                                        root.model.card.setPurchasesNumber(value)
                                     }
                                 }
             }
@@ -50,17 +60,42 @@ Page {
                 onClicked:  () => {
                                 if (root.model) {
                                     root.model.begin();
-                                    root.complete();
                                 }
                             }
             }
+            visible: !progress.visible
         }
 
         ProgressBar {
+
+            id: progress;
             Layout.fillWidth: true
-            from: 0
-            to: 10000
+            visible: Boolean(root.model && root.model.waitForConnect)
+            from: 1
+            to: (root.model)? root.model.waitTime : 0
             value: (root.model)? root.model.timeOut : 0
+
+            Behavior on value {
+                NumberAnimation {
+                    duration: 1001
+                }
+            }
+        }
+
+        Item {
+            Layout.fillHeight: true
+
+        }
+    }
+
+    Connections {
+        target: model
+        function onPurchaseTaskCanceled () {
+            root.complete();
+        }
+
+        function onPurchaseTaskFinished () {
+            root.complete();
         }
     }
 }

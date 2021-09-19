@@ -16,11 +16,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please create a new card for work</source>
+        <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Edit</source>
+        <source>Please create a new card for work. Press &quot;Add Card &quot; button</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -199,6 +199,13 @@
     </message>
     <message>
         <source>Go to use</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>WaitConnectView</name>
+    <message>
+        <source>Seel</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

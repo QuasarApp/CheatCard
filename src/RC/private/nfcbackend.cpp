@@ -16,7 +16,13 @@ NFCBackEnd::NFCBackEnd(QH::ISqlDBCache *_db): RC::IConnectorBackEnd(_db) {
 
 bool NFCBackEnd::listen(Mode mode) {
     setMode(mode);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 2, 0)
     return _manager->startTargetDetection(QNearFieldTarget::NdefAccess);
+#else
+    _manager->setTargetAccessModes(QNearFieldManager::NdefReadTargetAccess |
+                                   QNearFieldManager::NdefWriteTargetAccess);
+    return _manager->startTargetDetection();
+#endif
 }
 
 bool NFCBackEnd::close() {

@@ -18,6 +18,8 @@ WaitConnectionModel::WaitConnectionModel() {
 
     _timer->setInterval(1000);
 
+    setTimeOut(waitTime());
+
     connect(_timer, &QTimer::timeout,
             this , &WaitConnectionModel::handleTick);
 
@@ -45,6 +47,10 @@ void WaitConnectionModel::setPurchaseCount(int newPurchaseCount) {
     emit purchaseCountChanged();
 }
 
+int WaitConnectionModel::waitTime() const {
+    return 10;
+}
+
 int WaitConnectionModel::timeOut() const {
     return _timeOut;
 }
@@ -58,9 +64,9 @@ void WaitConnectionModel::setTimeOut(int newTimeOut) {
 
 void WaitConnectionModel::begin() {
 
-    setTimeOut(10);
+    setTimeOut(waitTime());
     _timer->start();
-
+    setWaintForCnnect(true);
     emit purchaseTaskCompleted(purchaseCount(), _card);
 }
 
@@ -71,4 +77,21 @@ void WaitConnectionModel::handleTick() {
         emit purchaseTaskCanceled();
     }
 }
+
+void WaitConnectionModel::setWaintForCnnect(bool val) {
+    if (_waitForConnect == val)
+        return;
+
+    _waitForConnect = val;
+    emit waitForConnectChanged();
+}
+
+bool WaitConnectionModel::waitForConnect() const {
+    return _waitForConnect;
+}
+
+void WaitConnectionModel::handlePurchaseTaskFinished() {
+    emit purchaseTaskFinished();
+}
+
 }

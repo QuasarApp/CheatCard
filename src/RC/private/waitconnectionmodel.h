@@ -20,9 +20,12 @@ class WaitConnectionModel: public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(QObject card READ card NOTIFY cardChanged)
+    Q_PROPERTY(QObject* card READ card NOTIFY cardChanged)
     Q_PROPERTY(int purchaseCount READ purchaseCount WRITE setPurchaseCount NOTIFY purchaseCountChanged)
     Q_PROPERTY(int timeOut READ timeOut NOTIFY timeOutChanged)
+    Q_PROPERTY(int waitTime READ waitTime NOTIFY waitTimeChanged)
+
+    Q_PROPERTY(bool waitForConnect READ waitForConnect NOTIFY waitForConnectChanged)
 
 public:
     WaitConnectionModel();
@@ -33,10 +36,17 @@ public:
     int purchaseCount() const;
     void setPurchaseCount(int newPurchaseCount);
 
+    int waitTime() const;
+
     int timeOut() const;
     void setTimeOut(int newTimeOut);
 
     Q_INVOKABLE void begin();
+
+    bool waitForConnect() const;
+
+public slots:
+    void handlePurchaseTaskFinished();
 
 signals:
     void cardChanged();
@@ -45,16 +55,23 @@ signals:
     void purchaseTaskCompleted(int purchasesCount,
                                QSharedPointer<CardModel> card);
     void purchaseTaskCanceled();
+    void purchaseTaskFinished();
+
+    void waitTimeChanged();
+    void waitForConnectChanged();
 
 private slots:
     void handleTick();
 private:
+
+    void setWaintForCnnect(bool val);
 
     QSharedPointer<CardModel> _card = nullptr;
     int _purchaseCount = 1;
     int _timeOut = 10; //secundes
 
     QTimer *_timer = nullptr;
+    bool _waitForConnect = false;
 };
 }
 #endif // WAITCONNECTIONMODEL_H

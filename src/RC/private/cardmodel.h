@@ -63,7 +63,7 @@ public:
     QString getColor() const;
     void setColor(const QString &newColor);
 
-    void setPurchasesNumber(int newPurchasesNumber);
+    Q_INVOKABLE void setPurchasesNumber(int newPurchasesNumber);
 
     void setFreeIndex(int newFreeIndex);
 
