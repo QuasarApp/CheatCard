@@ -3,11 +3,11 @@ import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
 
-Dialog {
-    id: root
+Page {
     property alias color: preview.color
-    ColumnLayout {
 
+    ColumnLayout {
+        anchors.fill: parent
         Rectangle {
             id: preview
             color:  Qt.rgba(red.value, green.value,  blue.value);
@@ -127,7 +127,5 @@ Dialog {
         }
     }
 
-    anchors.centerIn: parent
-
-    standardButtons: Dialog.Ok | Dialog.Close
 }
+

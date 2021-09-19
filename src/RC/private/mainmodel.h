@@ -76,7 +76,7 @@ signals:
 
     void connectionWasBegin();
     void connectionWasEnd();
-    void freeItem(unsigned int cardId, unsigned int freeItemsCount);
+    void freeItem(QObject *cardId, unsigned int freeItemsCount);
 
 
     void modeChanged();

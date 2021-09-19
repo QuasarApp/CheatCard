@@ -19,13 +19,37 @@ ApplicationWindow {
     property var model: mainModel
     property var user: (mainModel)? mainModel.currentUser: null
 
+    Connections {
+        target: model
+        function onFreeItem(card, freeItemsCount) {
+
+            var freeItems = Qt.createComponent("        FreeItemsView {
+            freeItems: " + freeItemsCount + "
+        }")
+
+            activityProcessor.newActivityFromComponent(freeItems, card);
+
+        }
+    }
+
     header: ToolBar {
         position: ToolBar.Header
         RowLayout {
             anchors.fill: parent
             ToolButton {
-                text: (userPanel.visible)? qsTr("<<") : qsTr("三")
-                onClicked: (userPanel.visible)? userPanel.close() : userPanel.open()
+                text: (userPanel.visible || activityProcessor.depth > 1)? qsTr("<<") : qsTr("三")
+                onClicked: () => {
+                               if (activityProcessor.depth > 1) {
+                                   activityProcessor.pop();
+                                   return;
+                               }
+
+                               if (userPanel.visible) {
+                                   userPanel.close()
+                               } else {
+                                   userPanel.open()
+                               }
+                           }
                 font.bold: true
             }
 
@@ -63,54 +87,62 @@ ApplicationWindow {
         }
     }
 
-    ColumnLayout {
+    StackView {
+        id: activityProcessor
         anchors.fill: parent
 
-        SwipeView {
-            id: view
-
-            clip: true
-            interactive: user && user.fSaller
-            currentIndex: 0
-
-            onCurrentIndexChanged: () => {
-                                       if (mainWindow.model) {
-                                           mainWindow.model.mode = user && user.fSaller && currentIndex === 0;
-                                       }
-                                   }
-
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-
-            CardsListView {
-                model: (mainWindow.model) ? mainWindow.model.ownCardsList: null
-                visible: user && user.fSaller
-
-                editable: user && user.fSaller
+        function newActivityFromComponent(component, activityModel) {
+            var activity = component.createObject(activityProcessor);
+            if (activity === null) {
+                // Error Handling
+                console.error("Error creating Activity object");
+                return;
             }
 
-            CardsListView {
-                model: (mainWindow.model) ? mainWindow.model.cardsList: null
-                editable: false
+            if (activityModel) {
+                activity.model = activityModel;
             }
 
+            push(activity);
         }
 
-        PageIndicator {
-            id: indicator
-            Layout.alignment: Qt.AlignHCenter
-            visible: user && user.fSaller
-            count: view.count
-            currentIndex: view.currentIndex
-            interactive: view.interactive
+        function newActivity(viewFile, activityModel) {
 
+            if (!viewFile || !viewFile.length) {
+                console.error("Failed to create activity. view object is invalid");
+                return;
+            }
+
+            var component = Qt.createComponent(viewFile);
+
+            if (component.status === Component.Ready) {
+                var activity = component.createObject(activityProcessor);
+                if (activity === null) {
+                    // Error Handling
+                    console.error("Error creating Activity object");
+                    return;
+                }
+
+                if (activityModel) {
+                    activity.model = activityModel;
+                }
+
+                push(activity);
+            } else if (component.status === Component.Error) {
+                // Error Handling
+                console.log("Error loading component:", component.errorString());
+            }
         }
+
+        Component.onCompleted: () => {
+                                   newActivity("qrc:/CheatCardModule/MainActivity.qml",
+                                               mainModel);
+                               }
     }
 
     Drawer {
         id: userPanel
         y: header.height
-        //        width: 0.6 * mainWindow.width
         height: mainWindow.height
 
         contentItem: EditUserView {

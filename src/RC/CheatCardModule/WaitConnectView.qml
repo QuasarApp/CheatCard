@@ -14,7 +14,6 @@ import QtQuick.Layouts 1.15
 Page {
     id: root
     property var model: null
-    signal complete();
 
     contentItem:
         ColumnLayout {
@@ -33,6 +32,8 @@ Page {
         }
 
         RowLayout {
+
+            Layout.alignment: Qt.AlignHCenter
 
             SpinBox {
                 id: purchaseInput
@@ -89,11 +90,11 @@ Page {
     Connections {
         target: model
         function onPurchaseTaskCanceled () {
-            root.complete();
+            activityProcessor.pop();
         }
 
         function onPurchaseTaskFinished () {
-            root.complete();
+            activityProcessor.pop();
         }
     }
 }

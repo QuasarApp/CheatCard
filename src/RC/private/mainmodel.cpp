@@ -330,13 +330,16 @@ void MainModel::handleConnectWasFinished() {
 void MainModel::handlePurchaseWasSuccessful(QSharedPointer<UsersCards> card){
 
     int freeIndex;
+    QSharedPointer<CardModel> cardModel;
 
     if (_backEndModel->mode() == IConnectorBackEnd::Mode::Client) {
-
+        cardModel = _cardsListModel->cache().value(card->getCard()).model;
         _cardsListModel->setPurchasesNumbers({card});
         freeIndex = _cardsListModel->cache().value(card->getCard()).source->getFreeIndex();
 
     } else {
+        cardModel = _ownCardsListModel->cache().value(card->getCard()).model;
+
         freeIndex = _ownCardsListModel->cache().value(card->getCard()).source->getFreeIndex();
     }
 
@@ -344,7 +347,7 @@ void MainModel::handlePurchaseWasSuccessful(QSharedPointer<UsersCards> card){
     card->receive(freeItems);
     _db->insertIfExistsUpdateObject(card);
 
-    emit freeItem(card->getCard(), freeItems);
+    emit freeItem(cardModel.data(), freeItems);
 }
 
 void MainModel::handleListenStart(int purchasesCount, QSharedPointer<CardModel> model) {

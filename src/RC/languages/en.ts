@@ -120,6 +120,22 @@
         <source>Change card seel</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Enter your phone number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter bonus name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select card logo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select card seel</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditUserView</name>
@@ -184,6 +200,17 @@
     </message>
     <message>
         <source>Please Enter your name or name your company here</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>FreeItemsView</name>
+    <message>
+        <source>It seems you deserve a bonus.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have </source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -87,7 +87,9 @@ Page {
                                 if (root.model) {
                                     root.model.cardSelected(card.id)
                                 }
-                                waitConnect.open()
+
+                                activityProcessor.newActivity("qrc:/CheatCardModule/WaitConnectView.qml",
+                                                              mainModel.waitModel)
                             }
                         }
                         Behavior on width {
@@ -139,23 +141,5 @@ Page {
                            root.model.addCard()
                        }
         }
-    }
-
-    Dialog {
-        id: waitConnect
-
-        contentItem: WaitConnectView {
-            id: waitConnectView
-            model: (mainModel)? mainModel.waitModel: null
-
-            onComplete: {
-                waitConnect.close();
-            }
-        }
-
-        anchors.centerIn: parent
-        width: root.width * 0.9
-        height: root.height * 0.9
-
     }
 }

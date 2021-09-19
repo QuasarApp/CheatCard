@@ -328,119 +328,113 @@ Page {
     }
 
 
-    ColorPicker {
-        id: colorDialog
-
-        header: Label {
-            horizontalAlignment: Label.AlignHCenter
-            text: qsTr("Please choose a color")
-            font.bold: true
-        }
-
-        onAccepted: {
-            if (root.model) {
-                cardRectangle.color = colorDialog.color
-                root.model.color = colorDialog.color
-            }
-
-            close()
-        }
-
-        onRejected: {
-            close()
-        }
-    }
-
-
-    Dialog {
-        id: defaultImages
-
+    Component {
+        id: selectImage
         ItemsView {
             title: qsTr("Select Image")
             id: sourceImages
             model: (mainModel)? mainModel.defaultBackgroundsModel: null
 
-            anchors.fill: parent
+            footer: DialogButtonBox {
+                onAccepted: () => {
+                                if (!root.model) {
+                                    return
+                                };
 
+                                cardBackground.source = sourceImages.currentSelectedItem
+                                root.model.setNewBackGround(sourceImages.currentSelectedItem);
+                                activityProcessor.pop();
+                            }
+
+                standardButtons: Dialog.Open
+            }
         }
-
-        width: root.width * 0.9
-        height: root.height * 0.9
-
-        anchors.centerIn: parent
-
-        onAccepted: () => {
-                        if (!root.model) {
-                            return
-                        };
-
-                        cardBackground.source = sourceImages.currentSelectedItem
-                        root.model.setNewBackGround(sourceImages.currentSelectedItem);
-                    }
-
-        standardButtons: Dialog.Open | Dialog.Close
     }
 
-    Dialog {
+    Component {
         id: defaultLogos
-
-        contentItem: ItemsView {
+        ItemsView {
+            title: qsTr("Select card logo")
             id: sourceLogos
             model: (mainModel)? mainModel.defaultLogosModel: null
 
+            footer: DialogButtonBox {
+                onAccepted: () => {
+                                if (!root.model) {
+                                    return
+                                };
+
+                                cardLogoIamge.source = sourceLogos.currentSelectedItem
+                                root.model.setNewLogo(sourceLogos.currentSelectedItem);
+                                activityProcessor.pop();
+
+                            }
+
+                standardButtons: Dialog.Open
+            }
         }
-
-        onAccepted: () => {
-                        if (!root.model) {
-                            return
-                        };
-
-                        cardLogoIamge.source = sourceLogos.currentSelectedItem
-                        root.model.setNewLogo(sourceLogos.currentSelectedItem);
-                    }
-
-        anchors.centerIn: parent
-        width: root.width * 0.9
-        height: root.height * 0.9
-
-        standardButtons: Dialog.Open | Dialog.Close
     }
 
-    Dialog {
+    Component {
         id: defaultSeels
-
-        contentItem: ItemsView {
+        ItemsView {
+            title: qsTr("Select card seel")
             id: sourceSeels
             model: (mainModel)? mainModel.defaultLogosModel: null
 
+            footer: DialogButtonBox {
+                onAccepted: () => {
+                                if (!root.model) {
+                                    return
+                                };
+
+                                cardRectangle.seelTmpImage = sourceSeels.currentSelectedItem
+                                root.model.setNewSeel(sourceSeels.currentSelectedItem);
+                                activityProcessor.pop();
+
+                            }
+
+                standardButtons: Dialog.Open
+            }
         }
-
-        onAccepted: () => {
-                        if (!root.model) {
-                            return
-                        };
-
-                        cardRectangle.seelTmpImage = sourceSeels.currentSelectedItem
-                        root.model.setNewSeel(sourceSeels.currentSelectedItem);
-                    }
-
-        width: root.width * 0.9
-        height: root.height * 0.9
-
-        anchors.centerIn: parent
-
-        standardButtons: Dialog.Open | Dialog.Close
     }
 
+    Component {
+        id: defaultColor
+
+
+        ColorPicker {
+            id: colorPick
+
+            header: Label {
+                horizontalAlignment: Label.AlignHCenter
+                text: qsTr("Please choose a color")
+                font.bold: true
+            }
+
+            footer: DialogButtonBox {
+                onAccepted: () => {
+                                if (root.model) {
+                                    cardRectangle.color = colorPick.color
+                                    root.model.color = colorPick.color
+                                }
+                                activityProcessor.pop();
+
+                            }
+
+                standardButtons: Dialog.Open
+            }
+        }
+    }
 
     Menu {
         id: customisationMenu
 
         MenuItem {
             text: qsTr("Change background color")
-
             onClicked: () => {
-                           colorDialog.open()
+                           activityProcessor.newActivityFromComponent(defaultColor);
+
                        }
         }
 
@@ -448,7 +442,8 @@ Page {
             text: qsTr("Change background image")
 
             onClicked: () => {
-                           defaultImages.open()
+                           activityProcessor.newActivityFromComponent(selectImage);
+
                        }
         }
 
@@ -456,7 +451,8 @@ Page {
             text: qsTr("Change card logo")
 
             onClicked: () => {
-                           defaultLogos.open()
+                           activityProcessor.newActivityFromComponent(defaultLogos);
+
                        }
         }
 
@@ -464,7 +460,7 @@ Page {
             text: qsTr("Change card seel")
 
             onClicked: () => {
-                           defaultSeels.open()
+                           activityProcessor.newActivityFromComponent(defaultSeels);
                        }
         }
     }

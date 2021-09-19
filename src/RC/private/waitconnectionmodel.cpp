@@ -30,6 +30,7 @@ QObject* WaitConnectionModel::card() const {
 }
 
 void WaitConnectionModel::setCard(const QSharedPointer<CardModel> &newCard) {
+
     if (_card == newCard)
         return;
     _card = newCard;
@@ -74,6 +75,9 @@ void WaitConnectionModel::handleTick() {
     setTimeOut(timeOut() - 1);
 
     if(timeOut() <= 0) {
+        _timer->stop();
+        setTimeOut(waitTime());
+        setWaintForCnnect(false);
         emit purchaseTaskCanceled();
     }
 }
@@ -91,6 +95,7 @@ bool WaitConnectionModel::waitForConnect() const {
 }
 
 void WaitConnectionModel::handlePurchaseTaskFinished() {
+    setWaintForCnnect(false);
     emit purchaseTaskFinished();
 }
 

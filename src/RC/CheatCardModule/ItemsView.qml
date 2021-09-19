@@ -18,17 +18,23 @@ Page {
         visible: text.length
     }
 
-    contentItem: GridView {
+    GridView {
         id: gridView
         model: root.model
         highlightFollowsCurrentItem: true
         ScrollBar.vertical: ScrollBar {}
         clip: true
+        anchors.fill: parent
+
+        cellHeight: 110
+        cellWidth:110
+
         Component {
             id: gridDelegate
+
             Rectangle {
                 property bool current: display === currentSelectedItem
-                color: (current)? Material.accent: "#00000000"
+                color: (current)? Material.accent: "#777777"
                 radius: 4
                 width: 100
                 height: 100
