@@ -76,7 +76,7 @@ signals:
 
     void connectionWasBegin();
     void connectionWasEnd();
-    void purchaseWasSuccessful(unsigned int cardId, unsigned int purcaseCount);
+    void freeItem(unsigned int cardId, unsigned int freeItemsCount);
 
 
     void modeChanged();

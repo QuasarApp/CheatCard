@@ -31,6 +31,7 @@ QH::PKG::DBVariantMap Card::variantMap() const {
             {"instagramm",      {_instagramm,     QH::PKG::MemberType::InsertUpdate}},
             {"physicalAddress", {_physicalAddress,QH::PKG::MemberType::InsertUpdate}},
             {"webSite",         {_webSite,        QH::PKG::MemberType::InsertUpdate}},
+            {"freeItemName",    {_freeItemName,   QH::PKG::MemberType::InsertUpdate}},
 
             {"freeIndex",       {freeIndex,       QH::PKG::MemberType::InsertUpdate}}};
 }
@@ -62,7 +63,7 @@ bool Card::fromSqlRecord(const QSqlRecord &q) {
     setTitle(q.value("title").toString());
     setLogo(q.value("logo").toByteArray());
     setSeal(q.value("seal").toByteArray());
-    setSeal(q.value("background").toByteArray());
+    setBackground(q.value("background").toByteArray());
 
     setPhone(q.value("phone").toByteArray());
     setTelegramm(q.value("telegramm").toByteArray());
@@ -72,6 +73,7 @@ bool Card::fromSqlRecord(const QSqlRecord &q) {
     setColor(q.value("color").toString());
 
     setFreeIndex(q.value("freeIndex").toInt());
+    setFreeItemName(q.value("freeItemName").toString());
 
     return true;
 }
@@ -94,6 +96,7 @@ QDataStream &Card::fromStream(QDataStream &stream) {
     stream >> _webSite;
     stream >> freeIndex;
     stream >> color;
+    stream >> _freeItemName;
 
     return stream;
 }
@@ -112,8 +115,17 @@ QDataStream &Card::toStream(QDataStream &stream) const {
     stream << _webSite;
     stream << freeIndex;
     stream << color;
+    stream << _freeItemName;
 
     return stream;
+}
+
+const QString &Card::freeItemName() const {
+    return _freeItemName;
+}
+
+void Card::setFreeItemName(const QString &newFreeItemName) {
+    _freeItemName = newFreeItemName;
 }
 
 const QByteArray &Card::background() const {

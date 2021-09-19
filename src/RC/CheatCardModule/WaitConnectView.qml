@@ -27,6 +27,7 @@ Page {
         EditCardView {
             Layout.fillWidth: true
             Layout.preferredHeight: width * 0.7
+            purchasesNumber: purchaseInput.value
             editable: false
             model: (root.model)? root.model.card : null
         }
@@ -45,9 +46,6 @@ Page {
                 onValueChanged: () => {
                                     if (root.model) {
                                         root.model.purchaseCount = value
-
-                                        if (root.model.card)
-                                        root.model.card.setPurchasesNumber(value)
                                     }
                                 }
             }

@@ -29,12 +29,25 @@ QH::PKG::DBVariantMap UsersCards::variantMap() const {
     return {{"user",           {user,           QH::PKG::MemberType::Insert}},
             {"card",           {card,           QH::PKG::MemberType::Insert}},
             {"purchasesNumber",{purchasesNumber,QH::PKG::MemberType::InsertUpdate}},
+            {"received",       {received,       QH::PKG::MemberType::InsertUpdate}},
             {"owner",          {owner,          QH::PKG::MemberType::InsertUpdate}},
     };
 }
 
 QString UsersCards::primaryKey() const {
     return "";
+}
+
+unsigned int UsersCards::getReceived() const {
+    return received;
+}
+
+void UsersCards::setReceived(unsigned int newReceived) {
+    received = newReceived;
+}
+
+void UsersCards::receive(unsigned int receiveFreItemsCount) {
+    setReceived(received + receiveFreItemsCount);
 }
 
 unsigned int UsersCards::getPurchasesNumber() const {
@@ -74,7 +87,7 @@ bool UsersCards::fromSqlRecord(const QSqlRecord &q) {
     user = q.value("user").toUInt();
     purchasesNumber = q.value("purchasesNumber").toUInt();
     card = q.value("card").toUInt();
-
+    received = q.value("received").toUInt();
     owner = q.value("owner").toBool();
 
     return true;

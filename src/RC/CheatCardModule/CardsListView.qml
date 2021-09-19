@@ -31,7 +31,9 @@ Page {
 
             snapMode: ListView.NoSnap
             boundsBehavior:Flickable.StopAtBounds
-            preferredHighlightBegin: (orientation == ListView.Vertical)? list.height / 2 - itemHeight / 2 : list.width / 2 - itemWidth / 2
+            preferredHighlightBegin: (orientation == ListView.Vertical)?
+                                         list.height / 2 - itemHeight / 2 :
+                                         list.width / 2 - itemWidth / 2
             preferredHighlightEnd: preferredHighlightBegin
 
             highlightRangeMode: ListView.StrictlyEnforceRange
@@ -54,8 +56,8 @@ Page {
                 anchors.fill: parent
             }
 
-            property int itemHeight: (itemWidth * 0.65)
-            property int itemWidth: Math.min(list.width, buttonAddCard.y / 0.65)
+            property int itemHeight: (itemWidth * 0.75)
+            property int itemWidth: Math.min(list.width, buttonAddCard.y / 0.75)
 
             Component {
                 id: delegateItem

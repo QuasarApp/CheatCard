@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS "Cards" (
         "instagramm"        TEXT DEFAULT "",
         "physicalAddress"   TEXT DEFAULT "",
         "webSite"           TEXT DEFAULT "",
+        "freeItemName"      TEXT NOT NULL,
 
         "color"             INTEGER DEFAULT 0x00777777,
 
@@ -46,6 +47,7 @@ CREATE TABLE IF NOT EXISTS "UsersCards" (
 
        "owner" BOOLEAN NOT NULL DEFAULT false,
        "purchasesNumber" INTEGER DEFAULT 1,
+       "received" INTEGER DEFAULT 0,
 
        FOREIGN KEY(user) REFERENCES Users(id)
                ON UPDATE CASCADE

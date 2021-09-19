@@ -329,11 +329,22 @@ void MainModel::handleConnectWasFinished() {
 
 void MainModel::handlePurchaseWasSuccessful(QSharedPointer<UsersCards> card){
 
+    int freeIndex;
+
     if (_backEndModel->mode() == IConnectorBackEnd::Mode::Client) {
+
         _cardsListModel->setPurchasesNumbers({card});
+        freeIndex = _cardsListModel->cache().value(card->getCard()).source->getFreeIndex();
+
+    } else {
+        freeIndex = _ownCardsListModel->cache().value(card->getCard()).source->getFreeIndex();
     }
 
-    emit purchaseWasSuccessful(card->getCard(), card->getPurchasesNumber());
+    int freeItems = card->getReceived() - std::ceil(card->getPurchasesNumber() / static_cast<double>(freeIndex));
+    card->receive(freeItems);
+    _db->insertIfExistsUpdateObject(card);
+
+    emit freeItem(card->getCard(), freeItems);
 }
 
 void MainModel::handleListenStart(int purchasesCount, QSharedPointer<CardModel> model) {
