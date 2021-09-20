@@ -10,7 +10,7 @@ Page {
 
     header: Label {
         horizontalAlignment: Label.AlignHCenter
-        text: qsTr("Registaration passed!!!")
+        text: qsTr("Registration passed!!!")
         font.bold: true
     }
 

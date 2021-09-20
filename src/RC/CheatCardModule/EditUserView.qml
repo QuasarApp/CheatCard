@@ -55,12 +55,12 @@ Page {
         }
 
         Label {
-            text: qsTr("This user is not saller");
+            text: qsTr("This user is not seller");
             visible: (root.model) && !root.model.fSaller
         }
 
         Button {
-            text: qsTr("Become a Saller");
+            text: qsTr("Become a seller");
             Layout.alignment: Qt.AlignHCenter
             Layout.columnSpan: 1
             visible: (root.model) && !root.model.fSaller

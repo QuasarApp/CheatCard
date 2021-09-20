@@ -32,7 +32,7 @@ ApplicationWindow {
             Label {
                 text: (user)?
                           qsTr("Hello ") + user.name +
-                          ((user.fSaller)? qsTr(" (Saller mode)"):"")
+                          ((user.fSaller)? qsTr(" (Seller mode)"):"")
                         : ""
 
                 elide: Label.ElideRight
