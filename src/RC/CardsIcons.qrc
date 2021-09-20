@@ -37,5 +37,7 @@
         <file>private/resources/Backgrounds/Layer_10.png</file>
         <file>private/resources/Backgrounds/Layer_1.png</file>
         <file>private/resources/Icons/Cup_icon_1.png</file>
+        <file>private/resources/freeItem.png</file>
+        <file>private/resources/phone.png</file>
     </qresource>
 </RCC>

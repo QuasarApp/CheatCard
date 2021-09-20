@@ -10,6 +10,7 @@ public:
     ~TestDataTransferSocket() override;
     bool sendMessage(const QByteArray &array) override final;
     void close() override final;
+    unsigned int nodeId() const;
 
     TestDataTransferSocket *getAnother() const;
     void setAnother(TestDataTransferSocket *newAnother);

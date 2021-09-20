@@ -7,6 +7,7 @@
 
 #include <QColor>
 #include <dbobject.h>
+#include "CheatCard/CheatCard_global.h"
 
 #ifndef CARD_H
 #define CARD_H
@@ -16,7 +17,7 @@ namespace RC {
 /**
  * @brief The Card class
  */
-class Card: public QH::PKG::DBObject
+class CheatCard_EXPORT Card: public QH::PKG::DBObject
 {
 public:
     Card();
@@ -61,6 +62,9 @@ public:
 
     unsigned int cardId() const;
 
+    const QString &freeItemName() const;
+    void setFreeItemName(const QString &newFreeItemName);
+
 protected:
     QString primaryKey() const override;
     QDataStream &fromStream(QDataStream &stream) override;
@@ -77,6 +81,7 @@ private:
     QString _instagramm;
     QString _physicalAddress;
     QString _webSite;
+    QString _freeItemName;
 
     int freeIndex = 1;
     QString color = "#777777";

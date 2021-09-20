@@ -41,6 +41,10 @@ public:
     unsigned int getPurchasesNumber() const;
     void setPurchasesNumber(unsigned int newPurchasesNumber);
 
+    unsigned int getReceived() const;
+    void setReceived(unsigned int newReceived);
+    void receive(unsigned int receiveFreItemsCount);
+
 protected:
     QString primaryKey() const override;
 
@@ -48,6 +52,7 @@ private:
     unsigned int user = 0;
     unsigned int card = 0;
     unsigned int purchasesNumber = 0;
+    unsigned int received = 0;
     bool owner = false;
 };
 

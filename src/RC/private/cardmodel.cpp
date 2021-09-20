@@ -240,5 +240,21 @@ QByteArray CardModel::convert(const QString& imagePath) {
     return result;;
 }
 
+QString CardModel::getFreeItem() const {
+    if (!_card)
+        return "";
+    return _card->freeItemName();
+}
+
+void CardModel::setFreeItem(const QString &newFreeItem) {
+    if (!_card)
+        return;
+
+    if (_card->freeItemName() == newFreeItem)
+        return;
+
+    _card->setFreeItemName(newFreeItem);
+}
+
 
 }

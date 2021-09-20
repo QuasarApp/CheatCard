@@ -1,8 +1,8 @@
 
-import QtQuick
-import QtQuick.Controls
-import QtQuick.Controls.Material
-import QtQuick.Layouts
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Controls.Material 2.15
+import QtQuick.Layouts 1.15
 
 Page {
     id: root;
@@ -18,17 +18,23 @@ Page {
         visible: text.length
     }
 
-    contentItem: GridView {
+    GridView {
         id: gridView
         model: root.model
         highlightFollowsCurrentItem: true
         ScrollBar.vertical: ScrollBar {}
         clip: true
+        anchors.fill: parent
+
+        cellHeight: 110
+        cellWidth:110
+
         Component {
             id: gridDelegate
+
             Rectangle {
                 property bool current: display === currentSelectedItem
-                color: (current)? Material.accent: "#00000000"
+                color: (current)? Material.accent: "#777777"
                 radius: 4
                 width: 100
                 height: 100

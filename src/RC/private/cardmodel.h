@@ -32,6 +32,7 @@ class CardModel: public QObject
     Q_PROPERTY(QString physicalAddress READ physicalAddress WRITE setPhysicalAddress NOTIFY objChanged)
     Q_PROPERTY(QString webSite READ webSite WRITE setWebSite NOTIFY objChanged)
     Q_PROPERTY(QString color READ getColor WRITE setColor NOTIFY objChanged)
+    Q_PROPERTY(QString freeItem READ getFreeItem WRITE setFreeItem NOTIFY objChanged)
 
     QML_ELEMENT
 public:
@@ -76,10 +77,14 @@ public:
     QString title() const;
     void setTitle(const QString &newTitle);
 
+    QString getFreeItem() const;
+    void setFreeItem(const QString &newFreeItem);
+
 signals:
     void objChanged();
     void editFinished(const QSharedPointer<Card>& card);
     void purchasesNumberChanged();
+
 private:
 
     QByteArray convert(const QString& imagePath);

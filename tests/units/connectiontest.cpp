@@ -125,10 +125,10 @@ ConnectionTest::makeNode(RC::IConnectorBackEnd::Mode mode) {
     if (mode == RC::IConnectorBackEnd::Saller) {
 
         RC::Card card;
-        card.setId(QVariant::fromValue(3618836081));
+        card.setId(QVariant::fromValue(2887308033));
         auto activeCard = sallerDb->db()->getObject(card);
 
-        result->setActiveCard(activeCard);
+        result->setActiveCard(activeCard, 1);
     } else {
         result->setActiveUser(QSharedPointer<RC::User>::create());
     }

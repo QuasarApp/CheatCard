@@ -13,6 +13,9 @@
         <file>CheatCardModule/EditUserView.qml</file>
         <file>qtquickcontrols2.conf</file>
         <file>CheatCardModule/ItemsView.qml</file>
+        <file>CheatCardModule/WaitConnectView.qml</file>
+        <file>CheatCardModule/FreeItemsView.qml</file>
+        <file>CheatCardModule/MainActivity.qml</file>
     </qresource>
     <qresource prefix="/CheatCardTr">
         <file>languages/en.qm</file>

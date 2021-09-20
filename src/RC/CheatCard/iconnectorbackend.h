@@ -68,7 +68,7 @@ public:
     bool stop();
 
     QSharedPointer<Card> activeCard() const;
-    void setActiveCard(QSharedPointer<Card> newActiveCard);
+    void setActiveCard(QSharedPointer<Card> newActiveCard, int pusrchasesCount);
 
     QSharedPointer<User> activeUser() const;
     void setActiveUser(QSharedPointer<User> newActiveUser);
@@ -79,8 +79,9 @@ public:
     Error lastStatus() const;
 
 signals:
-    void sigUserPurchaseWasSuccessful(QSharedPointer<User>);
-    void sigCardPurchaseWasSuccessful(QSharedPointer<Card>);
+    void sigPurchaseWasSuccessful(QSharedPointer<UsersCards> data);
+    void sigCardReceived(QSharedPointer<Card> err);
+
     void sigSessionWasFinshed(Error err);
     void sigSessionWasBegin();
 
@@ -93,11 +94,14 @@ protected:
     void reset();
 
     void connectionReceived(ITargetNode *obj);
-    void connectionLost(ITargetNode* id);
+    void connectionLost(unsigned int nodeID);
 
 
     int getPurchasesCount(unsigned int userId,
                           unsigned int cardId);
+
+    QSharedPointer<UsersCards> getUserCardData(unsigned int userId,
+                                               unsigned int cardId);
 
 protected slots:
     void handleReceiveMessage(QByteArray message);
@@ -126,6 +130,7 @@ private:
     int _workID = 0;
     QSharedPointer<ITargetNode> _currentTarget;
     QSharedPointer<Card> _activeCard;
+    int _purchasesCount = 0;
     QSharedPointer<User> _activeUser;
 
     QHash<unsigned long long, unsigned int> _lastUpdates;
@@ -137,4 +142,9 @@ private:
 };
 
 }
+
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+Q_DECLARE_METATYPE(RC::IConnectorBackEnd::Error)
+#endif
+
 #endif // ICONNECTORBACKEND_H

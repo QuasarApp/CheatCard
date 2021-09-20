@@ -11,6 +11,7 @@
 #include <QObject>
 #include <QSettings>
 #include <CheatCard/database.h>
+#include "CheatCard/iconnectorbackend.h"
 
 namespace RC {
 
@@ -21,6 +22,8 @@ class Config;
 class CardsListModel;
 class UserModel;
 class ItemsModel;
+class WaitConnectionModel;
+
 
 /**
  * @brief The MainModel class is main model of the application.
@@ -32,9 +35,11 @@ class MainModel : public QObject
     Q_PROPERTY(QObject * currentUser READ currentUser NOTIFY currentUserChanged)
     Q_PROPERTY(QObject * cardsList READ cardsList NOTIFY cardsListChanged)
     Q_PROPERTY(QObject * ownCardsList READ ownCardsList NOTIFY ownCardsListChanged)
+    Q_PROPERTY(int mode READ getMode WRITE setMode NOTIFY modeChanged)
 
     Q_PROPERTY(QObject * defaultLogosModel READ defaultLogosModel NOTIFY defaultLogosModelChanged)
     Q_PROPERTY(QObject * defaultBackgroundsModel READ defaultBackgroundsModel NOTIFY defaultBackgroundsModelChanged)
+    Q_PROPERTY(QObject * waitModel READ waitModel NOTIFY waitModelChanged)
 
 
 public:
@@ -52,6 +57,11 @@ public:
     QObject *defaultLogosModel() const;
     QObject *defaultBackgroundsModel() const;
 
+    int getMode() const;
+    void setMode(int newMode);
+
+    QObject *waitModel() const;
+
 signals:
 
     void fFirstChanged();
@@ -64,11 +74,29 @@ signals:
 
     void defaultBackgroundsModelChanged();
 
+    void connectionWasBegin();
+    void connectionWasEnd();
+    void freeItem(QObject *cardId, unsigned int freeItemsCount);
+
+
+    void modeChanged();
+
+    void waitModelChanged();
+
 private slots:
-    void handleCardCreated(QSharedPointer<CardModel> card);
+    void handleCardReceived(QSharedPointer<Card> card);
+
     void handleCardEditFinished(const QSharedPointer<RC::Card> &card);
 
     void handleCardRemoved(int id);
+    void handleCardSelectedForWork(const QSharedPointer<CardModel>& card);
+    void handleConnectWasBegin();
+    void handleConnectWasFinished();
+
+    void handlePurchaseWasSuccessful(QSharedPointer<UsersCards>);
+    void handleListenStart(int purchasesCount, QSharedPointer<CardModel> model);
+    void handleListenStop();
+
 
 private:
     void saveConfig();
@@ -78,6 +106,11 @@ private:
 
     QSharedPointer<Config> initConfig(int userId);
 
+    void initCardsListModels();
+    void initImagesModels();
+    void initBackEndModel();
+    void initWaitConnectionModel();
+
     QH::ISqlDBCache * _db = nullptr;
     QSharedPointer<UserModel> _currentUser;
     QSharedPointer<Config> _config;
@@ -85,8 +118,11 @@ private:
     CardsListModel *_ownCardsListModel = nullptr;
     ItemsModel *_defaultLogosModel = nullptr;
     ItemsModel *_defaultBackgroundsModel = nullptr;
-
+    IConnectorBackEnd * _backEndModel = nullptr;
+    WaitConnectionModel * _waitModel = nullptr;
     QSettings _settings;
+
+    int _mode;
 
 };
 

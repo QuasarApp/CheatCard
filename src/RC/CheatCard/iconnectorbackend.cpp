@@ -15,6 +15,7 @@
 #include "userscards.h"
 #include "dbobjectsrequest.h"
 #include "getsinglevalue.h"
+#include <cstring>
 
 
 #define TIME_LIMIT_SEC 10
@@ -85,8 +86,8 @@ void IConnectorBackEnd::connectionReceived(ITargetNode *obj) {
     beginWork();
 }
 
-void IConnectorBackEnd::connectionLost( ITargetNode *id) {
-    if (_currentTarget != id) {
+void IConnectorBackEnd::connectionLost(unsigned int nodeID) {
+    if (_currentTarget->nodeId() != nodeID) {
         QuasarAppUtils::Params::log("Try drop another connection!!", QuasarAppUtils::Error);
     }
 
@@ -96,18 +97,23 @@ void IConnectorBackEnd::connectionLost( ITargetNode *id) {
 int IConnectorBackEnd::getPurchasesCount(unsigned int userId,
                                          unsigned int cardId) {
 
-    QString where = QString("user = %0 AND card = %1").
-            arg(userId).
-            arg(cardId);
-    QH::PKG::DBObjectsRequest<UsersCards> requestPurchase("UsersCards", where);
+    auto purches = getUserCardData(userId, cardId);
 
-    auto purches = _db->getObject(requestPurchase);
-
-    if (purches && purches->data().size()) {
-        return purches->data().first()->getPurchasesNumber();
+    if (purches) {
+        return purches->getPurchasesNumber();
     }
 
     return 0;
+}
+
+QSharedPointer<UsersCards>
+IConnectorBackEnd::getUserCardData(unsigned int userId, unsigned int cardId) {
+    UsersCards request;
+    request.setCard(cardId);
+    request.setUser(userId);
+
+    auto purches = _db->getObject(request);
+    return purches;
 }
 
 void IConnectorBackEnd::handleReceiveMessage(QByteArray message) {
@@ -171,7 +177,7 @@ void IConnectorBackEnd::handleReceiveMessage(QByteArray message) {
 
 void IConnectorBackEnd::handleConnectionClosed(ITargetNode* id) {
     if (_lastStatus == Error::InProgress) {
-        connectionLost(id);
+        connectionLost(id->nodeId());
         return;
     }
 }
@@ -222,11 +228,13 @@ bool IConnectorBackEnd::processCardStatus(const QByteArray &message) {
 
 bool IConnectorBackEnd::applayPurchases(QSharedPointer<RC::Card> dbCard,
                                         unsigned int purchases) {
-    auto userCardsData = QSharedPointer<UsersCards>::create();
-
-    userCardsData->setCard(dbCard->cardId());
-    userCardsData->setOwner(false);
-    userCardsData->setUser(_activeUser->userId());
+    auto userCardsData = getUserCardData(_activeUser->userId(), dbCard->cardId());
+    if (!userCardsData) {
+        userCardsData = QSharedPointer<UsersCards>::create();
+        userCardsData->setCard(dbCard->cardId());
+        userCardsData->setOwner(false);
+        userCardsData->setUser(_activeUser->userId());
+    }
     userCardsData->setPurchasesNumber(purchases);
 
     if (!_db->insertIfExistsUpdateObject(userCardsData)) {
@@ -242,7 +250,7 @@ bool IConnectorBackEnd::applayPurchases(QSharedPointer<RC::Card> dbCard,
         return false;
     }
 
-    emit sigCardPurchaseWasSuccessful(dbCard);
+    emit sigPurchaseWasSuccessful(userCardsData);
     endWork(FinishedSuccessful);
 
     return true;
@@ -285,12 +293,14 @@ bool IConnectorBackEnd::processUserRequest(const QByteArray &message) {
 
     }
 
-    auto userCardsData = QSharedPointer<UsersCards>::create();
-
-    userCardsData->setOwner(false);
-    userCardsData->setUser(user.userId);
-    userCardsData->setPurchasesNumber(getPurchasesCount(user.userId, _activeCard->cardId()));
-    userCardsData->setCard(_activeCard->cardId());
+    auto userCardsData = getUserCardData(user.userId, _activeCard->cardId());
+    if (!userCardsData) {
+        userCardsData = QSharedPointer<UsersCards>::create();
+        userCardsData->setOwner(false);
+        userCardsData->setUser(user.userId);
+        userCardsData->setPurchasesNumber(0);
+        userCardsData->setCard(_activeCard->cardId());
+    }
 
     if (!incrementPurchases(userCardsData)) {
         QuasarAppUtils::Params::log("Failed to update data", QuasarAppUtils::Error);
@@ -302,7 +312,8 @@ bool IConnectorBackEnd::processUserRequest(const QByteArray &message) {
         return false;
     }
 
-    emit sigUserPurchaseWasSuccessful(dbUser);
+    emit sigPurchaseWasSuccessful(userCardsData);
+
     return true;
 }
 
@@ -365,20 +376,28 @@ bool IConnectorBackEnd::processCardData(const QByteArray &message) {
     if (!card->isValid())
         return false;
 
+    if (!_db->insertIfExistsUpdateObject(card)) {
+        return false;
+    }
 
     if (!_lastReceivedCardStatus) {
         return false;
     }
 
-    auto requset = QSharedPointer<UsersCards>::create();
-    requset->setUser(_activeUser->userId());
-    requset->setCard(_lastReceivedCardStatus->cardId);
-    requset->setOwner(false);
-    requset->setPurchasesNumber(_lastReceivedCardStatus->purchasesCount);
+    auto userCardsData = getUserCardData(_activeUser->userId(), _lastReceivedCardStatus->cardId);
+    if (!userCardsData) {
+        userCardsData = QSharedPointer<UsersCards>::create();
+        userCardsData->setUser(_activeUser->userId());
+        userCardsData->setCard(_lastReceivedCardStatus->cardId);
+        userCardsData->setOwner(false);
+        userCardsData->setPurchasesNumber(_lastReceivedCardStatus->purchasesCount);
+    }
 
-    if (!_db->insertIfExistsUpdateObject(requset)) {
+    if (!_db->insertIfExistsUpdateObject(userCardsData)) {
         return false;
     }
+
+    emit sigCardReceived(card);
 
     return applayPurchases(card, _lastReceivedCardStatus->purchasesCount);
 }
@@ -424,7 +443,8 @@ bool IConnectorBackEnd::incrementPurchases(const QSharedPointer<UsersCards> &use
     }
 
     _lastUpdates[uniqueCarduserId] = unixTime;
-    usersCardsData->setPurchasesNumber(usersCardsData->getPurchasesNumber() + 1);
+    usersCardsData->setPurchasesNumber(usersCardsData->getPurchasesNumber() + _purchasesCount);
+
 
     return true;
 }
@@ -481,8 +501,10 @@ QSharedPointer<Card> IConnectorBackEnd::activeCard() const {
     return _activeCard;
 }
 
-void IConnectorBackEnd::setActiveCard(QSharedPointer<Card> newActiveCard) {
+void IConnectorBackEnd::setActiveCard(QSharedPointer<Card> newActiveCard,
+                                      int purchasesCount) {
     _activeCard = newActiveCard;
+    _purchasesCount = purchasesCount;
 }
 
 }

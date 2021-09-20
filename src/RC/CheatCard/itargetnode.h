@@ -10,10 +10,11 @@
 
 #include <QByteArray>
 #include <QObject>
+#include "CheatCard_global.h"
 
 namespace RC {
 
-class ITargetNode: public QObject
+class CheatCard_EXPORT ITargetNode: public QObject
 {
     Q_OBJECT
 public:
@@ -21,6 +22,7 @@ public:
     virtual ~ITargetNode();
     virtual bool sendMessage(const QByteArray& array) = 0;
     virtual void close() = 0;
+    virtual unsigned int nodeId() const = 0 ;
 signals:
     void sigMessageReceived(QByteArray message);
     void sigConnectionClosed(ITargetNode*);
