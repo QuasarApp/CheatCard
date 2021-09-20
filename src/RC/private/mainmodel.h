@@ -32,9 +32,9 @@ class MainModel : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(bool fFirst READ fFirst  NOTIFY fFirstChanged)
+
     Q_PROPERTY(QObject * currentUser READ currentUser NOTIFY currentUserChanged)
     Q_PROPERTY(QObject * cardsList READ cardsList NOTIFY cardsListChanged)
-    Q_PROPERTY(QObject * ownCardsList READ ownCardsList NOTIFY ownCardsListChanged)
     Q_PROPERTY(int mode READ getMode WRITE setMode NOTIFY modeChanged)
 
     Q_PROPERTY(QObject * defaultLogosModel READ defaultLogosModel NOTIFY defaultLogosModelChanged)
@@ -53,7 +53,6 @@ public:
     void setCurrentUser(QSharedPointer<UserModel> newCurrentUser);
 
     QObject *cardsList() const;
-    QObject *ownCardsList() const;
     QObject *defaultLogosModel() const;
     QObject *defaultBackgroundsModel() const;
 
@@ -61,14 +60,12 @@ public:
     void setMode(int newMode);
 
     QObject *waitModel() const;
-
 signals:
 
     void fFirstChanged();
     void currentUserChanged();
 
     void cardsListChanged();
-    void ownCardsListChanged();
 
     void defaultLogosModelChanged();
 
@@ -111,11 +108,19 @@ private:
     void initBackEndModel();
     void initWaitConnectionModel();
 
+    void setCardListModel(CardsListModel *model);
+
+    void initMode(const QSharedPointer<UserModel>& user,
+                  const QSharedPointer<Config>& config);
+
     QH::ISqlDBCache * _db = nullptr;
     QSharedPointer<UserModel> _currentUser;
     QSharedPointer<Config> _config;
+
+    CardsListModel *_currentCardsListModel = nullptr;
     CardsListModel *_cardsListModel = nullptr;
     CardsListModel *_ownCardsListModel = nullptr;
+
     ItemsModel *_defaultLogosModel = nullptr;
     ItemsModel *_defaultBackgroundsModel = nullptr;
     IConnectorBackEnd * _backEndModel = nullptr;
@@ -123,7 +128,6 @@ private:
     QSettings _settings;
 
     int _mode;
-
 };
 
 }

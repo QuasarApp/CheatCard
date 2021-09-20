@@ -32,12 +32,16 @@ public:
     bool getFirstRun() const;
     void setFirstRun(bool newFirstRun);
 
+    bool getFSellerEnabled() const;
+    void setFSellerEnabled(bool newFSellerEnabled);
+
 protected:
     QString primaryKey() const override;
 
 private:
     unsigned int userId = 0;
     bool firstRun = true;
+    bool fSellerEnabled = true;
 
 };
 

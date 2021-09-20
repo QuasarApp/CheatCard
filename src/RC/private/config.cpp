@@ -27,12 +27,14 @@ QH::PKG::DBObject *Config::createDBObject() const {
 bool Config::fromSqlRecord(const QSqlRecord &q) {
     userId = q.value("user").toUInt();
     firstRun = q.value("fFirst").toBool();
+    fSellerEnabled = q.value("fSellerMode").toBool();
 
     return true;
 }
 
 QH::PKG::DBVariantMap Config::variantMap() const {
     return {{"user",      {userId,        QH::PKG::MemberType::PrimaryKey}},
+            {"fSellerMode",{fSellerEnabled,QH::PKG::MemberType::InsertUpdate}},
             {"fFirst",    {firstRun,      QH::PKG::MemberType::InsertUpdate}},
     };
 }
@@ -43,6 +45,14 @@ bool Config::isValid() const {
 
 QString Config::primaryKey() const {
     return "user";
+}
+
+bool Config::getFSellerEnabled() const {
+    return fSellerEnabled;
+}
+
+void Config::setFSellerEnabled(bool newFSellerEnabled) {
+    fSellerEnabled = newFSellerEnabled;
 }
 
 bool Config::getFirstRun() const {
