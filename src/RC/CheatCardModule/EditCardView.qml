@@ -244,7 +244,7 @@ Page {
 
                                 Label {
                                     visible: Boolean(index === (freeIndex.value - 1))
-                                    text: qsTr("Free")
+                                    text: "Free"
                                     font.bold: true
                                     anchors.centerIn: parent
                                 }
