@@ -74,19 +74,19 @@
     <name>EditCardView</name>
     <message>
         <source>Enter telegramm chennal name</source>
-        <translation>Enter telegramm chennal name</translation>
+        <translation type="vanished">Enter telegramm chennal name</translation>
     </message>
     <message>
         <source>Enter your instagramm page</source>
-        <translation>Enter your instagramm page</translation>
+        <translation type="vanished">Enter your instagramm page</translation>
     </message>
     <message>
         <source>Enter your physical address</source>
-        <translation>Enter your physical address</translation>
+        <translation type="vanished">Enter your physical address</translation>
     </message>
     <message>
         <source>Enter your web site domain</source>
-        <translation>Enter your web site domain</translation>
+        <translation type="vanished">Enter your web site domain</translation>
     </message>
     <message>
         <source>Save</source>
@@ -134,7 +134,7 @@
     </message>
     <message>
         <source>Enter your phone number</source>
-        <translation>Enter your phone number</translation>
+        <translation type="vanished">Enter your phone number</translation>
     </message>
     <message>
         <source>Enter bonus name</source>
@@ -147,6 +147,26 @@
     <message>
         <source>Select card seal</source>
         <translation>Select card seal</translation>
+    </message>
+    <message>
+        <source>Your telegramm</source>
+        <translation>Your telegramm</translation>
+    </message>
+    <message>
+        <source>Your instagramm</source>
+        <translation>Your instagramm</translation>
+    </message>
+    <message>
+        <source>Your physical address</source>
+        <translation>Your physical address</translation>
+    </message>
+    <message>
+        <source>Your web site</source>
+        <translation>Your web site</translation>
+    </message>
+    <message>
+        <source>Your phone number</source>
+        <translation>Your phone number</translation>
     </message>
 </context>
 <context>

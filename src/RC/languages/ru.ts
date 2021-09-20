@@ -40,7 +40,7 @@
     </message>
     <message>
         <source>Hello </source>
-        <translation>Приветствуем</translation>
+        <translation>Приветствуем </translation>
     </message>
     <message>
         <source>⋮</source>
@@ -74,19 +74,19 @@
     </message>
     <message>
         <source>Enter telegramm chennal name</source>
-        <translation>Введите название телеграмм канала</translation>
+        <translation type="vanished">Введите название телеграмм канала</translation>
     </message>
     <message>
         <source>Enter your instagramm page</source>
-        <translation>Введите свою инстаграмм страницу</translation>
+        <translation type="vanished">Введите свою инстаграмм страницу</translation>
     </message>
     <message>
         <source>Enter your physical address</source>
-        <translation>Введите свой физический адрес</translation>
+        <translation type="vanished">Введите свой физический адрес</translation>
     </message>
     <message>
         <source>Enter your web site domain</source>
-        <translation>Введите адрес вашего веб-сайта</translation>
+        <translation type="vanished">Введите адрес вашего веб-сайта</translation>
     </message>
     <message>
         <source>Free</source>
@@ -126,7 +126,7 @@
     </message>
     <message>
         <source>Enter your phone number</source>
-        <translation>Введите свой номер телефона</translation>
+        <translation type="vanished">Введите свой номер телефона</translation>
     </message>
     <message>
         <source>Enter bonus name</source>
@@ -139,6 +139,26 @@
     <message>
         <source>Select card seal</source>
         <translation>Выбрать печать карты</translation>
+    </message>
+    <message>
+        <source>Your telegramm</source>
+        <translation>Ваш телеграмм</translation>
+    </message>
+    <message>
+        <source>Your instagramm</source>
+        <translation>Ваш инстаграм</translation>
+    </message>
+    <message>
+        <source>Your physical address</source>
+        <translation>Ваш физический адрес</translation>
+    </message>
+    <message>
+        <source>Your web site</source>
+        <translation>Ваш сайт</translation>
+    </message>
+    <message>
+        <source>Your phone number</source>
+        <translation>Ваш номер телефона</translation>
     </message>
 </context>
 <context>
