@@ -7,18 +7,18 @@
 
 cmake_minimum_required(VERSION 3.14)
 
-add_definitions(-DRegularCustomer_LIBRARY)
+add_definitions(-DCheatCard_LIBRARY)
 
 
 file(GLOB SOURCE_CPP
-    "*RegularCustomer/*.cpp"
+    "*CheatCard/*.cpp"
      "private/*.cpp"
 )
 
 if (${QT_VERSION_MAJOR})
     file(GLOB SOURCE_QRC
         "*.qrc"
-        "RegularCustomer/*.qrc"
+        "CheatCard/*.qrc"
         "private/*.qrc"
     )
 
@@ -30,15 +30,15 @@ set(PRIVATE_INCUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/private")
 
 add_library(${PROJECT_NAME} ${SOURCE_CPP} ${SOURCE_QRC})
 
-if (${QT_VERSION_MAJOR})
-    target_link_libraries(${PROJECT_NAME} PUBLIC Qt${QT_VERSION_MAJOR}::Core)
-endif()
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Quick Nfc REQUIRED)
+
+target_link_libraries(${PROJECT_NAME} PUBLIC Heart Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::Nfc)
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${PUBLIC_INCUDE_DIR})
 target_include_directories(${PROJECT_NAME} PRIVATE ${PRIVATE_INCUDE_DIR})
 
-set(LANGS ${CMAKE_CURRENT_SOURCE_DIR}/languages/en.ts)
-
+set(LANGS ${CMAKE_CURRENT_SOURCE_DIR}/languages/en.ts
+          ${CMAKE_CURRENT_SOURCE_DIR}/languages/ru.ts)
 
 prepareQM(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR} "${LANGS}")
 

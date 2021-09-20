@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/sql">
+        <file>units/sql/TestSallerDb.sql</file>
+    </qresource>
+</RCC>

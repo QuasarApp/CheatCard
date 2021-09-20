@@ -6,7 +6,7 @@
 //#
 
 #include <QtTest>
-#include "exampletest.h"
+#include "connectiontest.h"
 
 // Use This macros for initialize your own test classes.
 // Check exampletests
@@ -32,7 +32,7 @@ private slots:
 
 
     // BEGIN TESTS CASES
-    TestCase(exampleTest, ExampleTest)
+    TestCase(connectionTest, ConnectionTest)
     // END TEST CASES
 
 private:
@@ -57,7 +57,7 @@ tstMain::tstMain() {
     char * argv[] = {nullptr};
 
     _app = new QCoreApplication(argc, argv);
-    QCoreApplication::setApplicationName("testRegularCustomer");
+    QCoreApplication::setApplicationName("testCheatCard");
     QCoreApplication::setOrganizationName("QuasarApp");
 
     auto path = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
