@@ -24,6 +24,7 @@
 
 #include <QCoreApplication>
 #include "nfcbackend.h"
+#include "cmath"
 
 #define CURRENT_USER "CURRENT_USER"
 
