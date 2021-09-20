@@ -16,7 +16,7 @@ void initLang() {
         locale = QLocale(customLanguage);
     }
 
-    if(!QuasarAppUtils::Locales::init(locale, {":/crawlTranslations/languages/",
+    if(!QuasarAppUtils::Locales::init(locale, {":/CheatCardTr/languages/",
                                                ":/credits_languages/",
                                                ":/qmlNotify_languages/",
                                                ":/lv_languages/"})){
