@@ -179,9 +179,6 @@ void MainModel::initCardsListModels() {
     _cardsListModel = new CardsListModel();
     _ownCardsListModel = new CardsListModel();
 
-    connect(_ownCardsListModel, &CardsListModel::sigCardAdded,
-            this, &MainModel::handleCardCreated);
-
     connect(_ownCardsListModel, &CardsListModel::sigEditFinished,
             this, &MainModel::handleCardEditFinished);
 
@@ -292,20 +289,15 @@ QObject *MainModel::ownCardsList() const {
     return _ownCardsListModel;
 }
 
-void MainModel::handleCardCreated(QSharedPointer<CardModel> card) {
-    _db->insertIfExistsUpdateObject(card->card());
-
-    auto cards = QSharedPointer<UsersCards>::create(_currentUser->user()->userId(),
-                                                    card->card()->cardId(), true);
-    _db->insertIfExistsUpdateObject(cards);
-}
-
 void MainModel::handleCardReceived(QSharedPointer<Card> card) {
     _cardsListModel->importCard(card);
 }
 
 void MainModel::handleCardEditFinished(const QSharedPointer<Card>& card) {
     _db->insertIfExistsUpdateObject(card);
+    auto cards = QSharedPointer<UsersCards>::create(_currentUser->user()->userId(),
+                                                    card->cardId(), true);
+    _db->insertIfExistsUpdateObject(cards);
 }
 
 void MainModel::handleCardRemoved(int id) {

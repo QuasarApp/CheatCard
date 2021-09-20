@@ -103,7 +103,7 @@ void CardsListModel::setPurchasesNumbers(const QList<QSharedPointer<UsersCards>>
 
 void CardsListModel::addCard() {
     auto card = QSharedPointer<Card>::create();
-    emit sigCardAdded(importCard(card));
+    importCard(card);
 }
 
 void CardsListModel::removeCard(int cardId) {

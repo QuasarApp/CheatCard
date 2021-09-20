@@ -100,6 +100,9 @@ protected:
     int getPurchasesCount(unsigned int userId,
                           unsigned int cardId);
 
+    QSharedPointer<UsersCards> getUserCardData(unsigned int userId,
+                                               unsigned int cardId);
+
 protected slots:
     void handleReceiveMessage(QByteArray message);
     void handleConnectionClosed(ITargetNode *id);

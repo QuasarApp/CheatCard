@@ -58,7 +58,6 @@ public:
     const QHash<int, TableCache> &cache() const;
 
 signals:
-    void sigCardAdded(QSharedPointer<CardModel> card);
     void sigCardRemoved(int cardName);
     void sigEditFinished(const QSharedPointer<Card>& card);
     void sigCardSelectedForWork(const QSharedPointer<CardModel>& card);

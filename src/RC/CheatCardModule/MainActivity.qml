@@ -36,7 +36,7 @@ ColumnLayout {
             model: (root.model) ? root.model.ownCardsList: null
             visible: user && user.fSaller
 
-            editable: user && user.fSaller
+            editable: visible
         }
 
         CardsListView {

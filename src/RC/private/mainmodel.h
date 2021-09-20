@@ -84,7 +84,6 @@ signals:
     void waitModelChanged();
 
 private slots:
-    void handleCardCreated(QSharedPointer<CardModel> card);
     void handleCardReceived(QSharedPointer<Card> card);
 
     void handleCardEditFinished(const QSharedPointer<RC::Card> &card);

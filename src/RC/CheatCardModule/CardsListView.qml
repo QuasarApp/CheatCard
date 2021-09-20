@@ -43,8 +43,8 @@ Page {
 
             Label {
                 text: qsTr("You do not have any card. ") +
-                      (root.editable)? qsTr("Visit any coffee to get a new card and their bonuses"):
-                                       qsTr("Please create a new card for work. Press \"Add Card \" button")
+                      ((!root.editable)? qsTr("Visit any coffee to get a new card and their bonuses"):
+                                       qsTr("Please create a new card for work. Press \"Add Card \" button"))
 
                 font.pointSize: 20
                 color: "#999999"

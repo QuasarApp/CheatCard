@@ -97,18 +97,23 @@ void IConnectorBackEnd::connectionLost(unsigned int nodeID) {
 int IConnectorBackEnd::getPurchasesCount(unsigned int userId,
                                          unsigned int cardId) {
 
-    QString where = QString("user = %0 AND card = %1").
-            arg(userId).
-            arg(cardId);
-    QH::PKG::DBObjectsRequest<UsersCards> requestPurchase("UsersCards", where);
+    auto purches = getUserCardData(userId, cardId);
 
-    auto purches = _db->getObject(requestPurchase);
-
-    if (purches && purches->data().size()) {
-        return purches->data().first()->getPurchasesNumber();
+    if (purches) {
+        return purches->getPurchasesNumber();
     }
 
     return 0;
+}
+
+QSharedPointer<UsersCards>
+IConnectorBackEnd::getUserCardData(unsigned int userId, unsigned int cardId) {
+    UsersCards request;
+    request.setCard(cardId);
+    request.setUser(userId);
+
+    auto purches = _db->getObject(request);
+    return purches;
 }
 
 void IConnectorBackEnd::handleReceiveMessage(QByteArray message) {
@@ -223,12 +228,14 @@ bool IConnectorBackEnd::processCardStatus(const QByteArray &message) {
 
 bool IConnectorBackEnd::applayPurchases(QSharedPointer<RC::Card> dbCard,
                                         unsigned int purchases) {
-    auto userCardsData = QSharedPointer<UsersCards>::create();
-
-    userCardsData->setCard(dbCard->cardId());
-    userCardsData->setOwner(false);
-    userCardsData->setUser(_activeUser->userId());
-    userCardsData->setPurchasesNumber(purchases);
+    auto userCardsData = getUserCardData(_activeUser->userId(), dbCard->cardId());
+    if (!userCardsData) {
+        userCardsData = QSharedPointer<UsersCards>::create();
+        userCardsData->setCard(dbCard->cardId());
+        userCardsData->setOwner(false);
+        userCardsData->setUser(_activeUser->userId());
+        userCardsData->setPurchasesNumber(purchases);
+    }
 
     if (!_db->insertIfExistsUpdateObject(userCardsData)) {
         QuasarAppUtils::Params::log("Failed to update data", QuasarAppUtils::Error);
@@ -286,12 +293,14 @@ bool IConnectorBackEnd::processUserRequest(const QByteArray &message) {
 
     }
 
-    auto userCardsData = QSharedPointer<UsersCards>::create();
-
-    userCardsData->setOwner(false);
-    userCardsData->setUser(user.userId);
-    userCardsData->setPurchasesNumber(getPurchasesCount(user.userId, _activeCard->cardId()));
-    userCardsData->setCard(_activeCard->cardId());
+    auto userCardsData = getUserCardData(user.userId, _activeCard->cardId());
+    if (!userCardsData) {
+        userCardsData = QSharedPointer<UsersCards>::create();
+        userCardsData->setOwner(false);
+        userCardsData->setUser(user.userId);
+        userCardsData->setPurchasesNumber(0);
+        userCardsData->setCard(_activeCard->cardId());
+    }
 
     if (!incrementPurchases(userCardsData)) {
         QuasarAppUtils::Params::log("Failed to update data", QuasarAppUtils::Error);
@@ -375,13 +384,16 @@ bool IConnectorBackEnd::processCardData(const QByteArray &message) {
         return false;
     }
 
-    auto requset = QSharedPointer<UsersCards>::create();
-    requset->setUser(_activeUser->userId());
-    requset->setCard(_lastReceivedCardStatus->cardId);
-    requset->setOwner(false);
-    requset->setPurchasesNumber(_lastReceivedCardStatus->purchasesCount);
+    auto userCardsData = getUserCardData(_activeUser->userId(), _lastReceivedCardStatus->cardId);
+    if (!userCardsData) {
+        userCardsData = QSharedPointer<UsersCards>::create();
+        userCardsData->setUser(_activeUser->userId());
+        userCardsData->setCard(_lastReceivedCardStatus->cardId);
+        userCardsData->setOwner(false);
+        userCardsData->setPurchasesNumber(_lastReceivedCardStatus->purchasesCount);
+    }
 
-    if (!_db->insertIfExistsUpdateObject(requset)) {
+    if (!_db->insertIfExistsUpdateObject(userCardsData)) {
         return false;
     }
 
