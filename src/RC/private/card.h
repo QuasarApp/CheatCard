@@ -7,6 +7,7 @@
 
 #include <QColor>
 #include <dbobject.h>
+#include "CheatCard/CheatCard_global.h"
 
 #ifndef CARD_H
 #define CARD_H
@@ -16,7 +17,7 @@ namespace RC {
 /**
  * @brief The Card class
  */
-class Card: public QH::PKG::DBObject
+class CheatCard_EXPORT Card: public QH::PKG::DBObject
 {
 public:
     Card();
