@@ -158,7 +158,7 @@
     </message>
     <message>
         <source>Your phone number</source>
-        <translation>Ваш номер телефона</translation>
+        <translation>Ваш номер</translation>
     </message>
 </context>
 <context>

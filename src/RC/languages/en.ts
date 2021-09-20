@@ -158,7 +158,7 @@
     </message>
     <message>
         <source>Your physical address</source>
-        <translation>Your physical address</translation>
+        <translation>Location</translation>
     </message>
     <message>
         <source>Your web site</source>
@@ -166,7 +166,7 @@
     </message>
     <message>
         <source>Your phone number</source>
-        <translation>Your phone number</translation>
+        <translation>Your number</translation>
     </message>
 </context>
 <context>
