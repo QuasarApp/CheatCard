@@ -378,7 +378,7 @@ Page {
     Component {
         id: defaultSeels
         ItemsView {
-            title: qsTr("Select card seel")
+            title: qsTr("Select card seal")
             id: sourceSeels
             model: (mainModel)? mainModel.defaultLogosModel: null
 
