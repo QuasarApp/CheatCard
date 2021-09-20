@@ -130,7 +130,7 @@
     </message>
     <message>
         <source>Enter bonus name</source>
-        <translation>Введите название бонуса</translation>
+        <translation>Название бонуса</translation>
     </message>
     <message>
         <source>Select card logo</source>

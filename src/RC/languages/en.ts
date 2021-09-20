@@ -138,7 +138,7 @@
     </message>
     <message>
         <source>Enter bonus name</source>
-        <translation>Enter bonus name</translation>
+        <translation>Bonus name</translation>
     </message>
     <message>
         <source>Select card logo</source>
