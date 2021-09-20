@@ -25,7 +25,7 @@
     </message>
     <message>
         <source>Please create a new card for work. Press &quot;Add Card &quot; button</source>
-        <translation type="unfinished"></translation>
+        <translation>Please create a new card for work. Press &quot;Add Card &quot; button</translation>
     </message>
 </context>
 <context>
@@ -102,7 +102,7 @@
     </message>
     <message>
         <source>Free</source>
-        <translation>Free</translation>
+        <translation type="vanished">Free</translation>
     </message>
     <message>
         <source>⋮</source>
@@ -134,19 +134,19 @@
     </message>
     <message>
         <source>Enter your phone number</source>
-        <translation type="unfinished"></translation>
+        <translation>Enter your phone number</translation>
     </message>
     <message>
         <source>Enter bonus name</source>
-        <translation type="unfinished"></translation>
+        <translation>Enter bonus name</translation>
     </message>
     <message>
         <source>Select card logo</source>
-        <translation type="unfinished"></translation>
+        <translation>Select card logo</translation>
     </message>
     <message>
-        <source>Select card seel</source>
-        <translation type="unfinished"></translation>
+        <source>Select card seal</source>
+        <translation>Select card seal</translation>
     </message>
 </context>
 <context>
@@ -247,11 +247,11 @@
     <name>FreeItemsView</name>
     <message>
         <source>It seems you deserve a bonus.</source>
-        <translation type="unfinished"></translation>
+        <translation>It seems you deserve a bonus.</translation>
     </message>
     <message>
         <source>You have </source>
-        <translation type="unfinished"></translation>
+        <translation>You have </translation>
     </message>
 </context>
 <context>
@@ -276,8 +276,8 @@
 <context>
     <name>WaitConnectView</name>
     <message>
-        <source>Seel</source>
-        <translation type="unfinished"></translation>
+        <source>Seal</source>
+        <translation>Seal</translation>
     </message>
 </context>
 </TS>

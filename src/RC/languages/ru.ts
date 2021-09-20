@@ -25,7 +25,7 @@
     </message>
     <message>
         <source>Please create a new card for work. Press &quot;Add Card &quot; button</source>
-        <translation type="unfinished"></translation>
+        <translation>Пожалуйста, создайте новую карточку для работы. Нажмите кнопку &quot;Добавить карту&quot;.</translation>
     </message>
 </context>
 <context>
@@ -90,7 +90,7 @@
     </message>
     <message>
         <source>Free</source>
-        <translation>Бесплатно</translation>
+        <translation type="vanished">Бесплатно</translation>
     </message>
     <message>
         <source>⋮</source>
@@ -126,19 +126,19 @@
     </message>
     <message>
         <source>Enter your phone number</source>
-        <translation type="unfinished"></translation>
+        <translation>Введите свой номер телефона</translation>
     </message>
     <message>
         <source>Enter bonus name</source>
-        <translation type="unfinished"></translation>
+        <translation>Введите название бонуса</translation>
     </message>
     <message>
         <source>Select card logo</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите логотип карты</translation>
     </message>
     <message>
-        <source>Select card seel</source>
-        <translation type="unfinished"></translation>
+        <source>Select card seal</source>
+        <translation>Выбрать печать карты</translation>
     </message>
 </context>
 <context>
@@ -200,7 +200,7 @@
     </message>
     <message>
         <source>Please enter your name or name your company here</source>
-        <translation>Пожалуйста, введите здесь свое имя или название вашей компании</translation>
+        <translation>Пожалуйста, введите свое имя или название компании</translation>
     </message>
     <message>
         <source>Who are you?</source>
@@ -211,11 +211,11 @@
     <name>FreeItemsView</name>
     <message>
         <source>It seems you deserve a bonus.</source>
-        <translation type="unfinished"></translation>
+        <translation>Похоже, вы заслужили бонус.</translation>
     </message>
     <message>
         <source>You have </source>
-        <translation type="unfinished"></translation>
+        <translation>У вас есть</translation>
     </message>
 </context>
 <context>
@@ -236,8 +236,8 @@
 <context>
     <name>WaitConnectView</name>
     <message>
-        <source>Seel</source>
-        <translation type="unfinished"></translation>
+        <source>Seal</source>
+        <translation>Печать</translation>
     </message>
 </context>
 </TS>
