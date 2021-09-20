@@ -30,6 +30,7 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Test QUIET)
 include(submodules/Heart/QuasarAppLib/CMake/QuasarApp.cmake)
 
 initAll()
+addDoc(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/doxygen.conf)
 
 
 if (${QT_VERSION} VERSION_GREATER_EQUAL 6.0)
@@ -82,5 +83,4 @@ else()
 endif()
 
 
-addDoc(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/doxygen.conf)
 
