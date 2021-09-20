@@ -10,10 +10,11 @@
 
 #include <QByteArray>
 #include <QObject>
+#include "CheatCard_global.h"
 
 namespace RC {
 
-class ITargetNode: public QObject
+class CheatCard_EXPORT ITargetNode: public QObject
 {
     Q_OBJECT
 public:
