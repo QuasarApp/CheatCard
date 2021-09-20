@@ -52,7 +52,7 @@
     </message>
     <message>
         <source>Contact with developers</source>
-        <translation>Contact with developers</translation>
+        <translation>Contact with devs</translation>
     </message>
     <message>
         <source>About</source>

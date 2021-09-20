@@ -48,7 +48,7 @@
     </message>
     <message>
         <source>Contact with developers</source>
-        <translation>Связаться с разработчиками</translation>
+        <translation>Связаться с нами</translation>
     </message>
     <message>
         <source>About</source>
@@ -150,7 +150,7 @@
     </message>
     <message>
         <source>Your physical address</source>
-        <translation>Ваш физический адрес</translation>
+        <translation>Местоположение</translation>
     </message>
     <message>
         <source>Your web site</source>
