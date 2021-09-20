@@ -25,13 +25,19 @@ if (NOT DEFINED QT_VERSION_MAJOR)
     find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Test QUIET)
 endif()
 
-
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Test QUIET)
 
 include(submodules/Heart/QuasarAppLib/CMake/QuasarApp.cmake)
 
 initAll()
 
+
+if (${QT_VERSION} VERSION_GREATER_EQUAL 6.0)
+    if (${QT_VERSION} VERSION_LESS 6.2)
+        message("This project support only qt5 or qt6 from 6.2 ")
+        return()
+    endif()
+endif()
 
 if (ANDROID)
 
