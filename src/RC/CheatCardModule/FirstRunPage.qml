@@ -36,7 +36,7 @@ Page {
                 id: selectTypePage
                 header: Label {
                     horizontalAlignment: Label.AlignHCenter
-                    text: qsTr("Why you are?");
+                    text: qsTr("Who are you?");
                     font.bold: true
                 }
 
@@ -63,7 +63,7 @@ Page {
                             id: rSaller
 
                             Layout.alignment: Qt.AlignHCenter
-                            text: qsTr("I am saller")
+                            text: qsTr("I am seller")
                         }
 
                         Button {
@@ -87,8 +87,8 @@ Page {
 
                 header: Label {
                     horizontalAlignment: Label.AlignHCenter
-                    text: (rSaller.checked)? qsTr("What your name?") :
-                                             qsTr("What name of your comapny?");
+                    text: (rSaller.checked)? qsTr("What is your name?") :
+                                             qsTr("What is the name of your company?");
                     font.bold: true
                 }
 
@@ -106,7 +106,7 @@ Page {
                             id: name
                             Layout.alignment: Qt.AlignHCenter
                             Layout.fillWidth: true
-                            placeholderText: qsTr("Please Enter your name or name your company here")
+                            placeholderText: qsTr("Please enter your name or name your company here")
                         }
 
                         Button {

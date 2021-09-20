@@ -403,7 +403,7 @@ Page {
         }
 
         MenuItem {
-            text: qsTr("Change card seel")
+            text: qsTr("Change card seal")
 
             onClicked: () => {
                            defaultSeels.open()

@@ -16,6 +16,7 @@
     </qresource>
     <qresource prefix="/CheatCardTr">
         <file>languages/en.qm</file>
+        <file>languages/ru.qm</file>
     </qresource>
     <qresource prefix="/DataBase">
         <file>private/sql/DataBase.sql</file>
