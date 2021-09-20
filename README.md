@@ -1,16 +1,12 @@
-# CMakeProject
+# CheatCard
 
-Template repository for cmake project
-Fork me and replase CheatCard to Name of your new project.
+![Banner](src/RC/private/resources/Logo/CheatCard_Banner.jpg)
 
-1. Clone this repository 
-2. Run ./init.sh NewProjectName 
+## About this app 
 
-# This template supports next build targets:
+CheatCard - This is service which provides the ability to conveniently create discount cards for the clients of your business. 
 
-|   Command or make target   |  Description    |
-|------|------|
-| **make test** | The run tests for a project (dependet of Qt Tests, so you need to add Qt in Cmake using CMAKE_PREFIX_PATH) |
-| **make doc** | The generate a documentation for a project (dependet of doxygen) |
-| **make deploy** | The generate distribution for a project (dependet of CQtDeployer) |
-| **make release** | The prepare Qt Installer framework repository for a project, generate a snap package and APK file for android (dependet of CQtDeployer,  snapcraft, AndroidDeployer). |
+### How its work
+
+For example, you are the owner of a coffee shop, and you want to make a bonus for a customer receive some free product after the customer purchases a certain number of items. You register in the application as a seller, and create your discount card in the editor where you indicate what the buyer will receive as a bonus and how many purchases he must make to receive bonus products. After that, the client, having installed this application, will be able to receive your discount card in the application and receive
+in it there are marks for each purchased product necessary to receive the bonus products that you indicated in the card. The marks in the buyer's discount card will be set automatically after they purchase products using the NFC system.
