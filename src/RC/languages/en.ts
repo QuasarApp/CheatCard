@@ -25,7 +25,7 @@
     </message>
     <message>
         <source>Please create a new card for work. Press &quot;Add Card &quot; button</source>
-        <translation>Please create a new card for work. Press &quot;Add Card &quot; button</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -134,19 +134,19 @@
     </message>
     <message>
         <source>Enter your phone number</source>
-        <translation>Enter your phone number</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Enter bonus name</source>
-        <translation>Enter bonus name</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Select card logo</source>
-        <translation>Select card logo</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Select card seel</source>
-        <translation>Select card seal</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -247,11 +247,11 @@
     <name>FreeItemsView</name>
     <message>
         <source>It seems you deserve a bonus.</source>
-        <translation>It seems you deserve a bonus.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>You have </source>
-        <translation>You have </translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -277,7 +277,7 @@
     <name>WaitConnectView</name>
     <message>
         <source>Seel</source>
-        <translation>Seal</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

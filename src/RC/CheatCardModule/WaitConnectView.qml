@@ -54,7 +54,7 @@ Page {
             Button {
                 Layout.alignment: Qt.AlignHCenter
                 id: start
-                text: qsTr("Seal");
+                text: qsTr("Seel");
 
                 onClicked:  () => {
                                 if (root.model) {
