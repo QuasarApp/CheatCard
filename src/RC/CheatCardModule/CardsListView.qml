@@ -24,7 +24,12 @@ Page {
         ListView {
             id: list
             model: root.model
-            currentIndex: 0;
+            currentIndex: count - 1;
+
+            onCurrentIndexChanged: {
+                console.log(currentIndex)
+            }
+
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.alignment: Qt.AlignHCenter
@@ -34,7 +39,9 @@ Page {
             preferredHighlightBegin: (orientation == ListView.Vertical)?
                                          list.height / 2 - itemHeight / 2 :
                                          list.width / 2 - itemWidth / 2
-            preferredHighlightEnd: preferredHighlightBegin
+            preferredHighlightEnd: preferredHighlightBegin + ((orientation == ListView.Vertical)?
+                                        itemHeight :
+                                        itemWidth )
 
             highlightRangeMode: ListView.StrictlyEnforceRange
             ScrollBar.vertical: ScrollBar {}
@@ -55,6 +62,7 @@ Page {
                 visible: !list.count
                 anchors.fill: parent
             }
+
 
             property int itemHeight: (itemWidth * 0.75)
             property int itemWidth: Math.min(list.width, buttonAddCard.y / 0.75)

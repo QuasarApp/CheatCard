@@ -234,8 +234,8 @@ bool IConnectorBackEnd::applayPurchases(QSharedPointer<RC::Card> dbCard,
         userCardsData->setCard(dbCard->cardId());
         userCardsData->setOwner(false);
         userCardsData->setUser(_activeUser->userId());
-        userCardsData->setPurchasesNumber(purchases);
     }
+    userCardsData->setPurchasesNumber(purchases);
 
     if (!_db->insertIfExistsUpdateObject(userCardsData)) {
         QuasarAppUtils::Params::log("Failed to update data", QuasarAppUtils::Error);

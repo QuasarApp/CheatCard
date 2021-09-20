@@ -90,6 +90,8 @@ CardsListModel::importCard(const QSharedPointer<Card> &card) {
 
     endInsertRows();
 
+
+
     return cardModel;
 }
 
