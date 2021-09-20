@@ -13,7 +13,7 @@
     </message>
     <message>
         <source>Please create a new card for work</source>
-        <translation>Пожалуйста, создайте новую карту для работы</translation>
+        <translation type="vanished">Пожалуйста, создайте новую карту для работы</translation>
     </message>
     <message>
         <source>Edit</source>
@@ -22,6 +22,10 @@
     <message>
         <source>Add card</source>
         <translation>Добавить карту</translation>
+    </message>
+    <message>
+        <source>Please create a new card for work. Press &quot;Add Card &quot; button</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -120,6 +124,22 @@
         <source>Change card seal</source>
         <translation>Сменить печать карты</translation>
     </message>
+    <message>
+        <source>Enter your phone number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter bonus name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select card logo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select card seel</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditUserView</name>
@@ -188,6 +208,17 @@
     </message>
 </context>
 <context>
+    <name>FreeItemsView</name>
+    <message>
+        <source>It seems you deserve a bonus.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>RegistrationFinishedPage</name>
     <message>
         <source>The registration of the new user finished successful. Now you can use you card.</source>
@@ -200,6 +231,13 @@
     <message>
         <source>Registration passed!!!</source>
         <translation>Регистрация прошла !!!</translation>
+    </message>
+</context>
+<context>
+    <name>WaitConnectView</name>
+    <message>
+        <source>Seel</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
