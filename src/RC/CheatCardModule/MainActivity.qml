@@ -15,44 +15,14 @@ ColumnLayout {
 
     property var model: null
 
+    CardsListView {
 
-    SwipeView {
-        id: view
-
-        clip: true
-        interactive: user && user.fSaller
-        currentIndex: 0
-
-        onCurrentIndexChanged: () => {
-                                   if (root.model) {
-                                       root.model.mode = user && user.fSaller && currentIndex === 0;
-                                   }
-                               }
-
-        Layout.fillWidth: true
         Layout.fillHeight: true
+        Layout.fillWidth: true
+        model: (root.model) ? root.model.cardsList: null
 
-        CardsListView {
-            model: (root.model) ? root.model.ownCardsList: null
-            visible: user && user.fSaller
 
-            editable: visible
-        }
-
-        CardsListView {
-            model: (root.model) ? root.model.cardsList: null
-            editable: false
-        }
-
-    }
-
-    PageIndicator {
-        id: indicator
-        Layout.alignment: Qt.AlignHCenter
-        visible: user && user.fSaller
-        count: view.count
-        currentIndex: view.currentIndex
-        interactive: view.interactive
-
+        editable: Boolean(root.model && root.model.mode)
     }
 }
+

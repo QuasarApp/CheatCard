@@ -56,7 +56,7 @@ ApplicationWindow {
             Label {
                 text: (user)?
                           qsTr("Hello ") + user.name +
-                          ((user.fSaller)? qsTr(" (Seller mode)"):"")
+                          ((mainModel && mainModel.mode)? qsTr(" (Seller mode)"):"")
                         : ""
 
                 elide: Label.ElideRight
@@ -146,7 +146,7 @@ ApplicationWindow {
         height: mainWindow.height
 
         contentItem: EditUserView {
-            model: user
+            model: mainModel
         }
     }
 

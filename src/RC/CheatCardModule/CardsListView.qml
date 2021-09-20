@@ -26,10 +26,6 @@ Page {
             model: root.model
             currentIndex: count - 1;
 
-            onCurrentIndexChanged: {
-                console.log(currentIndex)
-            }
-
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.alignment: Qt.AlignHCenter
@@ -89,7 +85,7 @@ Page {
                                     }
 
                         TapHandler {
-                            enabled: !cardView.editable
+                            enabled: !cardView.editable && cardItem.ListView.isCurrentItem
                             onLongPressed:  {
 
                                 if (root.model) {

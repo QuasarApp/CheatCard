@@ -41,6 +41,8 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
 
     setCurrentUser(initUser());
     _config = initConfig(_currentUser->user()->userId());
+
+    initMode(_currentUser, _config);
 }
 
 MainModel::~MainModel() {
@@ -266,6 +268,19 @@ void MainModel::initWaitConnectionModel() {
             this, &MainModel::handleListenStop);
 }
 
+void MainModel::setCardListModel(CardsListModel *model) {
+    if (_currentCardsListModel == model)
+        return;
+
+    _currentCardsListModel = model;
+    emit cardsListChanged();
+}
+
+void MainModel::initMode(const QSharedPointer<UserModel> &user,
+                         const QSharedPointer<Config> &config) {
+    setMode(user && user->fSaller() && config && config->getFSellerEnabled());
+}
+
 QObject *MainModel::waitModel() const {
     return _waitModel;
 }
@@ -277,16 +292,27 @@ int MainModel::getMode() const {
 void MainModel::setMode(int newMode) {
     if (_mode == newMode)
         return;
+
     _mode = newMode;
     emit modeChanged();
+
+    _backEndModel->setMode(static_cast<IConnectorBackEnd::Mode>(_mode));
+
+    if (_mode == RC::IConnectorBackEnd::Client) {
+        setCardListModel(_cardsListModel);
+        _backEndModel->start(static_cast<IConnectorBackEnd::Mode>(_mode));
+
+    } else {
+        setCardListModel(_ownCardsListModel);
+        _backEndModel->stop();
+    }
+
+    _config->setFSellerEnabled(newMode);
+    saveConfig();
 }
 
 QObject *MainModel::cardsList() const {
-    return _cardsListModel;
-}
-
-QObject *MainModel::ownCardsList() const {
-    return _ownCardsListModel;
+    return _currentCardsListModel;
 }
 
 void MainModel::handleCardReceived(QSharedPointer<Card> card) {

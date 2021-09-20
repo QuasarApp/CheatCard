@@ -5,7 +5,7 @@
     <name>CardsListView</name>
     <message>
         <source>You do not have any card. </source>
-        <translation>У вас нет карт.</translation>
+        <translation>У вас нет карт. </translation>
     </message>
     <message>
         <source>Visit any coffee to get a new card and their bonuses</source>
@@ -25,7 +25,7 @@
     </message>
     <message>
         <source>Please create a new card for work. Press &quot;Add Card &quot; button</source>
-        <translation>Пожалуйста, создайте новую карточку для работы. Нажмите кнопку &quot;Добавить карту&quot;.</translation>
+        <translation>Пожалуйста, создайте новую карточку для работы. Нажмите кнопку &quot;Добавить карту&quot;</translation>
     </message>
 </context>
 <context>
@@ -165,7 +165,7 @@
     <name>EditUserView</name>
     <message>
         <source>Editing : </source>
-        <translation>Редактирование:</translation>
+        <translation>Редактирование : </translation>
     </message>
     <message>
         <source>No user selected</source>
@@ -181,7 +181,7 @@
     </message>
     <message>
         <source>Are you sure you want to become a seller? </source>
-        <translation>Вы уверены, что хотите стать продавцом?</translation>
+        <translation>Вы уверены, что хотите стать продавцом? </translation>
     </message>
     <message>
         <source>This user is not seller</source>
@@ -235,7 +235,7 @@
     </message>
     <message>
         <source>You have </source>
-        <translation>У вас есть</translation>
+        <translation>У вас есть </translation>
     </message>
 </context>
 <context>

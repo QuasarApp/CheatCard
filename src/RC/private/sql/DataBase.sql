@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS "Users" (
 CREATE TABLE IF NOT EXISTS "Config" (
        "user"   INTEGER NOT NULL UNIQUE,
        "fFirst" BOOLEAN NOT NULL DEFAULT false,
+       "fSellerMode" BOOLEAN NOT NULL DEFAULT true,
 
        FOREIGN KEY(user) REFERENCES Users(id)
                ON UPDATE CASCADE

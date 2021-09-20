@@ -6,11 +6,13 @@ import QtQuick.Layouts 1.15
 Page {
     id: root
     property var model: null
+    property var userModel: (model)? model.currentUser : null
+
     property bool editable: true
 
     header: Label {
         horizontalAlignment: Label.AlignHCenter
-        text: (root.model)? qsTr("Editing : ") + root.model.name : qsTr("No user selected")
+        text: (root.userModel)? qsTr("Editing : ") + root.userModel.name : qsTr("No user selected")
         font.bold: true
         font.pointSize: 14
         visible: editable
@@ -29,7 +31,7 @@ Page {
         }
 
         Label {
-            text: (root.model)? root.model.name: ""
+            text: (root.userModel)? root.userModel.name: ""
             horizontalAlignment: Text.AlignHCenter
             Layout.alignment: Qt.AlignHCenter
         }
@@ -40,34 +42,51 @@ Page {
 
         TextField {
             id: nameEditor
-            text: (root.model)? root.model.name: ""
+            text: (root.userModel)? root.userModel.name: ""
             horizontalAlignment: Text.AlignHCenter
             Layout.fillWidth: true
 
             readOnly: !root.editable
 
             onEditingFinished: () => {
-                if (!root.model && nameEditor.text.length)
+                if (!root.userModel && nameEditor.text.length)
                     return
 
-                root.model.name = nameEditor.text
+                root.userModel.name = nameEditor.text
             }
         }
 
         Label {
-            text: qsTr("This user is not seller");
-            visible: (root.model) && !root.model.fSaller
+            text: (becomeaseller.visible)?
+                      qsTr("This user is not seller"):
+                      qsTr("This user is seller");
         }
 
         Button {
+            id: becomeaseller
             text: qsTr("Become a seller");
             Layout.alignment: Qt.AlignHCenter
             Layout.columnSpan: 1
-            visible: (root.model) && !root.model.fSaller
+            visible: Boolean(root.userModel && !root.userModel.fSaller)
 
             onClicked: {
                 becomeSallerDialog.open()
             }
+        }
+
+        Switch {
+
+            checked: Boolean(root.model && root.model.mode)
+
+            text: qsTr("Seller mode");
+            onPositionChanged: () => {
+                                    if (root.model) {
+                                        root.model.mode = position;
+                                    }
+                               }
+
+            visible: !becomeaseller.visible
+
         }
 
         Item {
@@ -87,8 +106,8 @@ Page {
         standardButtons: Dialog.Yes | Dialog.No
 
         onAccepted: () => {
-                        if (root.model) {
-                            root.model.fSaller = true;
+                        if (root.userModel) {
+                            root.userModel.fSaller = true;
                         }
                         close();
                     }
