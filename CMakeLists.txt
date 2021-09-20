@@ -40,13 +40,6 @@ if (${QT_VERSION} VERSION_GREATER_EQUAL 6.0)
     endif()
 endif()
 
-if (ANDROID)
-
-if (${QT_VERSION_MAJOR} LESS_EQUAL 5)
-    message("This project support only qt6")
-    return()
-endif()
-endif()
 
 if (NOT DEFINED CheatCard_TESTS)
     set(CheatCard_TESTS ON)
