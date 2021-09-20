@@ -25,7 +25,7 @@
     </message>
     <message>
         <source>Please create a new card for work. Press &quot;Add Card &quot; button</source>
-        <translation type="unfinished"></translation>
+        <translation>Please create a new card for work. Press &quot;Add Card &quot; button</translation>
     </message>
 </context>
 <context>
@@ -52,7 +52,7 @@
     </message>
     <message>
         <source>Contact with developers</source>
-        <translation>Contact with developers</translation>
+        <translation>Contact with devs</translation>
     </message>
     <message>
         <source>About</source>
@@ -74,19 +74,19 @@
     <name>EditCardView</name>
     <message>
         <source>Enter telegramm chennal name</source>
-        <translation>Enter telegramm chennal name</translation>
+        <translation type="vanished">Enter telegramm chennal name</translation>
     </message>
     <message>
         <source>Enter your instagramm page</source>
-        <translation>Enter your instagramm page</translation>
+        <translation type="vanished">Enter your instagramm page</translation>
     </message>
     <message>
         <source>Enter your physical address</source>
-        <translation>Enter your physical address</translation>
+        <translation type="vanished">Enter your physical address</translation>
     </message>
     <message>
         <source>Enter your web site domain</source>
-        <translation>Enter your web site domain</translation>
+        <translation type="vanished">Enter your web site domain</translation>
     </message>
     <message>
         <source>Save</source>
@@ -102,7 +102,7 @@
     </message>
     <message>
         <source>Free</source>
-        <translation>Free</translation>
+        <translation type="vanished">Free</translation>
     </message>
     <message>
         <source>⋮</source>
@@ -134,19 +134,39 @@
     </message>
     <message>
         <source>Enter your phone number</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Enter your phone number</translation>
     </message>
     <message>
         <source>Enter bonus name</source>
-        <translation type="unfinished"></translation>
+        <translation>Bonus name</translation>
     </message>
     <message>
         <source>Select card logo</source>
-        <translation type="unfinished"></translation>
+        <translation>Select card logo</translation>
     </message>
     <message>
-        <source>Select card seel</source>
-        <translation type="unfinished"></translation>
+        <source>Select card seal</source>
+        <translation>Select card seal</translation>
+    </message>
+    <message>
+        <source>Your telegramm</source>
+        <translation>Your telegramm</translation>
+    </message>
+    <message>
+        <source>Your instagramm</source>
+        <translation>Your instagramm</translation>
+    </message>
+    <message>
+        <source>Your physical address</source>
+        <translation>Location</translation>
+    </message>
+    <message>
+        <source>Your web site</source>
+        <translation>Your web site</translation>
+    </message>
+    <message>
+        <source>Your phone number</source>
+        <translation>Your number</translation>
     </message>
 </context>
 <context>
@@ -247,11 +267,11 @@
     <name>FreeItemsView</name>
     <message>
         <source>It seems you deserve a bonus.</source>
-        <translation type="unfinished"></translation>
+        <translation>It seems you deserve a bonus.</translation>
     </message>
     <message>
         <source>You have </source>
-        <translation type="unfinished"></translation>
+        <translation>You have </translation>
     </message>
 </context>
 <context>
@@ -276,8 +296,8 @@
 <context>
     <name>WaitConnectView</name>
     <message>
-        <source>Seel</source>
-        <translation type="unfinished"></translation>
+        <source>Seal</source>
+        <translation>Seal</translation>
     </message>
 </context>
 </TS>

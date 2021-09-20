@@ -87,7 +87,7 @@ Page {
                         id: cardTelegramm
 
                         textField.text: (root.model)? root.model.telegramm : ""
-                        textField.placeholderText: qsTr("Enter telegramm chennal name");
+                        textField.placeholderText: qsTr("Your telegramm");
                         textField.readOnly: !editable
                         textField.onTextChanged: {
                             if (!root.model)
@@ -110,7 +110,7 @@ Page {
                         id: cardInstagramm
 
                         textField.text: (root.model)? root.model.instagramm : ""
-                        textField.placeholderText: qsTr("Enter your instagramm page");
+                        textField.placeholderText: qsTr("Your instagramm");
                         textField.readOnly: !editable
                         textField.onTextChanged: {
                             if (!root.model)
@@ -131,7 +131,7 @@ Page {
                         id: cardphysicalAddress
 
                         textField.text: (root.model)? root.model.physicalAddress : ""
-                        textField.placeholderText: qsTr("Enter your physical address");
+                        textField.placeholderText: qsTr("Your physical address");
                         textField.readOnly: !editable
                         textField.onTextChanged: {
                             if (!root.model)
@@ -162,7 +162,7 @@ Page {
                                        Qt.openUrlExternally(textField.text)
                                    }
 
-                        textField.placeholderText: qsTr("Enter your web site domain");
+                        textField.placeholderText: qsTr("Your web site");
                         textField.readOnly: !editable
 
                         image: "qrc:/images/private/resources/www.png"
@@ -186,7 +186,7 @@ Page {
                                        Qt.openUrlExternally("tel:" + textField.text)
                                    }
 
-                        textField.placeholderText: qsTr("Enter your phone number");
+                        textField.placeholderText: qsTr("Your phone number");
                         textField.readOnly: !editable
 
                         image: "qrc:/images/private/resources/phone.png"
@@ -378,7 +378,7 @@ Page {
     Component {
         id: defaultSeels
         ItemsView {
-            title: qsTr("Select card seel")
+            title: qsTr("Select card seal")
             id: sourceSeels
             model: (mainModel)? mainModel.defaultLogosModel: null
 
