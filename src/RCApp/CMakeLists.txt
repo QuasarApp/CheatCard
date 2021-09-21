@@ -51,7 +51,7 @@ file(MAKE_DIRECTORY ${TARGET_DIR})
 if (ANDROID)
 
     set(SNAKE_EXTRA_LIBS
-        ${PROJECT_NAME}
+        ${PROJECT_NAME}Core
         QuasarApp
         Heart
         )
