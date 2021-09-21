@@ -74,6 +74,8 @@ void MainModel::configureFinished() {
     _config->setUserId(_currentUser->user()->userId());
     _config->setFirstRun(false);
 
+    initMode(_currentUser, _config);
+
     saveConfig();
 }
 
