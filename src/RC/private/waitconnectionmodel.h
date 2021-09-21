@@ -42,6 +42,7 @@ public:
     void setTimeOut(int newTimeOut);
 
     Q_INVOKABLE void begin();
+    Q_INVOKABLE void cancel();
 
     bool waitForConnect() const;
 

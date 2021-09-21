@@ -67,6 +67,13 @@
     </message>
 </context>
 <context>
+    <name>ConnectionStatus</name>
+    <message>
+        <source>please wait until the exchange is successful  </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>EditCardView</name>
     <message>
         <source>Enter card title</source>

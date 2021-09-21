@@ -129,6 +129,7 @@ void MainModel::setCurrentUser(QSharedPointer<UserModel> value) {
         _settings.setValue(CURRENT_USER, _currentUser->user()->userId());
     }
 
+    _backEndModel->setActiveUser(_currentUser->user());
     emit currentUserChanged();
 }
 
@@ -302,7 +303,9 @@ void MainModel::setMode(int newMode) {
 
     if (_mode == RC::IConnectorBackEnd::Client) {
         setCardListModel(_cardsListModel);
-        _backEndModel->start(static_cast<IConnectorBackEnd::Mode>(_mode));
+        if (!_backEndModel->start(static_cast<IConnectorBackEnd::Mode>(_mode))) {
+            QuasarAppUtils::Params::log("Failed to start backEnd service!", QuasarAppUtils::Error);
+        }
 
     } else {
         setCardListModel(_ownCardsListModel);

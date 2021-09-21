@@ -30,6 +30,16 @@ ApplicationWindow {
             activityProcessor.newActivityFromComponent(freeItems, card);
 
         }
+
+        function onConnectionWasEnd() {
+            connectionStatus.close()
+
+        }
+
+        function onConnectionWasBegin() {
+            connectionStatus.open()
+
+        }
     }
 
     header: ToolBar {
@@ -170,4 +180,19 @@ ApplicationWindow {
         }
     }
 
+    Dialog {
+        id: connectionStatus;
+        visible: (model)? model.fFirst : false
+
+        closePolicy: Popup.NoAutoClose
+        modal: true
+        height: mainWindow.height * 0.95
+        width: mainWindow.width * 0.95
+        x: (mainWindow.width - width) / 2
+        y: (mainWindow.height - height) / 2
+
+        ConnectionStatus {
+            anchors.fill: parent
+        }
+    }
 }
