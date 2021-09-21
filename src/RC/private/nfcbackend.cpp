@@ -31,11 +31,13 @@ bool NFCBackEnd::close() {
 }
 
 void NFCBackEnd::handleConnectionLost(QNearFieldTarget *target) {
-    connectionReceived(new NFCNode(target));
+    connectionLost(NFCNode(target).nodeId());
+
 }
 
 void NFCBackEnd::handleConnectionIncomming(QNearFieldTarget *target) {
-    connectionLost(NFCNode(target).nodeId());
+    connectionReceived(new NFCNode(target));
+
 }
 
 }

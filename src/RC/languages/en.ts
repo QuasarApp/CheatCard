@@ -207,6 +207,14 @@
         <source>Become a seller</source>
         <translation>Become a seller</translation>
     </message>
+    <message>
+        <source>This user is seller</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Seller mode</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FirstRunPage</name>

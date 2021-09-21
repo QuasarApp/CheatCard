@@ -7,7 +7,7 @@
 
 cmake_minimum_required(VERSION 3.14)
 
-set(CURRENT_PROJECT "${PROJECT_NAME}App")
+set(CURRENT_PROJECT "${PROJECT_NAME}")
 
 file(GLOB SOURCE_CPP
     "*.cpp"
@@ -39,7 +39,7 @@ endif()
 
 target_link_libraries(${CURRENT_PROJECT} PUBLIC Qt${QT_VERSION_MAJOR}::Core)
 
-target_link_libraries(${CURRENT_PROJECT} PUBLIC ${PROJECT_NAME})
+target_link_libraries(${CURRENT_PROJECT} PUBLIC "${PROJECT_NAME}Core")
 
 target_include_directories(${CURRENT_PROJECT} PUBLIC ${PUBLIC_INCUDE_DIR})
 target_include_directories(${CURRENT_PROJECT} PRIVATE ${PRIVATE_INCUDE_DIR})

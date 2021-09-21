@@ -191,6 +191,14 @@
         <source>Become a seller</source>
         <translation>Стать продавцом</translation>
     </message>
+    <message>
+        <source>This user is seller</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Seller mode</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FirstRunPage</name>
