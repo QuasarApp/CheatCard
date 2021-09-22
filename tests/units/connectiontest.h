@@ -25,7 +25,7 @@ public:
 
 private:
     void firstContact();
-    void userTrySendWrongData();
+    void proxyServertests();
     void multipleUsersConnect();
     void longTimeWorkdTest();
 

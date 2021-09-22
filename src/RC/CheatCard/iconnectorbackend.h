@@ -29,6 +29,7 @@ class ITargetNode;
 class User;
 class UsersCards;
 class CardStatus;
+class Session;
 
 class CheatCard_EXPORT IConnectorBackEnd : public QObject
 {
@@ -38,16 +39,17 @@ public:
     enum Mode {
         Client,
         Saller,
+        ProxyServer,
     };
 
     enum Commands {
         Undefined = 0,
         UserId = 1,
+        StatusRequest,
+        StatusResponce,
         CardData,
 
         CardDataRequest,
-
-        PurchasesCount,
 
         Successful
     };
@@ -110,6 +112,8 @@ protected slots:
 private:
     bool processCardStatus(const QByteArray &message);
 
+    bool processStatusRequest(const QByteArray &message);
+
     bool processUserRequest(const QByteArray &message);
 
     bool processCardRequest(const QByteArray &message);
@@ -117,6 +121,7 @@ private:
     bool processSuccessful();
 
     bool sendCardStatus(const QSharedPointer<UsersCards>& usersCardsData);
+    bool sendStatusRequest(const QSharedPointer<Session> &usersCardsData);
 
     bool incrementPurchases(const QSharedPointer<UsersCards>& usersCardsData);
     bool applayPurchases(QSharedPointer<RC::Card> dbCard,
@@ -132,6 +137,7 @@ private:
     QSharedPointer<Card> _activeCard;
     int _purchasesCount = 0;
     QSharedPointer<User> _activeUser;
+    QByteArray _lastSessionId;
 
     QHash<unsigned long long, unsigned int> _lastUpdates;
 

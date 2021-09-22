@@ -20,10 +20,17 @@ struct CardStatus {
     unsigned int purchasesCount = 0;
 };
 
+struct CardStatusRequest {
+    unsigned char command = 0;
+    char sessionId[32];
+};
+
 struct UserHeader {
     unsigned char command = 0;
     unsigned int userId = 0;
     char token[32];
+    char sessionId[32];
+
 };
 
 struct DataRequest {

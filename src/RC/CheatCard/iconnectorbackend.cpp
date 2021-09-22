@@ -17,6 +17,7 @@
 #include "getsinglevalue.h"
 #include <cstring>
 #include <qmlnotifyservice.h>
+#include <session.h>
 
 
 #define TIME_LIMIT_SEC 10
@@ -130,9 +131,20 @@ void IConnectorBackEnd::handleReceiveMessage(QByteArray message) {
         break;
 
     }
-    case PurchasesCount: {
+
+    case StatusRequest: {
+        if (!processStatusRequest(message)) {
+            QuasarAppUtils::Params::log("Failed to parse package (processStatusRequest)", QuasarAppUtils::Error);
+            endWork(WrongPackage);
+
+        }
+
+        break;
+    }
+
+    case StatusResponce: {
         if (!processCardStatus(message)) {
-            QuasarAppUtils::Params::log("Failed to parse package (PurchasesCount)", QuasarAppUtils::Error);
+            QuasarAppUtils::Params::log("Failed to parse package (StatusResponce)", QuasarAppUtils::Error);
             endWork(WrongPackage);
 
         }
@@ -227,6 +239,41 @@ bool IConnectorBackEnd::processCardStatus(const QByteArray &message) {
     return applayPurchases(dbCard, cardStatus.purchasesCount);
 }
 
+bool IConnectorBackEnd::processStatusRequest(const QByteArray &message) {
+    if (message.size() != sizeof(CardStatusRequest)) {
+        QuasarAppUtils::Params::log("package size is invalid", QuasarAppUtils::Error);
+        return false;
+    }
+
+    CardStatusRequest cardStatus = *reinterpret_cast<CardStatusRequest*>(const_cast<char*>((message.data())));
+
+    Session request;
+    request.setSessionId(cardStatus.sessionId);
+
+    auto sessiondata = _db->getObject(request);
+
+    if (!sessiondata || !sessiondata->isValid()) {
+        QuasarAppUtils::Params::log(QString("The session %0 is missing").
+                                    arg(QString(request.getSessionId().toHex())),
+                                    QuasarAppUtils::Error);
+        return false;
+    }
+
+    auto userCardsData = getUserCardData(sessiondata->getUser(), sessiondata->getCard());
+    if (!userCardsData) {
+        QuasarAppUtils::Params::log(QString("The session %0 is missing").
+                                    arg(QString(request.getSessionId().toHex())),
+                                    QuasarAppUtils::Error);
+        return false;
+    }
+
+    if (!sendCardStatus(userCardsData)) {
+        return false;
+    }
+
+    return true;
+}
+
 bool IConnectorBackEnd::applayPurchases(QSharedPointer<RC::Card> dbCard,
                                         unsigned int purchases) {
     auto userCardsData = getUserCardData(_activeUser->userId(), dbCard->cardId());
@@ -272,7 +319,7 @@ bool IConnectorBackEnd::processUserRequest(const QByteArray &message) {
         return false;
     }
 
-    if (_mode != Saller) {
+    if (_mode == Client) {
         return false;
     }
 
@@ -303,7 +350,18 @@ bool IConnectorBackEnd::processUserRequest(const QByteArray &message) {
         userCardsData->setCard(_activeCard->cardId());
     }
 
-    if (!incrementPurchases(userCardsData)) {
+
+    auto sessionData = QSharedPointer<Session>::create();
+    sessionData->setCard(userCardsData->getCard());
+    sessionData->setUser(userCardsData->getUser());
+    sessionData->setSessionId(user.sessionId);
+
+    if (!_db->insertIfExistsUpdateObject(sessionData)) {
+        QuasarAppUtils::Params::log("Failed to update session data", QuasarAppUtils::Error);
+        return false;
+    }
+
+    if (_mode == Saller && !incrementPurchases(userCardsData)) {
         QuasarAppUtils::Params::log("Failed to update data", QuasarAppUtils::Error);
 
         return false;
@@ -412,7 +470,7 @@ bool IConnectorBackEnd::processSuccessful() {
 
 bool IConnectorBackEnd::sendCardStatus(const QSharedPointer<UsersCards> &usersCardsData) {
     CardStatus status;
-    status.command = PurchasesCount;
+    status.command = StatusResponce;
     status.cardId = _activeCard->cardId();
     status.purchasesCount = usersCardsData->getPurchasesNumber();
 
@@ -423,6 +481,19 @@ bool IConnectorBackEnd::sendCardStatus(const QSharedPointer<UsersCards> &usersCa
 
     if (!_db->insertIfExistsUpdateObject(usersCardsData)) {
         QuasarAppUtils::Params::log("Failed to update data", QuasarAppUtils::Error);
+        return false;
+    }
+
+    return true;
+}
+
+bool IConnectorBackEnd::sendStatusRequest(const QSharedPointer<Session> &sessionData) {
+    CardStatusRequest status;
+    status.command = StatusRequest;
+    std::memcpy(status.sessionId, sessionData->getSessionId().data(), sizeof(status.sessionId));
+
+    if (!_currentTarget->sendMessage(QByteArray::fromRawData(reinterpret_cast<char*>(&status), sizeof(status)))) {
+        QuasarAppUtils::Params::log("Failed to send responce", QuasarAppUtils::Error);
         return false;
     }
 
@@ -474,7 +545,7 @@ void IConnectorBackEnd::beginWork() {
 void IConnectorBackEnd::endWork(Error status) {
     _lastStatus = status;
 
-    if (status != Error::FinishedSuccessful || status != Error::InProgress) {
+    if (status != Error::FinishedSuccessful && status != Error::InProgress) {
         auto service = QmlNotificationService::NotificationService::getService();
         service->setNotify("NFC Error", "Eschanged is failed");
     }

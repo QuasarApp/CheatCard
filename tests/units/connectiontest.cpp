@@ -31,7 +31,7 @@ void ConnectionTest::test() {
     QDir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)).removeRecursively();
 
     firstContact();
-//    userTrySendWrongData();
+    proxyServertests();
 //    multipleUsersConnect();
 //    longTimeWorkdTest();
 }
@@ -96,8 +96,47 @@ void ConnectionTest::firstContact() {
 
 }
 
-void ConnectionTest::userTrySendWrongData() {
-    QVERIFY(false);
+void ConnectionTest::proxyServertests() {
+    auto saller = makeNode(TestDataTransfer::Saller);
+    auto client = makeNode(TestDataTransfer::Client);
+    auto proxy = makeNode(TestDataTransfer::ProxyServer);
+
+    auto connectionNodeJonb = [this](QSharedPointer<TestDataTransfer> NodeA,
+                                QSharedPointer<TestDataTransfer> NodeB){
+        connectNodes(NodeA, NodeB);
+
+        QVERIFY(wait([NodeA, NodeB]() {
+            return NodeA->isFinished() && NodeB->isFinished();
+        }, RC_WAIT_TIME + 1000));
+
+
+    };
+
+    // first connect should be finsished successful
+    connectionNodeJonb(saller, proxy);
+
+    QVERIFY(saller->finishedResult() == TestDataTransfer::FinishedSuccessful);
+    QVERIFY(proxy->finishedResult() == TestDataTransfer::FinishedSuccessful);
+
+    QVERIFY(saller->getPurchasesCount(client->activeUser()->userId(),
+                              saller->activeCard()->cardId()) == 1);
+
+    QVERIFY(proxy->getPurchasesCount(client->activeUser()->userId(),
+                              saller->activeCard()->cardId()) == 1);
+
+
+    // first connect should be finsished successful
+    connectionNodeJonb(proxy, client);
+
+    QVERIFY(proxy->finishedResult() == TestDataTransfer::FinishedSuccessful);
+    QVERIFY(client->finishedResult() == TestDataTransfer::FinishedSuccessful);
+
+    QVERIFY(proxy->getPurchasesCount(client->activeUser()->userId(),
+                              saller->activeCard()->cardId()) == 1);
+
+    QVERIFY(client->getPurchasesCount(client->activeUser()->userId(),
+                              saller->activeCard()->cardId()) == 1);
+
 }
 
 void ConnectionTest::multipleUsersConnect() {

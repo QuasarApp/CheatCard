@@ -58,6 +58,19 @@ CREATE TABLE IF NOT EXISTS "UsersCards" (
                ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS "Sessions" (
+       "sessionID" VARCHAR(32) NOT NULL,
+       "user" INTEGER NOT NULL,
+       "card" INTEGER NOT NULL,
+
+       FOREIGN KEY(user) REFERENCES Users(id)
+               ON UPDATE CASCADE
+               ON DELETE CASCADE,
+       FOREIGN KEY(card) REFERENCES Cards(id)
+               ON UPDATE CASCADE
+               ON DELETE CASCADE
+);
+
 CREATE TABLE IF NOT EXISTS "Contacts" (
        "user"   INTEGER NOT NULL,
        "contactUser" INTEGER NOT NULL,
@@ -72,6 +85,7 @@ CREATE TABLE IF NOT EXISTS "Contacts" (
 
 -- Indexes
 CREATE UNIQUE INDEX IF NOT EXISTS UsersCardsIndex ON UsersCards(user, card);
+CREATE UNIQUE INDEX IF NOT EXISTS SessionsIndex ON Sessions(sessionID, user, card);
 CREATE UNIQUE INDEX IF NOT EXISTS ContactsIndex ON Contacts(user, contactUser);
 
 
