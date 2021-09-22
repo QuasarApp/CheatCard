@@ -8,6 +8,11 @@ NFCBackEnd::NFCBackEnd(QH::ISqlDBCache *_db): RC::IConnectorBackEnd(_db) {
 
     _manager = new QNearFieldManager(this);
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 2, 0)
+#else
+    _manager->registerNdefMessageHandler(this, SLOT(targetDetected(QNdefMessage,QNearFieldTarget*)));
+#endif
+
     connect(_manager, &QNearFieldManager::targetDetected,
             this, &NFCBackEnd::handleConnectionIncomming);
     connect(_manager, &QNearFieldManager::targetLost,
@@ -36,7 +41,15 @@ void NFCBackEnd::handleConnectionLost(QNearFieldTarget *target) {
 }
 
 void NFCBackEnd::handleConnectionIncomming(QNearFieldTarget *target) {
-    connectionReceived(new NFCNode(target));
+    connectionReceived(new NFCNode(target));   
+}
+
+void NFCBackEnd::targetDetected(const QNdefMessage &message, QNearFieldTarget *target) {
+    auto node = new NFCNode(target);
+
+    connectionReceived(node);
+
+    node->handleReceiveRawData(message);
 
 }
 

@@ -24,6 +24,8 @@ private slots:
 
 private:
     QNearFieldTarget *d_ptr = nullptr;
+
+friend class NFCBackEnd;
 };
 }
 

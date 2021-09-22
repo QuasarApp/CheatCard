@@ -7,7 +7,10 @@ namespace RC {
 
 NFCNode::NFCNode(QNearFieldTarget * source) {
     d_ptr = source;
-    d_ptr->setKeepConnection(true);
+    if (!d_ptr->setKeepConnection(true)) {
+        QuasarAppUtils::Params::log("The device not support long time connect!",
+                                    QuasarAppUtils::Error);
+    }
 
     connect(d_ptr, &QNearFieldTarget::ndefMessageRead,
             this, &NFCNode::handleReceiveRawData);
@@ -28,6 +31,7 @@ bool NFCNode::sendMessage(const QByteArray &array) {
 
     QNdefRecord record;
     record.setPayload(array);
+    record.setType("data/cheatcard");
 
     QNdefMessage message;
     message.push_back(record);
