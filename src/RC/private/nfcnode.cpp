@@ -3,6 +3,8 @@
 #include <QtNfc/qndefmessage.h>
 #include <QtNfc/QNdefRecord>
 #include <quasarapp.h>
+#include <qmlnotifyservice.h>
+
 namespace RC {
 
 NFCNode::NFCNode(QNearFieldTarget * source) {
@@ -38,7 +40,15 @@ bool NFCNode::sendMessage(const QByteArray &array) {
 
     auto id = d_ptr->writeNdefMessages(QList<QNdefMessage>() << message);
 
-    return id.isValid();
+    if (!id.isValid()) {
+        QuasarAppUtils::Params::log("Failed To send message by NFC",
+                                    QuasarAppUtils::Error);
+        auto service = QmlNotificationService::NotificationService::getService();
+        service->setNotify("NFC Error", "Failed To send message by NFC");
+        return false;
+    }
+
+    return true;
 }
 
 void NFCNode::close() {
