@@ -182,7 +182,6 @@ ApplicationWindow {
 
     Dialog {
         id: connectionStatus;
-        visible: (model)? model.fFirst : false
 
         closePolicy: Popup.NoAutoClose
         modal: true
