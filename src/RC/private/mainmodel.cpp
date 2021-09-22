@@ -25,6 +25,7 @@
 #include <QCoreApplication>
 #include "nfcbackend.h"
 #include "cmath"
+#include <qmlnotifyservice.h>
 
 #define CURRENT_USER "CURRENT_USER"
 
@@ -305,6 +306,8 @@ void MainModel::setMode(int newMode) {
         setCardListModel(_cardsListModel);
         if (!_backEndModel->start(static_cast<IConnectorBackEnd::Mode>(_mode))) {
             QuasarAppUtils::Params::log("Failed to start backEnd service!", QuasarAppUtils::Error);
+            auto service = QmlNotificationService::NotificationService::getService();
+            service->setNotify("NFC Error", "Failed to start listner");
         }
 
     } else {
@@ -375,7 +378,12 @@ void MainModel::handlePurchaseWasSuccessful(QSharedPointer<UsersCards> card){
 }
 
 void MainModel::handleListenStart(int purchasesCount, QSharedPointer<CardModel> model) {
-    _backEndModel->start(static_cast<IConnectorBackEnd::Mode>(_mode));
+    if (!_backEndModel->start(static_cast<IConnectorBackEnd::Mode>(_mode))) {
+        auto service = QmlNotificationService::NotificationService::getService();
+        service->setNotify("NFC Error", "Failed to start listner");
+        QuasarAppUtils::Params::log("Failed to start backEnd service!", QuasarAppUtils::Error);
+
+    }
     _backEndModel->setActiveCard(model->card(), purchasesCount);
 }
 

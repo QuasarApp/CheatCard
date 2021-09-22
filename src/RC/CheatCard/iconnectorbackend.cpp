@@ -16,6 +16,7 @@
 #include "dbobjectsrequest.h"
 #include "getsinglevalue.h"
 #include <cstring>
+#include <qmlnotifyservice.h>
 
 
 #define TIME_LIMIT_SEC 10
@@ -472,6 +473,12 @@ void IConnectorBackEnd::beginWork() {
 
 void IConnectorBackEnd::endWork(Error status) {
     _lastStatus = status;
+
+    if (status != Error::FinishedSuccessful || status != Error::InProgress) {
+        auto service = QmlNotificationService::NotificationService::getService();
+        service->setNotify("NFC Error", "Eschanged is failed");
+    }
+
     emit sigSessionWasFinshed(status);
     reset();
 

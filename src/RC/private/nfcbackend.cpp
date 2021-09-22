@@ -2,16 +2,32 @@
 
 #include <QtNfc/qnearfieldmanager.h>
 #include "nfcnode.h"
+#include <qmlnotifyservice.h>
+
 namespace RC {
 
 NFCBackEnd::NFCBackEnd(QH::ISqlDBCache *_db): RC::IConnectorBackEnd(_db) {
 
     _manager = new QNearFieldManager(this);
 
+
 #if QT_VERSION >= QT_VERSION_CHECK(6, 2, 0)
+    return _manager->startTargetDetection(QNearFieldTarget::NdefAccess);
 #else
-    _manager->registerNdefMessageHandler(this, SLOT(targetDetected(QNdefMessage,QNearFieldTarget*)));
+    _manager->setTargetAccessModes(QNearFieldManager::NdefReadTargetAccess |
+                                   QNearFieldManager::NdefWriteTargetAccess);
+    int id = _manager->registerNdefMessageHandler(this, SLOT(targetDetected(QNdefMessage,QNearFieldTarget*)));
+
+    if (id < 0) {
+        QuasarAppUtils::Params::log("Failed to register nfc handler",
+                                    QuasarAppUtils::Error);
+
+
+        auto service = QmlNotificationService::NotificationService::getService();
+        service->setNotify("NFC Error", "Failed to register nfc handler");
+    }
 #endif
+
 
     connect(_manager, &QNearFieldManager::targetDetected,
             this, &NFCBackEnd::handleConnectionIncomming);
@@ -21,13 +37,8 @@ NFCBackEnd::NFCBackEnd(QH::ISqlDBCache *_db): RC::IConnectorBackEnd(_db) {
 
 bool NFCBackEnd::listen(Mode mode) {
     setMode(mode);
-#if QT_VERSION >= QT_VERSION_CHECK(6, 2, 0)
-    return _manager->startTargetDetection(QNearFieldTarget::NdefAccess);
-#else
-    _manager->setTargetAccessModes(QNearFieldManager::NdefReadTargetAccess |
-                                   QNearFieldManager::NdefWriteTargetAccess);
+
     return _manager->startTargetDetection();
-#endif
 }
 
 bool NFCBackEnd::close() {

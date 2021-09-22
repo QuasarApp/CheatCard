@@ -64,6 +64,7 @@ set(HEART_BUILD_LVL 1)
 set(HEART_SSL OFF)
 set(HEART_TESTS OFF)
 add_subdirectory(submodules/Heart)
+add_subdirectory(submodules/SimpleQmlNotify)
 
 add_subdirectory(src/RC)
 add_subdirectory(src/RCApp)

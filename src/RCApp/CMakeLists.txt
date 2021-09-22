@@ -55,6 +55,7 @@ if (ANDROID)
         ${PROJECT_NAME}Core
         QuasarApp
         Heart
+        QmlNotyfyService
         )
 
 #    find_package(Qt${QT_VERSION_MAJOR} COMPONENTS AndroidExtras REQUIRED)
