@@ -7,6 +7,7 @@ namespace RC {
 
 NFCNode::NFCNode(QNearFieldTarget * source) {
     d_ptr = source;
+    d_ptr->setKeepConnection(true);
 
     connect(d_ptr, &QNearFieldTarget::ndefMessageRead,
             this, &NFCNode::handleReceiveRawData);
@@ -38,6 +39,7 @@ bool NFCNode::sendMessage(const QByteArray &array) {
 
 void NFCNode::close() {
     emit sigConnectionClosed(this);
+    d_ptr->disconnect();
     d_ptr->deleteLater();
     d_ptr = nullptr;
 }
