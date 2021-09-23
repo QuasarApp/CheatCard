@@ -17,52 +17,43 @@ QH::PKG::DBObject *Session::createDBObject() const {
     return new Session();
 }
 
-unsigned int Session::getUser() const {
-    return user;
-}
-
-void Session::setUser(unsigned int newUser) {
-    user = newUser;
-}
-
-unsigned int Session::getCard() const {
-    return card;
-}
-
-void Session::setCard(unsigned int newCard) {
-    card = newCard;
-}
-
-const QByteArray &Session::getSessionId() const {
+unsigned long long Session::getSessionId() const {
     return sessionId;
 }
 
-void Session::setSessionId(const QByteArray &newSessionId) {
+void Session::setSessionId(unsigned long long newSessionId) {
     sessionId = newSessionId;
 }
 
 QH::PKG::DBVariantMap Session::variantMap() const {
-    return {{"user",           {user,           QH::PKG::MemberType::Insert}},
-            {"card",           {card,           QH::PKG::MemberType::Insert}},
+    return {
+            {"id",             {usercardId,     QH::PKG::MemberType::Insert}},
             {"sessionID",      {sessionId,      QH::PKG::MemberType::Insert}},
     };
 }
 
 QString Session::primaryKey() const {
-    return "";
+    return "id";
+}
+
+unsigned long long Session::getUsercardId() const {
+    return usercardId;
+}
+
+void Session::setUsercardId(unsigned long long newUsercardId) {
+    usercardId = newUsercardId;
 }
 
 bool Session::fromSqlRecord(const QSqlRecord &q) {
 
-    user = q.value("user").toUInt();
-    card = q.value("card").toUInt();
-    sessionId = q.value("sessionID").toByteArray();
+    usercardId = q.value("usersCardsID").toULongLong();
+    sessionId = q.value("id").toULongLong();
 
     return true;
 }
 
 bool Session::isValid() const {
-    return sessionId.size() == 32 && user != 0 && card != 0;
+    return sessionId > 0 && usercardId > 0xFFFFFFFF;
 }
 
 }

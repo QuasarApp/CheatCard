@@ -19,6 +19,7 @@
 #include <qmlnotifyservice.h>
 #include <session.h>
 #include <QBuffer>
+#include "dbobjectsrequest.h"
 
 #define TIME_LIMIT_SEC 10
 
@@ -67,22 +68,6 @@ void IConnectorBackEnd::connectionReceived(ITargetNode *obj) {
         connect(_currentTarget.data(), &ITargetNode::sigConnectionClosed,
                 this, &IConnectorBackEnd::handleConnectionClosed, Qt::QueuedConnection);
 
-    }
-
-    if (mode() == Client) {
-
-        UserHeader request;
-        request.userId = _activeUser->userId();
-        request.command = UserId;
-
-        std::memcpy(request.token, _activeUser->getKey().data(), sizeof(request.token));
-
-        QByteArray data = QByteArray::fromRawData(reinterpret_cast<char*>(&request), sizeof(request));
-
-        if (!_currentTarget->sendMessage(data)) {
-            QuasarAppUtils::Params::log("Failed to send responce", QuasarAppUtils::Error);
-            return;
-        }
     }
 
     beginWork();
@@ -247,18 +232,21 @@ bool IConnectorBackEnd::processStatusRequest(const QByteArray &message) {
 
     CardStatusRequest cardStatus = *reinterpret_cast<CardStatusRequest*>(const_cast<char*>((message.data())));
 
-    Session request;
-    request.setSessionId(cardStatus.sessionId);
-    QList<QSharedPointer<QH::PKG::DBObject>> result;
+    auto sessionId = cardStatus.sessionId;
 
-    if (_db->getAllObjects(request, result) || !result.size()) {
+    QString where = QString("id IN (SELECT usersCardsID FROM Sessions WHERE id = %0)").
+            arg(sessionId);
+    QH::PKG::DBObjectsRequest<UsersCards> request("UsersCards", where);
+
+    auto result = _db->getObject(request);
+    if (!result || result->data().isEmpty()) {
         QuasarAppUtils::Params::log(QString("The session %0 is missing").
-                                    arg(QString(request.getSessionId().toHex())),
+                                    arg(sessionId),
                                     QuasarAppUtils::Error);
         return false;
     }
 
-    if (!sendCardStatus(result)) {
+    if (!sendCardStatus(result->data())) {
         return false;
     }
 
@@ -375,8 +363,7 @@ bool IConnectorBackEnd::processUserRequest(const QByteArray &message) {
 
 
     auto sessionData = QSharedPointer<Session>::create();
-    sessionData->setCard(userCardsData->getCard());
-    sessionData->setUser(userCardsData->getUser());
+    sessionData->setUsercardId(UsersCards::genId(userCardsData->getUser(), userCardsData->getCard()));
     sessionData->setSessionId(user.sessionId);
 
     if (!_db->insertIfExistsUpdateObject(sessionData)) {
@@ -494,7 +481,7 @@ bool IConnectorBackEnd::processSuccessful() {
 bool IConnectorBackEnd::sendStatusRequest(const QSharedPointer<Session> &sessionData) {
     CardStatusRequest status;
     status.command = StatusRequest;
-    std::memcpy(status.sessionId, sessionData->getSessionId().data(), sizeof(status.sessionId));
+    status.sessionId = sessionData->getSessionId();
 
     if (!_currentTarget->sendMessage(QByteArray::fromRawData(reinterpret_cast<char*>(&status), sizeof(status)))) {
         QuasarAppUtils::Params::log("Failed to send responce", QuasarAppUtils::Error);

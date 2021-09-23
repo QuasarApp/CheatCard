@@ -27,7 +27,6 @@ public:
 
     bool fromSqlRecord(const QSqlRecord &q) override;
     bool isValid() const override;
-    QString condition() const override;
 
     int getUser() const;
     void setUser(int newUser);
@@ -45,10 +44,16 @@ public:
     void setReceived(unsigned int newReceived);
     void receive(unsigned int receiveFreItemsCount);
 
+    static unsigned long long genId(unsigned int user, unsigned int card);
+
+    unsigned long long getId() const;
+
 protected:
     QString primaryKey() const override;
 
 private:
+
+    unsigned long long id = 0;
     unsigned int user = 0;
     unsigned int card = 0;
     unsigned int purchasesNumber = 0;

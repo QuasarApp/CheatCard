@@ -98,7 +98,7 @@ void MainModel::setCurrentUser(QSharedPointer<UserModel> value) {
     if (_currentUser) {
 
         // get list of owned cards
-        QString where = QString("Id IN (SELECT card FROM UsersCards WHERE user = %0 AND owner = %1)").
+        QString where = QString("id IN (SELECT card FROM UsersCards WHERE user = %0 AND owner = %1)").
                 arg(_currentUser->user()->userId()).
                 arg("true");
 
@@ -108,7 +108,7 @@ void MainModel::setCurrentUser(QSharedPointer<UserModel> value) {
         }
 
         // get list of included cards
-        where = QString("Id IN (SELECT card FROM UsersCards WHERE user = %0 AND owner = %1)").
+        where = QString("id IN (SELECT card FROM UsersCards WHERE user = %0 AND owner = %1)").
                 arg(_currentUser->user()->userId()).
                 arg("false");
 
@@ -118,7 +118,7 @@ void MainModel::setCurrentUser(QSharedPointer<UserModel> value) {
         }
 
         // get list of cards usings statuses
-        where = QString("user = %0 AND owner = %1)").
+        where = QString("user = %0 AND owner = %1").
                 arg(_currentUser->user()->userId()).
                 arg("false");
 

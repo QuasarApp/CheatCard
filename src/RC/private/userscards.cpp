@@ -19,6 +19,8 @@ UsersCards::UsersCards(unsigned int user, unsigned int card, bool owner): QH::PK
     this->user = user;
     this->card = card;
     this->owner = owner;
+    id = genId(user, card);
+
 }
 
 QH::PKG::DBObject *UsersCards::createDBObject() const {
@@ -28,6 +30,7 @@ QH::PKG::DBObject *UsersCards::createDBObject() const {
 QH::PKG::DBVariantMap UsersCards::variantMap() const {
     return {{"user",           {user,           QH::PKG::MemberType::Insert}},
             {"card",           {card,           QH::PKG::MemberType::Insert}},
+            {"id",             {id,             QH::PKG::MemberType::PrimaryKey}},
             {"purchasesNumber",{purchasesNumber,QH::PKG::MemberType::InsertUpdate}},
             {"received",       {received,       QH::PKG::MemberType::InsertUpdate}},
             {"owner",          {owner,          QH::PKG::MemberType::InsertUpdate}},
@@ -35,7 +38,19 @@ QH::PKG::DBVariantMap UsersCards::variantMap() const {
 }
 
 QString UsersCards::primaryKey() const {
-    return "";
+    return "id";
+}
+
+unsigned long long UsersCards::getId() const {
+    return id;
+}
+
+unsigned long long UsersCards::genId(unsigned int user, unsigned int card) {
+    unsigned long long id = user;
+    id = id << 32;
+    id = id | card ;
+
+    return id;
 }
 
 unsigned int UsersCards::getReceived() const {
@@ -72,6 +87,7 @@ int UsersCards::getCard() const {
 
 void UsersCards::setCard(int newCard) {
     card = newCard;
+    id = genId(user, card);
 }
 
 int UsersCards::getUser() const {
@@ -80,10 +96,12 @@ int UsersCards::getUser() const {
 
 void UsersCards::setUser(int newUser) {
     user = newUser;
+    id = genId(user, card);
 }
 
 bool UsersCards::fromSqlRecord(const QSqlRecord &q) {
 
+    id = q.value("id").toULongLong();
     user = q.value("user").toUInt();
     purchasesNumber = q.value("purchasesNumber").toUInt();
     card = q.value("card").toUInt();
@@ -94,11 +112,7 @@ bool UsersCards::fromSqlRecord(const QSqlRecord &q) {
 }
 
 bool UsersCards::isValid() const {
-    return user != 0 && card != 0;
-}
-
-QString UsersCards::condition() const {
-    return QString("user=%0 AND card=%1").arg(user).arg(card);
+    return user != 0 && card != 0 && id > 0xFFFFFFFF;
 }
 
 }

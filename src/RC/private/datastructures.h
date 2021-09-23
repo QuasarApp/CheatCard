@@ -24,14 +24,14 @@ struct CardStatus {
 
 struct CardStatusRequest {
     unsigned char command = 0;
-    char sessionId[32];
+    unsigned long long sessionId;
 };
 
 struct UserHeader {
     unsigned char command = 0;
     unsigned int userId = 0;
+    unsigned long long sessionId;
     char token[32];
-    char sessionId[32];
 
 };
 

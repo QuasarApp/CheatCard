@@ -24,24 +24,20 @@ public:
     bool isValid() const override;
     QH::PKG::DBObject *createDBObject() const override;
 
-    unsigned int getUser() const;
-    void setUser(unsigned int newUser);
-
-    unsigned int getCard() const;
-    void setCard(unsigned int newCard);
-
-    const QByteArray &getSessionId() const;
-    void setSessionId(const QByteArray &newSessionId);
+    unsigned long long getSessionId() const;
+    void setSessionId(unsigned long long newSessionId);
 
     bool fromSqlRecord(const QSqlRecord &q) override;
     QH::PKG::DBVariantMap variantMap() const override;
+    unsigned long long getUsercardId() const;
+    void setUsercardId(unsigned long long newUsercardId);
+
 protected:
     QString primaryKey() const override;
 
 private:
-    unsigned int user = 0;
-    unsigned int card = 0;
-    QByteArray sessionId;
+    unsigned long long usercardId = 0;
+    unsigned long long sessionId;
 };
 
 }
