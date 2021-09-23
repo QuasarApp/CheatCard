@@ -9,6 +9,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
+import NotifyModule 1.0
 
 ApplicationWindow {
     id: mainWindow
@@ -28,6 +29,16 @@ ApplicationWindow {
         }")
 
             activityProcessor.newActivityFromComponent(freeItems, card);
+
+        }
+
+        function onConnectionWasEnd() {
+            connectionStatus.close()
+
+        }
+
+        function onConnectionWasBegin() {
+            connectionStatus.open()
 
         }
     }
@@ -170,4 +181,22 @@ ApplicationWindow {
         }
     }
 
+    Dialog {
+        id: connectionStatus;
+
+        closePolicy: Popup.NoAutoClose
+        modal: true
+        height: mainWindow.height * 0.95
+        width: mainWindow.width * 0.95
+        x: (mainWindow.width - width) / 2
+        y: (mainWindow.height - height) / 2
+
+        ConnectionStatus {
+            anchors.fill: parent
+        }
+    }
+
+    NotificationServiceView {
+        anchors.fill: parent;
+    }
 }

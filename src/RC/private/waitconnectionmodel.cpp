@@ -49,7 +49,7 @@ void WaitConnectionModel::setPurchaseCount(int newPurchaseCount) {
 }
 
 int WaitConnectionModel::waitTime() const {
-    return 10;
+    return 30;
 }
 
 int WaitConnectionModel::timeOut() const {
@@ -71,14 +71,18 @@ void WaitConnectionModel::begin() {
     emit purchaseTaskCompleted(purchaseCount(), _card);
 }
 
+void WaitConnectionModel::cancel() {
+    _timer->stop();
+    setTimeOut(waitTime());
+    setWaintForCnnect(false);
+    emit purchaseTaskCanceled();
+}
+
 void WaitConnectionModel::handleTick() {
     setTimeOut(timeOut() - 1);
 
     if(timeOut() <= 0) {
-        _timer->stop();
-        setTimeOut(waitTime());
-        setWaintForCnnect(false);
-        emit purchaseTaskCanceled();
+        cancel();
     }
 }
 
