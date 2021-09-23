@@ -18,7 +18,7 @@
 #include <cstring>
 #include <qmlnotifyservice.h>
 #include <session.h>
-
+#include <QBuffer>
 
 #define TIME_LIMIT_SEC 10
 
@@ -249,25 +249,16 @@ bool IConnectorBackEnd::processStatusRequest(const QByteArray &message) {
 
     Session request;
     request.setSessionId(cardStatus.sessionId);
+    QList<QSharedPointer<QH::PKG::DBObject>> result;
 
-    auto sessiondata = _db->getObject(request);
-
-    if (!sessiondata || !sessiondata->isValid()) {
+    if (_db->getAllObjects(request, result) || !result.size()) {
         QuasarAppUtils::Params::log(QString("The session %0 is missing").
                                     arg(QString(request.getSessionId().toHex())),
                                     QuasarAppUtils::Error);
         return false;
     }
 
-    auto userCardsData = getUserCardData(sessiondata->getUser(), sessiondata->getCard());
-    if (!userCardsData) {
-        QuasarAppUtils::Params::log(QString("The session %0 is missing").
-                                    arg(QString(request.getSessionId().toHex())),
-                                    QuasarAppUtils::Error);
-        return false;
-    }
-
-    if (!sendCardStatus(userCardsData)) {
+    if (!sendCardStatus(result)) {
         return false;
     }
 
@@ -300,6 +291,38 @@ bool IConnectorBackEnd::applayPurchases(QSharedPointer<RC::Card> dbCard,
 
     emit sigPurchaseWasSuccessful(userCardsData);
     endWork(FinishedSuccessful);
+
+    return true;
+
+}
+
+bool IConnectorBackEnd::sendRawDataPackage(Commands command, const QByteArray &data) {
+
+    QByteArray array;
+
+    int size = data.size();
+
+    array.push_back(command);
+    array.push_back(QByteArray::fromRawData(reinterpret_cast<char*>(&size), sizeof (size)));
+    array.push_back(data);
+
+    return _currentTarget->sendMessage(array);
+}
+
+bool IConnectorBackEnd::extractRawData(const QByteArray &data, RawData &result) {
+    if (data.size() <= 5) {
+        return false;
+    }
+
+    result.command = *(reinterpret_cast<unsigned int*>(data.mid(0, 1).data()));
+    unsigned int dataSize = result.size = *(reinterpret_cast<unsigned int*>(data.mid(1, 4).data()));
+
+    if (static_cast<unsigned int>(data.size()) != dataSize + 5) {
+        QuasarAppUtils::Params::log("user id is invalid", QuasarAppUtils::Error);
+        return false;
+    }
+
+    result.data = data.mid(4);
 
     return true;
 
@@ -367,7 +390,7 @@ bool IConnectorBackEnd::processUserRequest(const QByteArray &message) {
         return false;
     }
 
-    if (!sendCardStatus(userCardsData)) {
+    if (!sendCardStatus(QList{userCardsData})) {
         return false;
     }
 
@@ -464,25 +487,6 @@ bool IConnectorBackEnd::processCardData(const QByteArray &message) {
 bool IConnectorBackEnd::processSuccessful() {
 
     endWork(FinishedSuccessful);
-
-    return true;
-}
-
-bool IConnectorBackEnd::sendCardStatus(const QSharedPointer<UsersCards> &usersCardsData) {
-    CardStatus status;
-    status.command = StatusResponce;
-    status.cardId = _activeCard->cardId();
-    status.purchasesCount = usersCardsData->getPurchasesNumber();
-
-    if (!_currentTarget->sendMessage(QByteArray::fromRawData(reinterpret_cast<char*>(&status), sizeof(status)))) {
-        QuasarAppUtils::Params::log("Failed to send responce", QuasarAppUtils::Error);
-        return false;
-    }
-
-    if (!_db->insertIfExistsUpdateObject(usersCardsData)) {
-        QuasarAppUtils::Params::log("Failed to update data", QuasarAppUtils::Error);
-        return false;
-    }
 
     return true;
 }

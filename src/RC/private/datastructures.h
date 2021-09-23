@@ -5,6 +5,8 @@
 //# of this license document, but changing it is not allowed.
 //#
 
+#include <QByteArray>
+
 
 #ifndef DATASTRUCTURES_H
 #define DATASTRUCTURES_H
@@ -40,7 +42,7 @@ struct DataRequest {
 struct RawData {
     unsigned char command = 0;
     unsigned int size = 0;
-    char *data;
+    QByteArray data;
 };
 #pragma pack(pop)
 

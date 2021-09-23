@@ -30,6 +30,7 @@ class User;
 class UsersCards;
 class CardStatus;
 class Session;
+class RawData;
 
 class CheatCard_EXPORT IConnectorBackEnd : public QObject
 {
@@ -120,12 +121,26 @@ private:
     bool processCardData(const QByteArray &message);
     bool processSuccessful();
 
-    bool sendCardStatus(const QSharedPointer<UsersCards>& usersCardsData);
+    template <typename  Type>
+    bool sendCardStatus(const QList<QSharedPointer<Type>> &usersCardsData) {
+        QByteArray array;
+        QDataStream stream(&array, QIODevice::WriteOnly);
+        stream << static_cast<int>(usersCardsData.size());
+        for (auto data : usersCardsData) {
+            stream << *data.data();
+        }
+
+        return sendRawDataPackage(IConnectorBackEnd::StatusResponce, array);
+    }
+
     bool sendStatusRequest(const QSharedPointer<Session> &usersCardsData);
 
     bool incrementPurchases(const QSharedPointer<UsersCards>& usersCardsData);
     bool applayPurchases(QSharedPointer<RC::Card> dbCard,
                          unsigned int purchases);
+
+    bool sendRawDataPackage(Commands command, const QByteArray& data);
+    bool extractRawData(const QByteArray& data, RawData& result);
 
     void beginWork();
     void endWork(Error status);

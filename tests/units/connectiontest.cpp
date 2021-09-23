@@ -108,8 +108,6 @@ void ConnectionTest::proxyServertests() {
         QVERIFY(wait([NodeA, NodeB]() {
             return NodeA->isFinished() && NodeB->isFinished();
         }, RC_WAIT_TIME + 1000));
-
-
     };
 
     // first connect should be finsished successful
