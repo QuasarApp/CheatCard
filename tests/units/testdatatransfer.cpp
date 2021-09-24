@@ -24,7 +24,7 @@ bool TestDataTransfer::isFinished() const {
     return _finished;
 }
 
-RC::IConnectorBackEnd::Error TestDataTransfer::finishedResult() {
+RC::IConnectorBackEnd::Status TestDataTransfer::finishedResult() {
     return _lastFinishedResult;
 }
 
@@ -42,7 +42,7 @@ bool TestDataTransfer::close() {
     return true;
 }
 
-void TestDataTransfer::handleWasFinished(Error err) {
+void TestDataTransfer::handleWasFinished(Status err) {
     _lastFinishedResult = err;
     _finished = true;
 }

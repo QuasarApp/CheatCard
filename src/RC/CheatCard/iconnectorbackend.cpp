@@ -35,8 +35,8 @@ IConnectorBackEnd::~IConnectorBackEnd() {
         delete _lastReceivedCardStatus;
 }
 
-bool IConnectorBackEnd::start(Mode mode) {
-    return listen(mode);
+bool IConnectorBackEnd::start() {
+    return listen();
 }
 
 bool IConnectorBackEnd::stop() {
@@ -70,6 +70,10 @@ void IConnectorBackEnd::connectionReceived(ITargetNode *obj) {
 
     }
 
+    if(!hello()) {
+        QuasarAppUtils::Params::log("Failed to send hello message");
+    }
+
     beginWork();
 }
 
@@ -101,6 +105,27 @@ IConnectorBackEnd::getUserCardData(unsigned int userId, unsigned int cardId) {
 
     auto purches = _db->getObject(request);
     return purches;
+}
+
+bool IConnectorBackEnd::generateSesionData(UserHeader &data) const {
+    data.userId = activeUser()->userId();
+    data.command = UserId;
+    data.sessionId = rand() * rand();
+    std::memcpy(data.token, activeUser()->getKey().data(), sizeof(data.token));
+
+    return data.userId > 0;
+}
+
+QByteArray IConnectorBackEnd::sessionDataToArray(const UserHeader &data) {
+    QByteArray result;
+    result.push_back(QByteArray::fromRawData(reinterpret_cast<char*>(const_cast<UserHeader *>(&data)), sizeof(data)));
+    return result;
+}
+
+bool IConnectorBackEnd::sessionFromArray(const QByteArray &inputData, UserHeader &outPutData) {
+    outPutData = *reinterpret_cast<UserHeader*>(const_cast<char*>(inputData.data()));
+
+    return outPutData.userId > 0;
 }
 
 void IConnectorBackEnd::handleReceiveMessage(QByteArray message) {
@@ -174,7 +199,7 @@ void IConnectorBackEnd::handleReceiveMessage(QByteArray message) {
 }
 
 void IConnectorBackEnd::handleConnectionClosed(ITargetNode* id) {
-    if (_lastStatus == Error::InProgress) {
+    if (_lastStatus == Status::InProgress) {
         connectionLost(id->nodeId());
         return;
     }
@@ -479,9 +504,16 @@ bool IConnectorBackEnd::processSuccessful() {
 }
 
 bool IConnectorBackEnd::sendStatusRequest(const QSharedPointer<Session> &sessionData) {
+    if (!sessionData)
+        return false;
+
+    return sendStatusRequest(sessionData->getSessionId());
+}
+
+bool IConnectorBackEnd::sendStatusRequest(unsigned long long sessionId) {
     CardStatusRequest status;
     status.command = StatusRequest;
-    status.sessionId = sessionData->getSessionId();
+    status.sessionId = sessionId;
 
     if (!_currentTarget->sendMessage(QByteArray::fromRawData(reinterpret_cast<char*>(&status), sizeof(status)))) {
         QuasarAppUtils::Params::log("Failed to send responce", QuasarAppUtils::Error);
@@ -533,10 +565,10 @@ void IConnectorBackEnd::beginWork() {
     });
 }
 
-void IConnectorBackEnd::endWork(Error status) {
+void IConnectorBackEnd::endWork(Status status) {
     _lastStatus = status;
 
-    if (status != Error::FinishedSuccessful && status != Error::InProgress) {
+    if (status != Status::FinishedSuccessful && status != Status::InProgress) {
         auto service = QmlNotificationService::NotificationService::getService();
         service->setNotify("NFC Error", "Eschanged is failed");
     }
@@ -546,7 +578,19 @@ void IConnectorBackEnd::endWork(Error status) {
 
 }
 
-IConnectorBackEnd::Error IConnectorBackEnd::lastStatus() const {
+unsigned long long IConnectorBackEnd::lastSessionId() const {
+    return _lastSessionId;
+}
+
+void IConnectorBackEnd::setLastSessionId(unsigned long long newLastSessionId) {
+    _lastSessionId = newLastSessionId;
+}
+
+const QSharedPointer<ITargetNode>& IConnectorBackEnd::currentTarget() const {
+    return _currentTarget;
+}
+
+IConnectorBackEnd::Status IConnectorBackEnd::lastStatus() const {
     return _lastStatus;
 }
 

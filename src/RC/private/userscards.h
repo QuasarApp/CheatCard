@@ -50,7 +50,8 @@ public:
 
 protected:
     QString primaryKey() const override;
-
+    QDataStream &fromStream(QDataStream &stream) override;
+    QDataStream &toStream(QDataStream &stream) const override;
 private:
 
     unsigned long long id = 0;
@@ -59,6 +60,8 @@ private:
     unsigned int purchasesNumber = 0;
     unsigned int received = 0;
     bool owner = false;
+
+
 };
 
 }

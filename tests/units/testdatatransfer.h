@@ -16,7 +16,7 @@ public:
     // IConnectorBackEnd interface
 
     bool isFinished() const;
-    Error finishedResult();
+    Status finishedResult();
 
     int getPurchasesCount(unsigned int user, unsigned int card);
 
@@ -25,11 +25,11 @@ protected:
     bool close() override;
 
 private slots:
-    void handleWasFinished(Error err);
+    void handleWasFinished(Status err);
     void handleWasBegin();
 private:
     QSharedPointer<RC::DataBase> _dataBase = nullptr;
-    Error _lastFinishedResult;
+    Status _lastFinishedResult;
     bool _finished = false;
 };
 

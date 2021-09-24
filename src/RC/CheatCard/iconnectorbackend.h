@@ -31,6 +31,7 @@ class UsersCards;
 class CardStatus;
 class Session;
 class RawData;
+class UserHeader;
 
 class CheatCard_EXPORT IConnectorBackEnd : public QObject
 {
@@ -55,7 +56,7 @@ public:
         Successful
     };
 
-    enum Error {
+    enum Status {
         UndefinedStatus,
         InProgress,
         FinishedSuccessful,
@@ -67,7 +68,7 @@ public:
     IConnectorBackEnd(DB *db);
     ~IConnectorBackEnd();
 
-    bool start(Mode mode);
+    bool start();
     bool stop();
 
     QSharedPointer<Card> activeCard() const;
@@ -76,23 +77,28 @@ public:
     QSharedPointer<User> activeUser() const;
     void setActiveUser(QSharedPointer<User> newActiveUser);
 
-    IConnectorBackEnd::Mode mode() const;
-    void setMode(Mode newMode);
+    Status lastStatus() const;
 
-    Error lastStatus() const;
+    const QSharedPointer<ITargetNode> &currentTarget() const;
+
+    unsigned long long lastSessionId() const;
+    void setLastSessionId(unsigned long long newLastSessionId);
 
 signals:
     void sigPurchaseWasSuccessful(QSharedPointer<UsersCards> data);
     void sigCardReceived(QSharedPointer<Card> err);
 
-    void sigSessionWasFinshed(Error err);
+    void sigSessionWasFinshed(Status err);
     void sigSessionWasBegin();
 
 protected:
 
-    virtual bool listen(Mode mode) = 0;
-
+    virtual bool listen() = 0;
+    virtual bool hello() = 0;
     virtual bool close() = 0;
+
+    IConnectorBackEnd::Mode mode() const;
+    void setMode(Mode newMode);
 
     void reset();
 
@@ -105,6 +111,13 @@ protected:
 
     QSharedPointer<UsersCards> getUserCardData(unsigned int userId,
                                                unsigned int cardId);
+
+    bool generateSesionData(UserHeader & data) const;
+    QByteArray sessionDataToArray(const UserHeader& data);
+    bool sessionFromArray(const QByteArray& inputData, UserHeader &outPutData);
+
+    bool sendStatusRequest(const QSharedPointer<Session> &usersCardsData);
+    bool sendStatusRequest(unsigned long long sessionId);
 
 protected slots:
     void handleReceiveMessage(QByteArray message);
@@ -133,8 +146,6 @@ private:
         return sendRawDataPackage(IConnectorBackEnd::StatusResponce, array);
     }
 
-    bool sendStatusRequest(const QSharedPointer<Session> &usersCardsData);
-
     bool incrementPurchases(const QSharedPointer<UsersCards>& usersCardsData);
     bool applayPurchases(QSharedPointer<RC::Card> dbCard,
                          unsigned int purchases);
@@ -143,16 +154,16 @@ private:
     bool extractRawData(const QByteArray& data, RawData& result);
 
     void beginWork();
-    void endWork(Error status);
+    void endWork(Status status);
 
-    Error _lastStatus = UndefinedStatus;
+    Status _lastStatus = UndefinedStatus;
     Mode _mode = Client;
     int _workID = 0;
     QSharedPointer<ITargetNode> _currentTarget;
     QSharedPointer<Card> _activeCard;
     int _purchasesCount = 0;
     QSharedPointer<User> _activeUser;
-    QByteArray _lastSessionId;
+    unsigned long long _lastSessionId;
 
     QHash<unsigned long long, unsigned int> _lastUpdates;
 
@@ -165,7 +176,7 @@ private:
 }
 
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-Q_DECLARE_METATYPE(RC::IConnectorBackEnd::Error)
+Q_DECLARE_METATYPE(RC::IConnectorBackEnd::Status)
 #endif
 
 #endif // ICONNECTORBACKEND_H

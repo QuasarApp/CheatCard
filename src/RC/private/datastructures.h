@@ -6,6 +6,7 @@
 //#
 
 #include <QByteArray>
+#include <abstractdata.h>
 
 
 #ifndef DATASTRUCTURES_H
@@ -14,37 +15,69 @@
 
 namespace RC {
 
-#pragma pack(push, 1)
+class CardStatusRequest: public QH::PKG::AbstractData
+{
+public:
+    CardStatusRequest();
+    bool isValid() const override;
+    // StreamBase interface
 
-struct CardStatus {
-    unsigned char command = 0;
-    unsigned int cardId = 0;
-    unsigned int purchasesCount = 0;
-};
+    unsigned long long getSessionId() const;
+    void setSessionId(unsigned long long newSessionId);
 
-struct CardStatusRequest {
-    unsigned char command = 0;
+protected:
+    QDataStream &fromStream(QDataStream &stream) override;
+    QDataStream &toStream(QDataStream &stream) const override;
+
+private:
     unsigned long long sessionId;
 };
 
-struct UserHeader {
-    unsigned char command = 0;
+class UserHeader: public QH::PKG::AbstractData
+{
+public:
+    UserHeader();
+    bool isValid() const override;
+
+    unsigned int getUserId() const;
+    void setUserId(unsigned int newUserId);
+
+    unsigned long long getSessionId() const;
+    void setSessionId(unsigned long long newSessionId);
+
+    const QByteArray &token() const;
+    void setToken(const QByteArray &newToken);
+
+protected:
+    QDataStream &fromStream(QDataStream &stream) override;
+    QDataStream &toStream(QDataStream &stream) const override;
+
+private:
     unsigned int userId = 0;
     unsigned long long sessionId;
-    char token[32];
-
+    QByteArray _token;
 };
 
-struct DataRequest {
-    unsigned char command = 0;
-};
 
-struct RawData {
-    unsigned char command = 0;
-    unsigned int size = 0;
-    QByteArray data;
+class CardDataRequest: public QH::PKG::AbstractData{
+
+    // AbstractData interface
+public:
+    bool isValid() const override;
+    // StreamBase interface
+
+    unsigned int getCardId() const;
+    void setCardId(unsigned int newCardId);
+
+protected:
+    QDataStream &fromStream(QDataStream &stream) override;
+    QDataStream &toStream(QDataStream &stream) const override;
+
+private:
+    unsigned int cardId = 0;
+
 };
-#pragma pack(pop)
+class Successful: public QH::PKG::AbstractData{};
 
 }
 

@@ -41,6 +41,33 @@ QString UsersCards::primaryKey() const {
     return "id";
 }
 
+QDataStream &UsersCards::fromStream(QDataStream &stream) {
+
+    DBObject::fromStream(stream);
+
+    stream >> user;
+    stream >> card;
+    stream >> id;
+    stream >> purchasesNumber;
+    stream >> received;
+    stream >> owner;
+
+    return stream;
+}
+
+QDataStream &UsersCards::toStream(QDataStream &stream) const {
+    DBObject::toStream(stream);
+
+    stream << user;
+    stream << card;
+    stream << id;
+    stream << purchasesNumber;
+    stream << received;
+    stream << owner;
+
+    return stream;
+}
+
 unsigned long long UsersCards::getId() const {
     return id;
 }
