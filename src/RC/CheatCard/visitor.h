@@ -9,20 +9,28 @@
 #ifndef VISITOR_H
 #define VISITOR_H
 
-#include "iconnectorbackend.h"
+#include "basenode.h"
 
 namespace RC {
 
 
-class Visitor: public IConnectorBackEnd
+class CheatCard_EXPORT Visitor: public BaseNode
 {
     Q_OBJECT
 public:
-    Visitor(DB *db, QSharedPointer<User> newActiveUser);
+    Visitor(QH::ISqlDBCache *db);
+    bool checkCardData(unsigned long long session,
+                       const QString& domain = DEFAULT_CHEAT_CARD_HOST,
+                       int port = DEFAULT_CHEAT_CARD_PORT);
 
-    // IConnectorBackEnd interface
+    // AbstractNode interface
 protected:
-    bool hello() override;
+    void nodeConfirmend(QH::AbstractNodeInfo *node) override;
+
+private:
+    unsigned long long _lastRequested = 0;
+
+
 };
 }
 #endif // VISITOR_H

@@ -9,19 +9,24 @@
 
 #ifndef SELLER_H
 #define SELLER_H
-#include "iconnectorbackend.h"
+#include "basenode.h"
 
 namespace RC {
 
-class Seller: public IConnectorBackEnd
+class CheatCard_EXPORT Seller: public BaseNode
 {
     Q_OBJECT
 public:
     Seller(QH::ISqlDBCache *db);
 
-    // IConnectorBackEnd interface
+    bool sendLastSession(unsigned long long session,
+                         const QString& domain = DEFAULT_CHEAT_CARD_HOST,
+                         int port = DEFAULT_CHEAT_CARD_PORT);
 protected:
-    bool hello() override;
+    void nodeConfirmend(QH::AbstractNodeInfo *node) override;
+
+private:
+    unsigned long long _lastRequested = 0;
 };
 }
 #endif // SELLER_H

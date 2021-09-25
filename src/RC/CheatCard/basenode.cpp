@@ -20,6 +20,48 @@ BaseNode::BaseNode(QH::ISqlDBCache *db) {
     _db = db;
 }
 
+QH::ParserResult BaseNode::parsePackage(const QSharedPointer<QH::PKG::AbstractData> &pkg,
+                                      const QH::Header &pkgHeader,
+                                      const QH::AbstractNodeInfo *sender) {
+
+    auto parentResult = AbstractNode::parsePackage(pkg, pkgHeader, sender);
+    if (parentResult != QH::ParserResult::NotProcessed) {
+        return parentResult;
+    }
+
+    auto result = commandHandler<Session>(this, &BaseNode::processSession,
+                                          pkg, sender, pkgHeader);
+    if (result != QH::ParserResult::NotProcessed) {
+        return result;
+    }
+
+    result = commandHandler<CardStatusRequest>(this, &BaseNode::processCardStatusRequest,
+                                               pkg, sender, pkgHeader);
+    if (result != QH::ParserResult::NotProcessed) {
+        return result;
+    }
+
+    result = commandHandler<UsersCards>(this, &BaseNode::processCardStatus,
+                                        pkg, sender, pkgHeader);
+    if (result != QH::ParserResult::NotProcessed) {
+        return result;
+    }
+
+    result = commandHandler<CardDataRequest>(this, &BaseNode::processCardRequest,
+                                             pkg, sender, pkgHeader);
+    if (result != QH::ParserResult::NotProcessed) {
+        return result;
+    }
+
+    result = commandHandler<Card>(this, &BaseNode::processCardData,
+                                  pkg, sender, pkgHeader);
+    if (result != QH::ParserResult::NotProcessed) {
+        return result;
+    }
+
+    return QH::ParserResult::NotProcessed;
+}
+
 bool BaseNode::processCardStatus(const QSharedPointer<UsersCards> &cardStatus,
                                  const QH::AbstractNodeInfo *sender, const QH::Header &) {
 

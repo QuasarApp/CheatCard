@@ -17,5 +17,8 @@
 #  define CheatCard_EXPORT Q_DECL_IMPORT
 #endif
 
+#define DEFAULT_CHEAT_CARD_HOST "localhost"
+#define DEFAULT_CHEAT_CARD_PORT 7122
+
 #endif //CheatCard_GLOBAL_H
 

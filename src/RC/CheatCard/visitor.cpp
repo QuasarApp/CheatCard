@@ -12,19 +12,37 @@
 #include <user.h>
 #include <cstring>
 #include <session.h>
-#include "itargetnode.h"
+#include <userscards.h>
+#include <card.h>
+#include "CheatCard_global.h"
 
 namespace RC {
 
-Visitor::Visitor(QH::ISqlDBCache *db, QSharedPointer<User> newActiveUser):
-    IConnectorBackEnd(db) {
 
-    setMode(Client);
-    setActiveUser(newActiveUser);
+Visitor::Visitor(QH::ISqlDBCache *db): BaseNode(db) {
+    registerPackageType<UsersCards>();
+    registerPackageType<Card>();
+
 }
 
-bool Visitor::hello() {
+bool Visitor::checkCardData(unsigned long long session,
+                            const QString &domain, int port) {
+    if (session <= 0)
+        return false;
 
-    return sendStatusRequest(lastSessionId());
+    _lastRequested = session;
+
+    return addNode(domain, port);
 }
+
+void Visitor::nodeConfirmend(QH::AbstractNodeInfo *node) {
+    BaseNode::nodeConfirmend(node);
+
+    CardStatusRequest request;
+
+    request.setSessionId(_lastRequested);
+
+    sendData(&request, node->networkAddress());
+}
+
 }

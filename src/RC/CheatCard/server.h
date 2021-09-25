@@ -21,12 +21,6 @@ class Server: public BaseNode
 public:
     Server(QH::ISqlDBCache *db);
 
-    // AbstractNode interface
-protected:
-    QH::ParserResult parsePackage(const QSharedPointer<QH::PKG::AbstractData> &pkg,
-                                  const QH::Header &pkgHeader,
-                                  const QH::AbstractNodeInfo *sender) override;
-
 };
 }
 #endif // SERVER_H

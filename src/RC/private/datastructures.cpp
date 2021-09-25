@@ -10,6 +10,10 @@
 
 namespace RC {
 
+UserHeader::UserHeader() {
+
+}
+
 bool UserHeader::isValid() const {
     return _token.size() == 32 && userId > 0 && sessionId > 0 && AbstractData::isValid();;
 }
@@ -56,6 +60,10 @@ unsigned int UserHeader::getUserId() const {
 
 void UserHeader::setUserId(unsigned int newUserId) {
     userId = newUserId;
+}
+
+CardStatusRequest::CardStatusRequest() {
+
 }
 
 bool CardStatusRequest::isValid() const {
@@ -114,5 +122,7 @@ unsigned int CardDataRequest::getCardId() const {
 void CardDataRequest::setCardId(unsigned int newCardId) {
     cardId = newCardId;
 }
+
+RC::CardDataRequest::CardDataRequest() {}
 
 }

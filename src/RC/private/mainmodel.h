@@ -11,7 +11,6 @@
 #include <QObject>
 #include <QSettings>
 #include <CheatCard/database.h>
-#include "CheatCard/iconnectorbackend.h"
 
 namespace RC {
 
@@ -23,7 +22,8 @@ class CardsListModel;
 class UserModel;
 class ItemsModel;
 class WaitConnectionModel;
-
+class BaseNode;
+class UsersCards;
 
 /**
  * @brief The MainModel class is main model of the application.
@@ -42,7 +42,13 @@ class MainModel : public QObject
     Q_PROPERTY(QObject * waitModel READ waitModel NOTIFY waitModelChanged)
 
 
+
 public:
+    enum class Mode {
+        Unknown = -1,
+        Client = 0,
+        Seller = 1
+    };
     MainModel(QH::ISqlDBCache* db);
     ~MainModel();
 
@@ -123,11 +129,11 @@ private:
 
     ItemsModel *_defaultLogosModel = nullptr;
     ItemsModel *_defaultBackgroundsModel = nullptr;
-    IConnectorBackEnd * _backEndModel = nullptr;
+    BaseNode * _backEndModel = nullptr;
     WaitConnectionModel * _waitModel = nullptr;
     QSettings _settings;
 
-    int _mode = -1;
+    Mode _mode = Mode::Unknown;
 };
 
 }

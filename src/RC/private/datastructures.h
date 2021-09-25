@@ -63,6 +63,7 @@ class CardDataRequest: public QH::PKG::AbstractData{
 
     // AbstractData interface
 public:
+    CardDataRequest();
     bool isValid() const override;
     // StreamBase interface
 

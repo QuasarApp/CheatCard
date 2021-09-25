@@ -8,6 +8,7 @@
 #ifndef BASENODE_H
 #define BASENODE_H
 #include "abstractnode.h"
+#include "CheatCard_global.h"
 
 #include <isqldbcache.h>
 namespace RC {
@@ -19,7 +20,7 @@ class CardDataRequest;
 class CardStatusRequest;
 class Session;
 
-class BaseNode: public QH::AbstractNode
+class CheatCard_EXPORT BaseNode: public QH::AbstractNode
 {
     Q_OBJECT
 public:
@@ -49,6 +50,10 @@ protected:
     getUserCardData(unsigned int userId, unsigned int cardId);
 
     QSharedPointer<Card> getCard(unsigned int cardId);
+
+    QH::ParserResult parsePackage(const QSharedPointer<QH::PKG::AbstractData> &pkg,
+                                  const QH::Header &pkgHeader,
+                                  const QH::AbstractNodeInfo *sender) override;
 
 private:
     QH::ISqlDBCache *_db = nullptr;

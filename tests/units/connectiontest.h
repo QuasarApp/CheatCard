@@ -13,7 +13,6 @@
 
 #include <QtTest>
 
-#include "testdatatransfer.h"
 
 class ConnectionTest: public Test, protected TestUtils
 {
@@ -29,11 +28,11 @@ private:
     void multipleUsersConnect();
     void longTimeWorkdTest();
 
-    QSharedPointer<TestDataTransfer>
-    makeNode(TestDataTransfer::Mode mode);
+//    QSharedPointer<TestDataTransfer>
+//    makeNode(TestDataTransfer::Mode mode);
 
-    void connectNodes(const QSharedPointer<TestDataTransfer>& nodeA,
-                      const QSharedPointer<TestDataTransfer>& nodeB);
+//    void connectNodes(const QSharedPointer<TestDataTransfer>& nodeA,
+//                      const QSharedPointer<TestDataTransfer>& nodeB);
 
 };
 

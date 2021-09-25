@@ -7,13 +7,28 @@
 
 
 #include "seller.h"
+
+#include <session.h>
 namespace RC {
 
-Seller::Seller(DB *db): IConnectorBackEnd(db) {
-    setMode(Saller);
+Seller::Seller(QH::ISqlDBCache *db): BaseNode(db) {
 }
 
-bool Seller::hello() {
+bool Seller::sendLastSession(unsigned long long session, const QString &domain, int port) {
+    if (session <= 0)
+        return false;
 
+    _lastRequested = session;
+    return addNode(domain, port);
+}
+
+void Seller::nodeConfirmend(QH::AbstractNodeInfo *node) {
+    BaseNode::nodeConfirmend(node);
+
+    Session session;
+
+    session.setSessionId(_lastRequested);
+
+    sendData(&session, node->networkAddress());
 }
 }
