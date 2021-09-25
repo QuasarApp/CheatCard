@@ -16,6 +16,7 @@ class CardStatus;
 class Card;
 class UsersCards;
 class CardDataRequest;
+class CardStatusRequest;
 
 class BaseNode: public QH::AbstractNode
 {
@@ -29,10 +30,16 @@ signals:
 
 protected:
     QH::ISqlDBCache *db() const;
-    bool processCardStatus(const QSharedPointer<UsersCards> &message, const QH::AbstractNodeInfo *sender);
-    bool applayPurchases(const QSharedPointer<UsersCards> &dbCard, const QH::AbstractNodeInfo *sender);
-    bool processCardRequest(const QSharedPointer<CardDataRequest> &cardStatus, const QH::AbstractNodeInfo *sender);
-    bool processCardData(const QSharedPointer<Card> &cardrequest, const QH::AbstractNodeInfo *sender);
+    bool processCardStatusRequest(const QSharedPointer<CardStatusRequest> &message,
+                           const QH::AbstractNodeInfo *sender, const QH::Header&);
+    bool processCardStatus(const QSharedPointer<UsersCards> &message,
+                           const QH::AbstractNodeInfo *sender, const QH::Header&);
+    bool applayPurchases(const QSharedPointer<UsersCards> &dbCard,
+                         const QH::AbstractNodeInfo *sender);
+    bool processCardRequest(const QSharedPointer<CardDataRequest> &cardStatus,
+                            const QH::AbstractNodeInfo *sender, const QH::Header&);
+    bool processCardData(const QSharedPointer<Card> &cardrequest,
+                         const QH::AbstractNodeInfo *sender, const QH::Header &);
 
     QSharedPointer<UsersCards>
     getUserCardData(unsigned int userId, unsigned int cardId);

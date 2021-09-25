@@ -10,6 +10,7 @@
 
 #include <card.h>
 #include <datastructures.h>
+#include <dbobjectsrequest.h>
 #include <userscards.h>
 
 namespace RC {
@@ -19,7 +20,7 @@ BaseNode::BaseNode(QH::ISqlDBCache *db) {
 }
 
 bool BaseNode::processCardStatus(const QSharedPointer<UsersCards> &cardStatus,
-                                 const QH::AbstractNodeInfo *sender) {
+                                 const QH::AbstractNodeInfo *sender, const QH::Header &) {
 
 
     Card userrquest;
@@ -73,7 +74,7 @@ QSharedPointer<Card> BaseNode::getCard(unsigned int cardId) {
 }
 
 bool BaseNode::processCardRequest(const QSharedPointer<CardDataRequest> &cardrequest,
-                                  const QH::AbstractNodeInfo *sender) {
+                                  const QH::AbstractNodeInfo *sender, const QH::Header &) {
 
     auto card = getCard(cardrequest->getCardId());
 
@@ -87,7 +88,7 @@ bool BaseNode::processCardRequest(const QSharedPointer<CardDataRequest> &cardreq
 }
 
 bool BaseNode::processCardData(const QSharedPointer<Card> &card,
-                               const QH::AbstractNodeInfo *sender) {
+                               const QH::AbstractNodeInfo *sender, const QH::Header &) {
 
     if (!card->isValid())
         return false;
@@ -103,6 +104,32 @@ bool BaseNode::processCardData(const QSharedPointer<Card> &card,
 
 QH::ISqlDBCache *BaseNode::db() const {
     return _db;
+}
+
+bool BaseNode::processCardStatusRequest(const QSharedPointer<CardStatusRequest> &cardStatus,
+                                        const QH::AbstractNodeInfo *sender, const QH::Header &) {
+
+    auto sessionId = cardStatus->getSessionId();
+
+    QString where = QString("id IN (SELECT usersCardsID FROM Sessions WHERE id = %0)").
+            arg(sessionId);
+    QH::PKG::DBObjectsRequest<UsersCards> request("UsersCards", where);
+
+    auto result = _db->getObject(request);
+    if (!result || result->data().isEmpty()) {
+        QuasarAppUtils::Params::log(QString("The session %0 is missing").
+                                    arg(sessionId),
+                                    QuasarAppUtils::Error);
+        return false;
+    }
+
+    for (const auto &data : qAsConst(result->data())) {
+        if (!sendData(data.data(), sender->networkAddress())) {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 

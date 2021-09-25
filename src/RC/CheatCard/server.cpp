@@ -8,12 +8,16 @@
 
 #include "server.h"
 
+#include <card.h>
 #include <datastructures.h>
 #include <userscards.h>
 
 namespace RC {
 
 Server::Server(QH::ISqlDBCache *db): BaseNode(db) {
+    registerPackageType<UsersCards>();
+    registerPackageType<CardDataRequest>();
+    registerPackageType<Card>();
 }
 
 QH::ParserResult Server::parsePackage(const QSharedPointer<QH::PKG::AbstractData> &pkg,
@@ -25,35 +29,24 @@ QH::ParserResult Server::parsePackage(const QSharedPointer<QH::PKG::AbstractData
         return parentResult;
     }
 
-
-    if (H_16<UsersCards>() == pkg->cmd()) {
-        auto data = QSharedPointer<UsersCards>::create();
-        data->fromBytes(pkg->toBytes());
-
-        if (!data->isValid()) {
-            return QH::ParserResult::Error;
-        }
-
-        if(!processCardStatus(data, sender)) {
-            return QH::ParserResult::Error;
-        }
-
-        return QH::ParserResult::Processed;
+    auto result = commandHandler<CardStatusRequest>(&Server::processCardStatusRequest, pkg, sender, pkgHeader);
+    if (result != QH::ParserResult::NotProcessed) {
+        return result;
     }
 
-    if (H_16<CardDataRequest>() == pkg->cmd()) {
-        auto data = QSharedPointer<CardDataRequest>::create();
-        data->fromBytes(pkg->toBytes());
+    result = commandHandler<UsersCards>(&Server::processCardStatus, pkg, sender, pkgHeader);
+    if (result != QH::ParserResult::NotProcessed) {
+        return result;
+    }
 
-        if (!data->isValid()) {
-            return QH::ParserResult::Error;
-        }
+    result = commandHandler<CardDataRequest>(&Server::processCardRequest, pkg, sender, pkgHeader);
+    if (result != QH::ParserResult::NotProcessed) {
+        return result;
+    }
 
-        if(!processCardStatus(data, sender)) {
-            return QH::ParserResult::Error;
-        }
-
-        return QH::ParserResult::Processed;
+    result = commandHandler<Card>(&Server::processCardData, pkg, sender, pkgHeader);
+    if (result != QH::ParserResult::NotProcessed) {
+        return result;
     }
 
     return QH::ParserResult::NotProcessed;
