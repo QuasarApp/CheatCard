@@ -11,6 +11,7 @@
 #include <card.h>
 #include <datastructures.h>
 #include <dbobjectsrequest.h>
+#include <session.h>
 #include <userscards.h>
 
 namespace RC {
@@ -130,6 +131,20 @@ bool BaseNode::processCardStatusRequest(const QSharedPointer<CardStatusRequest> 
     }
 
     return true;
+}
+
+bool BaseNode::processSession(const QSharedPointer<Session> &session,
+                              const QH::AbstractNodeInfo *sender, const QH::Header &) {
+
+    if (!_db->insertObject(session)) {
+        return false;
+    }
+
+    CardStatusRequest requestData;
+    requestData.setSessionId(session->getSessionId());
+
+
+    return sendData(&requestData, sender->networkAddress());
 }
 
 

@@ -34,10 +34,13 @@ public:
 
 protected:
     QString primaryKey() const override;
+    QDataStream &fromStream(QDataStream &stream) override;
+    QDataStream &toStream(QDataStream &stream) const override;
 
 private:
     unsigned long long usercardId = 0;
     unsigned long long sessionId;
+
 };
 
 }

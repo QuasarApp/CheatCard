@@ -17,6 +17,7 @@ class Card;
 class UsersCards;
 class CardDataRequest;
 class CardStatusRequest;
+class Session;
 
 class BaseNode: public QH::AbstractNode
 {
@@ -31,6 +32,9 @@ signals:
 protected:
     QH::ISqlDBCache *db() const;
     bool processCardStatusRequest(const QSharedPointer<CardStatusRequest> &message,
+                           const QH::AbstractNodeInfo *sender, const QH::Header&);
+
+    bool processSession(const QSharedPointer<Session> &message,
                            const QH::AbstractNodeInfo *sender, const QH::Header&);
     bool processCardStatus(const QSharedPointer<UsersCards> &message,
                            const QH::AbstractNodeInfo *sender, const QH::Header&);

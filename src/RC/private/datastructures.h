@@ -77,6 +77,7 @@ private:
     unsigned int cardId = 0;
 
 };
+
 class Successful: public QH::PKG::AbstractData{};
 
 }

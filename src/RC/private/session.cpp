@@ -36,6 +36,24 @@ QString Session::primaryKey() const {
     return "id";
 }
 
+QDataStream &Session::fromStream(QDataStream &stream) {
+    DBObject::fromStream(stream);
+
+    stream >> sessionId;
+    stream >> usercardId;
+
+    return stream;
+}
+
+QDataStream &Session::toStream(QDataStream &stream) const {
+    DBObject::toStream(stream);
+
+    stream << sessionId;
+    stream << usercardId;
+
+    return stream;
+}
+
 unsigned long long Session::getUsercardId() const {
     return usercardId;
 }

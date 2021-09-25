@@ -15,9 +15,12 @@
 namespace RC {
 
 Server::Server(QH::ISqlDBCache *db): BaseNode(db) {
+    registerPackageType<Session>();
+    registerPackageType<CardStatusRequest>();
     registerPackageType<UsersCards>();
     registerPackageType<CardDataRequest>();
     registerPackageType<Card>();
+
 }
 
 QH::ParserResult Server::parsePackage(const QSharedPointer<QH::PKG::AbstractData> &pkg,
@@ -29,7 +32,12 @@ QH::ParserResult Server::parsePackage(const QSharedPointer<QH::PKG::AbstractData
         return parentResult;
     }
 
-    auto result = commandHandler<CardStatusRequest>(&Server::processCardStatusRequest, pkg, sender, pkgHeader);
+    auto result = commandHandler<Session>(&Server::processSession, pkg, sender, pkgHeader);
+    if (result != QH::ParserResult::NotProcessed) {
+        return result;
+    }
+
+    result = commandHandler<CardStatusRequest>(&Server::processCardStatusRequest, pkg, sender, pkgHeader);
     if (result != QH::ParserResult::NotProcessed) {
         return result;
     }
