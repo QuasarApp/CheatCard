@@ -5,17 +5,16 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-
 #include "connectiontest.h"
 #include "testdatabasewrapper.h"
 #include <private/card.h>
+#include <private/datastructures.h>
 #include <private/user.h>
 #include <thread>
 #include <chrono>
 #include <CheatCard/visitor.h>
 #include <CheatCard/seller.h>
 #include <CheatCard/server.h>
-#include <type_traits>
 
 #define TEST_CHEAT_PORT 15001
 #define TEST_CHEAT_HOST "localhost"
@@ -75,9 +74,17 @@ void ConnectionTest::firstContact() {
     // run server
     QVERIFY(server->run(TEST_CHEAT_HOST, TEST_CHEAT_PORT));
 
-    seller.incrementPurchase();
+    auto user = makeUser();
+    auto obj = QSharedPointer<RC::UserHeader>::create();
 
-    QVERIFY(seller->sendLastSession(session));
+    obj->setSessionId(session);
+    obj->setToken(user->getKey());
+    // 3619648333 This is card id from test database.
+    QVERIFY(seller->incrementPurchase(obj, 3619648333, 1, TEST_CHEAT_HOST, TEST_CHEAT_PORT));
+
+    wait([server](){
+        return server->isDataReceivedSuccessful();
+    });
 
     // first connect should be finsished successful
     connectionNodeJonb(saller, client);
@@ -170,6 +177,14 @@ void ConnectionTest::multipleUsersConnect() {
 
 void ConnectionTest::longTimeWorkdTest() {
     QVERIFY(false);
+}
+
+QSharedPointer<RC::User> ConnectionTest::makeUser() const {
+    auto result = QSharedPointer<RC::User>::create();
+
+    result->setName(QString("User%0").arg(rand()));
+
+    return result;
 }
 
 //void ConnectionTest::connectNodes(const QSharedPointer<TestDataTransfer> &nodeA,

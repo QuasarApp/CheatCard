@@ -15,6 +15,9 @@
 
 #include <CheatCard/basenode.h>
 
+namespace RC {
+    class User;
+}
 
 class ConnectionTest: public Test, protected TestUtils
 {
@@ -30,9 +33,7 @@ private:
     void multipleUsersConnect();
     void longTimeWorkdTest();
 
-
-//    void connectNodes(const QSharedPointer<TestDataTransfer>& nodeA,
-//                      const QSharedPointer<TestDataTransfer>& nodeB);
+    QSharedPointer<RC::User> makeUser() const;
 
 };
 
