@@ -25,7 +25,7 @@ public:
 
     // AbstractNode interface
 protected:
-    void nodeConfirmend(QH::AbstractNodeInfo *node) override;
+    void nodeConnected(QH::AbstractNodeInfo *node) override;
 
 private:
     unsigned long long _lastRequested = 0;

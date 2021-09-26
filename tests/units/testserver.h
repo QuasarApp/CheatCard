@@ -3,14 +3,19 @@
 
 #include <CheatCard/server.h>
 
+class TestDataBaseWrapper;
+
 class TestServer: public RC::Server
 {
     Q_OBJECT
 public:
-    TestServer(QH::ISqlDBCache*);
+    TestServer(QSharedPointer<TestDataBaseWrapper>);
     bool isDataReceivedSuccessful() const;
+    int getPurchaseCount(int userId, int cardId);
+
 private:
     bool _finished = false;
+    QSharedPointer<TestDataBaseWrapper> privateDb;
 };
 
 #endif // TESTSERVER_H

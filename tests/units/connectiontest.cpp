@@ -7,6 +7,7 @@
 
 #include "connectiontest.h"
 #include "testdatabasewrapper.h"
+#include "testserver.h"
 #include <private/card.h>
 #include <private/datastructures.h>
 #include <private/user.h>
@@ -15,12 +16,19 @@
 #include <CheatCard/visitor.h>
 #include <CheatCard/seller.h>
 #include <CheatCard/server.h>
+#include <testseller.h>
+#include <testvisitor.h>
+#include <type_traits>
 
 #define TEST_CHEAT_PORT 15001
 #define TEST_CHEAT_HOST "localhost"
 
 
-void softDeleteWrap(TestDataBaseWrapper* obj) {
+void softDeleteWrapDB(TestDataBaseWrapper* obj) {
+    obj->softDelete();
+}
+
+void softDeleteWrapNode(RC::BaseNode* obj) {
     obj->softDelete();
 }
 
@@ -31,18 +39,20 @@ QSharedPointer<NodeType> makeNode() {
 
     auto sallerDb = QSharedPointer<TestDataBaseWrapper>(
                 new TestDataBaseWrapper(randomNodeName),
-                softDeleteWrap);
+                softDeleteWrapDB);
 
-    if (std::is_some<NodeType, RC::Seller>::value) {
+    if (std::is_same<NodeType, RC::Seller>::value ||
+            std::is_base_of<NodeType, RC::Seller>::value ) {
+
         sallerDb = QSharedPointer<TestDataBaseWrapper>(
                     new TestDataBaseWrapper(randomNodeName,
                                             ":/sql/units/sql/TestSallerDb.sql"),
-                    softDeleteWrap);
+                    softDeleteWrapDB);
     }
 
     sallerDb->initSqlDb();
 
-    return QSharedPointer<NodeType>::create(sallerDb->db());
+    return QSharedPointer<NodeType>(new NodeType(sallerDb), softDeleteWrapNode);
 }
 
 ConnectionTest::ConnectionTest() {
@@ -57,16 +67,13 @@ void ConnectionTest::test() {
     QDir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)).removeRecursively();
 
     firstContact();
-    proxyServertests();
-    //    multipleUsersConnect();
-    //    longTimeWorkdTest();
 }
 
 void ConnectionTest::firstContact() {
 
-    auto seller = makeNode<RC::Seller>();
-    auto client = makeNode<RC::Visitor>();
-    auto server = makeNode<RC::Server>();
+    auto seller = makeNode<TestSeller>();
+    auto client = makeNode<TestVisitor>();
+    auto server = makeNode<TestServer>();
 
     // random session
     unsigned long long session = rand() * rand();
@@ -79,104 +86,20 @@ void ConnectionTest::firstContact() {
 
     obj->setSessionId(session);
     obj->setToken(user->getKey());
+    obj->setUserId(user->userId());
+
     // 3619648333 This is card id from test database.
-    QVERIFY(seller->incrementPurchase(obj, 3619648333, 1, TEST_CHEAT_HOST, TEST_CHEAT_PORT));
+    unsigned int cardId = 3619648333;
+    QVERIFY(seller->incrementPurchase(obj, cardId, 1, TEST_CHEAT_HOST, TEST_CHEAT_PORT));
 
-    wait([server](){
+    QVERIFY(wait([server](){
         return server->isDataReceivedSuccessful();
-    });
-
-    // first connect should be finsished successful
-    connectionNodeJonb(saller, client);
-
-    QVERIFY(saller->finishedResult() == TestDataTransfer::FinishedSuccessful);
-    QVERIFY(client->finishedResult() == TestDataTransfer::FinishedSuccessful);
-
-    QVERIFY(saller->getPurchasesCount(client->activeUser()->userId(),
-                                      saller->activeCard()->cardId()) == 1);
-
-    QVERIFY(client->getPurchasesCount(client->activeUser()->userId(),
-                                      saller->activeCard()->cardId()) == 1);
+    }, 1000));
 
 
-    // second connect should be failed because second connect is very fast
+    QVERIFY(server->confirmendCount() == 0);
+    QVERIFY(server->getPurchaseCount(user->userId(), cardId) == 1);
 
-    connectionNodeJonb(saller, client);
-
-    QVERIFY(saller->finishedResult() == TestDataTransfer::WrongPackage);
-    QVERIFY(client->finishedResult() == TestDataTransfer::ConnectionLost);
-
-    QVERIFY(saller->getPurchasesCount(client->activeUser()->userId(),
-                                      saller->activeCard()->cardId()) == 1);
-
-    QVERIFY(client->getPurchasesCount(client->activeUser()->userId(),
-                                      saller->activeCard()->cardId()) == 1);
-
-    // waiting for availabe next connection
-    std::this_thread::sleep_for(std::chrono::seconds(10));
-
-
-    connectionNodeJonb(saller, client);
-
-    QVERIFY(saller->finishedResult() == TestDataTransfer::FinishedSuccessful);
-    QVERIFY(client->finishedResult() == TestDataTransfer::FinishedSuccessful);
-
-    QVERIFY(saller->getPurchasesCount(client->activeUser()->userId(),
-                                      saller->activeCard()->cardId()) == 2);
-
-    QVERIFY(client->getPurchasesCount(client->activeUser()->userId(),
-                                      saller->activeCard()->cardId()) == 2);
-
-
-}
-
-void ConnectionTest::proxyServertests() {
-    //    auto saller = makeNode(TestDataTransfer::Saller);
-    //    auto client = makeNode(TestDataTransfer::Client);
-    //    auto proxy = makeNode(TestDataTransfer::ProxyServer);
-
-    //    auto connectionNodeJonb = [this](QSharedPointer<TestDataTransfer> NodeA,
-    //                                QSharedPointer<TestDataTransfer> NodeB){
-    //        connectNodes(NodeA, NodeB);
-
-    //        QVERIFY(wait([NodeA, NodeB]() {
-    //            return NodeA->isFinished() && NodeB->isFinished();
-    //        }, RC_WAIT_TIME + 1000));
-    //    };
-
-    //    // first connect should be finsished successful
-    //    connectionNodeJonb(saller, proxy);
-
-    //    QVERIFY(saller->finishedResult() == TestDataTransfer::FinishedSuccessful);
-    //    QVERIFY(proxy->finishedResult() == TestDataTransfer::FinishedSuccessful);
-
-    //    QVERIFY(saller->getPurchasesCount(client->activeUser()->userId(),
-    //                              saller->activeCard()->cardId()) == 1);
-
-    //    QVERIFY(proxy->getPurchasesCount(client->activeUser()->userId(),
-    //                              saller->activeCard()->cardId()) == 1);
-
-
-    //    // first connect should be finsished successful
-    //    connectionNodeJonb(proxy, client);
-
-    //    QVERIFY(proxy->finishedResult() == TestDataTransfer::FinishedSuccessful);
-    //    QVERIFY(client->finishedResult() == TestDataTransfer::FinishedSuccessful);
-
-    //    QVERIFY(proxy->getPurchasesCount(client->activeUser()->userId(),
-    //                              saller->activeCard()->cardId()) == 1);
-
-    //    QVERIFY(client->getPurchasesCount(client->activeUser()->userId(),
-    //                              saller->activeCard()->cardId()) == 1);
-
-}
-
-void ConnectionTest::multipleUsersConnect() {
-    QVERIFY(false);
-}
-
-void ConnectionTest::longTimeWorkdTest() {
-    QVERIFY(false);
 }
 
 QSharedPointer<RC::User> ConnectionTest::makeUser() const {
@@ -186,15 +109,3 @@ QSharedPointer<RC::User> ConnectionTest::makeUser() const {
 
     return result;
 }
-
-//void ConnectionTest::connectNodes(const QSharedPointer<TestDataTransfer> &nodeA,
-//                                  const QSharedPointer<TestDataTransfer> &nodeB) {
-
-//    TestDataTransferSocket *socket1 = new TestDataTransferSocket(nullptr);
-//    TestDataTransferSocket *socket2 = new TestDataTransferSocket(socket1);
-//    socket1->setAnother(socket2);
-
-//    nodeA->addTestConnection(socket1);
-//    nodeB->addTestConnection(socket2);
-
-//}

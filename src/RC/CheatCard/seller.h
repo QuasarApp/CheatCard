@@ -26,12 +26,12 @@ public:
                             int port = DEFAULT_CHEAT_CARD_PORT);
 
 protected:
-    void nodeConfirmend(QH::AbstractNodeInfo *node) override;
+    void nodeConnected(QH::AbstractNodeInfo *node) override;
     bool incrementPurchases(const QSharedPointer<UsersCards> &usersCardsData,
                             int purchasesCount);
 
 private:
-    QSet<unsigned long long> _lastRequested;
+    QHash<unsigned long long, QSharedPointer<Session>> _lastRequested;
 };
 }
 #endif // SELLER_H

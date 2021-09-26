@@ -35,8 +35,8 @@ bool Visitor::checkCardData(unsigned long long session,
     return addNode(domain, port);
 }
 
-void Visitor::nodeConfirmend(QH::AbstractNodeInfo *node) {
-    BaseNode::nodeConfirmend(node);
+void Visitor::nodeConnected(QH::AbstractNodeInfo *node) {
+    BaseNode::nodeConnected(node);
 
     CardStatusRequest request;
 

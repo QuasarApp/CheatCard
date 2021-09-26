@@ -29,9 +29,6 @@ public:
 
 private:
     void firstContact();
-    void proxyServertests();
-    void multipleUsersConnect();
-    void longTimeWorkdTest();
 
     QSharedPointer<RC::User> makeUser() const;
 

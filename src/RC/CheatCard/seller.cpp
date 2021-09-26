@@ -48,7 +48,7 @@ bool Seller::incrementPurchase(const QSharedPointer<UserHeader> &userHeaderData,
         return false;
     }
 
-    _lastRequested += userHeaderData->getSessionId();
+    _lastRequested[session->getSessionId()] = session;
 
     User userrquest;
     userrquest.setId(userHeaderData->getUserId());
@@ -86,15 +86,12 @@ bool Seller::incrementPurchase(const QSharedPointer<UserHeader> &userHeaderData,
     return addNode(domain, port);
 }
 
-void Seller::nodeConfirmend(QH::AbstractNodeInfo *node) {
-    BaseNode::nodeConfirmend(node);
+void Seller::nodeConnected(QH::AbstractNodeInfo *node) {
+    BaseNode::nodeConnected(node);
 
-    for (unsigned long long sessionId: qAsConst(_lastRequested)) {
-        Session session;
+    for (const auto &session: qAsConst(_lastRequested)) {
 
-        session.setSessionId(sessionId);
-
-        sendData(&session, node->networkAddress());
+        sendData(session.data(), node->networkAddress());
     }
 }
 }
