@@ -13,6 +13,8 @@
 
 #include <QtTest>
 
+#include <CheatCard/basenode.h>
+
 
 class ConnectionTest: public Test, protected TestUtils
 {
@@ -28,8 +30,6 @@ private:
     void multipleUsersConnect();
     void longTimeWorkdTest();
 
-//    QSharedPointer<TestDataTransfer>
-//    makeNode(TestDataTransfer::Mode mode);
 
 //    void connectNodes(const QSharedPointer<TestDataTransfer>& nodeA,
 //                      const QSharedPointer<TestDataTransfer>& nodeB);

@@ -13,20 +13,25 @@
 
 namespace RC {
 
+class UserHeader;
+
 class CheatCard_EXPORT Seller: public BaseNode
 {
     Q_OBJECT
 public:
     Seller(QH::ISqlDBCache *db);
+    bool incrementPurchase (const QSharedPointer<UserHeader> &userHeaderData,
+                            unsigned int cardId, int purchasesCount = 1,
+                            const QString& domain = DEFAULT_CHEAT_CARD_HOST,
+                            int port = DEFAULT_CHEAT_CARD_PORT);
 
-    bool sendLastSession(unsigned long long session,
-                         const QString& domain = DEFAULT_CHEAT_CARD_HOST,
-                         int port = DEFAULT_CHEAT_CARD_PORT);
 protected:
     void nodeConfirmend(QH::AbstractNodeInfo *node) override;
+    bool incrementPurchases(const QSharedPointer<UsersCards> &usersCardsData,
+                            int purchasesCount);
 
 private:
-    unsigned long long _lastRequested = 0;
+    QSet<unsigned long long> _lastRequested;
 };
 }
 #endif // SELLER_H

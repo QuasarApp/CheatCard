@@ -1,13 +1,13 @@
 #include "testdatabasewrapper.h"
 
-TestDataBaseWrapper::TestDataBaseWrapper(const QString &name, int mode):
+TestDataBaseWrapper::TestDataBaseWrapper(const QString &name, const QString& dbPath):
     RC::DataBase(name) {
-    _mode = mode;
+    _dbPath = dbPath;
 }
 
 QStringList TestDataBaseWrapper::SQLSources() const {
-    if (_mode == 1)
-        return {":/sql/units/sql/TestSallerDb.sql"};
+    if (_dbPath.size())
+        return {_dbPath};
 
     return RC::DataBase::SQLSources();
 }
