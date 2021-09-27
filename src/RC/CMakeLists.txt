@@ -7,7 +7,7 @@
 
 cmake_minimum_required(VERSION 3.14)
 
-add_definitions(-DCheatCard_LIBRARY)
+add_definitions(-DCHEATCARD_LIBRARY)
 set(CURRENT_PROJECT "${PROJECT_NAME}Core")
 
 

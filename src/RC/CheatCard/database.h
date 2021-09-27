@@ -19,7 +19,7 @@ namespace RC {
 /**
  * @brief The DataBase class This is main databae object.
  */
-class CheatCard_EXPORT DataBase: public QH::DataBaseNode
+class CHEATCARD_EXPORT DataBase: public QH::DataBaseNode
 {
     Q_OBJECT
 public:

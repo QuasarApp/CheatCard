@@ -41,22 +41,26 @@ if (${QT_VERSION} VERSION_GREATER_EQUAL 6.0)
 endif()
 
 
-if (NOT DEFINED CheatCard_TESTS)
-    set(CheatCard_TESTS ON)
+if (NOT DEFINED CHEATCARD_TESTS)
+    set(CHEATCARD_TESTS ON)
 
     if (DEFINED TARGET_PLATFORM_TOOLCHAIN)
         if (${TARGET_PLATFORM_TOOLCHAIN} STREQUAL "wasm32")
-            set(CheatCard_TESTS OFF)
+            set(CHEATCARD_TESTS OFF)
             return()
         endif()
     endif()
 
     if (ANDROID)
-        set(CheatCard_TESTS OFF)
+        set(CHEATCARD_TESTS OFF)
     endif()
 
     if (NOT QT_VERSION_MAJOR)
-        set(CheatCard_TESTS OFF)
+        set(CHEATCARD_TESTS OFF)
+    endif()
+
+    if(WIN32)
+        set(CHEATCARD_TESTS OFF)
     endif()
 endif()
 
@@ -70,7 +74,7 @@ add_subdirectory(src/RC)
 add_subdirectory(src/RCApp)
 
 
-if (CheatCard_TESTS)
+if (CHEATCARD_TESTS)
     add_subdirectory(tests)
 else()
     message("The ${PROJECT_NAME} tests is disabled.")

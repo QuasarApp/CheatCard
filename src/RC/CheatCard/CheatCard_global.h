@@ -5,20 +5,20 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#ifndef CheatCard_GLOBAL_H
-#define CheatCard_GLOBAL_H
+#ifndef CHEATCARD_GLOBAL_H
+#define CHEATCARD_GLOBAL_H
 
 #include <QtCore/qglobal.h>
 
 
-#if defined(CheatCard_LIBRARY)
-#  define CheatCard_EXPORT Q_DECL_EXPORT
+#if defined(CHEATCARD_LIBRARY)
+#  define CHEATCARD_EXPORT Q_DECL_EXPORT
 #else
-#  define CheatCard_EXPORT Q_DECL_IMPORT
+#  define CHEATCARD_EXPORT Q_DECL_IMPORT
 #endif
 
 #define DEFAULT_CHEAT_CARD_HOST "localhost"
 #define DEFAULT_CHEAT_CARD_PORT 7122
 
-#endif //CheatCard_GLOBAL_H
+#endif //CHEATCARD_GLOBAL_H
 

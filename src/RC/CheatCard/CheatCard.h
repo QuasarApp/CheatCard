@@ -23,7 +23,7 @@ class MainModel;
 /**
  * @brief The CheatCard class
  */
-class CheatCard_EXPORT CheatCard {
+class CHEATCARD_EXPORT CheatCard {
 
 public:
     CheatCard();

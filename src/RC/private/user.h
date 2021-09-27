@@ -19,7 +19,7 @@ namespace RC {
 /**
  * @brief The User class This is maic class for contatins all information about user
  */
-class CheatCard_EXPORT User: public QH::PKG::DBObject
+class CHEATCARD_EXPORT User: public QH::PKG::DBObject
 {
 
 public:

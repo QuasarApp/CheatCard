@@ -34,7 +34,7 @@ private:
     long long sessionId;
 };
 
-class CheatCard_EXPORT UserHeader: public QH::PKG::AbstractData
+class CHEATCARD_EXPORT UserHeader: public QH::PKG::AbstractData
 {
 public:
     UserHeader();

@@ -16,7 +16,7 @@
 namespace RC {
 
 
-class CheatCard_EXPORT UsersCards: public QH::PKG::DBObject
+class CHEATCARD_EXPORT UsersCards: public QH::PKG::DBObject
 {
 public:
     UsersCards();

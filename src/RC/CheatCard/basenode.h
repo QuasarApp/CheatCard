@@ -20,7 +20,7 @@ class CardDataRequest;
 class CardStatusRequest;
 class Session;
 
-class CheatCard_EXPORT BaseNode: public QH::AbstractNode
+class CHEATCARD_EXPORT BaseNode: public QH::AbstractNode
 {
     Q_OBJECT
 public:
