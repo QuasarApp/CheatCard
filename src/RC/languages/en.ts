@@ -74,7 +74,7 @@
     <name>ConnectionStatus</name>
     <message>
         <source>please wait until the exchange is successful  </source>
-        <translation type="unfinished"></translation>
+        <translation>please wait until the exchange is successful  </translation>
     </message>
 </context>
 <context>
@@ -216,11 +216,11 @@
     </message>
     <message>
         <source>This user is seller</source>
-        <translation type="unfinished"></translation>
+        <translation>This user is seller</translation>
     </message>
     <message>
         <source>Seller mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Seller mode</translation>
     </message>
 </context>
 <context>
