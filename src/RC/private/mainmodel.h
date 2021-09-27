@@ -127,7 +127,7 @@ private:
     WaitConnectionModel * _waitModel = nullptr;
     QSettings _settings;
 
-    int _mode;
+    int _mode = -1;
 };
 
 }

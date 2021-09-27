@@ -67,6 +67,13 @@
     </message>
 </context>
 <context>
+    <name>ConnectionStatus</name>
+    <message>
+        <source>please wait until the exchange is successful  </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>EditCardView</name>
     <message>
         <source>Enter card title</source>
@@ -193,11 +200,11 @@
     </message>
     <message>
         <source>This user is seller</source>
-        <translation>Этот пользователь продавец</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Seller mode</source>
-        <translation>Режим продавца</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -228,7 +235,7 @@
     </message>
     <message>
         <source>Please enter your name or name your company here</source>
-        <translation>Введите имя компании</translation>
+        <translation>Пожалуйста, введите свое имя или название компании</translation>
     </message>
     <message>
         <source>Who are you?</source>

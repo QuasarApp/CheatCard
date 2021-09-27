@@ -1,3 +1,6 @@
 [submodule "submodules/Heart"]
 	path = submodules/Heart
 	url = git@github.com:QuasarApp/Heart.git
+[submodule "submodules/SimpleQmlNotify"]
+	path = submodules/SimpleQmlNotify
+	url = https://github.com/QuasarApp/SimpleQmlNotify.git

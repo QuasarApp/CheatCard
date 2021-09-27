@@ -71,6 +71,13 @@
     </message>
 </context>
 <context>
+    <name>ConnectionStatus</name>
+    <message>
+        <source>please wait until the exchange is successful  </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>EditCardView</name>
     <message>
         <source>Enter telegramm chennal name</source>
@@ -209,11 +216,11 @@
     </message>
     <message>
         <source>This user is seller</source>
-        <translation>This user is seller</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Seller mode</source>
-        <translation>Seller mode</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -264,7 +271,7 @@
     </message>
     <message>
         <source>Please enter your name or name your company here</source>
-        <translation>Please enter your company name</translation>
+        <translation>Please enter your name or name your company here</translation>
     </message>
     <message>
         <source>Who are you?</source>

@@ -5,6 +5,7 @@
 
 class QNearFieldManager;
 class QNearFieldTarget;
+class QNdefMessage;
 
 namespace RC {
 class NFCBackEnd : public RC::IConnectorBackEnd
@@ -21,6 +22,7 @@ protected:
 private slots:
     void handleConnectionLost(QNearFieldTarget *target);
     void handleConnectionIncomming(QNearFieldTarget *target);
+    void targetDetected(const QNdefMessage &message, QNearFieldTarget *target);
 
 private:
     QNearFieldManager *_manager = nullptr;
