@@ -7,7 +7,7 @@
 
 cmake_minimum_required(VERSION 3.14)
 
-add_definitions(-DCHEATCARD_LIBRARY)
+add_definitions(-DCHEATCARD_CORE_LIBRARY)
 set(CURRENT_PROJECT "${PROJECT_NAME}Core")
 
 
@@ -31,9 +31,7 @@ set(PRIVATE_INCUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/private")
 
 add_library(${CURRENT_PROJECT} ${SOURCE_CPP} ${SOURCE_QRC})
 
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Quick Nfc REQUIRED)
-
-target_link_libraries(${CURRENT_PROJECT} PUBLIC Heart QmlNotyfyService Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::Nfc)
+target_link_libraries(${CURRENT_PROJECT} PUBLIC Heart)
 
 target_include_directories(${CURRENT_PROJECT} PUBLIC ${PUBLIC_INCUDE_DIR})
 target_include_directories(${CURRENT_PROJECT} PRIVATE ${PRIVATE_INCUDE_DIR})

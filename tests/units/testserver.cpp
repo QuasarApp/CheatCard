@@ -1,8 +1,8 @@
 #include "testdatabasewrapper.h"
 #include "testserver.h"
 
-#include <private/card.h>
-#include <private/userscards.h>
+#include <CheatCard/card.h>
+#include <CheatCard/userscards.h>
 
 TestServer::TestServer(QSharedPointer<TestDataBaseWrapper> db): RC::Server(db->db()) {
     privateDb = db;

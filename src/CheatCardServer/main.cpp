@@ -7,7 +7,6 @@
 
 #include <QCoreApplication>
 #include <quasarapp.h>
-#include "CheatCard/CheatCard.h"
 
 int main(int argc, char *argv[]) {
 

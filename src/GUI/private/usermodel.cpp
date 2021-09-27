@@ -1,5 +1,5 @@
 #include "usermodel.h"
-#include "user.h"
+#include "CheatCard/user.h"
 namespace RC {
 
 UserModel::UserModel(QSharedPointer<User> user) {

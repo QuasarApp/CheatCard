@@ -10,7 +10,7 @@
 #define USER_H
 
 #include "heart.h"
-#include "CheatCard/CheatCard_global.h"
+#include "CheatCard/core_global.h"
 
 #include <dbobject.h>
 
@@ -19,7 +19,7 @@ namespace RC {
 /**
  * @brief The User class This is maic class for contatins all information about user
  */
-class CHEATCARD_EXPORT User: public QH::PKG::DBObject
+class CHEATCARD_CORE_EXPORT User: public QH::PKG::DBObject
 {
 
 public:

@@ -8,13 +8,12 @@
 
 #include "visitor.h"
 
-#include <datastructures.h>
-#include <user.h>
+#include <CheatCard/datastructures.h>
+#include <CheatCard/user.h>
 #include <cstring>
-#include <session.h>
-#include <userscards.h>
-#include <card.h>
-#include "CheatCard_global.h"
+#include <CheatCard/session.h>
+#include <CheatCard/userscards.h>
+#include <CheatCard/card.h>
 
 namespace RC {
 

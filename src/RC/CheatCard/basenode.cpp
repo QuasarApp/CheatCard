@@ -8,11 +8,11 @@
 
 #include "basenode.h"
 
-#include <card.h>
-#include <datastructures.h>
+#include <CheatCard/card.h>
+#include <CheatCard/datastructures.h>
 #include <dbobjectsrequest.h>
-#include <session.h>
-#include <userscards.h>
+#include <CheatCard/session.h>
+#include <CheatCard/userscards.h>
 
 namespace RC {
 

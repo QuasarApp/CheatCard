@@ -8,10 +8,10 @@
 
 #include "server.h"
 
-#include <card.h>
-#include <datastructures.h>
-#include <session.h>
-#include <userscards.h>
+#include <CheatCard/card.h>
+#include <CheatCard/datastructures.h>
+#include <CheatCard/session.h>
+#include <CheatCard/userscards.h>
 
 namespace RC {
 

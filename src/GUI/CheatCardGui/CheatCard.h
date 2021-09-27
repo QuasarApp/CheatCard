@@ -5,13 +5,16 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#include "CheatCard_global.h"
+#ifndef CheatCard_H
+#define CheatCard_H
+
+#include "gui_global.h"
 
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
 inline void initCheatCardResources() {
-    Q_INIT_RESOURCE(CheatCard);
+    Q_INIT_RESOURCE(CheatCardGui);
     Q_INIT_RESOURCE(CardsIcons);
 }
 
@@ -23,7 +26,7 @@ class MainModel;
 /**
  * @brief The CheatCard class
  */
-class CHEATCARD_EXPORT CheatCard {
+class CHEATCARD_GUI_EXPORT CheatCard {
 
 public:
     CheatCard();
@@ -41,3 +44,5 @@ private:
     MainModel* _model = nullptr;
 };
 };
+
+#endif //CheatCard_H

@@ -5,9 +5,8 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#include <QColor>
 #include <dbobject.h>
-#include "CheatCard/CheatCard_global.h"
+#include "CheatCard/core_global.h"
 
 #ifndef CARD_H
 #define CARD_H
@@ -17,7 +16,7 @@ namespace RC {
 /**
  * @brief The Card class
  */
-class CHEATCARD_EXPORT Card: public QH::PKG::DBObject
+class CHEATCARD_CORE_EXPORT Card: public QH::PKG::DBObject
 {
 public:
     Card();

@@ -11,13 +11,13 @@
 #include "waitconnectionmodel.h"
 
 #include <CheatCard/database.h>
-#include "user.h"
-#include "card.h"
+#include "CheatCard/user.h"
+#include "CheatCard/card.h"
 #include "dbobjectsrequest.h"
 #include "deleteobject.h"
 #include "config.h"
 #include "cardslistmodel.h"
-#include "userscards.h"
+#include "CheatCard/userscards.h"
 #include "usermodel.h"
 #include <getsinglevalue.h>
 
