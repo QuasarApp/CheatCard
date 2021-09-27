@@ -64,15 +64,53 @@ if (NOT DEFINED CHEATCARD_TESTS)
     endif()
 endif()
 
+if (NOT DEFINED CHEATCARD_SERVER)
+    set(CHEATCARD_SERVER ON)
+
+    if (DEFINED TARGET_PLATFORM_TOOLCHAIN)
+        if (${TARGET_PLATFORM_TOOLCHAIN} STREQUAL "wasm32")
+            set(CHEATCARD_SERVER OFF)
+            return()
+        endif()
+    endif()
+
+    if (ANDROID)
+        set(CHEATCARD_SERVER OFF)
+    endif()
+
+    if (NOT QT_VERSION_MAJOR)
+        set(CHEATCARD_SERVER OFF)
+    endif()
+
+    if(WIN32)
+        set(CHEATCARD_SERVER OFF)
+    endif()
+endif()
+
+if (NOT DEFINED CHEATCARD_APP)
+    set(CHEATCARD_APP ON)
+
+    if (DEFINED TARGET_PLATFORM_TOOLCHAIN)
+        if (${TARGET_PLATFORM_TOOLCHAIN} STREQUAL "wasm32")
+            set(CHEATCARD_APP OFF)
+            return()
+        endif()
+    endif()
+
+endif()
+
 set(HEART_BUILD_LVL 1)
 set(HEART_SSL OFF)
 set(HEART_TESTS OFF)
+
 add_subdirectory(submodules/Heart)
-add_subdirectory(submodules/SimpleQmlNotify)
-
 add_subdirectory(src/RC)
-add_subdirectory(src/RCApp)
 
+if (CHEATCARD_SERVER)
+    add_subdirectory(src/CheatCardServer)
+else()
+    message("The ${PROJECT_NAME} tests is disabled.")
+endif()
 
 if (CHEATCARD_TESTS)
     add_subdirectory(tests)
@@ -80,5 +118,11 @@ else()
     message("The ${PROJECT_NAME} tests is disabled.")
 endif()
 
-
+if (CHEATCARD_APP)
+    add_subdirectory(submodules/SimpleQmlNotify)
+    add_subdirectory(src/GUI)
+    add_subdirectory(src/RCApp)
+else()
+    message("The ${PROJECT_NAME} app is disabled.")
+endif()
 
