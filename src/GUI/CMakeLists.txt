@@ -8,7 +8,7 @@
 cmake_minimum_required(VERSION 3.14)
 
 add_definitions(-DCHEATCARD_LIBRARY)
-set(CURRENT_PROJECT "${PROJECT_NAME}Core")
+set(CURRENT_PROJECT "${PROJECT_NAME}Gui")
 
 
 file(GLOB SOURCE_CPP
