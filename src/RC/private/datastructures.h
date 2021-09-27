@@ -7,6 +7,7 @@
 
 #include <QByteArray>
 #include <abstractdata.h>
+#include "CheatCard/CheatCard_global.h"
 
 
 #ifndef DATASTRUCTURES_H
@@ -33,7 +34,7 @@ private:
     long long sessionId;
 };
 
-class UserHeader: public QH::PKG::AbstractData
+class CheatCard_EXPORT UserHeader: public QH::PKG::AbstractData
 {
 public:
     UserHeader();

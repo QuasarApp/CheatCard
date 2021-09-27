@@ -11,11 +11,12 @@
 #define USERSCARDS_H
 
 #include <dbobject.h>
+#include "CheatCard/CheatCard_global.h"
 
 namespace RC {
 
 
-class UsersCards: public QH::PKG::DBObject
+class CheatCard_EXPORT UsersCards: public QH::PKG::DBObject
 {
 public:
     UsersCards();

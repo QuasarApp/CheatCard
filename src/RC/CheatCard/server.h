@@ -15,7 +15,7 @@
 
 namespace RC {
 
-class Server: public BaseNode
+class CheatCard_EXPORT Server: public BaseNode
 {
     Q_OBJECT
 public:
