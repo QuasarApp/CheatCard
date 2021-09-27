@@ -68,12 +68,12 @@ QDataStream &UsersCards::toStream(QDataStream &stream) const {
     return stream;
 }
 
-unsigned long long UsersCards::getId() const {
+long long UsersCards::getId() const {
     return id;
 }
 
-unsigned long long UsersCards::genId(unsigned int user, unsigned int card) {
-    unsigned long long id = user;
+long long UsersCards::genId(unsigned int user, unsigned int card) {
+    long long id = user;
     id = id << 32;
     id = id | card ;
 
@@ -108,27 +108,27 @@ void UsersCards::setOwner(bool newOwner) {
     owner = newOwner;
 }
 
-int UsersCards::getCard() const {
+unsigned int UsersCards::getCard() const {
     return card;
 }
 
-void UsersCards::setCard(int newCard) {
+void UsersCards::setCard(unsigned int newCard) {
     card = newCard;
     id = genId(user, card);
 }
 
-int UsersCards::getUser() const {
+unsigned int UsersCards::getUser() const {
     return user;
 }
 
-void UsersCards::setUser(int newUser) {
+void UsersCards::setUser(unsigned int newUser) {
     user = newUser;
     id = genId(user, card);
 }
 
 bool UsersCards::fromSqlRecord(const QSqlRecord &q) {
 
-    id = q.value("id").toULongLong();
+    id = q.value("id").toLongLong();
     user = q.value("user").toUInt();
     purchasesNumber = q.value("purchasesNumber").toUInt();
     card = q.value("card").toUInt();
@@ -139,7 +139,7 @@ bool UsersCards::fromSqlRecord(const QSqlRecord &q) {
 }
 
 bool UsersCards::isValid() const {
-    return user != 0 && card != 0 && id > 0xFFFFFFFF;
+    return user && card && id;
 }
 
 }

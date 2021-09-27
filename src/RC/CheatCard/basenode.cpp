@@ -69,6 +69,10 @@ bool BaseNode::processCardStatus(const QSharedPointer<UsersCards> &cardStatus,
     Card userrquest;
     userrquest.setId(cardStatus->getCard());
 
+    if (!applayPurchases(cardStatus, sender)) {
+        return false;
+    }
+
     auto dbCard = _db->getObject(userrquest);
 
     if (!dbCard) {
@@ -80,9 +84,11 @@ bool BaseNode::processCardStatus(const QSharedPointer<UsersCards> &cardStatus,
 
             return false;
         }
+
+        return true;
     }
 
-    return applayPurchases(cardStatus, sender);
+    return removeNode(sender->networkAddress());
 }
 
 bool BaseNode::applayPurchases(const QSharedPointer<UsersCards> &dbCard,
@@ -95,7 +101,7 @@ bool BaseNode::applayPurchases(const QSharedPointer<UsersCards> &dbCard,
 
     emit sigPurchaseWasSuccessful(dbCard);
 
-    return removeNode(sender->networkAddress());
+    return true;
 
 }
 

@@ -31,7 +31,7 @@ protected:
                             int purchasesCount);
 
 private:
-    QHash<unsigned long long, QSharedPointer<Session>> _lastRequested;
+    QHash<long long, QSharedPointer<Session>> _lastRequested;
 };
 }
 #endif // SELLER_H

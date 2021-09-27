@@ -24,13 +24,13 @@ public:
     bool isValid() const override;
     QH::PKG::DBObject *createDBObject() const override;
 
-    unsigned long long getSessionId() const;
-    void setSessionId(unsigned long long newSessionId);
+    long long getSessionId() const;
+    void setSessionId(long long newSessionId);
 
     bool fromSqlRecord(const QSqlRecord &q) override;
     QH::PKG::DBVariantMap variantMap() const override;
-    unsigned long long getUsercardId() const;
-    void setUsercardId(unsigned long long newUsercardId);
+    long long getUsercardId() const;
+    void setUsercardId(long long newUsercardId);
 
 protected:
     QString primaryKey() const override;
@@ -38,8 +38,8 @@ protected:
     QDataStream &toStream(QDataStream &stream) const override;
 
 private:
-    unsigned long long usercardId = 0;
-    unsigned long long sessionId;
+    long long usercardId = 0;
+    long long sessionId;
 
 };
 

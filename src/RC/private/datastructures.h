@@ -22,15 +22,15 @@ public:
     bool isValid() const override;
     // StreamBase interface
 
-    unsigned long long getSessionId() const;
-    void setSessionId(unsigned long long newSessionId);
+    long long getSessionId() const;
+    void setSessionId(long long newSessionId);
 
 protected:
     QDataStream &fromStream(QDataStream &stream) override;
     QDataStream &toStream(QDataStream &stream) const override;
 
 private:
-    unsigned long long sessionId;
+    long long sessionId;
 };
 
 class UserHeader: public QH::PKG::AbstractData
@@ -42,8 +42,8 @@ public:
     unsigned int getUserId() const;
     void setUserId(unsigned int newUserId);
 
-    unsigned long long getSessionId() const;
-    void setSessionId(unsigned long long newSessionId);
+    long long getSessionId() const;
+    void setSessionId(long long newSessionId);
 
     const QByteArray &token() const;
     void setToken(const QByteArray &newToken);
@@ -54,7 +54,7 @@ protected:
 
 private:
     unsigned int userId = 0;
-    unsigned long long sessionId;
+    long long sessionId;
     QByteArray _token;
 };
 

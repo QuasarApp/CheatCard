@@ -46,11 +46,11 @@ void UserHeader::setToken(const QByteArray &newToken) {
     _token = newToken;
 }
 
-unsigned long long UserHeader::getSessionId() const {
+long long UserHeader::getSessionId() const {
     return sessionId;
 }
 
-void UserHeader::setSessionId(unsigned long long newSessionId) {
+void UserHeader::setSessionId(long long newSessionId) {
     sessionId = newSessionId;
 }
 
@@ -67,7 +67,7 @@ CardStatusRequest::CardStatusRequest() {
 }
 
 bool CardStatusRequest::isValid() const {
-    return sessionId > 0 && AbstractData::isValid();
+    return sessionId && AbstractData::isValid();
 }
 
 QDataStream &CardStatusRequest::fromStream(QDataStream &stream) {
@@ -87,11 +87,11 @@ QDataStream &CardStatusRequest::toStream(QDataStream &stream) const {
     return stream;
 }
 
-unsigned long long CardStatusRequest::getSessionId() const {
+long long CardStatusRequest::getSessionId() const {
     return sessionId;
 }
 
-void CardStatusRequest::setSessionId(unsigned long long newSessionId) {
+void CardStatusRequest::setSessionId(long long newSessionId) {
     sessionId = newSessionId;
 }
 

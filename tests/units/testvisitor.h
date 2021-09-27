@@ -10,6 +10,8 @@ class TestVisitor:  public RC::Visitor
 {
 public:
     TestVisitor(QSharedPointer<TestDataBaseWrapper> db);
+    QSharedPointer<RC::Card> getCard(unsigned int cardId) const;
+    int getPurchaseCount(unsigned int userId,unsigned int cardId);
 private:
     QSharedPointer<TestDataBaseWrapper> privateDb;
 };

@@ -35,21 +35,19 @@ void softDeleteWrapNode(RC::BaseNode* obj) {
 template <class NodeType>
 QSharedPointer<NodeType> makeNode() {
     srand(time(0) + rand());
-    QString randomNodeName = QByteArray::number(rand()).toHex();
+    QString randomNodeName = QByteArray::number(rand()).toHex() + typeid(NodeType).name();
 
-    auto sallerDb = QSharedPointer<TestDataBaseWrapper>(
-                new TestDataBaseWrapper(randomNodeName),
-                softDeleteWrapDB);
+    TestDataBaseWrapper* source;
+    if (std::is_base_of<RC::Seller,NodeType>::value ) {
 
-    if (std::is_same<NodeType, RC::Seller>::value ||
-            std::is_base_of<NodeType, RC::Seller>::value ) {
-
-        sallerDb = QSharedPointer<TestDataBaseWrapper>(
-                    new TestDataBaseWrapper(randomNodeName,
-                                            ":/sql/units/sql/TestSallerDb.sql"),
-                    softDeleteWrapDB);
+        source = new TestDataBaseWrapper(randomNodeName,
+                                         ":/sql/units/sql/TestSallerDb.sql");
+    } else {
+        source = new TestDataBaseWrapper(randomNodeName);
     }
 
+    auto sallerDb = QSharedPointer<TestDataBaseWrapper>(source,
+                                                        softDeleteWrapDB);
     sallerDb->initSqlDb();
 
     return QSharedPointer<NodeType>(new NodeType(sallerDb), softDeleteWrapNode);
@@ -76,7 +74,7 @@ void ConnectionTest::firstContact() {
     auto server = makeNode<TestServer>();
 
     // random session
-    unsigned long long session = rand() * rand();
+    long long session = rand() * rand();
 
     // run server
     QVERIFY(server->run(TEST_CHEAT_HOST, TEST_CHEAT_PORT));
@@ -92,14 +90,34 @@ void ConnectionTest::firstContact() {
     unsigned int cardId = 3619648333;
     QVERIFY(seller->incrementPurchase(obj, cardId, 1, TEST_CHEAT_HOST, TEST_CHEAT_PORT));
 
+    QVERIFY(wait([server, cardId](){
+        auto card = server->getCard(cardId);
+        return card && card->isValid();
+    }, 1000));
+
     QVERIFY(wait([server](){
-        return server->isDataReceivedSuccessful();
+        return server->connectionsCount() == 0;
+    }, 10000));
+
+    QVERIFY(wait([server, user, cardId](){
+        return server->getPurchaseCount(user->userId(), cardId) == 1;
     }, 1000));
 
 
-    QVERIFY(server->confirmendCount() == 0);
-    QVERIFY(server->getPurchaseCount(user->userId(), cardId) == 1);
+    QVERIFY(client->checkCardData(session, TEST_CHEAT_HOST, TEST_CHEAT_PORT));
 
+    QVERIFY(wait([client, cardId](){
+        auto card = client->getCard(cardId);
+        return card && card->isValid();
+    }, 1000));
+
+    QVERIFY(wait([server](){
+        return server->connectionsCount() == 0;
+    }, 1000));
+
+    QVERIFY(wait([client, user, cardId](){
+        return client->getPurchaseCount(user->userId(), cardId) == 1;
+    }, 1000));
 }
 
 QSharedPointer<RC::User> ConnectionTest::makeUser() const {

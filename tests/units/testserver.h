@@ -10,11 +10,10 @@ class TestServer: public RC::Server
     Q_OBJECT
 public:
     TestServer(QSharedPointer<TestDataBaseWrapper>);
-    bool isDataReceivedSuccessful() const;
-    int getPurchaseCount(int userId, int cardId);
+    QSharedPointer<RC::Card> getCard(unsigned int cardId) const;
+    int getPurchaseCount(unsigned int userId,unsigned int cardId);
 
 private:
-    bool _finished = false;
     QSharedPointer<TestDataBaseWrapper> privateDb;
 };
 

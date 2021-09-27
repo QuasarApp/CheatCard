@@ -19,7 +19,7 @@ class CheatCard_EXPORT Visitor: public BaseNode
     Q_OBJECT
 public:
     Visitor(QH::ISqlDBCache *db);
-    bool checkCardData(unsigned long long session,
+    bool checkCardData(long long session,
                        const QString& domain = DEFAULT_CHEAT_CARD_HOST,
                        int port = DEFAULT_CHEAT_CARD_PORT);
 
@@ -28,7 +28,7 @@ protected:
     void nodeConnected(QH::AbstractNodeInfo *node) override;
 
 private:
-    unsigned long long _lastRequested = 0;
+    long long _lastRequested = 0;
 
 
 };

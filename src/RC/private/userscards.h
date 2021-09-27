@@ -28,11 +28,11 @@ public:
     bool fromSqlRecord(const QSqlRecord &q) override;
     bool isValid() const override;
 
-    int getUser() const;
-    void setUser(int newUser);
+    unsigned int getUser() const;
+    void setUser(unsigned int newUser);
 
-    int getCard() const;
-    void setCard(int newCard);
+    unsigned int getCard() const;
+    void setCard(unsigned int newCard);
 
     bool getOwner() const;
     void setOwner(bool newOwner);
@@ -44,9 +44,9 @@ public:
     void setReceived(unsigned int newReceived);
     void receive(unsigned int receiveFreItemsCount);
 
-    static unsigned long long genId(unsigned int user, unsigned int card);
+    static long long genId(unsigned int user, unsigned int card);
 
-    unsigned long long getId() const;
+    long long getId() const;
 
 protected:
     QString primaryKey() const override;
@@ -54,7 +54,7 @@ protected:
     QDataStream &toStream(QDataStream &stream) const override;
 private:
 
-    unsigned long long id = 0;
+    long long id = 0;
     unsigned int user = 0;
     unsigned int card = 0;
     unsigned int purchasesNumber = 0;

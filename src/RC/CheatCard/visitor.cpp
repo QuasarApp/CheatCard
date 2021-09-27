@@ -25,9 +25,9 @@ Visitor::Visitor(QH::ISqlDBCache *db): BaseNode(db) {
 
 }
 
-bool Visitor::checkCardData(unsigned long long session,
+bool Visitor::checkCardData(long long session,
                             const QString &domain, int port) {
-    if (session <= 0)
+    if (!session)
         return false;
 
     _lastRequested = session;
