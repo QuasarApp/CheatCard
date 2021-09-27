@@ -39,7 +39,9 @@ target_include_directories(${CURRENT_PROJECT} PUBLIC ${PUBLIC_INCUDE_DIR})
 target_include_directories(${CURRENT_PROJECT} PRIVATE ${PRIVATE_INCUDE_DIR})
 
 set(LANGS ${CMAKE_CURRENT_SOURCE_DIR}/languages/en.ts
-          ${CMAKE_CURRENT_SOURCE_DIR}/languages/ru.ts)
+          ${CMAKE_CURRENT_SOURCE_DIR}/languages/ru.ts
+          ${CMAKE_CURRENT_SOURCE_DIR}/languages/uk.ts
+          ${CMAKE_CURRENT_SOURCE_DIR}/languages/pl.ts)
 
 prepareQM(${CURRENT_PROJECT} ${CMAKE_CURRENT_SOURCE_DIR} "${LANGS}")
 
