@@ -20,6 +20,8 @@
     <qresource prefix="/CheatCardTr">
         <file>languages/en.qm</file>
         <file>languages/ru.qm</file>
+        <file>languages/uk.qm</file>
+        <file>languages/pl.qm</file>
     </qresource>
     <qresource prefix="/DataBase">
         <file>private/sql/DataBase.sql</file>

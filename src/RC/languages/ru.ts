@@ -191,6 +191,14 @@
         <source>Become a seller</source>
         <translation>Стать продавцом</translation>
     </message>
+    <message>
+        <source>This user is seller</source>
+        <translation>Этот пользователь продавец</translation>
+    </message>
+    <message>
+        <source>Seller mode</source>
+        <translation>Режим продавца</translation>
+    </message>
 </context>
 <context>
     <name>FirstRunPage</name>
@@ -220,7 +228,7 @@
     </message>
     <message>
         <source>Please enter your name or name your company here</source>
-        <translation>Пожалуйста, введите свое имя или название компании</translation>
+        <translation>Введите имя компании</translation>
     </message>
     <message>
         <source>Who are you?</source>
