@@ -107,6 +107,7 @@ add_subdirectory(submodules/Heart)
 add_subdirectory(src/RC)
 
 if (CHEATCARD_SERVER)
+    add_subdirectory(submodules/Patronum)
     add_subdirectory(src/CheatCardServer)
 else()
     message("The ${PROJECT_NAME} tests is disabled.")

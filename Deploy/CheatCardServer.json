@@ -1,0 +1,24 @@
+{
+    "bin": [
+        "src/CheatCardServer/CheatCardServer",
+        "src/CheatCardServer/CheatCardServer.exe"
+        ],
+    "clear": true,
+    "libDir": "./../",
+    "recursiveDepth": "10",
+    "deploySystem": false,
+    "ignoreEnv": [
+        "./../installer",
+        "./../Distro",
+        "./../parts",
+        "./../snap",
+        "./../prime",
+        "./../stage"
+        ],
+    "extraLib": "crypto",
+    "targetDir": "./../Distro",
+    "qif": false,
+    "zip": true,
+    "deb": true
+}
+

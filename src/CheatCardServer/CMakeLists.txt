@@ -27,7 +27,7 @@ add_executable(${CURRENT_PROJECT} ${SOURCE_CPP} )
 
 target_link_libraries(${CURRENT_PROJECT} PUBLIC Qt${QT_VERSION_MAJOR}::Core)
 
-target_link_libraries(${CURRENT_PROJECT} PUBLIC "${PROJECT_NAME}Core")
+target_link_libraries(${CURRENT_PROJECT} PUBLIC "${PROJECT_NAME}Core" Patronum)
 
 target_include_directories(${CURRENT_PROJECT} PUBLIC ${PUBLIC_INCUDE_DIR})
 target_include_directories(${CURRENT_PROJECT} PRIVATE ${PRIVATE_INCUDE_DIR})
@@ -36,6 +36,6 @@ target_include_directories(${CURRENT_PROJECT} PRIVATE ${PRIVATE_INCUDE_DIR})
 SET(TARGET_DIR "${CMAKE_SOURCE_DIR}/Distro")
 file(MAKE_DIRECTORY ${TARGET_DIR})
 
-addDeployFromCustomFile("CheatCard" "${CMAKE_CURRENT_SOURCE_DIR}/../../Deploy/CheatCard.json")
+addDeployFromCustomFile("CheatCardServer" "${CMAKE_CURRENT_SOURCE_DIR}/../../Deploy/CheatCardServer.json")
 
 

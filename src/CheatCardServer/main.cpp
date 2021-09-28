@@ -5,6 +5,8 @@
 //# of this license document, but changing it is not allowed.
 //#
 
+#include "cheatcardservice.h"
+
 #include <QCoreApplication>
 #include <quasarapp.h>
 
@@ -15,7 +17,7 @@ int main(int argc, char *argv[]) {
     QCoreApplication::setOrganizationName("QuasarApp");
     QCoreApplication::setApplicationName("CheatCardServer");
 
-    QCoreApplication app(argc, argv);
+    CheatCardService app(argc, argv);
 
     return app.exec();
 }
