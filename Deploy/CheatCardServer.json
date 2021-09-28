@@ -3,7 +3,7 @@
         "src/CheatCardServer/CheatCardServer",
         "src/CheatCardServer/CheatCardServer.exe"
         ],
-    "clear": true,
+    "clear": false,
     "libDir": "./../",
     "recursiveDepth": "10",
     "deploySystem": false,
