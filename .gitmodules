@@ -7,6 +7,3 @@
 [submodule "submodules/Patronum"]
 	path = submodules/Patronum
 	url = https://github.com/QuasarApp/Patronum.git
-[submodule "submodules/SCodes"]
-	path = submodules/SCodes
-	url = https://github.com/QuasarApp/SCodes.git
