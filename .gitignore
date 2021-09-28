@@ -65,3 +65,5 @@ compile_commands.json
 CTestTestfile.cmake
 _deps
 *_autogen*
+Deploy/CheatCard.json
+Deploy/CheatCardServer.json

@@ -1,13 +1,13 @@
 {
     "bin": [
-        "src/RCApp/CheatCard",
-        "src/RCApp/CheatCard.exe"
+        "src/CheatCardServer/CheatCardServer",
+        "src/CheatCardServer/CheatCardServer.exe"
         ],
-    "clear": true,
+    "clear": false,
+    "name": "CheatCardServer",
     "libDir": "./../",
     "recursiveDepth": "10",
     "deploySystem": false,
-    "qmlDir": "./../src",
     "ignoreEnv": [
         "./../installer",
         "./../Distro",
@@ -18,7 +18,8 @@
         ],
     "extraLib": "crypto",
     "targetDir": "./../Distro",
-    "qif": true,
+    "deployVersion": "@GIT_COMMIT_COUNT@.@GIT_COMMIT_HASH@",
+    "qif": false,
     "zip": true,
     "deb": true
 }

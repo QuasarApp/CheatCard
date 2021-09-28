@@ -8,7 +8,7 @@
 #ifndef BASENODE_H
 #define BASENODE_H
 #include "abstractnode.h"
-#include "CheatCard_global.h"
+#include "core_global.h"
 
 #include <isqldbcache.h>
 namespace RC {
@@ -20,7 +20,7 @@ class CardDataRequest;
 class CardStatusRequest;
 class Session;
 
-class CHEATCARD_EXPORT BaseNode: public QH::AbstractNode
+class CHEATCARD_CORE_EXPORT BaseNode: public QH::AbstractNode
 {
     Q_OBJECT
 public:

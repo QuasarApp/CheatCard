@@ -14,7 +14,7 @@
 namespace RC {
 
 
-class CHEATCARD_EXPORT Visitor: public BaseNode
+class CHEATCARD_CORE_EXPORT Visitor: public BaseNode
 {
     Q_OBJECT
 public:

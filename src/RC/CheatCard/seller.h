@@ -15,7 +15,7 @@ namespace RC {
 
 class UserHeader;
 
-class CHEATCARD_EXPORT Seller: public BaseNode
+class CHEATCARD_CORE_EXPORT Seller: public BaseNode
 {
     Q_OBJECT
 public:

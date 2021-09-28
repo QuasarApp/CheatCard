@@ -10,7 +10,7 @@
 
 #include <QObject>
 #include <qqml.h>
-#include "card.h"
+#include "CheatCard/card.h"
 
 namespace RC {
 

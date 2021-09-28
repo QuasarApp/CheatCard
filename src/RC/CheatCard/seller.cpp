@@ -8,10 +8,10 @@
 
 #include "seller.h"
 
-#include <datastructures.h>
-#include <session.h>
-#include <user.h>
-#include <userscards.h>
+#include <CheatCard/datastructures.h>
+#include <CheatCard/session.h>
+#include <CheatCard/user.h>
+#include <CheatCard/userscards.h>
 
 namespace RC {
 

@@ -1,0 +1,27 @@
+<RCC>
+    <qresource prefix="/">
+        <file>CheatCardModule/qmldir</file>
+        <file>CheatCardModule/CheatCard.qml</file>
+        <file>CheatCardModule/FirstRunPage.qml</file>
+        <file>CheatCardModule/SallerPage.qml</file>
+        <file>CheatCardModule/ClientPage.qml</file>
+        <file>CheatCardModule/EditCardView.qml</file>
+        <file>CheatCardModule/RegistrationFinishedPage.qml</file>
+        <file>CheatCardModule/ColorPicker.qml</file>
+        <file>CheatCardModule/CardsListView.qml</file>
+        <file>CheatCardModule/TextFieldWithLogo.qml</file>
+        <file>CheatCardModule/EditUserView.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>CheatCardModule/ItemsView.qml</file>
+        <file>CheatCardModule/WaitConnectView.qml</file>
+        <file>CheatCardModule/FreeItemsView.qml</file>
+        <file>CheatCardModule/MainActivity.qml</file>
+        <file>CheatCardModule/ConnectionStatus.qml</file>
+    </qresource>
+    <qresource prefix="/CheatCardTr">
+        <file>languages/en.qm</file>
+        <file>languages/ru.qm</file>
+        <file>languages/uk.qm</file>
+        <file>languages/pl.qm</file>
+    </qresource>
+</RCC>

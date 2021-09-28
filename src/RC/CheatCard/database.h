@@ -11,7 +11,7 @@
 
 #include "heart.h"
 #include "isqldbcache.h"
-#include "CheatCard_global.h"
+#include "core_global.h"
 
 
 namespace RC {
@@ -19,7 +19,7 @@ namespace RC {
 /**
  * @brief The DataBase class This is main databae object.
  */
-class CHEATCARD_EXPORT DataBase: public QH::DataBaseNode
+class CHEATCARD_CORE_EXPORT DataBase: public QH::DataBaseNode
 {
     Q_OBJECT
 public:
