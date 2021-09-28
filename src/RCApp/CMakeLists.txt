@@ -85,9 +85,12 @@ if (ANDROID)
     )
 
 else()
-    # Desctop deploying
-    addDeployFromCustomFile("CheatCard" "${CMAKE_CURRENT_SOURCE_DIR}/../../Deploy/CheatCard.json")
 
+    message(GIT_COMMIT_COUNT = ${GIT_COMMIT_COUNT})
+
+    set(DeployFile "${CMAKE_CURRENT_SOURCE_DIR}/../../Deploy/CheatCard.json")
+    configure_file("${DeployFile}.in" ${DeployFile} @ONLY)
+    addDeployFromCustomFile("CheatCard" ${DeployFile})
 endif()
 
 if(QT_VERSION_MAJOR EQUAL 6)

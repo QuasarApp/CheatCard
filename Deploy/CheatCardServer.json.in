@@ -4,6 +4,7 @@
         "src/CheatCardServer/CheatCardServer.exe"
         ],
     "clear": false,
+    "name": "CheatCardServer",
     "libDir": "./../",
     "recursiveDepth": "10",
     "deploySystem": false,
@@ -17,6 +18,7 @@
         ],
     "extraLib": "crypto",
     "targetDir": "./../Distro",
+    "version": "@GIT_COMMIT_COUNT@.@GIT_COMMIT_HASH@",
     "qif": false,
     "zip": true,
     "deb": true
