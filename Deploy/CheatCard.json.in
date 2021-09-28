@@ -19,7 +19,7 @@
         ],
     "extraLib": "crypto",
     "targetDir": "./../Distro",
-    "version": "@GIT_COMMIT_COUNT@.@GIT_COMMIT_HASH@",
+    "deployVersion": "@GIT_COMMIT_COUNT@.@GIT_COMMIT_HASH@",
     "qif": true,
     "zip": true,
     "deb": true
