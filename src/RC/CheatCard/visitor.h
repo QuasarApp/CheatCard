@@ -22,15 +22,12 @@ public:
     bool checkCardData(long long session,
                        const QString& domain = DEFAULT_CHEAT_CARD_HOST,
                        int port = DEFAULT_CHEAT_CARD_PORT);
-
-    // AbstractNode interface
 protected:
     void nodeConnected(QH::AbstractNodeInfo *node) override;
 
 private:
     long long _lastRequested = 0;
-
-
 };
+
 }
 #endif // VISITOR_H

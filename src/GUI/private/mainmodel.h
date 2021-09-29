@@ -25,6 +25,12 @@ class ItemsModel;
 class WaitConnectionModel;
 class BaseNode;
 class UsersCards;
+class FirstpackageReceiver;
+
+struct CurrentActiveCardData {
+    QSharedPointer<CardModel> lastCard = nullptr;
+    int purchasesCount = 0;
+};
 
 /**
  * @brief The MainModel class is main model of the application.
@@ -103,6 +109,8 @@ private slots:
     void handlePurchaseWasSuccessful(QSharedPointer<UsersCards>);
     void handleListenStart(int purchasesCount, QSharedPointer<CardModel> model);
     void handleListenStop();
+    void handleFirstDataReceived(QByteArray data);
+    void handleFirstDataSendet();
 
 
 private:
@@ -116,8 +124,9 @@ private:
 
     void initCardsListModels();
     void initImagesModels();
-    void initBackEndModel();
+    void setBackEndModel(const QSharedPointer<BaseNode> &newModel);
     void initWaitConnectionModel();
+    void initReceiverModel();
 
     void setCardListModel(CardsListModel *model);
 
@@ -134,12 +143,13 @@ private:
 
     ItemsModel *_defaultLogosModel = nullptr;
     ItemsModel *_defaultBackgroundsModel = nullptr;
-    BaseNode * _backEndModel = nullptr;
-    WaitConnectionModel * _waitModel = nullptr;
+    QSharedPointer<BaseNode> _backEndModel = nullptr;
+    WaitConnectionModel *_waitModel = nullptr;
     QSettings _settings;
 
+    FirstpackageReceiver *_receiver = nullptr;
     Mode _mode = Mode::Unknown;
-
+    CurrentActiveCardData _lastActivedCard;
     friend class ImageProvider;
 };
 

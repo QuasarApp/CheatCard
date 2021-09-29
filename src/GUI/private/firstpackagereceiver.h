@@ -5,21 +5,23 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#ifndef SERVER_H
-#define SERVER_H
+#ifndef FIRSTPACKAGERECEIVER_H
+#define FIRSTPACKAGERECEIVER_H
 
-#include "abstractnode.h"
-#include "basenode.h"
-
-#include <isqldbcache.h>
-
+#include <QObject>
 namespace RC {
 
-class CHEATCARD_CORE_EXPORT Server: public BaseNode
+class FirstpackageReceiver: public QObject
 {
     Q_OBJECT
 public:
-    Server(QH::ISqlDBCache *db);
+    FirstpackageReceiver();
+
+signals:
+
+    void sigDataReceived(QByteArray data);
+    void sigDataSendet(QByteArray data);
+
 };
 }
-#endif // SERVER_H
+#endif // FIRSTPACKAGERECEIVER_H

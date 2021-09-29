@@ -34,6 +34,7 @@ bool Visitor::checkCardData(long long session,
     return addNode(domain, port);
 }
 
+
 void Visitor::nodeConnected(QH::AbstractNodeInfo *node) {
     BaseNode::nodeConnected(node);
 

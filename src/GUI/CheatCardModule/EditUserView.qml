@@ -103,12 +103,13 @@ Frame {
             SBarcodeGenerator {
                 id: generator
                 fileName: "currentuserqrcode";
-                inputText: userModel.sessionCode
+                inputText: (userModel)? (userModel.sessionCode): ""
                 height: 230
                 width: 230
                 margin: 5
                 onInputTextChanged: {
-                    process(inputText);
+                    if (inputText.length)
+                        process(inputText);
                 }
             }
 

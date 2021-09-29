@@ -30,6 +30,7 @@ signals:
     void sigPurchaseWasSuccessful(QSharedPointer<UsersCards> data);
     void sigCardReceived(QSharedPointer<Card> err);
 
+
 protected:
     QH::ISqlDBCache *db() const;
     bool processCardStatusRequest(const QSharedPointer<CardStatusRequest> &message,

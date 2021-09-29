@@ -5,21 +5,22 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#ifndef SERVER_H
-#define SERVER_H
 
-#include "abstractnode.h"
-#include "basenode.h"
+#ifndef QRCODERECEIVER_H
+#define QRCODERECEIVER_H
 
-#include <isqldbcache.h>
+#include "firstpackagereceiver.h"
 
 namespace RC {
 
-class CHEATCARD_CORE_EXPORT Server: public BaseNode
+class QrCodeReceiver: public FirstpackageReceiver
 {
     Q_OBJECT
 public:
-    Server(QH::ISqlDBCache *db);
+    QrCodeReceiver();
+
+    void setInputQrCodeText(const QString& text);
 };
 }
-#endif // SERVER_H
+
+#endif // QRCODERECEIVER_H

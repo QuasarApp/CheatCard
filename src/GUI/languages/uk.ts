@@ -144,7 +144,7 @@
     <name>EditUserView</name>
     <message>
         <source>Editing : </source>
-        <translation>Редагування : </translation>
+        <translation type="vanished">Редагування : </translation>
     </message>
     <message>
         <source>No user selected</source>
@@ -156,15 +156,15 @@
     </message>
     <message>
         <source>Visible user name:</source>
-        <translation>Видиме ім&apos;я користувача:</translation>
+        <translation type="vanished">Видиме ім&apos;я користувача:</translation>
     </message>
     <message>
         <source>This user is not seller</source>
-        <translation>Цей користувач не продавець</translation>
+        <translation type="vanished">Цей користувач не продавець</translation>
     </message>
     <message>
         <source>This user is seller</source>
-        <translation>Цей користувач є продавцем</translation>
+        <translation type="vanished">Цей користувач є продавцем</translation>
     </message>
     <message>
         <source>Become a seller</source>
@@ -177,6 +177,22 @@
     <message>
         <source>Are you sure you want to become a seller? </source>
         <translation>Ви впевнені, що хочете стати продавцем? </translation>
+    </message>
+    <message>
+        <source>Profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are not a seller</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are a seller</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -8,6 +8,7 @@
 #include "cardmodel.h"
 #include "itemsmodel.h"
 #include "mainmodel.h"
+#include "qrcodereceiver.h"
 #include "waitconnectionmodel.h"
 
 #include <CheatCard/database.h>
@@ -32,14 +33,16 @@
 
 namespace RC {
 
+void softRemove(BaseNode * obj) {
+    obj->softDelete();
+};
+
 MainModel::MainModel(QH::ISqlDBCache *db) {
     _db = db;
 
     initCardsListModels();
     initImagesModels();
     initWaitConnectionModel();
-
-    initBackEndModel();
 
     setCurrentUser(initUser());
     _config = initConfig(_currentUser->user()->userId());
@@ -57,9 +60,9 @@ MainModel::~MainModel() {
     delete _defaultLogosModel;
     delete _defaultBackgroundsModel;
 
-    delete _backEndModel;
-
     delete _waitModel;
+
+    delete _receiver;
 }
 
 bool MainModel::fFirst() const {
@@ -248,21 +251,13 @@ void MainModel::initImagesModels() {
 
 }
 
-void MainModel::initBackEndModel() {
-    _backEndModel = new Visitor(_db);
-//    connect(_backEndModel, &Visitor::sigSessionWasBegin,
-//            this, &MainModel::handleConnectWasBegin);
+void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
+    _backEndModel = newModel;
 
-//    connect(_backEndModel, &Visitor::sigSessionWasFinshed,
-//            this, &MainModel::handleConnectWasFinished);
-
-//    connect(_backEndModel, &Visitor::sigSessionWasFinshed,
-//            _waitModel, &WaitConnectionModel::handlePurchaseTaskFinished);
-
-    connect(_backEndModel, &Visitor::sigPurchaseWasSuccessful,
+    connect(_backEndModel.data(), &BaseNode::sigPurchaseWasSuccessful,
             this, &MainModel::handlePurchaseWasSuccessful);
 
-    connect(_backEndModel, &Visitor::sigCardReceived,
+    connect(_backEndModel.data(), &BaseNode::sigCardReceived,
             this, &MainModel::handleCardReceived);
 }
 
@@ -274,6 +269,16 @@ void MainModel::initWaitConnectionModel() {
 
     connect(_waitModel, &WaitConnectionModel::purchaseTaskCanceled,
             this, &MainModel::handleListenStop);
+}
+
+void MainModel::initReceiverModel() {
+    _receiver = new QrCodeReceiver();
+
+    connect(_receiver, &QrCodeReceiver::sigDataReceived,
+            this, &MainModel::handleFirstDataReceived);
+
+    connect(_receiver, &QrCodeReceiver::sigDataSendet,
+            this, &MainModel::handleFirstDataReceived);
 }
 
 void MainModel::setCardListModel(CardsListModel *model) {
@@ -310,15 +315,10 @@ void MainModel::setMode(int newMode) {
 
     if (_mode == Mode::Client) {
         setCardListModel(_cardsListModel);
-//        if (!_backEndModel->start(static_cast<IConnectorBackEnd::Mode>(_mode))) {
-//            QuasarAppUtils::Params::log("Failed to start backEnd service!", QuasarAppUtils::Error);
-//            auto service = QmlNotificationService::NotificationService::getService();
-//            service->setNotify("NFC Error", "Failed to start listner");
-//        }
-
+        setBackEndModel(QSharedPointer<BaseNode>(new Visitor(_db), softRemove));
     } else {
         setCardListModel(_ownCardsListModel);
-        _backEndModel->stop();
+        setBackEndModel(QSharedPointer<BaseNode>(new Seller(_db), softRemove));
     }
 
     _config->setFSellerEnabled(newMode);
@@ -384,19 +384,50 @@ void MainModel::handlePurchaseWasSuccessful(QSharedPointer<UsersCards> card){
 }
 
 void MainModel::handleListenStart(int purchasesCount, QSharedPointer<CardModel> model) {
-//    if (!_backEndModel->start(static_cast<IConnectorBackEnd::Mode>(_mode))) {
-//        auto service = QmlNotificationService::NotificationService::getService();
-//        service->setNotify("NFC Error", "Failed to start listner");
-//        QuasarAppUtils::Params::log("Failed to start backEnd service!", QuasarAppUtils::Error);
-
-//    }
-//    _backEndModel->setActiveCard(model->card(), purchasesCount);
+    _lastActivedCard.purchasesCount = purchasesCount;
+    _lastActivedCard.lastCard = model;
 }
 
 void MainModel::handleListenStop() {
-//    if (_backEndModel->mode() == IConnectorBackEnd::Saller) {
-//        _backEndModel->stop();
-//    }
+    _lastActivedCard = {};
+}
+
+void MainModel::handleFirstDataReceived(QByteArray data) {
+
+    if (_mode != Mode::Seller) {
+        return;
+    }
+
+    auto seller = _backEndModel.dynamicCast<Seller>();
+
+    if (!seller) {
+        return;
+    }
+
+    if (!_lastActivedCard.lastCard)
+        return;
+
+    auto header = QSharedPointer<UserHeader>::create();
+    header->fromBytes(data);
+
+    seller->incrementPurchase(header,
+                              _lastActivedCard.lastCard->card()->cardId(),
+                              _lastActivedCard.purchasesCount);
+
+}
+
+void MainModel::handleFirstDataSendet() {
+    if (_mode != Mode::Client) {
+        return;
+    }
+
+    auto visitor = _backEndModel.dynamicCast<Visitor>();
+
+    if (!visitor) {
+        return;
+    }
+
+    visitor->checkCardData(_currentUser->getSessinon());
 }
 
 QObject *MainModel::defaultLogosModel() const {
