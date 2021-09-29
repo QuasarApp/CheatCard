@@ -121,7 +121,7 @@ endif()
 
 if (CHEATCARD_APP)
     add_subdirectory(submodules/SimpleQmlNotify)
-    add_subdirectory(submodules/SCodes/src)
+    add_subdirectory(submodules/QrCodes/src)
     add_subdirectory(src/GUI)
     add_subdirectory(src/RCApp)
 else()
