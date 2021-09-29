@@ -8,6 +8,8 @@
 #include "CheatCard.h"
 
 #include <CheatCard/database.h>
+#include <SBarcodeFilter.h>
+#include <SBarcodeGenerator.h>
 #include <imageprovider.h>
 #include "mainmodel.h"
 #include "quasarapp.h"
@@ -44,6 +46,9 @@ bool CheatCard::init(QQmlApplicationEngine *engine) {
     _model = new MainModel(_db->db());
 
     root->setContextProperty("mainModel", QVariant::fromValue(_model));
+
+    qmlRegisterType<SBarcodeGenerator>("com.scythestudio.scodes", 1, 0, "SBarcodeGenerator");
+    qmlRegisterType<SBarcodeFilter>("com.scythestudio.scodes", 1, 0, "SBarcodeFilter");
 
     engine->load("qrc:/CheatCardModule/CheatCard.qml");
     if (engine->rootObjects().isEmpty())

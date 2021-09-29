@@ -11,6 +11,7 @@
 #include <QObject>
 #include <QSettings>
 #include <CheatCard/database.h>
+#include <CheatCard/datastructures.h>
 
 namespace RC {
 
@@ -55,6 +56,8 @@ public:
     bool fFirst() const;
     Q_INVOKABLE void configureFinished();
     QObject *currentUser() const;
+    QSharedPointer<UserModel> getCurrentUser() const;
+
     void setCurrentUser(UserModel *newCurrentUser);
     void setCurrentUser(QSharedPointer<UserModel> newCurrentUser);
 
@@ -66,6 +69,7 @@ public:
     void setMode(int newMode);
 
     QObject *waitModel() const;
+
 signals:
 
     void fFirstChanged();
@@ -104,6 +108,7 @@ private slots:
 private:
     void saveConfig();
     void saveUser();
+    QH::ISqlDBCache *db() const;
 
     QSharedPointer<UserModel> initUser();
 
@@ -134,6 +139,8 @@ private:
     QSettings _settings;
 
     Mode _mode = Mode::Unknown;
+
+    friend class ImageProvider;
 };
 
 }

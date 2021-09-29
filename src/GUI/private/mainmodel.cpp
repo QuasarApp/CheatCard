@@ -85,6 +85,10 @@ QObject *MainModel::currentUser() const {
     return _currentUser.data();
 }
 
+QSharedPointer<UserModel> MainModel::getCurrentUser() const {
+    return _currentUser;
+}
+
 void MainModel::setCurrentUser(UserModel *newCurrentUser) {
     setCurrentUser(QSharedPointer<UserModel>(newCurrentUser));
 }
@@ -283,6 +287,10 @@ void MainModel::setCardListModel(CardsListModel *model) {
 void MainModel::initMode(const QSharedPointer<UserModel> &user,
                          const QSharedPointer<Config> &config) {
     setMode(user && user->fSaller() && config && config->getFSellerEnabled());
+}
+
+QH::ISqlDBCache *MainModel::db() const {
+    return _db;
 }
 
 QObject *MainModel::waitModel() const {
