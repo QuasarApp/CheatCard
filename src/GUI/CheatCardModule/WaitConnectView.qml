@@ -58,32 +58,26 @@ Page {
 
                 onClicked:  () => {
                                 if (root.model) {
-                                    root.model.begin();
+                                    activityProcessor.newActivityFromComponent(scaner);
                                 }
                             }
-            }
-            visible: !progress.visible
-        }
-
-        ProgressBar {
-
-            id: progress;
-            Layout.fillWidth: true
-            visible: Boolean(root.model && root.model.waitForConnect)
-            from: 1
-            to: (root.model)? root.model.waitTime : 0
-            value: (root.model)? root.model.timeOut : 0
-
-            Behavior on value {
-                NumberAnimation {
-                    duration: 1001
-                }
             }
         }
 
         Item {
             Layout.fillHeight: true
 
+        }
+    }
+
+    Component {
+        id: scaner
+        QrScanner {
+            onCaptured: (data) => {
+                            root.model.extraData = data;
+                            root.model.begin();
+
+                        }
         }
     }
 

@@ -61,8 +61,6 @@ MainModel::~MainModel() {
     delete _defaultBackgroundsModel;
 
     delete _waitModel;
-
-    delete _receiver;
 }
 
 bool MainModel::fFirst() const {
@@ -271,16 +269,6 @@ void MainModel::initWaitConnectionModel() {
             this, &MainModel::handleListenStop);
 }
 
-void MainModel::initReceiverModel() {
-    _receiver = new QrCodeReceiver();
-
-    connect(_receiver, &QrCodeReceiver::sigDataReceived,
-            this, &MainModel::handleFirstDataReceived);
-
-    connect(_receiver, &QrCodeReceiver::sigDataSendet,
-            this, &MainModel::handleFirstDataReceived);
-}
-
 void MainModel::setCardListModel(CardsListModel *model) {
     if (_currentCardsListModel == model)
         return;
@@ -383,37 +371,28 @@ void MainModel::handlePurchaseWasSuccessful(QSharedPointer<UsersCards> card){
     emit freeItem(cardModel.data(), freeItems);
 }
 
-void MainModel::handleListenStart(int purchasesCount, QSharedPointer<CardModel> model) {
-    _lastActivedCard.purchasesCount = purchasesCount;
-    _lastActivedCard.lastCard = model;
-}
+void MainModel::handleListenStart(int purchasesCount,
+                                  QSharedPointer<CardModel> model,
+                                  const QString& extraData) {
 
-void MainModel::handleListenStop() {
-    _lastActivedCard = {};
-}
-
-void MainModel::handleFirstDataReceived(QByteArray data) {
-
-    if (_mode != Mode::Seller) {
-        return;
-    }
+    auto header = QSharedPointer<UserHeader>::create();
+    header->fromBytes(QByteArray::fromHex(extraData.toLatin1()));
 
     auto seller = _backEndModel.dynamicCast<Seller>();
 
-    if (!seller) {
+    if (!seller)
         return;
+
+    if (!seller->incrementPurchase(header,
+                              model->card()->cardId(),
+                              purchasesCount)) {
+
+        QuasarAppUtils::Params::log("Failed to increment user card data",
+                                    QuasarAppUtils::Error);
     }
+}
 
-    if (!_lastActivedCard.lastCard)
-        return;
-
-    auto header = QSharedPointer<UserHeader>::create();
-    header->fromBytes(data);
-
-    seller->incrementPurchase(header,
-                              _lastActivedCard.lastCard->card()->cardId(),
-                              _lastActivedCard.purchasesCount);
-
+void MainModel::handleListenStop() {
 }
 
 void MainModel::handleFirstDataSendet() {

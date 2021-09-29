@@ -15,7 +15,7 @@ UserHeader::UserHeader() {
 }
 
 bool UserHeader::isValid() const {
-    return _token.size() == 32 && userId > 0 && sessionId > 0 && AbstractData::isValid();;
+    return _token.size() == 32 && userId > 0 && sessionId && AbstractData::isValid();;
 }
 
 QDataStream &UserHeader::fromStream(QDataStream &stream) {
