@@ -112,7 +112,7 @@ bool BaseNode::processCardStatus(const QSharedPointer<UsersCards> &cardStatus,
         CardDataRequest request;
         request.setCardId(cardStatus->getCard());
 
-        if (!sendData(&request, sender->networkAddress())) {
+        if (!sendData(&request, sender)) {
             QuasarAppUtils::Params::log("Failed to send responce", QuasarAppUtils::Error);
 
             return false;
@@ -160,7 +160,7 @@ bool BaseNode::processCardRequest(const QSharedPointer<CardDataRequest> &cardreq
 
     auto card = getCard(cardrequest->getCardId());
 
-    if (!sendData(card.data(), sender->networkAddress())) {
+    if (!sendData(card.data(), sender)) {
 
         QuasarAppUtils::Params::log("Failed to send responce", QuasarAppUtils::Error);
         return false;
@@ -206,7 +206,7 @@ bool BaseNode::processCardStatusRequest(const QSharedPointer<CardStatusRequest> 
     }
 
     for (const auto &data : qAsConst(result->data())) {
-        if (!sendData(data.data(), sender->networkAddress())) {
+        if (!sendData(data.data(), sender)) {
             return false;
         }
     }

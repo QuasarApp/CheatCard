@@ -263,11 +263,15 @@
     <name>FreeItemsView</name>
     <message>
         <source>It seems you deserve a bonus.</source>
-        <translation>Похоже, вы заслужили бонус.</translation>
+        <translation type="vanished">Похоже, вы заслужили бонус.</translation>
     </message>
     <message>
         <source>You have </source>
-        <translation>У вас есть </translation>
+        <translation type="vanished">У вас есть </translation>
+    </message>
+    <message>
+        <source>Wooooh seems like someone has %0 free %1 !!!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

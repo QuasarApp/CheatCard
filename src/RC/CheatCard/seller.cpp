@@ -97,7 +97,7 @@ void Seller::nodeConnected(QH::AbstractNodeInfo *node) {
 
     for (const auto &session: qAsConst(_lastRequested)) {
 
-        sendData(session.data(), node->networkAddress());
+        sendData(session.data(), node);
     }
 }
 }

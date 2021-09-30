@@ -298,11 +298,15 @@
     <name>FreeItemsView</name>
     <message>
         <source>It seems you deserve a bonus.</source>
-        <translation>It seems you deserve a bonus.</translation>
+        <translation type="vanished">It seems you deserve a bonus.</translation>
     </message>
     <message>
         <source>You have </source>
-        <translation>You have </translation>
+        <translation type="vanished">You have </translation>
+    </message>
+    <message>
+        <source>Wooooh seems like someone has %0 free %1 !!!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -99,14 +99,14 @@ void ConnectionTest::firstContact() {
             return card && card->isValid();
         }, 1000));
 
-        QVERIFY(wait([server](){
-            return server->connectionsCount() == 0;
-        }, 10000));
 
         QVERIFY(wait([server, user, cardId, i](){
             return server->getPurchaseCount(user->userId(), cardId) == (i + 1);
         }, 1000));
 
+        QVERIFY(wait([server](){
+            return server->connectionsCount() == 0;
+        }, 1000));
 
         QVERIFY(client->checkCardData(session, TEST_CHEAT_HOST, TEST_CHEAT_PORT));
 
@@ -115,12 +115,13 @@ void ConnectionTest::firstContact() {
             return card && card->isValid();
         }, 1000));
 
-        QVERIFY(wait([server](){
-            return server->connectionsCount() == 0;
-        }, 1000));
 
         QVERIFY(wait([client, user, cardId, i](){
             return client->getPurchaseCount(user->userId(), cardId) == (i + 1);
+        }, 1000));
+
+        QVERIFY(wait([server](){
+            return server->connectionsCount() == 0;
         }, 1000));
 
     }
