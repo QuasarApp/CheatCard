@@ -21,6 +21,13 @@ class CHEATCARD_CORE_EXPORT Server: public BaseNode
 public:
     Server(QH::ISqlDBCache *db);
 
+    // AbstractNode interface
+protected:
+    void nodeConnected(QH::AbstractNodeInfo *node) override;
+    void nodeDisconnected(QH::AbstractNodeInfo *node) override;
+    void nodeErrorOccured(QH::AbstractNodeInfo *nodeInfo,
+                                  QAbstractSocket::SocketError errorCode,
+                                  QString errorString) override;
 };
 }
 #endif // SERVER_H

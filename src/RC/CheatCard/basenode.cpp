@@ -13,6 +13,8 @@
 #include <dbobjectsrequest.h>
 #include <CheatCard/session.h>
 #include <CheatCard/userscards.h>
+#include <getsinglevalue.h>
+#include <cmath>
 
 namespace RC {
 
@@ -21,8 +23,8 @@ BaseNode::BaseNode(QH::ISqlDBCache *db) {
 }
 
 QH::ParserResult BaseNode::parsePackage(const QSharedPointer<QH::PKG::AbstractData> &pkg,
-                                      const QH::Header &pkgHeader,
-                                      const QH::AbstractNodeInfo *sender) {
+                                        const QH::Header &pkgHeader,
+                                        const QH::AbstractNodeInfo *sender) {
 
     auto parentResult = AbstractNode::parsePackage(pkg, pkgHeader, sender);
     if (parentResult != QH::ParserResult::NotProcessed) {
@@ -62,6 +64,37 @@ QH::ParserResult BaseNode::parsePackage(const QSharedPointer<QH::PKG::AbstractDa
     return QH::ParserResult::NotProcessed;
 }
 
+int BaseNode::getFreeItemsCount(unsigned int userId,
+                                unsigned int cardId) const {
+    return getFreeItemsCount(getUserCardData(userId, cardId));
+}
+
+int BaseNode::getFreeItemsCount(const QSharedPointer<UsersCards> &inputData) const {
+
+    QH::PKG::GetSingleValue request({"Cards", inputData->getCard()}, "freeIndex");
+    auto result = _db->getObject(request);
+
+    if (!result) {
+        return 0;
+    }
+
+    unsigned int freeIndex = result->value().toUInt();
+
+    return getFreeItemsCount(inputData, freeIndex);
+}
+
+int BaseNode::getFreeItemsCount(const QSharedPointer<UsersCards> &inputData,
+                                unsigned int freeIndex) const {
+    if (freeIndex <= 0)
+        return 0;
+
+    int freeItems = std::floor(inputData->getPurchasesNumber() /
+                              static_cast<double>(freeIndex)) -
+            inputData->getReceived();
+
+    return freeItems;
+}
+
 bool BaseNode::processCardStatus(const QSharedPointer<UsersCards> &cardStatus,
                                  const QH::AbstractNodeInfo *sender, const QH::Header &) {
 
@@ -92,7 +125,7 @@ bool BaseNode::processCardStatus(const QSharedPointer<UsersCards> &cardStatus,
 }
 
 bool BaseNode::applayPurchases(const QSharedPointer<UsersCards> &dbCard,
-                               const QH::AbstractNodeInfo *sender) {
+                               const QH::AbstractNodeInfo *) {
 
     if (!_db->insertIfExistsUpdateObject(dbCard)) {
         QuasarAppUtils::Params::log("Failed to update data", QuasarAppUtils::Error);
@@ -106,7 +139,7 @@ bool BaseNode::applayPurchases(const QSharedPointer<UsersCards> &dbCard,
 }
 
 QSharedPointer<UsersCards>
-BaseNode::getUserCardData(unsigned int userId, unsigned int cardId) {
+BaseNode::getUserCardData(unsigned int userId, unsigned int cardId) const {
     UsersCards request;
     request.setCard(cardId);
     request.setUser(userId);
@@ -184,9 +217,12 @@ bool BaseNode::processCardStatusRequest(const QSharedPointer<CardStatusRequest> 
 bool BaseNode::processSession(const QSharedPointer<Session> &session,
                               const QH::AbstractNodeInfo *sender, const QH::Header &) {
 
-    if (!_db->insertObject(session)) {
+    if (!session->isValid()) {
         return false;
     }
+
+    session->setPrintError(false);
+    db()->insertObject(session);
 
     CardStatusRequest requestData;
     requestData.setSessionId(session->getSessionId());

@@ -1,9 +1,14 @@
 #include "usermodel.h"
 #include "CheatCard/user.h"
+
+#include <CheatCard/datastructures.h>
 namespace RC {
 
 UserModel::UserModel(QSharedPointer<User> user) {
     setUser(user);
+
+    srand(time(0));
+    setSessinon(static_cast<long long >(rand()) * rand());
 }
 
 bool UserModel::fSaller() const {
@@ -55,4 +60,31 @@ void UserModel::setUser(const QSharedPointer<User>& newUser) {
     emit objChanged();
 
 }
+
+UserHeader UserModel::getHelloPackage() const {
+    UserHeader header;
+    header.setSessionId(getSessinon());
+    header.setUserId(user()->userId());
+    header.setToken(user()->getKey());
+
+    return header;
+}
+
+long long UserModel::getSessinon() const {
+    return sessinon;
+}
+
+void UserModel::setSessinon(long long newSessinon) {
+    if (sessinon == newSessinon)
+        return;
+    sessinon = newSessinon;
+    _sessionCode = getHelloPackage().toBytes().toHex();
+
+    emit sessinonChanged();
+}
+
+const QString &UserModel::sessionCode() const {
+    return _sessionCode;
+}
+
 }

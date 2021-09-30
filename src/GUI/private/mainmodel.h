@@ -11,6 +11,7 @@
 #include <QObject>
 #include <QSettings>
 #include <CheatCard/database.h>
+#include <CheatCard/datastructures.h>
 
 namespace RC {
 
@@ -55,6 +56,8 @@ public:
     bool fFirst() const;
     Q_INVOKABLE void configureFinished();
     QObject *currentUser() const;
+    QSharedPointer<UserModel> getCurrentUser() const;
+
     void setCurrentUser(UserModel *newCurrentUser);
     void setCurrentUser(QSharedPointer<UserModel> newCurrentUser);
 
@@ -66,6 +69,7 @@ public:
     void setMode(int newMode);
 
     QObject *waitModel() const;
+
 signals:
 
     void fFirstChanged();
@@ -97,13 +101,15 @@ private slots:
     void handleConnectWasFinished();
 
     void handlePurchaseWasSuccessful(QSharedPointer<UsersCards>);
-    void handleListenStart(int purchasesCount, QSharedPointer<CardModel> model);
+    void handleListenStart(int purchasesCount, QSharedPointer<CardModel> model, const QString &extraData);
     void handleListenStop();
+    void handleFirstDataSendet();
 
 
 private:
     void saveConfig();
     void saveUser();
+    QH::ISqlDBCache *db() const;
 
     QSharedPointer<UserModel> initUser();
 
@@ -111,7 +117,7 @@ private:
 
     void initCardsListModels();
     void initImagesModels();
-    void initBackEndModel();
+    void setBackEndModel(const QSharedPointer<BaseNode> &newModel);
     void initWaitConnectionModel();
 
     void setCardListModel(CardsListModel *model);
@@ -129,11 +135,12 @@ private:
 
     ItemsModel *_defaultLogosModel = nullptr;
     ItemsModel *_defaultBackgroundsModel = nullptr;
-    BaseNode * _backEndModel = nullptr;
-    WaitConnectionModel * _waitModel = nullptr;
+    QSharedPointer<BaseNode> _backEndModel = nullptr;
+    WaitConnectionModel *_waitModel = nullptr;
     QSettings _settings;
 
     Mode _mode = Mode::Unknown;
+    friend class ImageProvider;
 };
 
 }

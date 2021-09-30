@@ -343,7 +343,7 @@ Page {
 
                                 cardBackground.source = sourceImages.currentSelectedItem
                                 root.model.setNewBackGround(sourceImages.currentSelectedItem);
-                                activityProcessor.pop();
+                                activityProcessor.popItem();
                             }
 
                 standardButtons: Dialog.Open
@@ -366,7 +366,7 @@ Page {
 
                                 cardLogoIamge.source = sourceLogos.currentSelectedItem
                                 root.model.setNewLogo(sourceLogos.currentSelectedItem);
-                                activityProcessor.pop();
+                                activityProcessor.popItem();
 
                             }
 
@@ -390,7 +390,7 @@ Page {
 
                                 cardRectangle.seelTmpImage = sourceSeels.currentSelectedItem
                                 root.model.setNewSeel(sourceSeels.currentSelectedItem);
-                                activityProcessor.pop();
+                                activityProcessor.popItem();
 
                             }
 
@@ -418,7 +418,7 @@ Page {
                                     cardRectangle.color = colorPick.color
                                     root.model.color = colorPick.color
                                 }
-                                activityProcessor.pop();
+                                activityProcessor.popItem();
 
                             }
 

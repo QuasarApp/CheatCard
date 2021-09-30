@@ -57,6 +57,8 @@ if (ANDROID)
         QuasarApp
         Heart
         QmlNotyfyService
+        SCodes
+        ZXing
         )
 
 #    find_package(Qt${QT_VERSION_MAJOR} COMPONENTS AndroidExtras REQUIRED)

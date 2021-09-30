@@ -188,7 +188,7 @@
     </message>
     <message>
         <source>Visible user name:</source>
-        <translation>Visible user name:</translation>
+        <translation type="vanished">Visible user name:</translation>
     </message>
     <message>
         <source>This user is not saller</source>
@@ -204,11 +204,11 @@
     </message>
     <message>
         <source>Editing : </source>
-        <translation>Editing : </translation>
+        <translation type="vanished">Editing : </translation>
     </message>
     <message>
         <source>This user is not seller</source>
-        <translation>This user is not seller</translation>
+        <translation type="vanished">This user is not seller</translation>
     </message>
     <message>
         <source>Become a seller</source>
@@ -216,11 +216,27 @@
     </message>
     <message>
         <source>This user is seller</source>
-        <translation>This user is seller</translation>
+        <translation type="vanished">This user is seller</translation>
     </message>
     <message>
         <source>Seller mode</source>
         <translation>Seller mode</translation>
+    </message>
+    <message>
+        <source>Profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are not a seller</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are a seller</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -306,6 +322,13 @@
     <message>
         <source>Registration passed!!!</source>
         <translation>Registration passed!!!</translation>
+    </message>
+</context>
+<context>
+    <name>ScannerOverlay</name>
+    <message>
+        <source>Scan QR code</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -8,6 +8,7 @@
 #include "cardmodel.h"
 #include "itemsmodel.h"
 #include "mainmodel.h"
+#include "qrcodereceiver.h"
 #include "waitconnectionmodel.h"
 
 #include <CheatCard/database.h>
@@ -32,14 +33,16 @@
 
 namespace RC {
 
+void softRemove(BaseNode * obj) {
+    obj->softDelete();
+};
+
 MainModel::MainModel(QH::ISqlDBCache *db) {
     _db = db;
 
     initCardsListModels();
     initImagesModels();
     initWaitConnectionModel();
-
-    initBackEndModel();
 
     setCurrentUser(initUser());
     _config = initConfig(_currentUser->user()->userId());
@@ -56,8 +59,6 @@ MainModel::~MainModel() {
 
     delete _defaultLogosModel;
     delete _defaultBackgroundsModel;
-
-    delete _backEndModel;
 
     delete _waitModel;
 }
@@ -83,6 +84,10 @@ void MainModel::configureFinished() {
 
 QObject *MainModel::currentUser() const {
     return _currentUser.data();
+}
+
+QSharedPointer<UserModel> MainModel::getCurrentUser() const {
+    return _currentUser;
 }
 
 void MainModel::setCurrentUser(UserModel *newCurrentUser) {
@@ -244,21 +249,13 @@ void MainModel::initImagesModels() {
 
 }
 
-void MainModel::initBackEndModel() {
-    _backEndModel = new Visitor(_db);
-//    connect(_backEndModel, &Visitor::sigSessionWasBegin,
-//            this, &MainModel::handleConnectWasBegin);
+void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
+    _backEndModel = newModel;
 
-//    connect(_backEndModel, &Visitor::sigSessionWasFinshed,
-//            this, &MainModel::handleConnectWasFinished);
-
-//    connect(_backEndModel, &Visitor::sigSessionWasFinshed,
-//            _waitModel, &WaitConnectionModel::handlePurchaseTaskFinished);
-
-    connect(_backEndModel, &Visitor::sigPurchaseWasSuccessful,
+    connect(_backEndModel.data(), &BaseNode::sigPurchaseWasSuccessful,
             this, &MainModel::handlePurchaseWasSuccessful);
 
-    connect(_backEndModel, &Visitor::sigCardReceived,
+    connect(_backEndModel.data(), &BaseNode::sigCardReceived,
             this, &MainModel::handleCardReceived);
 }
 
@@ -266,10 +263,7 @@ void MainModel::initWaitConnectionModel() {
     _waitModel = new WaitConnectionModel();
 
     connect(_waitModel, &WaitConnectionModel::purchaseTaskCompleted,
-            this, &MainModel::handleListenStart);
-
-    connect(_waitModel, &WaitConnectionModel::purchaseTaskCanceled,
-            this, &MainModel::handleListenStop);
+            this, &MainModel::handleListenStart, Qt::QueuedConnection);
 }
 
 void MainModel::setCardListModel(CardsListModel *model) {
@@ -283,6 +277,10 @@ void MainModel::setCardListModel(CardsListModel *model) {
 void MainModel::initMode(const QSharedPointer<UserModel> &user,
                          const QSharedPointer<Config> &config) {
     setMode(user && user->fSaller() && config && config->getFSellerEnabled());
+}
+
+QH::ISqlDBCache *MainModel::db() const {
+    return _db;
 }
 
 QObject *MainModel::waitModel() const {
@@ -302,15 +300,10 @@ void MainModel::setMode(int newMode) {
 
     if (_mode == Mode::Client) {
         setCardListModel(_cardsListModel);
-//        if (!_backEndModel->start(static_cast<IConnectorBackEnd::Mode>(_mode))) {
-//            QuasarAppUtils::Params::log("Failed to start backEnd service!", QuasarAppUtils::Error);
-//            auto service = QmlNotificationService::NotificationService::getService();
-//            service->setNotify("NFC Error", "Failed to start listner");
-//        }
-
+        setBackEndModel(QSharedPointer<BaseNode>(new Visitor(_db), softRemove));
     } else {
         setCardListModel(_ownCardsListModel);
-        _backEndModel->stop();
+        setBackEndModel(QSharedPointer<BaseNode>(new Seller(_db), softRemove));
     }
 
     _config->setFSellerEnabled(newMode);
@@ -368,27 +361,51 @@ void MainModel::handlePurchaseWasSuccessful(QSharedPointer<UsersCards> card){
         freeIndex = _ownCardsListModel->cache().value(card->getCard()).source->getFreeIndex();
     }
 
-    int freeItems = card->getReceived() - std::ceil(card->getPurchasesNumber() / static_cast<double>(freeIndex));
+    int freeItems = _backEndModel->getFreeItemsCount(card, freeIndex);
     card->receive(freeItems);
     _db->insertIfExistsUpdateObject(card);
 
-    emit freeItem(cardModel.data(), freeItems);
+    if (freeItems > 0) {
+        emit freeItem(cardModel.data(), freeItems);
+    }
 }
 
-void MainModel::handleListenStart(int purchasesCount, QSharedPointer<CardModel> model) {
-//    if (!_backEndModel->start(static_cast<IConnectorBackEnd::Mode>(_mode))) {
-//        auto service = QmlNotificationService::NotificationService::getService();
-//        service->setNotify("NFC Error", "Failed to start listner");
-//        QuasarAppUtils::Params::log("Failed to start backEnd service!", QuasarAppUtils::Error);
+void MainModel::handleListenStart(int purchasesCount,
+                                  QSharedPointer<CardModel> model,
+                                  const QString& extraData) {
 
-//    }
-//    _backEndModel->setActiveCard(model->card(), purchasesCount);
+    auto header = QSharedPointer<UserHeader>::create();
+    header->fromBytes(QByteArray::fromHex(extraData.toLatin1()));
+
+    auto seller = _backEndModel.dynamicCast<Seller>();
+
+    if (!seller)
+        return;
+
+    if (!seller->incrementPurchase(header,
+                              model->card()->cardId(),
+                              purchasesCount)) {
+
+        QuasarAppUtils::Params::log("Failed to increment user card data",
+                                    QuasarAppUtils::Error);
+    }
 }
 
 void MainModel::handleListenStop() {
-//    if (_backEndModel->mode() == IConnectorBackEnd::Saller) {
-//        _backEndModel->stop();
-//    }
+}
+
+void MainModel::handleFirstDataSendet() {
+    if (_mode != Mode::Client) {
+        return;
+    }
+
+    auto visitor = _backEndModel.dynamicCast<Visitor>();
+
+    if (!visitor) {
+        return;
+    }
+
+    visitor->checkCardData(_currentUser->getSessinon());
 }
 
 QObject *MainModel::defaultLogosModel() const {

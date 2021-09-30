@@ -145,7 +145,7 @@
     <name>EditUserView</name>
     <message>
         <source>Editing : </source>
-        <translation>Edycja : </translation>
+        <translation type="vanished">Edycja : </translation>
     </message>
     <message>
         <source>No user selected</source>
@@ -157,15 +157,15 @@
     </message>
     <message>
         <source>Visible user name:</source>
-        <translation>Widoczna nazwa użytkownika:</translation>
+        <translation type="vanished">Widoczna nazwa użytkownika:</translation>
     </message>
     <message>
         <source>This user is not seller</source>
-        <translation>Ten użytkownik nie jest sprzedawcą</translation>
+        <translation type="vanished">Ten użytkownik nie jest sprzedawcą</translation>
     </message>
     <message>
         <source>This user is seller</source>
-        <translation>Ten użytkownik jest sprzedawcą</translation>
+        <translation type="vanished">Ten użytkownik jest sprzedawcą</translation>
     </message>
     <message>
         <source>Become a seller</source>
@@ -178,6 +178,22 @@
     <message>
         <source>Are you sure you want to become a seller? </source>
         <translation>Czy na pewno chcesz zostać sprzedawcą? </translation>
+    </message>
+    <message>
+        <source>Profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are not a seller</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are a seller</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -239,6 +255,13 @@
     <message>
         <source>Go to use</source>
         <translation>Go to use</translation>
+    </message>
+</context>
+<context>
+    <name>ScannerOverlay</name>
+    <message>
+        <source>Scan QR code</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

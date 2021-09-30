@@ -14,14 +14,6 @@
 namespace RC {
 
 WaitConnectionModel::WaitConnectionModel() {
-    _timer = new QTimer(this);
-
-    _timer->setInterval(1000);
-
-    setTimeOut(waitTime());
-
-    connect(_timer, &QTimer::timeout,
-            this , &WaitConnectionModel::handleTick);
 
 }
 
@@ -48,59 +40,23 @@ void WaitConnectionModel::setPurchaseCount(int newPurchaseCount) {
     emit purchaseCountChanged();
 }
 
-int WaitConnectionModel::waitTime() const {
-    return 30;
-}
-
-int WaitConnectionModel::timeOut() const {
-    return _timeOut;
-}
-
-void WaitConnectionModel::setTimeOut(int newTimeOut) {
-    if (_timeOut == newTimeOut)
-        return;
-    _timeOut = newTimeOut;
-    emit timeOutChanged();
-}
-
 void WaitConnectionModel::begin() {
 
-    setTimeOut(waitTime());
-    _timer->start();
-    setWaintForCnnect(true);
-    emit purchaseTaskCompleted(purchaseCount(), _card);
+    emit purchaseTaskCompleted(purchaseCount(), _card, _extraData);
 }
 
 void WaitConnectionModel::cancel() {
-    _timer->stop();
-    setTimeOut(waitTime());
-    setWaintForCnnect(false);
-    emit purchaseTaskCanceled();
 }
 
-void WaitConnectionModel::handleTick() {
-    setTimeOut(timeOut() - 1);
-
-    if(timeOut() <= 0) {
-        cancel();
-    }
+const QString &WaitConnectionModel::extraData() const {
+    return _extraData;
 }
 
-void WaitConnectionModel::setWaintForCnnect(bool val) {
-    if (_waitForConnect == val)
+void WaitConnectionModel::setExtraData(const QString &newExtraData) {
+    if (_extraData == newExtraData)
         return;
-
-    _waitForConnect = val;
-    emit waitForConnectChanged();
-}
-
-bool WaitConnectionModel::waitForConnect() const {
-    return _waitForConnect;
-}
-
-void WaitConnectionModel::handlePurchaseTaskFinished() {
-    setWaintForCnnect(false);
-    emit purchaseTaskFinished();
+    _extraData = newExtraData;
+    emit extraDataChanged();
 }
 
 }

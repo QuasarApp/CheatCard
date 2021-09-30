@@ -32,6 +32,8 @@ protected:
 
 private:
     QHash<long long, QSharedPointer<Session>> _lastRequested;
+
+
 };
 }
 #endif // SELLER_H

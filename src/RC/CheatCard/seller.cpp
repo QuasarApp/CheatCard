@@ -39,7 +39,7 @@ bool Seller::incrementPurchases(const QSharedPointer<UsersCards> &usersCardsData
 bool Seller::incrementPurchase(const QSharedPointer<UserHeader> &userHeaderData,
                                unsigned int cardId, int purchasesCount,
                                const QString &domain, int port) {
-    if (!userHeaderData->getSessionId())
+    if (!userHeaderData->isValid())
         return false;
 
     auto session = QSharedPointer<Session>::create();
@@ -47,9 +47,12 @@ bool Seller::incrementPurchase(const QSharedPointer<UserHeader> &userHeaderData,
     session->setSessionId(userHeaderData->getSessionId());
     session->setUsercardId(UsersCards::genId(userHeaderData->getUserId(), cardId));
 
-    if (!db()->insertObject(session, true)) {
+    if (!session->isValid()) {
         return false;
     }
+
+    session->setPrintError(false);
+    db()->insertObject(session);
 
     _lastRequested[session->getSessionId()] = session;
 

@@ -16,22 +16,68 @@ Page {
     property int freeItems: 0
     property var model: null
 
-    title: qsTr("It seems you deserve a bonus.");
+    title: qsTr("Wooooh seems like someone has %0 free %1 !!!").
+    arg(freeItems).
+    arg(((root.model)? root.model.freeItem : ""))
 
-    header: Label {
-        horizontalAlignment: Label.AlignHCenter
-        text: title
-        font.bold: true
-        visible: text.length
-    }
+    contentItem: ColumnLayout {
 
-    Label {
-        text: qsTr("You have ") + freeItems + " free's " +  root.model.freeItem;
+        Label {
+            horizontalAlignment: Label.AlignHCenter
+            text: title
+            font.bold: true
+            visible: text.length
+            font.pointSize: 15
+            wrapMode: Label.WordWrap
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            Layout.fillWidth: true
+        }
+
+        Image {
+            fillMode: Image.PreserveAspectFit
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            Layout.preferredHeight: h
+            Layout.preferredWidth: w
+
+            property int w:  Math.min(root.width, root.height) * 0.5
+            property int h: Math.min(root.width, root.height) * 0.5
+
+            source: "image://cards/seal/" +
+                    ((root.model)? root.model.id : "0")
+
+            opacity: 0
+
+            Component.onCompleted:  {
+                opacity = 1;
+            }
+
+            Behavior on w {
+                NumberAnimation {
+                    duration:  1000
+                    easing.type: Easing.OutBounce
+                }
+            }
+
+            Behavior on h {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.OutBounce
+                }
+            }
+
+            Behavior on opacity {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.OutBounce
+                }
+            }
+        }
+
     }
 
     footer: DialogButtonBox {
         onAccepted: () => {
-                        activityProcessor.pop();
+                        activityProcessor.popItem();
                     }
 
         standardButtons: Dialog.Ok

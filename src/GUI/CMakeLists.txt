@@ -33,7 +33,7 @@ add_library(${CURRENT_PROJECT} ${SOURCE_CPP} ${SOURCE_QRC})
 
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Quick REQUIRED)
 
-target_link_libraries(${CURRENT_PROJECT} PUBLIC ${PROJECT_NAME}Core QmlNotyfyService Qt${QT_VERSION_MAJOR}::Quick)
+target_link_libraries(${CURRENT_PROJECT} PUBLIC ${PROJECT_NAME}Core QmlNotyfyService SCodes )
 
 target_include_directories(${CURRENT_PROJECT} PUBLIC ${PUBLIC_INCUDE_DIR})
 target_include_directories(${CURRENT_PROJECT} PRIVATE ${PRIVATE_INCUDE_DIR})

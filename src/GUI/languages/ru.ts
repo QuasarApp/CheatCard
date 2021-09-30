@@ -173,7 +173,7 @@
     <name>EditUserView</name>
     <message>
         <source>Editing : </source>
-        <translation>Редактирование : </translation>
+        <translation type="vanished">Редактирование : </translation>
     </message>
     <message>
         <source>No user selected</source>
@@ -185,7 +185,7 @@
     </message>
     <message>
         <source>Visible user name:</source>
-        <translation>Видимое имя пользователя:</translation>
+        <translation type="vanished">Видимое имя пользователя:</translation>
     </message>
     <message>
         <source>Are you sure you want to become a seller? </source>
@@ -193,7 +193,7 @@
     </message>
     <message>
         <source>This user is not seller</source>
-        <translation>Этот пользователь не продавец</translation>
+        <translation type="vanished">Этот пользователь не продавец</translation>
     </message>
     <message>
         <source>Become a seller</source>
@@ -201,11 +201,27 @@
     </message>
     <message>
         <source>This user is seller</source>
-        <translation>Этот пользователь продавец</translation>
+        <translation type="vanished">Этот пользователь продавец</translation>
     </message>
     <message>
         <source>Seller mode</source>
         <translation>Режим продавца</translation>
+    </message>
+    <message>
+        <source>Profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are not a seller</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are a seller</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -267,6 +283,13 @@
     <message>
         <source>Registration passed!!!</source>
         <translation>Регистрация прошла !!!</translation>
+    </message>
+</context>
+<context>
+    <name>ScannerOverlay</name>
+    <message>
+        <source>Scan QR code</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
