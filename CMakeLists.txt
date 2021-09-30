@@ -34,10 +34,8 @@ addDoc(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/doxygen.conf)
 
 
 if (${QT_VERSION} VERSION_GREATER_EQUAL 6.0)
-    if (${QT_VERSION} VERSION_LESS 6.2)
-        message("This project support only qt5 or qt6 from 6.2 ")
-        return()
-    endif()
+    message("This project support only qt5 or qt6 from 6.2 ")
+    return()
 endif()
 
 
