@@ -125,7 +125,11 @@ void ConnectionTest::firstContact() {
 
     }
 
+    int sellerFreeItems = seller->getFreeItemsCount(user->userId(), cardId);
+    int visitorFreeItems = client->getFreeItemsCount(user->userId(), cardId);
 
+    QVERIFY(sellerFreeItems == visitorFreeItems);
+    QVERIFY(sellerFreeItems == 16);
     // To Do check free items count
 
 }

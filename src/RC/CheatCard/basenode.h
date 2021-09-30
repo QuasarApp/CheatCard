@@ -25,6 +25,9 @@ class CHEATCARD_CORE_EXPORT BaseNode: public QH::AbstractNode
     Q_OBJECT
 public:
     BaseNode(QH::ISqlDBCache *db);
+    int getFreeItemsCount(unsigned int userId, unsigned int cardId) const;
+    int getFreeItemsCount(const QSharedPointer<UsersCards>& inputData) const;
+    int getFreeItemsCount(const QSharedPointer<UsersCards>& inputData, unsigned int freeIndex) const;
 
 signals:
     void sigPurchaseWasSuccessful(QSharedPointer<UsersCards> data);
@@ -48,15 +51,13 @@ protected:
                          const QH::AbstractNodeInfo *sender, const QH::Header &);
 
     QSharedPointer<UsersCards>
-    getUserCardData(unsigned int userId, unsigned int cardId);
+    getUserCardData(unsigned int userId, unsigned int cardId) const;
 
     QSharedPointer<Card> getCard(unsigned int cardId);
 
     QH::ParserResult parsePackage(const QSharedPointer<QH::PKG::AbstractData> &pkg,
                                   const QH::Header &pkgHeader,
                                   const QH::AbstractNodeInfo *sender) override;
-
-    int getFreeItemsCount() const;
 
 private:
     QH::ISqlDBCache *_db = nullptr;

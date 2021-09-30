@@ -361,7 +361,7 @@ void MainModel::handlePurchaseWasSuccessful(QSharedPointer<UsersCards> card){
         freeIndex = _ownCardsListModel->cache().value(card->getCard()).source->getFreeIndex();
     }
 
-    int freeItems = card->getReceived() - std::ceil(card->getPurchasesNumber() / static_cast<double>(freeIndex));
+    int freeItems = _backEndModel->getFreeItemsCount(card, freeIndex);
     card->receive(freeItems);
     _db->insertIfExistsUpdateObject(card);
 
