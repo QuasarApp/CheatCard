@@ -365,7 +365,9 @@ void MainModel::handlePurchaseWasSuccessful(QSharedPointer<UsersCards> card){
     card->receive(freeItems);
     _db->insertIfExistsUpdateObject(card);
 
-    emit freeItem(cardModel.data(), freeItems);
+    if (freeItems > 0) {
+        emit freeItem(cardModel.data(), freeItems);
+    }
 }
 
 void MainModel::handleListenStart(int purchasesCount,
