@@ -10,7 +10,6 @@
 namespace RC {
 
 Session::Session(): QH::PKG::DBObject("Sessions") {
-
 }
 
 QH::PKG::DBObject *Session::createDBObject() const {

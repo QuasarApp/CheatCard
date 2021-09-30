@@ -88,7 +88,9 @@ void ConnectionTest::firstContact() {
 
     // 3619648333 This is card id from test database.
     unsigned int cardId = 3619648333;
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 100; i++) {
+
+        qDebug () << "test case " << i << "/" << 100;
 
         QVERIFY(seller->incrementPurchase(obj, cardId, 1, TEST_CHEAT_HOST, TEST_CHEAT_PORT));
 

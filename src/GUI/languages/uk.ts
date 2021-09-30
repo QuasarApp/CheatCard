@@ -257,6 +257,13 @@
     </message>
 </context>
 <context>
+    <name>ScannerOverlay</name>
+    <message>
+        <source>Scan QR code</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>WaitConnectView</name>
     <message>
         <source>Seal</source>

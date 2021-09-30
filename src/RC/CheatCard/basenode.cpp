@@ -184,9 +184,12 @@ bool BaseNode::processCardStatusRequest(const QSharedPointer<CardStatusRequest> 
 bool BaseNode::processSession(const QSharedPointer<Session> &session,
                               const QH::AbstractNodeInfo *sender, const QH::Header &) {
 
-    if (!_db->insertObject(session)) {
+    if (!session->isValid()) {
         return false;
     }
+
+    session->setPrintError(false);
+    db()->insertObject(session);
 
     CardStatusRequest requestData;
     requestData.setSessionId(session->getSessionId());

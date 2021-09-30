@@ -24,4 +24,25 @@ Server::Server(QH::ISqlDBCache *db): BaseNode(db) {
 
 }
 
+void Server::nodeConnected(QH::AbstractNodeInfo *node) {
+    BaseNode::nodeConnected(node);
+
+    QTimer::singleShot(WAIT_CONFIRM_TIME, this, [this, node](){
+        removeNode(node);
+    });
+}
+
+void Server::nodeDisconnected(QH::AbstractNodeInfo *node) {
+    BaseNode::nodeDisconnected(node);
+
+
+}
+
+void Server::nodeErrorOccured(QH::AbstractNodeInfo *nodeInfo, QAbstractSocket::SocketError errorCode, QString errorString) {
+    // ignore QAbstractSocket::SocketError::RemoteHostClosedError
+    if (errorCode != QAbstractSocket::SocketError::RemoteHostClosedError) {
+        BaseNode::nodeErrorOccured(nodeInfo, errorCode, errorString);
+    }
+}
+
 }
