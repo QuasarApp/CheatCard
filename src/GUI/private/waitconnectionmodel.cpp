@@ -42,22 +42,10 @@ void WaitConnectionModel::setPurchaseCount(int newPurchaseCount) {
 
 void WaitConnectionModel::begin() {
 
-    setWaintForCnnect(true);
     emit purchaseTaskCompleted(purchaseCount(), _card, _extraData);
-    handlePurchaseTaskFinished();
 }
 
 void WaitConnectionModel::cancel() {
-    setWaintForCnnect(false);
-    emit purchaseTaskCanceled();
-}
-
-void WaitConnectionModel::setWaintForCnnect(bool val) {
-    if (_waitForConnect == val)
-        return;
-
-    _waitForConnect = val;
-    emit waitForConnectChanged();
 }
 
 const QString &WaitConnectionModel::extraData() const {
@@ -69,15 +57,6 @@ void WaitConnectionModel::setExtraData(const QString &newExtraData) {
         return;
     _extraData = newExtraData;
     emit extraDataChanged();
-}
-
-bool WaitConnectionModel::waitForConnect() const {
-    return _waitForConnect;
-}
-
-void WaitConnectionModel::handlePurchaseTaskFinished() {
-    setWaintForCnnect(false);
-    emit purchaseTaskFinished();
 }
 
 }

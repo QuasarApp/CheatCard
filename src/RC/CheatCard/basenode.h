@@ -56,6 +56,8 @@ protected:
                                   const QH::Header &pkgHeader,
                                   const QH::AbstractNodeInfo *sender) override;
 
+    int getFreeItemsCount() const;
+
 private:
     QH::ISqlDBCache *_db = nullptr;
 };

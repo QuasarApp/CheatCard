@@ -24,12 +24,9 @@ ApplicationWindow {
         target: model
         function onFreeItem(card, freeItemsCount) {
 
-            var freeItems = Qt.createComponent("        FreeItemsView {
-            freeItems: " + freeItemsCount + "
-        }")
-
-            activityProcessor.newActivityFromComponent(freeItems, card);
-
+            var activity = activityProcessor.newActivity("qrc:/CheatCardModule/FreeItemsView.qml",
+                                                         card);
+            activity.freeItems = freeItemsCount
         }
 
         function onConnectionWasEnd() {
@@ -51,7 +48,7 @@ ApplicationWindow {
                 text: (userPanel.visible || activityProcessor.depth > 1)? qsTr("<<") : qsTr("三")
                 onClicked: () => {
                                if (activityProcessor.depth > 1) {
-                                   activityProcessor.pop();
+                                   activityProcessor.popItem();
                                    return;
                                }
 
@@ -110,7 +107,7 @@ ApplicationWindow {
             var activity = component.createObject(activityProcessor);
             if (activity === null) {
                 // Error Handling
-                console.error("Error creating Activity object");
+                console.error("Error creating Activity object. " + component.errorString());
                 return;
             }
 
@@ -119,6 +116,8 @@ ApplicationWindow {
             }
 
             push(activity);
+
+            return activity;
         }
 
         function newActivity(viewFile, activityModel) {
@@ -143,11 +142,21 @@ ApplicationWindow {
                 }
 
                 push(activity);
+
+                return activity;
+
             } else if (component.status === Component.Error) {
                 // Error Handling
                 console.log("Error loading component:", component.errorString());
             }
+
+
         }
+
+        function popItem() {
+            pop();
+        }
+
 
         Component.onCompleted: () => {
                                    newActivity("qrc:/CheatCardModule/MainActivity.qml",

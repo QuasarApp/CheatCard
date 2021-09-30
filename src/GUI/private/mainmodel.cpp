@@ -263,10 +263,7 @@ void MainModel::initWaitConnectionModel() {
     _waitModel = new WaitConnectionModel();
 
     connect(_waitModel, &WaitConnectionModel::purchaseTaskCompleted,
-            this, &MainModel::handleListenStart);
-
-    connect(_waitModel, &WaitConnectionModel::purchaseTaskCanceled,
-            this, &MainModel::handleListenStop);
+            this, &MainModel::handleListenStart, Qt::QueuedConnection);
 }
 
 void MainModel::setCardListModel(CardsListModel *model) {

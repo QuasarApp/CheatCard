@@ -26,12 +26,12 @@ Page {
     }
 
     Label {
-        text: qsTr("You have ") + freeItems + " free's " +  root.model.freeItem;
+        text: qsTr("You have ") + freeItems + " free's " + ((root.model)? root.model.freeItem : "");
     }
 
     footer: DialogButtonBox {
         onAccepted: () => {
-                        activityProcessor.pop();
+                        activityProcessor.popItem();
                     }
 
         standardButtons: Dialog.Ok

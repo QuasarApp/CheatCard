@@ -23,6 +23,8 @@ Page {
             focusMode: CameraFocus.FocusContinuous
             focusPointMode: CameraFocus.FocusPointAuto
         }
+
+
     }
 
     VideoOutput {

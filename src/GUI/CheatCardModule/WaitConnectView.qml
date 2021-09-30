@@ -73,22 +73,17 @@ Page {
     Component {
         id: scaner
         QrScanner {
+            id:qrScaner
             onCaptured: (data) => {
                             root.model.extraData = data;
                             root.model.begin();
+                            activityProcessor.popItem();
 
                         }
-        }
-    }
-
-    Connections {
-        target: model
-        function onPurchaseTaskCanceled () {
-            activityProcessor.pop();
-        }
-
-        function onPurchaseTaskFinished () {
-            activityProcessor.pop();
+            onVisibleChanged: {
+                if(!visible)
+                    destroy()
+            }
         }
     }
 }

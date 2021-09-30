@@ -125,6 +125,7 @@ void ConnectionTest::firstContact() {
 
     }
 
+
     // To Do check free items count
 
 }

@@ -24,6 +24,7 @@ public:
                             unsigned int cardId, int purchasesCount = 1,
                             const QString& domain = DEFAULT_CHEAT_CARD_HOST,
                             int port = DEFAULT_CHEAT_CARD_PORT);
+
 protected:
     void nodeConnected(QH::AbstractNodeInfo *node) override;
     bool incrementPurchases(const QSharedPointer<UsersCards> &usersCardsData,
