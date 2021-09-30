@@ -36,11 +36,16 @@ Page {
         // add barcodeFilter to videoOutput's filters to enable catching barcodes
         filters: [barcodeFilter]
 
+        onSourceRectChanged: {
+          barcodeFilter.captureRect = videoOutput.mapRectToSource(
+                videoOutput.mapNormalizedRectToItem(Qt.rect(0.25, 0.25, 0.5, 0.5)))
+        }
+
         ScannerOverlay {
             id: scannerOverlay
             anchors.fill: parent
 
-            captureRect: barcodeFilter.captureRect
+            captureRect: videoOutput.mapRectToItem(barcodeFilter.captureRect)
         }
 
         // used to get camera focus on touched point
@@ -59,11 +64,11 @@ Page {
     SBarcodeFilter {
         id: barcodeFilter
 
-        property int length: Math.min(videoOutput.height, videoOutput.width) * 0.9;
+        // you can adjust capture rect (scan area) ne changing these Qt.rect() parameters
+        captureRect: videoOutput.mapRectToSource(
+                       videoOutput.mapNormalizedRectToItem(Qt.rect(0.25, 0.25,
+                                                                   0.5, 0.5)))
 
-
-        captureRect: Qt.rect((videoOutput.width - length) / 2,
-                             (videoOutput.height - length) / 2, length, length)
         onCapturedChanged: (captured) => {
             root.captured(captured)
         }
