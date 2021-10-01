@@ -27,7 +27,7 @@ Page {
         rowSpacing: 10
         columnSpacing: 10
         Label {
-            text: qsTr("User Id:");
+            text: qsTr("My Id:");
         }
 
         Label {
@@ -37,7 +37,7 @@ Page {
         }
 
         Label {
-            text: qsTr("Visible user name:");
+            text: qsTr("Its my name:");
         }
 
         TextField {
@@ -58,13 +58,13 @@ Page {
 
         Label {
             text: (becomeaseller.visible)?
-                      qsTr("This user is not seller"):
-                      qsTr("This user is seller");
+                      qsTr("Just a customer"):
+                      qsTr("Salesman!");
         }
 
         Button {
             id: becomeaseller
-            text: qsTr("Become a seller");
+            text: qsTr("I want to sell!");
             Layout.alignment: Qt.AlignHCenter
             Layout.columnSpan: 1
             visible: Boolean(root.userModel && !root.userModel.fSaller)
@@ -99,7 +99,7 @@ Page {
 
         header: Label {
             horizontalAlignment: Label.AlignHCenter
-            text: qsTr("Are you sure you want to become a seller? ");
+            text: qsTr("Do you really want? ");
             font.bold: true
         }
 

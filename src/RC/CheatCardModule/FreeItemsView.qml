@@ -16,7 +16,7 @@ Page {
     property int freeItems: 0
     property var model: null
 
-    title: qsTr("It seems you deserve a bonus.");
+    title: qsTr("Fine! Here's a well-deserved bonus!");
 
     header: Label {
         horizontalAlignment: Label.AlignHCenter

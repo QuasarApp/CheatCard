@@ -5,11 +5,11 @@
     <name>CardsListView</name>
     <message>
         <source>You do not have any card. </source>
-        <translation>У вас нет карт. </translation>
+        <translation type="vanished">У вас нет карт. </translation>
     </message>
     <message>
         <source>Visit any coffee to get a new card and their bonuses</source>
-        <translation>Посетите какое либо кафе, чтобы получить новую карту и свои бонусы</translation>
+        <translation type="vanished">Посетите какое либо кафе, чтобы получить новую карту и свои бонусы</translation>
     </message>
     <message>
         <source>Please create a new card for work</source>
@@ -25,7 +25,19 @@
     </message>
     <message>
         <source>Please create a new card for work. Press &quot;Add Card &quot; button</source>
-        <translation>Пожалуйста, создайте новую карточку для работы. Нажмите кнопку &quot;Добавить карту&quot;</translation>
+        <translation type="vanished">Пожалуйста, создайте новую карточку для работы. Нажмите кнопку &quot;Добавить карту&quot;</translation>
+    </message>
+    <message>
+        <source>Don&apos;t have any cards yet? </source>
+        <translation>Еще нет карточек? </translation>
+    </message>
+    <message>
+        <source>Visit any coffee and start receiving bonuses now!</source>
+        <translation>Посетите любое кафе и получайте бонусы прямо сейчас!</translation>
+    </message>
+    <message>
+        <source>Let&apos;s go create the first card! Press &quot;Add Card &quot; button</source>
+        <translation>Вперёд создадим первую карту! Нажмите кнопку «Добавить карту».</translation>
     </message>
 </context>
 <context>
@@ -71,7 +83,11 @@
     <message>
         <source>please wait until the exchange is successful  </source>
         <translatorcomment>Дождитесь окончания операции</translatorcomment>
-        <translation>please wait until the exchange is successful  </translation>
+        <translation type="vanished">please wait until the exchange is successful  </translation>
+    </message>
+    <message>
+        <source>Waiting for joy is also joy.  </source>
+        <translation>Ожидание радости - тоже радость.  </translation>
     </message>
 </context>
 <context>
@@ -181,31 +197,55 @@
     </message>
     <message>
         <source>User Id:</source>
-        <translation>ID пользователя:</translation>
+        <translation type="vanished">ID пользователя:</translation>
     </message>
     <message>
         <source>Visible user name:</source>
-        <translation>Видимое имя пользователя:</translation>
+        <translation type="vanished">Видимое имя пользователя:</translation>
     </message>
     <message>
         <source>Are you sure you want to become a seller? </source>
-        <translation>Вы уверены, что хотите стать продавцом? </translation>
+        <translation type="vanished">Вы уверены, что хотите стать продавцом? </translation>
     </message>
     <message>
         <source>This user is not seller</source>
-        <translation>Этот пользователь не продавец</translation>
+        <translation type="vanished">Этот пользователь не продавец</translation>
     </message>
     <message>
         <source>Become a seller</source>
-        <translation>Стать продавцом</translation>
+        <translation type="vanished">Стать продавцом</translation>
     </message>
     <message>
         <source>This user is seller</source>
-        <translation>Этот пользователь продавец</translation>
+        <translation type="vanished">Этот пользователь продавец</translation>
     </message>
     <message>
         <source>Seller mode</source>
         <translation>Режим продавца</translation>
+    </message>
+    <message>
+        <source>Its my name:</source>
+        <translation>Моё имя:</translation>
+    </message>
+    <message>
+        <source>My Id:</source>
+        <translation>Мой ID:</translation>
+    </message>
+    <message>
+        <source>Just a customer</source>
+        <translation>Просто посетитель</translation>
+    </message>
+    <message>
+        <source>Salesman!</source>
+        <translation>Продавец!</translation>
+    </message>
+    <message>
+        <source>Do you really want? </source>
+        <translation>А вы точно хотите? </translation>
+    </message>
+    <message>
+        <source>I want to sell!</source>
+        <translation>Я хочу продавать!</translation>
     </message>
 </context>
 <context>
@@ -247,18 +287,22 @@
     <name>FreeItemsView</name>
     <message>
         <source>It seems you deserve a bonus.</source>
-        <translation>Похоже, вы заслужили бонус.</translation>
+        <translation type="vanished">Похоже, вы заслужили бонус.</translation>
     </message>
     <message>
         <source>You have </source>
         <translation>У вас есть </translation>
+    </message>
+    <message>
+        <source>Fine! Here&apos;s a well-deserved bonus!</source>
+        <translation>Отлично! Вот и заслуженный бонус!</translation>
     </message>
 </context>
 <context>
     <name>RegistrationFinishedPage</name>
     <message>
         <source>The registration of the new user finished successful. Now you can use you card.</source>
-        <translation>Регистрация нового пользователя завершилась успешно. Теперь вы можете использовать свою карту.</translation>
+        <translation type="vanished">Регистрация нового пользователя завершилась успешно. Теперь вы можете использовать свою карту.</translation>
     </message>
     <message>
         <source>Go to use</source>
@@ -267,6 +311,10 @@
     <message>
         <source>Registration passed!!!</source>
         <translation>Регистрация прошла !!!</translation>
+    </message>
+    <message>
+        <source>Now let&apos;s move on to using!</source>
+        <translation>Теперь перейдем к использованию!</translation>
     </message>
 </context>
 <context>

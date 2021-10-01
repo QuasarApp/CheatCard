@@ -9,11 +9,11 @@
     </message>
     <message>
         <source>You do not have any card. </source>
-        <translation>You do not have any card. </translation>
+        <translation type="vanished">You do not have any card. </translation>
     </message>
     <message>
         <source>Visit any coffee to get a new card and their bonuses</source>
-        <translation>Visit any coffee to get a new card and their bonuses</translation>
+        <translation type="vanished">Visit any coffee to get a new card and their bonuses</translation>
     </message>
     <message>
         <source>Please create a new card for work</source>
@@ -25,7 +25,19 @@
     </message>
     <message>
         <source>Please create a new card for work. Press &quot;Add Card &quot; button</source>
-        <translation>Please create a new card for work. Press &quot;Add Card &quot; button</translation>
+        <translation type="vanished">Please create a new card for work. Press &quot;Add Card &quot; button</translation>
+    </message>
+    <message>
+        <source>Don&apos;t have any cards yet? </source>
+        <translation>Don&apos;t have any cards yet? </translation>
+    </message>
+    <message>
+        <source>Visit any coffee and start receiving bonuses now!</source>
+        <translation>Visit any coffee and start receiving bonuses now!</translation>
+    </message>
+    <message>
+        <source>Let&apos;s go create the first card! Press &quot;Add Card &quot; button</source>
+        <translation>Let&apos;s go create the first card! Press &quot;Add Card &quot; button</translation>
     </message>
 </context>
 <context>
@@ -74,7 +86,11 @@
     <name>ConnectionStatus</name>
     <message>
         <source>please wait until the exchange is successful  </source>
-        <translation>please wait until the exchange is successful  </translation>
+        <translation type="vanished">please wait until the exchange is successful  </translation>
+    </message>
+    <message>
+        <source>Waiting for joy is also joy.  </source>
+        <translation>Waiting for joy is also joy.  </translation>
     </message>
 </context>
 <context>
@@ -184,11 +200,11 @@
     </message>
     <message>
         <source>User Id:</source>
-        <translation>User Id:</translation>
+        <translation type="vanished">User Id:</translation>
     </message>
     <message>
         <source>Visible user name:</source>
-        <translation>Visible user name:</translation>
+        <translation type="vanished">Visible user name:</translation>
     </message>
     <message>
         <source>This user is not saller</source>
@@ -200,7 +216,7 @@
     </message>
     <message>
         <source>Are you sure you want to become a seller? </source>
-        <translation>Are you sure you want to become a seller? </translation>
+        <translation type="vanished">Are you sure you want to become a seller? </translation>
     </message>
     <message>
         <source>Editing : </source>
@@ -208,19 +224,43 @@
     </message>
     <message>
         <source>This user is not seller</source>
-        <translation>This user is not seller</translation>
+        <translation type="vanished">This user is not seller</translation>
     </message>
     <message>
         <source>Become a seller</source>
-        <translation>Become a seller</translation>
+        <translation type="vanished">Become a seller</translation>
     </message>
     <message>
         <source>This user is seller</source>
-        <translation>This user is seller</translation>
+        <translation type="vanished">This user is seller</translation>
     </message>
     <message>
         <source>Seller mode</source>
         <translation>Seller mode</translation>
+    </message>
+    <message>
+        <source>Its my name:</source>
+        <translation>Its my name:</translation>
+    </message>
+    <message>
+        <source>My Id:</source>
+        <translation>My Id:</translation>
+    </message>
+    <message>
+        <source>Just a customer</source>
+        <translation>Just a customer</translation>
+    </message>
+    <message>
+        <source>Salesman!</source>
+        <translation>Salesman!</translation>
+    </message>
+    <message>
+        <source>Do you really want? </source>
+        <translation>Do you really want? </translation>
+    </message>
+    <message>
+        <source>I want to sell!</source>
+        <translation>I want to sell!</translation>
     </message>
 </context>
 <context>
@@ -282,11 +322,15 @@
     <name>FreeItemsView</name>
     <message>
         <source>It seems you deserve a bonus.</source>
-        <translation>It seems you deserve a bonus.</translation>
+        <translation type="vanished">It seems you deserve a bonus.</translation>
     </message>
     <message>
         <source>You have </source>
         <translation>You have </translation>
+    </message>
+    <message>
+        <source>Fine! Here&apos;s a well-deserved bonus!</source>
+        <translation>Fine! Here&apos;s a well-deserved bonus!</translation>
     </message>
 </context>
 <context>
@@ -297,7 +341,7 @@
     </message>
     <message>
         <source>The registration of the new user finished successful. Now you can use you card.</source>
-        <translation>The registration of the new user finished successful. Now you can use you card.</translation>
+        <translation type="vanished">The registration of the new user finished successful. Now you can use you card.</translation>
     </message>
     <message>
         <source>Go to use</source>
@@ -306,6 +350,10 @@
     <message>
         <source>Registration passed!!!</source>
         <translation>Registration passed!!!</translation>
+    </message>
+    <message>
+        <source>Now let&apos;s move on to using!</source>
+        <translation>Now let&apos;s move on to using!</translation>
     </message>
 </context>
 <context>

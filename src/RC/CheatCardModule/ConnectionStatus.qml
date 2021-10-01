@@ -20,7 +20,7 @@ Page {
         }
 
         Label {
-            text: qsTr("please wait until the exchange is successful  ")
+            text: qsTr("Waiting for joy is also joy.  ")
             Layout.alignment: Qt.AlignHCenter
             Layout.fillWidth: true
 
