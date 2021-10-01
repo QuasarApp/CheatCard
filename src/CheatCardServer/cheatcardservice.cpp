@@ -6,9 +6,18 @@
 //#
 
 #include "cheatcardservice.h"
+#include <QDateTime>
 
 CheatCardService::CheatCardService(int argc, char **argv):
     Patronum::Service<QCoreApplication>(argc, argv) {
+
+    QString fileLog = QuasarAppUtils::Params::getArg("fileLog");
+
+    if (!fileLog.length()) {
+        QuasarAppUtils::Params::setArg("fileLog", QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/log" + QDateTime::currentDateTimeUtc().toString("_dd_MM_yyyy") + ".log");
+    }
+
+    QuasarAppUtils::Params::log("Log available in: " + QuasarAppUtils::Params::getArg("fileLog"));
 
 }
 
@@ -25,6 +34,7 @@ CheatCardService::~CheatCardService() {
 void CheatCardService::onStart() {
     if (!_db) {
         _db = new RC::DataBase;
+        _db->initSqlDb();
     }
 
     if (!_server) {
@@ -50,8 +60,9 @@ bool CheatCardService::handleReceive(const Patronum::Feature &data) {
     if (data.cmd() == "ping") {
         sendResuylt("Pong");
     } else if (data.cmd() == "state") {
-
-        sendResuylt(_server->getWorkState().toString());
+        QString result = _server->getWorkState().toString();
+        result += "\n Lo file available in - " + QuasarAppUtils::Params::getArg("fileLog", "not used");
+        sendResuylt(result);
     }
 
     return true;

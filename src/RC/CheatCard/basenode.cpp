@@ -227,7 +227,6 @@ bool BaseNode::processSession(const QSharedPointer<Session> &session,
     CardStatusRequest requestData;
     requestData.setSessionId(session->getSessionId());
 
-
     return sendData(&requestData, sender->networkAddress());
 }
 

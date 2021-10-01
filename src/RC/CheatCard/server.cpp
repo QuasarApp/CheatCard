@@ -34,8 +34,6 @@ void Server::nodeConnected(QH::AbstractNodeInfo *node) {
 
 void Server::nodeDisconnected(QH::AbstractNodeInfo *node) {
     BaseNode::nodeDisconnected(node);
-
-
 }
 
 void Server::nodeErrorOccured(QH::AbstractNodeInfo *nodeInfo, QAbstractSocket::SocketError errorCode, QString errorString) {
