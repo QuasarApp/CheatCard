@@ -17,7 +17,7 @@
 #  define CHEATCARD_CORE_EXPORT Q_DECL_IMPORT
 #endif
 
-#define DEFAULT_CHEAT_CARD_HOST "localhost"
+#define DEFAULT_CHEAT_CARD_HOST "quasarapp.ddns.net"
 #define DEFAULT_CHEAT_CARD_PORT 7122
 
 #endif //CHEATCARD_CORE_GLOBAL_H
