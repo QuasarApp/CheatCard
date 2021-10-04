@@ -70,6 +70,9 @@ public:
 
     QObject *waitModel() const;
 
+public slots:
+    void handleFirstDataSendet();
+
 signals:
 
     void fFirstChanged();
@@ -103,7 +106,6 @@ private slots:
     void handlePurchaseWasSuccessful(QSharedPointer<UsersCards>);
     void handleListenStart(int purchasesCount, QSharedPointer<CardModel> model, const QString &extraData);
     void handleListenStop();
-    void handleFirstDataSendet();
 
 
 private:
