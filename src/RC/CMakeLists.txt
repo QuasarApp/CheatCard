@@ -45,3 +45,5 @@ prepareQM(${CURRENT_PROJECT} ${CMAKE_CURRENT_SOURCE_DIR} "${LANGS}")
 
 #set(QML_IMPORT_PATH ${QML_IMPORT_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/" CACHE STRING "" FORCE)
 
+set(global_file "${CMAKE_CURRENT_SOURCE_DIR}/CheatCard/core_global.h")
+configure_file("${global_file}.in" ${global_file} @ONLY)

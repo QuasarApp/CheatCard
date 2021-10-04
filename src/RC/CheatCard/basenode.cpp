@@ -95,6 +95,10 @@ int BaseNode::getFreeItemsCount(const QSharedPointer<UsersCards> &inputData,
     return freeItems;
 }
 
+QString BaseNode::libVersion() const {
+    return CHEAT_CARD_VERSION;
+}
+
 bool BaseNode::processCardStatus(const QSharedPointer<UsersCards> &cardStatus,
                                  const QH::AbstractNodeInfo *sender, const QH::Header &) {
 

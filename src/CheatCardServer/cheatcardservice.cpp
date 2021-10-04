@@ -48,6 +48,7 @@ void CheatCardService::onStart() {
 
 void CheatCardService::onStop() {
     _server->stop();
+    QCoreApplication::quit();
 }
 
 bool CheatCardService::handleReceive(const Patronum::Feature &data) {
@@ -62,6 +63,10 @@ bool CheatCardService::handleReceive(const Patronum::Feature &data) {
     } else if (data.cmd() == "state") {
         QString result = _server->getWorkState().toString();
         result += "\n Lo file available in - " + QuasarAppUtils::Params::getArg("fileLog", "not used");
+        result += "\n core lib version: " + _server->libVersion();
+        result += "\n heart lib version: " + QH::heartLibVersion();
+        result += "\n patronum lib version: " + Patronum::patronumLibVersion();
+
         sendResuylt(result);
     }
 
