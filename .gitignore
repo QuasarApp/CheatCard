@@ -69,4 +69,4 @@ _deps
 # cmake config files
 Deploy/CheatCard.json
 Deploy/CheatCardServer.json
-core_global.h
+src/RC/CheatCard/core_global.h
