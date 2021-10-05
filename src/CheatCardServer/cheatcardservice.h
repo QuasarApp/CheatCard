@@ -22,13 +22,14 @@ public:
     ~CheatCardService() override;
 
     void onStart() override;
-    void onStop() override;
     bool handleReceive(const Patronum::Feature &data) override;
     QSet<Patronum::Feature> supportedFeatures() override;
-
+    void onResume() override;
+    void onPause() override;
 private:
     RC::Server *_server = nullptr;
     RC::DataBase * _db = nullptr;
+
 
 };
 
