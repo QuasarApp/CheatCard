@@ -10,6 +10,7 @@ cmake_minimum_required(VERSION 3.14)
 add_definitions(-DCHEATCARD_CORE_LIBRARY)
 set(CURRENT_PROJECT "${PROJECT_NAME}Core")
 
+updateGitVars()
 
 file(GLOB SOURCE_CPP
     "*CheatCard/*.cpp"
