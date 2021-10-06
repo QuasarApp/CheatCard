@@ -179,6 +179,14 @@ bool BaseNode::processCardRequest(const QSharedPointer<CardDataRequest> &cardreq
 
 
     auto card = getCard(cardrequest->getCardId());
+
+    if (!card) {
+        QuasarAppUtils::Params::log(QString("Failed to find card with id: %0").
+                                    arg(cardrequest->getCardId()),
+                                    QuasarAppUtils::Error);
+        return false;
+    }
+
     card->setRequestToken(cardrequest->requestToken());
 
     if (!sendData(card.data(), sender)) {

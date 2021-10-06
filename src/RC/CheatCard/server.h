@@ -28,6 +28,11 @@ protected:
     void nodeErrorOccured(QH::AbstractNodeInfo *nodeInfo,
                                   QAbstractSocket::SocketError errorCode,
                                   QString errorString) override;
+
+
+    QH::ParserResult parsePackage(const QSharedPointer<QH::PKG::AbstractData> &pkg,
+                                  const QH::Header &pkgHeader,
+                                  const QH::AbstractNodeInfo *sender) override;
 };
 }
 #endif // SERVER_H
