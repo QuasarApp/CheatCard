@@ -60,12 +60,15 @@ protected:
                                   const QH::Header &pkgHeader,
                                   const QH::AbstractNodeInfo *sender) override;
 
+    // AbstractNode interface
+protected:
+    QH::AbstractNodeInfo *createNodeInfo(QAbstractSocket *socket,
+                                         const QH::HostAddress *clientAddress) const override;
+
 private:
     QH::ISqlDBCache *_db = nullptr;
 
-    // AbstractNode interface
-protected:
-    QH::AbstractNodeInfo *createNodeInfo(QAbstractSocket *socket, const QH::HostAddress *clientAddress) const override;
+
 };
 }
 #endif // BASENODE_H

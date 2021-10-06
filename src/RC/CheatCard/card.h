@@ -90,4 +90,7 @@ private:
 };
 
 }
+
+Q_DECLARE_METATYPE(RC::Card)
+
 #endif // CARD_H

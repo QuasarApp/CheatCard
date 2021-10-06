@@ -68,4 +68,7 @@ private:
 };
 
 }
+
+Q_DECLARE_METATYPE(RC::UsersCards)
+
 #endif // USERSCARDS_H
