@@ -57,11 +57,11 @@ bool CheatCardService::handleReceive(const Patronum::Feature &data) {
         sendResuylt("Pong");
     } else if (data.cmd() == "state") {
         QVariantMap result;
-        result["Status"] = _server->getWorkState().toString();
-        result["Log file available"] = QuasarAppUtils::Params::getArg("fileLog", "Not used");
-        result["Core lib version"] = _server->libVersion();
-        result["Heart lib version"] = QH::heartLibVersion();
-        result["Patronum lib version"] = Patronum::patronumLibVersion();
+        result["1. Status"] = _server->getWorkState().toString();
+        result["2. Log file available"] = QuasarAppUtils::Params::getArg("fileLog", "Not used");
+        result["3. Core lib version"] = _server->libVersion();
+        result["4. Heart lib version"] = QH::heartLibVersion();
+        result["5. Patronum lib version"] = Patronum::patronumLibVersion();
 
         sendResuylt(result);
     }
@@ -77,6 +77,7 @@ QSet<Patronum::Feature> CheatCardService::supportedFeatures() {
 
     return data;
 }
+
 
 void CheatCardService::onResume() {
     onStart();

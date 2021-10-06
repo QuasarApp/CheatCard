@@ -18,6 +18,7 @@ namespace RC {
 
 class CardStatusRequest: public QH::PKG::AbstractData
 {
+    QH_PACKAGE(CardStatusRequest, "CardStatusRequest")
 public:
     CardStatusRequest();
     bool isValid() const override;
@@ -36,6 +37,8 @@ private:
 
 class CHEATCARD_CORE_EXPORT UserHeader: public QH::PKG::AbstractData
 {
+    QH_PACKAGE(UserHeader, "UserHeader")
+
 public:
     UserHeader();
     bool isValid() const override;
@@ -61,6 +64,7 @@ private:
 
 
 class CardDataRequest: public QH::PKG::AbstractData{
+    QH_PACKAGE(CardDataRequest, "CardDataRequest")
 
     // AbstractData interface
 public:
@@ -80,7 +84,7 @@ private:
 
 };
 
-class Successful: public QH::PKG::AbstractData{};
+class Successful: public QH::PKG::AbstractData{QH_PACKAGE(Successful, "Successful")};
 
 }
 

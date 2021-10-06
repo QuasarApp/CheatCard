@@ -16,6 +16,8 @@ namespace RC {
 
 class Session : public QH::PKG::DBObject
 {
+    QH_PACKAGE(Session, "Session")
+
 public:
     Session();
 

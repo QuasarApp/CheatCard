@@ -18,6 +18,7 @@ namespace RC {
  */
 class CHEATCARD_CORE_EXPORT Card: public QH::PKG::DBObject
 {
+    QH_PACKAGE(Card, "Card")
 public:
     Card();
     QH::PKG::DBObject *createDBObject() const override;

@@ -18,6 +18,8 @@ namespace RC {
 
 class CHEATCARD_CORE_EXPORT UsersCards: public QH::PKG::DBObject
 {
+    QH_PACKAGE(UsersCards, "UsersCards")
+
 public:
     UsersCards();
     UsersCards(unsigned int user, unsigned int card, bool owner = false);
