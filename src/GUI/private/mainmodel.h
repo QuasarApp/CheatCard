@@ -11,7 +11,6 @@
 #include <QObject>
 #include <QSettings>
 #include <CheatCard/database.h>
-#include <CheatCard/datastructures.h>
 
 namespace RC {
 

@@ -9,13 +9,13 @@
 #include "testdatabasewrapper.h"
 #include "testserver.h"
 #include <CheatCard/card.h>
-#include <CheatCard/datastructures.h>
 #include <CheatCard/user.h>
 #include <thread>
 #include <chrono>
 #include <CheatCard/visitor.h>
 #include <CheatCard/seller.h>
 #include <CheatCard/server.h>
+#include <CheatCard/userheader.h>
 #include <testseller.h>
 #include <testvisitor.h>
 #include <type_traits>

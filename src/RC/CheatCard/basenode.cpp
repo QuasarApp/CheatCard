@@ -7,9 +7,11 @@
 
 
 #include "basenode.h"
+#include "carddatarequest.h"
+#include "cardstatusrequest.h"
+#include "nodeinfo.h"
 
 #include <CheatCard/card.h>
-#include <CheatCard/datastructures.h>
 #include <dbobjectsrequest.h>
 #include <CheatCard/session.h>
 #include <CheatCard/userscards.h>
@@ -64,6 +66,11 @@ QH::ParserResult BaseNode::parsePackage(const QSharedPointer<QH::PKG::AbstractDa
     return QH::ParserResult::NotProcessed;
 }
 
+QH::AbstractNodeInfo *BaseNode::createNodeInfo(QAbstractSocket *socket,
+                                               const QH::HostAddress *clientAddress) const {
+    return new NodeInfo(socket, clientAddress);
+}
+
 int BaseNode::getFreeItemsCount(unsigned int userId,
                                 unsigned int cardId) const {
     return getFreeItemsCount(getUserCardData(userId, cardId));
@@ -115,6 +122,11 @@ bool BaseNode::processCardStatus(const QSharedPointer<UsersCards> &cardStatus,
     if (!dbCard) {
         CardDataRequest request;
         request.setCardId(cardStatus->getCard());
+        unsigned long long token = rand() * rand();
+        request.setRequestToken(token);
+
+        auto senderInfo = static_cast<NodeInfo*>(getInfoPtr(sender->networkAddress()));
+        senderInfo->setToken(token);
 
         if (!sendData(&request, sender)) {
             QuasarAppUtils::Params::log("Failed to send responce", QuasarAppUtils::Error);
@@ -162,7 +174,9 @@ QSharedPointer<Card> BaseNode::getCard(unsigned int cardId) {
 bool BaseNode::processCardRequest(const QSharedPointer<CardDataRequest> &cardrequest,
                                   const QH::AbstractNodeInfo *sender, const QH::Header &) {
 
+
     auto card = getCard(cardrequest->getCardId());
+    card->setRequestToken(cardrequest->requestToken());
 
     if (!sendData(card.data(), sender)) {
 
@@ -176,8 +190,15 @@ bool BaseNode::processCardRequest(const QSharedPointer<CardDataRequest> &cardreq
 bool BaseNode::processCardData(const QSharedPointer<Card> &card,
                                const QH::AbstractNodeInfo *sender, const QH::Header &) {
 
+    auto senderInfo = static_cast<const NodeInfo*>(sender);
+
     if (!card->isValid())
         return false;
+
+    if (card->requestToken() != senderInfo->token()) {
+        QuasarAppUtils::Params::log("Receive not requested responce!");
+        return false;
+    }
 
     if (!_db->insertIfExistsUpdateObject(card)) {
         return false;
