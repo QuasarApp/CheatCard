@@ -64,7 +64,7 @@ bool CheatCardService::handleReceive(const Patronum::Feature &data) {
         result["5. Patronum lib version"] = Patronum::patronumLibVersion();
 
         sendResuylt(result);
-    } else if (data.cmd() == "verbose") {
+    } else if (data.cmd() == "setVerbose") {
         QuasarAppUtils::Params::setArg("verbose", data.arg());
 
         sendResuylt("New verbose level is " + QuasarAppUtils::Params::getArg("verbose"));
@@ -78,7 +78,7 @@ QSet<Patronum::Feature> CheatCardService::supportedFeatures() {
 
     data << Patronum::Feature("ping", {}, "This is description of the ping command");
     data << Patronum::Feature("state", {}, "return state");
-    data << Patronum::Feature("verbose", "verbose level", "sets new verbose log level");
+    data << Patronum::Feature("setVerbose", "verbose level", "sets new verbose log level");
 
     return data;
 }
