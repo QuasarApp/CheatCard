@@ -112,6 +112,7 @@ QString BaseNode::libVersion() const {
 bool BaseNode::processCardStatus(const QSharedPointer<UsersCards> &cardStatus,
                                  const QH::AbstractNodeInfo *sender, const QH::Header &) {
 
+    QuasarAppUtils::Params::log(QString("processCardStatus: begin"), QuasarAppUtils::Info);
 
     Card userrquest;
     userrquest.setId(cardStatus->getCard());
@@ -177,6 +178,7 @@ QSharedPointer<Card> BaseNode::getCard(unsigned int cardId) {
 bool BaseNode::processCardRequest(const QSharedPointer<CardDataRequest> &cardrequest,
                                   const QH::AbstractNodeInfo *sender, const QH::Header &) {
 
+    QuasarAppUtils::Params::log(QString("processCardRequest: begin"), QuasarAppUtils::Info);
 
     auto card = getCard(cardrequest->getCardId());
 
@@ -200,6 +202,8 @@ bool BaseNode::processCardRequest(const QSharedPointer<CardDataRequest> &cardreq
 
 bool BaseNode::processCardData(const QSharedPointer<Card> &card,
                                const QH::AbstractNodeInfo *sender, const QH::Header &) {
+
+    QuasarAppUtils::Params::log(QString("processCardData: begin"), QuasarAppUtils::Info);
 
     auto senderInfo = static_cast<const NodeInfo*>(sender);
 
@@ -226,6 +230,8 @@ QH::ISqlDBCache *BaseNode::db() const {
 
 bool BaseNode::processCardStatusRequest(const QSharedPointer<CardStatusRequest> &cardStatus,
                                         const QH::AbstractNodeInfo *sender, const QH::Header &) {
+
+    QuasarAppUtils::Params::log(QString("processCardStatusRequest: begin"), QuasarAppUtils::Info);
 
     auto sessionId = cardStatus->getSessionId();
 
