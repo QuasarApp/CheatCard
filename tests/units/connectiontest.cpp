@@ -97,32 +97,32 @@ void ConnectionTest::firstContact() {
         QVERIFY(wait([server, cardId](){
             auto card = server->getCard(cardId);
             return card && card->isValid();
-        }, 1000));
+        }, WAIT_TIME));
 
 
         QVERIFY(wait([server, user, cardId, i](){
             return server->getPurchaseCount(user->userId(), cardId) == (i + 1);
-        }, 1000));
+        }, WAIT_TIME));
 
         QVERIFY(wait([server](){
             return server->connectionsCount() == 0;
-        }, 1000));
+        }, WAIT_TIME));
 
         QVERIFY(client->checkCardData(session, TEST_CHEAT_HOST, TEST_CHEAT_PORT));
 
         QVERIFY(wait([client, cardId](){
             auto card = client->getCard(cardId);
             return card && card->isValid();
-        }, 1000));
+        }, WAIT_TIME));
 
 
         QVERIFY(wait([client, user, cardId, i](){
             return client->getPurchaseCount(user->userId(), cardId) == (i + 1);
-        }, 1000));
+        }, WAIT_TIME));
 
         QVERIFY(wait([server](){
             return server->connectionsCount() == 0;
-        }, 1000));
+        }, WAIT_TIME));
 
     }
 
