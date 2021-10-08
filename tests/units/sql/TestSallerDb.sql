@@ -37,9 +37,11 @@ CREATE TABLE IF NOT EXISTS "Users" (
 CREATE TABLE IF NOT EXISTS "Config" (
         "user"	INTEGER NOT NULL UNIQUE,
         "fFirst"	BOOLEAN NOT NULL DEFAULT false,
+        "fSellerMode"	BOOLEAN NOT NULL DEFAULT true,
         FOREIGN KEY("user") REFERENCES "Users"("id") ON UPDATE CASCADE ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS "UsersCards" (
+        "id"	INTEGER NOT NULL UNIQUE,
         "user"	INTEGER NOT NULL,
         "card"	INTEGER NOT NULL,
         "owner"	BOOLEAN NOT NULL DEFAULT false,
@@ -48,24 +50,28 @@ CREATE TABLE IF NOT EXISTS "UsersCards" (
         FOREIGN KEY("card") REFERENCES "Cards"("id") ON UPDATE CASCADE ON DELETE CASCADE,
         FOREIGN KEY("user") REFERENCES "Users"("id") ON UPDATE CASCADE ON DELETE CASCADE
 );
+CREATE TABLE IF NOT EXISTS "Sessions" (
+        "id"	INTEGER NOT NULL,
+        "usersCardsID"	INTEGER NOT NULL,
+        FOREIGN KEY("usersCardsID") REFERENCES "UsersCards"("id") ON UPDATE CASCADE ON DELETE CASCADE
+);
 CREATE TABLE IF NOT EXISTS "Contacts" (
         "user"	INTEGER NOT NULL,
         "contactUser"	INTEGER NOT NULL,
-        FOREIGN KEY("contactUser") REFERENCES "Users"("id") ON UPDATE CASCADE ON DELETE CASCADE,
-        FOREIGN KEY("user") REFERENCES "Users"("id") ON UPDATE CASCADE ON DELETE CASCADE
+        FOREIGN KEY("user") REFERENCES "Users"("id") ON UPDATE CASCADE ON DELETE CASCADE,
+        FOREIGN KEY("contactUser") REFERENCES "Users"("id") ON UPDATE CASCADE ON DELETE CASCADE
 );
-INSERT INTO "Cards" VALUES (2887308033,NULL,NULL,NULL,'Test',NULL,NULL,NULL,NULL,NULL,'TestItem','#777777',6);
-INSERT INTO "Users" VALUES (0,'sdf',X'5fe0ebbcbaebcf33a823deaf8f0c1dc27d009dda614b8904f58be2f03af072a6',1);
-INSERT INTO "Users" VALUES (2425662745,'sdf',X'5fe0ebbcbaebcf33a823deaf8f0c1dc27d009dda614b8904f58be2f03af072a6',1);
-INSERT INTO "Config" VALUES (2425662745,0);
-INSERT INTO "UsersCards" VALUES (2425662745,2887308033,1,0,0);
+INSERT INTO "Cards" VALUES (3619648333,NULL,NULL,NULL,'Test',NULL,NULL,NULL,NULL,NULL,'Test','#777777',6);
+INSERT INTO "Users" VALUES (2019509448,'seller For test',X'5fe0ebbcbaebcf33a823deaf8f0c1dc27d009dda614b8904f58be2f03af072a6',1);
+INSERT INTO "Config" VALUES (2019509448,0,1);
+INSERT INTO "UsersCards" VALUES (8673727036742660941,2019509448,3619648333,1,0,0);
 CREATE UNIQUE INDEX IF NOT EXISTS "MemberPermisionsIndex" ON "MemberPermisions" (
         "memberId",
         "dbAddress"
 );
-CREATE UNIQUE INDEX IF NOT EXISTS "UsersCardsIndex" ON "UsersCards" (
-        "user",
-        "card"
+CREATE UNIQUE INDEX IF NOT EXISTS "SessionsIndex" ON "Sessions" (
+        "id",
+        "usersCardsID"
 );
 CREATE UNIQUE INDEX IF NOT EXISTS "ContactsIndex" ON "Contacts" (
         "user",

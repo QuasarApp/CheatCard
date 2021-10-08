@@ -1,0 +1,27 @@
+{
+    "bin": [
+        "src/RCApp/CheatCard",
+        "src/RCApp/CheatCard.exe"
+        ],
+    "clear": false,
+    "libDir": "./../",
+    "name": "CheatCard",
+    "recursiveDepth": "10",
+    "deploySystem": false,
+    "qmlDir": "./../src",
+    "ignoreEnv": [
+        "./../installer",
+        "./../Distro",
+        "./../parts",
+        "./../snap",
+        "./../prime",
+        "./../stage"
+        ],
+    "extraLib": "crypto",
+    "targetDir": "./../Distro",
+    "deployVersion": "0.@GIT_COMMIT_COUNT@.@GIT_COMMIT_HASH@",
+    "qif": true,
+    "zip": true,
+    "deb": true
+}
+

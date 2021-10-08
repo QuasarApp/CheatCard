@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS "Config" (
 
 -- Matches tables
 CREATE TABLE IF NOT EXISTS "UsersCards" (
+       "id"   INTEGER NOT NULL UNIQUE,
        "user" INTEGER NOT NULL,
        "card" INTEGER NOT NULL,
 
@@ -58,8 +59,17 @@ CREATE TABLE IF NOT EXISTS "UsersCards" (
                ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS "Sessions" (
+       "id" INTEGER NOT NULL,
+       "usersCardsID" INTEGER NOT NULL,
+
+       FOREIGN KEY(usersCardsID) REFERENCES UsersCards(id)
+               ON UPDATE CASCADE
+               ON DELETE CASCADE
+);
+
 CREATE TABLE IF NOT EXISTS "Contacts" (
-       "user"   INTEGER NOT NULL,
+       "user" INTEGER NOT NULL,
        "contactUser" INTEGER NOT NULL,
 
        FOREIGN KEY(user) REFERENCES Users(id)
@@ -71,7 +81,7 @@ CREATE TABLE IF NOT EXISTS "Contacts" (
 );
 
 -- Indexes
-CREATE UNIQUE INDEX IF NOT EXISTS UsersCardsIndex ON UsersCards(user, card);
+CREATE UNIQUE INDEX IF NOT EXISTS SessionsIndex ON Sessions(id, usersCardsID);
 CREATE UNIQUE INDEX IF NOT EXISTS ContactsIndex ON Contacts(user, contactUser);
 
 
