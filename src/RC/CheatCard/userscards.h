@@ -12,6 +12,7 @@
 
 #include <dbobject.h>
 #include "CheatCard/core_global.h"
+#include <QSharedPointer>
 
 namespace RC {
 
@@ -70,5 +71,6 @@ private:
 }
 
 Q_DECLARE_METATYPE(RC::UsersCards)
+Q_DECLARE_METATYPE(QSharedPointer<RC::UsersCards>)
 
 #endif // USERSCARDS_H

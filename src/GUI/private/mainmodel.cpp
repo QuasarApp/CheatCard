@@ -48,6 +48,12 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
     _config = initConfig(_currentUser->user()->userId());
 
     initMode(_currentUser, _config);
+
+    qRegisterMetaType<RC::UsersCards>();
+    qRegisterMetaType<RC::Card>();
+
+    qRegisterMetaType<QSharedPointer<RC::UsersCards>>();
+    qRegisterMetaType<QSharedPointer<RC::Card>>();
 }
 
 MainModel::~MainModel() {

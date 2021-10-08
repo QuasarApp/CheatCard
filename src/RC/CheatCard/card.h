@@ -8,6 +8,7 @@
 #include <dbobject.h>
 #include "CheatCard/core_global.h"
 #include "requesttoken.h"
+#include <QSharedPointer>
 
 #ifndef CARD_H
 #define CARD_H
@@ -92,5 +93,6 @@ private:
 }
 
 Q_DECLARE_METATYPE(RC::Card)
+Q_DECLARE_METATYPE(QSharedPointer<RC::Card>)
 
 #endif // CARD_H

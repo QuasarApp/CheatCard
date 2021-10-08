@@ -22,9 +22,6 @@ namespace RC {
 
 BaseNode::BaseNode(QH::ISqlDBCache *db) {
     _db = db;
-    qRegisterMetaType<RC::UsersCards>();
-    qRegisterMetaType<RC::Card>();
-
 }
 
 QH::ParserResult BaseNode::parsePackage(const QSharedPointer<QH::PKG::AbstractData> &pkg,
