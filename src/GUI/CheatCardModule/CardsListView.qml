@@ -61,7 +61,7 @@ Page {
 
 
             property int itemHeight: (itemWidth * 0.75)
-            property int itemWidth: Math.min(list.width, buttonAddCard.y / 0.75)
+            property int itemWidth: (root.editable)? Math.min(list.width, buttonAddCard.y / 0.75) : list.width
 
             Component {
                 id: delegateItem
