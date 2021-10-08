@@ -67,9 +67,6 @@ if (ANDROID)
 
     addDeployAPK(${CURRENT_PROJECT}
                 "${CMAKE_CURRENT_LIST_DIR}/android"
-                "QuasarAppProject"
-                "${SIGPATH}/quasarapp.keystore"
-                "${SIGPASS_QUASARAPP}"
                 "${TARGET_DIR}"
                 "${SNAKE_EXTRA_LIBS}")
 
