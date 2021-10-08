@@ -77,16 +77,7 @@ int BaseNode::getFreeItemsCount(unsigned int userId,
 }
 
 int BaseNode::getFreeItemsCount(const QSharedPointer<UsersCards> &inputData) const {
-
-    QH::PKG::GetSingleValue request({"Cards", inputData->getCard()}, "freeIndex");
-    auto result = _db->getObject(request);
-
-    if (!result) {
-        return 0;
-    }
-
-    unsigned int freeIndex = result->value().toUInt();
-
+    unsigned int freeIndex = getCardFreeIndex(inputData->getCard());
     return getFreeItemsCount(inputData, freeIndex);
 }
 
@@ -100,6 +91,17 @@ int BaseNode::getFreeItemsCount(const QSharedPointer<UsersCards> &inputData,
             inputData->getReceived();
 
     return freeItems;
+}
+
+int RC::BaseNode::getCardFreeIndex(unsigned int cardId) const {
+    QH::PKG::GetSingleValue request({"Cards", cardId}, "freeIndex");
+    auto result = _db->getObject(request);
+
+    if (!result) {
+        return 0;
+    }
+
+    return result->value().toUInt();
 }
 
 QString BaseNode::libVersion() const {

@@ -320,7 +320,7 @@ QObject *MainModel::cardsList() const {
     return _currentCardsListModel;
 }
 
-void MainModel::handleCardReceived(QSharedPointer<Card> card) {
+void MainModel::handleCardReceived(QSharedPointer<RC::Card> card) {
     _cardsListModel->importCard(card);
 }
 
@@ -351,7 +351,7 @@ void MainModel::handleConnectWasFinished() {
     emit connectionWasEnd();
 }
 
-void MainModel::handlePurchaseWasSuccessful(QSharedPointer<UsersCards> card){
+void MainModel::handlePurchaseWasSuccessful(QSharedPointer<RC::UsersCards> card){
 
     int freeIndex;
     QSharedPointer<CardModel> cardModel;
@@ -359,7 +359,7 @@ void MainModel::handlePurchaseWasSuccessful(QSharedPointer<UsersCards> card){
     if (_mode == Mode::Client) {
         cardModel = _cardsListModel->cache().value(card->getCard()).model;
         _cardsListModel->setPurchasesNumbers({card});
-        freeIndex = _cardsListModel->cache().value(card->getCard()).source->getFreeIndex();
+        freeIndex = _backEndModel->getCardFreeIndex(card->getCard());
 
     } else {
         cardModel = _ownCardsListModel->cache().value(card->getCard()).model;

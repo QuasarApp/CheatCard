@@ -29,10 +29,12 @@ public:
     int getFreeItemsCount(const QSharedPointer<UsersCards>& inputData) const;
     int getFreeItemsCount(const QSharedPointer<UsersCards>& inputData, unsigned int freeIndex) const;
 
+    int getCardFreeIndex(unsigned int cardId) const;
+
     QString libVersion() const;
 signals:
-    void sigPurchaseWasSuccessful(QSharedPointer<UsersCards> data);
-    void sigCardReceived(QSharedPointer<Card> err);
+    void sigPurchaseWasSuccessful(QSharedPointer<RC::UsersCards> data);
+    void sigCardReceived(QSharedPointer<RC::Card> err);
 
 
 protected:
