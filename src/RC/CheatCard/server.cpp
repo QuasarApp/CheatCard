@@ -6,12 +6,15 @@
 //#
 
 
+#include "carddatarequest.h"
+#include "cardstatusrequest.h"
 #include "server.h"
 
 #include <CheatCard/card.h>
-#include <CheatCard/datastructures.h>
 #include <CheatCard/session.h>
 #include <CheatCard/userscards.h>
+
+#include <badrequest.h>
 
 namespace RC {
 
@@ -34,8 +37,6 @@ void Server::nodeConnected(QH::AbstractNodeInfo *node) {
 
 void Server::nodeDisconnected(QH::AbstractNodeInfo *node) {
     BaseNode::nodeDisconnected(node);
-
-
 }
 
 void Server::nodeErrorOccured(QH::AbstractNodeInfo *nodeInfo, QAbstractSocket::SocketError errorCode, QString errorString) {
@@ -43,6 +44,21 @@ void Server::nodeErrorOccured(QH::AbstractNodeInfo *nodeInfo, QAbstractSocket::S
     if (errorCode != QAbstractSocket::SocketError::RemoteHostClosedError) {
         BaseNode::nodeErrorOccured(nodeInfo, errorCode, errorString);
     }
+}
+
+QH::ParserResult Server::parsePackage(const QSharedPointer<QH::PKG::AbstractData> &pkg,
+                                      const QH::Header &pkgHeader,
+                                      const QH::AbstractNodeInfo *sender) {
+    QH::ParserResult result = BaseNode::parsePackage(pkg, pkgHeader, sender);
+
+    if (result == QH::ParserResult::Error) {
+        badRequest(sender->networkAddress(), pkgHeader,
+                   QH::PKG::ErrorData{1, "Invalid pacakge"});
+
+        removeNode(sender->networkAddress());
+    }
+
+    return result;
 }
 
 }

@@ -5,45 +5,40 @@
 //# of this license document, but changing it is not allowed.
 //#
 
+#ifndef USERHEADER_H
+#define USERHEADER_H
 
-
-#ifndef SESSION_H
-#define SESSION_H
-
-#include "dbobject.h"
+#include <abstractdata.h>
+#include "CheatCard/core_global.h"
 
 namespace RC {
 
-class Session : public QH::PKG::DBObject
+
+class CHEATCARD_CORE_EXPORT UserHeader: public QH::PKG::AbstractData
 {
-    QH_PACKAGE(Session, "Session")
+    QH_PACKAGE(UserHeader, "UserHeader")
 
 public:
-    Session();
-
-    // AbstractData interface
-public:
+    UserHeader();
     bool isValid() const override;
-    QH::PKG::DBObject *createDBObject() const override;
+
+    unsigned int getUserId() const;
+    void setUserId(unsigned int newUserId);
 
     long long getSessionId() const;
     void setSessionId(long long newSessionId);
 
-    bool fromSqlRecord(const QSqlRecord &q) override;
-    QH::PKG::DBVariantMap variantMap() const override;
-    long long getUsercardId() const;
-    void setUsercardId(long long newUsercardId);
+    const QByteArray &token() const;
+    void setToken(const QByteArray &newToken);
 
 protected:
-    QString primaryKey() const override;
     QDataStream &fromStream(QDataStream &stream) override;
     QDataStream &toStream(QDataStream &stream) const override;
 
 private:
-    long long usercardId = 0;
+    unsigned int userId = 0;
     long long sessionId;
-
+    QByteArray _token;
 };
-
 }
-#endif // SESSION_H
+#endif // USERHEADER_H

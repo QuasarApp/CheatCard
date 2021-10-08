@@ -7,9 +7,11 @@
 
 
 #include "basenode.h"
+#include "carddatarequest.h"
+#include "cardstatusrequest.h"
+#include "nodeinfo.h"
 
 #include <CheatCard/card.h>
-#include <CheatCard/datastructures.h>
 #include <dbobjectsrequest.h>
 #include <CheatCard/session.h>
 #include <CheatCard/userscards.h>
@@ -64,22 +66,18 @@ QH::ParserResult BaseNode::parsePackage(const QSharedPointer<QH::PKG::AbstractDa
     return QH::ParserResult::NotProcessed;
 }
 
+QH::AbstractNodeInfo *BaseNode::createNodeInfo(QAbstractSocket *socket,
+                                               const QH::HostAddress *clientAddress) const {
+    return new NodeInfo(socket, clientAddress);
+}
+
 int BaseNode::getFreeItemsCount(unsigned int userId,
                                 unsigned int cardId) const {
     return getFreeItemsCount(getUserCardData(userId, cardId));
 }
 
 int BaseNode::getFreeItemsCount(const QSharedPointer<UsersCards> &inputData) const {
-
-    QH::PKG::GetSingleValue request({"Cards", inputData->getCard()}, "freeIndex");
-    auto result = _db->getObject(request);
-
-    if (!result) {
-        return 0;
-    }
-
-    unsigned int freeIndex = result->value().toUInt();
-
+    unsigned int freeIndex = getCardFreeIndex(inputData->getCard());
     return getFreeItemsCount(inputData, freeIndex);
 }
 
@@ -95,9 +93,25 @@ int BaseNode::getFreeItemsCount(const QSharedPointer<UsersCards> &inputData,
     return freeItems;
 }
 
+int RC::BaseNode::getCardFreeIndex(unsigned int cardId) const {
+    QH::PKG::GetSingleValue request({"Cards", cardId}, "freeIndex");
+    auto result = _db->getObject(request);
+
+    if (!result) {
+        return 0;
+    }
+
+    return result->value().toUInt();
+}
+
+QString BaseNode::libVersion() const {
+    return CHEAT_CARD_VERSION;
+}
+
 bool BaseNode::processCardStatus(const QSharedPointer<UsersCards> &cardStatus,
                                  const QH::AbstractNodeInfo *sender, const QH::Header &) {
 
+    QuasarAppUtils::Params::log(QString("processCardStatus: begin"), QuasarAppUtils::Info);
 
     Card userrquest;
     userrquest.setId(cardStatus->getCard());
@@ -111,6 +125,11 @@ bool BaseNode::processCardStatus(const QSharedPointer<UsersCards> &cardStatus,
     if (!dbCard) {
         CardDataRequest request;
         request.setCardId(cardStatus->getCard());
+        unsigned long long token = rand() * rand();
+        request.setRequestToken(token);
+
+        auto senderInfo = static_cast<NodeInfo*>(getInfoPtr(sender->networkAddress()));
+        senderInfo->setToken(token);
 
         if (!sendData(&request, sender)) {
             QuasarAppUtils::Params::log("Failed to send responce", QuasarAppUtils::Error);
@@ -158,7 +177,18 @@ QSharedPointer<Card> BaseNode::getCard(unsigned int cardId) {
 bool BaseNode::processCardRequest(const QSharedPointer<CardDataRequest> &cardrequest,
                                   const QH::AbstractNodeInfo *sender, const QH::Header &) {
 
+    QuasarAppUtils::Params::log(QString("processCardRequest: begin"), QuasarAppUtils::Info);
+
     auto card = getCard(cardrequest->getCardId());
+
+    if (!card) {
+        QuasarAppUtils::Params::log(QString("Failed to find card with id: %0").
+                                    arg(cardrequest->getCardId()),
+                                    QuasarAppUtils::Error);
+        return false;
+    }
+
+    card->setRequestToken(cardrequest->requestToken());
 
     if (!sendData(card.data(), sender)) {
 
@@ -172,8 +202,17 @@ bool BaseNode::processCardRequest(const QSharedPointer<CardDataRequest> &cardreq
 bool BaseNode::processCardData(const QSharedPointer<Card> &card,
                                const QH::AbstractNodeInfo *sender, const QH::Header &) {
 
+    QuasarAppUtils::Params::log(QString("processCardData: begin"), QuasarAppUtils::Info);
+
+    auto senderInfo = static_cast<const NodeInfo*>(sender);
+
     if (!card->isValid())
         return false;
+
+    if (card->requestToken() != senderInfo->token()) {
+        QuasarAppUtils::Params::log("Receive not requested responce!");
+        return false;
+    }
 
     if (!_db->insertIfExistsUpdateObject(card)) {
         return false;
@@ -190,6 +229,8 @@ QH::ISqlDBCache *BaseNode::db() const {
 
 bool BaseNode::processCardStatusRequest(const QSharedPointer<CardStatusRequest> &cardStatus,
                                         const QH::AbstractNodeInfo *sender, const QH::Header &) {
+
+    QuasarAppUtils::Params::log(QString("processCardStatusRequest: begin"), QuasarAppUtils::Info);
 
     auto sessionId = cardStatus->getSessionId();
 
@@ -226,7 +267,6 @@ bool BaseNode::processSession(const QSharedPointer<Session> &session,
 
     CardStatusRequest requestData;
     requestData.setSessionId(session->getSessionId());
-
 
     return sendData(&requestData, sender->networkAddress());
 }

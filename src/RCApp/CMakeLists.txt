@@ -22,6 +22,7 @@ set(PRIVATE_INCUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Private")
 
 # Qt 6.2 hot fix
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Sql Network Concurrent QUIET)
+updateGitVars()
 
 
 if (${QT_VERSION_MAJOR} EQUAL 6)
@@ -87,6 +88,7 @@ if (ANDROID)
     )
 
 else()
+
 
     message(GIT_COMMIT_COUNT = ${GIT_COMMIT_COUNT})
 

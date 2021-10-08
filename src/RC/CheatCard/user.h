@@ -21,17 +21,18 @@ namespace RC {
  */
 class CHEATCARD_CORE_EXPORT User: public QH::PKG::DBObject
 {
+    QH_PACKAGE(User, "CheatCardUser")
 
 public:
     User();
 
-    QH::PKG::DBObject *createDBObject() const;
+    QH::PKG::DBObject *createDBObject() const override;
 
-    QH::PKG::DBVariantMap variantMap() const;
+    QH::PKG::DBVariantMap variantMap() const override;
 
     const QString &name() const;
     void setName(const QString &newName);
-    bool fromSqlRecord(const QSqlRecord &q);
+    bool fromSqlRecord(const QSqlRecord &q) override;
 
     bool fSaller() const;
     void setFSaller(bool newFSaller);
@@ -41,7 +42,7 @@ public:
 
     unsigned int userId() const;
 protected:
-    QString primaryKey() const;
+    QString primaryKey() const override;
 
 private:
 

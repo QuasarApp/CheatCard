@@ -16,6 +16,8 @@ file(GLOB SOURCE_CPP
      "Private/*.qrc"
 )
 
+updateGitVars()
+
 set(PUBLIC_INCUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
 
 set(PRIVATE_INCUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Private")

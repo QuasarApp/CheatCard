@@ -1,7 +1,6 @@
 #include "usermodel.h"
 #include "CheatCard/user.h"
 
-#include <CheatCard/datastructures.h>
 namespace RC {
 
 UserModel::UserModel(QSharedPointer<User> user) {

@@ -6,9 +6,9 @@
 //#
 
 
+#include "cardstatusrequest.h"
 #include "visitor.h"
 
-#include <CheatCard/datastructures.h>
 #include <CheatCard/user.h>
 #include <cstring>
 #include <CheatCard/session.h>

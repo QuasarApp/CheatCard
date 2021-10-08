@@ -6,9 +6,18 @@
 //#
 
 #include "cheatcardservice.h"
+#include <QDateTime>
 
 CheatCardService::CheatCardService(int argc, char **argv):
     Patronum::Service<QCoreApplication>(argc, argv) {
+
+    QString fileLog = QuasarAppUtils::Params::getArg("fileLog");
+
+    if (!fileLog.length()) {
+        QuasarAppUtils::Params::setArg("fileLog", QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/log" + QDateTime::currentDateTimeUtc().toString("_dd_MM_yyyy") + ".log");
+    }
+
+    QuasarAppUtils::Params::log("Log available in: " + QuasarAppUtils::Params::getArg("fileLog"));
 
 }
 
@@ -25,6 +34,7 @@ CheatCardService::~CheatCardService() {
 void CheatCardService::onStart() {
     if (!_db) {
         _db = new RC::DataBase;
+        _db->initSqlDb();
     }
 
     if (!_server) {
@@ -34,10 +44,6 @@ void CheatCardService::onStart() {
     if (!_server->run({}, DEFAULT_CHEAT_CARD_PORT)) {
         QuasarAppUtils::Params::log("Failed to start server!");
     }
-}
-
-void CheatCardService::onStop() {
-    _server->stop();
 }
 
 bool CheatCardService::handleReceive(const Patronum::Feature &data) {
@@ -50,8 +56,18 @@ bool CheatCardService::handleReceive(const Patronum::Feature &data) {
     if (data.cmd() == "ping") {
         sendResuylt("Pong");
     } else if (data.cmd() == "state") {
+        QVariantMap result;
+        result["1. Status"] = _server->getWorkState().toString();
+        result["2. Log file available"] = QuasarAppUtils::Params::getArg("fileLog", "Not used");
+        result["3. Core lib version"] = _server->libVersion();
+        result["4. Heart lib version"] = QH::heartLibVersion();
+        result["5. Patronum lib version"] = Patronum::patronumLibVersion();
 
-        sendResuylt(_server->getWorkState().toString());
+        sendResuylt(result);
+    } else if (data.cmd() == "setVerbose") {
+        QuasarAppUtils::Params::setArg("verbose", data.arg());
+
+        sendResuylt("New verbose level is " + QuasarAppUtils::Params::getArg("verbose"));
     }
 
     return true;
@@ -60,8 +76,19 @@ bool CheatCardService::handleReceive(const Patronum::Feature &data) {
 QSet<Patronum::Feature> CheatCardService::supportedFeatures() {
     QSet<Patronum::Feature> data;
 
-    data << Patronum::Feature("ping", "This is description of the ping command");
-    data << Patronum::Feature("state", "return state");
+    data << Patronum::Feature("ping", {}, "This is description of the ping command");
+    data << Patronum::Feature("state", {}, "return state");
+    data << Patronum::Feature("setVerbose", "verbose level", "sets new verbose log level");
 
     return data;
+}
+
+
+void CheatCardService::onResume() {
+    onStart();
+}
+
+void CheatCardService::onPause() {
+    _server->stop();
+    sendResuylt("Server stopped successful. (paused)");
 }

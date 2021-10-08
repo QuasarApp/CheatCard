@@ -6,8 +6,7 @@
 //#
 
 
-#include "datastructures.h"
-
+#include "userheader.h"
 namespace RC {
 
 UserHeader::UserHeader() {
@@ -61,68 +60,4 @@ unsigned int UserHeader::getUserId() const {
 void UserHeader::setUserId(unsigned int newUserId) {
     userId = newUserId;
 }
-
-CardStatusRequest::CardStatusRequest() {
-
-}
-
-bool CardStatusRequest::isValid() const {
-    return sessionId && AbstractData::isValid();
-}
-
-QDataStream &CardStatusRequest::fromStream(QDataStream &stream) {
-
-    AbstractData::fromStream(stream);
-
-    stream >> sessionId;
-
-    return stream;
-}
-
-QDataStream &CardStatusRequest::toStream(QDataStream &stream) const {
-    AbstractData::toStream(stream);
-
-    stream << sessionId;
-
-    return stream;
-}
-
-long long CardStatusRequest::getSessionId() const {
-    return sessionId;
-}
-
-void CardStatusRequest::setSessionId(long long newSessionId) {
-    sessionId = newSessionId;
-}
-
-bool CardDataRequest::isValid() const {
-    return AbstractData::isValid() && cardId;
-}
-
-QDataStream &CardDataRequest::fromStream(QDataStream &stream) {
-    AbstractData::fromStream(stream);
-
-    stream >> cardId;
-
-    return stream;
-}
-
-QDataStream &CardDataRequest::toStream(QDataStream &stream) const {
-    AbstractData::toStream(stream);
-
-    stream << cardId;
-
-    return stream;
-}
-
-unsigned int CardDataRequest::getCardId() const {
-    return cardId;
-}
-
-void CardDataRequest::setCardId(unsigned int newCardId) {
-    cardId = newCardId;
-}
-
-RC::CardDataRequest::CardDataRequest() {}
-
 }

@@ -12,12 +12,15 @@
 
 #include <dbobject.h>
 #include "CheatCard/core_global.h"
+#include <QSharedPointer>
 
 namespace RC {
 
 
 class CHEATCARD_CORE_EXPORT UsersCards: public QH::PKG::DBObject
 {
+    QH_PACKAGE(UsersCards, "UsersCards")
+
 public:
     UsersCards();
     UsersCards(unsigned int user, unsigned int card, bool owner = false);
@@ -66,4 +69,8 @@ private:
 };
 
 }
+
+Q_DECLARE_METATYPE(RC::UsersCards)
+Q_DECLARE_METATYPE(QSharedPointer<RC::UsersCards>)
+
 #endif // USERSCARDS_H

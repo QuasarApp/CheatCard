@@ -6,44 +6,31 @@
 //#
 
 
+#ifndef CARDSTATUSREQUEST_H
+#define CARDSTATUSREQUEST_H
 
-#ifndef SESSION_H
-#define SESSION_H
-
-#include "dbobject.h"
+#include <abstractdata.h>
+#include "requesttoken.h"
 
 namespace RC {
 
-class Session : public QH::PKG::DBObject
+class CHEATCARD_CORE_EXPORT CardStatusRequest: public QH::PKG::AbstractData
 {
-    QH_PACKAGE(Session, "Session")
-
+    QH_PACKAGE(CardStatusRequest, "CardStatusRequest")
 public:
-    Session();
-
-    // AbstractData interface
-public:
+    CardStatusRequest();
     bool isValid() const override;
-    QH::PKG::DBObject *createDBObject() const override;
+    // StreamBase interface
 
     long long getSessionId() const;
     void setSessionId(long long newSessionId);
 
-    bool fromSqlRecord(const QSqlRecord &q) override;
-    QH::PKG::DBVariantMap variantMap() const override;
-    long long getUsercardId() const;
-    void setUsercardId(long long newUsercardId);
-
 protected:
-    QString primaryKey() const override;
     QDataStream &fromStream(QDataStream &stream) override;
     QDataStream &toStream(QDataStream &stream) const override;
 
 private:
-    long long usercardId = 0;
     long long sessionId;
-
 };
-
 }
-#endif // SESSION_H
+#endif // CARDSTATUSREQUEST_H

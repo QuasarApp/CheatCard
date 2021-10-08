@@ -6,9 +6,11 @@
 //#
 
 
+#include "carddatarequest.h"
+#include "cardstatusrequest.h"
 #include "seller.h"
+#include "userheader.h"
 
-#include <CheatCard/datastructures.h>
 #include <CheatCard/session.h>
 #include <CheatCard/user.h>
 #include <CheatCard/userscards.h>

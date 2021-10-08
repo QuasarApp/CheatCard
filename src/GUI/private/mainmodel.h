@@ -11,7 +11,6 @@
 #include <QObject>
 #include <QSettings>
 #include <CheatCard/database.h>
-#include <CheatCard/datastructures.h>
 
 namespace RC {
 
@@ -70,6 +69,9 @@ public:
 
     QObject *waitModel() const;
 
+public slots:
+    void handleFirstDataSendet();
+
 signals:
 
     void fFirstChanged();
@@ -91,7 +93,7 @@ signals:
     void waitModelChanged();
 
 private slots:
-    void handleCardReceived(QSharedPointer<Card> card);
+    void handleCardReceived(QSharedPointer<RC::Card> card);
 
     void handleCardEditFinished(const QSharedPointer<RC::Card> &card);
 
@@ -100,10 +102,9 @@ private slots:
     void handleConnectWasBegin();
     void handleConnectWasFinished();
 
-    void handlePurchaseWasSuccessful(QSharedPointer<UsersCards>);
+    void handlePurchaseWasSuccessful(QSharedPointer<RC::UsersCards>);
     void handleListenStart(int purchasesCount, QSharedPointer<CardModel> model, const QString &extraData);
     void handleListenStop();
-    void handleFirstDataSendet();
 
 
 private:

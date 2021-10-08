@@ -13,7 +13,8 @@
 #include <QSharedPointer>
 #include <qqml.h>
 
-#include <CheatCard/datastructures.h>
+#include <CheatCard/userheader.h>
+
 
 namespace RC {
 

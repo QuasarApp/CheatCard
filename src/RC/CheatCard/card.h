@@ -7,6 +7,8 @@
 
 #include <dbobject.h>
 #include "CheatCard/core_global.h"
+#include "requesttoken.h"
+#include <QSharedPointer>
 
 #ifndef CARD_H
 #define CARD_H
@@ -16,8 +18,9 @@ namespace RC {
 /**
  * @brief The Card class
  */
-class CHEATCARD_CORE_EXPORT Card: public QH::PKG::DBObject
+class CHEATCARD_CORE_EXPORT Card: public QH::PKG::DBObject, public RequestToken
 {
+    QH_PACKAGE(Card, "Card")
 public:
     Card();
     QH::PKG::DBObject *createDBObject() const override;
@@ -88,4 +91,8 @@ private:
 };
 
 }
+
+Q_DECLARE_METATYPE(RC::Card)
+Q_DECLARE_METATYPE(QSharedPointer<RC::Card>)
+
 #endif // CARD_H
