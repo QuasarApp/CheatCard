@@ -29,9 +29,9 @@ Server::Server(QH::ISqlDBCache *db): BaseNode(db) {
 
 void Server::nodeConnected(QH::AbstractNodeInfo *node) {
     BaseNode::nodeConnected(node);
-
-    QTimer::singleShot(WAIT_CONFIRM_TIME, this, [this, node](){
-        removeNode(node);
+    auto address = node->networkAddress();
+    QTimer::singleShot(WAIT_CONFIRM_TIME, this, [this, address](){
+        removeNode(address);
     });
 }
 
