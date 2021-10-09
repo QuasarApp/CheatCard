@@ -19,6 +19,7 @@ Credits {
             section: qsTr("## QuasarApp Core team:"),
             sectionList: [
                 "* Yankovich Andrei " + qsTr("(Programmer)"),
+                "* Loschinin Igor " + qsTr("(Programmer)"),
                 "* Chernenkov Oleg " + qsTr("(Designer)"),
             ]
         }

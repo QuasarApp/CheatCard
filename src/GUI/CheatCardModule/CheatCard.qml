@@ -98,9 +98,7 @@ ApplicationWindow {
             text: qsTr("About")
 
             onClicked:  () => {
-                            if (root.model) {
-                                activityProcessor.newActivityFromComponent(about);
-                            }
+                            activityProcessor.newActivityFromComponent(about);
                         }
         }
     }
