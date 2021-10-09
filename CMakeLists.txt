@@ -102,6 +102,7 @@ set(HEART_SSL OFF)
 
 add_subdirectory(submodules/Heart)
 add_subdirectory(src/RC)
+add_subdirectory(submodules/Credits)
 
 if (CHEATCARD_SERVER)
     add_subdirectory(submodules/Patronum)

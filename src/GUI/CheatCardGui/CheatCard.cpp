@@ -14,6 +14,7 @@
 #include "mainmodel.h"
 #include "quasarapp.h"
 #include "mainmodel.h"
+#include "credits.h"
 
 namespace RC {
 

@@ -96,6 +96,12 @@ ApplicationWindow {
 
         MenuItem {
             text: qsTr("About")
+
+            onClicked:  () => {
+                            if (root.model) {
+                                activityProcessor.newActivityFromComponent(about);
+                            }
+                        }
         }
     }
 
@@ -162,6 +168,11 @@ ApplicationWindow {
                                    newActivity("qrc:/CheatCardModule/MainActivity.qml",
                                                mainModel);
                                }
+    }
+
+    Component {
+        id: about
+        About {}
     }
 
     Drawer {
