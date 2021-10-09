@@ -11,20 +11,22 @@ import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
 
-Page {
+Frame {
     id: root
     property int freeItems: 0
-    property var model: null
+    property int userId: 0
+    property bool fSeller: (mainModel)? mainModel.mode: false
 
-    title: qsTr("Wooooh seems like someone has %0 free %1 !!!").
-    arg(freeItems).
-    arg(((root.model)? root.model.freeItem : ""))
+    property var model: null
 
     contentItem: ColumnLayout {
 
         Label {
             horizontalAlignment: Label.AlignHCenter
-            text: title
+            text: qsTr("Wooooh seems like someone has %0 free %1 !!!").
+                arg(freeItems).
+                arg(((root.model)? root.model.freeItem : ""))
+
             font.bold: true
             visible: text.length
             font.pointSize: 15
@@ -73,13 +75,52 @@ Page {
             }
         }
 
-    }
+        RowLayout {
 
-    footer: DialogButtonBox {
-        onAccepted: () => {
-                        activityProcessor.popItem();
-                    }
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
+            visible: fSeller
 
-        standardButtons: Dialog.Ok
+            Item {
+                Layout.fillWidth: true
+            }
+
+            Button {
+                text: "<<"
+                onClicked: ()=>{
+                               giveFreeItems.value = giveFreeItems.from
+                           }
+            }
+
+            SpinBox {
+                id: giveFreeItems
+                from: 1
+                to: freeItems
+            }
+
+            Button {
+                text: ">>"
+                onClicked: ()=>{
+                               giveFreeItems.value = giveFreeItems.to
+                           }
+            }
+
+            Item {
+                Layout.fillWidth: true
+            }
+        }
+
+        Button {
+            visible: fSeller
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
+            text: qsTr("Give out")
+
+            onClicked: ()=> {
+                           if (mainModel && model) {
+                                mainModel.handleBonusGivOut(userId, model.id, giveFreeItems.value);
+                                enabled = false
+                                activityProcessor.popItem();
+                           }
+                       }
+        }
     }
 }

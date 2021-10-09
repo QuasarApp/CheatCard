@@ -22,11 +22,12 @@ ApplicationWindow {
 
     Connections {
         target: model
-        function onFreeItem(card, freeItemsCount) {
+        function onFreeItem(card, userId, freeItemsCount) {
 
             var activity = activityProcessor.newActivity("qrc:/CheatCardModule/FreeItemsView.qml",
                                                          card);
             activity.freeItems = freeItemsCount
+            activity.userId = userId
         }
 
         function onConnectionWasEnd() {
