@@ -20,6 +20,7 @@ RowLayout {
     Image {
         Layout.preferredHeight: source.height * 0.9
         Layout.preferredWidth: height
+        mipmap: true;
 
         MouseArea {
 
