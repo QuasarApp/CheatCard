@@ -32,6 +32,12 @@ public:
     int getCardFreeIndex(unsigned int cardId) const;
 
     QString libVersion() const;
+
+    QSharedPointer<UsersCards>
+    getUserCardData(unsigned int userId, unsigned int cardId) const;
+
+    QSharedPointer<Card> getCard(unsigned int cardId);
+
 signals:
     void sigPurchaseWasSuccessful(QSharedPointer<RC::UsersCards> data);
     void sigCardReceived(QSharedPointer<RC::Card> err);
@@ -52,11 +58,6 @@ protected:
                             const QH::AbstractNodeInfo *sender, const QH::Header&);
     bool processCardData(const QSharedPointer<Card> &cardrequest,
                          const QH::AbstractNodeInfo *sender, const QH::Header &);
-
-    QSharedPointer<UsersCards>
-    getUserCardData(unsigned int userId, unsigned int cardId) const;
-
-    QSharedPointer<Card> getCard(unsigned int cardId);
 
     QH::ParserResult parsePackage(const QSharedPointer<QH::PKG::AbstractData> &pkg,
                                   const QH::Header &pkgHeader,

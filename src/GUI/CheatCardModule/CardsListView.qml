@@ -85,7 +85,7 @@ Page {
                                     }
 
                         TapHandler {
-                            enabled: !cardView.editable && cardItem.ListView.isCurrentItem
+                            enabled: root.editable && !cardView.editable && cardItem.ListView.isCurrentItem
                             onLongPressed:  {
 
                                 if (root.model) {

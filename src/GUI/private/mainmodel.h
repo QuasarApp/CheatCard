@@ -71,6 +71,7 @@ public:
 
 public slots:
     void handleFirstDataSendet();
+    void handleBonusGivOut(int userId, int cardId, int givOutcount);
 
 signals:
 
@@ -85,7 +86,8 @@ signals:
 
     void connectionWasBegin();
     void connectionWasEnd();
-    void freeItem(QObject *cardId, unsigned int freeItemsCount);
+    void freeItem(QObject *cardId, int userId,
+                  int freeItemsCount);
 
 
     void modeChanged();
