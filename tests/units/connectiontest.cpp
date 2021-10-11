@@ -64,6 +64,7 @@ ConnectionTest::~ConnectionTest() {
 void ConnectionTest::test() {
     QDir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)).removeRecursively();
 
+
     firstContact();
 }
 
