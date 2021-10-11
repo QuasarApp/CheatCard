@@ -7,7 +7,7 @@
 
 #include <QGuiApplication>
 #include <quasarapp.h>
-#include "CheatCard/CheatCard.h"
+#include "CheatCardGui/CheatCard.h"
 #include <qmlnotifyservice.h>
 void initLang() {
     QLocale locale = QLocale::system();

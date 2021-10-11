@@ -11,6 +11,7 @@
 #include <QCoreApplication>
 #include <QDateTime>
 #include <QVariantMap>
+#include <config.h>
 
 bool TestUtils::funcPrivateConnect(const std::function<bool()> &requestFunc,
                                    const std::function<bool()> &checkFunc,
@@ -22,7 +23,7 @@ bool TestUtils::funcPrivateConnect(const std::function<bool()> &requestFunc,
         return false;
     }
 
-    bool return_value = TestUtils::wait(checkFunc, 10000);
+    bool return_value = TestUtils::wait(checkFunc, WAIT_RESPOCE_TIME);
     QObject::disconnect(m_connection);
 
     return return_value;

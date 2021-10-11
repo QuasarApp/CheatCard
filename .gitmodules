@@ -4,3 +4,9 @@
 [submodule "submodules/SimpleQmlNotify"]
 	path = submodules/SimpleQmlNotify
 	url = https://github.com/QuasarApp/SimpleQmlNotify.git
+[submodule "submodules/Patronum"]
+	path = submodules/Patronum
+	url = https://github.com/QuasarApp/Patronum.git
+[submodule "submodules/QrCodes"]
+	path = submodules/QrCodes
+	url = https://github.com/QuasarApp/QrCodes.git

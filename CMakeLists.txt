@@ -34,47 +34,94 @@ addDoc(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/doxygen.conf)
 
 
 if (${QT_VERSION} VERSION_GREATER_EQUAL 6.0)
-    if (${QT_VERSION} VERSION_LESS 6.2)
-        message("This project support only qt5 or qt6 from 6.2 ")
-        return()
-    endif()
+    message("This project support only qt5 or qt6 from 6.2 ")
+    return()
 endif()
 
 
-if (NOT DEFINED CheatCard_TESTS)
-    set(CheatCard_TESTS ON)
+if (NOT DEFINED CHEATCARD_TESTS)
+    set(CHEATCARD_TESTS ON)
 
     if (DEFINED TARGET_PLATFORM_TOOLCHAIN)
         if (${TARGET_PLATFORM_TOOLCHAIN} STREQUAL "wasm32")
-            set(CheatCard_TESTS OFF)
+            set(CHEATCARD_TESTS OFF)
             return()
         endif()
     endif()
 
     if (ANDROID)
-        set(CheatCard_TESTS OFF)
+        set(CHEATCARD_TESTS OFF)
     endif()
 
     if (NOT QT_VERSION_MAJOR)
-        set(CheatCard_TESTS OFF)
+        set(CHEATCARD_TESTS OFF)
     endif()
+
+    if(WIN32)
+        set(CHEATCARD_TESTS OFF)
+    endif()
+endif()
+
+if (NOT DEFINED CHEATCARD_SERVER)
+    set(CHEATCARD_SERVER ON)
+
+    if (DEFINED TARGET_PLATFORM_TOOLCHAIN)
+        if (${TARGET_PLATFORM_TOOLCHAIN} STREQUAL "wasm32")
+            set(CHEATCARD_SERVER OFF)
+            return()
+        endif()
+    endif()
+
+    if (ANDROID)
+        set(CHEATCARD_SERVER OFF)
+    endif()
+
+    if (NOT QT_VERSION_MAJOR)
+        set(CHEATCARD_SERVER OFF)
+    endif()
+
+    if(WIN32)
+        set(CHEATCARD_SERVER OFF)
+    endif()
+endif()
+
+if (NOT DEFINED CHEATCARD_APP)
+    set(CHEATCARD_APP ON)
+
+    if (DEFINED TARGET_PLATFORM_TOOLCHAIN)
+        if (${TARGET_PLATFORM_TOOLCHAIN} STREQUAL "wasm32")
+            set(CHEATCARD_APP OFF)
+            return()
+        endif()
+    endif()
+
 endif()
 
 set(HEART_BUILD_LVL 1)
 set(HEART_SSL OFF)
-set(HEART_TESTS OFF)
+
 add_subdirectory(submodules/Heart)
-add_subdirectory(submodules/SimpleQmlNotify)
-
 add_subdirectory(src/RC)
-add_subdirectory(src/RCApp)
 
+if (CHEATCARD_SERVER)
+    add_subdirectory(submodules/Patronum)
+    add_subdirectory(src/CheatCardServer)
+else()
+    message("The ${PROJECT_NAME} tests is disabled.")
+endif()
 
-if (CheatCard_TESTS)
+if (CHEATCARD_TESTS)
     add_subdirectory(tests)
 else()
     message("The ${PROJECT_NAME} tests is disabled.")
 endif()
 
-
+if (CHEATCARD_APP)
+    add_subdirectory(submodules/SimpleQmlNotify)
+    add_subdirectory(submodules/QrCodes/src)
+    add_subdirectory(src/GUI)
+    add_subdirectory(src/RCApp)
+else()
+    message("The ${PROJECT_NAME} app is disabled.")
+endif()
 
