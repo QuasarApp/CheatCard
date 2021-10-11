@@ -10,6 +10,7 @@
 
 #include "abstractnode.h"
 #include "basenode.h"
+#include "clearolddata.h"
 
 #include <isqldbcache.h>
 
@@ -33,6 +34,8 @@ protected:
     QH::ParserResult parsePackage(const QSharedPointer<QH::PKG::AbstractData> &pkg,
                                   const QH::Header &pkgHeader,
                                   const QH::AbstractNodeInfo *sender) override;
+
+    friend class ClearOldData;
 };
 }
 #endif // SERVER_H
