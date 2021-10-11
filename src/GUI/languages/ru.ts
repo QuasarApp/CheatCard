@@ -273,6 +273,10 @@
         <source>Wooooh seems like someone has %0 free %1 !!!</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Give out</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RegistrationFinishedPage</name>

@@ -33,7 +33,6 @@ CheatCardService::~CheatCardService() {
 
 void CheatCardService::onStart() {
     if (!_db) {
-        _db = new RC::DataBase;
         _db->initSqlDb();
     }
 
