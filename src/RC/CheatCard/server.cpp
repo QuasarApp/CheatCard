@@ -25,7 +25,17 @@ Server::Server(QH::ISqlDBCache *db): BaseNode(db) {
     registerPackageType<CardDataRequest>();
     registerPackageType<Card>();
 
-    sheduleTask(QSharedPointer<ClearOldData>::create());
+    auto task = QSharedPointer<ClearOldData>::create();
+    task->setTime(0);
+    task->setMode(QH::ScheduleMode::SingleWork);
+
+    sheduleTask(task);
+
+    task = QSharedPointer<ClearOldData>::create();
+    task->setTime(30 * ClearOldData::Day);
+    task->setMode(QH::ScheduleMode::Repeat);
+
+    sheduleTask(task);
 }
 
 void Server::nodeConnected(QH::AbstractNodeInfo *node) {
