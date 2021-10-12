@@ -5,11 +5,11 @@
     <name>CardsListView</name>
     <message>
         <source>You do not have any card. </source>
-        <translation>У вас нет карт. </translation>
+        <translation type="vanished">У вас нет карт. </translation>
     </message>
     <message>
         <source>Visit any coffee to get a new card and their bonuses</source>
-        <translation>Посетите какое либо кафе, чтобы получить новую карту и свои бонусы</translation>
+        <translation type="vanished">Посетите какое либо кафе, чтобы получить новую карту и свои бонусы</translation>
     </message>
     <message>
         <source>Please create a new card for work</source>
@@ -25,7 +25,19 @@
     </message>
     <message>
         <source>Please create a new card for work. Press &quot;Add Card &quot; button</source>
-        <translation>Пожалуйста, создайте новую карточку для работы. Нажмите кнопку &quot;Добавить карту&quot;</translation>
+        <translation type="vanished">Пожалуйста, создайте новую карточку для работы. Нажмите кнопку &quot;Добавить карту&quot;</translation>
+    </message>
+    <message>
+        <source>Don&apos;t have any cards yet? </source>
+        <translation>Всё ещё нет карт? </translation>
+    </message>
+    <message>
+        <source>Visit any coffee and start receiving bonuses now!</source>
+        <translation>Посети любое кафе и начни получать бонусы сейчас!</translation>
+    </message>
+    <message>
+        <source>Let&apos;s go create the first card! Press &quot;Add Card &quot; button</source>
+        <translation>Вперёд, создадим первую карту! Нажми кнопку &quot;Добавить карту&quot;</translation>
     </message>
 </context>
 <context>
@@ -71,7 +83,11 @@
     <message>
         <source>please wait until the exchange is successful  </source>
         <translatorcomment>Дождитесь окончания операции</translatorcomment>
-        <translation>please wait until the exchange is successful  </translation>
+        <translation type="vanished">please wait until the exchange is successful  </translation>
+    </message>
+    <message>
+        <source>Hachiko mode activated!  </source>
+        <translation>Режим Хатико активирован!  </translation>
     </message>
 </context>
 <context>
@@ -189,7 +205,7 @@
     </message>
     <message>
         <source>Are you sure you want to become a seller? </source>
-        <translation>Вы уверены, что хотите стать продавцом? </translation>
+        <translation type="vanished">Вы уверены, что хотите стать продавцом? </translation>
     </message>
     <message>
         <source>This user is not seller</source>
@@ -208,20 +224,36 @@
         <translation>Режим продавца</translation>
     </message>
     <message>
+        <source>Its my name:</source>
+        <translation>Моё имя:</translation>
+    </message>
+    <message>
+        <source>My Id:</source>
+        <translation type="vanished">Мой ID:</translation>
+    </message>
+    <message>
+        <source>Just a customer</source>
+        <translation>Просто посетитель</translation>
+    </message>
+    <message>
+        <source>Salesman!</source>
+        <translation>Продавец!</translation>
+    </message>
+    <message>
+        <source>Do you really want? </source>
+        <translation type="vanished">А вы точно хотите? </translation>
+    </message>
+    <message>
+        <source>I want to sell!</source>
+        <translation type="vanished">Я хочу продавать!</translation>
+    </message>
+    <message>
         <source>Profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Профиль</translation>
     </message>
     <message>
-        <source>User name:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You are not a seller</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You are a seller</source>
-        <translation type="unfinished"></translation>
+        <source>Oh, do you really want? </source>
+        <translation>А вы уверенны что оно вам надо? </translation>
     </message>
 </context>
 <context>
@@ -252,11 +284,19 @@
     </message>
     <message>
         <source>Please enter your name or name your company here</source>
-        <translation>Пожалуйста, введите свое имя или название компании</translation>
+        <translation type="vanished">Пожалуйста, введите свое имя или название компании</translation>
     </message>
     <message>
         <source>Who are you?</source>
         <translation>Кто вы?</translation>
+    </message>
+    <message>
+        <source>Please enter your name here</source>
+        <translation>Пожалуйста, введите ваше имя здесь</translation>
+    </message>
+    <message>
+        <source>Go!</source>
+        <translation>Вперёд!</translation>
     </message>
 </context>
 <context>
@@ -271,18 +311,18 @@
     </message>
     <message>
         <source>Wooooh seems like someone has %0 free %1 !!!</source>
-        <translation type="unfinished"></translation>
+        <translation>Вооооу кажется у кого-то есть %0 бесплатно %1 !!!</translation>
     </message>
     <message>
         <source>Give out</source>
-        <translation type="unfinished"></translation>
+        <translation>Выдать</translation>
     </message>
 </context>
 <context>
     <name>RegistrationFinishedPage</name>
     <message>
         <source>The registration of the new user finished successful. Now you can use you card.</source>
-        <translation>Регистрация нового пользователя завершилась успешно. Теперь вы можете использовать свою карту.</translation>
+        <translation type="vanished">Регистрация нового пользователя завершилась успешно. Теперь вы можете использовать свою карту.</translation>
     </message>
     <message>
         <source>Go to use</source>
@@ -292,12 +332,16 @@
         <source>Registration passed!!!</source>
         <translation>Регистрация прошла !!!</translation>
     </message>
+    <message>
+        <source>Now let&apos;s move on to using!</source>
+        <translation>А сейчас перейдём к использованию!</translation>
+    </message>
 </context>
 <context>
     <name>ScannerOverlay</name>
     <message>
         <source>Scan QR code</source>
-        <translation type="unfinished"></translation>
+        <translation>Скан QR кода</translation>
     </message>
 </context>
 <context>
