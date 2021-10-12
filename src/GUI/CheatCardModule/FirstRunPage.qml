@@ -106,11 +106,11 @@ Page {
                             id: name
                             Layout.alignment: Qt.AlignHCenter
                             Layout.fillWidth: true
-                            placeholderText: qsTr("Please enter your name or name your company here")
+                            placeholderText: qsTr("Please enter your name here")
                         }
 
                         Button {
-                            text: qsTr("Next")
+                            text: qsTr("Go!")
                             Layout.alignment: Qt.AlignHCenter
 
                             onClicked: () => {

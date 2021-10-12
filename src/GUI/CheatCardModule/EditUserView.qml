@@ -12,15 +12,6 @@ Frame {
 
     property bool editable: true
 
-    header: Label {
-        horizontalAlignment: Label.AlignHCenter
-        text: (root.userModel)? qsTr("Editing : ") + root.userModel.name : qsTr("No user selected")
-        font.bold: true
-        font.pointSize: 14
-        visible: editable
-
-        padding: 20
-    }
 
     contentItem: GridLayout {
 
@@ -135,7 +126,7 @@ Frame {
 
         header: Label {
             horizontalAlignment: Label.AlignHCenter
-            text: qsTr("Do you really want? ");
+            text: qsTr("Oh, do you really want? ");
             font.bold: true
         }
 

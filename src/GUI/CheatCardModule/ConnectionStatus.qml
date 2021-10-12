@@ -20,7 +20,7 @@ Page {
         }
 
         Label {
-            text: qsTr("Waiting for joy is also joy.  ")
+            text: qsTr("Hachiko mode activated!  ")
             Layout.alignment: Qt.AlignHCenter
             Layout.fillWidth: true
 

@@ -9,11 +9,11 @@
     </message>
     <message>
         <source>You do not have any card. </source>
-        <translation>You do not have any card. </translation>
+        <translation type="vanished">You do not have any card. </translation>
     </message>
     <message>
         <source>Visit any coffee to get a new card and their bonuses</source>
-        <translation>Visit any coffee to get a new card and their bonuses</translation>
+        <translation type="vanished">Visit any coffee to get a new card and their bonuses</translation>
     </message>
     <message>
         <source>Please create a new card for work</source>
@@ -25,7 +25,19 @@
     </message>
     <message>
         <source>Please create a new card for work. Press &quot;Add Card &quot; button</source>
-        <translation>Please create a new card for work. Press &quot;Add Card &quot; button</translation>
+        <translation type="vanished">Please create a new card for work. Press &quot;Add Card &quot; button</translation>
+    </message>
+    <message>
+        <source>Don&apos;t have any cards yet? </source>
+        <translation>Don&apos;t have any cards yet? </translation>
+    </message>
+    <message>
+        <source>Visit any coffee and start receiving bonuses now!</source>
+        <translation>Visit any coffee and start receiving bonuses now!</translation>
+    </message>
+    <message>
+        <source>Let&apos;s go create the first card! Press &quot;Add Card &quot; button</source>
+        <translation>Let&apos;s go create the first card! Press &quot;Add Card &quot; button</translation>
     </message>
 </context>
 <context>
@@ -74,7 +86,11 @@
     <name>ConnectionStatus</name>
     <message>
         <source>please wait until the exchange is successful  </source>
-        <translation>please wait until the exchange is successful  </translation>
+        <translation type="vanished">please wait until the exchange is successful  </translation>
+    </message>
+    <message>
+        <source>Hachiko mode activated!  </source>
+        <translation>Hachiko mode activated!  </translation>
     </message>
 </context>
 <context>
@@ -200,7 +216,7 @@
     </message>
     <message>
         <source>Are you sure you want to become a seller? </source>
-        <translation>Are you sure you want to become a seller? </translation>
+        <translation type="vanished">Are you sure you want to become a seller? </translation>
     </message>
     <message>
         <source>Editing : </source>
@@ -228,7 +244,7 @@
     </message>
     <message>
         <source>My Id:</source>
-        <translation>My Id:</translation>
+        <translation type="vanished">My Id:</translation>
     </message>
     <message>
         <source>Just a customer</source>
@@ -240,11 +256,19 @@
     </message>
     <message>
         <source>Do you really want? </source>
-        <translation>Do you really want? </translation>
+        <translation type="vanished">Do you really want? </translation>
     </message>
     <message>
         <source>I want to sell!</source>
-        <translation>I want to sell!</translation>
+        <translation type="vanished">I want to sell!</translation>
+    </message>
+    <message>
+        <source>Profile</source>
+        <translation>Profile</translation>
+    </message>
+    <message>
+        <source>Oh, do you really want? </source>
+        <translation>Oh, do you really want? </translation>
     </message>
 </context>
 <context>
@@ -295,11 +319,19 @@
     </message>
     <message>
         <source>Please enter your name or name your company here</source>
-        <translation>Please enter your name or name your company here</translation>
+        <translation type="vanished">Please enter your name or name your company here</translation>
     </message>
     <message>
         <source>Who are you?</source>
         <translation>Who are you?</translation>
+    </message>
+    <message>
+        <source>Please enter your name here</source>
+        <translation>Please enter your name here</translation>
+    </message>
+    <message>
+        <source>Go!</source>
+        <translation>Go!</translation>
     </message>
 </context>
 <context>
@@ -314,11 +346,11 @@
     </message>
     <message>
         <source>Wooooh seems like someone has %0 free %1 !!!</source>
-        <translation type="unfinished"></translation>
+        <translation>Wooooh seems like someone has %0 free %1 !!!</translation>
     </message>
     <message>
         <source>Give out</source>
-        <translation type="unfinished"></translation>
+        <translation>Give out</translation>
     </message>
 </context>
 <context>
@@ -329,7 +361,7 @@
     </message>
     <message>
         <source>The registration of the new user finished successful. Now you can use you card.</source>
-        <translation>The registration of the new user finished successful. Now you can use you card.</translation>
+        <translation type="vanished">The registration of the new user finished successful. Now you can use you card.</translation>
     </message>
     <message>
         <source>Go to use</source>
@@ -339,12 +371,16 @@
         <source>Registration passed!!!</source>
         <translation>Registration passed!!!</translation>
     </message>
+    <message>
+        <source>Now let&apos;s move on to using!</source>
+        <translation>Now let&apos;s move on to using!</translation>
+    </message>
 </context>
 <context>
     <name>ScannerOverlay</name>
     <message>
         <source>Scan QR code</source>
-        <translation type="unfinished"></translation>
+        <translation>Scan QR code</translation>
     </message>
 </context>
 <context>
