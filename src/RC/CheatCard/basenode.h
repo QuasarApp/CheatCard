@@ -9,7 +9,7 @@
 #define BASENODE_H
 #include "abstractnode.h"
 #include "core_global.h"
-
+#include "datapack.h"
 #include <isqldbcache.h>
 namespace RC {
 
@@ -50,13 +50,13 @@ protected:
 
     bool processSession(const QSharedPointer<Session> &message,
                            const QH::AbstractNodeInfo *sender, const QH::Header&);
-    bool processCardStatus(const QSharedPointer<UsersCards> &message,
+    bool processCardStatus(const QSharedPointer<QH::PKG::DataPack<UsersCards>> &cardStatuses,
                            const QH::AbstractNodeInfo *sender, const QH::Header&);
     bool applayPurchases(const QSharedPointer<UsersCards> &dbCard,
                          const QH::AbstractNodeInfo *sender);
     bool processCardRequest(const QSharedPointer<CardDataRequest> &cardStatus,
                             const QH::AbstractNodeInfo *sender, const QH::Header&);
-    bool processCardData(const QSharedPointer<Card> &cardrequest,
+    bool processCardData(const QSharedPointer<QH::PKG::DataPack<Card> > &cardrequest,
                          const QH::AbstractNodeInfo *sender, const QH::Header &);
 
     QH::ParserResult parsePackage(const QSharedPointer<QH::PKG::AbstractData> &pkg,

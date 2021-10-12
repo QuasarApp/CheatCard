@@ -21,9 +21,9 @@ namespace RC {
 Server::Server(QH::ISqlDBCache *db): BaseNode(db) {
     registerPackageType<Session>();
     registerPackageType<CardStatusRequest>();
-    registerPackageType<UsersCards>();
+    registerPackageType<QH::PKG::DataPack<UsersCards>>();
     registerPackageType<CardDataRequest>();
-    registerPackageType<Card>();
+    registerPackageType<QH::PKG::DataPack<Card>>();
 
     auto task = QSharedPointer<ClearOldData>::create();
     task->setTime(0);

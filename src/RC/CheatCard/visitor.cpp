@@ -19,8 +19,8 @@ namespace RC {
 
 
 Visitor::Visitor(QH::ISqlDBCache *db): BaseNode(db) {
-    registerPackageType<UsersCards>();
-    registerPackageType<Card>();
+    registerPackageType<QH::PKG::DataPack<UsersCards>>();
+    registerPackageType<QH::PKG::DataPack<Card>>();
 
 }
 

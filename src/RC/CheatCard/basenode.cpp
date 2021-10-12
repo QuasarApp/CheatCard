@@ -45,7 +45,7 @@ QH::ParserResult BaseNode::parsePackage(const QSharedPointer<QH::PKG::AbstractDa
         return result;
     }
 
-    result = commandHandler<UsersCards>(this, &BaseNode::processCardStatus,
+    result = commandHandler<QH::PKG::DataPack<UsersCards>>(this, &BaseNode::processCardStatus,
                                         pkg, sender, pkgHeader);
     if (result != QH::ParserResult::NotProcessed) {
         return result;
@@ -57,7 +57,7 @@ QH::ParserResult BaseNode::parsePackage(const QSharedPointer<QH::PKG::AbstractDa
         return result;
     }
 
-    result = commandHandler<Card>(this, &BaseNode::processCardData,
+    result = commandHandler<QH::PKG::DataPack<Card>>(this, &BaseNode::processCardData,
                                   pkg, sender, pkgHeader);
     if (result != QH::ParserResult::NotProcessed) {
         return result;
@@ -87,7 +87,7 @@ int BaseNode::getFreeItemsCount(const QSharedPointer<UsersCards> &inputData,
         return 0;
 
     int freeItems = std::floor(inputData->getPurchasesNumber() /
-                              static_cast<double>(freeIndex)) -
+                               static_cast<double>(freeIndex)) -
             inputData->getReceived();
 
     return freeItems;
@@ -108,23 +108,28 @@ QString BaseNode::libVersion() const {
     return CHEAT_CARD_VERSION;
 }
 
-bool BaseNode::processCardStatus(const QSharedPointer<UsersCards> &cardStatus,
+bool BaseNode::processCardStatus(const QSharedPointer<QH::PKG::DataPack<UsersCards> > &cardStatuses,
                                  const QH::AbstractNodeInfo *sender, const QH::Header &) {
 
     QuasarAppUtils::Params::log(QString("processCardStatus: begin"), QuasarAppUtils::Info);
+    CardDataRequest request;
 
-    Card userrquest;
-    userrquest.setId(cardStatus->getCard());
+    for (const auto& cardStatus : cardStatuses->packData()) {
+        Card userrquest;
+        userrquest.setId(cardStatus->getCard());
 
-    if (!applayPurchases(cardStatus, sender)) {
-        return false;
+        if (!applayPurchases(cardStatus, sender)) {
+            return false;
+        }
+
+        auto dbCard = _db->getObject(userrquest);
+
+        if (!dbCard) {
+            request.push(cardStatus->getCard());
+        }
     }
 
-    auto dbCard = _db->getObject(userrquest);
-
-    if (!dbCard) {
-        CardDataRequest request;
-        request.setCardId(cardStatus->getCard());
+    if (request.getCardId().size()) {
         unsigned long long token = rand() * rand();
         request.setRequestToken(token);
 
@@ -179,18 +184,28 @@ bool BaseNode::processCardRequest(const QSharedPointer<CardDataRequest> &cardreq
 
     QuasarAppUtils::Params::log(QString("processCardRequest: begin"), QuasarAppUtils::Info);
 
-    auto card = getCard(cardrequest->getCardId());
+    QH::PKG::DataPack<Card> cards{};
 
-    if (!card) {
-        QuasarAppUtils::Params::log(QString("Failed to find card with id: %0").
-                                    arg(cardrequest->getCardId()),
+    for (unsigned int cardId : cardrequest->getCardId()) {
+        auto card = getCard(cardId);
+
+        if (!card) {
+            QuasarAppUtils::Params::log(QString("Failed to find card with id: %0").
+                                        arg(cardId),
+                                        QuasarAppUtils::Error);
+            continue;
+        }
+        card->setRequestToken(cardrequest->requestToken());
+        cards.push(card);
+    }
+
+    if (!cards.packData().size()) {
+        QuasarAppUtils::Params::log(QString("Failed to find any cards "),
                                     QuasarAppUtils::Error);
         return false;
     }
 
-    card->setRequestToken(cardrequest->requestToken());
-
-    if (!sendData(card.data(), sender)) {
+    if (!sendData(&cards, sender)) {
 
         QuasarAppUtils::Params::log("Failed to send responce", QuasarAppUtils::Error);
         return false;
@@ -199,26 +214,31 @@ bool BaseNode::processCardRequest(const QSharedPointer<CardDataRequest> &cardreq
     return true;
 }
 
-bool BaseNode::processCardData(const QSharedPointer<Card> &card,
+bool BaseNode::processCardData(const QSharedPointer<QH::PKG::DataPack<Card>> &cards,
                                const QH::AbstractNodeInfo *sender, const QH::Header &) {
 
     QuasarAppUtils::Params::log(QString("processCardData: begin"), QuasarAppUtils::Info);
 
     auto senderInfo = static_cast<const NodeInfo*>(sender);
 
-    if (!card->isValid())
-        return false;
+    for (const auto& card : qAsConst(cards->packData())) {
+        if (!card->isValid()) {
+            QuasarAppUtils::Params::log("Received invalid card data!",
+                                        QuasarAppUtils::Error);
+            continue;
+        }
 
-    if (card->requestToken() != senderInfo->token()) {
-        QuasarAppUtils::Params::log("Receive not requested responce!");
-        return false;
+        if (card->requestToken() != senderInfo->token()) {
+            QuasarAppUtils::Params::log("Receive not requested card!");
+            continue;
+        }
+
+        if (!_db->insertIfExistsUpdateObject(card)) {
+            continue;
+        }
+
+        emit sigCardReceived(card);
     }
-
-    if (!_db->insertIfExistsUpdateObject(card)) {
-        return false;
-    }
-
-    emit sigCardReceived(card);
 
     return removeNode(sender->networkAddress());
 }
@@ -246,10 +266,13 @@ bool BaseNode::processCardStatusRequest(const QSharedPointer<CardStatusRequest> 
         return false;
     }
 
+    QH::PKG::DataPack<UsersCards> responce;
     for (const auto &data : qAsConst(result->data())) {
-        if (!sendData(data.data(), sender)) {
-            return false;
-        }
+        responce.push(data);
+    }
+
+    if (!sendData(&responce, sender)) {
+        return false;
     }
 
     return true;

@@ -24,15 +24,16 @@ public:
     bool isValid() const override;
     // StreamBase interface
 
-    unsigned int getCardId() const;
-    void setCardId(unsigned int newCardId);
+    const QList<unsigned int>& getCardId() const;
+    void setCardId(const QList<unsigned int>& newCardId);
+    void push(unsigned int id);
 
 protected:
     QDataStream &fromStream(QDataStream &stream) override;
     QDataStream &toStream(QDataStream &stream) const override;
 
 private:
-    unsigned int cardId = 0;
+    QList<unsigned int> cardIds;
 };
 }
 #endif // CARDDATAREQUEST_H
