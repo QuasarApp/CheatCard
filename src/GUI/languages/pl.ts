@@ -5,15 +5,15 @@
     <name>CardsListView</name>
     <message>
         <source>You do not have any card. </source>
-        <translation>Nie masz żadnej karty. </translation>
+        <translation type="vanished">Nie masz żadnej karty. </translation>
     </message>
     <message>
         <source>Visit any coffee to get a new card and their bonuses</source>
-        <translation>Odwiedź dowolną kawę, aby otrzymać nową kartę i jej bonusy</translation>
+        <translation type="vanished">Odwiedź dowolną kawę, aby otrzymać nową kartę i jej bonusy</translation>
     </message>
     <message>
         <source>Please create a new card for work. Press &quot;Add Card &quot; button</source>
-        <translation>Utwórz nową kartę do pracy. Naciśnij przycisk „Dodaj kartę”</translation>
+        <translation type="vanished">Utwórz nową kartę do pracy. Naciśnij przycisk „Dodaj kartę”</translation>
     </message>
     <message>
         <source>Edit</source>
@@ -22,6 +22,18 @@
     <message>
         <source>Add card</source>
         <translation>Dodaj kartę</translation>
+    </message>
+    <message>
+        <source>Don&apos;t have any cards yet? </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Visit any coffee and start receiving bonuses now!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Let&apos;s go create the first card! Press &quot;Add Card &quot; button</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -67,7 +79,11 @@
     <name>ConnectionStatus</name>
     <message>
         <source>please wait until the exchange is successful  </source>
-        <translation>poczekaj, aż wymiana się powiedzie  </translation>
+        <translation type="vanished">poczekaj, aż wymiana się powiedzie  </translation>
+    </message>
+    <message>
+        <source>Hachiko mode activated!  </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -177,22 +193,26 @@
     </message>
     <message>
         <source>Are you sure you want to become a seller? </source>
-        <translation>Czy na pewno chcesz zostać sprzedawcą? </translation>
+        <translation type="vanished">Czy na pewno chcesz zostać sprzedawcą? </translation>
     </message>
     <message>
         <source>Profile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>User name:</source>
+        <source>Its my name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You are not a seller</source>
+        <source>Just a customer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You are a seller</source>
+        <source>Salesman!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Oh, do you really want? </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -228,7 +248,15 @@
     </message>
     <message>
         <source>Please enter your name or name your company here</source>
-        <translation>Nazwę swojej firmy</translation>
+        <translation type="vanished">Nazwę swojej firmy</translation>
+    </message>
+    <message>
+        <source>Please enter your name here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Go!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -258,11 +286,15 @@
     </message>
     <message>
         <source>The registration of the new user finished successful. Now you can use you card.</source>
-        <translation>Rejestracja nowego użytkownika zakończyła się pomyślnie. Teraz możesz użyć swojej karty.</translation>
+        <translation type="vanished">Rejestracja nowego użytkownika zakończyła się pomyślnie. Teraz możesz użyć swojej karty.</translation>
     </message>
     <message>
         <source>Go to use</source>
         <translation>Go to use</translation>
+    </message>
+    <message>
+        <source>Now let&apos;s move on to using!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

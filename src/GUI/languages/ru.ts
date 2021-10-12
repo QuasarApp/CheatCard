@@ -317,10 +317,6 @@
         <source>Give out</source>
         <translation>Выдать</translation>
     </message>
-    <message>
-        <source>Give out</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>RegistrationFinishedPage</name>

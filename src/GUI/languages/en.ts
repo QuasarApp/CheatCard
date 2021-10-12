@@ -352,10 +352,6 @@
         <source>Give out</source>
         <translation>Give out</translation>
     </message>
-    <message>
-        <source>Give out</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>RegistrationFinishedPage</name>
