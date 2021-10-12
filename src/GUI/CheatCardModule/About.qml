@@ -14,6 +14,8 @@ import QuasarAppCreditsModule 1.0
 
 Credits {
     state: "about"
+    iconWidth: 150
+    iconLogo: "qrc:/images/private/resources/Logo/CheatCard_Logo1.png"
     developersList: [
         {
             section: qsTr("## QuasarApp Core team:"),
@@ -23,5 +25,9 @@ Credits {
                 "* Chernenkov Oleg " + qsTr("(Designer)"),
             ]
         }
+    ]
+
+    versionList: [
+
     ]
 }
