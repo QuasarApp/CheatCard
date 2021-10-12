@@ -15,7 +15,7 @@
 #include <CheatCard/userscards.h>
 
 #include <badrequest.h>
-
+#include "clearolddata.h"
 namespace RC {
 
 Server::Server(QH::ISqlDBCache *db): BaseNode(db) {
@@ -25,6 +25,7 @@ Server::Server(QH::ISqlDBCache *db): BaseNode(db) {
     registerPackageType<CardDataRequest>();
     registerPackageType<Card>();
 
+    sheduleTask(QSharedPointer<ClearOldData>::create());
 }
 
 void Server::nodeConnected(QH::AbstractNodeInfo *node) {
