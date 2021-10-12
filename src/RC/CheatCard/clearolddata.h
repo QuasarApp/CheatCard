@@ -10,25 +10,26 @@
 #define CLEAROLDDATA_H
 
 #include "abstracttask.h"
+#include "core_global.h"
 
 namespace RC {
 
 /**
- * @brief The TimeValue enum
- */
-enum TimeValue {
-    Sec = 1,
-    Min = 60 * Sec,
-    Hour = 60 * Min,
-    Day = 24 * Hour
-};
-
-/**
  * @brief The ClearOldData class This pacakge will clear all old data from database.
  */
-class ClearOldData: public QH::AbstractTask
+class CHEATCARD_CORE_EXPORT ClearOldData: public QH::AbstractTask
 {
 public:
+    /**
+     * @brief The TimeValue enum
+     */
+    enum TimeValue {
+        Sec = 1,
+        Min = 60 * Sec,
+        Hour = 60 * Min,
+        Day = 24 * Hour
+    };
+
     ClearOldData(int duration = 30 * Day);
 
     bool execute(QH::AbstractNode *node) const;

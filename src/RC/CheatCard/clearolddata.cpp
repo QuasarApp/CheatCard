@@ -29,16 +29,26 @@ bool ClearOldData::execute(QH::AbstractNode *node) const {
 
     int timeLine = static_cast<int>(::time(0)) - _duration;
 
-    QStringList tables;
+    QStringList tables = {
+        "Cards",
+        "Users",
+        "UsersCards",
+        "Sessions"
+    };
     for (const QString& table : qAsConst(tables)) {
 
         QString query = "DELETE FROM %0 WHERE time < '%1'";
         query = query.arg(table).arg(timeLine);
 
         if (!db->doQuery(query)) {
+            QuasarAppUtils::Params::log(query + " is Failed",
+                                        QuasarAppUtils::Error);
             return false;
         }
     }
+
+    QuasarAppUtils::Params::log("The Clear old data finished successfull",
+                                QuasarAppUtils::Info);
 
     return true;
 };

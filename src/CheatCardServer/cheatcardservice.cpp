@@ -67,6 +67,21 @@ bool CheatCardService::handleReceive(const Patronum::Feature &data) {
         QuasarAppUtils::Params::setArg("verbose", data.arg());
 
         sendResuylt("New verbose level is " + QuasarAppUtils::Params::getArg("verbose"));
+    } else if (data.cmd() == "clearData") {
+        auto task = QSharedPointer<RC::ClearOldData>::create();
+        task->setMode(QH::SheduleMode::SingleWork);
+        task->setTime(0);
+
+        _server->sheduleTask(task);
+        sendResuylt("Task are pushed");
+
+    } else if (data.cmd() == "forceClearData") {
+        auto task = QSharedPointer<RC::ClearOldData>::create(0);
+        task->setMode(QH::SheduleMode::SingleWork);
+        task->setTime(0);
+
+        _server->sheduleTask(task);
+        sendResuylt("Task are pushed");
     }
 
     return true;
@@ -78,6 +93,8 @@ QSet<Patronum::Feature> CheatCardService::supportedFeatures() {
     data << Patronum::Feature("ping", {}, "This is description of the ping command");
     data << Patronum::Feature("state", {}, "return state");
     data << Patronum::Feature("setVerbose", "verbose level", "sets new verbose log level");
+    data << Patronum::Feature("clearData", "Clear all old data from server");
+    data << Patronum::Feature("forceClearData", "clear all data from server");
 
     return data;
 }
