@@ -42,7 +42,7 @@ Frame {
         }
 
         Label {
-            text: qsTr("User name:");
+            text: qsTr("Its my name:");
         }
 
         TextField {
@@ -63,8 +63,8 @@ Frame {
 
         Label {
             text: (becomeaseller.visible)?
-                      qsTr("You are not a seller"):
-                      qsTr("You are a seller");
+                      qsTr("Just a customer"):
+                      qsTr("Salesman!");
         }
 
         Button {
@@ -126,7 +126,7 @@ Frame {
 
         header: Label {
             horizontalAlignment: Label.AlignHCenter
-            text: qsTr("Are you sure you want to become a seller? ");
+            text: qsTr("Oh, do you really want? ");
             font.bold: true
         }
 

@@ -251,6 +251,7 @@ Page {
 
                                 Image {
                                     id: seelImage
+                                    mipmap: true;
                                     visible: Boolean(root.model) &&
                                              ((root.purchasesNumber %
                                                freeIndex.value) > index)

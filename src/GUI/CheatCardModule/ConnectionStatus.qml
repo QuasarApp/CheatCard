@@ -20,7 +20,7 @@ Page {
         }
 
         Label {
-            text: qsTr("please wait until the exchange is successful  ")
+            text: qsTr("Hachiko mode activated!  ")
             Layout.alignment: Qt.AlignHCenter
             Layout.fillWidth: true
 
