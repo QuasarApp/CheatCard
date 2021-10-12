@@ -19,6 +19,8 @@ CREATE TABLE IF NOT EXISTS "Cards" (
         "color"             INTEGER DEFAULT 0x00777777,
 
         "freeIndex"         INTEGER DEFAULT 0,
+        "time" INTEGER NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
         PRIMARY KEY("id")
 );
 
@@ -27,6 +29,8 @@ CREATE TABLE IF NOT EXISTS "Users" (
         "name"          TEXT NOT NULL,
         "key"           BLOB NOT NULL,
         "fSaller"       BOOLEAN DEFAULT false,
+        "time" INTEGER NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
         PRIMARY KEY("id")
 );
 
@@ -34,6 +38,7 @@ CREATE TABLE IF NOT EXISTS "Users" (
 CREATE TABLE IF NOT EXISTS "Config" (
        "user"   INTEGER NOT NULL UNIQUE,
        "fFirst" BOOLEAN NOT NULL DEFAULT false,
+       "fSellerMode" BOOLEAN NOT NULL DEFAULT true,
 
        FOREIGN KEY(user) REFERENCES Users(id)
                ON UPDATE CASCADE
@@ -42,12 +47,14 @@ CREATE TABLE IF NOT EXISTS "Config" (
 
 -- Matches tables
 CREATE TABLE IF NOT EXISTS "UsersCards" (
+       "id"   INTEGER NOT NULL UNIQUE,
        "user" INTEGER NOT NULL,
        "card" INTEGER NOT NULL,
 
        "owner" BOOLEAN NOT NULL DEFAULT false,
        "purchasesNumber" INTEGER DEFAULT 1,
        "received" INTEGER DEFAULT 0,
+       "time" INTEGER NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
        FOREIGN KEY(user) REFERENCES Users(id)
                ON UPDATE CASCADE
@@ -57,8 +64,18 @@ CREATE TABLE IF NOT EXISTS "UsersCards" (
                ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS "Sessions" (
+       "id" INTEGER NOT NULL,
+       "usersCardsID" INTEGER NOT NULL,
+       "time" INTEGER NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+       FOREIGN KEY(usersCardsID) REFERENCES UsersCards(id)
+               ON UPDATE CASCADE
+               ON DELETE CASCADE
+);
+
 CREATE TABLE IF NOT EXISTS "Contacts" (
-       "user"   INTEGER NOT NULL,
+       "user" INTEGER NOT NULL,
        "contactUser" INTEGER NOT NULL,
 
        FOREIGN KEY(user) REFERENCES Users(id)
@@ -70,7 +87,7 @@ CREATE TABLE IF NOT EXISTS "Contacts" (
 );
 
 -- Indexes
-CREATE UNIQUE INDEX IF NOT EXISTS UsersCardsIndex ON UsersCards(user, card);
+CREATE UNIQUE INDEX IF NOT EXISTS SessionsIndex ON Sessions(id, usersCardsID);
 CREATE UNIQUE INDEX IF NOT EXISTS ContactsIndex ON Contacts(user, contactUser);
 
 

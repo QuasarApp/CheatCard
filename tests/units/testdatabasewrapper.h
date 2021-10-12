@@ -7,13 +7,13 @@ class TestDataBaseWrapper: public RC::DataBase
 {
     Q_OBJECT
 public:
-    TestDataBaseWrapper(const QString& name, int mode);
+    TestDataBaseWrapper(const QString& db, const QString &dbPath = "");
 
     // DataBaseNode interface
 protected:
     QStringList SQLSources() const;
 private:
-    int _mode = 0;
+    QString _dbPath;
 };
 
 #endif // TESTDATABASEWRAPPER_H

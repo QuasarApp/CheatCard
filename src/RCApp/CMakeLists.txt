@@ -7,7 +7,7 @@
 
 cmake_minimum_required(VERSION 3.14)
 
-set(CURRENT_PROJECT "${PROJECT_NAME}App")
+set(CURRENT_PROJECT "${PROJECT_NAME}")
 
 file(GLOB SOURCE_CPP
     "*.cpp"
@@ -22,6 +22,7 @@ set(PRIVATE_INCUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Private")
 
 # Qt 6.2 hot fix
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Sql Network Concurrent QUIET)
+updateGitVars()
 
 
 if (${QT_VERSION_MAJOR} EQUAL 6)
@@ -39,7 +40,7 @@ endif()
 
 target_link_libraries(${CURRENT_PROJECT} PUBLIC Qt${QT_VERSION_MAJOR}::Core)
 
-target_link_libraries(${CURRENT_PROJECT} PUBLIC ${PROJECT_NAME})
+target_link_libraries(${CURRENT_PROJECT} PUBLIC "${PROJECT_NAME}Gui")
 
 target_include_directories(${CURRENT_PROJECT} PUBLIC ${PUBLIC_INCUDE_DIR})
 target_include_directories(${CURRENT_PROJECT} PRIVATE ${PRIVATE_INCUDE_DIR})
@@ -49,11 +50,16 @@ SET(TARGET_DIR "${CMAKE_SOURCE_DIR}/Distro")
 file(MAKE_DIRECTORY ${TARGET_DIR})
 
 if (ANDROID)
+    set(ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/android CACHE INTERNAL "")
 
     set(SNAKE_EXTRA_LIBS
-        ${PROJECT_NAME}
+        ${PROJECT_NAME}Core
+        ${PROJECT_NAME}Gui
         QuasarApp
         Heart
+        QmlNotyfyService
+        SCodes
+        ZXing
         )
 
 #    find_package(Qt${QT_VERSION_MAJOR} COMPONENTS AndroidExtras REQUIRED)
@@ -61,9 +67,6 @@ if (ANDROID)
 
     addDeployAPK(${CURRENT_PROJECT}
                 "${CMAKE_CURRENT_LIST_DIR}/android"
-                "QuasarAppProject"
-                "${SIGPATH}/quasarapp.keystore"
-                "${SIGPASS_QUASARAPP}"
                 "${TARGET_DIR}"
                 "${SNAKE_EXTRA_LIBS}")
 
@@ -82,9 +85,13 @@ if (ANDROID)
     )
 
 else()
-    # Desctop deploying
-    addDeployFromCustomFile("CheatCard" "${CMAKE_CURRENT_SOURCE_DIR}/../../Deploy/CheatCard.json")
 
+
+    message(GIT_COMMIT_COUNT = ${GIT_COMMIT_COUNT})
+
+    set(DeployFile "${CMAKE_CURRENT_SOURCE_DIR}/../../Deploy/CheatCard.json")
+    configure_file("${DeployFile}.in" ${DeployFile} @ONLY)
+    addDeployFromCustomFile("CheatCard" ${DeployFile})
 endif()
 
 if(QT_VERSION_MAJOR EQUAL 6)

@@ -7,8 +7,8 @@
 
 #include <QGuiApplication>
 #include <quasarapp.h>
-#include "CheatCard/CheatCard.h"
-
+#include "CheatCardGui/CheatCard.h"
+#include <qmlnotifyservice.h>
 void initLang() {
     QLocale locale = QLocale::system();
     QString customLanguage = QuasarAppUtils::Params::getArg("lang");
@@ -17,14 +17,17 @@ void initLang() {
     }
 
     if(!QuasarAppUtils::Locales::init(locale, {":/CheatCardTr/languages/",
-                                               ":/credits_languages/",
-                                               ":/qmlNotify_languages/",
-                                               ":/lv_languages/"})){
+                                      ":/credits_languages/",
+                                      ":/qmlNotify_languages/",
+                                      ":/lv_languages/"})){
         QuasarAppUtils::Params::log("Error load language : ", QuasarAppUtils::Error);
     }
 }
 
 int main(int argc, char *argv[]) {
+
+    QuasarAppUtils::Params::parseParams(argc, argv);
+
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling); // <--
 #endif
@@ -33,6 +36,10 @@ int main(int argc, char *argv[]) {
 
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
+
+    if (!QmlNotificationService::init(&engine)) {
+        return 0;
+    }
 
     RC::CheatCard rc;
     initLang();

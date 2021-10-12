@@ -13,7 +13,11 @@
 
 #include <QtTest>
 
-#include "testdatatransfer.h"
+#include <CheatCard/basenode.h>
+
+namespace RC {
+    class User;
+}
 
 class ConnectionTest: public Test, protected TestUtils
 {
@@ -25,15 +29,8 @@ public:
 
 private:
     void firstContact();
-    void userTrySendWrongData();
-    void multipleUsersConnect();
-    void longTimeWorkdTest();
 
-    QSharedPointer<TestDataTransfer>
-    makeNode(TestDataTransfer::Mode mode);
-
-    void connectNodes(const QSharedPointer<TestDataTransfer>& nodeA,
-                      const QSharedPointer<TestDataTransfer>& nodeB);
+    QSharedPointer<RC::User> makeUser() const;
 
 };
 
