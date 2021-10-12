@@ -13,7 +13,6 @@
 #include <imageprovider.h>
 #include "mainmodel.h"
 #include "quasarapp.h"
-#include "mainmodel.h"
 
 namespace RC {
 
