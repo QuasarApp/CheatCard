@@ -19,6 +19,8 @@ CREATE TABLE IF NOT EXISTS "Cards" (
         "color"             INTEGER DEFAULT 0x00777777,
 
         "freeIndex"         INTEGER DEFAULT 0,
+        "time" INTEGER NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
         PRIMARY KEY("id")
 );
 
@@ -27,6 +29,8 @@ CREATE TABLE IF NOT EXISTS "Users" (
         "name"          TEXT NOT NULL,
         "key"           BLOB NOT NULL,
         "fSaller"       BOOLEAN DEFAULT false,
+        "time" INTEGER NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
         PRIMARY KEY("id")
 );
 
@@ -50,6 +54,7 @@ CREATE TABLE IF NOT EXISTS "UsersCards" (
        "owner" BOOLEAN NOT NULL DEFAULT false,
        "purchasesNumber" INTEGER DEFAULT 1,
        "received" INTEGER DEFAULT 0,
+       "time" INTEGER NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
        FOREIGN KEY(user) REFERENCES Users(id)
                ON UPDATE CASCADE
@@ -62,6 +67,7 @@ CREATE TABLE IF NOT EXISTS "UsersCards" (
 CREATE TABLE IF NOT EXISTS "Sessions" (
        "id" INTEGER NOT NULL,
        "usersCardsID" INTEGER NOT NULL,
+       "time" INTEGER NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
        FOREIGN KEY(usersCardsID) REFERENCES UsersCards(id)
                ON UPDATE CASCADE

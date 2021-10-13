@@ -9,7 +9,7 @@
 #define BASENODE_H
 #include "abstractnode.h"
 #include "core_global.h"
-
+#include "datapack.h"
 #include <isqldbcache.h>
 namespace RC {
 
@@ -31,7 +31,13 @@ public:
 
     int getCardFreeIndex(unsigned int cardId) const;
 
-    static QString libVersion();
+    static QString libVersion() const;
+
+    QSharedPointer<UsersCards>
+    getUserCardData(unsigned int userId, unsigned int cardId) const;
+
+    QSharedPointer<Card> getCard(unsigned int cardId);
+
 signals:
     void sigPurchaseWasSuccessful(QSharedPointer<RC::UsersCards> data);
     void sigCardReceived(QSharedPointer<RC::Card> err);
@@ -44,13 +50,13 @@ protected:
 
     bool processSession(const QSharedPointer<Session> &message,
                            const QH::AbstractNodeInfo *sender, const QH::Header&);
-    bool processCardStatus(const QSharedPointer<UsersCards> &message,
+    bool processCardStatus(const QSharedPointer<QH::PKG::DataPack<UsersCards>> &cardStatuses,
                            const QH::AbstractNodeInfo *sender, const QH::Header&);
     bool applayPurchases(const QSharedPointer<UsersCards> &dbCard,
                          const QH::AbstractNodeInfo *sender);
     bool processCardRequest(const QSharedPointer<CardDataRequest> &cardStatus,
                             const QH::AbstractNodeInfo *sender, const QH::Header&);
-    bool processCardData(const QSharedPointer<Card> &cardrequest,
+    bool processCardData(const QSharedPointer<QH::PKG::DataPack<Card> > &cardrequest,
                          const QH::AbstractNodeInfo *sender, const QH::Header &);
 
     QSharedPointer<UsersCards>

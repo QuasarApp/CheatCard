@@ -381,11 +381,10 @@ void MainModel::handlePurchaseWasSuccessful(QSharedPointer<RC::UsersCards> card)
     }
 
     int freeItems = _backEndModel->getFreeItemsCount(card, freeIndex);
-    card->receive(freeItems);
     _db->insertIfExistsUpdateObject(card);
 
     if (freeItems > 0) {
-        emit freeItem(cardModel.data(), freeItems);
+        emit freeItem(cardModel.data(), card->getUser(), freeItems);
     }
 }
 
@@ -425,6 +424,15 @@ void MainModel::handleFirstDataSendet() {
     }
 
     visitor->checkCardData(_currentUser->getSessinon());
+}
+
+void MainModel::handleBonusGivOut(int userId, int cardId, int count) {
+    auto card = _backEndModel->getUserCardData(userId, cardId);
+
+    if (card) {
+        card->receive(count);
+        _db->insertIfExistsUpdateObject(card);
+    }
 }
 
 QObject *MainModel::defaultLogosModel() const {

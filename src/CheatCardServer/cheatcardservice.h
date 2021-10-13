@@ -21,7 +21,7 @@ public:
     CheatCardService(int argc, char **argv);
     ~CheatCardService() override;
 
-    void onStart() override;
+    bool onStart() override;
     bool handleReceive(const Patronum::Feature &data) override;
     QSet<Patronum::Feature> supportedFeatures() override;
     void onResume() override;

@@ -15,16 +15,27 @@
 #include <CheatCard/userscards.h>
 
 #include <badrequest.h>
-
+#include "clearolddata.h"
 namespace RC {
 
 Server::Server(QH::ISqlDBCache *db): BaseNode(db) {
     registerPackageType<Session>();
     registerPackageType<CardStatusRequest>();
-    registerPackageType<UsersCards>();
+    registerPackageType<QH::PKG::DataPack<UsersCards>>();
     registerPackageType<CardDataRequest>();
-    registerPackageType<Card>();
+    registerPackageType<QH::PKG::DataPack<Card>>();
 
+    auto task = QSharedPointer<ClearOldData>::create();
+    task->setTime(0);
+    task->setMode(QH::ScheduleMode::SingleWork);
+
+    sheduleTask(task);
+
+    task = QSharedPointer<ClearOldData>::create();
+    task->setTime(30 * ClearOldData::Day);
+    task->setMode(QH::ScheduleMode::Repeat);
+
+    sheduleTask(task);
 }
 
 void Server::nodeConnected(QH::AbstractNodeInfo *node) {

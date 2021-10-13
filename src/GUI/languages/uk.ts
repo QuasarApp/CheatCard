@@ -20,15 +20,15 @@
     <name>CardsListView</name>
     <message>
         <source>You do not have any card. </source>
-        <translation>У вас немає жодної картки. </translation>
+        <translation type="vanished">У вас немає жодної картки. </translation>
     </message>
     <message>
         <source>Visit any coffee to get a new card and their bonuses</source>
-        <translation>Відвідайте будь яку каву, щоб отримати нову картку та їх бонуси</translation>
+        <translation type="vanished">Відвідайте будь яку каву, щоб отримати нову картку та їх бонуси</translation>
     </message>
     <message>
         <source>Please create a new card for work. Press &quot;Add Card &quot; button</source>
-        <translation>Будь ласка, створіть нову картку для роботи. Натисніть кнопку &quot;Додати картку&quot;</translation>
+        <translation type="vanished">Будь ласка, створіть нову картку для роботи. Натисніть кнопку &quot;Додати картку&quot;</translation>
     </message>
     <message>
         <source>Edit</source>
@@ -37,6 +37,18 @@
     <message>
         <source>Add card</source>
         <translation>Додати картку</translation>
+    </message>
+    <message>
+        <source>Don&apos;t have any cards yet? </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Visit any coffee and start receiving bonuses now!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Let&apos;s go create the first card! Press &quot;Add Card &quot; button</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -81,7 +93,11 @@
     <name>ConnectionStatus</name>
     <message>
         <source>please wait until the exchange is successful  </source>
-        <translation>зачекайте, поки обмін пройде успішно  </translation>
+        <translation type="vanished">зачекайте, поки обмін пройде успішно  </translation>
+    </message>
+    <message>
+        <source>Hachiko mode activated!  </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -191,22 +207,26 @@
     </message>
     <message>
         <source>Are you sure you want to become a seller? </source>
-        <translation>Ви впевнені, що хочете стати продавцем? </translation>
+        <translation type="vanished">Ви впевнені, що хочете стати продавцем? </translation>
     </message>
     <message>
         <source>Profile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>User name:</source>
+        <source>Its my name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You are not a seller</source>
+        <source>Just a customer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You are a seller</source>
+        <source>Salesman!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Oh, do you really want? </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -242,7 +262,15 @@
     </message>
     <message>
         <source>Please enter your name or name your company here</source>
-        <translation>Введіть назву вашої компанії</translation>
+        <translation type="vanished">Введіть назву вашої компанії</translation>
+    </message>
+    <message>
+        <source>Please enter your name here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Go!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -259,6 +287,10 @@
         <source>Wooooh seems like someone has %0 free %1 !!!</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Give out</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RegistrationFinishedPage</name>
@@ -268,11 +300,15 @@
     </message>
     <message>
         <source>The registration of the new user finished successful. Now you can use you card.</source>
-        <translation>Реєстрація нового користувача завершилася успішно. Тепер ви можете скористатися карткою.</translation>
+        <translation type="vanished">Реєстрація нового користувача завершилася успішно. Тепер ви можете скористатися карткою.</translation>
     </message>
     <message>
         <source>Go to use</source>
         <translation>Перейти до використання</translation>
+    </message>
+    <message>
+        <source>Now let&apos;s move on to using!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

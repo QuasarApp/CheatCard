@@ -64,6 +64,7 @@ ConnectionTest::~ConnectionTest() {
 void ConnectionTest::test() {
     QDir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)).removeRecursively();
 
+
     firstContact();
 }
 
@@ -131,6 +132,7 @@ void ConnectionTest::firstContact() {
 
     QVERIFY(sellerFreeItems == visitorFreeItems);
     QVERIFY(sellerFreeItems == 16);
+
     // To Do check free items count
 
 }

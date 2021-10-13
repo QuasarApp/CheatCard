@@ -26,7 +26,7 @@ Page {
             Label {
                 Layout.alignment: Qt.AlignHCenter
                 Layout.fillWidth: true
-                text: qsTr("The registration of the new user finished successful. Now you can use you card.")
+                text: qsTr("Now let's move on to using!")
                 wrapMode: Label.WordWrap
             }
 

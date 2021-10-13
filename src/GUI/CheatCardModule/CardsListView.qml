@@ -45,9 +45,9 @@ Page {
             orientation: (root.width < root.height)? ListView.Vertical : ListView.Horizontal
 
             Label {
-                text: qsTr("You do not have any card. ") +
-                      ((!root.editable)? qsTr("Visit any coffee to get a new card and their bonuses"):
-                                       qsTr("Please create a new card for work. Press \"Add Card \" button"))
+                text: qsTr("Don't have any cards yet? ") +
+                      ((!root.editable)? qsTr("Visit any coffee and start receiving bonuses now!"):
+                                       qsTr("Let's go create the first card! Press \"Add Card \" button"))
 
                 font.pointSize: 20
                 color: "#999999"
@@ -85,7 +85,7 @@ Page {
                                     }
 
                         TapHandler {
-                            enabled: !cardView.editable && cardItem.ListView.isCurrentItem
+                            enabled: root.editable && !cardView.editable && cardItem.ListView.isCurrentItem
                             onLongPressed:  {
 
                                 if (root.model) {
