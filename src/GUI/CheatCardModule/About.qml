@@ -10,9 +10,11 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QuasarAppCreditsModule 1.0
+import NotifyModule 1.0
 
 
 Credits {
+    property var model: null
     state: "about"
     iconWidth: 150
     iconLogo: "qrc:/images/private/resources/Logo/CheatCard_Logo1.png"
@@ -28,6 +30,14 @@ Credits {
     ]
 
     versionList: [
-
+        {
+            section: qsTr("## QuasarApp Core team:"),
+            sectionList: [
+                "* CheatCard " + ((model)? model.getCoreLibVr() : ""),
+                "* Heart " + ((model)? model.getHeartLibVr() : ""),
+                "* ZXing-C++ " + ((model)? model.getZxingCppLibVr() : ""),
+                "* SCodes " + ((model)? model.getSCodesLibVr() : ""),
+            ]
+        }
     ]
 }
