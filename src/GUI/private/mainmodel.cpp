@@ -63,7 +63,10 @@ MainModel::~MainModel() {
 
     delete _cardsListModel;
     delete _ownCardsListModel;
-    delete _aboutModel;
+
+    if (_aboutModel) {
+        delete _aboutModel;
+    }
 
     delete _defaultLogosModel;
     delete _defaultBackgroundsModel;

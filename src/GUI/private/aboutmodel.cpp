@@ -25,11 +25,11 @@ QString AboutModel::getHeartLibVr() {
 }
 
 QString AboutModel::getZxingCppLibVr() {
-    return "<a href='https://github.com/nu-book/zxing-cpp'></a>";
+    return "<a href='https://github.com/nu-book/zxing-cpp'>https://github.com/nu-book/zxing-cpp</a>";
 }
 
 QString AboutModel::getSCodesLibVr() {
-    return "<a href='https://github.com/scytheStudio/SCodes'></a>";
+    return "<a href='https://github.com/scytheStudio/SCodes'>https://github.com/scytheStudio/SCodes</a>";
 }
 
 }
