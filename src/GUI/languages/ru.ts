@@ -15,6 +15,14 @@
         <source>(Designer)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>## Used Libraris 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>## Used Libraris 2</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CardsListView</name>
