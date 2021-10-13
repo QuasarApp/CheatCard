@@ -6,6 +6,8 @@
 //#
 
 #include "aboutmodel.h"
+#include "heart.h"
+#include "CheatCard/basenode.h"
 
 namespace RC {
 
@@ -14,12 +16,20 @@ AboutModel::AboutModel()
 
 }
 
-QString AboutModel::getCoreLidVr() {
-    return "VerLibCore";
+QString AboutModel::getCoreLibVr() {
+    return RC::BaseNode::libVersion();
 }
 
-QString AboutModel::getHearteLibVr() {
-    return "VerHeartLib";
+QString AboutModel::getHeartLibVr() {
+    return QH::heartLibVersion();
+}
+
+QString AboutModel::getZxingCppLibVr() {
+    return "<a href='https://github.com/nu-book/zxing-cpp'>ZXing-C++</a>";
+}
+
+QString AboutModel::getSCodesLibVr() {
+    return "<a href='https://github.com/scytheStudio/SCodes'>SCodes</a>";
 }
 
 }

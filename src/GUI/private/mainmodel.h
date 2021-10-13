@@ -55,6 +55,7 @@ public:
 
     bool fFirst() const;
     Q_INVOKABLE void configureFinished();
+    Q_INVOKABLE QObject *getAboutModel();
     QObject *currentUser() const;
     QSharedPointer<UserModel> getCurrentUser() const;
 
@@ -127,8 +128,6 @@ private:
     void initMode(const QSharedPointer<UserModel>& user,
                   const QSharedPointer<Config>& config);
 
-    QString getVersionsUsedLid();
-
     QH::ISqlDBCache * _db = nullptr;
     QSharedPointer<UserModel> _currentUser;
     QSharedPointer<Config> _config;
@@ -137,7 +136,7 @@ private:
     CardsListModel *_cardsListModel = nullptr;
     CardsListModel *_ownCardsListModel = nullptr;
 
-    AboutModel * _currentVersLib = nullptr;
+    AboutModel *_aboutModel = nullptr;
 
     ItemsModel *_defaultLogosModel = nullptr;
     ItemsModel *_defaultBackgroundsModel = nullptr;

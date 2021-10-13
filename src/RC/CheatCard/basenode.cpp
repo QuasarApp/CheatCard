@@ -104,7 +104,7 @@ int RC::BaseNode::getCardFreeIndex(unsigned int cardId) const {
     return result->value().toUInt();
 }
 
-QString BaseNode::libVersion() const {
+QString BaseNode::libVersion() {
     return CHEAT_CARD_VERSION;
 }
 

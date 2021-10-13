@@ -31,7 +31,7 @@ public:
 
     int getCardFreeIndex(unsigned int cardId) const;
 
-    QString libVersion() const;
+    static QString libVersion();
 signals:
     void sigPurchaseWasSuccessful(QSharedPointer<RC::UsersCards> data);
     void sigCardReceived(QSharedPointer<RC::Card> err);

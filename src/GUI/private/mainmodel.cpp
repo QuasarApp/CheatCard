@@ -63,6 +63,7 @@ MainModel::~MainModel() {
 
     delete _cardsListModel;
     delete _ownCardsListModel;
+    delete _aboutModel;
 
     delete _defaultLogosModel;
     delete _defaultBackgroundsModel;
@@ -87,6 +88,14 @@ void MainModel::configureFinished() {
     initMode(_currentUser, _config);
 
     saveConfig();
+}
+
+QObject *MainModel::getAboutModel()
+{
+    if(!_aboutModel) {
+        _aboutModel = new AboutModel();
+    }
+    return _aboutModel;
 }
 
 QObject *MainModel::currentUser() const {

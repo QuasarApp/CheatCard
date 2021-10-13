@@ -19,8 +19,10 @@ class AboutModel: public QObject
 public:
     AboutModel();
 
-    Q_INVOKABLE QString getCoreLidVr();
-    Q_INVOKABLE QString getHearteLibVr();
+    Q_INVOKABLE QString getCoreLibVr();
+    Q_INVOKABLE QString getHeartLibVr();
+    Q_INVOKABLE QString getZxingCppLibVr();
+    Q_INVOKABLE QString getSCodesLibVr();
 
 };
 
