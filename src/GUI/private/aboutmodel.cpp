@@ -16,20 +16,20 @@ AboutModel::AboutModel()
 
 }
 
-QString AboutModel::getCoreLibVr() {
+QString AboutModel::getCoreLibVr() const {
     return RC::BaseNode::libVersion();
 }
 
-QString AboutModel::getHeartLibVr() {
+QString AboutModel::getHeartLibVr() const {
     return QH::heartLibVersion();
 }
 
-QString AboutModel::getZxingCppLibVr() {
-    return "<a href='https://github.com/nu-book/zxing-cpp'>https://github.com/nu-book/zxing-cpp</a>";
+QString AboutModel::getZxingCppLibVr() const {
+    return "";
 }
 
-QString AboutModel::getSCodesLibVr() {
-    return "<a href='https://github.com/scytheStudio/SCodes'>https://github.com/scytheStudio/SCodes</a>";
+QString AboutModel::getSCodesLibVr() const {
+    return "";
 }
 
 }

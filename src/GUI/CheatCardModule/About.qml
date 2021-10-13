@@ -31,12 +31,17 @@ Credits {
 
     versionList: [
         {
-            section: qsTr("## QuasarApp Core team:"),
+            section: qsTr("## Used Libraris 1"),
             sectionList: [
                 "* CheatCard " + ((model)? model.getCoreLibVr() : ""),
-                "* Heart " + ((model)? model.getHeartLibVr() : ""),
-                "* ZXing-C++ " + ((model)? model.getZxingCppLibVr() : ""),
-                "* SCodes " + ((model)? model.getSCodesLibVr() : ""),
+            ]
+        },
+        {
+            section: qsTr("## Used Libraris 2"),
+            sectionList: [
+                "* Heart " + ((model)? model.getCoreLibVr() : ""),
+                "<a href='https://github.com/nu-book/zxing-cpp'>" + "* ZXing-C++ " + "</a> " + ((model)? model.getZxingCppLibVr() : ""),
+                "<a href='https://github.com/QuasarApp/Heart'>" + "* SCodes " + "</a> " + ((model)? model.getSCodesLibVr() : ""),
             ]
         }
     ]
