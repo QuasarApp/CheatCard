@@ -31,13 +31,13 @@ Credits {
 
     versionList: [
         {
-            section: qsTr("## Used Libraris 1"),
+            section: qsTr("## Used Libraris application: "),
             sectionList: [
                 "* CheatCard " + ((model)? model.getCoreLibVr() : ""),
             ]
         },
         {
-            section: qsTr("## Used Libraris 2"),
+            section: qsTr("## Used Libraris: "),
             sectionList: [
                 "* Heart " + ((model)? model.getCoreLibVr() : ""),
                 "* ZXing-C++ " + ((model)? model.getZxingCppLibVr() : ""),

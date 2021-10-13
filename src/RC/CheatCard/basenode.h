@@ -31,7 +31,7 @@ public:
 
     int getCardFreeIndex(unsigned int cardId) const;
 
-    static QString libVersion() const;
+    static QString libVersion();
 
     QSharedPointer<UsersCards>
     getUserCardData(unsigned int userId, unsigned int cardId) const;
@@ -58,11 +58,6 @@ protected:
                             const QH::AbstractNodeInfo *sender, const QH::Header&);
     bool processCardData(const QSharedPointer<QH::PKG::DataPack<Card> > &cardrequest,
                          const QH::AbstractNodeInfo *sender, const QH::Header &);
-
-    QSharedPointer<UsersCards>
-    getUserCardData(unsigned int userId, unsigned int cardId) const;
-
-    QSharedPointer<Card> getCard(unsigned int cardId);
 
     QH::ParserResult parsePackage(const QSharedPointer<QH::PKG::AbstractData> &pkg,
                                   const QH::Header &pkgHeader,
