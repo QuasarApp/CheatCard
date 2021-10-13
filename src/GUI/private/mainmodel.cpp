@@ -6,6 +6,7 @@
 //#
 
 #include "cardmodel.h"
+#include "aboutmodel.h"
 #include "itemsmodel.h"
 #include "mainmodel.h"
 #include "qrcodereceiver.h"

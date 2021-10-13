@@ -16,6 +16,7 @@ namespace RC {
 
 class Card;
 class CardModel;
+class AboutModel;
 class User;
 class Config;
 class CardsListModel;
@@ -126,6 +127,8 @@ private:
     void initMode(const QSharedPointer<UserModel>& user,
                   const QSharedPointer<Config>& config);
 
+    QString getVersionsUsedLid();
+
     QH::ISqlDBCache * _db = nullptr;
     QSharedPointer<UserModel> _currentUser;
     QSharedPointer<Config> _config;
@@ -133,6 +136,8 @@ private:
     CardsListModel *_currentCardsListModel = nullptr;
     CardsListModel *_cardsListModel = nullptr;
     CardsListModel *_ownCardsListModel = nullptr;
+
+    AboutModel * _currentVersLib = nullptr;
 
     ItemsModel *_defaultLogosModel = nullptr;
     ItemsModel *_defaultBackgroundsModel = nullptr;
