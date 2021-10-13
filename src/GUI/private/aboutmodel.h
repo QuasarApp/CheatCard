@@ -9,10 +9,11 @@
 #define ABOUTMODEL_H
 
 #include <QObject>
+#include "CheatCardGui/gui_global.h"
 
 namespace RC {
 
-class AboutModel: public QObject
+class CHEATCARD_GUI_EXPORT AboutModel: public QObject
 {
     Q_OBJECT
 
