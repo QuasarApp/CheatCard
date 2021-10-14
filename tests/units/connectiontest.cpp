@@ -88,7 +88,7 @@ void ConnectionTest::firstContact() {
     obj->setUserId(user->userId());
 
     // 3619648333 This is card id from test database.
-    unsigned int cardId = 3619648333;
+    unsigned int cardId = 3580788802;
     for (int i = 0; i < 100; i++) {
 
         qDebug () << "test case " << i << "/" << 100;
@@ -132,6 +132,36 @@ void ConnectionTest::firstContact() {
 
     QVERIFY(sellerFreeItems == visitorFreeItems);
     QVERIFY(sellerFreeItems == 16);
+
+
+    // check rad on serve before clear
+    QVERIFY(wait([server, cardId](){
+        auto card = server->getCard(cardId);
+        return card && card->isValid();
+    }, WAIT_TIME));
+
+    auto task = QSharedPointer<RC::ClearOldData>::create();
+    task->setTime(0);
+    task->setMode(QH::ScheduleMode::SingleWork);
+    QVERIFY(server->sheduleTask(task));
+
+    // check card after general clear. card should be leave
+    QVERIFY(wait([server, cardId](){
+        auto card = server->getCard(cardId);
+        return card && card->isValid();
+    }, WAIT_TIME));
+
+    // run force clear
+    task = QSharedPointer<RC::ClearOldData>::create(-1);
+    task->setTime(0);
+    task->setMode(QH::ScheduleMode::SingleWork);
+    QVERIFY(server->sheduleTask(task));
+
+    // check card after clear. card should be removed
+    QVERIFY(wait([server, cardId](){
+        auto card = server->getCard(cardId);
+        return !card;
+    }, WAIT_TIME));
 
     // To Do check free items count
 
