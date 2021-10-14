@@ -37,11 +37,11 @@ bool Visitor::checkCardData(long long session,
     _lastRequested = session;
 
     int currentTime = time(0);
-    if (_lastRequest + USERREQUEST_TIMEOUT > currentTime) {
+    if (_lastRequest + _requestInterval > currentTime) {
 
         _domain = domain;
         _port = port;
-        _timer->start(_lastRequest + USERREQUEST_TIMEOUT - currentTime);
+        _timer->start((_lastRequest + _requestInterval - currentTime) * 1000);
 
         return true;
     }
@@ -72,6 +72,14 @@ void Visitor::nodeConnected(QH::AbstractNodeInfo *node) {
 void Visitor::handleTick() {
     _timer->stop();
     addNode(_domain, _port);
+}
+
+int Visitor::getRequestInterval() const {
+    return _requestInterval;
+}
+
+void Visitor::setRequestInterval(int newRequestInterval) {
+    _requestInterval = newRequestInterval;
 }
 
 }
