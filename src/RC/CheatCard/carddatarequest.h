@@ -15,7 +15,7 @@
 namespace RC {
 
 
-class CHEATCARD_CORE_EXPORT CardDataRequest: public QH::PKG::AbstractData, public RequestToken{
+class CHEATCARD_CORE_EXPORT CardDataRequest: public QH::PKG::AbstractData, public RequestToken {
     QH_PACKAGE(CardDataRequest, "CardDataRequest")
 
     // AbstractData interface

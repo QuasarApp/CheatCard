@@ -11,6 +11,9 @@
 #include "core_global.h"
 #include "datapack.h"
 #include <isqldbcache.h>
+
+
+#define USERREQUEST_TIMEOUT 10
 namespace RC {
 
 class CardStatus;
@@ -19,6 +22,7 @@ class UsersCards;
 class CardDataRequest;
 class CardStatusRequest;
 class Session;
+
 
 class CHEATCARD_CORE_EXPORT BaseNode: public QH::AbstractNode
 {
@@ -45,18 +49,18 @@ signals:
 
 protected:
     QH::ISqlDBCache *db() const;
-    bool processCardStatusRequest(const QSharedPointer<CardStatusRequest> &message,
+    virtual bool processCardStatusRequest(const QSharedPointer<CardStatusRequest> &message,
                            const QH::AbstractNodeInfo *sender, const QH::Header&);
 
-    bool processSession(const QSharedPointer<Session> &message,
+    virtual bool processSession(const QSharedPointer<Session> &message,
                            const QH::AbstractNodeInfo *sender, const QH::Header&);
-    bool processCardStatus(const QSharedPointer<QH::PKG::DataPack<UsersCards>> &cardStatuses,
+    virtual bool processCardStatus(const QSharedPointer<QH::PKG::DataPack<UsersCards>> &cardStatuses,
                            const QH::AbstractNodeInfo *sender, const QH::Header&);
-    bool applayPurchases(const QSharedPointer<UsersCards> &dbCard,
+    virtual bool applayPurchases(const QSharedPointer<UsersCards> &dbCard,
                          const QH::AbstractNodeInfo *sender);
-    bool processCardRequest(const QSharedPointer<CardDataRequest> &cardStatus,
+    virtual bool processCardRequest(const QSharedPointer<CardDataRequest> &cardStatus,
                             const QH::AbstractNodeInfo *sender, const QH::Header&);
-    bool processCardData(const QSharedPointer<QH::PKG::DataPack<Card> > &cardrequest,
+    virtual bool processCardData(const QSharedPointer<QH::PKG::DataPack<Card> > &cardrequest,
                          const QH::AbstractNodeInfo *sender, const QH::Header &);
 
     QH::ParserResult parsePackage(const QSharedPointer<QH::PKG::AbstractData> &pkg,

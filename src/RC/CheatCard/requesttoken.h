@@ -10,15 +10,25 @@
 
 #include "core_global.h"
 
+#include <streambase.h>
+
 namespace RC {
 
-class CHEATCARD_CORE_EXPORT RequestToken {
+class CHEATCARD_CORE_EXPORT RequestToken: public QH::StreamBase {
 public:
     RequestToken();
     unsigned long long requestToken() const;
     void setRequestToken(unsigned long long newRequestToken);
+    unsigned long long responceToken() const;
+    void setResponceToken(unsigned long long newResponceToken);
+
 protected:
+    QDataStream &fromStream(QDataStream &stream) override;
+    QDataStream &toStream(QDataStream &stream) const override;
+private:
+
     unsigned long long _requestToken = 0;
+    unsigned long long _responceToken = 0;
 
 };
 }

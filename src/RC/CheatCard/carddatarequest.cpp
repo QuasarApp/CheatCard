@@ -10,23 +10,23 @@
 namespace RC {
 
 bool CardDataRequest::isValid() const {
-    return AbstractData::isValid() && cardIds.size() && _requestToken;
+    return AbstractData::isValid() && cardIds.size() && requestToken();
 }
 
 QDataStream &CardDataRequest::fromStream(QDataStream &stream) {
     AbstractData::fromStream(stream);
+    RequestToken::fromStream(stream);
 
     stream >> cardIds;
-    stream >> _requestToken;
 
     return stream;
 }
 
 QDataStream &CardDataRequest::toStream(QDataStream &stream) const {
     AbstractData::toStream(stream);
+    RequestToken::toStream(stream);
 
     stream << cardIds;
-    stream << _requestToken;
 
     return stream;
 }
