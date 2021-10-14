@@ -24,8 +24,8 @@ public:
     bool isValid() const override;
     // StreamBase interface
 
-    const QList<unsigned int>& getCardId() const;
-    void setCardId(const QList<unsigned int>& newCardId);
+    const QList<unsigned int>& getCardIds() const;
+    void setCardIds(const QList<unsigned int>& newCardIds);
     void push(unsigned int id);
 
 protected:

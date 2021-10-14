@@ -119,6 +119,9 @@ bool BaseNode::processCardStatus(const QSharedPointer<QH::PKG::DataPack<UsersCar
     RequestToken tokens;
     tokens.fromBytes(cardStatuses->customData());
     if (senderInfo->token() != tokens.requestToken()) {
+        QuasarAppUtils::Params::log("Receive not signed UsersCards!",
+                                    QuasarAppUtils::Error);
+
         return false;
     }
 
@@ -137,7 +140,7 @@ bool BaseNode::processCardStatus(const QSharedPointer<QH::PKG::DataPack<UsersCar
         }
     }
 
-    if (request.getCardId().size()) {
+    if (request.getCardIds().size()) {
         request.setRequestToken(tokens.requestToken());
         request.setResponceToken(tokens.responceToken());
 
@@ -193,6 +196,8 @@ bool BaseNode::processCardRequest(const QSharedPointer<CardDataRequest> &cardreq
     auto senderInfo = static_cast<const NodeInfo*>(sender);
 
     if (senderInfo->token() != cardrequest->responceToken()) {
+        QuasarAppUtils::Params::log("Receive not signed CardDataRequest!",
+                                    QuasarAppUtils::Error);
         return false;
     }
 
@@ -201,7 +206,7 @@ bool BaseNode::processCardRequest(const QSharedPointer<CardDataRequest> &cardreq
     tokens.setResponceToken(cardrequest->responceToken());
 
 
-    for (unsigned int cardId : cardrequest->getCardId()) {
+    for (unsigned int cardId : cardrequest->getCardIds()) {
         auto card = getCard(cardId);
 
         if (!card) {
@@ -241,7 +246,8 @@ bool BaseNode::processCardData(const QSharedPointer<QH::PKG::DataPack<Card>> &ca
     tokens.fromBytes(cards->customData());
 
     if (tokens.requestToken() != senderInfo->token()) {
-        QuasarAppUtils::Params::log("Receive not signed card!");
+        QuasarAppUtils::Params::log("Receive not signed Card!",
+                                    QuasarAppUtils::Error);
         return false;;
     }
 

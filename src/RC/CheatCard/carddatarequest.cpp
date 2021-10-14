@@ -31,11 +31,11 @@ QDataStream &CardDataRequest::toStream(QDataStream &stream) const {
     return stream;
 }
 
-const QList<unsigned int> & CardDataRequest::getCardId() const {
+const QList<unsigned int> & CardDataRequest::getCardIds() const {
     return cardIds;
 }
 
-void CardDataRequest::setCardId(const QList<unsigned int> &newCardId) {
+void CardDataRequest::setCardIds(const QList<unsigned int> &newCardId) {
     cardIds = newCardId;
 }
 
