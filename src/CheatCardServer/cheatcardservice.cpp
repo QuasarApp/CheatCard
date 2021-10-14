@@ -31,7 +31,7 @@ CheatCardService::~CheatCardService() {
     }
 }
 
-void CheatCardService::onStart() {
+bool CheatCardService::onStart() {
     if (!_db) {
         _db = new RC::DataBase();
         _db->initSqlDb();
@@ -43,7 +43,10 @@ void CheatCardService::onStart() {
 
     if (!_server->run({}, DEFAULT_CHEAT_CARD_PORT)) {
         QuasarAppUtils::Params::log("Failed to start server!");
+        return false;
     }
+
+    return true;
 }
 
 bool CheatCardService::handleReceive(const Patronum::Feature &data) {
