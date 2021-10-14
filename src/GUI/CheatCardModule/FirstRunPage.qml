@@ -87,7 +87,7 @@ Page {
 
                 header: Label {
                     horizontalAlignment: Label.AlignHCenter
-                    text: (rSaller.checked)? qsTr("What is your name?") :
+                    text: (!rSaller.checked)? qsTr("What is your name?") :
                                              qsTr("What is the name of your company?");
                     font.bold: true
                 }
