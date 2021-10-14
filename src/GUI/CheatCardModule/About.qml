@@ -10,7 +10,6 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QuasarAppCreditsModule 1.0
-import NotifyModule 1.0
 
 
 Credits {
