@@ -55,6 +55,16 @@ QDataStream &Session::toStream(QDataStream &stream) const {
     return stream;
 }
 
+QString Session::condition() const {
+
+    if (usercardId) {
+        return QString("id = '%0' AND usersCardsID = '%1'").
+                arg(sessionId).arg(usercardId);
+    }
+
+    return QString("id = '%0'").arg(sessionId);
+}
+
 long long Session::getUsercardId() const {
     return usercardId;
 }

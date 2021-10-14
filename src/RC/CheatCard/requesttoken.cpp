@@ -21,4 +21,27 @@ unsigned long long RequestToken::requestToken() const {
 void RequestToken::setRequestToken(unsigned long long newRequestToken) {
     _requestToken = newRequestToken;
 }
+
+unsigned long long RequestToken::responceToken() const {
+    return _responceToken;
+}
+
+void RequestToken::setResponceToken(unsigned long long newResponceToken) {
+    _responceToken = newResponceToken;
+}
+
+QDataStream &RequestToken::fromStream(QDataStream &stream) {
+
+    stream >> _responceToken;
+    stream >> _requestToken;
+
+    return stream;
+}
+
+QDataStream &RequestToken::toStream(QDataStream &stream) const {
+    stream << _responceToken;
+    stream << _requestToken;
+
+    return stream;
+}
 }

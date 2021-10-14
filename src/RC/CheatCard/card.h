@@ -18,7 +18,7 @@ namespace RC {
 /**
  * @brief The Card class
  */
-class CHEATCARD_CORE_EXPORT Card: public QH::PKG::DBObject, public RequestToken
+class CHEATCARD_CORE_EXPORT Card: public QH::PKG::DBObject
 {
     QH_PACKAGE(Card, "Card")
 public:

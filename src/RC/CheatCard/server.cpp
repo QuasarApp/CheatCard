@@ -57,6 +57,59 @@ void Server::nodeErrorOccured(QH::AbstractNodeInfo *nodeInfo, QAbstractSocket::S
     }
 }
 
+bool Server::processCardStatusRequest(const QSharedPointer<CardStatusRequest> &message,
+                                      const QH::AbstractNodeInfo *sender,
+                                      const QH::Header &hdr) {
+
+    if (!BaseNode::processCardStatusRequest(message, sender, hdr)) {
+        return false;
+    }
+
+    auto request = QSharedPointer<Session>::create();
+    request->setSessionId(message->getSessionId());
+
+    return db()->deleteObject(request);
+}
+
+bool Server::processSession(const QSharedPointer<Session> &message,
+                            const QH::AbstractNodeInfo *sender,
+                            const QH::Header &hdr) {
+
+    return BaseNode::processSession(message, sender, hdr);
+
+}
+
+bool Server::processCardStatus(const QSharedPointer<QH::PKG::DataPack<UsersCards> > &cardStatuses,
+                               const QH::AbstractNodeInfo *sender,
+                               const QH::Header &hdr) {
+
+    return BaseNode::processCardStatus(cardStatuses, sender, hdr);
+
+}
+
+bool Server::applayPurchases(const QSharedPointer<UsersCards> &dbCard,
+                             const QH::AbstractNodeInfo *sender) {
+
+    return BaseNode::applayPurchases(dbCard, sender);
+
+}
+
+bool Server::processCardRequest(const QSharedPointer<CardDataRequest> &cardStatus,
+                                const QH::AbstractNodeInfo *sender,
+                                const QH::Header &hdr) {
+
+    return BaseNode::processCardRequest(cardStatus, sender, hdr);
+
+}
+
+bool Server::processCardData(const QSharedPointer<QH::PKG::DataPack<Card> > &cardrequest,
+                             const QH::AbstractNodeInfo *sender,
+                             const QH::Header &hdr) {
+
+    return BaseNode::processCardData(cardrequest, sender, hdr);
+
+}
+
 QH::ParserResult Server::parsePackage(const QSharedPointer<QH::PKG::AbstractData> &pkg,
                                       const QH::Header &pkgHeader,
                                       const QH::AbstractNodeInfo *sender) {

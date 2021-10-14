@@ -6,6 +6,7 @@
 
 TestVisitor::TestVisitor(QSharedPointer<TestDataBaseWrapper> db): RC::Visitor(db->db()) {
         privateDb = db;
+        setRequestInterval(0);
 }
 
 QSharedPointer<RC::Card> TestVisitor::getCard(unsigned int cardId) const {

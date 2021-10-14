@@ -99,7 +99,6 @@ QDataStream &Card::fromStream(QDataStream &stream) {
     stream >> freeIndex;
     stream >> color;
     stream >> _freeItemName;
-    stream >> _requestToken;
 
     return stream;
 }
@@ -119,7 +118,6 @@ QDataStream &Card::toStream(QDataStream &stream) const {
     stream << freeIndex;
     stream << color;
     stream << _freeItemName;
-    stream << _requestToken;
 
     return stream;
 }

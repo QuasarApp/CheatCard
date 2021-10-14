@@ -14,7 +14,7 @@
 
 namespace RC {
 
-class CHEATCARD_CORE_EXPORT CardStatusRequest: public QH::PKG::AbstractData
+class CHEATCARD_CORE_EXPORT CardStatusRequest: public QH::PKG::AbstractData, public RC::RequestToken
 {
     QH_PACKAGE(CardStatusRequest, "CardStatusRequest")
 public:
