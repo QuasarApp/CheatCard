@@ -23,7 +23,9 @@ QH::PKG::DBVariantMap User::variantMap() const {
     return {{"id",          {getId(),     QH::PKG::MemberType::PrimaryKey}},
             {"name",        {_name,       QH::PKG::MemberType::InsertUpdate}},
             {"key",         {_key,        QH::PKG::MemberType::InsertUpdate}},
-            {"fSaller",     {_fSaller,    QH::PKG::MemberType::InsertUpdate}}
+            {"fSaller",     {_fSaller,    QH::PKG::MemberType::InsertUpdate}},
+            {"time",        {static_cast<int>(time(0)),      QH::PKG::MemberType::InsertUpdate}},
+
 
     };
 }

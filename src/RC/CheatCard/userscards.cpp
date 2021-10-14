@@ -34,6 +34,7 @@ QH::PKG::DBVariantMap UsersCards::variantMap() const {
             {"purchasesNumber",{purchasesNumber,QH::PKG::MemberType::InsertUpdate}},
             {"received",       {received,       QH::PKG::MemberType::InsertUpdate}},
             {"owner",          {owner,          QH::PKG::MemberType::InsertUpdate}},
+            {"time",           {static_cast<int>(time(0)),      QH::PKG::MemberType::InsertUpdate}},
     };
 }
 

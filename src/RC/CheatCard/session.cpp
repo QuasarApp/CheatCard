@@ -6,7 +6,7 @@
 //#
 
 #include "session.h"
-
+#include "time.h"
 namespace RC {
 
 Session::Session(): QH::PKG::DBObject("Sessions") {
@@ -28,6 +28,8 @@ QH::PKG::DBVariantMap Session::variantMap() const {
     return {
             {"id",             {sessionId,       QH::PKG::MemberType::Insert}},
             {"usersCardsID",   {usercardId,      QH::PKG::MemberType::Insert}},
+            {"time",           {static_cast<int>(time(0)),      QH::PKG::MemberType::Insert}},
+
     };
 }
 

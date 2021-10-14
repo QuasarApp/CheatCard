@@ -33,7 +33,9 @@ QH::PKG::DBVariantMap Card::variantMap() const {
             {"webSite",         {_webSite,        QH::PKG::MemberType::InsertUpdate}},
             {"freeItemName",    {_freeItemName,   QH::PKG::MemberType::InsertUpdate}},
 
-            {"freeIndex",       {freeIndex,       QH::PKG::MemberType::InsertUpdate}}};
+            {"freeIndex",       {freeIndex,       QH::PKG::MemberType::InsertUpdate}},
+            {"time",           {static_cast<int>(time(0)),      QH::PKG::MemberType::InsertUpdate}},
+    };
 }
 
 bool Card::isValid() const {
