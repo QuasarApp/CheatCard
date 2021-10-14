@@ -60,6 +60,7 @@ if (ANDROID)
         QmlNotyfyService
         SCodes
         ZXing
+        Credits
         )
 
 #    find_package(Qt${QT_VERSION_MAJOR} COMPONENTS AndroidExtras REQUIRED)

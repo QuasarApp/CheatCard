@@ -39,7 +39,7 @@ Credits {
         {
             section: qsTr("## Used Libraris: "),
             sectionList: [
-                "* Heart " + ((model)? model.getCoreLibVr() : ""),
+                "* Heart " + ((model)? model.getHeartLibVr() : ""),
                 "* ZXing-C++ " + ((model)? model.getZxingCppLibVr() : ""),
                 "* SCodes " + ((model)? model.getSCodesLibVr() : ""),
             ]
