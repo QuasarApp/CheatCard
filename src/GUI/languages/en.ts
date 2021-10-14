@@ -16,11 +16,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>## Used Libraris 1</source>
+        <source>## Used Libraris application: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>## Used Libraris 2</source>
+        <source>## Used Libraris: </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
