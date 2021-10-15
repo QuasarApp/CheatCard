@@ -9,6 +9,6 @@ package com.quasarapp.androidtools;
 
 import org.qtproject.qt5.android.bindings.QtApplication;
 
-public class Application extends QtApplication {
+public class MainApplication extends QtApplication {
 
 }
