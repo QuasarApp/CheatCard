@@ -8,6 +8,7 @@
 cmake_minimum_required(VERSION 3.14)
 
 set(CURRENT_PROJECT "${PROJECT_NAME}")
+option(SIGN_APP ON)
 
 file(GLOB SOURCE_CPP
     "*.cpp"
@@ -65,13 +66,25 @@ if (ANDROID)
     #    find_package(Qt${QT_VERSION_MAJOR} COMPONENTS AndroidExtras REQUIRED)
     #    target_link_libraries(${CURRENT_PROJECT} PRIVATE Qt${QT_VERSION_MAJOR}::AndroidExtras)
 
-    addDeploySignedAPK(${CURRENT_PROJECT}
-        "${CMAKE_CURRENT_LIST_DIR}/android"
-        "QuasarAppProject"
-        "${SIGPATH}/quasarapp.keystore"
-        "${SIGPASS_QUASARAPP}"
-        "${TARGET_DIR}"
-        "${SNAKE_EXTRA_LIBS}")
+    if (SIGN_APP)
+        message("SIGN_APP")
+        addDeploySignedAPK(${CURRENT_PROJECT}
+            "${CMAKE_CURRENT_LIST_DIR}/android"
+            "QuasarAppProject"
+            "${SIGPATH}/quasarapp.keystore"
+            "${SIGPASS_QUASARAPP}"
+            "${TARGET_DIR}"
+            "${SNAKE_EXTRA_LIBS}")
+
+    else()
+        message("NO_SIGN_APP")
+
+        addDeployAPK(${CURRENT_PROJECT}
+            "${CMAKE_CURRENT_LIST_DIR}/android"
+            "${TARGET_DIR}"
+            "${SNAKE_EXTRA_LIBS}")
+
+    endif()
 
 
     file(GLOB java_files
