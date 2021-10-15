@@ -69,37 +69,32 @@ Page {
         Button {
             text: qsTr("Add");
             Layout.alignment: Qt.AlignHCenter
-            Component {
-                id: filedialog
-
-
-                FileDialog {
-                    id: fileDialogView
-                    property var model: null
-
-                    title: qsTr("Please choose a new picture")
-                    folder: shortcuts.home
-                    onAccepted: {
-
-                        if (!fileDialogView.model)
-                            return;
-
-                        fileDialogView.model.addCustomItem(fileDialogView.fileUrls)
-                        activityProcessor.popItem();
-                    }
-
-                    Component.onCompleted: visible = true
-                }
-            }
 
             onClicked: {
                 if (!root.model) {
                     return;
                 }
-
-                activityProcessor.newActivity(filedialog,
-                                              root.model);
+                fileDialogView.open();
             }
         }
+    }
+
+    FileDialog {
+        id: fileDialogView
+        property var model: null
+
+        title: qsTr("Please choose a new picture")
+        folder: shortcuts.home
+        onAccepted: {
+
+            if (!fileDialogView.model)
+                return;
+
+            fileDialogView.model.addCustomItem(fileDialogView.fileUrls)
+            close();
+        }
+
+        onRejected: {close()}
+
     }
 }
