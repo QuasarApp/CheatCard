@@ -13,4 +13,12 @@ namespace RC {
 ItemsModel::ItemsModel() {
 
 }
+
+void ItemsModel::addCustomItem(const QString &path) {
+
+    int newDataIndex = rowCount();
+
+    insertRow(newDataIndex);
+    setData(index(newDataIndex), path);
+}
 }

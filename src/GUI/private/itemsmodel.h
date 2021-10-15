@@ -18,6 +18,7 @@ class ItemsModel : public QStringListModel
     Q_OBJECT
 public:
     ItemsModel();
+    Q_INVOKABLE void addCustomItem(const QString& path);
 };
 }
 #endif // ITEMSMODEL_H
