@@ -57,8 +57,7 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
 }
 
 MainModel::~MainModel() {
-    saveConfig();
-    saveUser();
+    flush();
 
     delete _cardsListModel;
     delete _ownCardsListModel;
@@ -291,6 +290,11 @@ QH::ISqlDBCache *MainModel::db() const {
 
 QObject *MainModel::waitModel() const {
     return _waitModel;
+}
+
+void MainModel::flush() {
+    saveConfig();
+    saveUser();
 }
 
 int MainModel::getMode() const {

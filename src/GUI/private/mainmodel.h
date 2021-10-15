@@ -69,6 +69,11 @@ public:
 
     QObject *waitModel() const;
 
+    /**
+     * @brief flush Save all temp users data and configuration
+     */
+    void flush();
+
 public slots:
     void handleFirstDataSendet();
     void handleBonusGivOut(int userId, int cardId, int givOutcount);
