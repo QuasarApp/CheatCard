@@ -30,7 +30,7 @@ Credits {
 
     versionList: [
         {
-            section: qsTr("## Used Libraris application: "),
+            section: qsTr("## Application: "),
             sectionList: [
                 "* CheatCard " + ((model)? model.getCoreLibVr() : ""),
             ]
