@@ -114,6 +114,17 @@ bool BaseNode::processCardStatus(const QSharedPointer<QH::PKG::DataPack<UsersCar
     QuasarAppUtils::Params::log(QString("processCardStatus: begin"), QuasarAppUtils::Info);
     CardDataRequest request;
 
+    auto senderInfo = static_cast<const NodeInfo*>(sender);
+
+    RequestToken tokens;
+    tokens.fromBytes(cardStatuses->customData());
+    if (senderInfo->token() != tokens.requestToken()) {
+        QuasarAppUtils::Params::log("Receive not signed UsersCards!",
+                                    QuasarAppUtils::Error);
+
+        return false;
+    }
+
     for (const auto& cardStatus : cardStatuses->packData()) {
         Card userrquest;
         userrquest.setId(cardStatus->getCard());
@@ -129,12 +140,9 @@ bool BaseNode::processCardStatus(const QSharedPointer<QH::PKG::DataPack<UsersCar
         }
     }
 
-    if (request.getCardId().size()) {
-        unsigned long long token = rand() * rand();
-        request.setRequestToken(token);
-
-        auto senderInfo = static_cast<NodeInfo*>(getInfoPtr(sender->networkAddress()));
-        senderInfo->setToken(token);
+    if (request.getCardIds().size()) {
+        request.setRequestToken(tokens.requestToken());
+        request.setResponceToken(tokens.responceToken());
 
         if (!sendData(&request, sender)) {
             QuasarAppUtils::Params::log("Failed to send responce", QuasarAppUtils::Error);
@@ -185,8 +193,20 @@ bool BaseNode::processCardRequest(const QSharedPointer<CardDataRequest> &cardreq
     QuasarAppUtils::Params::log(QString("processCardRequest: begin"), QuasarAppUtils::Info);
 
     QH::PKG::DataPack<Card> cards{};
+    auto senderInfo = static_cast<const NodeInfo*>(sender);
 
-    for (unsigned int cardId : cardrequest->getCardId()) {
+    if (senderInfo->token() != cardrequest->responceToken()) {
+        QuasarAppUtils::Params::log("Receive not signed CardDataRequest!",
+                                    QuasarAppUtils::Error);
+        return false;
+    }
+
+    RequestToken tokens;
+    tokens.setRequestToken(cardrequest->requestToken());
+    tokens.setResponceToken(cardrequest->responceToken());
+
+
+    for (unsigned int cardId : cardrequest->getCardIds()) {
         auto card = getCard(cardId);
 
         if (!card) {
@@ -195,7 +215,6 @@ bool BaseNode::processCardRequest(const QSharedPointer<CardDataRequest> &cardreq
                                         QuasarAppUtils::Error);
             continue;
         }
-        card->setRequestToken(cardrequest->requestToken());
         cards.push(card);
     }
 
@@ -204,6 +223,8 @@ bool BaseNode::processCardRequest(const QSharedPointer<CardDataRequest> &cardreq
                                     QuasarAppUtils::Error);
         return false;
     }
+
+    cards.setCustomData(tokens.toBytes());
 
     if (!sendData(&cards, sender)) {
 
@@ -221,15 +242,19 @@ bool BaseNode::processCardData(const QSharedPointer<QH::PKG::DataPack<Card>> &ca
 
     auto senderInfo = static_cast<const NodeInfo*>(sender);
 
+    RequestToken tokens;
+    tokens.fromBytes(cards->customData());
+
+    if (tokens.requestToken() != senderInfo->token()) {
+        QuasarAppUtils::Params::log("Receive not signed Card!",
+                                    QuasarAppUtils::Error);
+        return false;;
+    }
+
     for (const auto& card : qAsConst(cards->packData())) {
         if (!card->isValid()) {
             QuasarAppUtils::Params::log("Received invalid card data!",
                                         QuasarAppUtils::Error);
-            continue;
-        }
-
-        if (card->requestToken() != senderInfo->token()) {
-            QuasarAppUtils::Params::log("Receive not requested card!");
             continue;
         }
 
@@ -267,6 +292,16 @@ bool BaseNode::processCardStatusRequest(const QSharedPointer<CardStatusRequest> 
     }
 
     QH::PKG::DataPack<UsersCards> responce;
+
+    RequestToken tokens;
+    tokens.setRequestToken(cardStatus->requestToken());
+    long long token = rand() * rand();
+    tokens.setResponceToken(token);
+
+    auto senderInfo = static_cast<NodeInfo*>(getInfoPtr(sender->networkAddress()));
+    senderInfo->setToken(token);
+    responce.setCustomData(tokens.toBytes());
+
     for (const auto &data : qAsConst(result->data())) {
         responce.push(data);
     }
@@ -289,7 +324,13 @@ bool BaseNode::processSession(const QSharedPointer<Session> &session,
     db()->insertObject(session);
 
     CardStatusRequest requestData;
+    long long token = rand() * rand();
+
+    requestData.setRequestToken(token);
     requestData.setSessionId(session->getSessionId());
+
+    auto senderInfo = static_cast<NodeInfo*>(getInfoPtr(sender->networkAddress()));
+    senderInfo->setToken(token);
 
     return sendData(&requestData, sender->networkAddress());
 }

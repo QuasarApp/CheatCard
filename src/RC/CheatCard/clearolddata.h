@@ -20,17 +20,9 @@ namespace RC {
 class CHEATCARD_CORE_EXPORT ClearOldData: public QH::AbstractTask
 {
 public:
-    /**
-     * @brief The TimeValue enum
-     */
-    enum TimeValue {
-        Sec = 1,
-        Min = 60 * Sec,
-        Hour = 60 * Min,
-        Day = 24 * Hour
-    };
 
-    ClearOldData(int duration = 30 * Day);
+    /// 30 days
+    ClearOldData(int duration = 60 * 60 * 24);
 
     bool execute(QH::AbstractNode *node) const;
 private:

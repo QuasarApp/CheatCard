@@ -6,7 +6,7 @@
 //#
 
 #include "session.h"
-
+#include "time.h"
 namespace RC {
 
 Session::Session(): QH::PKG::DBObject("Sessions") {
@@ -28,6 +28,8 @@ QH::PKG::DBVariantMap Session::variantMap() const {
     return {
             {"id",             {sessionId,       QH::PKG::MemberType::Insert}},
             {"usersCardsID",   {usercardId,      QH::PKG::MemberType::Insert}},
+            {"time",           {static_cast<int>(time(0)),      QH::PKG::MemberType::Insert}},
+
     };
 }
 
@@ -51,6 +53,16 @@ QDataStream &Session::toStream(QDataStream &stream) const {
     stream << usercardId;
 
     return stream;
+}
+
+QString Session::condition() const {
+
+    if (usercardId) {
+        return QString("id = '%0' AND usersCardsID = '%1'").
+                arg(sessionId).arg(usercardId);
+    }
+
+    return QString("id = '%0'").arg(sessionId);
 }
 
 long long Session::getUsercardId() const {

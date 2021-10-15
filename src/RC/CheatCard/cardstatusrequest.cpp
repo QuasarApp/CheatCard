@@ -20,6 +20,7 @@ bool CardStatusRequest::isValid() const {
 QDataStream &CardStatusRequest::fromStream(QDataStream &stream) {
 
     AbstractData::fromStream(stream);
+    RequestToken::fromStream(stream);
 
     stream >> sessionId;
 
@@ -28,6 +29,7 @@ QDataStream &CardStatusRequest::fromStream(QDataStream &stream) {
 
 QDataStream &CardStatusRequest::toStream(QDataStream &stream) const {
     AbstractData::toStream(stream);
+    RequestToken::toStream(stream);
 
     stream << sessionId;
 

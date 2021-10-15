@@ -7,6 +7,7 @@
 
 
 #include "cardstatusrequest.h"
+#include "nodeinfo.h"
 #include "visitor.h"
 
 #include <CheatCard/user.h>
@@ -22,6 +23,10 @@ Visitor::Visitor(QH::ISqlDBCache *db): BaseNode(db) {
     registerPackageType<QH::PKG::DataPack<UsersCards>>();
     registerPackageType<QH::PKG::DataPack<Card>>();
 
+    _timer = new QTimer(this);
+
+    connect(_timer, &QTimer::timeout, this, &Visitor::handleTick);
+
 }
 
 bool Visitor::checkCardData(long long session,
@@ -30,6 +35,16 @@ bool Visitor::checkCardData(long long session,
         return false;
 
     _lastRequested = session;
+
+    int currentTime = time(0);
+    if (_lastRequest + _requestInterval > currentTime) {
+
+        _domain = domain;
+        _port = port;
+        _timer->start((_lastRequest + _requestInterval - currentTime) * 1000);
+
+        return true;
+    }
 
     return addNode(domain, port);
 }
@@ -40,9 +55,31 @@ void Visitor::nodeConnected(QH::AbstractNodeInfo *node) {
 
     CardStatusRequest request;
 
+    auto senderInfo = static_cast<NodeInfo*>(node);
+
+    long long token = rand() * rand();
+
+    senderInfo->setToken(token);
+
     request.setSessionId(_lastRequested);
+    request.setRequestToken(token);
 
     sendData(&request, node->networkAddress());
+
+    _lastRequest = time(0);
+}
+
+void Visitor::handleTick() {
+    _timer->stop();
+    addNode(_domain, _port);
+}
+
+int Visitor::getRequestInterval() const {
+    return _requestInterval;
+}
+
+void Visitor::setRequestInterval(int newRequestInterval) {
+    _requestInterval = newRequestInterval;
 }
 
 }
