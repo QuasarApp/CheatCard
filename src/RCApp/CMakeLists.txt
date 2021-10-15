@@ -72,7 +72,7 @@ if (ANDROID)
 
 
     file(GLOB java_files
-       "android/src/com/quasarapp/androidtools/*.java"
+       "android/src/com/quasarapp/androidtools/*"
        "android/*.xml"
        "android/*.gradle"
        "android/gradlew"
