@@ -6,6 +6,7 @@ import QtQuick.Layouts 1.15
 Page {
     id: root
     property var model: null
+    property string fontColor: ""
     property bool editable: true
     property int  purchasesNumber: (model)? model.purchasesNumber: 1
     signal finished();
@@ -26,6 +27,7 @@ Page {
             color: (root.model)? root.model.color : "#777777"
             radius: 10
             clip: true
+
             Image {
                 id: cardBackground
                 source: "image://cards/background/" + ((root.model)? root.model.id : "0")
@@ -68,6 +70,7 @@ Page {
 
                     TextField {
                         id: cardTitle
+                        color: fontColor
                         Layout.columnSpan: parent.columns
                         horizontalAlignment:  Text.AlignHCenter
                         Layout.fillWidth: true
@@ -85,6 +88,8 @@ Page {
 
                     TextFieldWithLogo {
                         id: cardTelegramm
+
+                        textField.color: fontColor
 
                         textField.text: (root.model)? root.model.telegramm : ""
                         textField.placeholderText: qsTr("Your telegramm");
@@ -109,6 +114,8 @@ Page {
                     TextFieldWithLogo {
                         id: cardInstagramm
 
+                        textField.color: fontColor
+
                         textField.text: (root.model)? root.model.instagramm : ""
                         textField.placeholderText: qsTr("Your instagramm");
                         textField.readOnly: !editable
@@ -130,6 +137,8 @@ Page {
                     TextFieldWithLogo {
                         id: cardphysicalAddress
 
+                        textField.color: fontColor
+
                         textField.text: (root.model)? root.model.physicalAddress : ""
                         textField.placeholderText: qsTr("Your physical address");
                         textField.readOnly: !editable
@@ -150,6 +159,8 @@ Page {
 
                     TextFieldWithLogo {
                         id: cardwebSite
+
+                        textField.color: fontColor
                         textField.text: (root.model)? root.model.webSite : ""
 
                         textField.onTextChanged: {
@@ -174,6 +185,7 @@ Page {
                     TextFieldWithLogo {
                         id: cardphone
 
+                        textField.color: fontColor
                         textField.text: (root.model)? root.model.phone : ""
 
                         textField.onTextChanged: {
@@ -196,8 +208,9 @@ Page {
                     }
 
                     TextFieldWithLogo {
-                        id: cardfreeItem
+                        id: cardfreeItem                        
 
+                        textField.color: fontColor
                         textField.text: (root.model)? root.model.freeItem : ""
 
                         textField.onTextChanged: {
@@ -428,6 +441,32 @@ Page {
         }
     }
 
+    Component {
+        id: defaultColorFont
+
+        ColorPicker {
+            id: colorPickFont
+
+            header: Label {
+                horizontalAlignment: Label.AlignHCenter
+                text: qsTr("Please choose a color")
+                font.bold: true
+            }
+
+            footer: DialogButtonBox {
+                onAccepted: () => {
+                                if (root.model) {
+                                    fontColor = colorPickFont.color
+                                }
+                                activityProcessor.popItem();
+
+                            }
+
+                standardButtons: Dialog.Open
+            }
+        }
+    }
+
     Menu {
         id: customisationMenu
 
@@ -435,6 +474,14 @@ Page {
             text: qsTr("Change background color")
             onClicked: () => {
                            activityProcessor.newActivityFromComponent(defaultColor);
+
+                       }
+        }
+
+        MenuItem {
+            text: qsTr("Change fonts color")
+            onClicked: () => {
+                           activityProcessor.newActivityFromComponent(defaultColorFont);
 
                        }
         }
