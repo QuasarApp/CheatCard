@@ -13,6 +13,8 @@
 #include <imageprovider.h>
 #include "mainmodel.h"
 #include "quasarapp.h"
+#include "mainmodel.h"
+#include "credits.h"
 
 namespace RC {
 
@@ -29,6 +31,10 @@ CheatCard::~CheatCard() {
 
 bool CheatCard::init(QQmlApplicationEngine *engine) {
     initCheatCardResources();
+
+    if (!QuasarAppCredits::init(engine)) {
+        return 2;
+    }
 
     if (!QH::init()) {
         return false;

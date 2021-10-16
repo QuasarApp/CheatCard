@@ -2,6 +2,29 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="ru_RU" sourcelanguage="en">
 <context>
+    <name>About</name>
+    <message>
+        <source>## QuasarApp Core team:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(Programmer)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(Designer)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>## Used Libraris application: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>## Used Libraris: </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CardsListView</name>
     <message>
         <source>You do not have any card. </source>
