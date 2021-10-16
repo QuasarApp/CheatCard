@@ -60,15 +60,6 @@ bool CheatCard::init(QQmlApplicationEngine *engine) {
         return false;
     }
 
-    // handle exit status on andorid
-    QObject::connect(app, &QGuiApplication::applicationStateChanged,
-                     [this](Qt::ApplicationState state) {
-
-        if (state == Qt::ApplicationSuspended) {
-            _model->flush();
-        }
-    });
-
     return true;
 }
 
