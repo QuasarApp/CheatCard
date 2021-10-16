@@ -10,3 +10,6 @@
 [submodule "submodules/QrCodes"]
 	path = submodules/QrCodes
 	url = https://github.com/QuasarApp/QrCodes.git
+[submodule "submodules/Credits"]
+	path = submodules/Credits
+	url = git@github.com:QuasarApp/Credits.git
