@@ -16,11 +16,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>## Used Libraris application: </source>
+        <source>## Used Libraris: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>## Used Libraris: </source>
+        <source>## Application: </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -178,6 +178,10 @@
     <message>
         <source>Change card seal</source>
         <translation>Zmień pieczęć karty</translation>
+    </message>
+    <message>
+        <source>Change fonts color</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -38,6 +38,9 @@ public:
     const QString &getColor() const;
     void setColor(const QString &newColor);
 
+    const QString &getFontColor() const;
+    void setFontColor(const QString &newColor);
+
     const QByteArray &seal() const;
     void setSeal(const QByteArray &newSeal);
 
@@ -87,6 +90,7 @@ private:
 
     int freeIndex = 1;
     QString color = "#777777";
+    QString fontColor = "#000000";
 
 };
 

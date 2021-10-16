@@ -6,7 +6,7 @@ import QtQuick.Layouts 1.15
 Page {
     id: root
     property var model: null
-    property string fontColor: ""
+    property string fontColor: (model)? model.fontColor : "#000000"
     property bool editable: true
     property int  purchasesNumber: (model)? model.purchasesNumber: 1
     signal finished();
@@ -457,6 +457,7 @@ Page {
                 onAccepted: () => {
                                 if (root.model) {
                                     fontColor = colorPickFont.color
+                                    root.model.color = colorPickFont.color
                                 }
                                 activityProcessor.popItem();
 
