@@ -28,6 +28,7 @@ Page {
             clip: true
             Image {
                 id: cardBackground
+                fillMode: Image.PreserveAspectCrop
                 source: "image://cards/background/" + ((root.model)? root.model.id : "0")
                 anchors.fill: parent
             }
@@ -406,7 +407,7 @@ Page {
 
         ColorPicker {
             id: colorPick
-
+            implicitHeight: 0x0
             header: Label {
                 horizontalAlignment: Label.AlignHCenter
                 text: qsTr("Please choose a color")

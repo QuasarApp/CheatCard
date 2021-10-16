@@ -76,25 +76,28 @@ Page {
                 }
                 fileDialogView.open();
             }
+
+
+            /// to do
+            /// fix bug Unable to assign RC::CardModel to QString.
+            /// this bug occurred sometime and i don't understand why this happened. i thin this is bug of qt library
+            FileDialog {
+                id: fileDialogView
+                nameFilters: [qsTr("Images") + " (*.png)"]
+                title: qsTr("Please choose a new picture. The picture must be in png foramt.")
+                folder: shortcuts.home
+                onAccepted: {
+
+                    if (!root.model)
+                        return;
+
+                    root.model.addCustomItem(fileDialogView.fileUrls)
+                }
+
+                onRejected: {
+                }
+
+            }
         }
-    }
-
-    FileDialog {
-        id: fileDialogView
-        property var model: null
-
-        title: qsTr("Please choose a new picture")
-        folder: shortcuts.home
-        onAccepted: {
-
-            if (!fileDialogView.model)
-                return;
-
-            fileDialogView.model.addCustomItem(fileDialogView.fileUrls)
-            close();
-        }
-
-        onRejected: {close()}
-
     }
 }

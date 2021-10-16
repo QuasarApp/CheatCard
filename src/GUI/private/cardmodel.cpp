@@ -212,7 +212,8 @@ void CardModel::setTitle(const QString &newTitle) {
 }
 
 QByteArray CardModel::convert(const QString& imagePath) {
-    QPixmap tmpImage(imagePath.left(3) == "qrc"? imagePath.right(imagePath.size() - 3): imagePath);
+    QUrl url(imagePath);
+    QPixmap tmpImage((url.scheme() == "qrc")? ":" + QUrl(imagePath).path(): QUrl(imagePath).path());
 
     float scaleFactor = 0;
 

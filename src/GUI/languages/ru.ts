@@ -319,6 +319,21 @@
     </message>
 </context>
 <context>
+    <name>ItemsView</name>
+    <message>
+        <source>Add</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please choose a new picture. The picture must be in png foramt.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>RegistrationFinishedPage</name>
     <message>
         <source>The registration of the new user finished successful. Now you can use you card.</source>
