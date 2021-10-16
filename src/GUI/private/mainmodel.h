@@ -16,6 +16,7 @@ namespace RC {
 
 class Card;
 class CardModel;
+class AboutModel;
 class User;
 class Config;
 class CardsListModel;
@@ -54,6 +55,7 @@ public:
 
     bool fFirst() const;
     Q_INVOKABLE void configureFinished();
+    Q_INVOKABLE QObject *getAboutModel();
     QObject *currentUser() const;
     QSharedPointer<UserModel> getCurrentUser() const;
 
@@ -135,6 +137,8 @@ private:
     CardsListModel *_currentCardsListModel = nullptr;
     CardsListModel *_cardsListModel = nullptr;
     CardsListModel *_ownCardsListModel = nullptr;
+
+    AboutModel *_aboutModel = nullptr;
 
     ItemsModel *_defaultLogosModel = nullptr;
     ItemsModel *_defaultBackgroundsModel = nullptr;
