@@ -69,6 +69,11 @@ public:
 
     QObject *waitModel() const;
 
+    /**
+     * @brief flush Save all temp users data and configuration
+     */
+    void flush();
+
 public slots:
     void handleFirstDataSendet();
     void handleBonusGivOut(int userId, int cardId, int givOutcount);
@@ -107,7 +112,7 @@ private slots:
     void handlePurchaseWasSuccessful(QSharedPointer<RC::UsersCards>);
     void handleListenStart(int purchasesCount, QSharedPointer<CardModel> model, const QString &extraData);
     void handleListenStop();
-
+    void handleAppStateChanged(Qt::ApplicationState state);
 
 private:
     void saveConfig();

@@ -13,6 +13,7 @@
 #include <imageprovider.h>
 #include "mainmodel.h"
 #include "quasarapp.h"
+#include <QGuiApplication>
 
 namespace RC {
 
@@ -52,6 +53,12 @@ bool CheatCard::init(QQmlApplicationEngine *engine) {
     engine->load("qrc:/CheatCardModule/CheatCard.qml");
     if (engine->rootObjects().isEmpty())
         return false;
+
+    QGuiApplication * app = dynamic_cast<QGuiApplication*>(QGuiApplication::instance());
+
+    if (!app) {
+        return false;
+    }
 
     return true;
 }
