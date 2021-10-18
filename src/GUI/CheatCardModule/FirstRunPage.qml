@@ -93,6 +93,14 @@ Page {
                 }
 
 
+                Keys.onReleased: {
+                    if ((event.key === Qt.Key_Back ||
+                        event.key === Qt.Key_Escape)) {
+                        event.accepted = true
+                        view.currentIndex--;
+                    }
+                }
+
                 contentItem: Item {
 
                     ColumnLayout {
@@ -109,14 +117,28 @@ Page {
                             placeholderText: qsTr("Please enter your name here")
                         }
 
-                        Button {
-                            text: qsTr("Go!")
+                        RowLayout {
                             Layout.alignment: Qt.AlignHCenter
+                            Button {
+                                text: qsTr("Back")
+                                Layout.alignment: Qt.AlignHCenter
 
-                            onClicked: () => {
-                                           view.currentIndex = 2;
-                                       }
+                                onClicked: () => {
+                                               view.currentIndex--;
+                                           }
+
+                            }
+
+
+                            Button {
+                                text: qsTr("Go!")
+
+                                onClicked: () => {
+                                               view.currentIndex = 2;
+                                           }
+                            }
                         }
+
 
                         Item {
                             Layout.fillHeight: true

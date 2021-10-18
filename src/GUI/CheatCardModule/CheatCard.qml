@@ -46,7 +46,9 @@ ApplicationWindow {
         RowLayout {
             anchors.fill: parent
             ToolButton {
-                text: (userPanel.visible || activityProcessor.depth > 1)? qsTr("<<") : qsTr("三")
+                id: backButton
+                property bool fBack: (userPanel.visible || activityProcessor.depth > 1)
+                text: (fBack)? qsTr("<<") : qsTr("三")
                 onClicked: () => {
                                if (activityProcessor.depth > 1) {
                                    activityProcessor.popItem();
@@ -63,7 +65,18 @@ ApplicationWindow {
                                    userPanel.open()
                                }
                            }
+
+                Keys.onReleased: {
+                    if ((event.key === Qt.Key_Back ||
+                        event.key === Qt.Key_Escape) && fBack) {
+                        event.accepted = true
+                        backButton.clicked();
+                    }
+                }
+
                 font.bold: true
+
+                enabled: !firstRun.visible
             }
 
             Label {
@@ -82,6 +95,7 @@ ApplicationWindow {
                 text: qsTr("⋮")
                 font.bold: true
                 font.pointSize: 14
+                enabled: !firstRun.visible
 
                 onClicked: mainMenu.popup()
             }
