@@ -71,6 +71,15 @@ Page {
                     TextField {
                         id: cardTitle
                         color: fontColor
+
+                        background: Rectangle {
+                            y: cardTitle.height - height - cardTitle.bottomPadding + 8
+                            implicitWidth: 120
+                            height: cardTitle.activeFocus || cardTitle.hovered ? 2 : 1
+                            color: cardTitle.activeFocus ? cardTitle.Material.accentColor
+                                                       : (cardTitle.hovered ? cardTitle.Material.primaryTextColor : fontColor)
+                        }
+
                         Layout.columnSpan: parent.columns
                         horizontalAlignment:  Text.AlignHCenter
                         Layout.fillWidth: true
@@ -90,6 +99,7 @@ Page {
                         id: cardTelegramm
 
                         textField.color: fontColor
+                        lineColor: fontColor
 
                         textField.text: (root.model)? root.model.telegramm : ""
                         textField.placeholderText: qsTr("Your telegramm");
@@ -115,6 +125,7 @@ Page {
                         id: cardInstagramm
 
                         textField.color: fontColor
+                        lineColor: fontColor
 
                         textField.text: (root.model)? root.model.instagramm : ""
                         textField.placeholderText: qsTr("Your instagramm");
@@ -138,6 +149,7 @@ Page {
                         id: cardphysicalAddress
 
                         textField.color: fontColor
+                        lineColor: fontColor
 
                         textField.text: (root.model)? root.model.physicalAddress : ""
                         textField.placeholderText: qsTr("Your physical address");
@@ -161,6 +173,7 @@ Page {
                         id: cardwebSite
 
                         textField.color: fontColor
+                        lineColor: fontColor
                         textField.text: (root.model)? root.model.webSite : ""
 
                         textField.onTextChanged: {
@@ -186,6 +199,7 @@ Page {
                         id: cardphone
 
                         textField.color: fontColor
+                        lineColor: fontColor
                         textField.text: (root.model)? root.model.phone : ""
 
                         textField.onTextChanged: {
@@ -211,6 +225,7 @@ Page {
                         id: cardfreeItem                        
 
                         textField.color: fontColor
+                        lineColor: fontColor
                         textField.text: (root.model)? root.model.freeItem : ""
 
                         textField.onTextChanged: {
@@ -457,7 +472,7 @@ Page {
                 onAccepted: () => {
                                 if (root.model) {
                                     fontColor = colorPickFont.color
-                                    root.model.color = colorPickFont.color
+                                    root.model.fontColor = colorPickFont.color
                                 }
                                 activityProcessor.popItem();
 
@@ -480,7 +495,7 @@ Page {
         }
 
         MenuItem {
-            text: qsTr("Change fonts color")
+            text: qsTr("Changed foreground color")
             onClicked: () => {
                            activityProcessor.newActivityFromComponent(defaultColorFont);
 
