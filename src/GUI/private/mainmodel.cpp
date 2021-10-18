@@ -30,6 +30,8 @@
 #include <CheatCard/seller.h>
 #include <CheatCard/visitor.h>
 
+#include <QGuiApplication>
+
 #define CURRENT_USER "CURRENT_USER"
 
 namespace RC {
@@ -55,11 +57,23 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
 
     qRegisterMetaType<QSharedPointer<RC::UsersCards>>();
     qRegisterMetaType<QSharedPointer<RC::Card>>();
+
+    auto app = dynamic_cast<QGuiApplication*>(QGuiApplication::instance());
+
+    if (!app) {
+        QuasarAppUtils::Params::log("The application required a QGuiApplication",
+                                    QuasarAppUtils::Error);
+    } else {
+        // handle exit status on andorid
+        QObject::connect(app, &QGuiApplication::applicationStateChanged,
+                         this, &MainModel::handleAppStateChanged,
+                         Qt::DirectConnection);
+
+    }
 }
 
 MainModel::~MainModel() {
-    saveConfig();
-    saveUser();
+    flush();
 
     delete _cardsListModel;
     delete _ownCardsListModel;
@@ -306,6 +320,11 @@ QObject *MainModel::waitModel() const {
     return _waitModel;
 }
 
+void MainModel::flush() {
+    saveConfig();
+    saveUser();
+}
+
 int MainModel::getMode() const {
     return static_cast<int>(_mode);
 }
@@ -401,8 +420,8 @@ void MainModel::handleListenStart(int purchasesCount,
         return;
 
     if (!seller->incrementPurchase(header,
-                              model->card()->cardId(),
-                              purchasesCount)) {
+                                   model->card()->cardId(),
+                                   purchasesCount)) {
 
         QuasarAppUtils::Params::log("Failed to increment user card data",
                                     QuasarAppUtils::Error);
@@ -410,6 +429,12 @@ void MainModel::handleListenStart(int purchasesCount,
 }
 
 void MainModel::handleListenStop() {
+}
+
+void MainModel::handleAppStateChanged(Qt::ApplicationState state) {
+    if (state == Qt::ApplicationState::ApplicationSuspended) {
+        flush();
+    }
 }
 
 void MainModel::handleFirstDataSendet() {
