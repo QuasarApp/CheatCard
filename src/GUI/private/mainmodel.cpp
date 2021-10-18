@@ -149,7 +149,7 @@ void MainModel::setCurrentUser(QSharedPointer<UserModel> value) {
 
         QH::PKG::DBObjectsRequest<UsersCards> requestPurchase("UsersCards", where);
         if (auto result =_db->getObject(requestPurchase)) {
-            _cardsListModel->setPurchasesNumbers(requestPurchase.data());
+            _cardsListModel->setPurchasesNumbers(result->data());
         }
 
         _settings.setValue(CURRENT_USER, _currentUser->user()->userId());
