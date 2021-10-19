@@ -11,7 +11,7 @@
 #include <QBuffer>
 #include <QPixmap>
 
-#define MAXIMUM_IMAGE_SIZE 200.0f
+#define MAXIMUM_IMAGE_SIZE 300.0f
 
 namespace RC {
 CardModel::CardModel() {
@@ -213,7 +213,12 @@ void CardModel::setTitle(const QString &newTitle) {
 
 QByteArray CardModel::convert(const QString& imagePath) {
     QUrl url(imagePath);
+
+#ifdef Q_OS_ANDROID
+    QPixmap tmpImage((url.scheme() == "qrc")? ":" + QUrl(imagePath).path(): imagePath);
+#else
     QPixmap tmpImage((url.scheme() == "qrc")? ":" + QUrl(imagePath).path(): QUrl(imagePath).path());
+#endif
 
     float scaleFactor = 0;
 
