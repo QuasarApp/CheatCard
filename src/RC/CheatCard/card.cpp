@@ -25,6 +25,7 @@ QH::PKG::DBVariantMap Card::variantMap() const {
             {"seal",            {_seal,           QH::PKG::MemberType::InsertUpdate}},
             {"background",      {_background,     QH::PKG::MemberType::InsertUpdate}},
             {"color",           {color,           QH::PKG::MemberType::InsertUpdate}},
+            {"fontColor",       {fontColor,       QH::PKG::MemberType::InsertUpdate}},
 
             {"phone",           {_phone,          QH::PKG::MemberType::InsertUpdate}},
             {"telegramm",       {_telegramm,      QH::PKG::MemberType::InsertUpdate}},
@@ -73,6 +74,7 @@ bool Card::fromSqlRecord(const QSqlRecord &q) {
     setPhysicalAddress(q.value("physicalAddress").toByteArray());
     setWebSite(q.value("webSite").toByteArray());
     setColor(q.value("color").toString());
+    setFontColor(q.value("fontColor").toString());
 
     setFreeIndex(q.value("freeIndex").toInt());
     setFreeItemName(q.value("freeItemName").toString());
@@ -98,6 +100,7 @@ QDataStream &Card::fromStream(QDataStream &stream) {
     stream >> _webSite;
     stream >> freeIndex;
     stream >> color;
+    stream >> fontColor;
     stream >> _freeItemName;
 
     return stream;
@@ -117,6 +120,7 @@ QDataStream &Card::toStream(QDataStream &stream) const {
     stream << _webSite;
     stream << freeIndex;
     stream << color;
+    stream << fontColor;
     stream << _freeItemName;
 
     return stream;
@@ -204,5 +208,13 @@ const QString &Card::getColor() const {
 
 void Card::setColor(const QString &newColor) {
     color = newColor;
+}
+
+const QString &Card::getFontColor() const {
+    return fontColor;
+}
+
+void Card::setFontColor(const QString &newColor) {
+    fontColor = newColor;
 }
 }

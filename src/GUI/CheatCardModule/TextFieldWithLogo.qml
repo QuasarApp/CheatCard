@@ -9,10 +9,12 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
+import QtGraphicalEffects 1.15
 
 RowLayout {
     id: root
     property alias textField: source
+    property string lineColor: "black"
     property alias image: img.source
 
     signal clicked(var mouse)
@@ -33,9 +35,23 @@ RowLayout {
 
         id: img
         fillMode: Image.PreserveAspectFit
+
+        ColorOverlay {
+            anchors.fill: img
+            source: img
+            color: lineColor
+        }
     }
 
     TextField {
         id: source
+
+        background: Rectangle {
+            y: source.height - height - source.bottomPadding + 8
+            implicitWidth: 120
+            height: source.activeFocus || source.hovered ? 2 : 1
+            color: source.activeFocus ? source.Material.accentColor
+                                       : (source.hovered ? source.Material.primaryTextColor : lineColor)
+        }
     }
 }
