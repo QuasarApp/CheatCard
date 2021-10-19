@@ -178,6 +178,10 @@
         <source>Change card seal</source>
         <translation>Зміна пломби картки</translation>
     </message>
+    <message>
+        <source>Changed foreground color</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditUserView</name>

@@ -179,6 +179,10 @@
         <source>Change card seal</source>
         <translation>Zmień pieczęć karty</translation>
     </message>
+    <message>
+        <source>Changed foreground color</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditUserView</name>

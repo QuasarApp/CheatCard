@@ -207,6 +207,10 @@
         <source>Your phone number</source>
         <translation>Ваш номер</translation>
     </message>
+    <message>
+        <source>Changed foreground color</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditUserView</name>

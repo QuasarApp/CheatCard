@@ -49,6 +49,7 @@ ApplicationWindow {
     }
 
     header: ToolBar {
+        id: toolBar
         position: ToolBar.Header
         RowLayout {
             anchors.fill: parent
@@ -86,11 +87,12 @@ ApplicationWindow {
             }
 
             ToolButton {
+                id: menuButton
                 text: qsTr("⋮")
                 font.bold: true
                 font.pointSize: 14
 
-                onClicked: mainMenu.popup()
+                onClicked: mainMenu.popup(this, menuButton.x, menuButton.height)
             }
         }
     }

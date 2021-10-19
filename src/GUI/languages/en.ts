@@ -214,6 +214,10 @@
         <source>Your phone number</source>
         <translation>Your number</translation>
     </message>
+    <message>
+        <source>Changed foreground color</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditUserView</name>
