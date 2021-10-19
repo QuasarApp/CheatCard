@@ -6,6 +6,7 @@
 //#
 
 #include "cardmodel.h"
+#include "aboutmodel.h"
 #include "itemsmodel.h"
 #include "mainmodel.h"
 #include "qrcodereceiver.h"
@@ -77,6 +78,10 @@ MainModel::~MainModel() {
     delete _cardsListModel;
     delete _ownCardsListModel;
 
+    if (_aboutModel) {
+        delete _aboutModel;
+    }
+
     delete _defaultLogosModel;
     delete _defaultBackgroundsModel;
 
@@ -100,6 +105,14 @@ void MainModel::configureFinished() {
     initMode(_currentUser, _config);
 
     saveConfig();
+}
+
+QObject *MainModel::getAboutModel()
+{
+    if(!_aboutModel) {
+        _aboutModel = new AboutModel();
+    }
+    return _aboutModel;
 }
 
 QObject *MainModel::currentUser() const {

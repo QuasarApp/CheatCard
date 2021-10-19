@@ -57,6 +57,7 @@ if (ANDROID)
         ${PROJECT_NAME}Core
         ${PROJECT_NAME}Gui
         QuasarApp
+        Credits
         Heart
         QmlNotyfyService
         SCodes

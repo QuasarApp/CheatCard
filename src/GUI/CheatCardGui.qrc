@@ -19,6 +19,7 @@
         <file>CheatCardModule/ConnectionStatus.qml</file>
         <file>CheatCardModule/QrScanner.qml</file>
         <file>CheatCardModule/ScannerOverlay.qml</file>
+        <file>CheatCardModule/About.qml</file>
     </qresource>
     <qresource prefix="/CheatCardTr">
         <file>languages/en.qm</file>

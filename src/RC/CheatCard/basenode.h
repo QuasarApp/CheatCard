@@ -35,7 +35,7 @@ public:
 
     int getCardFreeIndex(unsigned int cardId) const;
 
-    QString libVersion() const;
+    static QString libVersion();
 
     QSharedPointer<UsersCards>
     getUserCardData(unsigned int userId, unsigned int cardId) const;
