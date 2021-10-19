@@ -9,6 +9,7 @@
 #include <quasarapp.h>
 #include "CheatCardGui/CheatCard.h"
 #include <qmlnotifyservice.h>
+
 void initLang() {
     QLocale locale = QLocale::system();
     QString customLanguage = QuasarAppUtils::Params::getArg("lang");

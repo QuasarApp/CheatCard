@@ -101,6 +101,8 @@ Page {
                     }
                 }
 
+                focus: true
+
                 contentItem: Item {
 
                     ColumnLayout {

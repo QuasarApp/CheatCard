@@ -47,4 +47,10 @@ private void showSystemUI() {
             | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 }
 
+@Override
+public void onBackPressed() {
+    super.onBackPressed();
+
+}
+
 }

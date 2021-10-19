@@ -15,7 +15,6 @@ ApplicationWindow {
     id: mainWindow
     visible: true
 
-
     //  Vertical mode
     height: 640
     width: 350
@@ -23,6 +22,15 @@ ApplicationWindow {
     // Horisontal mode
 //    height: 350
 //    width: 640
+
+    onClosing: {
+        // this is bad solution. but it is works fine.
+        // we handle close event that emit when user click back button and use own back button if it is needed.
+        if (backButton.fBack && backButton.enabled && Qt.platform.os === "android") {
+            backButton.clicked();
+            close.accepted = false
+        }
+    }
 
     property var model: mainModel
     property var user: (mainModel)? mainModel.currentUser: null
@@ -58,6 +66,9 @@ ApplicationWindow {
                 property bool fBack: (userPanel.visible || activityProcessor.depth > 1)
                 text: (fBack)? qsTr("<<") : qsTr("三")
                 onClicked: () => {
+                               if (!enabled)
+                                   return;
+
                                if (activityProcessor.depth > 1) {
                                    activityProcessor.popItem();
                                    return;
@@ -74,17 +85,10 @@ ApplicationWindow {
                                }
                            }
 
-                Keys.onReleased: {
-                    if ((event.key === Qt.Key_Back ||
-                        event.key === Qt.Key_Escape) && fBack) {
-                        event.accepted = true
-                        backButton.clicked();
-                    }
-                }
-
                 font.bold: true
 
                 enabled: !firstRun.visible
+
             }
 
             Label {
