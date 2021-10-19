@@ -179,7 +179,7 @@
         <translation>Зміна пломби картки</translation>
     </message>
     <message>
-        <source>Change fonts color</source>
+        <source>Changed foreground color</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
