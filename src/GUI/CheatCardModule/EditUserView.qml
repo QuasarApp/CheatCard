@@ -94,27 +94,34 @@ Frame {
 
         }
 
-        Image {
+        Item {
+            id: qrBox
+            Layout.fillHeight: true
+            Layout.fillWidth: true
             Layout.alignment: Qt.AlignHCenter
             Layout.columnSpan: 2
 
-            fillMode: Image.PreserveAspectFit
-            visible: !Boolean(root.model && root.model.mode)
-            SBarcodeGenerator {
-                id: generator
-                fileName: "currentuserqrcode";
-                inputText: (userModel)? (userModel.sessionCode): ""
-                height: 230
-                width: 230
-                margin: 5
-                onInputTextChanged: {
-                    if (inputText.length)
-                        process(inputText);
+            Image {
+                anchors.fill: parent
+                fillMode: Image.PreserveAspectFit
+                visible: !Boolean(root.model && root.model.mode)
+                SBarcodeGenerator {
+                    id: generator
+                    fileName: "currentuserqrcode";
+                    inputText: (userModel)? (userModel.sessionCode): ""
+                    height: Math.min(parent.height, parent.width)
+                    width: Math.min(parent.height, parent.width)
+                    margin: 0
+                    onInputTextChanged: {
+                        if (inputText.length)
+                            process(inputText);
+                    }
                 }
-            }
 
-            source: "file:/" + generator.filePath
+                source: "file:/" + generator.filePath
+            }
         }
+
 
         Item {
             Layout.fillHeight: true

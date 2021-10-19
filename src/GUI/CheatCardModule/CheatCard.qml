@@ -14,8 +14,15 @@ import NotifyModule 1.0
 ApplicationWindow {
     id: mainWindow
     visible: true
-    height: 550
+
+
+    //  Vertical mode
+    height: 640
     width: 350
+
+    // Horisontal mode
+//    height: 350
+//    width: 640
 
     property var model: mainModel
     property var user: (mainModel)? mainModel.currentUser: null
@@ -42,6 +49,7 @@ ApplicationWindow {
     }
 
     header: ToolBar {
+        id: toolBar
         position: ToolBar.Header
         RowLayout {
             anchors.fill: parent
@@ -92,12 +100,13 @@ ApplicationWindow {
             }
 
             ToolButton {
+                id: menuButton
                 text: qsTr("⋮")
                 font.bold: true
                 font.pointSize: 14
                 enabled: !firstRun.visible
 
-                onClicked: mainMenu.popup()
+                onClicked: mainMenu.popup(this, menuButton.x, menuButton.height)
             }
         }
     }

@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS "Cards" (
         "freeItemName"      TEXT NOT NULL,
 
         "color"             INTEGER DEFAULT 0x00777777,
+        "fontColor"         INTEGER DEFAULT 0x00777777,
 
         "freeIndex"         INTEGER DEFAULT 0,
         "time" INTEGER NOT NULL DEFAULT 0,

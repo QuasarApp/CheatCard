@@ -16,11 +16,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>## Used Libraris application: </source>
+        <source>## Used Libraris: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>## Used Libraris: </source>
+        <source>## Application: </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -213,6 +213,10 @@
     <message>
         <source>Your phone number</source>
         <translation>Your number</translation>
+    </message>
+    <message>
+        <source>Changed foreground color</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

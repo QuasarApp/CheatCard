@@ -195,6 +195,22 @@ void CardModel::setColor(const QString &newColor) {
     _card->setColor(newColor);
 }
 
+QString CardModel::getFontColor() const {
+    if (!_card)
+        return "#777777";
+    return _card->getFontColor();
+}
+
+void CardModel::setFontColor(const QString &newColor) {
+    if (!_card)
+        return;
+
+    if (_card->getFontColor() == newColor)
+        return;
+
+    _card->setFontColor(newColor);
+}
+
 QString CardModel::title() const {
     if (!_card)
         return "";
