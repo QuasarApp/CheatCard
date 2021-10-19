@@ -32,6 +32,7 @@ class CardModel: public QObject
     Q_PROPERTY(QString physicalAddress READ physicalAddress WRITE setPhysicalAddress NOTIFY objChanged)
     Q_PROPERTY(QString webSite READ webSite WRITE setWebSite NOTIFY objChanged)
     Q_PROPERTY(QString color READ getColor WRITE setColor NOTIFY objChanged)
+    Q_PROPERTY(QString fontColor READ getFontColor WRITE setFontColor NOTIFY objChanged)
     Q_PROPERTY(QString freeItem READ getFreeItem WRITE setFreeItem NOTIFY objChanged)
 
     QML_ELEMENT
@@ -63,6 +64,9 @@ public:
 
     QString getColor() const;
     void setColor(const QString &newColor);
+
+    QString getFontColor() const;
+    void setFontColor(const QString &newColor);
 
     void setPurchasesNumber(int newPurchasesNumber);
 

@@ -6,6 +6,7 @@
 //#
 
 #include "cardmodel.h"
+#include "aboutmodel.h"
 #include "itemsmodel.h"
 #include "mainmodel.h"
 #include "qrcodereceiver.h"
@@ -28,6 +29,8 @@
 
 #include <CheatCard/seller.h>
 #include <CheatCard/visitor.h>
+
+#include <QGuiApplication>
 
 #define CURRENT_USER "CURRENT_USER"
 
@@ -54,14 +57,30 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
 
     qRegisterMetaType<QSharedPointer<RC::UsersCards>>();
     qRegisterMetaType<QSharedPointer<RC::Card>>();
+
+    auto app = dynamic_cast<QGuiApplication*>(QGuiApplication::instance());
+
+    if (!app) {
+        QuasarAppUtils::Params::log("The application required a QGuiApplication",
+                                    QuasarAppUtils::Error);
+    } else {
+        // handle exit status on andorid
+        QObject::connect(app, &QGuiApplication::applicationStateChanged,
+                         this, &MainModel::handleAppStateChanged,
+                         Qt::DirectConnection);
+
+    }
 }
 
 MainModel::~MainModel() {
-    saveConfig();
-    saveUser();
+    flush();
 
     delete _cardsListModel;
     delete _ownCardsListModel;
+
+    if (_aboutModel) {
+        delete _aboutModel;
+    }
 
     delete _defaultLogosModel;
     delete _defaultBackgroundsModel;
@@ -86,6 +105,14 @@ void MainModel::configureFinished() {
     initMode(_currentUser, _config);
 
     saveConfig();
+}
+
+QObject *MainModel::getAboutModel()
+{
+    if(!_aboutModel) {
+        _aboutModel = new AboutModel();
+    }
+    return _aboutModel;
 }
 
 QObject *MainModel::currentUser() const {
@@ -136,7 +163,7 @@ void MainModel::setCurrentUser(QSharedPointer<UserModel> value) {
 
         QH::PKG::DBObjectsRequest<UsersCards> requestPurchase("UsersCards", where);
         if (auto result =_db->getObject(requestPurchase)) {
-            _cardsListModel->setPurchasesNumbers(requestPurchase.data());
+            _cardsListModel->setPurchasesNumbers(result->data());
         }
 
         _settings.setValue(CURRENT_USER, _currentUser->user()->userId());
@@ -293,6 +320,11 @@ QObject *MainModel::waitModel() const {
     return _waitModel;
 }
 
+void MainModel::flush() {
+    saveConfig();
+    saveUser();
+}
+
 int MainModel::getMode() const {
     return static_cast<int>(_mode);
 }
@@ -388,8 +420,8 @@ void MainModel::handleListenStart(int purchasesCount,
         return;
 
     if (!seller->incrementPurchase(header,
-                              model->card()->cardId(),
-                              purchasesCount)) {
+                                   model->card()->cardId(),
+                                   purchasesCount)) {
 
         QuasarAppUtils::Params::log("Failed to increment user card data",
                                     QuasarAppUtils::Error);
@@ -397,6 +429,12 @@ void MainModel::handleListenStart(int purchasesCount,
 }
 
 void MainModel::handleListenStop() {
+}
+
+void MainModel::handleAppStateChanged(Qt::ApplicationState state) {
+    if (state == Qt::ApplicationState::ApplicationSuspended) {
+        flush();
+    }
 }
 
 void MainModel::handleFirstDataSendet() {

@@ -2,6 +2,29 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="en" sourcelanguage="en">
 <context>
+    <name>About</name>
+    <message>
+        <source>## QuasarApp Core team:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(Programmer)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(Designer)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>## Used Libraris: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>## Application: </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CardsListView</name>
     <message>
         <source>Add card</source>
@@ -190,6 +213,10 @@
     <message>
         <source>Your phone number</source>
         <translation>Your number</translation>
+    </message>
+    <message>
+        <source>Changed foreground color</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

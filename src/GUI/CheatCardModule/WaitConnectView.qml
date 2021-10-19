@@ -15,17 +15,20 @@ Page {
     id: root
     property var model: null
 
+    implicitHeight: 0x0    // disable resize by content
+
     contentItem:
         ColumnLayout {
 
         Item {
             Layout.fillHeight: true
-
         }
 
         EditCardView {
-            Layout.fillWidth: true
-            Layout.preferredHeight: width * 0.7
+
+            Layout.alignment: Qt.AlignHCenter
+            Layout.preferredWidth: Math.min(root.width, root.height)
+            Layout.preferredHeight: width * 0.75
             purchasesNumber: purchaseInput.value
             editable: false
             model: (root.model)? root.model.card : null

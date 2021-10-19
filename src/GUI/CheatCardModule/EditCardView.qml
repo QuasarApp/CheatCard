@@ -6,6 +6,7 @@ import QtQuick.Layouts 1.15
 Page {
     id: root
     property var model: null
+    property string fontColor: (model)? model.fontColor : "#000000"
     property bool editable: true
     property int  purchasesNumber: (model)? model.purchasesNumber: 1
     signal finished();
@@ -26,6 +27,7 @@ Page {
             color: (root.model)? root.model.color : "#777777"
             radius: 10
             clip: true
+
             Image {
                 id: cardBackground
                 fillMode: Image.PreserveAspectCrop
@@ -69,6 +71,16 @@ Page {
 
                     TextField {
                         id: cardTitle
+                        color: fontColor
+
+                        background: Rectangle {
+                            y: cardTitle.height - height - cardTitle.bottomPadding + 8
+                            implicitWidth: 120
+                            height: cardTitle.activeFocus || cardTitle.hovered ? 2 : 1
+                            color: cardTitle.activeFocus ? cardTitle.Material.accentColor
+                                                       : (cardTitle.hovered ? cardTitle.Material.primaryTextColor : fontColor)
+                        }
+
                         Layout.columnSpan: parent.columns
                         horizontalAlignment:  Text.AlignHCenter
                         Layout.fillWidth: true
@@ -86,6 +98,9 @@ Page {
 
                     TextFieldWithLogo {
                         id: cardTelegramm
+
+                        textField.color: fontColor
+                        lineColor: fontColor
 
                         textField.text: (root.model)? root.model.telegramm : ""
                         textField.placeholderText: qsTr("Your telegramm");
@@ -110,6 +125,9 @@ Page {
                     TextFieldWithLogo {
                         id: cardInstagramm
 
+                        textField.color: fontColor
+                        lineColor: fontColor
+
                         textField.text: (root.model)? root.model.instagramm : ""
                         textField.placeholderText: qsTr("Your instagramm");
                         textField.readOnly: !editable
@@ -131,6 +149,9 @@ Page {
                     TextFieldWithLogo {
                         id: cardphysicalAddress
 
+                        textField.color: fontColor
+                        lineColor: fontColor
+
                         textField.text: (root.model)? root.model.physicalAddress : ""
                         textField.placeholderText: qsTr("Your physical address");
                         textField.readOnly: !editable
@@ -151,6 +172,9 @@ Page {
 
                     TextFieldWithLogo {
                         id: cardwebSite
+
+                        textField.color: fontColor
+                        lineColor: fontColor
                         textField.text: (root.model)? root.model.webSite : ""
 
                         textField.onTextChanged: {
@@ -175,6 +199,8 @@ Page {
                     TextFieldWithLogo {
                         id: cardphone
 
+                        textField.color: fontColor
+                        lineColor: fontColor
                         textField.text: (root.model)? root.model.phone : ""
 
                         textField.onTextChanged: {
@@ -197,8 +223,10 @@ Page {
                     }
 
                     TextFieldWithLogo {
-                        id: cardfreeItem
+                        id: cardfreeItem                        
 
+                        textField.color: fontColor
+                        lineColor: fontColor
                         textField.text: (root.model)? root.model.freeItem : ""
 
                         textField.onTextChanged: {
@@ -286,11 +314,12 @@ Page {
 
 
             ToolButton {
+                id: menuButton
                 text: qsTr("⋮")
                 font.bold: true
                 font.pointSize: 14
                 onClicked: () => {
-                               customisationMenu.popup()
+                               customisationMenu.popup(this, menuButton.x, menuButton.height)
                            }
             }
 
@@ -429,6 +458,33 @@ Page {
         }
     }
 
+    Component {
+        id: defaultColorFont
+
+        ColorPicker {
+            id: colorPickFont
+
+            header: Label {
+                horizontalAlignment: Label.AlignHCenter
+                text: qsTr("Please choose a color")
+                font.bold: true
+            }
+
+            footer: DialogButtonBox {
+                onAccepted: () => {
+                                if (root.model) {
+                                    fontColor = colorPickFont.color
+                                    root.model.fontColor = colorPickFont.color
+                                }
+                                activityProcessor.popItem();
+
+                            }
+
+                standardButtons: Dialog.Open
+            }
+        }
+    }
+
     Menu {
         id: customisationMenu
 
@@ -436,6 +492,14 @@ Page {
             text: qsTr("Change background color")
             onClicked: () => {
                            activityProcessor.newActivityFromComponent(defaultColor);
+
+                       }
+        }
+
+        MenuItem {
+            text: qsTr("Changed foreground color")
+            onClicked: () => {
+                           activityProcessor.newActivityFromComponent(defaultColorFont);
 
                        }
         }
