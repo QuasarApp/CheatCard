@@ -313,11 +313,12 @@ Page {
 
 
             ToolButton {
+                id: menuButton
                 text: qsTr("⋮")
                 font.bold: true
                 font.pointSize: 14
                 onClicked: () => {
-                               customisationMenu.popup()
+                               customisationMenu.popup(this, menuButton.x, menuButton.height)
                            }
             }
 
