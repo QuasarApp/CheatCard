@@ -24,6 +24,7 @@ public:
     Q_INVOKABLE QString getHeartLibVr() const;
     Q_INVOKABLE QString getZxingCppLibVr() const;
     Q_INVOKABLE QString getSCodesLibVr() const;
+    Q_INVOKABLE QString getQtLibVr() const;
 
 };
 
