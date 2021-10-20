@@ -2,6 +2,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
+import QtGraphicalEffects 1.15
 
 import com.scythestudio.scodes 1.0
 
@@ -102,6 +103,7 @@ Frame {
             Layout.columnSpan: 2
 
             Image {
+                id: imgQr
                 anchors.fill: parent
                 fillMode: Image.PreserveAspectFit
                 visible: !Boolean(root.model && root.model.mode)
@@ -119,7 +121,15 @@ Frame {
                 }
 
                 source: "file:/" + generator.filePath
+
+                ColorOverlayUser {
+                    src: imgQr
+                }
+
             }
+
+
+
         }
 
 

@@ -4,23 +4,15 @@
 <context>
     <name>About</name>
     <message>
-        <source>## QuasarApp Core team:</source>
+        <source> </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>(Programmer)</source>
+        <source>**Third party libraries**</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>(Designer)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>## Used Libraris: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>## Application: </source>
+        <source>Developed by Quasar App Core team</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
