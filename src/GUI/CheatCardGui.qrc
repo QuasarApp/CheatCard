@@ -20,7 +20,7 @@
         <file>CheatCardModule/QrScanner.qml</file>
         <file>CheatCardModule/ScannerOverlay.qml</file>
         <file>CheatCardModule/About.qml</file>
-        <file>CheatCardModule/ColorOverlayUser.qml</file>
+        <file>CheatCardModule/ColorOverlayQr.qml</file>
     </qresource>
     <qresource prefix="/CheatCardTr">
         <file>languages/en.qm</file>

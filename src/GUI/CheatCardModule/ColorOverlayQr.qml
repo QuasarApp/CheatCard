@@ -2,10 +2,11 @@ import QtQuick 2.15
 
 ShaderEffect {
     property variant src: Image
+    property color colorQr: color
 
-    property real r: 0.344
-    property real g: 0.5
-    property real b: 0.156
+    property real r: colorQr.r
+    property real g: colorQr.g
+    property real b: colorQr.b
 
     vertexShader: "
         uniform highp mat4 qt_Matrix;
@@ -29,8 +30,12 @@ ShaderEffect {
 
         void main() {
             lowp vec4 clr = texture2D(src, coord);
-            lowp float avg = (clr.r + clr.g + clr.b) / 3.;
-            gl_FragColor = vec4(r * avg, g * avg, b * avg, clr.a);
+            int fBlack = int(clr.r + clr.g + clr.b);
+            if ( fBlack != 0) {
+                gl_FragColor = vec4(0, 0, 0 , 0);
+            } else {
+                gl_FragColor = vec4(r, g , b , 1);
+            }
         }
     "
 }
