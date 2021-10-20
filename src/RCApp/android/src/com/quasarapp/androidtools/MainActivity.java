@@ -8,6 +8,9 @@
 package com.quasarapp.androidtools;
 
 import org.qtproject.qt5.android.bindings.QtActivity;
+import com.quasarapp.androidtools.BillingProcessor;
+import android.os.Bundle;
+
 import android.view.View;
 
 public class MainActivity extends QtActivity
@@ -18,6 +21,15 @@ public void onWindowFocusChanged(boolean hasFocus) {
 //    if (hasFocus) {
 //        hideSystemUI();
 //    }
+
+}
+
+@Override
+public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    billingProcessor = new BillingProcessor(this);
+    billingProcessor.startPurchase();
+
 }
 
 private void hideSystemUI() {
@@ -46,5 +58,7 @@ private void showSystemUI() {
             | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
             | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 }
+
+private BillingProcessor billingProcessor;
 
 }

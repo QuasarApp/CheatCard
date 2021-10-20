@@ -32,7 +32,6 @@ public class BillingProcessor {
     public BillingProcessor(Activity activityContext) {
         m_acrivityContext = activityContext;
         initBilling();
-
     }
 
     private void initBilling() {
@@ -80,7 +79,7 @@ public class BillingProcessor {
                 });
     }
 
-    private void startPurchase() {
+    public void startPurchase() {
         if (mSkuDetailsMap.size() > 0) {
             BillingFlowParams billingFlowParams = BillingFlowParams.newBuilder()
                     .setSkuDetails(mSkuDetailsMap.get(inAppItem1))
