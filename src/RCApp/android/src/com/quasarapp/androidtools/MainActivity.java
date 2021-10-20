@@ -61,4 +61,10 @@ private void showSystemUI() {
 
 private BillingProcessor billingProcessor;
 
+@Override
+public void onBackPressed() {
+    super.onBackPressed();
+
+}
+
 }

@@ -32,4 +32,8 @@ QString AboutModel::getSCodesLibVr() const {
     return "";
 }
 
+QString AboutModel::getQtLibVr() const {
+    return QT_VERSION_STR;
+}
+
 }

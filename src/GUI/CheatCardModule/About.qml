@@ -17,31 +17,48 @@ Credits {
     state: "about"
     iconWidth: 150
     iconLogo: "qrc:/images/private/resources/Logo/CheatCard_Logo1.png"
-    developersList: [
+    listCustomInfo: [
         {
-            section: qsTr("## QuasarApp Core team:"),
-            sectionList: [
-                "* Yankovich Andrei " + qsTr("(Programmer)"),
-                "* Loschinin Igor " + qsTr("(Programmer)"),
-                "* Chernenkov Oleg " + qsTr("(Designer)"),
-            ]
+            text: "**CheatCard**: " + ((model)? model.getCoreLibVr() : ""),
+            align: Label.AlignHCenter,
+        },
+        {
+            text: qsTr(" "),
+            align: Label.AlignHCenter
+        },
+        {
+            text: qsTr("**Third party libraries**"),
+            align: Label.AlignHCenter,
+        },
+        {
+            text: "Qt: " + ((model)? model.getQtLibVr() : ""),
+            align: Label.AlignHCenter,
+            color: "#777777"
+        },
+        {
+            text: "Heart: " + ((model)? model.getHeartLibVr() : ""),
+            align: Label.AlignHCenter,
+            color: "#777777"
+        },
+        {
+            text: "ZXing-C++ " + ((model)? model.getZxingCppLibVr() : ""),
+            align: Label.AlignHCenter,
+            color: "#777777"
+        },
+        {
+            text: "SCodes " + ((model)? model.getSCodesLibVr() : ""),
+            align: Label.AlignHCenter,
+            color: "#777777"
+        },
+        {
+            text: qsTr(" "),
+            align: Label.AlignHCenter
+        },
+        {
+            text: qsTr("Developed by Quasar App Core team"),
+            align: Label.AlignHCenter,
+            color: "#777777"
         }
     ]
 
-    versionList: [
-        {
-            section: qsTr("## Application: "),
-            sectionList: [
-                "* CheatCard " + ((model)? model.getCoreLibVr() : ""),
-            ]
-        },
-        {
-            section: qsTr("## Used Libraris: "),
-            sectionList: [
-                "* Heart " + ((model)? model.getHeartLibVr() : ""),
-                "* ZXing-C++ " + ((model)? model.getZxingCppLibVr() : ""),
-                "* SCodes " + ((model)? model.getSCodesLibVr() : ""),
-            ]
-        }
-    ]
 }
