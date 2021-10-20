@@ -360,6 +360,10 @@
         <source>Go!</source>
         <translation>Go!</translation>
     </message>
+    <message>
+        <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FreeItemsView</name>
