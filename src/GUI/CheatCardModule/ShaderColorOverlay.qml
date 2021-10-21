@@ -4,11 +4,11 @@ ShaderEffect {
     property string vrt: "qrc:/private/resources/shaders/baseVertxShader.vsh"
     property string fragSh: ""
     property variant src: Image
-    property color colorQr: color
+    property color color: "#000000"
 
-    property real r: colorQr.r
-    property real g: colorQr.g
-    property real b: colorQr.b
+    property real r: color.r
+    property real g: color.g
+    property real b: color.b
 
     vertexShader: vrt
     fragmentShader: fragSh

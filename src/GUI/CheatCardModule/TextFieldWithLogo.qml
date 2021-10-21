@@ -13,7 +13,7 @@ import QtQuick.Layouts 1.15
 RowLayout {
     id: root
     property alias textField: source
-    property string lineColor: "black"
+    property string lineColor: "#777777"
     property alias image: img.source
 
     signal clicked(var mouse)
@@ -24,10 +24,11 @@ RowLayout {
         Layout.preferredWidth: height
         fillMode: Image.PreserveAspectFit
         mipmap: true;
+
         layer.enabled: true
         layer.effect: ShaderColorOverlay {
             src: img
-            colorQr: "Red"
+            color: lineColor
             fragSh: "qrc:/private/resources/shaders/shaderColorLogo.fsh"
         }
 

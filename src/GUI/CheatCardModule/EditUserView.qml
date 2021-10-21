@@ -124,7 +124,7 @@ Frame {
                 layer.enabled: true
                 layer.effect: ShaderColorOverlay {
                     src: imgQr
-                    colorQr: Material.primary
+                    color: Material.primary
                     fragSh: "qrc:/private/resources/shaders/shaderColorQrCode.fsh"
                 }
 

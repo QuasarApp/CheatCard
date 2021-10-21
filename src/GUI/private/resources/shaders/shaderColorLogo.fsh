@@ -7,6 +7,6 @@ uniform lowp float b;
 
 void main() {
     lowp vec4 clr = texture2D(src, coord);
-    lowp float avg = (clr.r + clr.g + clr.b) / 3.;
+    lowp float avg = 1. - ((clr.r + clr.g + clr.b) / 3.);
     gl_FragColor = vec4(r * avg, g * avg, b * avg, clr.a);
 }
