@@ -48,7 +48,7 @@ public:
     long long getSessinon() const;
     const QString &sessionCode() const;
 
-    void becomeSellerRequest() const;
+    Q_INVOKABLE void becomeSellerRequest() const;
 
 public slots:
     void handlePurchaseReceived(RC::Purchase purchase);

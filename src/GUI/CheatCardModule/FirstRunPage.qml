@@ -158,7 +158,10 @@ Page {
                     const object = root.model.currentUser;
 
                     object.name = name.text;
-                    object.fSaller = rSaller.checked;
+
+                    if (rSaller.checked) {
+                        object.becomeSellerRequest();
+                    }
 
                     root.model.configureFinished();
 

@@ -1,6 +1,8 @@
 #include "desktopbilling.h"
 #include "CheatCard/basenode.h"
 
+#include <qmlnotifyservice.h>
+
 #define TEST_SELLER_ID "TestSeller"
 
 DesktopBilling::DesktopBilling() {
@@ -16,6 +18,7 @@ void DesktopBilling::init() {
 }
 
 void DesktopBilling::sendPurchase(const QString& token) {
+
     RC::Purchase purchase;
     purchase.id = "test";
     purchase.token = TEST_SELLER_TOKEN;
@@ -23,7 +26,19 @@ void DesktopBilling::sendPurchase(const QString& token) {
 }
 
 void DesktopBilling::becomeSeller() {
-    _settings.setValue(TEST_SELLER_ID, TEST_SELLER_TOKEN);
-    sendPurchase(TEST_SELLER_TOKEN);
 
+    auto service = QmlNotificationService::NotificationService::getService();
+
+    QmlNotificationService::Listner listner = [this] (bool accepted) {
+
+        if (accepted) {
+            _settings.setValue(TEST_SELLER_ID, TEST_SELLER_TOKEN);
+            sendPurchase(TEST_SELLER_TOKEN);
+        }
+
+    };
+
+    service->setQuestion(listner, tr("Become a seller"),
+                         tr("This functions unlocked only on test mode."
+                            " Do you realy want to become a seller?"));
 }
