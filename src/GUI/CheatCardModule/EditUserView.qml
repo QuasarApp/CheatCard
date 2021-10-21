@@ -102,9 +102,9 @@ Frame {
             Layout.columnSpan: 2
 
             Image {
+                id: imgQr
                 anchors.fill: parent
                 fillMode: Image.PreserveAspectFit
-                visible: !Boolean(root.model && root.model.mode)
                 SBarcodeGenerator {
                     id: generator
                     fileName: "currentuserqrcode";
@@ -117,8 +117,18 @@ Frame {
                             process(inputText);
                     }
                 }
-
+                visible: false
                 source: "file:/" + generator.filePath
+
+            }
+
+            ColorOverlayQr {
+                src: imgQr
+                width: Math.min(parent.height, parent.width)
+                height: Math.min(parent.height, parent.width)
+                visible: !Boolean(root.model && root.model.mode)
+                anchors.centerIn: parent
+                colorQr: Material.primary
             }
         }
 
