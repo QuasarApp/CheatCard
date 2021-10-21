@@ -20,6 +20,8 @@ import com.android.billingclient.api.SkuDetailsParams;
 import com.android.billingclient.api.SkuDetailsResponseListener;
 import com.android.billingclient.api.BillingResult;
 import com.android.billingclient.api.PurchasesResponseListener;
+import com.android.billingclient.api.Purchase.PurchaseState;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,30 +35,11 @@ public class BillingProcessor {
     }
 
     public void initBilling() {
-        System.out.println("Run initBilling");
 
         billingClient = BillingClient.newBuilder(m_acrivityContext).setListener(new PurchasesUpdatedListener() {
             @Override
             public void onPurchasesUpdated(BillingResult billingResult, List<Purchase> purchases) {
-                if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
-
-                    System.out.println("Run initBilling responce ok");
-                    System.out.println(purchases.toString());
-
-                    //here you can process the new purchases.
-                    for (Purchase purchase : purchases) {
-                        System.out.println(purchase.toString());
-
-                        if (m_provider != null) {
-                            ArrayList<String> list = purchase.getSkus();
-                            System.out.println(list.toString());
-
-                            for (String id : list) {
-                                m_provider.sendPurchaseToApp(id ,purchase.getPurchaseToken());
-                            }
-                        }
-                    }
-                }
+                workWithIncomingData(billingResult, purchases);
             }
         }).enablePendingPurchases().build();
 
@@ -70,7 +53,6 @@ public class BillingProcessor {
             public void onBillingSetupFinished(BillingResult billingResult) {
                 if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK){
                     //here billing Client is ready to be used.
-                    System.out.println("onBillingSetupFinished");
 
                     querySkuDetails();
                 }
@@ -93,27 +75,22 @@ public class BillingProcessor {
         billingClient.querySkuDetailsAsync(skuDetailsParamsBuilder.build(), new SkuDetailsResponseListener() {
                     @Override
                     public void onSkuDetailsResponse(BillingResult billingResult, List<SkuDetails> skuDetailsList) {
-                        System.out.println("onSkuDetailsResponse");
 
                         if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK){
-                            System.out.println("onSkuDetailsResponse OK");
-                            System.out.println(skuDetailsList.toString());
 
                             for (SkuDetails skuDetails : skuDetailsList) {
                                 mSkuDetailsMap.put(skuDetails.getSku(), skuDetails);
                             }
+
+                            RestoringPurchases();
                         }
                     }
                 });
     }
 
     public void startPurchase() {
-        System.out.println("startPurchase");
 
         if (mSkuDetailsMap.size() > 0) {
-
-            System.out.println("startPurchase works!");
-
 
             BillingFlowParams billingFlowParams = BillingFlowParams.newBuilder()
                     .setSkuDetails(mSkuDetailsMap.get(inAppItem1))
@@ -125,12 +102,44 @@ public class BillingProcessor {
 
     protected void RestoringPurchases(){
         //To Query you have to provide skuType which is "BillingClient.SkuType.INAPP" or "BillingClient.SkuType.SUBS"
-        billingClient.queryPurchasesAsync(BillingClient.SkuType.INAPP, new PurchasesResponseListener() {
+        billingClient.queryPurchasesAsync(BillingClient.SkuType.SUBS,
+        new PurchasesResponseListener() {
             @Override
-            public void onQueryPurchasesResponse(BillingResult billingResult, List<Purchase> purchases) {
+            public void onQueryPurchasesResponse(BillingResult billingResult,
+                                                 List<Purchase> purchases) {
                 //here you can process your purchases.
+                workWithIncomingData(billingResult, purchases);
             }
         });
+    }
+
+    private void workWithIncomingData(BillingResult billingResult, List<Purchase> purchases) {
+        if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+
+            //here you can process the new purchases.
+            for (Purchase purchase : purchases) {
+//                System.out.println(purchase.toString());
+//                System.out.println(purchase.getPurchaseState());
+
+
+                if (purchase.getPurchaseState() == PurchaseState.UNSPECIFIED_STATE) {
+                    System.out.println("failed to check realy state of purchase");
+                    continue;
+                }
+
+                if (purchase.getPurchaseState() == PurchaseState.PENDING) {
+                    System.out.println("purchase still pending");
+                    continue;
+                }
+
+                if (m_provider != null) {
+                    ArrayList<String> list = purchase.getSkus();
+                    for (String id : list) {
+                        m_provider.sendPurchaseToApp(id ,purchase.getPurchaseToken());
+                    }
+                }
+            }
+        }
     }
 
     static final String inAppItem1 = "test";
