@@ -12,7 +12,7 @@
 #include "datapack.h"
 #include <isqldbcache.h>
 
-
+#define TEST_SELLER_TOKEN "testbase64tokenofseller"
 #define USERREQUEST_TIMEOUT 10
 namespace RC {
 

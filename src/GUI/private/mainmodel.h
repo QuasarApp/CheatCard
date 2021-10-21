@@ -25,6 +25,7 @@ class ItemsModel;
 class WaitConnectionModel;
 class BaseNode;
 class UsersCards;
+class IBilling;
 
 /**
  * @brief The MainModel class is main model of the application.
@@ -70,6 +71,8 @@ public:
     void setMode(int newMode);
 
     QObject *waitModel() const;
+
+    void initBilling(IBilling* billingObject);
 
     /**
      * @brief flush Save all temp users data and configuration
@@ -147,6 +150,9 @@ private:
 
     ItemsModel *_defaultLogosModel = nullptr;
     ItemsModel *_defaultBackgroundsModel = nullptr;
+
+    IBilling *_billing = nullptr;
+
     QSharedPointer<BaseNode> _backEndModel = nullptr;
     WaitConnectionModel *_waitModel = nullptr;
     QSettings _settings;

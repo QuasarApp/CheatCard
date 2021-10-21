@@ -42,10 +42,8 @@ void JavaProvider::getPremium() const {
 }
 
 void JavaProvider::purchaseReceived(JNIEnv *env, jobject thiz, jstring id, jstring token) {
-    Purchase purchase;
-    purchase.id = env->GetStringUTFChars(id, 0);
-    purchase.token = env->GetStringUTFChars(token, 0);
-    emit JavaProvider::instance()->sigPurchase(purchase);
+    emit JavaProvider::instance()->sigPurchase(env->GetStringUTFChars(id, 0),
+                                               env->GetStringUTFChars(token, 0));
 }
 
 #endif

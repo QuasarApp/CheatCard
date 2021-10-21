@@ -15,24 +15,19 @@
 #include <QAndroidJniObject>
 #include <QObject>
 
-struct Purchase {
-    QString id;
-    QString token;
-};
-
 class JavaProvider : public QObject
 {
     Q_OBJECT
 
 public:
     static JavaProvider* instance();
+    void getPremium() const;
 
 signals:
-    void sigPurchase(Purchase);
+    void sigPurchase(QString id, QString token);
 
 private:
     JavaProvider();
-    void getPremium() const;
 
     static void purchaseReceived(JNIEnv *env, jobject thiz, jstring id, jstring token);
 };

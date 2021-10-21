@@ -75,6 +75,7 @@ Frame {
             visible: Boolean(root.userModel && !root.userModel.fSaller)
 
             onClicked: {
+
                 becomeSallerDialog.open()
             }
         }
@@ -138,24 +139,24 @@ Frame {
         }
     }
 
-    Dialog {
-        id: becomeSallerDialog
+//    Dialog {
+//        id: becomeSallerDialog
 
-        header: Label {
-            horizontalAlignment: Label.AlignHCenter
-            text: qsTr("Oh, do you really want? ");
-            font.bold: true
-        }
+//        header: Label {
+//            horizontalAlignment: Label.AlignHCenter
+//            text: qsTr("Oh, do you really want? ");
+//            font.bold: true
+//        }
 
-        standardButtons: Dialog.Yes | Dialog.No
+//        standardButtons: Dialog.Yes | Dialog.No
 
-        onAccepted: () => {
-                        if (root.userModel) {
-                            root.userModel.fSaller = true;
-                        }
-                        close();
-                    }
+//        onAccepted: () => {
+//                        if (root.userModel) {
+//                            root.userModel.fSaller = true;
+//                        }
+//                        close();
+//                    }
 
-        onRejected: close();
-    }
+//        onRejected: close();
+//    }
 }

@@ -32,6 +32,8 @@
 
 #include <QGuiApplication>
 
+#include <CheatCardGui/ibilling.h>
+
 #define CURRENT_USER "CURRENT_USER"
 
 namespace RC {
@@ -318,6 +320,38 @@ QH::ISqlDBCache *MainModel::db() const {
 
 QObject *MainModel::waitModel() const {
     return _waitModel;
+}
+
+void MainModel::initBilling(IBilling *billingObject) {
+
+    if (!_currentUser) {
+        QuasarAppUtils::Params::log("You try init billing before initialize user."
+                                    " Please invoke the initBilling method after initialize user model.",
+                                    QuasarAppUtils::Error);
+
+        return;
+    }
+
+    if (_billing) {
+        disconnect(_billing, &IBilling::sigPurchaseReceived,
+                   _currentUser.data(), &UserModel::handlePurchaseReceived);
+
+        disconnect(_currentUser.data(), &UserModel::sigBecomeSeller,
+                   _billing, &IBilling::becomeSeller);
+    }
+
+    _billing = billingObject;
+
+    if (_billing) {
+        connect(_billing, &IBilling::sigPurchaseReceived,
+                _currentUser.data(), &UserModel::handlePurchaseReceived);
+
+        connect(_currentUser.data(), &UserModel::sigBecomeSeller,
+                _billing, &IBilling::becomeSeller);
+
+        _billing->init();
+    }
+
 }
 
 void MainModel::flush() {

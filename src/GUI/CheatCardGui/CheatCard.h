@@ -9,6 +9,7 @@
 #define CheatCard_H
 
 #include "gui_global.h"
+#include "ibilling.h"
 
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
@@ -34,9 +35,10 @@ public:
 
     /**
      * @brief init This method initialize the main application class.
+     * @brief billingObject This is billing object of application.
      * @return true if initialization finished successful
      */
-    bool init(QQmlApplicationEngine *engine);
+    bool init(QQmlApplicationEngine *engine, RC::IBilling* billingObject);
 
 private:
 
