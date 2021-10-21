@@ -13,13 +13,17 @@
 #ifdef Q_OS_ANDROID
 #include <QAndroidJniEnvironment>
 
-AndroidBilling *AndroidBilling::instance() {
-    static AndroidBilling* instance = new AndroidBilling();
-    return instance;
+AndroidBilling::AndroidBilling() {
+
+    _javaProvider = JavaProvider::instance();
+
+    connect(_javaProvider, &JavaProvider::sigPurchase,
+            this, &AndroidBilling::handlePurchaseReceived);
+
 }
 
 void AndroidBilling::init() {
-
+    _javaProvider->initBilling();
 }
 
 void AndroidBilling::becomeSeller() {
@@ -31,15 +35,6 @@ void AndroidBilling::handlePurchaseReceived(QString id, QString token) {
     purchase.id = id;
     purchase.token = token;
     emit sigPurchaseReceived(purchase);
-}
-
-AndroidBilling::AndroidBilling() {
-
-    _javaProvider = JavaProvider::instance();
-
-    connect(_javaProvider, &JavaProvider::sigPurchase,
-            this, &AndroidBilling::handlePurchaseReceived);
-
 }
 
 #endif

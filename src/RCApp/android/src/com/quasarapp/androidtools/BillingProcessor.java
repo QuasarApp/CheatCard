@@ -20,7 +20,6 @@ import com.android.billingclient.api.SkuDetailsParams;
 import com.android.billingclient.api.SkuDetailsResponseListener;
 import com.android.billingclient.api.BillingResult;
 import com.android.billingclient.api.PurchasesResponseListener;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,14 +30,33 @@ public class BillingProcessor {
 
     public BillingProcessor(Activity activityContext) {
         m_acrivityContext = activityContext;
-        initBilling();
     }
 
-    private void initBilling() {
+    public void initBilling() {
+        System.out.println("Run initBilling");
+
         billingClient = BillingClient.newBuilder(m_acrivityContext).setListener(new PurchasesUpdatedListener() {
             @Override
             public void onPurchasesUpdated(BillingResult billingResult, List<Purchase> purchases) {
-                //here you can process the new purchases.
+                if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+
+                    System.out.println("Run initBilling responce ok");
+                    System.out.println(purchases.toString());
+
+                    //here you can process the new purchases.
+                    for (Purchase purchase : purchases) {
+                        System.out.println(purchase.toString());
+
+                        if (m_provider != null) {
+                            ArrayList<String> list = purchase.getSkus();
+                            System.out.println(list.toString());
+
+                            for (String id : list) {
+                                m_provider.sendPurchaseToApp(id ,purchase.getPurchaseToken());
+                            }
+                        }
+                    }
+                }
             }
         }).enablePendingPurchases().build();
 
@@ -52,6 +70,7 @@ public class BillingProcessor {
             public void onBillingSetupFinished(BillingResult billingResult) {
                 if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK){
                     //here billing Client is ready to be used.
+                    System.out.println("onBillingSetupFinished");
 
                     querySkuDetails();
                 }
@@ -59,6 +78,10 @@ public class BillingProcessor {
         });
     }
 
+    public void setCppProvider(CppProvider provider) {
+        m_provider = provider;
+
+    }
 
     private void querySkuDetails() {
         SkuDetailsParams.Builder skuDetailsParamsBuilder
@@ -66,11 +89,16 @@ public class BillingProcessor {
         ArrayList<String> list = new ArrayList<>();
         list.add(inAppItem1);
         skuDetailsParamsBuilder.setSkusList(list);
-        skuDetailsParamsBuilder.setType(BillingClient.SkuType.INAPP);
+        skuDetailsParamsBuilder.setType(BillingClient.SkuType.SUBS);
         billingClient.querySkuDetailsAsync(skuDetailsParamsBuilder.build(), new SkuDetailsResponseListener() {
                     @Override
                     public void onSkuDetailsResponse(BillingResult billingResult, List<SkuDetails> skuDetailsList) {
+                        System.out.println("onSkuDetailsResponse");
+
                         if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK){
+                            System.out.println("onSkuDetailsResponse OK");
+                            System.out.println(skuDetailsList.toString());
+
                             for (SkuDetails skuDetails : skuDetailsList) {
                                 mSkuDetailsMap.put(skuDetails.getSku(), skuDetails);
                             }
@@ -80,7 +108,13 @@ public class BillingProcessor {
     }
 
     public void startPurchase() {
+        System.out.println("startPurchase");
+
         if (mSkuDetailsMap.size() > 0) {
+
+            System.out.println("startPurchase works!");
+
+
             BillingFlowParams billingFlowParams = BillingFlowParams.newBuilder()
                     .setSkuDetails(mSkuDetailsMap.get(inAppItem1))
                     .build();
@@ -99,10 +133,11 @@ public class BillingProcessor {
         });
     }
 
-    private static final String TAG = "InAppBilling";
-    static final String inAppItem1 = "pk.inapp-test";
+    static final String inAppItem1 = "test";
     private Map<String, SkuDetails> mSkuDetailsMap = new HashMap<>();
 
     private BillingClient billingClient;
     private Activity m_acrivityContext;
+    private CppProvider m_provider;
+
 }

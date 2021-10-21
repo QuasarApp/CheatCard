@@ -26,7 +26,6 @@ class AndroidBilling : public RC::IBilling
 public:
     AndroidBilling();
 
-    static AndroidBilling* instance();
     void init() override;
 
 public slots:

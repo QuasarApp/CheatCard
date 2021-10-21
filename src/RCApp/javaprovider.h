@@ -22,6 +22,7 @@ class JavaProvider : public QObject
 public:
     static JavaProvider* instance();
     void getPremium() const;
+    void initBilling() const;
 
 signals:
     void sigPurchase(QString id, QString token);

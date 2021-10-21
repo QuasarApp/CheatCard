@@ -35,10 +35,16 @@ JavaProvider::JavaProvider() {
 
 void JavaProvider::getPremium() const {
     // C++ code
-    QAndroidJniObject::callStaticObjectMethod("com/quasarapp/androidtools/CppProvider",
+    QAndroidJniObject::callStaticMethod<void>("com/quasarapp/androidtools/CppProvider",
                                               "getPremium",
                                               "()V");
 
+}
+
+void JavaProvider::initBilling() const {
+    QAndroidJniObject::callStaticMethod<void>("com/quasarapp/androidtools/CppProvider",
+                                              "initBilling",
+                                              "()V");
 }
 
 void JavaProvider::purchaseReceived(JNIEnv *env, jobject thiz, jstring id, jstring token) {

@@ -14,6 +14,7 @@ public class CppProvider {
 
 public CppProvider(BillingProcessor billing) {
     billingProcessor = billing;
+    billingProcessor.setCppProvider(this);
     providerContext = this;
 }
 
@@ -25,6 +26,12 @@ public void sendPurchaseToApp(String id, String token) {
     purchaseReceived(id, token);
 }
 
+public void initBillingP() {
+    if (billingProcessor != null) {
+        billingProcessor.initBilling();
+    }
+}
+
 // Cpp Code
 private static native void purchaseReceived(String id, String token);
 
@@ -32,6 +39,12 @@ private static native void purchaseReceived(String id, String token);
 private static void getPremium() {
     if (providerContext != null) {
         providerContext.getPremiumP();
+    }
+}
+
+private static void initBilling() {
+    if (providerContext != null) {
+        providerContext.initBillingP();
     }
 }
 

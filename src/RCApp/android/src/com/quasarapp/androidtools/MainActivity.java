@@ -9,6 +9,8 @@ package com.quasarapp.androidtools;
 
 import org.qtproject.qt5.android.bindings.QtActivity;
 import com.quasarapp.androidtools.BillingProcessor;
+import com.quasarapp.androidtools.CppProvider;
+
 import android.os.Bundle;
 
 import android.view.View;
@@ -26,7 +28,7 @@ public void onWindowFocusChanged(boolean hasFocus) {
 public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     billingProcessor = new BillingProcessor(this);
-    billingProcessor.startPurchase();
+    cppProvider = new CppProvider(billingProcessor);
 
 }
 
@@ -64,5 +66,6 @@ public void onBackPressed() {
 }
 
 private BillingProcessor billingProcessor;
+private CppProvider cppProvider;
 
 }
