@@ -9,7 +9,6 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
-import QtGraphicalEffects 1.15
 
 RowLayout {
     id: root
@@ -20,6 +19,7 @@ RowLayout {
     signal clicked(var mouse)
 
     Image {
+        id: img
         Layout.preferredHeight: source.height * 0.9
         Layout.preferredWidth: height
         mipmap: true;
@@ -33,13 +33,12 @@ RowLayout {
             anchors.fill: parent
         }
 
-        id: img
         fillMode: Image.PreserveAspectFit
 
-        ColorOverlay {
-            anchors.fill: img
-            source: img
-            color: lineColor
+        ShaderLogo {
+            src: img
+            anchors.centerIn: parent
+            colorQr: lineColor
         }
     }
 
