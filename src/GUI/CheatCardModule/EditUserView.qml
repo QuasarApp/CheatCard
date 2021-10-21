@@ -103,7 +103,9 @@ Frame {
 
             Image {
                 id: imgQr
-                anchors.fill: parent
+                anchors.centerIn: parent
+                height: Math.min(parent.height, parent.width)
+                width: Math.min(parent.height, parent.width)
                 fillMode: Image.PreserveAspectFit
                 SBarcodeGenerator {
                     id: generator
@@ -117,19 +119,18 @@ Frame {
                             process(inputText);
                     }
                 }
-                visible: false
-                source: "file:/" + generator.filePath
-
-            }
-
-            ColorOverlayQr {
-                src: imgQr
-                width: Math.min(parent.height, parent.width)
-                height: Math.min(parent.height, parent.width)
                 visible: !Boolean(root.model && root.model.mode)
-                anchors.centerIn: parent
-                colorQr: Material.primary
+                source: "file:/" + generator.filePath
+                layer.enabled: true
+                layer.effect: ShaderColorOverlay {
+                    src: imgQr
+                    colorQr: Material.primary
+                    fragSh: "qrc:/private/resources/shaders/shaderColorQrCode.fsh"
+                }
+
             }
+
+
         }
 
 

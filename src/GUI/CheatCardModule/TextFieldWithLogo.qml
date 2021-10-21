@@ -22,7 +22,14 @@ RowLayout {
         id: img
         Layout.preferredHeight: source.height * 0.9
         Layout.preferredWidth: height
+        fillMode: Image.PreserveAspectFit
         mipmap: true;
+        layer.enabled: true
+        layer.effect: ShaderColorOverlay {
+            src: img
+            colorQr: "Red"
+            fragSh: "qrc:/private/resources/shaders/shaderColorLogo.fsh"
+        }
 
         MouseArea {
 
@@ -33,13 +40,6 @@ RowLayout {
             anchors.fill: parent
         }
 
-        fillMode: Image.PreserveAspectFit
-
-        ShaderLogo {
-            src: img
-            anchors.centerIn: parent
-            colorQr: lineColor
-        }
     }
 
     TextField {
