@@ -11,13 +11,30 @@
 #include <QtGlobal>
 
 #ifdef Q_OS_ANDROID
-class JavaProvider
+
+#include <QAndroidJniObject>
+#include <QObject>
+
+struct Purchase {
+    QString id;
+    QString token;
+};
+
+class JavaProvider : public QObject
 {
+    Q_OBJECT
+
 public:
+    static JavaProvider* instance();
+
+signals:
+    void sigPurchase(Purchase);
+
+private:
     JavaProvider();
     void getPremium() const;
 
-
+    static void purchaseReceived(JNIEnv *env, jobject thiz, jstring id, jstring token);
 };
 
 #endif

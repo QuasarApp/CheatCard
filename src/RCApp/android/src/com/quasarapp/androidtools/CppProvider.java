@@ -17,14 +17,22 @@ public CppProvider(BillingProcessor billing) {
     providerContext = this;
 }
 
-public static void getPremium() {
+public void getPremiumP() {
+    billingProcessor.startPurchase();
+}
+
+public void sendPurchaseToApp(String id, String token) {
+    purchaseReceived(id, token);
+}
+
+// Cpp Code
+private static native void purchaseReceived(String id, String token);
+
+// Java code
+private static void getPremium() {
     if (providerContext != null) {
         providerContext.getPremiumP();
     }
-}
-
-public void getPremiumP() {
-    billingProcessor.startPurchase();
 }
 
 private BillingProcessor billingProcessor;

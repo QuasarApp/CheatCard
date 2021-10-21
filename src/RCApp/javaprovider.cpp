@@ -8,10 +8,28 @@
 #include "javaprovider.h"
 
 
+
 #ifdef Q_OS_ANDROID
-#include <QAndroidJniObject>
+#include <QAndroidJniEnvironment>
+
+JavaProvider *JavaProvider::instance() {
+    static JavaProvider* instance = new JavaProvider();
+    return instance;
+}
 
 JavaProvider::JavaProvider() {
+
+    JNINativeMethod methods[] {
+        {"purchaseReceived", "(Ljava/lang/String;Ljava/lang/String;)V", reinterpret_cast<void *>(purchaseReceived)},
+    };
+
+    QAndroidJniObject javaClass("com/quasarapp/androidtools/CppProvider");
+    QAndroidJniEnvironment env;
+    jclass objectClass = env->GetObjectClass(javaClass.object<jobject>());
+    env->RegisterNatives(objectClass,
+                         methods,
+                         sizeof(methods) / sizeof(methods[0]));
+    env->DeleteLocalRef(objectClass);
 
 }
 
@@ -22,4 +40,12 @@ void JavaProvider::getPremium() const {
                                               "()V");
 
 }
+
+void JavaProvider::purchaseReceived(JNIEnv *env, jobject thiz, jstring id, jstring token) {
+    Purchase purchase;
+    purchase.id = env->GetStringUTFChars(id, 0);
+    purchase.token = env->GetStringUTFChars(token, 0);
+    emit JavaProvider::instance()->sigPurchase(purchase);
+}
+
 #endif

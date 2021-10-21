@@ -18,9 +18,7 @@ public class MainActivity extends QtActivity
 @Override
 public void onWindowFocusChanged(boolean hasFocus) {
     super.onWindowFocusChanged(hasFocus);
-//    if (hasFocus) {
-//        hideSystemUI();
-//    }
+
 
 }
 
@@ -59,12 +57,12 @@ private void showSystemUI() {
             | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 }
 
-private BillingProcessor billingProcessor;
-
 @Override
 public void onBackPressed() {
     super.onBackPressed();
 
 }
+
+private BillingProcessor billingProcessor;
 
 }
