@@ -142,7 +142,7 @@ public class BillingProcessor {
         }
     }
 
-    static final String inAppItem1 = "test";
+    static final String inAppItem1 = "seller";
     private Map<String, SkuDetails> mSkuDetailsMap = new HashMap<>();
 
     private BillingClient billingClient;
