@@ -118,9 +118,6 @@ public class BillingProcessor {
 
             //here you can process the new purchases.
             for (Purchase purchase : purchases) {
-//                System.out.println(purchase.toString());
-//                System.out.println(purchase.getPurchaseState());
-
 
                 if (purchase.getPurchaseState() == PurchaseState.UNSPECIFIED_STATE) {
                     System.out.println("failed to check realy state of purchase");

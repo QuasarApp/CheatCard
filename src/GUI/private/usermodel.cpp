@@ -76,6 +76,15 @@ UserHeader UserModel::getHelloPackage() const {
     return header;
 }
 
+const QByteArray &UserModel::sellerToken() const {
+    return _sellerToken;
+}
+
+void UserModel::setSellerToken(const QByteArray &newSellerToken) {
+    _sellerToken = newSellerToken;
+    setFSaller(newSellerToken.size());
+}
+
 long long UserModel::getSessinon() const {
     return sessinon;
 }
@@ -95,16 +104,6 @@ const QString &UserModel::sessionCode() const {
 
 void UserModel::becomeSellerRequest() const {
     emit sigBecomeSeller();
-}
-
-void UserModel::handlePurchaseReceived(Purchase purchase) {
-    if (purchase.token.isEmpty())
-        return;
-
-    _sellerToken = QByteArray::fromBase64(purchase.token.toLatin1(),
-                                          QByteArray::Base64UrlEncoding);
-
-    setFSaller(true);
 }
 
 }

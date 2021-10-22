@@ -50,8 +50,8 @@ public:
 
     Q_INVOKABLE void becomeSellerRequest() const;
 
-public slots:
-    void handlePurchaseReceived(RC::Purchase purchase);
+    const QByteArray &sellerToken() const;
+    void setSellerToken(const QByteArray &newSellerToken);
 
 signals:
     void objChanged();

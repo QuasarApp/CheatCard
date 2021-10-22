@@ -11,6 +11,7 @@
 #include <QObject>
 #include <QSettings>
 #include <CheatCard/database.h>
+#include <CheatCardGui/ibilling.h>
 
 namespace RC {
 
@@ -118,6 +119,7 @@ private slots:
     void handleListenStart(int purchasesCount, QSharedPointer<CardModel> model, const QString &extraData);
     void handleListenStop();
     void handleAppStateChanged(Qt::ApplicationState state);
+    void handlePurchaseReceived(Purchase purchase);
 
 private:
     void saveConfig();
@@ -157,7 +159,7 @@ private:
     WaitConnectionModel *_waitModel = nullptr;
     QSettings _settings;
 
-    Mode _mode = Mode::Unknown;
+    Mode _mode = Mode::Client;
     friend class ImageProvider;
 };
 
