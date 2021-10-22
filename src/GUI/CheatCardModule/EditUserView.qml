@@ -123,7 +123,6 @@ Frame {
                 source: "file:/" + generator.filePath
                 layer.enabled: true
                 layer.effect: ShaderColorOverlay {
-                    src: imgQr
                     color: Material.primary
                     fragSh: "qrc:/private/resources/shaders/shaderColorQrCode.fsh"
                 }

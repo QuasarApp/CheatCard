@@ -24,10 +24,8 @@ RowLayout {
         Layout.preferredWidth: height
         fillMode: Image.PreserveAspectFit
         mipmap: true;
-
         layer.enabled: true
         layer.effect: ShaderColorOverlay {
-            src: img
             color: lineColor
             fragSh: "qrc:/private/resources/shaders/shaderColorLogo.fsh"
         }
