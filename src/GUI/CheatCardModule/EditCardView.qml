@@ -223,7 +223,7 @@ Page {
                     }
 
                     TextFieldWithLogo {
-                        id: cardfreeItem                        
+                        id: cardfreeItem
 
                         textField.color: fontColor
                         lineColor: fontColor

@@ -9,20 +9,26 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
-import QtGraphicalEffects 1.15
 
 RowLayout {
     id: root
     property alias textField: source
-    property string lineColor: "black"
+    property string lineColor: "#777777"
     property alias image: img.source
 
     signal clicked(var mouse)
 
     Image {
+        id: img
         Layout.preferredHeight: source.height * 0.9
         Layout.preferredWidth: height
+        fillMode: Image.PreserveAspectFit
         mipmap: true;
+        layer.enabled: true
+        layer.effect: ShaderColorOverlay {
+            color: lineColor
+            fragSh: "qrc:/private/resources/shaders/shaderColorLogo.fsh"
+        }
 
         MouseArea {
 
@@ -33,14 +39,6 @@ RowLayout {
             anchors.fill: parent
         }
 
-        id: img
-        fillMode: Image.PreserveAspectFit
-
-        ColorOverlay {
-            anchors.fill: img
-            source: img
-            color: lineColor
-        }
     }
 
     TextField {
