@@ -5,11 +5,12 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#include <QObject>
-
 
 #ifndef IBILLING_H
 #define IBILLING_H
+
+#include <QObject>
+#include "gui_global.h"
 
 namespace RC {
 
@@ -18,7 +19,7 @@ struct Purchase {
     QString token;
 };
 
-class IBilling: public QObject
+class CHEATCARD_GUI_EXPORT IBilling: public QObject
 {
     Q_OBJECT
 public:
