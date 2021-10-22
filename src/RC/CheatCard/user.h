@@ -50,7 +50,7 @@ private:
 
     QByteArray _key;
     QString _name;
-    bool _fSaller;
+    bool _fSaller = false;
 };
 
 }

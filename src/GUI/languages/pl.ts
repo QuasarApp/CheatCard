@@ -230,10 +230,6 @@
         <source>Salesman!</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Oh, do you really want? </source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>FirstRunPage</name>

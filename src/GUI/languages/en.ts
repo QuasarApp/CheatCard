@@ -287,7 +287,7 @@
     </message>
     <message>
         <source>Oh, do you really want? </source>
-        <translation>Oh, do you really want? </translation>
+        <translation type="vanished">Oh, do you really want? </translation>
     </message>
 </context>
 <context>
