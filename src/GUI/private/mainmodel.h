@@ -134,6 +134,7 @@ private:
     void initImagesModels();
     void setBackEndModel(const QSharedPointer<BaseNode> &newModel);
     void initWaitConnectionModel();
+    void configureCardsList();
 
     void setCardListModel(CardsListModel *model);
 
