@@ -3,6 +3,8 @@ import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
 
+import "Style"
+
 Page {
     id: root
     property var model: null
@@ -44,7 +46,7 @@ Page {
                 anchors.fill: parent
                 rows: 2
                 columns: 2
-
+                visible: !root.backSide
                 Image {
                     id: cardLogoIamge
                     fillMode: Image.PreserveAspectFit
@@ -74,18 +76,10 @@ Page {
                         cardphone.visible +
                         cardfreeItem.visible
 
-                    TextField {
+                    CTextField {
                         id: cardTitle
-                        color: fontColor
-
-                        background: Rectangle {
-                            y: cardTitle.height - height - cardTitle.bottomPadding + 8
-                            implicitWidth: 120
-                            height: cardTitle.activeFocus || cardTitle.hovered ? 2 : 1
-                            color: cardTitle.activeFocus ? cardTitle.Material.accentColor
-                                                       : (cardTitle.hovered ? cardTitle.Material.primaryTextColor : fontColor)
-                        }
-
+                        color: root.fontColor
+                        fontColor: root.fontColor
                         Layout.columnSpan: parent.columns
                         horizontalAlignment:  Text.AlignHCenter
                         Layout.fillWidth: true
@@ -314,7 +308,7 @@ Page {
 
             GridLayout {
                 id: backSide;
-
+                visible: root.backSide
                 anchors.fill: parent
                 rows: 2
                 columns: 2
@@ -326,20 +320,14 @@ Page {
                     Layout.rightMargin: 10
                     flow: GridLayout.TopToBottom
 
-                    TextField {
-                        color: fontColor
+                    CTextField {
+                        color: root.fontColor
+                        fontColor: root.fontColor
                         Layout.columnSpan: 2
-                        background: Rectangle {
-                            y: cardTitle.height - height - cardTitle.bottomPadding + 8
-                            implicitWidth: 120
-                            height: cardTitle.activeFocus || cardTitle.hovered ? 2 : 1
-                            color: cardTitle.activeFocus ? cardTitle.Material.accentColor
-                                                       : (cardTitle.hovered ? cardTitle.Material.primaryTextColor : fontColor)
-                        }
 
                         horizontalAlignment:  Text.AlignHCenter
                         Layout.fillWidth: true
-                        text: (root.model)? root.model.title : ""
+                        text: (root.model)? qsTr("Detail of ") + root.model.title : ""
 
                         readOnly: true
                     }

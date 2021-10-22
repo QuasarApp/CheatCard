@@ -210,6 +210,10 @@
         <source>Changed foreground color</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Detail of </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditUserView</name>
