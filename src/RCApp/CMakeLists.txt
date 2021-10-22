@@ -64,8 +64,6 @@ if (ANDROID)
         ZXing
         )
 
-    #    find_package(Qt${QT_VERSION_MAJOR} COMPONENTS AndroidExtras REQUIRED)
-    #    target_link_libraries(${CURRENT_PROJECT} PRIVATE Qt${QT_VERSION_MAJOR}::AndroidExtras)
 
     if (SIGN_APP)
         message("SIGN_APP")

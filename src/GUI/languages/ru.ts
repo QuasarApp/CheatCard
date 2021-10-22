@@ -272,7 +272,7 @@
     </message>
     <message>
         <source>Oh, do you really want? </source>
-        <translation>А вы уверенны что оно вам надо? </translation>
+        <translation type="vanished">А вы уверенны что оно вам надо? </translation>
     </message>
 </context>
 <context>

@@ -32,6 +32,8 @@
 
 #include <QGuiApplication>
 
+#include <CheatCardGui/ibilling.h>
+
 #define CURRENT_USER "CURRENT_USER"
 
 namespace RC {
@@ -49,8 +51,6 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
 
     setCurrentUser(initUser());
     _config = initConfig(_currentUser->user()->userId());
-
-    initMode(_currentUser, _config);
 
     qRegisterMetaType<RC::UsersCards>();
     qRegisterMetaType<RC::Card>();
@@ -70,6 +70,8 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
                          Qt::DirectConnection);
 
     }
+
+    configureCardsList();
 }
 
 MainModel::~MainModel() {
@@ -101,8 +103,6 @@ void MainModel::configureFinished() {
 
     _config->setUserId(_currentUser->user()->userId());
     _config->setFirstRun(false);
-
-    initMode(_currentUser, _config);
 
     saveConfig();
 }
@@ -320,6 +320,38 @@ QObject *MainModel::waitModel() const {
     return _waitModel;
 }
 
+void MainModel::initBilling(IBilling *billingObject) {
+
+    if (!_currentUser) {
+        QuasarAppUtils::Params::log("You try init billing before initialize user."
+                                    " Please invoke the initBilling method after initialize user model.",
+                                    QuasarAppUtils::Error);
+
+        return;
+    }
+
+    if (_billing) {
+        disconnect(_billing, &IBilling::sigPurchaseReceived,
+                   this, &MainModel::handlePurchaseReceived);
+
+        disconnect(_currentUser.data(), &UserModel::sigBecomeSeller,
+                   _billing, &IBilling::becomeSeller);
+    }
+
+    _billing = billingObject;
+
+    if (_billing) {
+        connect(_billing, &IBilling::sigPurchaseReceived,
+                this, &MainModel::handlePurchaseReceived);
+
+        connect(_currentUser.data(), &UserModel::sigBecomeSeller,
+                _billing, &IBilling::becomeSeller);
+
+        _billing->init();
+    }
+
+}
+
 void MainModel::flush() {
     saveConfig();
     saveUser();
@@ -329,13 +361,7 @@ int MainModel::getMode() const {
     return static_cast<int>(_mode);
 }
 
-void MainModel::setMode(int newMode) {
-    if (static_cast<int>(_mode) == newMode)
-        return;
-
-    _mode = static_cast<Mode>(newMode);
-    emit modeChanged();
-
+void RC::MainModel::configureCardsList() {
     if (_mode == Mode::Client) {
         setCardListModel(_cardsListModel);
         setBackEndModel(QSharedPointer<BaseNode>(new Visitor(_db), softRemove));
@@ -343,6 +369,16 @@ void MainModel::setMode(int newMode) {
         setCardListModel(_ownCardsListModel);
         setBackEndModel(QSharedPointer<BaseNode>(new Seller(_db), softRemove));
     }
+}
+
+void MainModel::setMode(int newMode) {
+    if (static_cast<int>(_mode) == newMode)
+        return;
+
+    _mode = static_cast<Mode>(newMode);
+    emit modeChanged();
+
+    configureCardsList();
 
     _config->setFSellerEnabled(newMode);
     saveConfig();
@@ -435,6 +471,21 @@ void MainModel::handleAppStateChanged(Qt::ApplicationState state) {
     if (state == Qt::ApplicationState::ApplicationSuspended) {
         flush();
     }
+}
+
+void MainModel::handlePurchaseReceived(Purchase purchase) {
+    if (purchase.token.isEmpty())
+        return;
+
+    if (!_currentUser) {
+        return;
+    }
+
+    _currentUser->setSellerToken(QByteArray::fromBase64(purchase.token.toLatin1(),
+                                          QByteArray::Base64UrlEncoding));
+
+    initMode(_currentUser, _config);
+
 }
 
 void MainModel::handleFirstDataSendet() {

@@ -75,7 +75,9 @@ Frame {
             visible: Boolean(root.userModel && !root.userModel.fSaller)
 
             onClicked: {
-                becomeSallerDialog.open()
+                if (root.userModel) {
+                    root.userModel.becomeSellerRequest();
+                }
             }
         }
 
@@ -103,9 +105,7 @@ Frame {
 
             Image {
                 id: imgQr
-                anchors.centerIn: parent
-                height: Math.min(parent.height, parent.width)
-                width: Math.min(parent.height, parent.width)
+                anchors.fill: parent
                 fillMode: Image.PreserveAspectFit
                 SBarcodeGenerator {
                     id: generator
@@ -119,17 +119,19 @@ Frame {
                             process(inputText);
                     }
                 }
-                visible: !Boolean(root.model && root.model.mode)
+                visible: false
                 source: "file:/" + generator.filePath
-                layer.enabled: true
-                layer.effect: ShaderColorOverlay {
-                    color: Material.primary
-                    fragSh: "qrc:/private/resources/shaders/shaderColorQrCode.fsh"
-                }
 
             }
 
-
+            ColorOverlayQr {
+                src: imgQr
+                width: Math.min(parent.height, parent.width)
+                height: Math.min(parent.height, parent.width)
+                visible: !Boolean(root.model && root.model.mode)
+                anchors.centerIn: parent
+                colorQr: Material.primary
+            }
         }
 
 

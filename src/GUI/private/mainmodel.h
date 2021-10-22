@@ -11,6 +11,7 @@
 #include <QObject>
 #include <QSettings>
 #include <CheatCard/database.h>
+#include <CheatCardGui/ibilling.h>
 
 namespace RC {
 
@@ -25,6 +26,7 @@ class ItemsModel;
 class WaitConnectionModel;
 class BaseNode;
 class UsersCards;
+class IBilling;
 
 /**
  * @brief The MainModel class is main model of the application.
@@ -71,6 +73,8 @@ public:
 
     QObject *waitModel() const;
 
+    void initBilling(IBilling* billingObject);
+
     /**
      * @brief flush Save all temp users data and configuration
      */
@@ -115,6 +119,7 @@ private slots:
     void handleListenStart(int purchasesCount, QSharedPointer<CardModel> model, const QString &extraData);
     void handleListenStop();
     void handleAppStateChanged(Qt::ApplicationState state);
+    void handlePurchaseReceived(Purchase purchase);
 
 private:
     void saveConfig();
@@ -129,6 +134,7 @@ private:
     void initImagesModels();
     void setBackEndModel(const QSharedPointer<BaseNode> &newModel);
     void initWaitConnectionModel();
+    void configureCardsList();
 
     void setCardListModel(CardsListModel *model);
 
@@ -147,11 +153,14 @@ private:
 
     ItemsModel *_defaultLogosModel = nullptr;
     ItemsModel *_defaultBackgroundsModel = nullptr;
+
+    IBilling *_billing = nullptr;
+
     QSharedPointer<BaseNode> _backEndModel = nullptr;
     WaitConnectionModel *_waitModel = nullptr;
     QSettings _settings;
 
-    Mode _mode = Mode::Unknown;
+    Mode _mode = Mode::Client;
     friend class ImageProvider;
 };
 
