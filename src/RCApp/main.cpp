@@ -9,6 +9,8 @@
 #include <quasarapp.h>
 #include "CheatCardGui/CheatCard.h"
 #include <qmlnotifyservice.h>
+#include "androidbilling.h"
+#include "desktopbilling.h"
 
 void initLang() {
     QLocale locale = QLocale::system();
@@ -23,6 +25,14 @@ void initLang() {
                                       ":/lv_languages/"})){
         QuasarAppUtils::Params::log("Error load language : ", QuasarAppUtils::Error);
     }
+}
+
+RC::IBilling * getBillingInstance() {
+#ifdef Q_OS_ANDROID
+    return new AndroidBilling;
+#else
+    return new DesktopBilling;
+#endif
 }
 
 int main(int argc, char *argv[]) {
@@ -45,7 +55,7 @@ int main(int argc, char *argv[]) {
     RC::CheatCard rc;
     initLang();
 
-    if (!rc.init(&engine)) {
+    if (!rc.init(&engine, getBillingInstance())) {
         return 0;
     }
 

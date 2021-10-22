@@ -29,7 +29,6 @@ CREATE TABLE IF NOT EXISTS "Users" (
         "id"            INTEGER NOT NULL,
         "name"          TEXT NOT NULL,
         "key"           BLOB NOT NULL,
-        "fSaller"       BOOLEAN DEFAULT false,
         "time" INTEGER NOT NULL DEFAULT 0,
 
         PRIMARY KEY("id")

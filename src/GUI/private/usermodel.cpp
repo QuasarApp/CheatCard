@@ -1,3 +1,10 @@
+//#
+//# Copyright (C) 2021-2021 QuasarApp.
+//# Distributed under the lgplv3 software license, see the accompanying
+//# Everyone is permitted to copy and distribute verbatim copies
+//# of this license document, but changing it is not allowed.
+//#
+
 #include "usermodel.h"
 #include "CheatCard/user.h"
 
@@ -69,6 +76,15 @@ UserHeader UserModel::getHelloPackage() const {
     return header;
 }
 
+const QByteArray &UserModel::sellerToken() const {
+    return _sellerToken;
+}
+
+void UserModel::setSellerToken(const QByteArray &newSellerToken) {
+    _sellerToken = newSellerToken;
+    setFSaller(newSellerToken.size());
+}
+
 long long UserModel::getSessinon() const {
     return sessinon;
 }
@@ -84,6 +100,10 @@ void UserModel::setSessinon(long long newSessinon) {
 
 const QString &UserModel::sessionCode() const {
     return _sessionCode;
+}
+
+void UserModel::becomeSellerRequest() const {
+    emit sigBecomeSeller();
 }
 
 }
