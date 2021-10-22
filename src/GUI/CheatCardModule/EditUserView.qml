@@ -75,7 +75,9 @@ Frame {
             visible: Boolean(root.userModel && !root.userModel.fSaller)
 
             onClicked: {
-                becomeSallerDialog.open()
+                if (root.userModel) {
+                    root.userModel.becomeSellerRequest();
+                }
             }
         }
 
@@ -103,59 +105,38 @@ Frame {
 
             Image {
                 id: imgQr
-                anchors.fill: parent
+                anchors.centerIn: parent
+                height: Math.min(parent.height, parent.width)
+                width: Math.min(parent.height, parent.width)
                 fillMode: Image.PreserveAspectFit
                 SBarcodeGenerator {
                     id: generator
                     fileName: "currentuserqrcode";
                     inputText: (userModel)? (userModel.sessionCode): ""
-                    height: Math.min(parent.height, parent.width)
-                    width: Math.min(parent.height, parent.width)
+                    height: parent.height
+                    width:  parent.width
                     margin: 0
                     onInputTextChanged: {
                         if (inputText.length)
                             process(inputText);
                     }
                 }
-                visible: false
-                source: "file:/" + generator.filePath
-
-            }
-
-            ColorOverlayQr {
-                src: imgQr
-                width: Math.min(parent.height, parent.width)
-                height: Math.min(parent.height, parent.width)
                 visible: !Boolean(root.model && root.model.mode)
-                anchors.centerIn: parent
-                colorQr: Material.primary
+                source: "file:/" + generator.filePath
+                layer.enabled: true
+                layer.effect: ColorOverlayQr {
+                    src: imgQr
+                    colorQr: Material.primary
+                }
+
             }
+
+
         }
 
 
         Item {
             Layout.fillHeight: true
         }
-    }
-
-    Dialog {
-        id: becomeSallerDialog
-
-        header: Label {
-            horizontalAlignment: Label.AlignHCenter
-            text: qsTr("Oh, do you really want? ");
-            font.bold: true
-        }
-
-        standardButtons: Dialog.Yes | Dialog.No
-
-        onAccepted: () => {
-                        if (root.userModel) {
-                            root.userModel.fSaller = true;
-                        }
-                        close();
-                    }
-
-        onRejected: close();
     }
 }

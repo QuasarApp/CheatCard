@@ -29,7 +29,8 @@ CheatCard::~CheatCard() {
     _db->softDelete();
 }
 
-bool CheatCard::init(QQmlApplicationEngine *engine) {
+bool CheatCard::init(QQmlApplicationEngine *engine, IBilling *billingObject) {
+
     initCheatCardResources();
 
     if (!QuasarAppCredits::init(engine)) {
@@ -58,6 +59,8 @@ bool CheatCard::init(QQmlApplicationEngine *engine) {
     engine->load("qrc:/CheatCardModule/CheatCard.qml");
     if (engine->rootObjects().isEmpty())
         return false;
+
+    _model->initBilling(billingObject);
 
     return true;
 }

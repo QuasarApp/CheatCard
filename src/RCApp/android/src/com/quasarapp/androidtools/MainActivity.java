@@ -8,6 +8,11 @@
 package com.quasarapp.androidtools;
 
 import org.qtproject.qt5.android.bindings.QtActivity;
+import com.quasarapp.androidtools.BillingProcessor;
+import com.quasarapp.androidtools.CppProvider;
+
+import android.os.Bundle;
+
 import android.view.View;
 
 public class MainActivity extends QtActivity
@@ -15,9 +20,16 @@ public class MainActivity extends QtActivity
 @Override
 public void onWindowFocusChanged(boolean hasFocus) {
     super.onWindowFocusChanged(hasFocus);
-//    if (hasFocus) {
-//        hideSystemUI();
-//    }
+
+
+}
+
+@Override
+public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    billingProcessor = new BillingProcessor(this);
+    cppProvider = new CppProvider(billingProcessor);
+
 }
 
 private void hideSystemUI() {
@@ -52,5 +64,8 @@ public void onBackPressed() {
     super.onBackPressed();
 
 }
+
+private BillingProcessor billingProcessor;
+private CppProvider cppProvider;
 
 }
