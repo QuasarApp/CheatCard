@@ -35,6 +35,7 @@ private slots:
     void handlePurchaseReceived(QString id, QString token);
 
 private:
+    const char* getPublicKey();
     JavaProvider *_javaProvider = nullptr;
 
 };
