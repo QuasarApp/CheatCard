@@ -80,6 +80,13 @@ public:
      */
     void flush();
 
+    /**
+     * @brief getReceivedItemsCount This method return count of all purches of @a cardId nad current user.
+     * @param cardId This is card id.
+     * @return count of of all purches of @a cardId nad current user. Else return 0
+     */
+    Q_INVOKABLE int getReceivedItemsCount(int cardId) const;
+
 public slots:
     void handleFirstDataSendet();
     void handleBonusGivOut(int userId, int cardId, int givOutcount);

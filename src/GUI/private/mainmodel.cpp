@@ -355,6 +355,19 @@ void MainModel::flush() {
     saveUser();
 }
 
+int MainModel::getReceivedItemsCount(int cardId) const {
+    if (_mode != Mode::Client) {
+        return 0;
+    }
+
+    if (!_backEndModel)
+        return 0;
+
+    return _backEndModel->getCountOfReceivedItems(
+                _currentUser->user()->userId(),
+                cardId);
+}
+
 int MainModel::getMode() const {
     return static_cast<int>(_mode);
 }

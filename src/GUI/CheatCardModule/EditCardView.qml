@@ -10,7 +10,10 @@ Page {
     property var model: null
     property string fontColor: (model)? model.fontColor : "#000000"
     property bool editable: true
+
     property int  purchasesNumber: (model)? model.purchasesNumber: 1
+    property int freeIndexCount :(model)? model.freeIndex: 0
+    property int receivedItems :(mainModel && model)? mainModel.getReceivedItemsCount(model.id): 0
 
     property bool backSide: false
 
@@ -310,28 +313,72 @@ Page {
                 id: backSide;
                 visible: root.backSide
                 anchors.fill: parent
-                rows: 2
-                columns: 2
+                rows: 4
+                columns: 4
 
-                GridLayout {
-                    rows: 4
-                    columns: 2
-                    Layout.alignment: Qt.AlignRight | Qt.AlignTop
-                    Layout.rightMargin: 10
-                    flow: GridLayout.TopToBottom
+                Item {
+                    Layout.fillWidth: true
+                    Layout.rowSpan: 4
+                }
 
-                    CTextField {
-                        color: root.fontColor
-                        fontColor: root.fontColor
-                        Layout.columnSpan: 2
+                CTextField {
+                    color: root.fontColor
+                    fontColor: root.fontColor
+                    Layout.columnSpan: 2
 
-                        horizontalAlignment:  Text.AlignHCenter
-                        Layout.fillWidth: true
-                        text: (root.model)? qsTr("Detail of ") + root.model.title : ""
+                    horizontalAlignment:  Text.AlignHCenter
+                    Layout.fillWidth: true
+                    text: (root.model)? qsTr("Detail of ") + root.model.title : ""
 
-                        readOnly: true
-                    }
+                    readOnly: true
+                }
 
+                Item {
+                    Layout.fillWidth: true
+                    Layout.rowSpan: 4
+                }
+
+                Label {
+                    color: root.fontColor
+
+                    text: qsTr("Purchases count: ")
+                }
+
+                CTextField {
+                    text: purchasesNumber
+                    horizontalAlignment:  Text.AlignHCenter
+                    fontColor: root.fontColor
+
+                }
+
+                Label {
+                    color: root.fontColor
+
+                    text: qsTr("Available %0: ").arg((model)? model.freeItem: "");
+                }
+
+                CTextField {
+                    text: Math.floor(purchasesNumber / freeIndexCount) - receivedItems
+                    horizontalAlignment:  Text.AlignHCenter
+                    fontColor: root.fontColor
+
+                }
+
+                Label {
+                    color: root.fontColor
+
+                    text: qsTr("Received %0: ").arg((model)? model.freeItem: "");
+                }
+
+                CTextField {
+                    text:  receivedItems
+                    horizontalAlignment:  Text.AlignHCenter
+                    fontColor: root.fontColor
+
+                }
+
+                Item {
+                    Layout.fillHeight: true
                 }
             }
         }
@@ -353,15 +400,14 @@ Page {
 
             SpinBox {
                 id: freeIndex
-                value: (root.model)? root.model.freeIndex : privateRoot.rowSignCount
+                value: (root.model)? freeIndexCount : privateRoot.rowSignCount
                 stepSize: Math.ceil((freeIndex.value + 1) / privateRoot.rowSignCount)
                 to: privateRoot.rowSignCount * privateRoot.maximumRowSignCount
                 from: 2
 
                 onValueChanged: () => {
                                     if (!root.model)
-                                    return
-                                    root.model.freeIndex = freeIndex.value
+                                    return freeIndexCount = freeIndex.value
                                 }
             }
 
