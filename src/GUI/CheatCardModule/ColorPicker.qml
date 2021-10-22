@@ -5,6 +5,7 @@ import QtQuick.Layouts 1.15
 
 Page {
     property alias color: preview.color
+    implicitHeight: 0x0
 
     ColumnLayout {
         anchors.fill: parent

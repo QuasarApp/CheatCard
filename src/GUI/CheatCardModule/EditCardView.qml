@@ -9,6 +9,9 @@ Page {
     property string fontColor: (model)? model.fontColor : "#000000"
     property bool editable: true
     property int  purchasesNumber: (model)? model.purchasesNumber: 1
+
+    property bool backSide: false
+
     signal finished();
 
     contentItem: ColumnLayout {
@@ -36,6 +39,8 @@ Page {
             }
 
             GridLayout {
+                id: frontSide;
+
                 anchors.fill: parent
                 rows: 2
                 columns: 2
@@ -305,6 +310,41 @@ Page {
                     }
                 }
 
+            }
+
+            GridLayout {
+                id: backSide;
+
+                anchors.fill: parent
+                rows: 2
+                columns: 2
+
+                GridLayout {
+                    rows: 4
+                    columns: 2
+                    Layout.alignment: Qt.AlignRight | Qt.AlignTop
+                    Layout.rightMargin: 10
+                    flow: GridLayout.TopToBottom
+
+                    TextField {
+                        color: fontColor
+                        Layout.columnSpan: 2
+                        background: Rectangle {
+                            y: cardTitle.height - height - cardTitle.bottomPadding + 8
+                            implicitWidth: 120
+                            height: cardTitle.activeFocus || cardTitle.hovered ? 2 : 1
+                            color: cardTitle.activeFocus ? cardTitle.Material.accentColor
+                                                       : (cardTitle.hovered ? cardTitle.Material.primaryTextColor : fontColor)
+                        }
+
+                        horizontalAlignment:  Text.AlignHCenter
+                        Layout.fillWidth: true
+                        text: (root.model)? root.model.title : ""
+
+                        readOnly: true
+                    }
+
+                }
             }
         }
 
