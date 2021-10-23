@@ -24,6 +24,7 @@
 #include <getsinglevalue.h>
 
 #include <QCoreApplication>
+#include <QMediaPlayer>
 #include "cmath"
 #include <qmlnotifyservice.h>
 
@@ -310,6 +311,10 @@ void MainModel::setCardListModel(CardsListModel *model) {
 void MainModel::initMode(const QSharedPointer<UserModel> &user,
                          const QSharedPointer<Config> &config) {
     setMode(user && user->fSaller() && config && config->getFSellerEnabled());
+}
+
+void MainModel::soundEffectPlayback(const QString &soundName) {
+//    _soundEffect->playSound(soundName);
 }
 
 QH::ISqlDBCache *MainModel::db() const {

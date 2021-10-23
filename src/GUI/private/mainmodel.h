@@ -27,6 +27,7 @@ class WaitConnectionModel;
 class BaseNode;
 class UsersCards;
 class IBilling;
+class SoundPlayback;
 
 /**
  * @brief The MainModel class is main model of the application.
@@ -141,6 +142,8 @@ private:
     void initMode(const QSharedPointer<UserModel>& user,
                   const QSharedPointer<Config>& config);
 
+    void soundEffectPlayback(const QString &soundName);
+
     QH::ISqlDBCache * _db = nullptr;
     QSharedPointer<UserModel> _currentUser;
     QSharedPointer<Config> _config;
@@ -150,6 +153,7 @@ private:
     CardsListModel *_ownCardsListModel = nullptr;
 
     AboutModel *_aboutModel = nullptr;
+    SoundPlayback *_soundEffect = nullptr;
 
     ItemsModel *_defaultLogosModel = nullptr;
     ItemsModel *_defaultBackgroundsModel = nullptr;
