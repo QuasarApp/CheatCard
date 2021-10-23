@@ -28,6 +28,7 @@ Page {
                 Layout.fillWidth: true
                 text: qsTr("Now let's move on to using!")
                 wrapMode: Label.WordWrap
+                horizontalAlignment: TextInput.AlignHCenter
             }
 
             Button {

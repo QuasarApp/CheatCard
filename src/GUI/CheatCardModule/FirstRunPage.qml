@@ -53,17 +53,18 @@ Page {
                             Layout.fillHeight: true
                         }
 
-                        RadioButton {
-                            checked: true
-                            Layout.alignment: Qt.AlignHCenter
-                            text: qsTr("I am client")
-                        }
+                        ColumnLayout {
+                            Layout.alignment: Qt.AlignCenter
 
-                        RadioButton {
-                            id: rSaller
+                            RadioButton {
+                                checked: true
+                                text: qsTr("I am client")
+                            }
 
-                            Layout.alignment: Qt.AlignHCenter
-                            text: qsTr("I am seller")
+                            RadioButton {
+                                id: rSaller
+                                text: qsTr("I am seller")
+                            }
                         }
 
                         Button {
@@ -117,6 +118,8 @@ Page {
                             Layout.alignment: Qt.AlignHCenter
                             Layout.fillWidth: true
                             placeholderText: qsTr("Please enter your name here")
+                            horizontalAlignment: TextInput.AlignHCenter
+
                         }
 
                         RowLayout {
