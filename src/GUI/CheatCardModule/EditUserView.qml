@@ -124,9 +124,9 @@ Frame {
                 visible: !Boolean(root.model && root.model.mode)
                 source: "file:/" + generator.filePath
                 layer.enabled: true
-                layer.effect: ColorOverlayQr {
-                    src: imgQr
-                    colorQr: Material.primary
+                layer.effect: ShaderColorOverlay {
+                    color: Material.primary
+                    fragSh: "qrc:/private/resources/shaders/shaderColorQrCode.fsh"
                 }
 
             }
@@ -139,4 +139,5 @@ Frame {
             Layout.fillHeight: true
         }
     }
+
 }

@@ -70,6 +70,8 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
                          Qt::DirectConnection);
 
     }
+
+    configureCardsList();
 }
 
 MainModel::~MainModel() {
@@ -372,13 +374,7 @@ int MainModel::getMode() const {
     return static_cast<int>(_mode);
 }
 
-void MainModel::setMode(int newMode) {
-    if (static_cast<int>(_mode) == newMode)
-        return;
-
-    _mode = static_cast<Mode>(newMode);
-    emit modeChanged();
-
+void RC::MainModel::configureCardsList() {
     if (_mode == Mode::Client) {
         setCardListModel(_cardsListModel);
         setBackEndModel(QSharedPointer<BaseNode>(new Visitor(_db), softRemove));
@@ -386,6 +382,16 @@ void MainModel::setMode(int newMode) {
         setCardListModel(_ownCardsListModel);
         setBackEndModel(QSharedPointer<BaseNode>(new Seller(_db), softRemove));
     }
+}
+
+void MainModel::setMode(int newMode) {
+    if (static_cast<int>(_mode) == newMode)
+        return;
+
+    _mode = static_cast<Mode>(newMode);
+    emit modeChanged();
+
+    configureCardsList();
 
     _config->setFSellerEnabled(newMode);
     saveConfig();
