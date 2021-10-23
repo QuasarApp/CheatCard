@@ -95,6 +95,9 @@ Page {
 
                         onSigSwipe: (side) => {
 
+                                        if (root.editable)
+                                            return;
+
                                         if (list.orientation === ListView.Vertical ||
                                             side === 2 || side === 3) {
 

@@ -27,6 +27,15 @@ Page {
     signal sigSwipe(var side);
 
     function turnOverCard(vertical) {
+
+
+        rotationObjectBackSide.yAxis = vertical
+        rotationObjectBackSide.xAxis = !vertical
+
+        rotationObject.yAxis = vertical
+        rotationObject.xAxis = !vertical
+
+        rotationObject.angle = 180 * !root.backSide
         root.backSide = !root.backSide;
     }
 
@@ -365,6 +374,20 @@ Page {
                 rows: 4
                 columns: 4
 
+                transform: Rotation {
+                    id: rotationObjectBackSide
+
+                    property int xAxis: 0
+                    property int yAxis: 0
+
+                    origin.x: backSide.width / 2;
+                    origin.y: backSide.height / 2;
+                    axis {
+                        x: xAxis; y: yAxis; z: 0 }
+                    angle: 180
+
+                }
+
                 Item {
                     Layout.fillWidth: true
                     Layout.rowSpan: 4
@@ -431,6 +454,25 @@ Page {
                 }
             }
 
+
+            transform: Rotation {
+                id: rotationObject
+
+                property int xAxis: 0
+                property int yAxis: 0
+
+                origin.x: cardRectangle.width / 2;
+                origin.y: cardRectangle.height / 2;
+                axis {
+                    x: xAxis; y: yAxis; z: 0 }
+                angle: 0
+
+                Behavior on angle {
+                    NumberAnimation {
+
+                    }
+                }
+            }
         }
         RowLayout {
             visible: editable
