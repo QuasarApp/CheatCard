@@ -18,6 +18,17 @@ Page {
     property bool backSide: false
 
     signal finished();
+    signal sigHold();
+
+    // 0 - righ to left:
+    // 1 - left to right
+    // 2 - top to bottom
+    // 3 - bottom to top
+    signal sigSwipe(var side);
+
+    function turnOverCard(vertical) {
+        root.backSide = !root.backSide;
+    }
 
     contentItem: ColumnLayout {
         anchors.fill: parent
@@ -42,6 +53,44 @@ Page {
                 source: "image://cards/background/" + ((root.model)? root.model.id : "0")
                 anchors.fill: parent
             }
+
+            MouseArea {
+                property real previousPositionX: 0
+                property real previousPositionY: 0
+                property real directionX: 0
+                property real directionY: 0
+
+                anchors.fill: parent;
+
+                onPressed: (mouse) => {
+                               previousPositionX = mouseX;
+                               previousPositionY = mouseY;
+
+                               directionX = 0;
+                               directionY = 0;
+
+                           }
+
+                onPositionChanged: (mouse) => {
+                                       directionX = mouseX - previousPositionX;
+                                       directionY = mouseY - previousPositionY
+                                   }
+
+                onReleased: (mouse) => {
+
+                                if(directionX > directionY) {
+                                    root.sigSwipe(directionX > 0)
+                                } else {
+                                    root.sigSwipe(2 + directionY > 0)
+                                }
+
+                            }
+
+                onPressAndHold: (mouse) => {
+                                    root.sigHold();
+                                }
+            }
+
 
             GridLayout {
                 id: frontSide;
@@ -225,7 +274,7 @@ Page {
                     }
 
                     TextFieldWithLogo {
-                        id: cardfreeItem                        
+                        id: cardfreeItem
 
                         textField.color: fontColor
                         lineColor: fontColor
@@ -381,8 +430,8 @@ Page {
                     Layout.fillHeight: true
                 }
             }
-        }
 
+        }
         RowLayout {
             visible: editable
             Layout.alignment: Qt.AlignHCenter

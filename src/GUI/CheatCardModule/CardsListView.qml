@@ -36,8 +36,8 @@ Page {
                                          list.height / 2 - itemHeight / 2 :
                                          list.width / 2 - itemWidth / 2
             preferredHighlightEnd: preferredHighlightBegin + ((orientation == ListView.Vertical)?
-                                        itemHeight :
-                                        itemWidth )
+                                                                  itemHeight :
+                                                                  itemWidth )
 
             highlightRangeMode: ListView.StrictlyEnforceRange
             ScrollBar.vertical: ScrollBar {}
@@ -47,7 +47,7 @@ Page {
             Label {
                 text: qsTr("Don't have any cards yet? ") +
                       ((!root.editable)? qsTr("Visit any coffee and start receiving bonuses now!"):
-                                       qsTr("Let's go create the first card! Press \"Add Card \" button"))
+                                         qsTr("Let's go create the first card! Press \"Add Card \" button"))
 
                 font.pointSize: 20
                 color: "#999999"
@@ -84,18 +84,26 @@ Page {
                                         root.finished()
                                     }
 
-                        TapHandler {
-                            enabled: root.editable && !cardView.editable && cardItem.ListView.isCurrentItem
-                            onLongPressed:  {
-
-                                if (root.model) {
-                                    root.model.cardSelected(card.id)
-                                }
-
-                                activityProcessor.newActivity("qrc:/CheatCardModule/WaitConnectView.qml",
-                                                              mainModel.waitModel)
+                        onSigHold: {
+                            if (root.model) {
+                                root.model.cardSelected(card.id)
                             }
+
+                            activityProcessor.newActivity("qrc:/CheatCardModule/WaitConnectView.qml",
+                                                          mainModel.waitModel)
                         }
+
+                        onSigSwipe: (side) => {
+
+                                        if (list.orientation === ListView.Vertical ||
+                                            side === 2 || side === 3) {
+
+                                            turnOverCard(list.orientation === ListView.Vertical);
+                                        } else {
+                                            turnOverCard(list.orientation === ListView.Vertical);
+                                        }
+                                    }
+
                         Behavior on width {
                             NumberAnimation {
                                 id: animation
@@ -127,7 +135,7 @@ Page {
                         font.bold: true
                         visible:  cardItem.ListView.isCurrentItem && !cardView.editable && root.editable
                         onClicked: () => {
-                                        cardView.editable = true
+                                       cardView.editable = true
                                    }
                     }
                 }
