@@ -10,8 +10,10 @@ Page {
 
     header: Label {
         horizontalAlignment: Label.AlignHCenter
-        text: qsTr("Registration passed!!!")
-        font.bold: true
+        text: qsTr("Registered!")
+        font.pixelSize: 30
+        color: "#424242"
+        wrapMode: Label.Wrap
     }
 
     contentItem: Item {

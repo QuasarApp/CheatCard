@@ -37,7 +37,9 @@ Page {
                 header: Label {
                     horizontalAlignment: Label.AlignHCenter
                     text: qsTr("Who are you?");
-                    font.bold: true
+                    font.pixelSize: 30
+                    color: "#424242"
+                    wrapMode: Label.Wrap
                 }
 
                 contentItem: Item {
@@ -90,7 +92,9 @@ Page {
                     horizontalAlignment: Label.AlignHCenter
                     text: (!rSaller.checked)? qsTr("What is your name?") :
                                              qsTr("What is the name of your company?");
-                    font.bold: true
+                    font.pixelSize: 30
+                    color: "#424242"
+                    wrapMode: Label.Wrap
                 }
 
 
@@ -118,6 +122,7 @@ Page {
                             Layout.alignment: Qt.AlignHCenter
                             Layout.fillWidth: true
                             placeholderText: qsTr("Please enter your name here")
+                            placeholderTextColor: "#525252"
                             horizontalAlignment: TextInput.AlignHCenter
 
                         }
