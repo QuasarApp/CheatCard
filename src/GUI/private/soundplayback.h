@@ -20,6 +20,7 @@ class CHEATCARD_GUI_EXPORT SoundPlayback
 {
 public:
     SoundPlayback();
+    ~SoundPlayback();
 
     void playSound(const QString &sound);
 

@@ -13,14 +13,25 @@ SoundPlayback::SoundPlayback() {
 
 }
 
+SoundPlayback::~SoundPlayback() {
+    delete _player;
+    delete _playlist;
+}
+
 void SoundPlayback::initPlaylist() {
 
-    _playlist = new QMediaPlaylist;
-    _positionSound = {{"Bonus", 1},
-                      {"Seal", 2}};
+    if (!_playlist)
+        return;
 
-    _playlist->addMedia(QUrl("/resources/sounds/Bonus.mp3"));
-    _playlist->addMedia(QUrl("/resources/sounds/Seal.mp3"));
+    auto add = [this](const QString& name, const QString& path) {
+
+        _positionSound[name] = _playlist->mediaCount();
+        _playlist->addMedia(QUrl::fromLocalFile(path));;
+    };
+
+    _playlist = new QMediaPlaylist;
+    add("Bonus", ":/resources/sounds/Bonus.mp3");
+    add("Seal", ":/resources/sounds/Seal.mp3");
 
     _player = new QMediaPlayer;
     _player->setPlaylist(_playlist);

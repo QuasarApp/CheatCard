@@ -15,6 +15,7 @@
 
 namespace RC {
 
+class SoundPlayback;
 class Card;
 class CardModel;
 class AboutModel;
@@ -27,7 +28,7 @@ class WaitConnectionModel;
 class BaseNode;
 class UsersCards;
 class IBilling;
-class SoundPlayback;
+
 
 /**
  * @brief The MainModel class is main model of the application.

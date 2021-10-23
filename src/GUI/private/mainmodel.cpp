@@ -11,6 +11,7 @@
 #include "mainmodel.h"
 #include "qrcodereceiver.h"
 #include "waitconnectionmodel.h"
+#include "soundplayback.h"
 
 #include <CheatCard/database.h>
 #include "CheatCard/user.h"
@@ -24,7 +25,6 @@
 #include <getsinglevalue.h>
 
 #include <QCoreApplication>
-#include <QMediaPlayer>
 #include "cmath"
 #include <qmlnotifyservice.h>
 
@@ -45,6 +45,7 @@ void softRemove(BaseNode * obj) {
 
 MainModel::MainModel(QH::ISqlDBCache *db) {
     _db = db;
+    _soundEffect = new SoundPlayback;
 
     initCardsListModels();
     initImagesModels();
@@ -73,6 +74,7 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
     }
 
     configureCardsList();
+
 }
 
 MainModel::~MainModel() {
@@ -89,6 +91,7 @@ MainModel::~MainModel() {
     delete _defaultBackgroundsModel;
 
     delete _waitModel;
+    delete _soundEffect;
 }
 
 bool MainModel::fFirst() const {
@@ -314,7 +317,7 @@ void MainModel::initMode(const QSharedPointer<UserModel> &user,
 }
 
 void MainModel::soundEffectPlayback(const QString &soundName) {
-//    _soundEffect->playSound(soundName);
+    _soundEffect->playSound(soundName);
 }
 
 QH::ISqlDBCache *MainModel::db() const {
@@ -426,6 +429,7 @@ void MainModel::handleConnectWasFinished() {
 
 void MainModel::handlePurchaseWasSuccessful(QSharedPointer<RC::UsersCards> card){
 
+    soundEffectPlayback("Seal");
     int freeIndex;
     QSharedPointer<CardModel> cardModel;
 
@@ -445,6 +449,7 @@ void MainModel::handlePurchaseWasSuccessful(QSharedPointer<RC::UsersCards> card)
 
     if (freeItems > 0) {
         emit freeItem(cardModel.data(), card->getUser(), freeItems);
+        soundEffectPlayback("Bonus");
     }
 }
 
