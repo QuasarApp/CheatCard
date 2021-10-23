@@ -207,6 +207,18 @@
         <source>Detail of </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Purchases count: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Available %0: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Received %0: </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditUserView</name>
