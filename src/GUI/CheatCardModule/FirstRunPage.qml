@@ -37,9 +37,9 @@ Page {
                 header: Label {
                     horizontalAlignment: Label.AlignHCenter
                     text: qsTr("Who are you?");
-                    font.pixelSize: 30
+                    font.pointSize: 30
                     color: "#424242"
-                    wrapMode: Label.Wrap
+                    wrapMode: Label.WordWrap
                 }
 
                 contentItem: Item {
@@ -92,9 +92,9 @@ Page {
                     horizontalAlignment: Label.AlignHCenter
                     text: (!rSaller.checked)? qsTr("What is your name?") :
                                              qsTr("What is the name of your company?");
-                    font.pixelSize: 30
+                    font.pointSize: 30
                     color: "#424242"
-                    wrapMode: Label.Wrap
+                    wrapMode: Label.WordWrap
                 }
 
 
