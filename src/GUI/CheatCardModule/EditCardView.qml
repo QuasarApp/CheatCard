@@ -420,6 +420,7 @@ Page {
                     text: purchasesNumber
                     horizontalAlignment:  Text.AlignHCenter
                     fontColor: root.fontColor
+                    readOnly: true
 
                 }
 
@@ -433,6 +434,7 @@ Page {
                     text: Math.floor(purchasesNumber / freeIndexCount) - receivedItems
                     horizontalAlignment:  Text.AlignHCenter
                     fontColor: root.fontColor
+                    readOnly: true
 
                 }
 
@@ -446,6 +448,7 @@ Page {
                     text:  receivedItems
                     horizontalAlignment:  Text.AlignHCenter
                     fontColor: root.fontColor
+                    readOnly: true
 
                 }
 
