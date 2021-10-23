@@ -122,7 +122,6 @@ Page {
                             Layout.alignment: Qt.AlignHCenter
                             Layout.fillWidth: true
                             placeholderText: qsTr("Please enter your name here")
-                            placeholderTextColor: "#525252"
                             horizontalAlignment: TextInput.AlignHCenter
 
                         }
