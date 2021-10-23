@@ -61,7 +61,8 @@ Page {
 
 
             property int itemHeight: (itemWidth * 0.75)
-            property int itemWidth: (root.editable)? Math.min(list.width, buttonAddCard.y / 0.75) : list.width
+            property int itemWidth: (root.editable)?
+                                        Math.min(list.width, Math.min(buttonAddCard.y, ) / 0.75) : Math.min(list.width, list.height / 0.75)
 
             Component {
                 id: delegateItem
@@ -76,7 +77,6 @@ Page {
                     EditCardView {
                         id: cardView
                         model: card
-                        clip: true
                         opacity: (cardItem.ListView.isCurrentItem)? 1: 0.5
                         editable: false
                         onFinished: () => {

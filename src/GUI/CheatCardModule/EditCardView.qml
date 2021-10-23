@@ -54,7 +54,7 @@ Page {
 
             color: (root.model)? root.model.color : "#777777"
             radius: 10
-            clip: true
+            clip: false
 
             Image {
                 id: cardBackground
@@ -469,7 +469,10 @@ Page {
 
                 Behavior on angle {
                     NumberAnimation {
-
+                        easing.period: 0.50
+                        easing.amplitude: 1
+                        easing.type: Easing.OutElastic
+                        duration: 1500
                     }
                 }
             }
