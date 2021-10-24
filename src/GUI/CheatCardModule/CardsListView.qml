@@ -89,6 +89,11 @@ Page {
                                 root.model.cardSelected(card.id)
                             }
 
+                            const fAvailable = root.editable && !cardView.editable && cardItem.ListView.isCurrentItem;
+                            if (!fAvailable) {
+                                return;
+                            }
+
                             activityProcessor.newActivity("qrc:/CheatCardModule/WaitConnectView.qml",
                                                           mainModel.waitModel)
                         }
