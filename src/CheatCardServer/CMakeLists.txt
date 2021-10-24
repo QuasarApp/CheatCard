@@ -42,4 +42,6 @@ set(DeployFile "${CMAKE_CURRENT_SOURCE_DIR}/../../Deploy/CheatCardServer.json")
 configure_file("${DeployFile}.in" ${DeployFile} @ONLY)
 addDeployFromCustomFile("CheatCardServer" ${DeployFile})
 
+set(ReleaseFile "${CMAKE_CURRENT_SOURCE_DIR}/../../Release/server.py")
 
+addReleaseCustom("CheatCardServer" ${ReleaseFile})
