@@ -76,12 +76,12 @@ ApplicationWindow {
 
                                if (userPanel.visible) {
                                    userPanel.close()
-
-                                   if (mainModel) {
-                                       mainModel.handleFirstDataSendet();
-                                   }
                                } else {
                                    userPanel.open()
+                               }
+
+                               if (mainModel) {
+                                   mainModel.handleFirstDataSendet();
                                }
                            }
 
