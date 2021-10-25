@@ -30,8 +30,8 @@ void SoundPlayback::initPlaylist() {
     };
 
     _playlist = new QMediaPlaylist;
-    add("Bonus", ":/resources/sounds/Bonus.mp3");
-    add("Seal", ":/resources/sounds/Seal.mp3");
+    add("Bonus", "qrc:/private/resources/sounds/Bonus.mp3");
+    add("Seal", "qrc:/private/resources/sounds/Seal.mp3");
 
     _player = new QMediaPlayer;
     _player->setPlaylist(_playlist);
