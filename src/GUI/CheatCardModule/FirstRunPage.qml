@@ -141,7 +141,7 @@ Page {
 
                             Button {
                                 text: qsTr("Go!")
-
+                                enabled: name.text.length
                                 onClicked: () => {
                                                view.currentIndex = 2;
                                            }
