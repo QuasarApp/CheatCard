@@ -33,6 +33,8 @@ Page {
             Layout.fillHeight: true
 
             Page {
+                implicitWidth: 0x0
+
                 id: selectTypePage
                 header: Label {
                     horizontalAlignment: Label.AlignHCenter
@@ -87,6 +89,7 @@ Page {
 
             Page {
                 id: selectName
+                implicitWidth: 0x0
 
                 header: Label {
                     horizontalAlignment: Label.AlignHCenter
@@ -157,6 +160,7 @@ Page {
             }
 
             RegistrationFinishedPage {
+                implicitWidth: 0x0
                 onFinished: {
                     if (!root.model)
                         return;

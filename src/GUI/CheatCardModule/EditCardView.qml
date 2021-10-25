@@ -497,14 +497,16 @@ Page {
 
             SpinBox {
                 id: freeIndex
-                value: (root.model)? freeIndexCount : privateRoot.rowSignCount
+                value: (root.model)? root.model.freeIndex : privateRoot.rowSignCount
                 stepSize: Math.ceil((freeIndex.value + 1) / privateRoot.rowSignCount)
                 to: privateRoot.rowSignCount * privateRoot.maximumRowSignCount
                 from: 2
 
                 onValueChanged: () => {
                                     if (!root.model)
-                                    return freeIndexCount = freeIndex.value
+                                        return
+
+                                    root.model.freeIndex = freeIndex.value
                                 }
             }
 
