@@ -48,5 +48,7 @@
         <file>private/resources/Backgrounds/Layer_22.png</file>
         <file>private/resources/Backgrounds/Layer_21.png</file>
         <file>private/resources/Backgrounds/Layer_20.png</file>
+        <file>private/resources/Icons/Cup_icon_13.png</file>
+        <file>private/resources/Icons/Cup_icon_14.png</file>
     </qresource>
 </RCC>
