@@ -20,7 +20,11 @@
         <file>CheatCardModule/QrScanner.qml</file>
         <file>CheatCardModule/ScannerOverlay.qml</file>
         <file>CheatCardModule/About.qml</file>
-        <file>CheatCardModule/ColorOverlayQr.qml</file>
+        <file>CheatCardModule/ShaderColorOverlay.qml</file>
+        <file>private/resources/shaders/baseVertxShader.vsh</file>
+        <file>private/resources/shaders/shaderColorLogo.fsh</file>
+        <file>private/resources/shaders/shaderColorQrCode.fsh</file>
+        <file>CheatCardModule/QrCodeView.qml</file>
     </qresource>
     <qresource prefix="/CheatCardTr">
         <file>languages/en.qm</file>
