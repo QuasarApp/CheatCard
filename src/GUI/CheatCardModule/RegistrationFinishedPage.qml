@@ -10,8 +10,11 @@ Page {
 
     header: Label {
         horizontalAlignment: Label.AlignHCenter
-        text: qsTr("Registration passed!!!")
-        font.bold: true
+        text: qsTr("Registered!")
+        font.pointSize: 20
+        color: "#424242"
+        wrapMode: Label.WordWrap
+
     }
 
     contentItem: Item {
@@ -28,6 +31,7 @@ Page {
                 Layout.fillWidth: true
                 text: qsTr("Now let's move on to using!")
                 wrapMode: Label.WordWrap
+                horizontalAlignment: TextInput.AlignHCenter
             }
 
             Button {

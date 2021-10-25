@@ -315,7 +315,7 @@
     <name>RegistrationFinishedPage</name>
     <message>
         <source>Registration passed!!!</source>
-        <translation>Реєстрація пройшла !!!</translation>
+        <translation type="vanished">Реєстрація пройшла !!!</translation>
     </message>
     <message>
         <source>The registration of the new user finished successful. Now you can use you card.</source>
@@ -328,6 +328,10 @@
     <message>
         <source>Now let&apos;s move on to using!</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Registered!</source>
+        <translation>Зареєстровані!</translation>
     </message>
 </context>
 <context>
