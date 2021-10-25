@@ -131,7 +131,15 @@ Frame {
 
             }
 
+            MouseArea {
+                anchors.fill: parent
 
+                onReleased: {
+                    activityProcessor.newActivity("qrc:/CheatCardModule/QrCodeView.qml",
+                                                  generator.filePath);
+                    userPanel.close()
+                }
+            }
         }
 
 
