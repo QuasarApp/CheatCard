@@ -1,5 +1,8 @@
 #!/bin/bash
 
+systemctl stop CheatCardServer
+cheatcardserver -uninstall
+
 APPS=$BASH_ARRAY_APPLICATIONS
 APPS_SHORTCUTS=$BASH_ARRAY_SHORTCUTS_APPLICATIONS
 
@@ -16,6 +19,3 @@ for app in "${APPS_SHORTCUTS[@]}"
 do
     rm "/usr/share/applications/${app%.*}.desktop"
 done
-
-systemctl stop CheatCardServer
-cheatcardserver -uninstall
