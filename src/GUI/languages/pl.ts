@@ -332,7 +332,7 @@
     <name>RegistrationFinishedPage</name>
     <message>
         <source>Registration passed!!!</source>
-        <translation>Rejestracja przeszła!!!</translation>
+        <translation type="vanished">Rejestracja przeszła!!!</translation>
     </message>
     <message>
         <source>The registration of the new user finished successful. Now you can use you card.</source>
@@ -345,6 +345,10 @@
     <message>
         <source>Now let&apos;s move on to using!</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Registered!</source>
+        <translation>Zarejestrowany!</translation>
     </message>
 </context>
 <context>

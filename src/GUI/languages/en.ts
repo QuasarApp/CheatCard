@@ -423,11 +423,15 @@
     </message>
     <message>
         <source>Registration passed!!!</source>
-        <translation>Registration passed!!!</translation>
+        <translation type="vanished">Registration passed!!!</translation>
     </message>
     <message>
         <source>Now let&apos;s move on to using!</source>
         <translation>Now let&apos;s move on to using!</translation>
+    </message>
+    <message>
+        <source>Registered!</source>
+        <translation>Registered!</translation>
     </message>
 </context>
 <context>

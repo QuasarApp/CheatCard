@@ -384,11 +384,15 @@
     </message>
     <message>
         <source>Registration passed!!!</source>
-        <translation>Регистрация прошла !!!</translation>
+        <translation type="vanished">Регистрация прошла !!!</translation>
     </message>
     <message>
         <source>Now let&apos;s move on to using!</source>
         <translation>А сейчас перейдём к использованию!</translation>
+    </message>
+    <message>
+        <source>Registered!</source>
+        <translation>Зарегистрированы!</translation>
     </message>
 </context>
 <context>
