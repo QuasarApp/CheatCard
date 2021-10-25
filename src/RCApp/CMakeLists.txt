@@ -107,7 +107,7 @@ else()
 
     message(GIT_COMMIT_COUNT = ${GIT_COMMIT_COUNT})
 
-    set(DeployFile "${CMAKE_CURRENT_SOURCE_DIR}/../../Deploy/CheatCard.json")
+    set(DeployFile "${CMAKE_CURRENT_SOURCE_DIR}/Deploy/CheatCard.json")
     configure_file("${DeployFile}.in" ${DeployFile} @ONLY)
     addDeployFromCustomFile("CheatCard" ${DeployFile})
 endif()

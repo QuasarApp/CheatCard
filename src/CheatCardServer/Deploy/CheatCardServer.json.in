@@ -5,22 +5,17 @@
         ],
     "clear": false,
     "name": "CheatCardServer",
-    "libDir": "./../",
+    "libDir": "@CMAKE_SOURCE_DIR@",
     "recursiveDepth": "10",
     "deploySystem": false,
     "ignoreEnv": [
-        "./../installer",
-        "./../Distro",
-        "./../parts",
-        "./../snap",
-        "./../prime",
-        "./../stage"
+        "@CMAKE_SOURCE_DIR@/Distro"
         ],
     "extraLib": "crypto",
-    "targetDir": "./../Distro",
+    "targetDir": "@CMAKE_SOURCE_DIR@/Distro",
     "deployVersion": "0.@GIT_COMMIT_COUNT@.@GIT_COMMIT_HASH@",
     "qif": false,
-    "zip": true,
+    "zip": false,
     "deb": true
 }
 
