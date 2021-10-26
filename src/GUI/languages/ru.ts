@@ -209,7 +209,7 @@
     </message>
     <message>
         <source>Foreground color</source>
-        <translation>Цвет переднего плана</translation>
+        <translation>Основной цвет</translation>
     </message>
     <message>
         <source>Background image</source>
