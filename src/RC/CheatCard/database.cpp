@@ -30,9 +30,8 @@ QH::DBPatchMap DataBase::dbPatches() const {
 
 
     QH::DBPatchMap result;
-    result.reserve(1);
 
-    result[0] = [](const QH::iObjectProvider* database) -> bool {
+    result += [](const QH::iObjectProvider* database) -> bool {
         // Some code for update from 0 to 1
         // Example: return database->doSql(patch.sql);
         Q_UNUSED(database);
