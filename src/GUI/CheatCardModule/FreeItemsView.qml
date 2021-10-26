@@ -16,7 +16,7 @@ Frame {
     property int freeItems: 0
     property int userId: 0
     property bool fSeller: (mainModel)? mainModel.mode: false
-
+    implicitHeight: 0x0
     property var model: null
 
     contentItem: ColumnLayout {

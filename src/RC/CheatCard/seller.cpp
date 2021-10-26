@@ -84,7 +84,7 @@ bool Seller::incrementPurchase(const QSharedPointer<UserHeader> &userHeaderData,
         userCardsData->setCard(cardId);
     }
 
-    if (!incrementPurchases(userCardsData, purchasesCount)) {
+    if (purchasesCount > 0 && !incrementPurchases(userCardsData, purchasesCount)) {
         QuasarAppUtils::Params::log("Failed to update data", QuasarAppUtils::Error);
 
         return false;
