@@ -388,11 +388,19 @@
     </message>
     <message>
         <source>Show your phone the screen to the seller so that the displayed QR code is in the camera area of the seller&apos;s scanning device.</source>
-        <translation>Покажи экран телефона продавцу, чтобы отображаемый QR-код попал в зону камеры устройства сканирования продавца.</translation>
+        <translation type="vanished">Покажи экран телефона продавцу, чтобы отображаемый QR-код попал в зону камеры устройства сканирования продавца.</translation>
     </message>
     <message>
         <source>If the Seller&apos;s device completes the scan successfully, you can get your bonuses when you hide the QR code!</source>
-        <translation>Если устройство Продавца успешно завершит сканирование,  ты сможешь получить свои бонусы когда скроешь QR-код!</translation>
+        <translation type="vanished">Если устройство Продавца успешно завершит сканирование,  ты сможешь получить свои бонусы когда скроешь QR-код!</translation>
+    </message>
+    <message>
+        <source>Show your phone to the seller, so that the drawn QR code gets into the scanning area.</source>
+        <translation>Покажите свой телефон продавцу, чтобы нарисованный QR-код попал в зону сканирования.</translation>
+    </message>
+    <message>
+        <source>When all passed is successful, the Seller&apos;s device will complete the scan, and you will receive your bonuses as soon as you hide the Qr code.</source>
+        <translation>Когда все пройдет успешно, устройство Продавца завершит сканирование, и вы получите свои бонусы, как только скроете QR-код.</translation>
     </message>
 </context>
 <context>

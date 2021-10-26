@@ -427,15 +427,19 @@
     </message>
     <message>
         <source>When all passed is successful, the Seller&apos;s device will complete the scan, and you will receive your bonuses as soon as you hide the Qr code.</source>
-        <translation type="vanished">When all passed is successful, the Seller&apos;s device will complete the scan, and you will receive your bonuses as soon as you hide the Qr code.</translation>
+        <translation>When all passed is successful, the Seller&apos;s device will complete the scan, and you will receive your bonuses as soon as you hide the Qr code.</translation>
     </message>
     <message>
         <source>Show your phone the screen to the seller so that the displayed QR code is in the camera area of the seller&apos;s scanning device.</source>
-        <translation>Show your phone the screen to the seller so that the displayed QR code is in the camera area of the seller&apos;s scanning device.</translation>
+        <translation type="vanished">Show your phone the screen to the seller so that the displayed QR code is in the camera area of the seller&apos;s scanning device.</translation>
     </message>
     <message>
         <source>If the Seller&apos;s device completes the scan successfully, you can get your bonuses when you hide the QR code!</source>
-        <translation>If the Seller&apos;s device completes the scan successfully, you can get your bonuses when you hide the QR code!</translation>
+        <translation type="vanished">If the Seller&apos;s device completes the scan successfully, you can get your bonuses when you hide the QR code!</translation>
+    </message>
+    <message>
+        <source>Show your phone to the seller, so that the drawn QR code gets into the scanning area.</source>
+        <translation>Show your phone to the seller, so that the drawn QR code gets into the scanning area.</translation>
     </message>
 </context>
 <context>
