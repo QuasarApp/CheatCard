@@ -38,8 +38,7 @@ target_include_directories(${CURRENT_PROJECT} PRIVATE ${PRIVATE_INCUDE_DIR})
 SET(TARGET_DIR "${CMAKE_SOURCE_DIR}/Distro")
 file(MAKE_DIRECTORY ${TARGET_DIR})
 
-set(DeployFile "${CMAKE_CURRENT_SOURCE_DIR}/../../Deploy/CheatCardServer.json")
+set(DeployFile "${CMAKE_CURRENT_SOURCE_DIR}/Deploy/CheatCardServer.json")
 configure_file("${DeployFile}.in" ${DeployFile} @ONLY)
 addDeployFromCustomFile("CheatCardServer" ${DeployFile})
-
 

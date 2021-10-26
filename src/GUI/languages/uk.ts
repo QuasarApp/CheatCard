@@ -156,22 +156,54 @@
     </message>
     <message>
         <source>Change background color</source>
-        <translation>Змінити колір фону</translation>
+        <translation type="vanished">Змінити колір фону</translation>
     </message>
     <message>
         <source>Change background image</source>
-        <translation>Змінити фонове зображення</translation>
+        <translation type="vanished">Змінити фонове зображення</translation>
     </message>
     <message>
         <source>Change card logo</source>
-        <translation>Змінити логотип картки</translation>
+        <translation type="vanished">Змінити логотип картки</translation>
     </message>
     <message>
         <source>Change card seal</source>
-        <translation>Зміна пломби картки</translation>
+        <translation type="vanished">Зміна пломби картки</translation>
     </message>
     <message>
-        <source>Changed foreground color</source>
+        <source>Detail of </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Purchases count: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Available %0: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Received %0: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Background color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Foreground color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Background image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Card logo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Card seal</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -288,11 +320,11 @@
         <translation type="vanished">Ти маєш </translation>
     </message>
     <message>
-        <source>Wooooh seems like someone has %0 free %1 !!!</source>
+        <source>Give out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Give out</source>
+        <source>Wooooh seems like someone available %0 free %1 !!!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -307,7 +339,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please choose a new picture. The picture must be in png foramt.</source>
+        <source>Do you want to put your picture? You can choose but the picture must be in png format!</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QrCodeView</name>
+    <message>
+        <source>It looks like this code should be shown to the seller!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When all passed is successful, the Seller&apos;s device will complete the scan, and you will receive your bonuses as soon as you hide the Qr code.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show your phone to the seller, so that the drawn QR code gets into the scanning area.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -315,7 +362,7 @@
     <name>RegistrationFinishedPage</name>
     <message>
         <source>Registration passed!!!</source>
-        <translation>Реєстрація пройшла !!!</translation>
+        <translation type="vanished">Реєстрація пройшла !!!</translation>
     </message>
     <message>
         <source>The registration of the new user finished successful. Now you can use you card.</source>
@@ -327,6 +374,14 @@
     </message>
     <message>
         <source>Now let&apos;s move on to using!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Registered!</source>
+        <translation type="vanished">Зареєстровані!</translation>
+    </message>
+    <message>
+        <source>Done!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

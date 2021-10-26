@@ -3,13 +3,47 @@ import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
 
+import "Style"
+
 Page {
     id: root
     property var model: null
     property string fontColor: (model)? model.fontColor : "#000000"
     property bool editable: true
+
     property int  purchasesNumber: (model)? model.purchasesNumber: 1
+    property int freeIndexCount :(model)? model.freeIndex: 0
+    property int receivedItems :(mainModel && model)? mainModel.getReceivedItemsCount(model.id): 0
+
+    // To do This is very bad solution we need to fix it. The receivedItems should be updated automaticaly
+    onPurchasesNumberChanged: {
+        if(mainModel && model)
+            receivedItems = mainModel.getReceivedItemsCount(model.id);
+    }
+
+    property bool backSide: false
+
     signal finished();
+    signal sigHold();
+
+    // 0 - righ to left:
+    // 1 - left to right
+    // 2 - top to bottom
+    // 3 - bottom to top
+    signal sigSwipe(var side);
+
+    function turnOverCard(vertical) {
+
+
+        rotationObjectBackSide.yAxis = vertical
+        rotationObjectBackSide.xAxis = !vertical
+
+        rotationObject.yAxis = vertical
+        rotationObject.xAxis = !vertical
+
+        rotationObject.angle = 180 * !root.backSide
+        root.backSide = !root.backSide;
+    }
 
     contentItem: ColumnLayout {
         anchors.fill: parent
@@ -26,7 +60,7 @@ Page {
 
             color: (root.model)? root.model.color : "#777777"
             radius: 10
-            clip: true
+            clip: false
 
             Image {
                 id: cardBackground
@@ -35,11 +69,51 @@ Page {
                 anchors.fill: parent
             }
 
+            MouseArea {
+                property real previousPositionX: 0
+                property real previousPositionY: 0
+                property real directionX: 0
+                property real directionY: 0
+
+                anchors.fill: parent;
+
+                onPressed: (mouse) => {
+                               previousPositionX = mouseX;
+                               previousPositionY = mouseY;
+
+                               directionX = 0;
+                               directionY = 0;
+
+                           }
+
+                onPositionChanged: (mouse) => {
+                                       directionX = mouseX - previousPositionX;
+                                       directionY = mouseY - previousPositionY
+                                   }
+
+                onReleased: (mouse) => {
+
+                                if(directionX > directionY) {
+                                    root.sigSwipe(directionX > 0)
+                                } else {
+                                    root.sigSwipe(2 + directionY > 0)
+                                }
+
+                            }
+
+                onPressAndHold: (mouse) => {
+                                    root.sigHold();
+                                }
+            }
+
+
             GridLayout {
+                id: frontSide;
+
                 anchors.fill: parent
                 rows: 2
                 columns: 2
-
+                visible: !root.backSide
                 Image {
                     id: cardLogoIamge
                     fillMode: Image.PreserveAspectFit
@@ -69,18 +143,10 @@ Page {
                         cardphone.visible +
                         cardfreeItem.visible
 
-                    TextField {
+                    CTextField {
                         id: cardTitle
-                        color: fontColor
-
-                        background: Rectangle {
-                            y: cardTitle.height - height - cardTitle.bottomPadding + 8
-                            implicitWidth: 120
-                            height: cardTitle.activeFocus || cardTitle.hovered ? 2 : 1
-                            color: cardTitle.activeFocus ? cardTitle.Material.accentColor
-                                                       : (cardTitle.hovered ? cardTitle.Material.primaryTextColor : fontColor)
-                        }
-
+                        color: root.fontColor
+                        fontColor: root.fontColor
                         Layout.columnSpan: parent.columns
                         horizontalAlignment:  Text.AlignHCenter
                         Layout.fillWidth: true
@@ -306,8 +372,120 @@ Page {
                 }
 
             }
-        }
 
+            GridLayout {
+                id: backSide;
+                visible: root.backSide
+                anchors.fill: parent
+                rows: 4
+                columns: 4
+
+                transform: Rotation {
+                    id: rotationObjectBackSide
+
+                    property int xAxis: 0
+                    property int yAxis: 0
+
+                    origin.x: backSide.width / 2;
+                    origin.y: backSide.height / 2;
+                    axis {
+                        x: xAxis; y: yAxis; z: 0 }
+                    angle: 180
+
+                }
+
+                Item {
+                    Layout.fillWidth: true
+                    Layout.rowSpan: 4
+                }
+
+                CTextField {
+                    color: root.fontColor
+                    fontColor: root.fontColor
+                    Layout.columnSpan: 2
+
+                    horizontalAlignment:  Text.AlignHCenter
+                    Layout.fillWidth: true
+                    text: (root.model)? qsTr("Detail of ") + root.model.title : ""
+
+                    readOnly: true
+                }
+
+                Item {
+                    Layout.fillWidth: true
+                    Layout.rowSpan: 4
+                }
+
+                Label {
+                    color: root.fontColor
+
+                    text: qsTr("Purchases count: ")
+                }
+
+                CTextField {
+                    text: purchasesNumber
+                    horizontalAlignment:  Text.AlignHCenter
+                    fontColor: root.fontColor
+                    readOnly: true
+
+                }
+
+                Label {
+                    color: root.fontColor
+
+                    text: qsTr("Available %0: ").arg((model)? model.freeItem: "");
+                }
+
+                CTextField {
+                    text: Math.floor(purchasesNumber / freeIndexCount) - receivedItems
+                    horizontalAlignment:  Text.AlignHCenter
+                    fontColor: root.fontColor
+                    readOnly: true
+
+                }
+
+                Label {
+                    color: root.fontColor
+
+                    text: qsTr("Received %0: ").arg((model)? model.freeItem: "");
+                }
+
+                CTextField {
+                    text:  receivedItems
+                    horizontalAlignment:  Text.AlignHCenter
+                    fontColor: root.fontColor
+                    readOnly: true
+
+                }
+
+                Item {
+                    Layout.fillHeight: true
+                }
+            }
+
+
+            transform: Rotation {
+                id: rotationObject
+
+                property int xAxis: 0
+                property int yAxis: 0
+
+                origin.x: cardRectangle.width / 2;
+                origin.y: cardRectangle.height / 2;
+                axis {
+                    x: xAxis; y: yAxis; z: 0 }
+                angle: 0
+
+                Behavior on angle {
+                    NumberAnimation {
+                        easing.period: 0.50
+                        easing.amplitude: 1
+                        easing.type: Easing.OutElastic
+                        duration: 1500
+                    }
+                }
+            }
+        }
         RowLayout {
             visible: editable
             Layout.alignment: Qt.AlignHCenter
@@ -332,7 +510,8 @@ Page {
 
                 onValueChanged: () => {
                                     if (!root.model)
-                                    return
+                                        return
+
                                     root.model.freeIndex = freeIndex.value
                                 }
             }
@@ -489,7 +668,7 @@ Page {
         id: customisationMenu
 
         MenuItem {
-            text: qsTr("Change background color")
+            text: qsTr("Background color")
             onClicked: () => {
                            activityProcessor.newActivityFromComponent(defaultColor);
 
@@ -497,7 +676,7 @@ Page {
         }
 
         MenuItem {
-            text: qsTr("Changed foreground color")
+            text: qsTr("Foreground color")
             onClicked: () => {
                            activityProcessor.newActivityFromComponent(defaultColorFont);
 
@@ -505,7 +684,7 @@ Page {
         }
 
         MenuItem {
-            text: qsTr("Change background image")
+            text: qsTr("Background image")
 
             onClicked: () => {
                            activityProcessor.newActivityFromComponent(selectImage);
@@ -514,7 +693,7 @@ Page {
         }
 
         MenuItem {
-            text: qsTr("Change card logo")
+            text: qsTr("Card logo")
 
             onClicked: () => {
                            activityProcessor.newActivityFromComponent(defaultLogos);
@@ -523,7 +702,7 @@ Page {
         }
 
         MenuItem {
-            text: qsTr("Change card seal")
+            text: qsTr("Card seal")
 
             onClicked: () => {
                            activityProcessor.newActivityFromComponent(defaultSeels);

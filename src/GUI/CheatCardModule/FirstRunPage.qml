@@ -33,11 +33,15 @@ Page {
             Layout.fillHeight: true
 
             Page {
+                implicitWidth: 0x0
+
                 id: selectTypePage
                 header: Label {
                     horizontalAlignment: Label.AlignHCenter
                     text: qsTr("Who are you?");
-                    font.bold: true
+                    font.pointSize: 20
+                    color: "#424242"
+                    wrapMode: Label.WordWrap
                 }
 
                 contentItem: Item {
@@ -53,17 +57,18 @@ Page {
                             Layout.fillHeight: true
                         }
 
-                        RadioButton {
-                            checked: true
-                            Layout.alignment: Qt.AlignHCenter
-                            text: qsTr("I am client")
-                        }
+                        ColumnLayout {
+                            Layout.alignment: Qt.AlignCenter
 
-                        RadioButton {
-                            id: rSaller
+                            RadioButton {
+                                checked: true
+                                text: qsTr("I am client")
+                            }
 
-                            Layout.alignment: Qt.AlignHCenter
-                            text: qsTr("I am seller")
+                            RadioButton {
+                                id: rSaller
+                                text: qsTr("I am seller")
+                            }
                         }
 
                         Button {
@@ -84,12 +89,15 @@ Page {
 
             Page {
                 id: selectName
+                implicitWidth: 0x0
 
                 header: Label {
                     horizontalAlignment: Label.AlignHCenter
                     text: (!rSaller.checked)? qsTr("What is your name?") :
                                              qsTr("What is the name of your company?");
-                    font.bold: true
+                    font.pointSize: 20
+                    color: "#424242"
+                    wrapMode: Label.WordWrap
                 }
 
 
@@ -117,6 +125,8 @@ Page {
                             Layout.alignment: Qt.AlignHCenter
                             Layout.fillWidth: true
                             placeholderText: qsTr("Please enter your name here")
+                            horizontalAlignment: TextInput.AlignHCenter
+
                         }
 
                         RowLayout {
@@ -134,7 +144,7 @@ Page {
 
                             Button {
                                 text: qsTr("Go!")
-
+                                enabled: name.text.length
                                 onClicked: () => {
                                                view.currentIndex = 2;
                                            }
@@ -150,6 +160,7 @@ Page {
             }
 
             RegistrationFinishedPage {
+                implicitWidth: 0x0
                 onFinished: {
                     if (!root.model)
                         return;

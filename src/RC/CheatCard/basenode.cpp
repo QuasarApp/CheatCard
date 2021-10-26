@@ -93,6 +93,11 @@ int BaseNode::getFreeItemsCount(const QSharedPointer<UsersCards> &inputData,
     return freeItems;
 }
 
+int BaseNode::getCountOfReceivedItems(unsigned int userId,
+                                      unsigned int cardId) {
+    return getUserCardData(userId, cardId)->getReceived();
+}
+
 int RC::BaseNode::getCardFreeIndex(unsigned int cardId) const {
     QH::PKG::GetSingleValue request({"Cards", cardId}, "freeIndex");
     auto result = _db->getObject(request);

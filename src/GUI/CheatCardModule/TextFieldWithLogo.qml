@@ -10,6 +10,8 @@ import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
 
+import "Style"
+
 RowLayout {
     id: root
     property alias textField: source
@@ -41,15 +43,9 @@ RowLayout {
 
     }
 
-    TextField {
+    CTextField {
         id: source
 
-        background: Rectangle {
-            y: source.height - height - source.bottomPadding + 8
-            implicitWidth: 120
-            height: source.activeFocus || source.hovered ? 2 : 1
-            color: source.activeFocus ? source.Material.accentColor
-                                       : (source.hovered ? source.Material.primaryTextColor : lineColor)
-        }
+        fontColor: lineColor
     }
 }
