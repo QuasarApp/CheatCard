@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -f "/eth/systemd/system/CheatCardServer.service" ]; then
+if [ -f "/etc/systemd/system/CheatCardServer.service" ]; then
     systemctl stop CheatCardServer
 else
     echo "Warning: The service file do not exists";
