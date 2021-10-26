@@ -67,7 +67,7 @@ _deps
 *_autogen*
 
 # cmake config files
-Deploy/CheatCard.json
-Deploy/CheatCardServer.json
+src/RCApp/Deploy/CheatCard.json
+src/CheatCardServer/Deploy/CheatCardServer.json
 src/RC/CheatCard/core_global.h
 src/RCApp/android/AndroidManifest.xml

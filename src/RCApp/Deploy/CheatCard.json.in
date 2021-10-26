@@ -4,21 +4,16 @@
         "src/RCApp/CheatCard.exe"
         ],
     "clear": false,
-    "libDir": "./../",
+    "libDir": "@CMAKE_SOURCE_DIR@",
     "name": "CheatCard",
     "recursiveDepth": "10",
     "deploySystem": false,
-    "qmlDir": "./../src",
+    "qmlDir": "@CMAKE_SOURCE_DIR@/src",
     "ignoreEnv": [
-        "./../installer",
-        "./../Distro",
-        "./../parts",
-        "./../snap",
-        "./../prime",
-        "./../stage"
+        "@CMAKE_SOURCE_DIR@/Distro"
         ],
     "extraLib": "crypto",
-    "targetDir": "./../Distro",
+    "targetDir": "@CMAKE_SOURCE_DIR@/Distro",
     "deployVersion": "0.@GIT_COMMIT_COUNT@.@GIT_COMMIT_HASH@",
     "qif": true,
     "zip": true,
