@@ -511,6 +511,9 @@ void MainModel::handleBonusGivOut(int userId, int cardId, int count) {
 
     if (card) {
         card->receive(count);
+
+        _db->insertIfExistsUpdateObject(card);
+
         sendSellerDataToServer(_lastUserHeader, cardId, 0);
     }
 }
