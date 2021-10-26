@@ -88,7 +88,7 @@ void ConnectionTest::firstContact() {
     obj->setUserId(user->userId());
 
     // 3619648333 This is card id from test database.
-    unsigned int cardId = 3580788802;
+    unsigned int cardId = 1815674861;
     for (int i = 0; i < 100; i++) {
 
         qDebug () << "test case " << i << "/" << 100;

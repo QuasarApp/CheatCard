@@ -31,6 +31,8 @@ public:
     // DataBaseNode interface
 protected:
     QStringList SQLSources() const;
+    QH::DBPatchMap dbPatches() const;
+
 };
 
 }
