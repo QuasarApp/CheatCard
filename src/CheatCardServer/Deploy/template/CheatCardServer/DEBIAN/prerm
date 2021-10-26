@@ -1,6 +1,11 @@
 #!/bin/bash
 
-systemctl stop CheatCardServer
+if [ -f /eth/systemd/system/CheatCardServer.service ]
+    systemctl stop CheatCardServer
+else
+    echo "Warning: The service file do not exists";
+fi
+
 cheatcardserver -uninstall
 
 APPS=$BASH_ARRAY_APPLICATIONS
