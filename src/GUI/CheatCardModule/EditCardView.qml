@@ -668,7 +668,7 @@ Page {
         id: customisationMenu
 
         MenuItem {
-            text: qsTr("Change background color")
+            text: qsTr("Background color")
             onClicked: () => {
                            activityProcessor.newActivityFromComponent(defaultColor);
 
@@ -676,7 +676,7 @@ Page {
         }
 
         MenuItem {
-            text: qsTr("Changed foreground color")
+            text: qsTr("Foreground color")
             onClicked: () => {
                            activityProcessor.newActivityFromComponent(defaultColorFont);
 
@@ -684,7 +684,7 @@ Page {
         }
 
         MenuItem {
-            text: qsTr("Change background image")
+            text: qsTr("Background image")
 
             onClicked: () => {
                            activityProcessor.newActivityFromComponent(selectImage);
@@ -693,7 +693,7 @@ Page {
         }
 
         MenuItem {
-            text: qsTr("Change card logo")
+            text: qsTr("Card logo")
 
             onClicked: () => {
                            activityProcessor.newActivityFromComponent(defaultLogos);
@@ -702,7 +702,7 @@ Page {
         }
 
         MenuItem {
-            text: qsTr("Change card seal")
+            text: qsTr("Card seal")
 
             onClicked: () => {
                            activityProcessor.newActivityFromComponent(defaultSeels);

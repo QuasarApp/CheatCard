@@ -30,6 +30,7 @@
 #include <CheatCard/seller.h>
 #include <CheatCard/visitor.h>
 
+#include <QDir>
 #include <QGuiApplication>
 
 #include <CheatCardGui/ibilling.h>
@@ -237,47 +238,26 @@ void MainModel::initImagesModels() {
     _defaultLogosModel = new ItemsModel();
     _defaultBackgroundsModel = new ItemsModel();
 
-#define r_prefix QString("qrc:/images/private/resources/")
-    _defaultLogosModel->setStringList({
-                                          r_prefix + "/CoffeLogo.png",
-                                          r_prefix + "/coffeSign.png",
-                                          r_prefix + "/Icons/Cup_icon_1.png",
-                                          r_prefix + "/Icons/Cup_icon_2.png",
-                                          r_prefix + "/Icons/Cup_icon_3.png",
-                                          r_prefix + "/Icons/Cup_icon_4.png",
-                                          r_prefix + "/Icons/Cup_icon_5.png",
-                                          r_prefix + "/Icons/Cup_icon_6.png",
-                                          r_prefix + "/Icons/Cup_icon_7.png",
-                                          r_prefix + "/Icons/Cup_icon_8.png",
-                                          r_prefix + "/Icons/Cup_icon_9.png",
-                                          r_prefix + "/Icons/Cup_icon_10.png",
-                                          r_prefix + "/Icons/Cup_icon_11.png",
-                                          r_prefix + "/Icons/Cup_icon_12.png",
+#define r_prefix QString(":/images/private/resources/")
 
-                                      });
+    QDir searcher(r_prefix + "/Icons");
+    auto list = searcher.entryInfoList( QDir::Files, QDir::SortFlag::Name);
 
-    _defaultBackgroundsModel->setStringList({
-                                                r_prefix + "/Backgrounds/Layer_1.png",
-                                                r_prefix + "/Backgrounds/Layer_2.png",
-                                                r_prefix + "/Backgrounds/Layer_3.png",
-                                                r_prefix + "/Backgrounds/Layer_4.png",
-                                                r_prefix + "/Backgrounds/Layer_5.png",
-                                                r_prefix + "/Backgrounds/Layer_6.png",
-                                                r_prefix + "/Backgrounds/Layer_7.png",
-                                                r_prefix + "/Backgrounds/Layer_8.png",
-                                                r_prefix + "/Backgrounds/Layer_9.png",
-                                                r_prefix + "/Backgrounds/Layer_10.png",
-                                                r_prefix + "/Backgrounds/Layer_11.png",
-                                                r_prefix + "/Backgrounds/Layer_12.png",
-                                                r_prefix + "/Backgrounds/Layer_13.png",
-                                                r_prefix + "/Backgrounds/Layer_14.png",
-                                                r_prefix + "/Backgrounds/Layer_15.png",
-                                                r_prefix + "/Backgrounds/Layer_16.png",
-                                                r_prefix + "/Backgrounds/Layer_17.png",
-                                                r_prefix + "/Backgrounds/Layer_18.png",
-                                                r_prefix + "/Backgrounds/Layer_19.png",
+    QStringList tmpList;
+    for (const auto &item : qAsConst(list)) {
+        tmpList.push_back("qrc" + item.absoluteFilePath());
+    }
 
-                                            });
+    _defaultLogosModel->setStringList(tmpList);
+
+    searcher.setPath(r_prefix + "/Backgrounds");
+    list = searcher.entryInfoList(QDir::Files, QDir::SortFlag::Name);
+    tmpList.clear();
+    for (const auto &item : qAsConst(list)) {
+        tmpList.push_back("qrc" + item.absoluteFilePath());
+    }
+
+    _defaultBackgroundsModel->setStringList(tmpList);
 
 
 }

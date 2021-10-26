@@ -54,7 +54,7 @@ GridLayout {
         Label {
             wrapMode: Label.WordWrap
             horizontalAlignment: Label.AlignHCenter
-            text: qsTr("Show your phone to the seller, so that the drawn QR code gets into the seller's dedicated scanning area.");
+            text: qsTr("Show your phone to the seller, so that the drawn QR code gets into the scanning area.");
 
             Layout.fillWidth: true
         }

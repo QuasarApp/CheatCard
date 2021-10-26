@@ -40,5 +40,15 @@
         <file>private/resources/Icons/Cup_icon_1.png</file>
         <file>private/resources/freeItem.png</file>
         <file>private/resources/phone.png</file>
+        <file>private/resources/Backgrounds/Layer_27.png</file>
+        <file>private/resources/Backgrounds/Layer_26.png</file>
+        <file>private/resources/Backgrounds/Layer_25.png</file>
+        <file>private/resources/Backgrounds/Layer_24.png</file>
+        <file>private/resources/Backgrounds/Layer_23.png</file>
+        <file>private/resources/Backgrounds/Layer_22.png</file>
+        <file>private/resources/Backgrounds/Layer_21.png</file>
+        <file>private/resources/Backgrounds/Layer_20.png</file>
+        <file>private/resources/Icons/Cup_icon_13.png</file>
+        <file>private/resources/Icons/Cup_icon_14.png</file>
     </qresource>
 </RCC>
