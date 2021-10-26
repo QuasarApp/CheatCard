@@ -462,7 +462,11 @@
     </message>
     <message>
         <source>Registered!</source>
-        <translation>Registered!</translation>
+        <translation type="vanished">Registered!</translation>
+    </message>
+    <message>
+        <source>Done!</source>
+        <translation>Done!</translation>
     </message>
 </context>
 <context>

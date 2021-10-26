@@ -415,7 +415,11 @@
     </message>
     <message>
         <source>Registered!</source>
-        <translation>Зарегистрированы!</translation>
+        <translation type="vanished">Зарегистрированы!</translation>
+    </message>
+    <message>
+        <source>Done!</source>
+        <translation>Готово!</translation>
     </message>
 </context>
 <context>
