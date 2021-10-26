@@ -84,7 +84,7 @@ Page {
             FileDialog {
                 id: fileDialogView
                 nameFilters: [qsTr("Images") + " (*.png)"]
-                title: qsTr("Please choose a new picture. The picture must be in png foramt.")
+                title: qsTr("Do you want to put your picture? You can choose but the picture must be in png format!")
                 folder: shortcuts.home
                 onAccepted: {
 

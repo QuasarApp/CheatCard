@@ -10,7 +10,7 @@ Page {
 
     header: Label {
         horizontalAlignment: Label.AlignHCenter
-        text: qsTr("Registered!")
+        text: qsTr("Done!")
         font.pointSize: 20
         color: "#424242"
         wrapMode: Label.WordWrap
