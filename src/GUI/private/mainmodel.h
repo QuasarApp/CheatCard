@@ -150,7 +150,7 @@ private:
                   const QSharedPointer<Config>& config);
 
     bool sendSellerDataToServer(const QSharedPointer<UserHeader> &header,
-                                int cardId,
+                                unsigned int cardId,
                                 int purchasesCount);
 
     QH::ISqlDBCache * _db = nullptr;

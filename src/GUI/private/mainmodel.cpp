@@ -448,7 +448,7 @@ void MainModel::handleListenStart(int purchasesCount,
 }
 
 bool MainModel::sendSellerDataToServer(const QSharedPointer<UserHeader>& header,
-                                       int cardId,
+                                       unsigned int cardId,
                                        int purchasesCount) {
     auto seller = _backEndModel.dynamicCast<Seller>();
 

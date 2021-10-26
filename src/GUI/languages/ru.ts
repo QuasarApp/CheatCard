@@ -424,21 +424,6 @@
     </message>
 </context>
 <context>
-    <name>QrCodeView</name>
-    <message>
-        <source>It looks like this code should be shown to the seller!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show your phone to the seller, so that the drawn QR code gets into the seller&apos;s dedicated scanning area.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>When all passed is successful, the Seller&apos;s device will complete the scan, and you will receive your bonuses as soon as you hide the Qr code.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>RegistrationFinishedPage</name>
     <message>
         <source>The registration of the new user finished successful. Now you can use you card.</source>
