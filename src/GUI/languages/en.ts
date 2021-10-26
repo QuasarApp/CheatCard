@@ -5,15 +5,15 @@
     <name>About</name>
     <message>
         <source> </source>
-        <translation type="unfinished"></translation>
+        <translation> </translation>
     </message>
     <message>
         <source>**Third party libraries**</source>
-        <translation type="unfinished"></translation>
+        <translation>**Third party libraries**</translation>
     </message>
     <message>
         <source>Developed by Quasar App Core team</source>
-        <translation type="unfinished"></translation>
+        <translation>Developed by Quasar App Core team</translation>
     </message>
 </context>
 <context>
@@ -152,15 +152,15 @@
     </message>
     <message>
         <source>Change background color</source>
-        <translation>Change background color</translation>
+        <translation type="vanished">Change background color</translation>
     </message>
     <message>
         <source>Change background image</source>
-        <translation>Change background image</translation>
+        <translation type="vanished">Change background image</translation>
     </message>
     <message>
         <source>Change card logo</source>
-        <translation>Change card logo</translation>
+        <translation type="vanished">Change card logo</translation>
     </message>
     <message>
         <source>Change card seel</source>
@@ -168,7 +168,7 @@
     </message>
     <message>
         <source>Change card seal</source>
-        <translation>Change card seal</translation>
+        <translation type="vanished">Change card seal</translation>
     </message>
     <message>
         <source>Enter your phone number</source>
@@ -208,7 +208,27 @@
     </message>
     <message>
         <source>Changed foreground color</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Changed foreground color</translation>
+    </message>
+    <message>
+        <source>Background color</source>
+        <translation>Background color</translation>
+    </message>
+    <message>
+        <source>Foreground color</source>
+        <translation>Foreground color</translation>
+    </message>
+    <message>
+        <source>Background image</source>
+        <translation>Background image</translation>
+    </message>
+    <message>
+        <source>Card logo</source>
+        <translation>Card logo</translation>
+    </message>
+    <message>
+        <source>Card seal</source>
+        <translation>Card seal</translation>
     </message>
 </context>
 <context>
@@ -354,7 +374,7 @@
     </message>
     <message>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Back</translation>
     </message>
 </context>
 <context>
@@ -380,15 +400,42 @@
     <name>ItemsView</name>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation>Add</translation>
     </message>
     <message>
         <source>Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Images</translation>
     </message>
     <message>
         <source>Please choose a new picture. The picture must be in png foramt.</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Please choose a new picture. The picture must be in png foramt.</translation>
+    </message>
+    <message>
+        <source>Do you want to put your picture? You can choose but the picture must be in png format!</source>
+        <translation>Do you want to put your picture? You can choose but the picture must be in png format!</translation>
+    </message>
+</context>
+<context>
+    <name>QrCodeView</name>
+    <message>
+        <source>It looks like this code should be shown to the seller!</source>
+        <translation>It looks like this code should be shown to the seller!</translation>
+    </message>
+    <message>
+        <source>Show your phone to the seller, so that the drawn QR code gets into the seller&apos;s dedicated scanning area.</source>
+        <translation type="vanished">Show your phone to the seller, so that the drawn QR code gets into the seller&apos;s dedicated scanning area.</translation>
+    </message>
+    <message>
+        <source>When all passed is successful, the Seller&apos;s device will complete the scan, and you will receive your bonuses as soon as you hide the Qr code.</source>
+        <translation type="vanished">When all passed is successful, the Seller&apos;s device will complete the scan, and you will receive your bonuses as soon as you hide the Qr code.</translation>
+    </message>
+    <message>
+        <source>Show your phone the screen to the seller so that the displayed QR code is in the camera area of the seller&apos;s scanning device.</source>
+        <translation>Show your phone the screen to the seller so that the displayed QR code is in the camera area of the seller&apos;s scanning device.</translation>
+    </message>
+    <message>
+        <source>If the Seller&apos;s device completes the scan successfully, you can get your bonuses when you hide the QR code!</source>
+        <translation>If the Seller&apos;s device completes the scan successfully, you can get your bonuses when you hide the QR code!</translation>
     </message>
 </context>
 <context>

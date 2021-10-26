@@ -5,15 +5,15 @@
     <name>About</name>
     <message>
         <source> </source>
-        <translation type="unfinished"></translation>
+        <translation> </translation>
     </message>
     <message>
         <source>**Third party libraries**</source>
-        <translation type="unfinished"></translation>
+        <translation>**Сторонние библиотеки**</translation>
     </message>
     <message>
         <source>Developed by Quasar App Core team</source>
-        <translation type="unfinished"></translation>
+        <translation>Разработано командой Quasar App Core</translation>
     </message>
 </context>
 <context>
@@ -149,19 +149,19 @@
     </message>
     <message>
         <source>Change background color</source>
-        <translation>Изменить цвет фона</translation>
+        <translation type="vanished">Изменить цвет фона</translation>
     </message>
     <message>
         <source>Change background image</source>
-        <translation>Изменить фоновое изображение</translation>
+        <translation type="vanished">Изменить фон</translation>
     </message>
     <message>
         <source>Change card logo</source>
-        <translation>Изменить логотип карты</translation>
+        <translation type="vanished">Изменить логотип карты</translation>
     </message>
     <message>
         <source>Change card seal</source>
-        <translation>Сменить печать карты</translation>
+        <translation type="vanished">Сменить печать карты</translation>
     </message>
     <message>
         <source>Enter your phone number</source>
@@ -201,7 +201,27 @@
     </message>
     <message>
         <source>Changed foreground color</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Выбрать цвет переднего плана</translation>
+    </message>
+    <message>
+        <source>Background color</source>
+        <translation>Цвет фона</translation>
+    </message>
+    <message>
+        <source>Foreground color</source>
+        <translation>Цвет переднего плана</translation>
+    </message>
+    <message>
+        <source>Background image</source>
+        <translation>Фоновое изображение</translation>
+    </message>
+    <message>
+        <source>Card logo</source>
+        <translation>Логотип карты</translation>
+    </message>
+    <message>
+        <source>Card seal</source>
+        <translation>Печать на карте</translation>
     </message>
 </context>
 <context>
@@ -319,7 +339,7 @@
     </message>
     <message>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Назад</translation>
     </message>
 </context>
 <context>
@@ -345,15 +365,34 @@
     <name>ItemsView</name>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation>Добавить</translation>
     </message>
     <message>
         <source>Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Изображения</translation>
     </message>
     <message>
-        <source>Please choose a new picture. The picture must be in png foramt.</source>
-        <translation type="unfinished"></translation>
+        <source>Do you want to put your picture? You can choose but the picture must be in png format!</source>
+        <translation>Хотите разместить свою картинку? Вы можете выбрать, но картинка должна быть в формате png!</translation>
+    </message>
+</context>
+<context>
+    <name>QrCodeView</name>
+    <message>
+        <source>It looks like this code should be shown to the seller!</source>
+        <translation>А вот этот код нужно показать продавцу!</translation>
+    </message>
+    <message>
+        <source>Show your phone to the seller, so that the drawn QR code gets into the seller&apos;s dedicated scanning area.</source>
+        <translation type="obsolete">Покажи экран телефона продавцу, чтобы отображаемый QR-код попал в зону камеры устройства сканирования продавца.</translation>
+    </message>
+    <message>
+        <source>Show your phone the screen to the seller so that the displayed QR code is in the camera area of the seller&apos;s scanning device.</source>
+        <translation>Покажи экран телефона продавцу, чтобы отображаемый QR-код попал в зону камеры устройства сканирования продавца.</translation>
+    </message>
+    <message>
+        <source>If the Seller&apos;s device completes the scan successfully, you can get your bonuses when you hide the QR code!</source>
+        <translation>Если устройство Продавца успешно завершит сканирование,  ты сможешь получить свои бонусы когда скроешь QR-код!</translation>
     </message>
 </context>
 <context>

@@ -54,7 +54,7 @@ GridLayout {
         Label {
             wrapMode: Label.WordWrap
             horizontalAlignment: Label.AlignHCenter
-            text: qsTr("Show your phone to the seller, so that the drawn QR code gets into the seller's dedicated scanning area.");
+            text: qsTr("Show your phone the screen to the seller so that the displayed QR code is in the camera area of the seller's scanning device.");
 
             Layout.fillWidth: true
         }
@@ -62,7 +62,7 @@ GridLayout {
         Label {
             wrapMode: Label.WordWrap
             horizontalAlignment: Label.AlignHCenter
-            text: qsTr("When all passed is successful, the Seller's device will complete the scan, and you will receive your bonuses as soon as you hide the Qr code.");
+            text: qsTr("If the Seller's device completes the scan successfully, you can get your bonuses when you hide the QR code!");
 
             Layout.fillWidth: true
         }
