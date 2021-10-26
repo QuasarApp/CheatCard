@@ -26,6 +26,8 @@
         <file>private/resources/shaders/shaderColorQrCode.fsh</file>
         <file>CheatCardModule/QrCodeView.qml</file>
         <file>CheatCardModule/Style/CTextField.qml</file>
+	<file>private/resources/sounds/Bonus.mp3</file>
+        <file>private/resources/sounds/Seal.mp3</file>
     </qresource>
     <qresource prefix="/CheatCardTr">
         <file>languages/en.qm</file>

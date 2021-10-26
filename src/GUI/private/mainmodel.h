@@ -15,6 +15,7 @@
 
 namespace RC {
 
+class SoundPlayback;
 class Card;
 class CardModel;
 class AboutModel;
@@ -149,6 +150,8 @@ private:
     void initMode(const QSharedPointer<UserModel>& user,
                   const QSharedPointer<Config>& config);
 
+    void soundEffectPlayback(const QString &soundName);
+
     bool sendSellerDataToServer(const QSharedPointer<UserHeader> &header,
                                 unsigned int cardId,
                                 int purchasesCount);
@@ -162,6 +165,7 @@ private:
     CardsListModel *_ownCardsListModel = nullptr;
 
     AboutModel *_aboutModel = nullptr;
+    SoundPlayback *_soundEffect = nullptr;
 
     ItemsModel *_defaultLogosModel = nullptr;
     ItemsModel *_defaultBackgroundsModel = nullptr;
