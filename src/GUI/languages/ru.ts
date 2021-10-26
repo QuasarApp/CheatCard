@@ -223,6 +223,22 @@
         <source>Card seal</source>
         <translation>Печать на карте</translation>
     </message>
+    <message>
+        <source>Detail of </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Purchases count: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Available %0: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Received %0: </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditUserView</name>
@@ -354,11 +370,15 @@
     </message>
     <message>
         <source>Wooooh seems like someone has %0 free %1 !!!</source>
-        <translation>Вооооу кажется у кого-то есть %0 бесплатно %1 !!!</translation>
+        <translation type="vanished">Вооооу кажется у кого-то есть %0 бесплатно %1 !!!</translation>
     </message>
     <message>
         <source>Give out</source>
         <translation>Выдать</translation>
+    </message>
+    <message>
+        <source>Wooooh seems like someone available %0 free %1 !!!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

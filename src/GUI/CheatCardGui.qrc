@@ -25,6 +25,7 @@
         <file>private/resources/shaders/shaderColorLogo.fsh</file>
         <file>private/resources/shaders/shaderColorQrCode.fsh</file>
         <file>CheatCardModule/QrCodeView.qml</file>
+        <file>CheatCardModule/Style/CTextField.qml</file>
     </qresource>
     <qresource prefix="/CheatCardTr">
         <file>languages/en.qm</file>

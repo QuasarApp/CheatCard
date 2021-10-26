@@ -27,6 +27,7 @@ class WaitConnectionModel;
 class BaseNode;
 class UsersCards;
 class IBilling;
+class UserHeader;
 
 /**
  * @brief The MainModel class is main model of the application.
@@ -79,6 +80,13 @@ public:
      * @brief flush Save all temp users data and configuration
      */
     void flush();
+
+    /**
+     * @brief getReceivedItemsCount This method return count of all purches of @a cardId nad current user.
+     * @param cardId This is card id.
+     * @return count of of all purches of @a cardId nad current user. Else return 0
+     */
+    Q_INVOKABLE int getReceivedItemsCount(int cardId) const;
 
 public slots:
     void handleFirstDataSendet();
@@ -141,6 +149,10 @@ private:
     void initMode(const QSharedPointer<UserModel>& user,
                   const QSharedPointer<Config>& config);
 
+    bool sendSellerDataToServer(const QSharedPointer<UserHeader> &header,
+                                unsigned int cardId,
+                                int purchasesCount);
+
     QH::ISqlDBCache * _db = nullptr;
     QSharedPointer<UserModel> _currentUser;
     QSharedPointer<Config> _config;
@@ -159,6 +171,8 @@ private:
     QSharedPointer<BaseNode> _backEndModel = nullptr;
     WaitConnectionModel *_waitModel = nullptr;
     QSettings _settings;
+
+    QSharedPointer<UserHeader> _lastUserHeader;
 
     Mode _mode = Mode::Client;
     friend class ImageProvider;

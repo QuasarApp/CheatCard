@@ -16,14 +16,14 @@ Frame {
     property int freeItems: 0
     property int userId: 0
     property bool fSeller: (mainModel)? mainModel.mode: false
-
+    implicitHeight: 0x0
     property var model: null
 
     contentItem: ColumnLayout {
 
         Label {
             horizontalAlignment: Label.AlignHCenter
-            text: qsTr("Wooooh seems like someone has %0 free %1 !!!").
+            text: qsTr("Wooooh seems like someone available %0 free %1 !!!").
                 arg(freeItems).
                 arg(((root.model)? root.model.freeItem : ""))
 

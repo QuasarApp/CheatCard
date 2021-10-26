@@ -157,22 +157,54 @@
     </message>
     <message>
         <source>Change background color</source>
-        <translation>Zmień kolor tła</translation>
+        <translation type="vanished">Zmień kolor tła</translation>
     </message>
     <message>
         <source>Change background image</source>
-        <translation>Zmień obraz tła</translation>
+        <translation type="vanished">Zmień obraz tła</translation>
     </message>
     <message>
         <source>Change card logo</source>
-        <translation>Zmień logo karty</translation>
+        <translation type="vanished">Zmień logo karty</translation>
     </message>
     <message>
         <source>Change card seal</source>
-        <translation>Zmień pieczęć karty</translation>
+        <translation type="vanished">Zmień pieczęć karty</translation>
     </message>
     <message>
-        <source>Changed foreground color</source>
+        <source>Detail of </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Purchases count: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Available %0: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Received %0: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Background color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Foreground color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Background image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Card logo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Card seal</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -289,11 +321,11 @@
         <translation type="vanished">Ty masz </translation>
     </message>
     <message>
-        <source>Wooooh seems like someone has %0 free %1 !!!</source>
+        <source>Give out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Give out</source>
+        <source>Wooooh seems like someone available %0 free %1 !!!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -308,7 +340,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please choose a new picture. The picture must be in png foramt.</source>
+        <source>Do you want to put your picture? You can choose but the picture must be in png format!</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QrCodeView</name>
+    <message>
+        <source>It looks like this code should be shown to the seller!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When all passed is successful, the Seller&apos;s device will complete the scan, and you will receive your bonuses as soon as you hide the Qr code.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show your phone to the seller, so that the drawn QR code gets into the scanning area.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -332,7 +379,11 @@
     </message>
     <message>
         <source>Registered!</source>
-        <translation>Zarejestrowany!</translation>
+        <translation type="vanished">Zarejestrowany!</translation>
+    </message>
+    <message>
+        <source>Done!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
