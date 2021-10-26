@@ -305,11 +305,11 @@
         <translation type="vanished">Ty masz </translation>
     </message>
     <message>
-        <source>Wooooh seems like someone has %0 free %1 !!!</source>
+        <source>Give out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Give out</source>
+        <source>Wooooh seems like someone available %0 free %1 !!!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

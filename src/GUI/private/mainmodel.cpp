@@ -462,19 +462,30 @@ void MainModel::handleListenStart(int purchasesCount,
 
     auto header = QSharedPointer<UserHeader>::create();
     header->fromBytes(QByteArray::fromHex(extraData.toLatin1()));
+    _lastUserHeader = header;
 
+    sendSellerDataToServer(header, model->card()->cardId(), purchasesCount);
+}
+
+bool MainModel::sendSellerDataToServer(const QSharedPointer<UserHeader>& header,
+                                       int cardId,
+                                       int purchasesCount) {
     auto seller = _backEndModel.dynamicCast<Seller>();
 
     if (!seller)
-        return;
+        return false;
 
     if (!seller->incrementPurchase(header,
-                                   model->card()->cardId(),
+                                   cardId,
                                    purchasesCount)) {
 
         QuasarAppUtils::Params::log("Failed to increment user card data",
                                     QuasarAppUtils::Error);
+
+        return false;
     }
+
+    return true;
 }
 
 void MainModel::handleListenStop() {
@@ -520,7 +531,7 @@ void MainModel::handleBonusGivOut(int userId, int cardId, int count) {
 
     if (card) {
         card->receive(count);
-        _db->insertIfExistsUpdateObject(card);
+        sendSellerDataToServer(_lastUserHeader, cardId, 0);
     }
 }
 

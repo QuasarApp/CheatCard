@@ -27,6 +27,7 @@ class WaitConnectionModel;
 class BaseNode;
 class UsersCards;
 class IBilling;
+class UserHeader;
 
 /**
  * @brief The MainModel class is main model of the application.
@@ -148,6 +149,10 @@ private:
     void initMode(const QSharedPointer<UserModel>& user,
                   const QSharedPointer<Config>& config);
 
+    bool sendSellerDataToServer(const QSharedPointer<UserHeader> &header,
+                                int cardId,
+                                int purchasesCount);
+
     QH::ISqlDBCache * _db = nullptr;
     QSharedPointer<UserModel> _currentUser;
     QSharedPointer<Config> _config;
@@ -166,6 +171,8 @@ private:
     QSharedPointer<BaseNode> _backEndModel = nullptr;
     WaitConnectionModel *_waitModel = nullptr;
     QSettings _settings;
+
+    QSharedPointer<UserHeader> _lastUserHeader;
 
     Mode _mode = Mode::Client;
     friend class ImageProvider;
