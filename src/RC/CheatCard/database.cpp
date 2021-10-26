@@ -24,4 +24,21 @@ QString DataBase::localFilePath() const {
 QStringList DataBase::SQLSources() const {
     return QH::DataBaseNode::SQLSources() << ":/DataBase/private/sql/DataBase.sql";
 }
+
+// See https://quasarapp.ddns.net:3031/docs/QuasarApp/Heart/latest/classQH_1_1DataBaseNode.html#a9e2969af3bd4e6b49b80820000aef108
+QH::DBPatchMap DataBase::dbPatches() const {
+
+
+    QH::DBPatchMap result;
+    result.reserve(1);
+
+    result[0] = [](const QH::iObjectProvider* database) -> bool {
+        // Some code for update from 0 to 1
+        // Example: return database->doSql(patch.sql);
+        Q_UNUSED(database);
+        return true;
+    };
+
+    return result;
+}
 }
