@@ -225,19 +225,19 @@
     </message>
     <message>
         <source>Detail of </source>
-        <translation type="unfinished"></translation>
+        <translation>Подробности о </translation>
     </message>
     <message>
         <source>Purchases count: </source>
-        <translation type="unfinished"></translation>
+        <translation>Количество покупок: </translation>
     </message>
     <message>
         <source>Available %0: </source>
-        <translation type="unfinished"></translation>
+        <translation>Доступно %0: </translation>
     </message>
     <message>
         <source>Received %0: </source>
-        <translation type="unfinished"></translation>
+        <translation>Полученно %0: </translation>
     </message>
 </context>
 <context>
@@ -378,7 +378,7 @@
     </message>
     <message>
         <source>Wooooh seems like someone available %0 free %1 !!!</source>
-        <translation type="unfinished"></translation>
+        <translation>Ооо кажется у кого то доступно %0 бесплатно %1 !!!</translation>
     </message>
 </context>
 <context>
