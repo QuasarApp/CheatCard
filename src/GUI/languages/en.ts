@@ -232,19 +232,19 @@
     </message>
     <message>
         <source>Detail of </source>
-        <translation type="unfinished"></translation>
+        <translation>Detail of </translation>
     </message>
     <message>
         <source>Purchases count: </source>
-        <translation type="unfinished"></translation>
+        <translation>Purchases count: </translation>
     </message>
     <message>
         <source>Available %0: </source>
-        <translation type="unfinished"></translation>
+        <translation>Available %0: </translation>
     </message>
     <message>
         <source>Received %0: </source>
-        <translation type="unfinished"></translation>
+        <translation>Received %0: </translation>
     </message>
 </context>
 <context>
@@ -413,7 +413,11 @@
     </message>
     <message>
         <source>Wooooh seems like someone available %0 free %1 !!!</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Wooooh seems like someone available %0 free %1 !!!</translation>
+    </message>
+    <message>
+        <source>Wooooh seems like someone available %0 %1 !!!</source>
+        <translation>Wooooh seems like someone available %0 %1 !!!</translation>
     </message>
 </context>
 <context>
