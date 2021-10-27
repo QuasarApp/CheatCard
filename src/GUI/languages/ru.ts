@@ -378,7 +378,11 @@
     </message>
     <message>
         <source>Wooooh seems like someone available %0 free %1 !!!</source>
-        <translation>Ооо кажется у кого то доступно %0 бесплатно %1 !!!</translation>
+        <translation type="vanished">Ооо кажется у кого то доступно %0 бесплатно %1 !!!</translation>
+    </message>
+    <message>
+        <source>Wooooh seems like someone available %0 %1 !!!</source>
+        <translation>Ооо кажется у кого то доступно %0 %1 !!!</translation>
     </message>
 </context>
 <context>

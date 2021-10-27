@@ -413,7 +413,11 @@
     </message>
     <message>
         <source>Wooooh seems like someone available %0 free %1 !!!</source>
-        <translation>Wooooh seems like someone available %0 free %1 !!!</translation>
+        <translation type="vanished">Wooooh seems like someone available %0 free %1 !!!</translation>
+    </message>
+    <message>
+        <source>Wooooh seems like someone available %0 %1 !!!</source>
+        <translation>Wooooh seems like someone available %0 %1 !!!</translation>
     </message>
 </context>
 <context>
