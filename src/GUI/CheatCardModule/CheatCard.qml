@@ -120,6 +120,10 @@ ApplicationWindow {
 
         MenuItem {
             text: qsTr("Contact with developers")
+
+            onClicked:  () => {
+                            activityProcessor.newActivity("qrc:/CheatCardModule/Contacts.qml");
+                        }
         }
 
         MenuItem {
@@ -194,6 +198,11 @@ ApplicationWindow {
                                    newActivity("qrc:/CheatCardModule/MainActivity.qml",
                                                mainModel);
                                }
+    }
+
+    Component {
+        id: contact
+        Contacts {}
     }
 
     Component {
