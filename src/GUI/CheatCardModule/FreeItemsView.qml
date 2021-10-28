@@ -23,7 +23,7 @@ Frame {
 
         Label {
             horizontalAlignment: Label.AlignHCenter
-            text: qsTr("Wooooh seems like someone available %0 free %1 !!!").
+            text: qsTr("Wooooh seems like someone available %0 %1 !!!").
                 arg(freeItems).
                 arg(((root.model)? root.model.freeItem : ""))
 

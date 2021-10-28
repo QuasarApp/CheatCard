@@ -324,7 +324,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Wooooh seems like someone available %0 free %1 !!!</source>
+        <source>Wooooh seems like someone available %0 %1 !!!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

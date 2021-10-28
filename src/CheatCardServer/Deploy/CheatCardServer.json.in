@@ -16,6 +16,7 @@
     "deployVersion": "0.@GIT_COMMIT_COUNT@.@GIT_COMMIT_HASH@",
     "qif": false,
     "zip": false,
-    "deb": "./template"
+    "deb": "./template",
+    "debOut": "prod.deb"
 }
 
