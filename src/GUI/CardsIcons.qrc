@@ -52,5 +52,11 @@
         <file>private/resources/Backgrounds/Layer_20.png</file>
         <file>private/resources/Icons/Cup_icon_13.png</file>
         <file>private/resources/Icons/Cup_icon_14.png</file>
+        <file>private/resources/Interface_icons/Right_topmenu.svg</file>
+        <file>private/resources/Interface_icons/Open_sidebar.svg</file>
+        <file>private/resources/Interface_icons/More.svg</file>
+        <file>private/resources/Interface_icons/Less.svg</file>
+        <file>private/resources/Interface_icons/Edit_menu.svg</file>
+        <file>private/resources/Interface_icons/Close_sidebar.svg</file>
     </qresource>
 </RCC>
