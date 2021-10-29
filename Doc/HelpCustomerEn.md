@@ -1,4 +1,4 @@
-ы## How to use?
+## How to use?
 
 The algorithm of actions for the buyer works according to the system:
 * Came to the establishment
