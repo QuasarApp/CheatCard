@@ -29,10 +29,11 @@ void initLang() {
 
 RC::IBilling * getBillingInstance() {
 #ifdef Q_OS_ANDROID
+#ifdef USE_SIGN_APP
     return new AndroidBilling;
-#else
-    return new DesktopBilling;
 #endif
+#endif
+    return new DesktopBilling;
 }
 
 int main(int argc, char *argv[]) {
