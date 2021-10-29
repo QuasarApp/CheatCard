@@ -75,6 +75,8 @@ if (ANDROID)
             "${TARGET_DIR}"
             "${SNAKE_EXTRA_LIBS}")
 
+        add_definitions(-DUSE_SIGN_APP)
+
     else()
         message("NO_SIGN_APP")
 

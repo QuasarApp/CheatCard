@@ -493,7 +493,7 @@ Page {
 
             ToolButton {
                 id: menuButton
-                text: qsTr("⋮")
+                icon.source:  "qrc:/images/private/resources/Interface_icons/Right_topmenu.svg"
                 font.bold: true
                 font.pointSize: 14
                 onClicked: () => {
