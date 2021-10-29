@@ -139,8 +139,9 @@ bool BaseNode::processCardStatus(const QSharedPointer<QH::PKG::DataPack<UsersCar
         }
 
         auto dbCard = _db->getObject(userrquest);
+        bool hasUpdate = dbCard && dbCard->getCardVersion() < cardStatus->getCardVersion();
 
-        if (!dbCard) {
+        if (!dbCard || hasUpdate) {
             request.push(cardStatus->getCard());
         }
     }

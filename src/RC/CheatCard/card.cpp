@@ -35,7 +35,9 @@ QH::PKG::DBVariantMap Card::variantMap() const {
             {"freeItemName",    {_freeItemName,   QH::PKG::MemberType::InsertUpdate}},
 
             {"freeIndex",       {freeIndex,       QH::PKG::MemberType::InsertUpdate}},
-            {"time",           {static_cast<int>(time(0)),      QH::PKG::MemberType::InsertUpdate}},
+            {"time",            {static_cast<int>(time(0)),      QH::PKG::MemberType::InsertUpdate}},
+            {"cardVersion",     {cardVersion,     QH::PKG::MemberType::InsertUpdate}},
+
     };
 }
 
@@ -79,6 +81,8 @@ bool Card::fromSqlRecord(const QSqlRecord &q) {
     setFreeIndex(q.value("freeIndex").toInt());
     setFreeItemName(q.value("freeItemName").toString());
 
+    setCardVersion(q.value("cardVersion").toUInt());
+
     return true;
 }
 
@@ -102,6 +106,7 @@ QDataStream &Card::fromStream(QDataStream &stream) {
     stream >> color;
     stream >> fontColor;
     stream >> _freeItemName;
+    stream >> cardVersion;
 
     return stream;
 }
@@ -122,8 +127,17 @@ QDataStream &Card::toStream(QDataStream &stream) const {
     stream << color;
     stream << fontColor;
     stream << _freeItemName;
+    stream << cardVersion;
 
     return stream;
+}
+
+unsigned int Card::getCardVersion() const {
+    return cardVersion;
+}
+
+void Card::setCardVersion(unsigned int newCardVersion) {
+    cardVersion = newCardVersion;
 }
 
 const QString &Card::freeItemName() const {

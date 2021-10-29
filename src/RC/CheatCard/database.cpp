@@ -38,6 +38,10 @@ QH::DBPatchMap DataBase::dbPatches() const {
         return true;
     };
 
+    result += [](const QH::iObjectProvider* database) -> bool {
+        database->doSql();
+    };
+
     return result;
 }
 }
