@@ -64,7 +64,9 @@ ApplicationWindow {
             ToolButton {
                 id: backButton
                 property bool fBack: (userPanel.visible || activityProcessor.depth > 1)
-                text: (fBack)? qsTr("<<") : qsTr("三")
+                icon.source: (fBack)? "qrc:/images/private/resources/Interface_icons/Close_sidebar.svg":
+                                      "qrc:/images/private/resources/Interface_icons/Open_sidebar.svg"
+
                 onClicked: () => {
                                if (!enabled)
                                    return;
@@ -105,7 +107,7 @@ ApplicationWindow {
 
             ToolButton {
                 id: menuButton
-                text: qsTr("⋮")
+                icon.source: "qrc:/images/private/resources/Interface_icons/Right_topmenu.svg"
                 font.bold: true
                 font.pointSize: 14
                 enabled: !firstRun.visible

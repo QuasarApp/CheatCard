@@ -140,6 +140,7 @@ Page {
 
                     Button {
                         text: qsTr("Edit")
+
                         font.bold: true
                         visible:  cardItem.ListView.isCurrentItem && !cardView.editable && root.editable
                         onClicked: () => {

@@ -84,8 +84,8 @@ Frame {
                 Layout.fillWidth: true
             }
 
-            Button {
-                text: "<<"
+            ToolButton {
+                icon.source: "qrc:/images/private/resources/Interface_icons/Less.svg"
                 onClicked: ()=>{
                                giveFreeItems.value = giveFreeItems.from
                            }
@@ -97,8 +97,9 @@ Frame {
                 to: freeItems
             }
 
-            Button {
-                text: ">>"
+            ToolButton {
+                icon.source: "qrc:/images/private/resources/Interface_icons/More.svg"
+
                 onClicked: ()=>{
                                giveFreeItems.value = giveFreeItems.to
                            }

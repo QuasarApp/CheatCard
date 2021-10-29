@@ -55,11 +55,11 @@
     <name>CheatCard</name>
     <message>
         <source>&lt;&lt;</source>
-        <translation>&lt;&lt;</translation>
+        <translation type="vanished">&lt;&lt;</translation>
     </message>
     <message>
         <source>三</source>
-        <translation>三</translation>
+        <translation type="vanished">三</translation>
     </message>
     <message>
         <source>Hello </source>
@@ -71,7 +71,7 @@
     </message>
     <message>
         <source>⋮</source>
-        <translation>⋮</translation>
+        <translation type="vanished">⋮</translation>
     </message>
     <message>
         <source>Contact with developers</source>
@@ -133,7 +133,7 @@
     </message>
     <message>
         <source>⋮</source>
-        <translation>⋮</translation>
+        <translation type="vanished">⋮</translation>
     </message>
     <message>
         <source>Save</source>
