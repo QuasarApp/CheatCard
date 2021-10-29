@@ -1,6 +1,6 @@
 # CheatCard
 
-![Banner](src/RC/private/resources/Logo/CHEATCARD_Banner.jpg)
+![Banner](src/GUI/private/resources/Logo/CheatCard_Banner.jpg)
 
 ## About this app 
 

@@ -9,7 +9,7 @@ The algorithm of actions for the buyer works according to the system:
 
 In order to open the QR code, click on the item in the upper left corner of the screen.
 
-! [example] (src / GUI / private / resources / help / Help1.jpg)
+! [example] (../src/GUI/private/resources/help/Help1.jpg)
 
 A sidebar will open at the bottom of which there will be a QR code, you can click on it to enlarge it.
 

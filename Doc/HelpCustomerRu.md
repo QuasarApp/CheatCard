@@ -9,7 +9,7 @@
 
 Для того что бы открыть QR код нажмите на элемент в верхнем левом углу экрана. 
 
-![example](src/GUI/private/resources/help/Help1.jpg)
+![example](../src/GUI/private/resources/help/Help1.jpg)
 
 Откроется сайдбар внизу которого будет QR код, вы можете нажать на него что бы увеличить. 
 
