@@ -1,8 +1,4 @@
-# Guide how to using Cheat Cards for Buyers
-
-In this section, you can find information about using the Cheat card.
-
-## How to use?
+ы## How to use?
 
 The algorithm of actions for the buyer works according to the system:
 * Came to the establishment
