@@ -33,7 +33,8 @@ Page {
                 Layout.rightMargin: 10
 
                 Rectangle {
-//                    color: 'Red'
+                    color: "#777777"
+                    antialiasing: true;
                     radius: 10
                     clip: false
                     Layout.margins: 10
@@ -45,22 +46,27 @@ Page {
                         anchors.fill: parent
                         ToolButton {
                             icon.source: "qrc:/images/private/resources/platformsIcon/slack-logo.svg"
-                            icon.height: 100
-                            icon.width: 100
-                            onClicked: stack.pop()
+                            icon.height: 80
+                            icon.width: 80
+                            icon.color: "transparent"
+                            onClicked: Qt.openUrlExternally("https://join.slack.com/t/slack-uvu5934/shared_invite/zt-xtxp3txy-z4E_8mFsabqSRIzy7AwJXg")
                         }
-                        Label {
-                            text: "Telegram"
+
+                        Text {
+                            text: "Enjoy to our slack chanal for get support and see the last changes."
                             elide: Label.ElideRight
-                            horizontalAlignment: Qt.AlignHCenter
+                            horizontalAlignment: Qt.AlignLeft
                             verticalAlignment: Qt.AlignVCenter
+                            wrapMode: Text.WordWrap
+
                             Layout.fillWidth: true
                         }
                     }
                 }
 
                 Rectangle {
-//                    color: 'Plum'
+                    color: "#777777"
+                    antialiasing: true;
                     radius: 10
                     clip: false
                     Layout.margins: 10
@@ -71,20 +77,40 @@ Page {
                     RowLayout {
                         anchors.fill: parent
                         ToolButton {
-                            icon.height: 100
-                            icon.width: 100
+                            icon.height: 80
+                            icon.width: 80
+                            icon.color: "transparent"
                             icon.source: "qrc:/images/private/resources/platformsIcon/telegram.svg"
-                            onClicked: stack.pop()
+                            onClicked: Qt.openUrlExternally("https://t.me/joinchat/Msv_LWw4GI4zNTIy")
                         }
-                        Label {
-                            text: "Slack"
+
+                        Text {
+                            text: "Enjoy to our telegram chanal for get support and see the last changes."
                             elide: Label.ElideRight
-                            horizontalAlignment: Qt.AlignHCenter
+                            horizontalAlignment: Qt.AlignLeft
                             verticalAlignment: Qt.AlignVCenter
+                            wrapMode: Text.WordWrap
+
                             Layout.fillWidth: true
                         }
                     }
                 }
+
+                Item {
+                    Layout.margins: 10
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+
+                }
+
+                Item {
+                    Layout.margins: 10
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+
+                }
+
+
             }
         }
     }
