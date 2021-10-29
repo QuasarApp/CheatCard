@@ -70,6 +70,11 @@ public:
     const QString &freeItemName() const;
     void setFreeItemName(const QString &newFreeItemName);
 
+    unsigned int getCardVersion() const;
+    void setCardVersion(unsigned int newCardVersion);
+
+    void idGen();
+
 protected:
     QString primaryKey() const override;
     QDataStream &fromStream(QDataStream &stream) override;

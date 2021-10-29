@@ -393,11 +393,56 @@ void MainModel::handleCardReceived(QSharedPointer<RC::Card> card) {
     _cardsListModel->importCard(card);
 }
 
-void MainModel::handleCardEditFinished(const QSharedPointer<Card>& card) {
+void RC::MainModel::saveCard(const QSharedPointer<Card>& card) {
+    card->setCardVersion(card->getCardVersion() + 1);
+
     _db->insertIfExistsUpdateObject(card);
     auto cards = QSharedPointer<UsersCards>::create(_currentUser->user()->userId(),
                                                     card->cardId(), true);
     _db->insertIfExistsUpdateObject(cards);
+}
+
+void MainModel::handleCardEditFinished(const QSharedPointer<Card>& card) {
+
+    auto localCard = _backEndModel->getCard(card->cardId());
+
+    if (localCard && localCard->compare(*card.data())) {
+        return;
+    }
+
+    auto listOfUsers = _backEndModel->getAllUserFromCard(card->cardId());
+
+    if (localCard && listOfUsers.size() && localCard->getFreeIndex() != card->getFreeIndex()) {
+
+        auto service = QmlNotificationService::NotificationService::getService();
+
+        if (service) {
+
+            QmlNotificationService::Listner listner = [card, this] (bool accepted) {
+
+                if (accepted) {
+                    QSharedPointer<Card> clone = QSharedPointer<Card>::create();
+                    clone->copyFrom(card.data());
+                    _cardsListModel->importCard(clone);
+
+                    card->idGen();
+                    saveCard(card);
+                }
+            };
+
+            service->setQuestion(listner, tr("You try change production card rules!"),
+                                 tr("Your clients alredy use this card and you try change bonus rules."
+                                    " I think users don't like this change. I can save this changes as a new card only."
+                                    " After save old card continue works correctly."
+                                    " Do you want to save this card as new card?"));
+
+
+        }
+
+        return;
+    }
+
+    saveCard(card);
 }
 
 void MainModel::handleCardRemoved(int id) {

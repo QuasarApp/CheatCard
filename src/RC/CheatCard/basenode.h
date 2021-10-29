@@ -40,6 +40,7 @@ public:
 
     QSharedPointer<UsersCards>
     getUserCardData(unsigned int userId, unsigned int cardId) const;
+    QList<QSharedPointer<UsersCards> > getAllUserFromCard(unsigned int cardId) const;
 
     QSharedPointer<Card> getCard(unsigned int cardId);
 

@@ -30,6 +30,9 @@ Page {
             Layout.fillHeight: true
             Layout.alignment: Qt.AlignHCenter
 
+            implicitHeight: 0x0
+            implicitWidth: 0x0
+
             snapMode: ListView.NoSnap
             boundsBehavior:Flickable.StopAtBounds
             preferredHighlightBegin: (orientation == ListView.Vertical)?

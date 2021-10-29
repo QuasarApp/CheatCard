@@ -10,7 +10,13 @@
 
 namespace RC {
 
+
+
 Card::Card(): QH::PKG::DBObject("Cards") {
+    idGen();
+}
+
+void RC::Card::idGen() {
     setId(QVariant::fromValue(rand() + time(0)));
 }
 

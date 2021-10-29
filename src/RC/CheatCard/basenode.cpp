@@ -17,6 +17,7 @@
 #include <CheatCard/userscards.h>
 #include <getsinglevalue.h>
 #include <cmath>
+#include <dbobjectsrequest.h>
 
 namespace RC {
 
@@ -184,6 +185,14 @@ BaseNode::getUserCardData(unsigned int userId, unsigned int cardId) const {
 
     auto purches = _db->getObject(request);
     return purches;
+}
+
+QList<QSharedPointer<UsersCards> > BaseNode::getAllUserFromCard(unsigned int cardId) const {
+
+    QH::PKG::DBObjectsRequest<UsersCards> request("UsersCards",
+                                                  QString("card=%0").arg(cardId));
+
+    return _db->getObject(request)->data();
 }
 
 QSharedPointer<Card> BaseNode::getCard(unsigned int cardId) {
