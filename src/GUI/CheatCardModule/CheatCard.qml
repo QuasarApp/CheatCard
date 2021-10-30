@@ -124,7 +124,9 @@ ApplicationWindow {
             text: qsTr("Contact with developers")
 
             onClicked:  () => {
-                            activityProcessor.newActivity("qrc:/CheatCardModule/Contacts.qml");
+                            if (mainModel.mode) {
+                                activityProcessor.newActivity("qrc:/CheatCardModule/Contacts.qml");
+                            }
                         }
         }
 
@@ -200,11 +202,6 @@ ApplicationWindow {
                                    newActivity("qrc:/CheatCardModule/MainActivity.qml",
                                                mainModel);
                                }
-    }
-
-    Component {
-        id: contact
-        Contacts {}
     }
 
     Component {

@@ -11,8 +11,6 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
 
-import QtQuick 2.0
-
 Page {
     id: root
 
@@ -21,7 +19,7 @@ Page {
         Frame {
 
             background: Rectangle{
-                color: "#cccccc"
+                color: "#e6e6e6"
                 radius: 10
             }
 
@@ -54,7 +52,7 @@ Page {
         Frame {
 
             background: Rectangle{
-                color: "#cccccc"
+                color: "#e6e6e6"
                 radius: 10
             }
 
