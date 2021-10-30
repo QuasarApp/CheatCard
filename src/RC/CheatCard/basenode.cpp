@@ -187,10 +187,17 @@ BaseNode::getUserCardData(unsigned int userId, unsigned int cardId) const {
     return purches;
 }
 
-QList<QSharedPointer<UsersCards> > BaseNode::getAllUserFromCard(unsigned int cardId) const {
+QList<QSharedPointer<UsersCards> >
+BaseNode::getAllUserFromCard(unsigned int cardId, bool includeOwner) const {
+
+    QString where = QString("card=%0").arg(cardId);
+
+    if (!includeOwner) {
+        where += " AND owner=0";
+    }
 
     QH::PKG::DBObjectsRequest<UsersCards> request("UsersCards",
-                                                  QString("card=%0").arg(cardId));
+                                                  where);
 
     return _db->getObject(request)->data();
 }

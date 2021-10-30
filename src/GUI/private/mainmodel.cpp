@@ -410,7 +410,7 @@ void MainModel::handleCardEditFinished(const QSharedPointer<Card>& card) {
         return;
     }
 
-    auto listOfUsers = _backEndModel->getAllUserFromCard(card->cardId());
+    auto listOfUsers = _backEndModel->getAllUserFromCard(card->cardId(), false);
 
     if (localCard && listOfUsers.size() && localCard->getFreeIndex() != card->getFreeIndex()) {
 
@@ -418,14 +418,15 @@ void MainModel::handleCardEditFinished(const QSharedPointer<Card>& card) {
 
         if (service) {
 
-            QmlNotificationService::Listner listner = [card, this] (bool accepted) {
+            QmlNotificationService::Listner listner = [card, localCard, this] (bool accepted) {
+                _currentCardsListModel->removeCard(card->cardId());
+                _currentCardsListModel->importCard(localCard);
+                saveCard(localCard);
 
                 if (accepted) {
-                    QSharedPointer<Card> clone = QSharedPointer<Card>::create();
-                    clone->copyFrom(card.data());
-                    _cardsListModel->importCard(clone);
 
                     card->idGen();
+                    _currentCardsListModel->importCard(card);
                     saveCard(card);
                 }
             };
@@ -447,7 +448,7 @@ void MainModel::handleCardEditFinished(const QSharedPointer<Card>& card) {
 
 void MainModel::handleCardRemoved(int id) {
 
-    QSharedPointer<Card> reqest;
+    auto reqest = QSharedPointer<Card>::create();
     reqest->setId(id);
 
     _db->deleteObject(reqest);
