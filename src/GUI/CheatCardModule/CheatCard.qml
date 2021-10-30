@@ -131,6 +131,21 @@ ApplicationWindow {
                             activityProcessor.newActivityFromComponent(about, mainModel.getAboutModel());
                         }
         }
+
+        MenuItem {
+            text: qsTr("Help")
+
+            onClicked:  () => {
+
+                            if (mainModel.mode) {
+                                activityProcessor.newActivity("qrc:CheatCardModule/PageHelpSeller.qml");
+                            } else {
+                                activityProcessor.newActivity("qrc:CheatCardModule/PageHelpVisitor.qml");
+                            }
+
+
+                        }
+        }
     }
 
     StackView {

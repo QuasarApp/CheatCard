@@ -82,6 +82,10 @@
         <source>About</source>
         <translation>Informacja</translation>
     </message>
+    <message>
+        <source>Help</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ColorPicker</name>
@@ -341,6 +345,124 @@
     </message>
     <message>
         <source>Do you want to put your picture? You can choose but the picture must be in png format!</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PageHelpSeller</name>
+    <message>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;В данном разделе вы сможете ознакомится с информацией об использовании Чит карты.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>### Как использовать?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Для реализации программы лояльности вашего заведения при помомощи чит карты необходимо сделать следующее:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* Создать карточку вашего заведения</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Для того что бы создать карту нажмите кнопку **&quot;Добавить карту&quot;** в нижней части экрана. После этого создастся пустая карточка, для того что бы её заполнить нажмите кнопку **&quot;Редактировать&quot;** на карточке.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source></source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Теперь вы можете ввести контактные и прочие данные вашего заведения, не обязательно заполнять все поля, кроме тех которые подсвеченны красным &quot;Название карты&quot; и &quot;Название бонуса&quot;. В пункте &quot;Название бонуса&quot; необходимо указать что получит клиент ввиде бонуса (товар/услугу/скидку/ и т.д.). Далее укажите какое количество покупок должен совершить клиент для получения ранее указанного вами бонуса.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;После этого вы можете настроить дизайн карты нажав на этот элемент снизу слева карты.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Help2.jpg</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Откроется меню в котором вы сможете настроить цвета фона и текста, логотип, а так же печати. Вы можете загрузить свой дизайн фона логотипа или печати карты нажав кнопку добавить в соответствующих разделах, изображение должно быть в формате png.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;После завершения всех настроек нажмите кнопку **&quot;Сохранить&quot;** которая находится снизу от карты.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**ВАЖНО:** После того как вы поставите хотя бы одну печать покупателю, карту нельзя будет редактировать. В место этого вы сможите создать новую карту на основе старой. все данные покупателей и их статистика будет автоматически перенесена на исправленную карту. В место этого вы сможите создать новую карту на основе старой. все данные покупателей и их статистика будет автоматически перенесена на исправленную карту.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* Выдать карточку клиенту</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;После того как вы создали и настроили карту она будет отображатся на основном экране приложения. Для того что бы выдать карту клиенту необходимо нажать на неё и удерживать, после чего откроется экран где вы сможете указать какое количество печатей поставить клиенту, далее нажмите печать. Почле чего просканируйте QR код посетителя. После этого у киента появится карта с тем количеством печатей которое вы указали. Точно таким же образом вы можете ставить в дальнейшем печати клиенту при покупке товара.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* Выдать бонус</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Когда клиент собрал достаточное количество печатей вы можете выдать ему бонус, приложение само оповестит вас о том что клиент совершил достаточное количество покупок. На экране выдачи бонуса вы можете нажать кнопку &quot;Выдать&quot; или же если клиент может попросить сохранить этот бонус, тогда просто нажмите кнопку назад. Бонусы могут накапливатся у клиента, если клиент накопил несколько бонусов то на экране выдачи вы можете выбрать какое количество бонусов выдать, после чего они спишутся из категории доступных и перейдут в категорию полученных на карте клиента.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PageHelpVisitor</name>
+    <message>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Алгоритм действий для покупателя работает по системе:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* Пришёл в заведение.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* Сделал заказ.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* Показал qr код в приложении на кассе.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* Получил печать в карточку.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* Повторил эту процедуру несколько раз и получил бонус установленный продавцом.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Для того что бы открыть QR код нажмите на элемент в верхнем левом углу экрана. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>![example](../src/GUI/private/resources/help/Help1.jpg)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Откроется сайдбар внизу которого будет QR код, вы можете нажать на него что бы увеличить.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;После получения карты вы можете посмотреть дополнительную информацию о карте нажав на неё.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
