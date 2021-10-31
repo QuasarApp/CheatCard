@@ -21,6 +21,7 @@
 namespace RC {
 
 BaseNode::BaseNode(QH::ISqlDBCache *db) {
+    useSelfSignedSslConfiguration(QH::SslSrtData{});
     _db = db;
 }
 

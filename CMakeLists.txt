@@ -100,7 +100,7 @@ if (NOT DEFINED CHEATCARD_APP)
 endif()
 
 set(HEART_BUILD_LVL 1)
-set(HEART_SSL OFF)
+set(HEART_SSL ON)
 
 add_subdirectory(submodules/Heart)
 add_subdirectory(src/RC)
