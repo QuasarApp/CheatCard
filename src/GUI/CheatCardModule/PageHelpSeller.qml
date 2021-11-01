@@ -49,7 +49,7 @@ Credits {
             align: Label.AlignHCenter
         },
         {
-            text: qsTr("&nbsp;&nbsp;&nbsp;&nbsp;In order to create a map, click the \"Add Map\" button at the bottom of the screen. After that, an empty card will be created, in order to fill it out, press the \"Edit\" button on the card. Now you can enter the contact and other data of your establishment, it is not necessary to fill in all the fields, except for those highlighted in red \"Card name\" and \"Bonus name\". In the item \"Bonus name\" it is necessary to indicate what the client will receive in the form of a bonus (product / service / discount / etc.). Next, indicate how many purchases the client must make to receive the bonus you previously specified."),
+            text: qsTr("&nbsp;&nbsp;&nbsp;&nbsp;In order to create a map, click the \"Add Card\" button at the bottom of the screen. After that, an empty card will be created, in order to fill it out, press the \"Edit\" button on the card. Now you can enter the contact and other data of your establishment, it is not necessary to fill in all the fields, except for those highlighted in red \"Card name\" and \"Bonus name\". In the item \"Bonus name\" it is necessary to indicate what the client will receive in the form of a bonus (product / service / discount / etc.). Next, indicate how many purchases the client must make to receive the bonus you previously specified."),
             align: Label.AlignLeft
         },
         {

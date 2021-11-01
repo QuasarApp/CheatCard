@@ -467,11 +467,11 @@
     </message>
     <message>
         <source>![tt](qrc:/private/resources/help/Help3.jpg)</source>
-        <translation>![tt](qrc:/private/resources/help/Help3.jpg)</translation>
+        <translation type="vanished">![tt](qrc:/private/resources/help/Help3.jpg)</translation>
     </message>
     <message>
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;In order to create a map, click the &quot;Add Map&quot; button at the bottom of the screen. After that, an empty card will be created, in order to fill it out, press the &quot;Edit&quot; button on the card. Now you can enter the contact and other data of your establishment, it is not necessary to fill in all the fields, except for those highlighted in red &quot;Card name&quot; and &quot;Bonus name&quot;. In the item &quot;Bonus name&quot; it is necessary to indicate what the client will receive in the form of a bonus (product / service / discount / etc.). Next, indicate how many purchases the client must make to receive the bonus you previously specified.</source>
-        <translation>In order to create a map, click the &quot;Add Map&quot; button at the bottom of the screen. After that, an empty card will be created, in order to fill it out, press the &quot;Edit&quot; button on the card. Now you can enter the contact and other data of your establishment, it is not necessary to fill in all the fields, except for those highlighted in red &quot;Card name&quot; and &quot;Bonus name&quot;. In the item &quot;Bonus name&quot; it is necessary to indicate what the client will receive in the form of a bonus (product / service / discount / etc.). Next, indicate how many purchases the client must make to receive the bonus you previously specified.</translation>
+        <translation type="vanished">In order to create a map, click the &quot;Add Map&quot; button at the bottom of the screen. After that, an empty card will be created, in order to fill it out, press the &quot;Edit&quot; button on the card. Now you can enter the contact and other data of your establishment, it is not necessary to fill in all the fields, except for those highlighted in red &quot;Card name&quot; and &quot;Bonus name&quot;. In the item &quot;Bonus name&quot; it is necessary to indicate what the client will receive in the form of a bonus (product / service / discount / etc.). Next, indicate how many purchases the client must make to receive the bonus you previously specified.</translation>
     </message>
     <message>
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;After that, you can customize the design of the card by clicking on this element at the bottom left of the card.</source>
@@ -479,7 +479,7 @@
     </message>
     <message>
         <source>![tt](qrc:/private/resources/help/Help2.jpg)</source>
-        <translation>![tt](qrc:/private/resources/help/Help2.jpg)</translation>
+        <translation type="vanished">![tt](qrc:/private/resources/help/Help2.jpg)</translation>
     </message>
     <message>
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;A menu will open in which you can customize the background and text colors, logo, as well as printing. You can upload your logo or card print background design by clicking the add button in the appropriate sections, the image must be in png format.</source>
@@ -516,6 +516,18 @@
     <message>
         <source>### Guide to using Cheat Cards for merchants</source>
         <translation>### Guide to using Cheat Cards for merchants</translation>
+    </message>
+    <message>
+        <source>&lt;img src=&quot;qrc:/private/resources/help/Help3.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>&lt;img src=&quot;qrc:/private/resources/help/Help2.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;In order to create a map, click the &quot;Add Card&quot; button at the bottom of the screen. After that, an empty card will be created, in order to fill it out, press the &quot;Edit&quot; button on the card. Now you can enter the contact and other data of your establishment, it is not necessary to fill in all the fields, except for those highlighted in red &quot;Card name&quot; and &quot;Bonus name&quot;. In the item &quot;Bonus name&quot; it is necessary to indicate what the client will receive in the form of a bonus (product / service / discount / etc.). Next, indicate how many purchases the client must make to receive the bonus you previously specified.</source>
+        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;In order to create a map, click the &quot;Add Card&quot; button at the bottom of the screen. After that, an empty card will be created, in order to fill it out, press the &quot;Edit&quot; button on the card. Now you can enter the contact and other data of your establishment, it is not necessary to fill in all the fields, except for those highlighted in red &quot;Card name&quot; and &quot;Bonus name&quot;. In the item &quot;Bonus name&quot; it is necessary to indicate what the client will receive in the form of a bonus (product / service / discount / etc.). Next, indicate how many purchases the client must make to receive the bonus you previously specified.</translation>
     </message>
 </context>
 <context>
@@ -554,7 +566,7 @@
     </message>
     <message>
         <source>![tt](qrc:/private/resources/help/Help1.jpg)</source>
-        <translation>![tt](qrc:/private/resources/help/Help1.jpg)</translation>
+        <translation type="vanished">![tt](qrc:/private/resources/help/Help1.jpg)</translation>
     </message>
     <message>
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;A sidebar will open at the bottom of which there will be a QR code, you can click on it to enlarge it.</source>
@@ -567,6 +579,10 @@
     <message>
         <source>### How to use?</source>
         <translation>### How to use?</translation>
+    </message>
+    <message>
+        <source>&lt;img src=&quot;qrc:/private/resources/help/Help1.jpg&quot; alt=&quot;tt&quot; width=&quot;100&quot;/&gt;</source>
+        <translation>&lt;img src=&quot;qrc:/private/resources/help/Help1.jpg&quot; alt=&quot;tt&quot; width=&quot;100&quot;/&gt;</translation>
     </message>
 </context>
 <context>
