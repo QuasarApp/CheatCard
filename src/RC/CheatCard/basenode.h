@@ -35,6 +35,7 @@ public:
     int getCountOfReceivedItems(unsigned int userId, unsigned int cardId);
 
     int getCardFreeIndex(unsigned int cardId) const;
+    unsigned int getCardVersion(unsigned int cardId) const;
 
     static QString libVersion();
 
