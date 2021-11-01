@@ -122,7 +122,7 @@ ApplicationWindow {
 
         MenuItem {
             text: qsTr("Contact with developers")
-            visible: (mainModel.mode)? mainModel.mode: false
+            visible: (mainModel)? mainModel.mode: false
 
             height: visible ? implicitHeight : 0
 
