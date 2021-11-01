@@ -393,16 +393,61 @@ void MainModel::handleCardReceived(QSharedPointer<RC::Card> card) {
     _cardsListModel->importCard(card);
 }
 
-void MainModel::handleCardEditFinished(const QSharedPointer<Card>& card) {
+void RC::MainModel::saveCard(const QSharedPointer<Card>& card) {
+    card->setCardVersion(card->getCardVersion() + 1);
+
     _db->insertIfExistsUpdateObject(card);
     auto cards = QSharedPointer<UsersCards>::create(_currentUser->user()->userId(),
                                                     card->cardId(), true);
     _db->insertIfExistsUpdateObject(cards);
 }
 
+void MainModel::handleCardEditFinished(const QSharedPointer<Card>& card) {
+
+    auto localCard = _backEndModel->getCard(card->cardId());
+
+    if (localCard && localCard->compare(*card.data())) {
+        return;
+    }
+
+    auto listOfUsers = _backEndModel->getAllUserFromCard(card->cardId(), false);
+
+    if (localCard && listOfUsers.size() && localCard->getFreeIndex() != card->getFreeIndex()) {
+
+        auto service = QmlNotificationService::NotificationService::getService();
+
+        if (service) {
+
+            QmlNotificationService::Listner listner = [card, localCard, this] (bool accepted) {
+                _currentCardsListModel->importCard(localCard);
+                saveCard(localCard);
+
+                if (accepted) {
+
+                    card->idGen();
+                    _currentCardsListModel->importCard(card);
+                    saveCard(card);
+                }
+            };
+
+            service->setQuestion(listner, tr("You try change production card rules!"),
+                                 tr("Your clients alredy use this card and you try change bonus rules."
+                                    " I think users don't like this change. I can save this changes as a new card only."
+                                    " After save old card continue works correctly."
+                                    " Do you want to save this card as new card?"));
+
+
+        }
+
+        return;
+    }
+
+    saveCard(card);
+}
+
 void MainModel::handleCardRemoved(int id) {
 
-    QSharedPointer<Card> reqest;
+    auto reqest = QSharedPointer<Card>::create();
     reqest->setId(id);
 
     _db->deleteObject(reqest);
@@ -427,14 +472,14 @@ void MainModel::handlePurchaseWasSuccessful(QSharedPointer<RC::UsersCards> card)
     QSharedPointer<CardModel> cardModel;
 
     if (_mode == Mode::Client) {
-        cardModel = _cardsListModel->cache().value(card->getCard()).model;
+        cardModel = _cardsListModel->cache().value(card->getCard());
         _cardsListModel->setPurchasesNumbers({card});
         freeIndex = _backEndModel->getCardFreeIndex(card->getCard());
 
     } else {
-        cardModel = _ownCardsListModel->cache().value(card->getCard()).model;
+        cardModel = _ownCardsListModel->cache().value(card->getCard());
 
-        freeIndex = _ownCardsListModel->cache().value(card->getCard()).source->getFreeIndex();
+        freeIndex = cardModel->card()->getFreeIndex();
     }
 
     int freeItems = _backEndModel->getFreeItemsCount(card, freeIndex);

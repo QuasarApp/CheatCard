@@ -34,8 +34,8 @@ QVariant CardsListModel::data(const QModelIndex &index, int role) const {
 
     auto cacheData = _cache.value(cardId, {});
 
-    if (cacheData.isValid()) {
-        return QVariant::fromValue(cacheData.model.data());
+    if (cacheData) {
+        return QVariant::fromValue(cacheData.data());
     }
 
     return {};
@@ -61,11 +61,7 @@ void CardsListModel::setCards(const QList<QSharedPointer<Card> > &newCards) {
     for (const QSharedPointer<Card>& card : newCards) {
         auto cardModel =  QSharedPointer<CardModel>::create(card);
         _cache.insert(card->cardId(),
-                      TableCache
-                      {
-                          card,
-                          cardModel
-                      }
+                      cardModel
                       );
         _cards.push_back(card->cardId());
 
@@ -79,25 +75,39 @@ void CardsListModel::setCards(const QList<QSharedPointer<Card> > &newCards) {
 QSharedPointer<CardModel>
 CardsListModel::importCard(const QSharedPointer<Card> &card) {
 
+    if (_cards.contains(card->cardId())) {
+        return updateCard(card);
+    }
+
     auto cardModel = QSharedPointer<CardModel>::create(card);
 
     configureModel(cardModel);
 
     beginInsertRows({}, _cards.size(), _cards.size());
 
-    _cache.insert(card->cardId(), TableCache{card, cardModel});
+    _cache.insert(card->cardId(), cardModel);
     _cards.push_back(card->cardId());
 
     endInsertRows();
 
+    return cardModel;
+}
 
+QSharedPointer<CardModel>
+CardsListModel::updateCard(const QSharedPointer<Card> &card) {
+
+    auto cardModel =  _cache.value(card->cardId());
+    if (!cardModel)
+        return cardModel;
+
+    cardModel->setCard(card);
 
     return cardModel;
 }
 
 void CardsListModel::setPurchasesNumbers(const QList<QSharedPointer<UsersCards>> &purchasesNumbers) {
     for (const auto &sp:  purchasesNumbers) {
-        if (auto model = _cache.value(sp->getCard()).model) {
+        if (auto model = _cache.value(sp->getCard())) {
             model->setPurchasesNumber(sp->getPurchasesNumber());
         }
     }
@@ -126,30 +136,15 @@ void CardsListModel::removeCard(int cardId) {
 }
 
 void CardsListModel::cardSelected(int cardId) {
-    emit sigCardSelectedForWork(_cache.value(cardId).model);
+    emit sigCardSelectedForWork(_cache.value(cardId));
 }
 
-const QHash<int, TableCache> &CardsListModel::cache() const {
+const QHash<int, QSharedPointer<CardModel> > &CardsListModel::cache() const {
     return _cache;
 }
 
 void CardsListModel::configureModel(const QSharedPointer<CardModel> &cardModel) {
     connect(cardModel.data(), &CardModel::editFinished, this, &CardsListModel::sigEditFinished);
 }
-
-TableCache::TableCache() {
-
-}
-
-TableCache::TableCache(const QSharedPointer<Card> &src,
-                       const QSharedPointer<CardModel> &mod) {
-    source = src;
-    model = mod;
-}
-
-bool TableCache::isValid() const {
-    return !source.isNull();
-}
-
 
 }

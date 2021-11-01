@@ -17,6 +17,7 @@
 #include <CheatCard/userscards.h>
 #include <getsinglevalue.h>
 #include <cmath>
+#include <dbobjectsrequest.h>
 
 namespace RC {
 
@@ -109,6 +110,17 @@ int RC::BaseNode::getCardFreeIndex(unsigned int cardId) const {
     return result->value().toUInt();
 }
 
+unsigned int BaseNode::getCardVersion(unsigned int cardId) const {
+    QH::PKG::GetSingleValue request({"Cards", cardId}, "cardVersion");
+    auto result = _db->getObject(request);
+
+    if (!result) {
+        return 0;
+    }
+
+    return result->value().toUInt();
+}
+
 QString BaseNode::libVersion() {
     return CHEAT_CARD_VERSION;
 }
@@ -139,8 +151,9 @@ bool BaseNode::processCardStatus(const QSharedPointer<QH::PKG::DataPack<UsersCar
         }
 
         auto dbCard = _db->getObject(userrquest);
+        bool hasUpdate = dbCard && dbCard->getCardVersion() < cardStatus->getCardVersion();
 
-        if (!dbCard) {
+        if (!dbCard || hasUpdate) {
             request.push(cardStatus->getCard());
         }
     }
@@ -183,6 +196,21 @@ BaseNode::getUserCardData(unsigned int userId, unsigned int cardId) const {
 
     auto purches = _db->getObject(request);
     return purches;
+}
+
+QList<QSharedPointer<UsersCards> >
+BaseNode::getAllUserFromCard(unsigned int cardId, bool includeOwner) const {
+
+    QString where = QString("card=%0").arg(cardId);
+
+    if (!includeOwner) {
+        where += " AND owner=0";
+    }
+
+    QH::PKG::DBObjectsRequest<UsersCards> request("UsersCards",
+                                                  where);
+
+    return _db->getObject(request)->data();
 }
 
 QSharedPointer<Card> BaseNode::getCard(unsigned int cardId) {
@@ -308,6 +336,7 @@ bool BaseNode::processCardStatusRequest(const QSharedPointer<CardStatusRequest> 
     responce.setCustomData(tokens.toBytes());
 
     for (const auto &data : qAsConst(result->data())) {
+        data->setCardVersion(getCardVersion(data->getCard()));
         responce.push(data);
     }
 

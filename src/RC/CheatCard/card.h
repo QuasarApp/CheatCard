@@ -70,6 +70,11 @@ public:
     const QString &freeItemName() const;
     void setFreeItemName(const QString &newFreeItemName);
 
+    unsigned int getCardVersion() const;
+    void setCardVersion(unsigned int newCardVersion);
+
+    void idGen();
+
 protected:
     QString primaryKey() const override;
     QDataStream &fromStream(QDataStream &stream) override;
@@ -87,6 +92,7 @@ private:
     QString _physicalAddress;
     QString _webSite;
     QString _freeItemName;
+    unsigned int cardVersion;
 
     int freeIndex = 1;
     QString color = "#777777";
