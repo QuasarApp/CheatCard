@@ -110,6 +110,17 @@ int RC::BaseNode::getCardFreeIndex(unsigned int cardId) const {
     return result->value().toUInt();
 }
 
+unsigned int BaseNode::getCardVersion(unsigned int cardId) const {
+    QH::PKG::GetSingleValue request({"Cards", cardId}, "cardVersion");
+    auto result = _db->getObject(request);
+
+    if (!result) {
+        return 0;
+    }
+
+    return result->value().toUInt();
+}
+
 QString BaseNode::libVersion() {
     return CHEAT_CARD_VERSION;
 }
@@ -325,6 +336,7 @@ bool BaseNode::processCardStatusRequest(const QSharedPointer<CardStatusRequest> 
     responce.setCustomData(tokens.toBytes());
 
     for (const auto &data : qAsConst(result->data())) {
+        data->setCardVersion(getCardVersion(data->getCard()));
         responce.push(data);
     }
 
