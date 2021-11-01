@@ -122,11 +122,12 @@ ApplicationWindow {
 
         MenuItem {
             text: qsTr("Contact with developers")
+            visible: (mainModel.mode)? mainModel.mode: false
+
+            height: visible ? implicitHeight : 0
 
             onClicked:  () => {
-                            if (mainModel.mode) {
-                                activityProcessor.newActivity("qrc:/CheatCardModule/Contacts.qml");
-                            }
+                            activityProcessor.newActivity("qrc:/CheatCardModule/Contacts.qml");
                         }
         }
 
