@@ -49,7 +49,7 @@ Credits {
             align: Label.AlignLeft
         },
         {
-            text: qsTr('<img src="qrc:/private/resources/help/Help1.jpg" alt="tt" width="100"/>'),
+            text: qsTr("<img src=\"qrc:/private/resources/help/Help1.jpg\" alt=\"tt\" width=\"100\"/>"),
             align: Label.AlignHCenter,
         },
         {
