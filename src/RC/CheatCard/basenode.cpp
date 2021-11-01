@@ -17,11 +17,17 @@
 #include <CheatCard/userscards.h>
 #include <getsinglevalue.h>
 #include <cmath>
+#include <QCoreApplication>
 
 namespace RC {
 
 BaseNode::BaseNode(QH::ISqlDBCache *db) {
-    useSelfSignedSslConfiguration(QH::SslSrtData{});
+
+    QH::SslSrtData sslData;
+    sslData.commonName = DEFAULT_CHEAT_CARD_HOST;
+    sslData.organization = QCoreApplication::organizationName();
+
+    useSelfSignedSslConfiguration(sslData);
     _db = db;
 }
 
