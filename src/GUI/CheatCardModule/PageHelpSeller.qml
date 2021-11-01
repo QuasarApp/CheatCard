@@ -17,11 +17,11 @@ Credits {
     iconWidth: 150
     listCustomInfo: [
         {
-            text: "### Руководсвто по исользованию Чит Карты для продавцов:",
+            text: qsTr("### Guide to using Cheat Cards for merchants"),
             align: Label.AlignHCenter,
         },
         {
-            text: qsTr("&nbsp;&nbsp;&nbsp;&nbsp;В данном разделе вы сможете ознакомится с информацией об использовании Чит карты."),
+            text: qsTr("&nbsp;&nbsp;&nbsp;&nbsp;In this section, you can find information about using the Cheat card."),
             align: Label.AlignLeft
         },
         {
@@ -29,11 +29,11 @@ Credits {
             align: Label.AlignHCenter
         },
         {
-            text: qsTr("### Как использовать?"),
+            text: qsTr("### How to use?"),
             align: Label.AlignHCenter,
         },
         {
-            text: qsTr("&nbsp;&nbsp;&nbsp;&nbsp;Для реализации программы лояльности вашего заведения при помомощи чит карты необходимо сделать следующее:"),
+            text: qsTr("&nbsp;&nbsp;&nbsp;&nbsp;To implement the loyalty program of your institution using a cheat card, you need to do the following:"),
             align: Label.AlignLeft
         },
         {
@@ -41,41 +41,35 @@ Credits {
             align: Label.AlignHCenter
         },
         {
-            text: qsTr("* Создать карточку вашего заведения"),
+            text: qsTr("* Create a card for your establishment"),
             align: Label.AlignLeft
         },
         {
-            text: qsTr('&nbsp;&nbsp;&nbsp;&nbsp;Для того что бы создать карту нажмите кнопку **"Добавить карту"** в нижней части экрана. После этого создастся пустая карточка, для того что бы её заполнить нажмите кнопку **"Редактировать"** на карточке.'),
+            text: qsTr('<img src="qrc:/private/resources/help/Help3.jpg" alt="tt" width="300"/>'),
+            align: Label.AlignHCenter
+        },
+        {
+            text: qsTr('&nbsp;&nbsp;&nbsp;&nbsp;In order to create a map, click the "Add Map" button at the bottom of the screen. After that, an empty card will be created, in order to fill it out, press the "Edit" button on the card. Now you can enter the contact and other data of your establishment, it is not necessary to fill in all the fields, except for those highlighted in red "Card name" and "Bonus name". In the item "Bonus name" it is necessary to indicate what the client will receive in the form of a bonus (product / service / discount / etc.). Next, indicate how many purchases the client must make to receive the bonus you previously specified.'),
             align: Label.AlignLeft
         },
         {
-            text: qsTr("Help3.jpg"),
-            align: Label.AlignHCenter,
-            sourceImg: ""
-        },
-        {
-            text: qsTr('&nbsp;&nbsp;&nbsp;&nbsp;Теперь вы можете ввести контактные и прочие данные вашего заведения, не обязательно заполнять все поля, кроме тех которые подсвеченны красным "Название карты" и "Название бонуса". В пункте "Название бонуса" необходимо указать что получит клиент ввиде бонуса (товар/услугу/скидку/ и т.д.). Далее укажите какое количество покупок должен совершить клиент для получения ранее указанного вами бонуса.'),
+            text: qsTr("&nbsp;&nbsp;&nbsp;&nbsp;After that, you can customize the design of the card by clicking on this element at the bottom left of the card."),
             align: Label.AlignLeft
         },
         {
-            text: qsTr("&nbsp;&nbsp;&nbsp;&nbsp;После этого вы можете настроить дизайн карты нажав на этот элемент снизу слева карты."),
+            text: qsTr('<img src="qrc:/private/resources/help/Help2.jpg" alt="tt" width="300"/>'),
+            align: Label.AlignHCenter
+        },
+        {
+            text: qsTr("&nbsp;&nbsp;&nbsp;&nbsp;A menu will open in which you can customize the background and text colors, logo, as well as printing. You can upload your logo or card print background design by clicking the add button in the appropriate sections, the image must be in png format."),
             align: Label.AlignLeft
         },
         {
-            text: qsTr("Help2.jpg"),
-            align: Label.AlignHCenter,
-//            sourceImg: "qrc:/private/resources/help/Help2.jpg"
-        },
-        {
-            text: qsTr("&nbsp;&nbsp;&nbsp;&nbsp;Откроется меню в котором вы сможете настроить цвета фона и текста, логотип, а так же печати. Вы можете загрузить свой дизайн фона логотипа или печати карты нажав кнопку добавить в соответствующих разделах, изображение должно быть в формате png."),
+            text: qsTr('&nbsp;&nbsp;&nbsp;&nbsp;After completing all the settings, click the "Save" button located at the bottom of the map.'),
             align: Label.AlignLeft
         },
         {
-            text: qsTr('&nbsp;&nbsp;&nbsp;&nbsp;После завершения всех настроек нажмите кнопку **"Сохранить"** которая находится снизу от карты.'),
-            align: Label.AlignLeft
-        },
-        {
-            text: qsTr("&nbsp;&nbsp;&nbsp;&nbsp;**ВАЖНО:** После того как вы поставите хотя бы одну печать покупателю, карту нельзя будет редактировать. В место этого вы сможите создать новую карту на основе старой. все данные покупателей и их статистика будет автоматически перенесена на исправленную карту. В место этого вы сможите создать новую карту на основе старой. все данные покупателей и их статистика будет автоматически перенесена на исправленную карту."),
+            text: qsTr("&nbsp;&nbsp;&nbsp;&nbsp;**IMPORTANT:** After you put at least one seal on the customer, the card cannot be edited. Instead, you can create a new map based on the old one. all customer data and their statistics will be automatically transferred to the corrected card. Instead, you can create a new map based on the old one. all customer data and their statistics will be automatically transferred to the corrected card."),
             align: Label.AlignLeft
         },
         {
@@ -83,11 +77,11 @@ Credits {
             align: Label.AlignHCenter
         },
         {
-            text: qsTr("* Выдать карточку клиенту"),
+            text: qsTr("* Issue a card to a client"),
             align: Label.AlignLeft
         },
         {
-            text: qsTr("&nbsp;&nbsp;&nbsp;&nbsp;После того как вы создали и настроили карту она будет отображатся на основном экране приложения. Для того что бы выдать карту клиенту необходимо нажать на неё и удерживать, после чего откроется экран где вы сможете указать какое количество печатей поставить клиенту, далее нажмите печать. Почле чего просканируйте QR код посетителя. После этого у киента появится карта с тем количеством печатей которое вы указали. Точно таким же образом вы можете ставить в дальнейшем печати клиенту при покупке товара."),
+            text: qsTr("&nbsp;&nbsp;&nbsp;&nbsp;After you have created and configured the map, it will be displayed on the main screen of the application. In order to issue a card to a client, you need to press and hold on it, after which a screen will open where you can specify how many stamps to put to the client, then press print. Then scan the visitor's QR code. After that, the client will have a card with the number of seals that you specified. In the same way, you can put stamps to the client in the future when buying a product."),
             align: Label.AlignLeft
         },
         {
@@ -95,11 +89,11 @@ Credits {
             align: Label.AlignHCenter
         },
         {
-            text: qsTr("* Выдать бонус"),
+            text: qsTr("* Issue a bonus"),
             align: Label.AlignLeft
         },
         {
-            text: qsTr('&nbsp;&nbsp;&nbsp;&nbsp;Когда клиент собрал достаточное количество печатей вы можете выдать ему бонус, приложение само оповестит вас о том что клиент совершил достаточное количество покупок. На экране выдачи бонуса вы можете нажать кнопку "Выдать" или же если клиент может попросить сохранить этот бонус, тогда просто нажмите кнопку назад. Бонусы могут накапливатся у клиента, если клиент накопил несколько бонусов то на экране выдачи вы можете выбрать какое количество бонусов выдать, после чего они спишутся из категории доступных и перейдут в категорию полученных на карте клиента.'),
+            text: qsTr("&nbsp;&nbsp;&nbsp;&nbsp;When the client has collected a sufficient number of stamps, you can give him a bonus, the application itself will notify you that the client has made a sufficient number of purchases. On the bonus issue screen, you can click the 'Issue' button, or if the client can ask to save this bonus, then just click the back button. Bonuses can be accumulated by the client, if the client has accumulated several bonuses, then on the issuance screen you can choose how many bonuses to issue, after which they will be written off from the category of available ones and transferred to the category received on the client's card."),
             align: Label.AlignLeft
         }
     ]

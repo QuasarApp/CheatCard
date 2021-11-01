@@ -91,7 +91,7 @@
     </message>
     <message>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Help</translation>
     </message>
 </context>
 <context>
@@ -446,119 +446,127 @@
 <context>
     <name>PageHelpSeller</name>
     <message>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;В данном разделе вы сможете ознакомится с информацией об использовании Чит карты.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> </source>
-        <translation type="unfinished"> </translation>
-    </message>
-    <message>
-        <source>### Как использовать?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Для реализации программы лояльности вашего заведения при помомощи чит карты необходимо сделать следующее:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>* Создать карточку вашего заведения</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Для того что бы создать карту нажмите кнопку **&quot;Добавить карту&quot;** в нижней части экрана. После этого создастся пустая карточка, для того что бы её заполнить нажмите кнопку **&quot;Редактировать&quot;** на карточке.</source>
-        <translation type="unfinished"></translation>
+        <translation> </translation>
     </message>
     <message>
         <source></source>
         <translation></translation>
     </message>
     <message>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Теперь вы можете ввести контактные и прочие данные вашего заведения, не обязательно заполнять все поля, кроме тех которые подсвеченны красным &quot;Название карты&quot; и &quot;Название бонуса&quot;. В пункте &quot;Название бонуса&quot; необходимо указать что получит клиент ввиде бонуса (товар/услугу/скидку/ и т.д.). Далее укажите какое количество покупок должен совершить клиент для получения ранее указанного вами бонуса.</source>
-        <translation type="unfinished"></translation>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;In this section, you can find information about using the Cheat card.</source>
+        <translation>In this section, you can find information about using the Cheat card.</translation>
     </message>
     <message>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;После этого вы можете настроить дизайн карты нажав на этот элемент снизу слева карты.</source>
-        <translation type="unfinished"></translation>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;To implement the loyalty program of your institution using a cheat card, you need to do the following:</source>
+        <translation>To implement the loyalty program of your institution using a cheat card, you need to do the following:</translation>
     </message>
     <message>
-        <source>Help2.jpg</source>
-        <translation type="unfinished"></translation>
+        <source>* Create a card for your establishment</source>
+        <translation>* Create a card for your establishment</translation>
     </message>
     <message>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Откроется меню в котором вы сможете настроить цвета фона и текста, логотип, а так же печати. Вы можете загрузить свой дизайн фона логотипа или печати карты нажав кнопку добавить в соответствующих разделах, изображение должно быть в формате png.</source>
-        <translation type="unfinished"></translation>
+        <source>![tt](qrc:/private/resources/help/Help3.jpg)</source>
+        <translation>![tt](qrc:/private/resources/help/Help3.jpg)</translation>
     </message>
     <message>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;После завершения всех настроек нажмите кнопку **&quot;Сохранить&quot;** которая находится снизу от карты.</source>
-        <translation type="unfinished"></translation>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;In order to create a map, click the &quot;Add Map&quot; button at the bottom of the screen. After that, an empty card will be created, in order to fill it out, press the &quot;Edit&quot; button on the card. Now you can enter the contact and other data of your establishment, it is not necessary to fill in all the fields, except for those highlighted in red &quot;Card name&quot; and &quot;Bonus name&quot;. In the item &quot;Bonus name&quot; it is necessary to indicate what the client will receive in the form of a bonus (product / service / discount / etc.). Next, indicate how many purchases the client must make to receive the bonus you previously specified.</source>
+        <translation>In order to create a map, click the &quot;Add Map&quot; button at the bottom of the screen. After that, an empty card will be created, in order to fill it out, press the &quot;Edit&quot; button on the card. Now you can enter the contact and other data of your establishment, it is not necessary to fill in all the fields, except for those highlighted in red &quot;Card name&quot; and &quot;Bonus name&quot;. In the item &quot;Bonus name&quot; it is necessary to indicate what the client will receive in the form of a bonus (product / service / discount / etc.). Next, indicate how many purchases the client must make to receive the bonus you previously specified.</translation>
     </message>
     <message>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**ВАЖНО:** После того как вы поставите хотя бы одну печать покупателю, карту нельзя будет редактировать. В место этого вы сможите создать новую карту на основе старой. все данные покупателей и их статистика будет автоматически перенесена на исправленную карту. В место этого вы сможите создать новую карту на основе старой. все данные покупателей и их статистика будет автоматически перенесена на исправленную карту.</source>
-        <translation type="unfinished"></translation>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;After that, you can customize the design of the card by clicking on this element at the bottom left of the card.</source>
+        <translation>After that, you can customize the design of the card by clicking on this element at the bottom left of the card.</translation>
     </message>
     <message>
-        <source>* Выдать карточку клиенту</source>
-        <translation type="unfinished"></translation>
+        <source>![tt](qrc:/private/resources/help/Help2.jpg)</source>
+        <translation>![tt](qrc:/private/resources/help/Help2.jpg)</translation>
     </message>
     <message>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;После того как вы создали и настроили карту она будет отображатся на основном экране приложения. Для того что бы выдать карту клиенту необходимо нажать на неё и удерживать, после чего откроется экран где вы сможете указать какое количество печатей поставить клиенту, далее нажмите печать. Почле чего просканируйте QR код посетителя. После этого у киента появится карта с тем количеством печатей которое вы указали. Точно таким же образом вы можете ставить в дальнейшем печати клиенту при покупке товара.</source>
-        <translation type="unfinished"></translation>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;A menu will open in which you can customize the background and text colors, logo, as well as printing. You can upload your logo or card print background design by clicking the add button in the appropriate sections, the image must be in png format.</source>
+        <translation>A menu will open in which you can customize the background and text colors, logo, as well as printing. You can upload your logo or card print background design by clicking the add button in the appropriate sections, the image must be in png format.</translation>
     </message>
     <message>
-        <source>* Выдать бонус</source>
-        <translation type="unfinished"></translation>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;After completing all the settings, click the &quot;Save&quot; button located at the bottom of the map.</source>
+        <translation>After completing all the settings, click the &quot;Save&quot; button located at the bottom of the map.</translation>
     </message>
     <message>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Когда клиент собрал достаточное количество печатей вы можете выдать ему бонус, приложение само оповестит вас о том что клиент совершил достаточное количество покупок. На экране выдачи бонуса вы можете нажать кнопку &quot;Выдать&quot; или же если клиент может попросить сохранить этот бонус, тогда просто нажмите кнопку назад. Бонусы могут накапливатся у клиента, если клиент накопил несколько бонусов то на экране выдачи вы можете выбрать какое количество бонусов выдать, после чего они спишутся из категории доступных и перейдут в категорию полученных на карте клиента.</source>
-        <translation type="unfinished"></translation>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**IMPORTANT:** After you put at least one seal on the customer, the card cannot be edited. Instead, you can create a new map based on the old one. all customer data and their statistics will be automatically transferred to the corrected card. Instead, you can create a new map based on the old one. all customer data and their statistics will be automatically transferred to the corrected card.</source>
+        <translation>**IMPORTANT:** After you put at least one seal on the customer, the card cannot be edited. Instead, you can create a new map based on the old one. all customer data and their statistics will be automatically transferred to the corrected card. Instead, you can create a new map based on the old one. all customer data and their statistics will be automatically transferred to the corrected card.</translation>
+    </message>
+    <message>
+        <source>* Issue a card to a client</source>
+        <translation>* Issue a card to a client</translation>
+    </message>
+    <message>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;After you have created and configured the map, it will be displayed on the main screen of the application. In order to issue a card to a client, you need to press and hold on it, after which a screen will open where you can specify how many stamps to put to the client, then press print. Then scan the visitor&apos;s QR code. After that, the client will have a card with the number of seals that you specified. In the same way, you can put stamps to the client in the future when buying a product.</source>
+        <translation>After you have created and configured the map, it will be displayed on the main screen of the application. In order to issue a card to a client, you need to press and hold on it, after which a screen will open where you can specify how many stamps to put to the client, then press print. Then scan the visitor&apos;s QR code. After that, the client will have a card with the number of seals that you specified. In the same way, you can put stamps to the client in the future when buying a product.</translation>
+    </message>
+    <message>
+        <source>* Issue a bonus</source>
+        <translation>* Issue a bonus</translation>
+    </message>
+    <message>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;When the client has collected a sufficient number of stamps, you can give him a bonus, the application itself will notify you that the client has made a sufficient number of purchases. On the bonus issue screen, you can click the &apos;Issue&apos; button, or if the client can ask to save this bonus, then just click the back button. Bonuses can be accumulated by the client, if the client has accumulated several bonuses, then on the issuance screen you can choose how many bonuses to issue, after which they will be written off from the category of available ones and transferred to the category received on the client&apos;s card.</source>
+        <translation>When the client has collected a sufficient number of stamps, you can give him a bonus, the application itself will notify you that the client has made a sufficient number of purchases. On the bonus issue screen, you can click the &apos;Issue&apos; button, or if the client can ask to save this bonus, then just click the back button. Bonuses can be accumulated by the client, if the client has accumulated several bonuses, then on the issuance screen you can choose how many bonuses to issue, after which they will be written off from the category of available ones and transferred to the category received on the client&apos;s card.</translation>
+    </message>
+    <message>
+        <source>### How to use?</source>
+        <translation>### How to use?</translation>
+    </message>
+    <message>
+        <source>### Guide to using Cheat Cards for merchants</source>
+        <translation>### Guide to using Cheat Cards for merchants</translation>
     </message>
 </context>
 <context>
     <name>PageHelpVisitor</name>
     <message>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Алгоритм действий для покупателя работает по системе:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>* Пришёл в заведение.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>* Сделал заказ.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>* Показал qr код в приложении на кассе.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>* Получил печать в карточку.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>* Повторил эту процедуру несколько раз и получил бонус установленный продавцом.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Для того что бы открыть QR код нажмите на элемент в верхнем левом углу экрана. </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>![example](../src/GUI/private/resources/help/Help1.jpg)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Откроется сайдбар внизу которого будет QR код, вы можете нажать на него что бы увеличить.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;После получения карты вы можете посмотреть дополнительную информацию о карте нажав на неё.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> </source>
-        <translation type="unfinished"> </translation>
+        <translation> </translation>
+    </message>
+    <message>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;The algorithm of actions for the buyer works according to the system:</source>
+        <translation>The algorithm of actions for the buyer works according to the system:</translation>
+    </message>
+    <message>
+        <source>* Came to the establishment.</source>
+        <translation>* Came to the establishment.</translation>
+    </message>
+    <message>
+        <source>* Made an order.</source>
+        <translation>* Made an order.</translation>
+    </message>
+    <message>
+        <source>* Showed the QR code in the application at the checkout.</source>
+        <translation>* Showed the QR code in the application at the checkout.</translation>
+    </message>
+    <message>
+        <source>* Received print to card.</source>
+        <translation>* Received print to card.</translation>
+    </message>
+    <message>
+        <source>* Repeated this procedure several times and received the bonus set by the seller.</source>
+        <translation>* Repeated this procedure several times and received the bonus set by the seller.</translation>
+    </message>
+    <message>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;In order to open the QR code, click on the item in the upper left corner of the screen. </source>
+        <translation>In order to open the QR code, click on the item in the upper left corner of the screen. </translation>
+    </message>
+    <message>
+        <source>![tt](qrc:/private/resources/help/Help1.jpg)</source>
+        <translation>![tt](qrc:/private/resources/help/Help1.jpg)</translation>
+    </message>
+    <message>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;A sidebar will open at the bottom of which there will be a QR code, you can click on it to enlarge it.</source>
+        <translation>A sidebar will open at the bottom of which there will be a QR code, you can click on it to enlarge it.</translation>
+    </message>
+    <message>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;After receiving the card, you can view additional information about the card by clicking on it.</source>
+        <translation>After receiving the card, you can view additional information about the card by clicking on it.</translation>
+    </message>
+    <message>
+        <source>### How to use?</source>
+        <translation>### How to use?</translation>
     </message>
 </context>
 <context>

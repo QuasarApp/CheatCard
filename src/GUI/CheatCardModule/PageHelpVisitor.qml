@@ -17,48 +17,47 @@ Credits {
     state: "about"
     listCustomInfo: [
         {
-            text: "### Как использовать?",
+            text: qsTr("### How to use?"),
             align: Label.AlignHCenter,
         },
         {
-            text: qsTr("&nbsp;&nbsp;&nbsp;&nbsp;Алгоритм действий для покупателя работает по системе:"),
+            text: qsTr("&nbsp;&nbsp;&nbsp;&nbsp;The algorithm of actions for the buyer works according to the system:"),
             align: Label.AlignLeft
         },
         {
-            text: qsTr("* Пришёл в заведение."),
+            text: qsTr("* Came to the establishment."),
             align: Label.AlignLeft
         },
         {
-            text: qsTr("* Сделал заказ."),
+            text: qsTr("* Made an order."),
             align: Label.AlignLeft
         },
         {
-            text: qsTr("* Показал qr код в приложении на кассе."),
+            text: qsTr("* Showed the QR code in the application at the checkout."),
             align: Label.AlignLeft
         },
         {
-            text: qsTr("* Получил печать в карточку."),
+            text: qsTr("* Received print to card."),
             align: Label.AlignLeft
         },
         {
-            text: qsTr("* Повторил эту процедуру несколько раз и получил бонус установленный продавцом."),
+            text: qsTr("* Repeated this procedure several times and received the bonus set by the seller."),
             align: Label.AlignLeft
         },
         {
-            text: qsTr("&nbsp;&nbsp;&nbsp;&nbsp;Для того что бы открыть QR код нажмите на элемент в верхнем левом углу экрана. "),
+            text: qsTr("&nbsp;&nbsp;&nbsp;&nbsp;In order to open the QR code, click on the item in the upper left corner of the screen. "),
             align: Label.AlignLeft
         },
         {
-            text: qsTr("Help1.jpg"),
+            text: qsTr('<img src="qrc:/private/resources/help/Help1.jpg" alt="tt" width="100"/>'),
             align: Label.AlignHCenter,
-//            sourceImg: "qrc:/private/resources/help/Help1.jpg"
         },
         {
-            text: qsTr("&nbsp;&nbsp;&nbsp;&nbsp;Откроется сайдбар внизу которого будет QR код, вы можете нажать на него что бы увеличить."),
+            text: qsTr("&nbsp;&nbsp;&nbsp;&nbsp;A sidebar will open at the bottom of which there will be a QR code, you can click on it to enlarge it."),
             align: Label.AlignLeft
         },
         {
-            text: qsTr("&nbsp;&nbsp;&nbsp;&nbsp;После получения карты вы можете посмотреть дополнительную информацию о карте нажав на неё."),
+            text: qsTr("&nbsp;&nbsp;&nbsp;&nbsp;After receiving the card, you can view additional information about the card by clicking on it."),
             align: Label.AlignLeft
         },
         {
