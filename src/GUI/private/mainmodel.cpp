@@ -419,7 +419,6 @@ void MainModel::handleCardEditFinished(const QSharedPointer<Card>& card) {
         if (service) {
 
             QmlNotificationService::Listner listner = [card, localCard, this] (bool accepted) {
-                _currentCardsListModel->removeCard(card->cardId());
                 _currentCardsListModel->importCard(localCard);
                 saveCard(localCard);
 
@@ -473,14 +472,14 @@ void MainModel::handlePurchaseWasSuccessful(QSharedPointer<RC::UsersCards> card)
     QSharedPointer<CardModel> cardModel;
 
     if (_mode == Mode::Client) {
-        cardModel = _cardsListModel->cache().value(card->getCard()).model;
+        cardModel = _cardsListModel->cache().value(card->getCard());
         _cardsListModel->setPurchasesNumbers({card});
         freeIndex = _backEndModel->getCardFreeIndex(card->getCard());
 
     } else {
-        cardModel = _ownCardsListModel->cache().value(card->getCard()).model;
+        cardModel = _ownCardsListModel->cache().value(card->getCard());
 
-        freeIndex = _ownCardsListModel->cache().value(card->getCard()).source->getFreeIndex();
+        freeIndex = cardModel->card()->getFreeIndex();
     }
 
     int freeItems = _backEndModel->getFreeItemsCount(card, freeIndex);

@@ -17,19 +17,6 @@ class CardModel;
 class Card;
 class UsersCards;
 
-struct TableCache {
-
-    TableCache ();
-
-    TableCache (const QSharedPointer<Card>& src,
-                const QSharedPointer<CardModel>& mod);
-
-    QSharedPointer<Card> source;
-    QSharedPointer<CardModel> model;
-
-    bool isValid() const;
-};
-
 class CardsListModel: public QAbstractListModel
 {
     Q_OBJECT
@@ -55,7 +42,7 @@ public:
     Q_INVOKABLE void removeCard(int cardId);
     Q_INVOKABLE void cardSelected(int cardId);
 
-    const QHash<int, TableCache> &cache() const;
+    const QHash<int, QSharedPointer<CardModel>> &cache() const;
 
 signals:
     void sigCardRemoved(int cardName);
@@ -64,10 +51,11 @@ signals:
 
 
 private:
+    QSharedPointer<CardModel> updateCard(const QSharedPointer<Card> & card);
 
     void configureModel(const QSharedPointer<CardModel>& cardModel);
 
-    QHash<int, TableCache> _cache;
+    QHash<int, QSharedPointer<CardModel>> _cache;
 
     QList<int> _cards;
 };
