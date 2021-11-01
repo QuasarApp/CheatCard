@@ -52,6 +52,9 @@ public:
 
     long long getId() const;
 
+    unsigned int getCardVersion() const;
+    void setCardVersion(unsigned int newCardVersion);
+
 protected:
     QString primaryKey() const override;
     QDataStream &fromStream(QDataStream &stream) override;
@@ -61,6 +64,7 @@ private:
     long long id = 0;
     unsigned int user = 0;
     unsigned int card = 0;
+    unsigned int cardVersion = 0;
     unsigned int purchasesNumber = 0;
     unsigned int received = 0;
     bool owner = false;
