@@ -10,15 +10,19 @@
 #define CARDPROXYMODEL_H
 
 #include <QSortFilterProxyModel>
-
+#include "icardlistmodel.h"
 
 namespace RC {
 
-class CardProxyModel: public QSortFilterProxyModel
+class CardProxyModel: public QSortFilterProxyModel, public iCardListModel
 {
     Q_OBJECT
 public:
     CardProxyModel();
+
+    Q_INVOKABLE void addCard() override;
+    Q_INVOKABLE void removeCard(int cardId) override;
+    Q_INVOKABLE void cardSelected(int cardId) override;
 
     // QSortFilterProxyModel interface
 protected:

@@ -14,6 +14,24 @@ CardProxyModel::CardProxyModel()
 
 }
 
+void CardProxyModel::addCard() {
+    if (auto source = dynamic_cast<iCardListModel*>(sourceModel())) {
+        source->addCard();
+    }
+}
+
+void CardProxyModel::removeCard(int cardId) {
+    if (auto source = dynamic_cast<iCardListModel*>(sourceModel())) {
+        source->removeCard(cardId);
+    }
+}
+
+void CardProxyModel::cardSelected(int cardId) {
+    if (auto source = dynamic_cast<iCardListModel*>(sourceModel())) {
+        source->cardSelected(cardId);
+    }
+}
+
 bool CardProxyModel::lessThan(const QModelIndex &source_left,
                               const QModelIndex &source_right) const {
 
@@ -24,6 +42,9 @@ bool CardProxyModel::lessThan(const QModelIndex &source_left,
     CardModel * right = qobject_cast<CardModel*>(obj);
 
     if (!(right && left))
+        return false;
+
+    if (left->card()->title().isEmpty())
         return false;
 
     return left->card()->title() < right->card()->title();
