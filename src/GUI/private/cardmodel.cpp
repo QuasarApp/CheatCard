@@ -278,5 +278,11 @@ void CardModel::setFreeItem(const QString &newFreeItem) {
     _card->setFreeItemName(newFreeItem);
 }
 
+int CardModel::cardVersion() const {
+    if (!_card)
+        return 0;
+    return _card->getCardVersion();
+}
+
 
 }
