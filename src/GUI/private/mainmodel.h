@@ -180,6 +180,7 @@ private:
 
     Mode _mode = Mode::Client;
     friend class ImageProvider;
+    void saveCard(const QSharedPointer<RC::Card> &card);
 };
 
 }

@@ -17,6 +17,7 @@
 #include <CheatCard/userscards.h>
 #include <getsinglevalue.h>
 #include <cmath>
+#include <dbobjectsrequest.h>
 
 namespace RC {
 
@@ -139,8 +140,9 @@ bool BaseNode::processCardStatus(const QSharedPointer<QH::PKG::DataPack<UsersCar
         }
 
         auto dbCard = _db->getObject(userrquest);
+        bool hasUpdate = dbCard && dbCard->getCardVersion() < cardStatus->getCardVersion();
 
-        if (!dbCard) {
+        if (!dbCard || hasUpdate) {
             request.push(cardStatus->getCard());
         }
     }
@@ -183,6 +185,21 @@ BaseNode::getUserCardData(unsigned int userId, unsigned int cardId) const {
 
     auto purches = _db->getObject(request);
     return purches;
+}
+
+QList<QSharedPointer<UsersCards> >
+BaseNode::getAllUserFromCard(unsigned int cardId, bool includeOwner) const {
+
+    QString where = QString("card=%0").arg(cardId);
+
+    if (!includeOwner) {
+        where += " AND owner=0";
+    }
+
+    QH::PKG::DBObjectsRequest<UsersCards> request("UsersCards",
+                                                  where);
+
+    return _db->getObject(request)->data();
 }
 
 QSharedPointer<Card> BaseNode::getCard(unsigned int cardId) {

@@ -52,6 +52,7 @@ QDataStream &UsersCards::fromStream(QDataStream &stream) {
     stream >> purchasesNumber;
     stream >> received;
     stream >> owner;
+    stream >> cardVersion;
 
     return stream;
 }
@@ -65,8 +66,17 @@ QDataStream &UsersCards::toStream(QDataStream &stream) const {
     stream << purchasesNumber;
     stream << received;
     stream << owner;
+    stream << cardVersion;
 
     return stream;
+}
+
+unsigned int UsersCards::getCardVersion() const {
+    return cardVersion;
+}
+
+void UsersCards::setCardVersion(unsigned int newCardVersion) {
+    cardVersion = newCardVersion;
 }
 
 long long UsersCards::getId() const {
