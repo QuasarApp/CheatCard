@@ -12,6 +12,7 @@
 #include "qrcodereceiver.h"
 #include "waitconnectionmodel.h"
 #include "soundplayback.h"
+#include "cardproxymodel.h"
 
 #include <CheatCard/database.h>
 #include "CheatCard/user.h"
@@ -228,6 +229,11 @@ void MainModel::initCardsListModels() {
     _cardsListModel = new CardsListModel();
     _ownCardsListModel = new CardsListModel();
 
+    _currentCardsListModel = new CardProxyModel();
+
+    _currentCardsListModel->sort(0);
+    _currentCardsListModel->setDynamicSortFilter(true);
+
     connect(_ownCardsListModel, &CardsListModel::sigEditFinished,
             this, &MainModel::handleCardEditFinished);
 
@@ -284,11 +290,10 @@ void MainModel::initWaitConnectionModel() {
 }
 
 void MainModel::setCardListModel(CardsListModel *model) {
-    if (_currentCardsListModel == model)
+    if (_currentCardsListModel->sourceModel() == model)
         return;
 
-    _currentCardsListModel = model;
-    emit cardsListChanged();
+    _currentCardsListModel->setSourceModel(model);
 }
 
 void MainModel::initMode(const QSharedPointer<UserModel> &user,
@@ -419,13 +424,13 @@ void MainModel::handleCardEditFinished(const QSharedPointer<Card>& card) {
         if (service) {
 
             QmlNotificationService::Listner listner = [card, localCard, this] (bool accepted) {
-                _currentCardsListModel->importCard(localCard);
+                getCurrentListModel()->importCard(localCard);
                 saveCard(localCard);
 
                 if (accepted) {
 
                     card->idGen();
-                    _currentCardsListModel->importCard(card);
+                    getCurrentListModel()->importCard(card);
                     saveCard(card);
                 }
             };
@@ -521,6 +526,10 @@ bool MainModel::sendSellerDataToServer(const QSharedPointer<UserHeader>& header,
     }
 
     return true;
+}
+
+CardsListModel *MainModel::getCurrentListModel() const {
+    return static_cast<CardsListModel*>(_currentCardsListModel->sourceModel());
 }
 
 void MainModel::handleListenStop() {

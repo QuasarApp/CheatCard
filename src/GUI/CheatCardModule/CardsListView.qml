@@ -163,6 +163,7 @@ Page {
             visible: root.editable
             onClicked: () => {
                            root.model.addCard()
+
                        }
         }
     }
