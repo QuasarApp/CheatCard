@@ -360,6 +360,17 @@
     </message>
 </context>
 <context>
+    <name>RC::MainModel</name>
+    <message>
+        <source>You try change production card rules!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your clients alredy use this card and you try change bonus rules. I think users don&apos;t like this change. I can save this changes as a new card only. After save old card continue works correctly. Do you want to save this card as new card?</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>RegistrationFinishedPage</name>
     <message>
         <source>Registration passed!!!</source>

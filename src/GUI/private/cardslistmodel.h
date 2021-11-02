@@ -8,6 +8,8 @@
 #ifndef CARDSLISTMODEL_H
 #define CARDSLISTMODEL_H
 
+#include "icardlistmodel.h"
+
 #include <QAbstractListModel>
 #include <CheatCard/database.h>
 
@@ -17,20 +19,7 @@ class CardModel;
 class Card;
 class UsersCards;
 
-struct TableCache {
-
-    TableCache ();
-
-    TableCache (const QSharedPointer<Card>& src,
-                const QSharedPointer<CardModel>& mod);
-
-    QSharedPointer<Card> source;
-    QSharedPointer<CardModel> model;
-
-    bool isValid() const;
-};
-
-class CardsListModel: public QAbstractListModel
+class CardsListModel: public QAbstractListModel, public iCardListModel
 {
     Q_OBJECT
 public:
@@ -51,11 +40,11 @@ public:
     QSharedPointer<CardModel> importCard(const QSharedPointer<Card> & card);
     void setPurchasesNumbers(const QList<QSharedPointer<RC::UsersCards> > &purchasesNumbers);
 
-    Q_INVOKABLE void addCard();
-    Q_INVOKABLE void removeCard(int cardId);
-    Q_INVOKABLE void cardSelected(int cardId);
+    Q_INVOKABLE void addCard() override;
+    Q_INVOKABLE void removeCard(int cardId) override;
+    Q_INVOKABLE void cardSelected(int cardId) override;
 
-    const QHash<int, TableCache> &cache() const;
+    const QHash<int, QSharedPointer<CardModel>> &cache() const;
 
 signals:
     void sigCardRemoved(int cardName);
@@ -64,10 +53,11 @@ signals:
 
 
 private:
+    QSharedPointer<CardModel> updateCard(const QSharedPointer<Card> & card);
 
     void configureModel(const QSharedPointer<CardModel>& cardModel);
 
-    QHash<int, TableCache> _cache;
+    QHash<int, QSharedPointer<CardModel>> _cache;
 
     QList<int> _cards;
 };

@@ -25,6 +25,7 @@ class CardModel: public QObject
 
     Q_PROPERTY(int purchasesNumber READ purchasesNumber NOTIFY purchasesNumberChanged)
     Q_PROPERTY(int freeIndex READ freeIndex WRITE setFreeIndex NOTIFY objChanged)
+    Q_PROPERTY(int cardVersion READ cardVersion NOTIFY objChanged)
 
     Q_PROPERTY(QString phone READ phone WRITE setPhone NOTIFY objChanged)
     Q_PROPERTY(QString telegramm READ telegramm WRITE setTelegramm NOTIFY objChanged)
@@ -83,6 +84,8 @@ public:
 
     QString getFreeItem() const;
     void setFreeItem(const QString &newFreeItem);
+
+    int cardVersion() const;
 
 signals:
     void objChanged();
