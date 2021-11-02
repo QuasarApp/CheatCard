@@ -22,6 +22,11 @@ namespace RC {
 
 BaseNode::BaseNode(QH::ISqlDBCache *db) {
     _db = db;
+
+    useSystemSslConfiguration();
+    setIgnoreSslErrors(QList<QSslError>() << QSslError::SelfSignedCertificate
+                       << QSslError::SelfSignedCertificateInChain
+                       << QSslError::HostNameMismatch);
 }
 
 QH::ParserResult BaseNode::parsePackage(const QSharedPointer<QH::PKG::AbstractData> &pkg,

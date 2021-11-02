@@ -39,7 +39,7 @@ if (${QT_VERSION} VERSION_GREATER_EQUAL 6.0)
 endif()
 
 updateGitVars()
-set(CHEAT_CARD_VERSION "0.${GIT_COMMIT_COUNT}.${GIT_COMMIT_HASH}")
+set(CHEAT_CARD_VERSION "1.${GIT_COMMIT_COUNT}.${GIT_COMMIT_HASH}")
 
 if (NOT DEFINED CHEATCARD_TESTS)
     set(CHEATCARD_TESTS ON)
@@ -100,7 +100,7 @@ if (NOT DEFINED CHEATCARD_APP)
 endif()
 
 set(HEART_BUILD_LVL 1)
-set(HEART_SSL OFF)
+set(HEART_SSL ON)
 
 add_subdirectory(submodules/Heart)
 add_subdirectory(src/RC)
