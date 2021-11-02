@@ -58,6 +58,9 @@ ApplicationWindow {
 
     header: ToolBar {
         id: toolBar
+
+        Material.foreground: "#ffffff"
+
         position: ToolBar.Header
         RowLayout {
             anchors.fill: parent
@@ -111,7 +114,6 @@ ApplicationWindow {
                 font.bold: true
                 font.pointSize: 14
                 enabled: !firstRun.visible
-
                 onClicked: mainMenu.popup(this, menuButton.x, menuButton.height)
             }
         }
