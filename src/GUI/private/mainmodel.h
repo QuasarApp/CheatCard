@@ -29,6 +29,7 @@ class BaseNode;
 class UsersCards;
 class IBilling;
 class UserHeader;
+class CardProxyModel;
 
 /**
  * @brief The MainModel class is main model of the application.
@@ -156,13 +157,16 @@ private:
                                 unsigned int cardId,
                                 int purchasesCount);
 
+    CardsListModel* getCurrentListModel() const;
+
     QH::ISqlDBCache * _db = nullptr;
     QSharedPointer<UserModel> _currentUser;
     QSharedPointer<Config> _config;
 
-    CardsListModel *_currentCardsListModel = nullptr;
     CardsListModel *_cardsListModel = nullptr;
     CardsListModel *_ownCardsListModel = nullptr;
+
+    CardProxyModel *_currentCardsListModel = nullptr;
 
     AboutModel *_aboutModel = nullptr;
     SoundPlayback *_soundEffect = nullptr;

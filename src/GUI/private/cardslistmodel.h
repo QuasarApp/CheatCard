@@ -8,6 +8,8 @@
 #ifndef CARDSLISTMODEL_H
 #define CARDSLISTMODEL_H
 
+#include "icardlistmodel.h"
+
 #include <QAbstractListModel>
 #include <CheatCard/database.h>
 
@@ -17,7 +19,7 @@ class CardModel;
 class Card;
 class UsersCards;
 
-class CardsListModel: public QAbstractListModel
+class CardsListModel: public QAbstractListModel, public iCardListModel
 {
     Q_OBJECT
 public:
@@ -38,9 +40,9 @@ public:
     QSharedPointer<CardModel> importCard(const QSharedPointer<Card> & card);
     void setPurchasesNumbers(const QList<QSharedPointer<RC::UsersCards> > &purchasesNumbers);
 
-    Q_INVOKABLE void addCard();
-    Q_INVOKABLE void removeCard(int cardId);
-    Q_INVOKABLE void cardSelected(int cardId);
+    Q_INVOKABLE void addCard() override;
+    Q_INVOKABLE void removeCard(int cardId) override;
+    Q_INVOKABLE void cardSelected(int cardId) override;
 
     const QHash<int, QSharedPointer<CardModel>> &cache() const;
 
