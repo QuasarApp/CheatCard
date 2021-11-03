@@ -89,7 +89,7 @@ Page {
 
                         onSigHold: {
                             if (root.model) {
-                                root.model.cardSelected(card.id)
+                                root.model.cardSelected(card.id, 0)
                             }
 
                             const fAvailable = root.editable && !cardView.editable && cardItem.ListView.isCurrentItem;
@@ -103,8 +103,17 @@ Page {
 
                         onSigSwipe: (side) => {
 
-                                        if (root.editable)
+                                        if (root.editable) {
+
+                                            if (root.model) {
+                                                root.model.cardSelected(card.id, 1)
+                                            }
+
+                                            const activity = "qrc:/CheatCardModule/SellerStatistic.qml";
+                                            activityProcessor.newActivity(activity,
+                                                                          mainModel.statisticModel)
                                             return;
+                                        }
 
                                         if (list.orientation === ListView.Vertical ||
                                             side === 2 || side === 3) {

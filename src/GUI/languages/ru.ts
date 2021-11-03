@@ -658,6 +658,13 @@
     </message>
 </context>
 <context>
+    <name>RC::AbstrcattableModelWithHeaders</name>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>RC::MainModel</name>
     <message>
         <source>Your customers already using this card!</source>
@@ -666,6 +673,21 @@
     <message>
         <source> You trying to change the bonus rules. These changes will be saved as a new card. The old card continue work correctly and all customers data will be saved. Do you want to continue?</source>
         <translation>Вы пытаетесь изменить правила бонуса. Эти изменения будут сохранены как новая карточка. Старая карта же продолжит работать корректно, и все данные о клиентах будут сохранены. Вы  точно хотите продолжить?</translation>
+    </message>
+</context>
+<context>
+    <name>RC::SellerStatisticModel</name>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Purchases count</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total bonuses issued</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

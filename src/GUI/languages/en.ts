@@ -697,6 +697,13 @@
     </message>
 </context>
 <context>
+    <name>RC::AbstrcattableModelWithHeaders</name>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>RC::MainModel</name>
     <message>
         <source>You try change production card rules!</source>
@@ -713,6 +720,21 @@
     <message>
         <source> You trying to change the bonus rules. These changes will be saved as a new card. The old card continue work correctly and all customers data will be saved. Do you want to continue?</source>
         <translation> You trying to change the bonus rules. These changes will be saved as a new card. The old card continue work correctly and all customers data will be saved. Do you want to continue?</translation>
+    </message>
+</context>
+<context>
+    <name>RC::SellerStatisticModel</name>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Purchases count</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total bonuses issued</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

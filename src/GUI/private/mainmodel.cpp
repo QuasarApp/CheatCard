@@ -13,6 +13,7 @@
 #include "waitconnectionmodel.h"
 #include "soundplayback.h"
 #include "cardproxymodel.h"
+#include "sellerstatisticmodel.h"
 
 #include <CheatCard/database.h>
 #include "CheatCard/user.h"
@@ -52,6 +53,7 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
     initCardsListModels();
     initImagesModels();
     initWaitConnectionModel();
+    initSellerStatisticModel();
 
     setCurrentUser(initUser());
     _config = initConfig(_currentUser->user()->userId());
@@ -242,6 +244,9 @@ void MainModel::initCardsListModels() {
 
     connect(_ownCardsListModel, &CardsListModel::sigCardSelectedForWork,
             this, &MainModel::handleCardSelectedForWork);
+
+    connect(_ownCardsListModel, &CardsListModel::sigCardSelectedForStatistic,
+            this, &MainModel::handleCardSelectedForStatistic);
 }
 
 void MainModel::initImagesModels() {
@@ -287,6 +292,10 @@ void MainModel::initWaitConnectionModel() {
 
     connect(_waitModel, &WaitConnectionModel::purchaseTaskCompleted,
             this, &MainModel::handleListenStart, Qt::QueuedConnection);
+}
+
+void MainModel::initSellerStatisticModel() {
+    _statisticModel = new SellerStatisticModel;
 }
 
 void MainModel::setCardListModel(CardsListModel *model) {
@@ -361,6 +370,10 @@ int MainModel::getReceivedItemsCount(int cardId) const {
     return _backEndModel->getCountOfReceivedItems(
                 _currentUser->user()->userId(),
                 cardId);
+}
+
+QObject *MainModel::statisticModel() const {
+    return _statisticModel;
 }
 
 int MainModel::getMode() const {
@@ -460,6 +473,12 @@ void MainModel::handleCardRemoved(int id) {
 
 void MainModel::handleCardSelectedForWork(const QSharedPointer<CardModel> &card) {
     _waitModel->setCard(card);
+}
+
+void MainModel::handleCardSelectedForStatistic(const QSharedPointer<CardModel> &card) {
+    auto usersList = _backEndModel->getAllUserFromCard(card->card()->cardId(), false);
+
+    _statisticModel->setDataList(card, usersList);
 }
 
 void MainModel::handleConnectWasBegin() {

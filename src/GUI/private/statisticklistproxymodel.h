@@ -5,19 +5,22 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#ifndef ICARDLISTMODEL_H
-#define ICARDLISTMODEL_H
+
+#ifndef STATISTICKLISTPROXYMODEL_H
+#define STATISTICKLISTPROXYMODEL_H
+
+#include <QSortFilterProxyModel>
 
 namespace RC {
 
-class iCardListModel
+class StatistickListProxyModel : public QSortFilterProxyModel
 {
-public:
-    iCardListModel();
+    Q_OBJECT
 
-    virtual void addCard() = 0;
-    virtual void removeCard(int cardId) = 0;
-    virtual void cardSelected(int cardId, int type) = 0;
+public:
+    StatistickListProxyModel(QObject* parent = nullptr);
 };
+
 }
-#endif // ICARDLISTMODEL_H
+
+#endif // STATISTICKLISTPROXYMODEL_H

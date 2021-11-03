@@ -93,10 +93,12 @@ Page {
 
                 onReleased: (mouse) => {
 
+                                const width = 20;
+
                                 if(directionX > directionY) {
-                                    root.sigSwipe(directionX > 0)
+                                    root.sigSwipe(directionX > width)
                                 } else {
-                                    root.sigSwipe(2 + directionY > 0)
+                                    root.sigSwipe(2 + directionY > width)
                                 }
 
                             }
