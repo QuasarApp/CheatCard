@@ -435,11 +435,11 @@ void MainModel::handleCardEditFinished(const QSharedPointer<Card>& card) {
                 }
             };
 
-            service->setQuestion(listner, tr("You try change production card rules!"),
-                                 tr("Your clients alredy use this card and you try change bonus rules."
-                                    " I think users don't like this change. I can save this changes as a new card only."
-                                    " After save old card continue works correctly."
-                                    " Do you want to save this card as new card?"));
+            service->setQuestion(listner, tr("Your customers already using this card!"),
+                                 tr(" You trying to change the bonus rules."
+                                    " These changes will be saved as a new card."
+                                    " The old card continue work correctly and all customers data will be saved."
+                                    " Do you want to continue?"));
 
 
         }

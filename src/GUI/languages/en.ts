@@ -700,11 +700,19 @@
     <name>RC::MainModel</name>
     <message>
         <source>You try change production card rules!</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">You try change production card rules!</translation>
     </message>
     <message>
         <source>Your clients alredy use this card and you try change bonus rules. I think users don&apos;t like this change. I can save this changes as a new card only. After save old card continue works correctly. Do you want to save this card as new card?</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Your clients alredy use this card and you try change bonus rules. I think users don&apos;t like this change. I can save this changes as a new card only. After save old card continue works correctly. Do you want to save this card as new card?</translation>
+    </message>
+    <message>
+        <source>Your customers already using this card!</source>
+        <translation>Your customers already using this card!</translation>
+    </message>
+    <message>
+        <source> You trying to change the bonus rules. These changes will be saved as a new card. The old card continue work correctly and all customers data will be saved. Do you want to continue?</source>
+        <translation> You trying to change the bonus rules. These changes will be saved as a new card. The old card continue work correctly and all customers data will be saved. Do you want to continue?</translation>
     </message>
 </context>
 <context>
