@@ -58,6 +58,9 @@ ApplicationWindow {
 
     header: ToolBar {
         id: toolBar
+
+        Material.foreground: "#ffffff"
+
         position: ToolBar.Header
         RowLayout {
             anchors.fill: parent
@@ -111,7 +114,6 @@ ApplicationWindow {
                 font.bold: true
                 font.pointSize: 14
                 enabled: !firstRun.visible
-
                 onClicked: mainMenu.popup(this, menuButton.x, menuButton.height)
             }
         }
@@ -136,6 +138,21 @@ ApplicationWindow {
 
             onClicked:  () => {
                             activityProcessor.newActivityFromComponent(about, mainModel.getAboutModel());
+                        }
+        }
+
+        MenuItem {
+            text: qsTr("Help")
+
+            onClicked:  () => {
+
+                            if (mainModel.mode) {
+                                activityProcessor.newActivity("qrc:CheatCardModule/PageHelpSeller.qml");
+                            } else {
+                                activityProcessor.newActivity("qrc:CheatCardModule/PageHelpVisitor.qml");
+                            }
+
+
                         }
         }
     }

@@ -73,7 +73,7 @@ android {
     defaultConfig {
         resConfig "en"
         multiDexEnabled true
-        minSdkVersion = 28
+        minSdkVersion = 21
         targetSdkVersion = 30
     }
 }
