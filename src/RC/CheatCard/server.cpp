@@ -16,6 +16,8 @@
 
 #include <badrequest.h>
 #include "clearolddata.h"
+#include <QCoreApplication>
+
 namespace RC {
 
 Server::Server(QH::ISqlDBCache *db): BaseNode(db) {
@@ -36,6 +38,12 @@ Server::Server(QH::ISqlDBCache *db): BaseNode(db) {
     task->setMode(QH::ScheduleMode::Repeat);
 
     sheduleTask(task);
+
+    QH::SslSrtData sslData;
+    sslData.commonName = DEFAULT_CHEAT_CARD_HOST;
+    sslData.organization = QCoreApplication::organizationName();
+
+    useSelfSignedSslConfiguration(sslData);
 }
 
 void Server::nodeConnected(QH::AbstractNodeInfo *node) {
