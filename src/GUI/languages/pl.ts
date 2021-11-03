@@ -82,6 +82,10 @@
         <source>About</source>
         <translation>Informacja</translation>
     </message>
+    <message>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ColorPicker</name>

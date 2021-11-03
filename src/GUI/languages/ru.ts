@@ -85,6 +85,10 @@
         <source> (Seller mode)</source>
         <translation> (Режим продавца)</translation>
     </message>
+    <message>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ColorPicker</name>

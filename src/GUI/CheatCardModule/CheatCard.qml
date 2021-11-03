@@ -138,6 +138,14 @@ ApplicationWindow {
                             activityProcessor.newActivityFromComponent(about, mainModel.getAboutModel());
                         }
         }
+
+        MenuItem {
+            text: qsTr("Settings")
+
+            onClicked:  () => {
+                            activityProcessor.newActivityFromComponent(settings, mainModel.getAboutModel());
+                        }
+        }
     }
 
     StackView {
@@ -208,6 +216,11 @@ ApplicationWindow {
     Component {
         id: about
         About {}
+    }
+
+    Component {
+        id: settings
+        Settings {}
     }
 
     Drawer {
