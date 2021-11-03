@@ -522,6 +522,12 @@ bool MainModel::sendSellerDataToServer(const QSharedPointer<UserHeader>& header,
         QuasarAppUtils::Params::log("Failed to increment user card data",
                                     QuasarAppUtils::Error);
 
+        auto service = QmlNotificationService::NotificationService::getService();
+
+        service->setNotify(tr("Oops"),
+                           tr("Some kind of garbage happened when reading the qr code. Try again"),
+                           "", QmlNotificationService::NotificationData::Warning);
+
         return false;
     }
 

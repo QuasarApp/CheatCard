@@ -547,6 +547,14 @@
         <source> You trying to change the bonus rules. These changes will be saved as a new card. The old card continue work correctly and all customers data will be saved. Do you want to continue?</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Oops</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Some kind of garbage happened when reading the qr code. Try again</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RegistrationFinishedPage</name>
