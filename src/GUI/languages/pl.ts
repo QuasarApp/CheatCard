@@ -540,11 +540,11 @@
 <context>
     <name>RC::MainModel</name>
     <message>
-        <source>You try change production card rules!</source>
+        <source>Your customers already using this card!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Your clients alredy use this card and you try change bonus rules. I think users don&apos;t like this change. I can save this changes as a new card only. After save old card continue works correctly. Do you want to save this card as new card?</source>
+        <source> You trying to change the bonus rules. These changes will be saved as a new card. The old card continue work correctly and all customers data will be saved. Do you want to continue?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
