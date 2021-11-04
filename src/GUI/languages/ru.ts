@@ -672,7 +672,15 @@
     </message>
     <message>
         <source> You trying to change the bonus rules. These changes will be saved as a new card. The old card continue work correctly and all customers data will be saved. Do you want to continue?</source>
-        <translation>Вы пытаетесь изменить правила бонуса. Эти изменения будут сохранены как новая карточка. Старая карта же продолжит работать корректно, и все данные о клиентах будут сохранены. Вы  точно хотите продолжить?</translation>
+        <translation> Вы пытаетесь изменить правила бонуса. Эти изменения будут сохранены как новая карточка. Старая карта же продолжит работать корректно, и все данные о клиентах будут сохранены. Вы  точно хотите продолжить?</translation>
+    </message>
+    <message>
+        <source>Oops</source>
+        <translation>Упс</translation>
+    </message>
+    <message>
+        <source>Some kind of garbage happened when reading the qr code. Try again</source>
+        <translation>При чтении qr кода произошла какая-то фигня. Попробуйте снова</translation>
     </message>
 </context>
 <context>
