@@ -62,6 +62,8 @@ if (ANDROID)
         QmlNotyfyService
         SCodes
         ZXing
+        OpenSSL::SSL
+        OpenSSL::Crypto
         )
 
 
