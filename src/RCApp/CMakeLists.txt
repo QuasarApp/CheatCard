@@ -63,8 +63,8 @@ if (ANDROID)
         QmlNotyfyService
         SCodes
         ZXing
-        ${OPENSSL_ROOT_PATH}/lib/libcrypto.so.1.1
-        ${OPENSSL_ROOT_PATH}/lib/libssl.so.1.1
+        ${OPENSSL_ROOT_PATH}/lib/libcrypto.so
+        ${OPENSSL_ROOT_PATH}/lib/libssl.so
         )
 
 
