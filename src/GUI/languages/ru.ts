@@ -697,6 +697,14 @@
         <source>Total bonuses issued</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>User id</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last visit</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RegistrationFinishedPage</name>

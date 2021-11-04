@@ -31,6 +31,9 @@ protected:
                             int purchasesCount);
 
 private:
+
+    QString randomUserName() const;
+
     QHash<long long, QSharedPointer<Session>> _lastRequested;
 
 

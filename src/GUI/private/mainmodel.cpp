@@ -477,8 +477,9 @@ void MainModel::handleCardSelectedForWork(const QSharedPointer<CardModel> &card)
 
 void MainModel::handleCardSelectedForStatistic(const QSharedPointer<CardModel> &card) {
     auto usersList = _backEndModel->getAllUserFromCard(card->card()->cardId(), false);
+    auto usersDataList = _backEndModel->getAllUserDataFromCard(card->card()->cardId(), false);
 
-    _statisticModel->setDataList(card, usersList);
+    _statisticModel->setDataList(card, usersList, usersDataList);
 }
 
 void MainModel::handleConnectWasBegin() {

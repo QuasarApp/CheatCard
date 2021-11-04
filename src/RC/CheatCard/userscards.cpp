@@ -71,6 +71,10 @@ QDataStream &UsersCards::toStream(QDataStream &stream) const {
     return stream;
 }
 
+const QDateTime& UsersCards::getTime() const {
+    return _time;
+}
+
 unsigned int UsersCards::getCardVersion() const {
     return cardVersion;
 }
@@ -145,6 +149,7 @@ bool UsersCards::fromSqlRecord(const QSqlRecord &q) {
     card = q.value("card").toUInt();
     received = q.value("received").toUInt();
     owner = q.value("owner").toBool();
+    _time = QDateTime::fromTime_t(q.value("time").toInt());
 
     return true;
 }

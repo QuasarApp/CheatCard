@@ -10,6 +10,7 @@
 #include "carddatarequest.h"
 #include "cardstatusrequest.h"
 #include "nodeinfo.h"
+#include "user.h"
 
 #include <CheatCard/card.h>
 #include <dbobjectsrequest.h>
@@ -214,6 +215,22 @@ BaseNode::getAllUserFromCard(unsigned int cardId, bool includeOwner) const {
 
     QH::PKG::DBObjectsRequest<UsersCards> request("UsersCards",
                                                   where);
+
+    return _db->getObject(request)->data();
+}
+
+QList<QSharedPointer<User> >
+BaseNode::getAllUserDataFromCard(unsigned int cardId, bool includeOwner) const {
+    QString where = QString("card=%0").arg(cardId);
+
+    if (!includeOwner) {
+        where += " AND owner=0";
+    }
+
+    where = QString("id IN (select user from UsersCards where %0)").arg(where);
+
+    QH::PKG::DBObjectsRequest<User> request("Users",
+                                             where);
 
     return _db->getObject(request)->data();
 }

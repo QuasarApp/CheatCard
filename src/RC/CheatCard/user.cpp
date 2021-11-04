@@ -33,6 +33,24 @@ QString User::primaryKey() const {
     return "id";
 }
 
+QDataStream &User::fromStream(QDataStream &stream) {
+     DBObject::fromStream(stream);
+
+     stream >> _name;
+     stream >> _key;
+
+     return stream;
+}
+
+QDataStream &User::toStream(QDataStream &stream) const {
+    DBObject::toStream(stream);
+
+    stream << _name;
+    stream << _key;
+
+    return stream;
+}
+
 QByteArray User::randomArray() const {
 
     QByteArray result;

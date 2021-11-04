@@ -12,6 +12,7 @@
 
 #include <dbobject.h>
 #include "CheatCard/core_global.h"
+#include <QDateTime>
 #include <QSharedPointer>
 
 namespace RC {
@@ -55,6 +56,8 @@ public:
     unsigned int getCardVersion() const;
     void setCardVersion(unsigned int newCardVersion);
 
+    const QDateTime& getTime() const;
+
 protected:
     QString primaryKey() const override;
     QDataStream &fromStream(QDataStream &stream) override;
@@ -67,6 +70,7 @@ private:
     unsigned int cardVersion = 0;
     unsigned int purchasesNumber = 0;
     unsigned int received = 0;
+    QDateTime _time;
     bool owner = false;
 
 

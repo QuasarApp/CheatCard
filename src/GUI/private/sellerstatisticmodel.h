@@ -17,6 +17,7 @@ namespace RC {
 class UsersCards;
 class CardModel;
 class StatistickListProxyModel;
+class User;
 
 class SellerStatisticModel: public AbstrcattableModelWithHeaders
 {
@@ -33,7 +34,8 @@ public:
     QVariant data(const QModelIndex &index, int role) const override;
 
     void setDataList(const QSharedPointer<RC::CardModel>& cardData,
-                     const QList<QSharedPointer<RC::UsersCards> > &newData);
+                     const QList<QSharedPointer<RC::UsersCards> > &newData,
+                     const QList<QSharedPointer<RC::User>> & userData);
 
     const QSharedPointer<RC::CardModel>& card() const;
 
@@ -42,12 +44,17 @@ public:
 
     Q_INVOKABLE QObject* proxy() const;
 
+    const QHash<unsigned int, QSharedPointer<RC::User> > &users() const;
+    void setUsers(const QHash<unsigned int, QSharedPointer<RC::User> > &newUsers);
+
 signals:
     void currentCardChanged();
 
 private:
     QList<QSharedPointer<RC::UsersCards>> _data;
     QSharedPointer<RC::CardModel> _card;
+    QHash<unsigned int, QSharedPointer<RC::User>> _users;
+
     StatistickListProxyModel *_proxy = nullptr;
 };
 

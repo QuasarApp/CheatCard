@@ -31,13 +31,10 @@ Page {
                 id: horizontalHeader
                 syncView: tableView
 
-                delegate: Rectangle {
-                    color: "#00000000"
-                    Label {
-                        text: display
-                        horizontalAlignment:  Text.AlignHCenter
-                        verticalAlignment:  Text.AlignVCenter
-                        wrapMode: Text.WordWrap
+                delegate: Item {
+                    property string dataText: display
+                    ToolButton {
+                        text: dataText
                         anchors.fill: parent
                     }
                 }
@@ -48,17 +45,20 @@ Page {
                 model: (root.model)? root.model.proxy(): null
                 clip: true
 
-                property var columnWidths: [0, 80, 80]
+                ScrollBar.vertical: ScrollBar { }
+
+                property var columnWidths: [-80, 80, 90, 90, 170]
                 columnWidthProvider: function (column) {
 
                     const width = columnWidths[column];
                     if (!width) {
                         let sum = 0;
                         columnWidths.forEach((item)=> {
-                                                 sum += item;
+                                                 if (item > 0)
+                                                    sum += item;
                                              })
 
-                        return tableView.width - sum
+                        return Math.max(tableView.width - sum, Math.abs(width))
                     }
 
                     return width;
@@ -75,7 +75,7 @@ Page {
                         horizontalAlignment:  Text.AlignHCenter
                         verticalAlignment:  Text.AlignVCenter
                         wrapMode: Text.WordWrap
-
+                        readOnly: true;
                         anchors.fill: parent
                     }
                 }
