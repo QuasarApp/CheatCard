@@ -113,11 +113,19 @@
     <name>Contacts</name>
     <message>
         <source>Enjoy to our slack chanal for get support and see the last changes.</source>
-        <translation>Наслаждайтесь нашим slack каналом чтобы получить поддержку и увидеть последние изменения.</translation>
+        <translation type="vanished">Наслаждайтесь нашим slack каналом чтобы получить поддержку и увидеть последние изменения.</translation>
     </message>
     <message>
         <source>Enjoy to our telegram chanal for get support and see the last changes.</source>
-        <translation>Наслаждайтесь нашим телеграмм каналом чтобы получить поддержку и увидеть последние изменения.</translation>
+        <translation type="vanished">Наслаждайтесь нашим телеграмм каналом чтобы получить поддержку и увидеть последние изменения.</translation>
+    </message>
+    <message>
+        <source>Join to our slack channel for get support and see the last changes.</source>
+        <translation>Присоединяйтесь к нашему каналу Slack, чтобы получить поддержку и увидеть последние изменения.</translation>
+    </message>
+    <message>
+        <source>Join to our telegram channel for get support and see the last changes.</source>
+        <translation>Присоединяйтесь к нашему каналу Telegram, чтобы получить поддержку и увидеть последние изменения.</translation>
     </message>
 </context>
 <context>
