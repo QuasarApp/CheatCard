@@ -105,6 +105,17 @@
     </message>
 </context>
 <context>
+    <name>Contacts</name>
+    <message>
+        <source>Join to our slack channel for get support and see the last changes.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Join to our telegram channel for get support and see the last changes.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>EditCardView</name>
     <message>
         <source>Enter card title</source>
