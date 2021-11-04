@@ -11,6 +11,6 @@ void main() {
     if ( fBlack != 0) {
         gl_FragColor = vec4(0, 0, 0 , 0);
     } else {
-        gl_FragColor = vec4(r, g , b , 1);
+        gl_FragColor = vec4(r * 0.5, g * 0.5, b * 0.5, 1);
     }
 }
