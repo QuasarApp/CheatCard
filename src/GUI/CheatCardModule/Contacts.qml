@@ -39,7 +39,7 @@ Page {
                 }
 
                 Text {
-                    text: qsTr("Enjoy to our slack chanal for get support and see the last changes.")
+                    text: "Enjoy to our slack chanal for get support and see the last changes."
                     horizontalAlignment: Qt.AlignLeft
                     verticalAlignment: Qt.AlignVCenter
                     wrapMode: Text.WordWrap
@@ -72,7 +72,7 @@ Page {
                 }
 
                 Text {
-                    text: qsTr("Enjoy to our telegram chanal for get support and see the last changes.")
+                    text: "Enjoy to our telegram chanal for get support and see the last changes."
                     horizontalAlignment: Qt.AlignLeft
                     verticalAlignment: Qt.AlignVCenter
                     wrapMode: Text.WordWrap

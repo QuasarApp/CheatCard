@@ -105,17 +105,6 @@
     </message>
 </context>
 <context>
-    <name>Contacts</name>
-    <message>
-        <source>Enjoy to our slack chanal for get support and see the last changes.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enjoy to our telegram chanal for get support and see the last changes.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>EditCardView</name>
     <message>
         <source>Enter card title</source>
@@ -361,15 +350,19 @@
 <context>
     <name>PageHelpSeller</name>
     <message>
-        <source>### Guide to using Cheat Cards for merchants</source>
+        <source> </source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source></source>
+        <translation></translation>
     </message>
     <message>
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;In this section, you can find information about using the Cheat card.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source> </source>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;To implement the loyalty program of your institution using a cheat card, you need to do the following:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -377,7 +370,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;To implement the loyalty program of your institution using a cheat card, you need to do the following:</source>
+        <source>### Guide to using Cheat Cards for merchants</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;img src=&quot;qrc:/private/resources/help/Help3.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;img src=&quot;qrc:/private/resources/help/Help2.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -397,14 +398,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help3.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>* Enter the contact and other details of your establishment. In the item &quot;Bonus name&quot; it is necessary to indicate what the client will receive in the form of a bonus (product / service / discount / etc.).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>* Indicate how many purchases the client must make to receive the bonus you previously specified.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -413,15 +406,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help2.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>* A menu with design settings (background and text colors, logo, as well as printing) will open</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>* Optionally upload your logo or card print background design by clicking the add button in the appropriate sections, the image must be in png format.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -429,19 +414,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**IMPORTANT:** After you put at least one seal on the customer, the card cannot be edited. Instead, you can create a new map based on the old one. all customer data and their statistics will be automatically transferred to the corrected card. Instead, you can create a new map based on the old one. all customer data and their statistics will be automatically transferred to the corrected card.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>### Issue a card to a client:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>* The created map will be displayed on the main screen of the application.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>* In order to issue the card to the client, press and hold on it.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -461,7 +434,19 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>### Issue a card to a client:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>### Issue bonus:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* Enter the contact and other details of your establishment. In the item &quot;Bonus name&quot; it is necessary to indicate what the client will receive in the form of a bonus (product / service / discount / etc.).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**IMPORTANT:** After you put at least one seal on the customer, the card cannot be edited. Instead, you can create a new map based on the old one. all customer data and their statistics will be automatically transferred to the corrected card. Instead, you can create a new map based on the old one. all customer data and their statistics will be automatically transferred to the corrected card.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -476,11 +461,19 @@
         <source>* Bonuses can be accumulated by the client, if the client has accumulated several bonuses, then on the issuance screen you can choose how many bonuses to issue, after which they will be written off from the category of available ones and will be transferred to the category received on the client&apos;s card.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>* Optionally upload your logo or card print background design by clicking the add button in the appropriate sections, the image must be in png format.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* In order to issue the card to the client, press and hold on it.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PageHelpVisitor</name>
     <message>
-        <source>### How to use?</source>
+        <source> </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -512,10 +505,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help1.jpg&quot; alt=&quot;tt&quot; width=&quot;100&quot;/&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;A sidebar will open at the bottom of which there will be a QR code, you can click on it to enlarge it.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -524,7 +513,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source> </source>
+        <source>### How to use?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;img src=&quot;qrc:/private/resources/help/Help1.jpg&quot; alt=&quot;tt&quot; width=&quot;100&quot;/&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
