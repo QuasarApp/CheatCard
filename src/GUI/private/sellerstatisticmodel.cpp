@@ -17,11 +17,6 @@ SellerStatisticModel::SellerStatisticModel(QObject *parent):
                tr("Issued") <<
                tr("Last visit")
                );
-
-    _proxy = new StatistickListProxyModel(this);
-    _proxy->setDynamicSortFilter(true);
-    _proxy->setSourceModel(this);
-    _proxy->setFilterKeyColumn(0);
 }
 
 int SellerStatisticModel::rowCount(const QModelIndex &) const {
@@ -74,6 +69,10 @@ QVariant SellerStatisticModel::data(const QModelIndex &index, int role) const {
     return unknownValue();
 }
 
+QSortFilterProxyModel *SellerStatisticModel::proxyModel() const {
+    return new StatistickListProxyModel();
+}
+
 void SellerStatisticModel::setDataList(const QSharedPointer<CardModel> &cardData,
                                        const QList<QSharedPointer<RC::UsersCards> > &newData,
                                        const QList<QSharedPointer<RC::User>> & userData) {
@@ -103,10 +102,6 @@ void SellerStatisticModel::setCurrentCard(const QSharedPointer<CardModel> &newCu
 
     _card = newCurrentCard;
     emit currentCardChanged();
-}
-
-QObject *SellerStatisticModel::proxy() const {
-    return _proxy;
 }
 
 const QHash<unsigned int, QSharedPointer<RC::User> > &SellerStatisticModel::users() const {

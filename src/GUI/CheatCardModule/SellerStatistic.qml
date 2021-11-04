@@ -36,6 +36,12 @@ Page {
                     ToolButton {
                         text: dataText
                         anchors.fill: parent
+
+                        onReleased: {
+                            if (root.model) {
+                                root.model.sortView(column)
+                            }
+                        }
                     }
                 }
             }

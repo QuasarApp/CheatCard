@@ -32,6 +32,7 @@ public:
     int columnCount(const QModelIndex &parent) const override;
 
     QVariant data(const QModelIndex &index, int role) const override;
+    QSortFilterProxyModel *proxyModel() const override;
 
     void setDataList(const QSharedPointer<RC::CardModel>& cardData,
                      const QList<QSharedPointer<RC::UsersCards> > &newData,
@@ -41,8 +42,6 @@ public:
 
     QObject *currentCard() const;
     void setCurrentCard(const QSharedPointer<CardModel> &newCurrentCard);
-
-    Q_INVOKABLE QObject* proxy() const;
 
     const QHash<unsigned int, QSharedPointer<RC::User> > &users() const;
     void setUsers(const QHash<unsigned int, QSharedPointer<RC::User> > &newUsers);
@@ -55,7 +54,6 @@ private:
     QSharedPointer<RC::CardModel> _card;
     QHash<unsigned int, QSharedPointer<RC::User>> _users;
 
-    StatistickListProxyModel *_proxy = nullptr;
 };
 
 }

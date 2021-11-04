@@ -11,6 +11,8 @@
 
 #include <QAbstractTableModel>
 
+class QSortFilterProxyModel;
+
 namespace RC {
 
 class AbstrcattableModelWithHeaders: public QAbstractTableModel
@@ -18,6 +20,7 @@ class AbstrcattableModelWithHeaders: public QAbstractTableModel
     Q_OBJECT
 public:
     AbstrcattableModelWithHeaders(QObject* parent = nullptr);
+    ~AbstrcattableModelWithHeaders() override;
 
     QVariant headerData(int section, Qt::Orientation orientation, int) const override;
 
@@ -29,12 +32,21 @@ public:
 
     const QString &unknownValue() const;
 
+    virtual QSortFilterProxyModel* proxyModel() const;
+
+    Q_INVOKABLE QObject* proxy();
+
+    Q_INVOKABLE void sortView(int column, int role = Qt::DisplayRole);
+
 private:
 
     QString _unknownValue;
 
     QStringList _Hheders;
     QStringList _Vheders;
+
+    QSortFilterProxyModel *_proxy = nullptr;
+
 };
 }
 #endif // ABSTRCATTABLEMODELWITHHEADERS_H
