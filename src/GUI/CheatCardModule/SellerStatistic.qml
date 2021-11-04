@@ -8,6 +8,9 @@ Page {
 
     property var model: null
 
+    implicitHeight: 0x0
+    implicitWidth: 0x0
+
     contentItem: GridLayout {
 
         property bool fHorisontal: root.width > root.height

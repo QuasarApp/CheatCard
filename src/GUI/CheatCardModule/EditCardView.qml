@@ -96,9 +96,11 @@ Page {
                                 const width = 20;
 
                                 if(directionX > directionY) {
-                                    root.sigSwipe(directionX > width)
+                                    if (directionX > width)
+                                        root.sigSwipe(directionX > 0)
                                 } else {
-                                    root.sigSwipe(2 + directionY > width)
+                                    if (directionY > width)
+                                        root.sigSwipe(2 + (directionY > 0))
                                 }
 
                             }
