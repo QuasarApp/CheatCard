@@ -1,6 +1,6 @@
 //#
 //# Copyright (C) 2021-2021 QuasarApp.
-//# Distributed under the lgplv3 software license, see the accompanying
+//# Distributed under the GPLv3 software license, see the accompanying
 //# Everyone is permitted to copy and distribute verbatim copies
 //# of this license document, but changing it is not allowed.
 //#
@@ -48,6 +48,8 @@ void JavaProvider::initBilling() const {
 }
 
 void JavaProvider::purchaseReceived(JNIEnv *env, jobject thiz, jstring id, jstring token) {
+    Q_UNUSED(thiz)
+
     emit JavaProvider::instance()->sigPurchase(env->GetStringUTFChars(id, 0),
                                                env->GetStringUTFChars(token, 0));
 }

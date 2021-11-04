@@ -1,6 +1,6 @@
 //#
 //# Copyright (C) 2021-2021 QuasarApp.
-//# Distributed under the lgplv3 software license, see the accompanying
+//# Distributed under the GPLv3 software license, see the accompanying
 //# Everyone is permitted to copy and distribute verbatim copies
 //# of this license document, but changing it is not allowed.
 //#
@@ -521,6 +521,12 @@ bool MainModel::sendSellerDataToServer(const QSharedPointer<UserHeader>& header,
 
         QuasarAppUtils::Params::log("Failed to increment user card data",
                                     QuasarAppUtils::Error);
+
+        auto service = QmlNotificationService::NotificationService::getService();
+
+        service->setNotify(tr("Oops"),
+                           tr("Some kind of garbage happened when reading the qr code. Try again"),
+                           "", QmlNotificationService::NotificationData::Warning);
 
         return false;
     }
