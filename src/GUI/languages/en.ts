@@ -113,6 +113,17 @@
     </message>
 </context>
 <context>
+    <name>Contacts</name>
+    <message>
+        <source>Enjoy to our slack chanal for get support and see the last changes.</source>
+        <translation>Enjoy to our slack chanal for get support and see the last changes.</translation>
+    </message>
+    <message>
+        <source>Enjoy to our telegram chanal for get support and see the last changes.</source>
+        <translation>Enjoy to our telegram chanal for get support and see the last changes.</translation>
+    </message>
+</context>
+<context>
     <name>EditCardView</name>
     <message>
         <source>Enter telegramm chennal name</source>
