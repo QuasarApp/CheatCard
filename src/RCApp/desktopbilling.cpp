@@ -21,7 +21,7 @@ void DesktopBilling::sendPurchase(const QString& token) {
 
     RC::Purchase purchase;
     purchase.id = "test";
-    purchase.token = TEST_SELLER_TOKEN;
+    purchase.token = token;
     emit sigPurchaseReceived(purchase);
 }
 
