@@ -19,6 +19,7 @@ Page {
         rows: (fHorisontal)? 1: 2
 
         EditCardView {
+
             Layout.preferredWidth: Math.min(root.width, root.height)
             Layout.preferredHeight: width * 0.7
             model: (root.model)? root.model.currentCard: null
@@ -33,6 +34,7 @@ Page {
             header: HorizontalHeaderView {
                 id: horizontalHeader
                 syncView: tableView
+                clip: true
 
                 delegate: Item {
                     property string dataText: display

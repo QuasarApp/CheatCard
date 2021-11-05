@@ -580,19 +580,19 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Purchases count</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Total bonuses issued</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>User id</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Last visit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Id</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Purchases</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Issued</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
