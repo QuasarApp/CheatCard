@@ -56,7 +56,7 @@ Page {
 
                 ScrollBar.vertical: ScrollBar { }
 
-                property var columnWidths: [-80, 80, 90, 90, 170]
+                property var columnWidths: [-80, 80, 90, 90, 200]
                 columnWidthProvider: function (column) {
 
                     const width = columnWidths[column];
