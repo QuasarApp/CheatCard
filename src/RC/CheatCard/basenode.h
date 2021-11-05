@@ -22,7 +22,7 @@ class UsersCards;
 class CardDataRequest;
 class CardStatusRequest;
 class Session;
-
+class User;
 
 class CHEATCARD_CORE_EXPORT BaseNode: public QH::AbstractNode
 {
@@ -43,6 +43,9 @@ public:
     getUserCardData(unsigned int userId, unsigned int cardId) const;
     QList<QSharedPointer<UsersCards> >
     getAllUserFromCard(unsigned int cardId, bool includeOwner = true) const;
+
+    QList<QSharedPointer<User> >
+    getAllUserDataFromCard(unsigned int cardId, bool includeOwner = true) const;
 
     QSharedPointer<Card> getCard(unsigned int cardId);
 

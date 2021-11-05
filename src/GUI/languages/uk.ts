@@ -548,6 +548,13 @@
     </message>
 </context>
 <context>
+    <name>RC::AbstrcattableModelWithHeaders</name>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>RC::MainModel</name>
     <message>
         <source>Your customers already using this card!</source>
@@ -563,6 +570,29 @@
     </message>
     <message>
         <source>Some kind of garbage happened when reading the qr code. Try again</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>RC::SellerStatisticModel</name>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last visit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Id</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Purchases</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Issued</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

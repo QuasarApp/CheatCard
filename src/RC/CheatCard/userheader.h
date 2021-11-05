@@ -31,14 +31,18 @@ public:
     const QByteArray &token() const;
     void setToken(const QByteArray &newToken);
 
+    const QString &userName() const;
+    void setUserName(const QString &newUserName);
+
 protected:
     QDataStream &fromStream(QDataStream &stream) override;
     QDataStream &toStream(QDataStream &stream) const override;
 
 private:
-    unsigned int userId = 0;
-    long long sessionId;
+    unsigned int _userId = 0;
+    long long _sessionId;
     QByteArray _token;
+    QString _userName;
 };
 }
 #endif // USERHEADER_H

@@ -135,8 +135,12 @@ void CardsListModel::removeCard(int cardId) {
     emit sigCardRemoved(cardId);
 }
 
-void CardsListModel::cardSelected(int cardId) {
-    emit sigCardSelectedForWork(_cache.value(cardId));
+void CardsListModel::cardSelected(int cardId, int type) {
+    if (type == ForStatistick) {
+        emit sigCardSelectedForStatistic(_cache.value(cardId));
+    } else {
+        emit sigCardSelectedForWork(_cache.value(cardId));
+    }
 }
 
 const QHash<int, QSharedPointer<CardModel> > &CardsListModel::cache() const {

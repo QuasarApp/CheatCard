@@ -72,6 +72,7 @@ UserHeader UserModel::getHelloPackage() const {
     header.setSessionId(getSessinon());
     header.setUserId(user()->userId());
     header.setToken(user()->getKey());
+    header.setUserName(name());
 
     return header;
 }

@@ -14,15 +14,16 @@ UserHeader::UserHeader() {
 }
 
 bool UserHeader::isValid() const {
-    return _token.size() == 32 && userId > 0 && sessionId && AbstractData::isValid();;
+    return _token.size() == 32 && _userId > 0 && _sessionId && AbstractData::isValid();;
 }
 
 QDataStream &UserHeader::fromStream(QDataStream &stream) {
     AbstractData::fromStream(stream);
 
     stream >> _token;
-    stream >> sessionId;
-    stream >> userId;
+    stream >> _sessionId;
+    stream >> _userId;
+    stream >> _userName;
 
     return stream;
 }
@@ -31,10 +32,19 @@ QDataStream &UserHeader::toStream(QDataStream &stream) const {
     AbstractData::toStream(stream);
 
     stream << _token;
-    stream << sessionId;
-    stream << userId;
+    stream << _sessionId;
+    stream << _userId;
+    stream << _userName;
 
     return stream;
+}
+
+const QString &UserHeader::userName() const {
+    return _userName;
+}
+
+void UserHeader::setUserName(const QString &newUserName) {
+    _userName = newUserName;
 }
 
 const QByteArray &UserHeader::token() const {
@@ -46,18 +56,18 @@ void UserHeader::setToken(const QByteArray &newToken) {
 }
 
 long long UserHeader::getSessionId() const {
-    return sessionId;
+    return _sessionId;
 }
 
 void UserHeader::setSessionId(long long newSessionId) {
-    sessionId = newSessionId;
+    _sessionId = newSessionId;
 }
 
 unsigned int UserHeader::getUserId() const {
-    return userId;
+    return _userId;
 }
 
 void UserHeader::setUserId(unsigned int newUserId) {
-    userId = newUserId;
+    _userId = newUserId;
 }
 }

@@ -26,9 +26,9 @@ void CardProxyModel::removeCard(int cardId) {
     }
 }
 
-void CardProxyModel::cardSelected(int cardId) {
+void CardProxyModel::cardSelected(int cardId, int type) {
     if (auto source = dynamic_cast<iCardListModel*>(sourceModel())) {
-        source->cardSelected(cardId);
+        source->cardSelected(cardId, type);
     }
 }
 
