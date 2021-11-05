@@ -74,6 +74,12 @@ ApplicationWindow {
                                if (!enabled)
                                    return;
 
+                               if (activityProcessor.depth == 2) {
+                                   if (mainModel) {
+                                       mainModel.handleFirstDataSendet();
+                                   }
+                               }
+
                                if (activityProcessor.depth > 1) {
                                    activityProcessor.popItem();
                                    return;
@@ -81,12 +87,11 @@ ApplicationWindow {
 
                                if (userPanel.visible) {
                                    userPanel.close()
+                                   if (mainModel) {
+                                       mainModel.handleFirstDataSendet();
+                                   }
                                } else {
                                    userPanel.open()
-                               }
-
-                               if (mainModel) {
-                                   mainModel.handleFirstDataSendet();
                                }
                            }
 
