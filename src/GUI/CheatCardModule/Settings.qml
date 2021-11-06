@@ -10,6 +10,8 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
+import QtQuick.Controls.Material 2.15
+
 
 Page {
     id: root
@@ -27,24 +29,120 @@ Page {
             Layout.alignment: Qt.AlignHCenter
             Layout.fillWidth: true
 
-            contentItem: RowLayout {
+            contentItem: ColumnLayout {
                 implicitWidth: 0x0
 
-                ToolButton {
-                    icon.source: "qrc:/images/private/resources/platformsIcon/slack-logo.svg"
-                    icon.height: 80
-                    icon.width: 80
-                    icon.color: "transparent"
-                    onClicked: Qt.openUrlExternally("https://join.slack.com/t/slack-uvu5934/shared_invite/zt-xtxp3txy-z4E_8mFsabqSRIzy7AwJXg")
-                }
-
                 Text {
-                    text: "Enjoy to our slack chanal for get support and see the last changes."
+                    text: qsTr("Externality")
                     horizontalAlignment: Qt.AlignLeft
                     verticalAlignment: Qt.AlignVCenter
                     wrapMode: Text.WordWrap
 
                     Layout.fillWidth: true
+                }
+
+                SwitchDelegate {
+                    id: control
+                    text: qsTr("Change the main color of the application")
+                    checked: false
+
+                    Layout.fillWidth: true
+
+                    contentItem: Text {
+                        rightPadding: control.indicator.width + control.spacing
+                        text: control.text
+                        font: control.font
+                        opacity: enabled ? 1.0 : 0.3
+                        elide: Text.ElideRight
+                        verticalAlignment: Text.AlignVCenter
+                        wrapMode: Text.WordWrap
+                    }
+
+                    indicator: Rectangle {
+                        implicitWidth: 38
+                        implicitHeight: 16
+                        x: control.width - width - control.rightPadding
+                        y: parent.height / 2 - height / 2
+                        radius: 13
+                        color: control.checked ? "#17a81a" : "transparent"
+                        border.color: control.checked ? "#17a81a" : "#cccccc"
+
+                        Rectangle {
+                            x: control.checked ? parent.width - width : 0
+                            y: -2
+                            width: 20
+                            height: 20
+                            radius: 13
+                            color: control.down ? "#cccccc" : "#ffffff"
+                            border.color: control.checked ? (control.down ? "#17a81a" : "#21be2b") : "#999999"
+                        }
+                    }
+
+                }
+
+            }
+        }
+
+        Frame {
+
+            background: Rectangle{
+                color: "#e6e6e6"
+                radius: 10
+            }
+
+            Layout.margins: 8
+            Layout.alignment: Qt.AlignHCenter
+            Layout.fillWidth: true
+
+            contentItem: ColumnLayout {
+                implicitWidth: 0x0
+
+                Text {
+                    text: qsTr("Privacy")
+                    horizontalAlignment: Qt.AlignLeft
+                    verticalAlignment: Qt.AlignVCenter
+                    wrapMode: Text.WordWrap
+
+                    Layout.fillWidth: true
+                }
+
+                SwitchDelegate {
+                    id: privacy
+                    text: qsTr("Share name with seller")
+                    checked: false
+
+                    Layout.fillWidth: true
+
+                    contentItem: Text {
+                        rightPadding: privacy.indicator.width + privacy.spacing
+                        text: privacy.text
+                        font: privacy.font
+                        opacity: enabled ? 1.0 : 0.3
+                        elide: Text.ElideRight
+                        verticalAlignment: Text.AlignVCenter
+                        wrapMode: Text.WordWrap
+                    }
+
+                    indicator: Rectangle {
+                        implicitWidth: 38
+                        implicitHeight: 16
+                        x: privacy.width - width - privacy.rightPadding
+                        y: parent.height / 2 - height / 2
+                        radius: 13
+                        color: privacy.checked ? "#17a81a" : "transparent"
+                        border.color: privacy.checked ? "#17a81a" : "#cccccc"
+
+                        Rectangle {
+                            x: privacy.checked ? parent.width - width : 0
+                            y: -2
+                            width: 20
+                            height: 20
+                            radius: 13
+                            color: privacy.down ? "#cccccc" : "#ffffff"
+                            border.color: privacy.checked ? (privacy.down ? "#17a81a" : "#21be2b") : "#999999"
+                        }
+                    }
+
                 }
             }
         }
@@ -60,24 +158,22 @@ Page {
             Layout.alignment: Qt.AlignHCenter
             Layout.fillWidth: true
 
-            contentItem: RowLayout {
+            contentItem: ColumnLayout {
                 implicitWidth: 0x0
 
-                ToolButton {
-                    icon.height: 80
-                    icon.width: 80
-                    icon.color: "transparent"
-                    icon.source: "qrc:/images/private/resources/platformsIcon/telegram.svg"
-                    onClicked: Qt.openUrlExternally("https://t.me/joinchat/Msv_LWw4GI4zNTIy")
-                }
-
                 Text {
-                    text: "Enjoy to our telegram chanal for get support and see the last changes."
+                    text: qsTr("Developer settings")
                     horizontalAlignment: Qt.AlignLeft
                     verticalAlignment: Qt.AlignVCenter
                     wrapMode: Text.WordWrap
 
                     Layout.fillWidth: true
+                }
+
+                RowLayout {
+                    Layout.fillWidth: true
+                    TextField { text: qsTr("Host") }
+                    TextField { text: qsTr("Port") }
                 }
             }
         }

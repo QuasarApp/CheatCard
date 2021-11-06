@@ -143,7 +143,7 @@ ApplicationWindow {
             text: qsTr("Settings")
 
             onClicked:  () => {
-                            activityProcessor.newActivityFromComponent(settings, mainModel.getAboutModel());
+                            activityProcessor.newActivity("qrc:/CheatCardModule/Settings.qml");
                         }
         }
     }
