@@ -13,4 +13,4 @@ In order to open the QR code, click on the item in the upper left corner of the 
 
 A sidebar will open at the bottom of which there will be a QR code, you can click on it to enlarge it.
 
-After receiving the card, you can view additional information about the card by clicking on it.дополнительную информацию о карте нажав на неё.
+After receiving the card, you can view additional information about the card by clicking on it.

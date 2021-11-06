@@ -1,6 +1,6 @@
 //#
 //# Copyright (C) 2021-2021 QuasarApp.
-//# Distributed under the lgplv3 software license, see the accompanying
+//# Distributed under the GPLv3 software license, see the accompanying
 //# Everyone is permitted to copy and distribute verbatim copies
 //# of this license document, but changing it is not allowed.
 //#
@@ -135,8 +135,12 @@ void CardsListModel::removeCard(int cardId) {
     emit sigCardRemoved(cardId);
 }
 
-void CardsListModel::cardSelected(int cardId) {
-    emit sigCardSelectedForWork(_cache.value(cardId));
+void CardsListModel::cardSelected(int cardId, int type) {
+    if (type == ForStatistick) {
+        emit sigCardSelectedForStatistic(_cache.value(cardId));
+    } else {
+        emit sigCardSelectedForWork(_cache.value(cardId));
+    }
 }
 
 const QHash<int, QSharedPointer<CardModel> > &CardsListModel::cache() const {

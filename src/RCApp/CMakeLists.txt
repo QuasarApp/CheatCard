@@ -1,6 +1,6 @@
 #
 # Copyright (C) 2021-2021 QuasarApp.
-# Distributed under the lgplv3 software license, see the accompanying
+# Distributed under the GPLv3 software license, see the accompanying
 # Everyone is permitted to copy and distribute verbatim copies
 # of this license document, but changing it is not allowed.
 #
@@ -52,6 +52,7 @@ file(MAKE_DIRECTORY ${TARGET_DIR})
 
 if (ANDROID)
     set(ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/android CACHE INTERNAL "")
+    set(OPENSSL_ROOT_PATH "$ENV{OPENSSL_ROOT_DIR}")
 
     set(SNAKE_EXTRA_LIBS
         ${PROJECT_NAME}Core
@@ -62,6 +63,8 @@ if (ANDROID)
         QmlNotyfyService
         SCodes
         ZXing
+        ${OPENSSL_ROOT_PATH}/lib/libcrypto.so
+        ${OPENSSL_ROOT_PATH}/lib/libssl.so
         )
 
 

@@ -1,6 +1,6 @@
 //#
 //# Copyright (C) 2018 - 2021 QuasarApp.
-//# Distributed under the lgplv3 software license, see the accompanying
+//# Distributed under the GPLv3 software license, see the accompanying
 //# Everyone is permitted to copy and distribute verbatim copies
 //# of this license document, but changing it is not allowed.
 //#
@@ -39,7 +39,7 @@ Page {
                 }
 
                 Text {
-                    text: "Enjoy to our slack chanal for get support and see the last changes."
+                    text: qsTr("Join to our slack channel for get support and see the last changes.")
                     horizontalAlignment: Qt.AlignLeft
                     verticalAlignment: Qt.AlignVCenter
                     wrapMode: Text.WordWrap
@@ -72,7 +72,7 @@ Page {
                 }
 
                 Text {
-                    text: "Enjoy to our telegram chanal for get support and see the last changes."
+                    text: qsTr("Join to our telegram channel for get support and see the last changes.")
                     horizontalAlignment: Qt.AlignLeft
                     verticalAlignment: Qt.AlignVCenter
                     wrapMode: Text.WordWrap

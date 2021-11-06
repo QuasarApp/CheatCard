@@ -29,7 +29,13 @@
         <file>private/resources/sounds/Bonus.mp3</file>
         <file>private/resources/sounds/Seal.mp3</file>
         <file>CheatCardModule/Contacts.qml</file>
-        <file>CheatCardModule/Settings.qml</file>
+        <file>CheatCardModule/PageHelpSeller.qml</file>
+        <file>CheatCardModule/PageHelpVisitor.qml</file>
+        <file>private/resources/help/Help1.jpg</file>
+        <file>private/resources/help/Help2.jpg</file>
+        <file>private/resources/help/Help3.jpg</file>
+        <file>CheatCardModule/SellerStatistic.qml</file>
+	<file>CheatCardModule/Settings.qml</file>
     </qresource>
     <qresource prefix="/CheatCardTr">
         <file>languages/en.qm</file>

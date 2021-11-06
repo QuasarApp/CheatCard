@@ -1,6 +1,6 @@
 //#
 //# Copyright (C) 2021-2021 QuasarApp.
-//# Distributed under the lgplv3 software license, see the accompanying
+//# Distributed under the GPLv3 software license, see the accompanying
 //# Everyone is permitted to copy and distribute verbatim copies
 //# of this license document, but changing it is not allowed.
 //#
@@ -58,6 +58,9 @@ ApplicationWindow {
 
     header: ToolBar {
         id: toolBar
+
+        Material.foreground: "#ffffff"
+
         position: ToolBar.Header
         RowLayout {
             anchors.fill: parent
@@ -71,6 +74,12 @@ ApplicationWindow {
                                if (!enabled)
                                    return;
 
+                               if (activityProcessor.depth == 2) {
+                                   if (mainModel) {
+                                       mainModel.handleFirstDataSendet();
+                                   }
+                               }
+
                                if (activityProcessor.depth > 1) {
                                    activityProcessor.popItem();
                                    return;
@@ -78,12 +87,11 @@ ApplicationWindow {
 
                                if (userPanel.visible) {
                                    userPanel.close()
+                                   if (mainModel) {
+                                       mainModel.handleFirstDataSendet();
+                                   }
                                } else {
                                    userPanel.open()
-                               }
-
-                               if (mainModel) {
-                                   mainModel.handleFirstDataSendet();
                                }
                            }
 
@@ -140,6 +148,21 @@ ApplicationWindow {
         }
 
         MenuItem {
+            text: qsTr("Help")
+
+            onClicked:  () => {
+
+                            if (mainModel.mode) {
+                                activityProcessor.newActivity("qrc:CheatCardModule/PageHelpSeller.qml");
+                            } else {
+                                activityProcessor.newActivity("qrc:CheatCardModule/PageHelpVisitor.qml");
+                            }
+
+
+                        }
+        }
+	
+	MenuItem {
             text: qsTr("Settings")
 
             onClicked:  () => {

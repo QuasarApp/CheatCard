@@ -1,6 +1,6 @@
 //#
 //# Copyright (C) 2021-2021 QuasarApp.
-//# Distributed under the lgplv3 software license, see the accompanying
+//# Distributed under the GPLv3 software license, see the accompanying
 //# Everyone is permitted to copy and distribute verbatim copies
 //# of this license document, but changing it is not allowed.
 //#
@@ -30,6 +30,7 @@ class UsersCards;
 class IBilling;
 class UserHeader;
 class CardProxyModel;
+class SellerStatisticModel;
 
 /**
  * @brief The MainModel class is main model of the application.
@@ -46,7 +47,7 @@ class MainModel : public QObject
     Q_PROPERTY(QObject * defaultLogosModel READ defaultLogosModel NOTIFY defaultLogosModelChanged)
     Q_PROPERTY(QObject * defaultBackgroundsModel READ defaultBackgroundsModel NOTIFY defaultBackgroundsModelChanged)
     Q_PROPERTY(QObject * waitModel READ waitModel NOTIFY waitModelChanged)
-
+    Q_PROPERTY(QObject * statisticModel READ statisticModel NOTIFY statisticModelChanged)
 
 
 public:
@@ -90,6 +91,9 @@ public:
      */
     Q_INVOKABLE int getReceivedItemsCount(int cardId) const;
 
+    QObject * statisticModel() const;
+
+
 public slots:
     void handleFirstDataSendet();
     void handleBonusGivOut(int userId, int cardId, int givOutcount);
@@ -114,6 +118,7 @@ signals:
     void modeChanged();
 
     void waitModelChanged();
+    void statisticModelChanged();
 
 private slots:
     void handleCardReceived(QSharedPointer<RC::Card> card);
@@ -122,6 +127,8 @@ private slots:
 
     void handleCardRemoved(int id);
     void handleCardSelectedForWork(const QSharedPointer<CardModel>& card);
+    void handleCardSelectedForStatistic(const QSharedPointer<CardModel>& card);
+
     void handleConnectWasBegin();
     void handleConnectWasFinished();
 
@@ -144,6 +151,7 @@ private:
     void initImagesModels();
     void setBackEndModel(const QSharedPointer<BaseNode> &newModel);
     void initWaitConnectionModel();
+    void initSellerStatisticModel();
     void configureCardsList();
 
     void setCardListModel(CardsListModel *model);
@@ -158,6 +166,7 @@ private:
                                 int purchasesCount);
 
     CardsListModel* getCurrentListModel() const;
+    void saveCard(const QSharedPointer<RC::Card> &card);
 
     QH::ISqlDBCache * _db = nullptr;
     QSharedPointer<UserModel> _currentUser;
@@ -170,6 +179,7 @@ private:
 
     AboutModel *_aboutModel = nullptr;
     SoundPlayback *_soundEffect = nullptr;
+    SellerStatisticModel *_statisticModel = nullptr;
 
     ItemsModel *_defaultLogosModel = nullptr;
     ItemsModel *_defaultBackgroundsModel = nullptr;
@@ -184,7 +194,7 @@ private:
 
     Mode _mode = Mode::Client;
     friend class ImageProvider;
-    void saveCard(const QSharedPointer<RC::Card> &card);
+
 };
 
 }

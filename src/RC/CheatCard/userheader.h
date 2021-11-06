@@ -1,6 +1,6 @@
 //#
 //# Copyright (C) 2021-2021 QuasarApp.
-//# Distributed under the lgplv3 software license, see the accompanying
+//# Distributed under the GPLv3 software license, see the accompanying
 //# Everyone is permitted to copy and distribute verbatim copies
 //# of this license document, but changing it is not allowed.
 //#
@@ -31,14 +31,18 @@ public:
     const QByteArray &token() const;
     void setToken(const QByteArray &newToken);
 
+    const QString &userName() const;
+    void setUserName(const QString &newUserName);
+
 protected:
     QDataStream &fromStream(QDataStream &stream) override;
     QDataStream &toStream(QDataStream &stream) const override;
 
 private:
-    unsigned int userId = 0;
-    long long sessionId;
+    unsigned int _userId = 0;
+    long long _sessionId;
     QByteArray _token;
+    QString _userName;
 };
 }
 #endif // USERHEADER_H

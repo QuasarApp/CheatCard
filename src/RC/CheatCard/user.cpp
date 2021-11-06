@@ -1,6 +1,6 @@
 //#
 //# Copyright (C) 2021-2021 QuasarApp.
-//# Distributed under the lgplv3 software license, see the accompanying
+//# Distributed under the GPLv3 software license, see the accompanying
 //# Everyone is permitted to copy and distribute verbatim copies
 //# of this license document, but changing it is not allowed.
 //#
@@ -31,6 +31,24 @@ QH::PKG::DBVariantMap User::variantMap() const {
 
 QString User::primaryKey() const {
     return "id";
+}
+
+QDataStream &User::fromStream(QDataStream &stream) {
+     DBObject::fromStream(stream);
+
+     stream >> _name;
+     stream >> _key;
+
+     return stream;
+}
+
+QDataStream &User::toStream(QDataStream &stream) const {
+    DBObject::toStream(stream);
+
+    stream << _name;
+    stream << _key;
+
+    return stream;
 }
 
 QByteArray User::randomArray() const {

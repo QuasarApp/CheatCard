@@ -1,6 +1,6 @@
 //#
 //# Copyright (C) 2021-2021 QuasarApp.
-//# Distributed under the lgplv3 software license, see the accompanying
+//# Distributed under the GPLv3 software license, see the accompanying
 //# Everyone is permitted to copy and distribute verbatim copies
 //# of this license document, but changing it is not allowed.
 //#
@@ -13,6 +13,7 @@
 #include "waitconnectionmodel.h"
 #include "soundplayback.h"
 #include "cardproxymodel.h"
+#include "sellerstatisticmodel.h"
 
 #include <CheatCard/database.h>
 #include "CheatCard/user.h"
@@ -52,6 +53,7 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
     initCardsListModels();
     initImagesModels();
     initWaitConnectionModel();
+    initSellerStatisticModel();
 
     setCurrentUser(initUser());
     _config = initConfig(_currentUser->user()->userId());
@@ -242,6 +244,9 @@ void MainModel::initCardsListModels() {
 
     connect(_ownCardsListModel, &CardsListModel::sigCardSelectedForWork,
             this, &MainModel::handleCardSelectedForWork);
+
+    connect(_ownCardsListModel, &CardsListModel::sigCardSelectedForStatistic,
+            this, &MainModel::handleCardSelectedForStatistic);
 }
 
 void MainModel::initImagesModels() {
@@ -287,6 +292,10 @@ void MainModel::initWaitConnectionModel() {
 
     connect(_waitModel, &WaitConnectionModel::purchaseTaskCompleted,
             this, &MainModel::handleListenStart, Qt::QueuedConnection);
+}
+
+void MainModel::initSellerStatisticModel() {
+    _statisticModel = new SellerStatisticModel;
 }
 
 void MainModel::setCardListModel(CardsListModel *model) {
@@ -363,6 +372,10 @@ int MainModel::getReceivedItemsCount(int cardId) const {
                 cardId);
 }
 
+QObject *MainModel::statisticModel() const {
+    return _statisticModel;
+}
+
 int MainModel::getMode() const {
     return static_cast<int>(_mode);
 }
@@ -435,11 +448,11 @@ void MainModel::handleCardEditFinished(const QSharedPointer<Card>& card) {
                 }
             };
 
-            service->setQuestion(listner, tr("You try change production card rules!"),
-                                 tr("Your clients alredy use this card and you try change bonus rules."
-                                    " I think users don't like this change. I can save this changes as a new card only."
-                                    " After save old card continue works correctly."
-                                    " Do you want to save this card as new card?"));
+            service->setQuestion(listner, tr("Your customers already using this card!"),
+                                 tr(" You trying to change the bonus rules."
+                                    " These changes will be saved as a new card."
+                                    " The old card continue work correctly and all customers data will be saved."
+                                    " Do you want to continue?"));
 
 
         }
@@ -460,6 +473,13 @@ void MainModel::handleCardRemoved(int id) {
 
 void MainModel::handleCardSelectedForWork(const QSharedPointer<CardModel> &card) {
     _waitModel->setCard(card);
+}
+
+void MainModel::handleCardSelectedForStatistic(const QSharedPointer<CardModel> &card) {
+    auto usersList = _backEndModel->getAllUserFromCard(card->card()->cardId(), false);
+    auto usersDataList = _backEndModel->getAllUserDataFromCard(card->card()->cardId(), false);
+
+    _statisticModel->setDataList(card, usersList, usersDataList);
 }
 
 void MainModel::handleConnectWasBegin() {
@@ -521,6 +541,12 @@ bool MainModel::sendSellerDataToServer(const QSharedPointer<UserHeader>& header,
 
         QuasarAppUtils::Params::log("Failed to increment user card data",
                                     QuasarAppUtils::Error);
+
+        auto service = QmlNotificationService::NotificationService::getService();
+
+        service->setNotify(tr("Oops"),
+                           tr("Some kind of garbage happened when reading the qr code. Try again"),
+                           "", QmlNotificationService::NotificationData::Warning);
 
         return false;
     }

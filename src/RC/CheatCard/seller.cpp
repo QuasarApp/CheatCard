@@ -1,6 +1,6 @@
 //#
 //# Copyright (C) 2021-2021 QuasarApp.
-//# Distributed under the lgplv3 software license, see the accompanying
+//# Distributed under the GPLv3 software license, see the accompanying
 //# Everyone is permitted to copy and distribute verbatim copies
 //# of this license document, but changing it is not allowed.
 //#
@@ -8,6 +8,7 @@
 
 #include "carddatarequest.h"
 #include "cardstatusrequest.h"
+#include "dataconvertor.h"
 #include "seller.h"
 #include "userheader.h"
 
@@ -38,6 +39,52 @@ bool Seller::incrementPurchases(const QSharedPointer<UsersCards> &usersCardsData
     return true;
 }
 
+QString Seller::randomUserName() const {
+
+    static QStringList list = {
+        tr("Forget bag"),
+        tr("Forget bag"),
+        tr("Warty Warthog"),
+        tr("Hoary Hedgehog"),
+        tr("Breezy Badger"),
+        tr("Dapper Drake"),
+        tr("Edgy Eft"),
+        tr("Feisty Fawn"),
+        tr("Gutsy Gibbon"),
+        tr("Hardy Heron"),
+        tr("Intrepid Ibex"),
+        tr("Jaunty Jackalope"),
+        tr("Karmic Koala"),
+        tr("Lucid Lynx"),
+        tr("Maverick Meerkat"),
+        tr("Natty Narwhal"),
+        tr("Oneiric Ocelot"),
+        tr("Precise Pangolin"),
+        tr("Quantal Quetzal"),
+        tr("Raring Ringtail"),
+        tr("Saucy Salamander"),
+        tr("Trusty Tahr"),
+        tr("Utopic Unicorn"),
+        tr("Vivid Vervet"),
+        tr("Wily Werewolf"),
+        tr("Xenial Xerus"),
+        tr("Yakkety Yak"),
+        tr("Zesty Zapus"),
+        tr("Artful Aardvark"),
+        tr("Bionic Beaver"),
+        tr("Cosmic Cuttlefish"),
+        tr("Disco Dingo"),
+        tr("Eoan Ermine"),
+        tr("Focal Fossa"),
+        tr("Groovy Gorilla"),
+        tr("Hirsute Hippo"),
+        tr("Impish Indri")
+
+    };
+
+    return list[rand() % list.size()];
+}
+
 bool Seller::incrementPurchase(const QSharedPointer<UserHeader> &userHeaderData,
                                unsigned int cardId, int purchasesCount,
                                const QString &domain, int port) {
@@ -60,18 +107,15 @@ bool Seller::incrementPurchase(const QSharedPointer<UserHeader> &userHeaderData,
 
     User userrquest;
     userrquest.setId(userHeaderData->getUserId());
-    auto dbUser = db()->getObject(userrquest);
 
-    if (!dbUser) {
+    auto dbUser = DataConvertor::toUser(userHeaderData);
 
-        dbUser = QSharedPointer<User>::create();
-        dbUser->setKey(userHeaderData->token());
-        dbUser->setId(userHeaderData->getUserId());
+    if (dbUser->name().isEmpty()) {
+        dbUser->setName(randomUserName());
+    }
 
-        if (!db()->insertIfExistsUpdateObject(dbUser)) {
-            QuasarAppUtils::Params::log("Failed to update data", QuasarAppUtils::Warning);
-
-        }
+    if (!db()->insertIfExistsUpdateObject(dbUser)) {
+        QuasarAppUtils::Params::log("Failed to update user data", QuasarAppUtils::Warning);
 
     }
 

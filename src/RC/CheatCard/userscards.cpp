@@ -1,6 +1,6 @@
 //#
 //# Copyright (C) 2021-2021 QuasarApp.
-//# Distributed under the lgplv3 software license, see the accompanying
+//# Distributed under the GPLv3 software license, see the accompanying
 //# Everyone is permitted to copy and distribute verbatim copies
 //# of this license document, but changing it is not allowed.
 //#
@@ -69,6 +69,10 @@ QDataStream &UsersCards::toStream(QDataStream &stream) const {
     stream << cardVersion;
 
     return stream;
+}
+
+const QDateTime& UsersCards::getTime() const {
+    return _time;
 }
 
 unsigned int UsersCards::getCardVersion() const {
@@ -145,6 +149,7 @@ bool UsersCards::fromSqlRecord(const QSqlRecord &q) {
     card = q.value("card").toUInt();
     received = q.value("received").toUInt();
     owner = q.value("owner").toBool();
+    _time = QDateTime::fromTime_t(q.value("time").toInt());
 
     return true;
 }

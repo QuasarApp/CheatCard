@@ -1,6 +1,6 @@
 //#
 //# Copyright (C) 2021-2021 QuasarApp.
-//# Distributed under the lgplv3 software license, see the accompanying
+//# Distributed under the GPLv3 software license, see the accompanying
 //# Everyone is permitted to copy and distribute verbatim copies
 //# of this license document, but changing it is not allowed.
 //#
@@ -28,6 +28,12 @@ public:
         CardRole = Qt::UserRole
     };
 
+
+    enum SelectType {
+        ForWork,
+        ForStatistick
+    };
+
     CardsListModel();
 
     int rowCount(const QModelIndex &parent = {}) const override;
@@ -42,7 +48,7 @@ public:
 
     Q_INVOKABLE void addCard() override;
     Q_INVOKABLE void removeCard(int cardId) override;
-    Q_INVOKABLE void cardSelected(int cardId) override;
+    Q_INVOKABLE void cardSelected(int cardId, int type) override;
 
     const QHash<int, QSharedPointer<CardModel>> &cache() const;
 
@@ -50,6 +56,7 @@ signals:
     void sigCardRemoved(int cardName);
     void sigEditFinished(const QSharedPointer<Card>& card);
     void sigCardSelectedForWork(const QSharedPointer<CardModel>& card);
+    void sigCardSelectedForStatistic(const QSharedPointer<CardModel>& card);
 
 
 private:

@@ -83,6 +83,10 @@
         <translation>Informacja</translation>
     </message>
     <message>
+        <source>Help</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
@@ -102,6 +106,17 @@
     </message>
     <message>
         <source>Hachiko mode activated!  </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Contacts</name>
+    <message>
+        <source>Join to our slack channel for get support and see the last changes.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Join to our telegram channel for get support and see the last changes.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -349,6 +364,180 @@
     </message>
 </context>
 <context>
+    <name>PageHelpSeller</name>
+    <message>
+        <source> </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source></source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;In this section, you can find information about using the Cheat card.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;To implement the loyalty program of your institution using a cheat card, you need to do the following:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>### How to use?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>### Guide to using Cheat Cards for merchants</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;img src=&quot;qrc:/private/resources/help/Help3.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;img src=&quot;qrc:/private/resources/help/Help2.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>### Create a card for your establishment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* In order to create a map, click the &quot;Add Map&quot; button at the bottom of the screen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* An empty card will be created.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* In order to fill it out, click the &quot;Edit&quot; button on the card.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* Indicate how many purchases the client must make to receive the bonus you previously specified.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* Customize the design of the card by clicking on this element at the bottom left of the card.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* A menu with design settings (background and text colors, logo, as well as printing) will open</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* After completing all the settings, click the &quot;Save&quot; button which is located at the bottom of the map.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* The created map will be displayed on the main screen of the application.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* A screen will open where you can specify how many stamps to put to the client, then click &quot;print&quot;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* Scan the visitor&apos;s QR code.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* The client will have a card with the number of stamps that you specified.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* Repeat this algorithm in order to put in the future seals to the client when purchasing a product.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>### Issue a card to a client:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>### Issue bonus:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* Enter the contact and other details of your establishment. In the item &quot;Bonus name&quot; it is necessary to indicate what the client will receive in the form of a bonus (product / service / discount / etc.).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**IMPORTANT:** After you put at least one seal on the customer, the card cannot be edited. Instead, you can create a new map based on the old one. all customer data and their statistics will be automatically transferred to the corrected card. Instead, you can create a new map based on the old one. all customer data and their statistics will be automatically transferred to the corrected card.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* When the client has collected a sufficient number of stamps, you can give him a bonus, the application itself will notify you that the client has made a sufficient number of purchases.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* On the bonus screen, you can click the &quot;Issue&quot; button, or if the client can ask to save this bonus, then just click the back button.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* Bonuses can be accumulated by the client, if the client has accumulated several bonuses, then on the issuance screen you can choose how many bonuses to issue, after which they will be written off from the category of available ones and will be transferred to the category received on the client&apos;s card.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* Optionally upload your logo or card print background design by clicking the add button in the appropriate sections, the image must be in png format.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* In order to issue the card to the client, press and hold on it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PageHelpVisitor</name>
+    <message>
+        <source> </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;The algorithm of actions for the buyer works according to the system:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* Came to the establishment.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* Made an order.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* Showed the QR code in the application at the checkout.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* Received print to card.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* Repeated this procedure several times and received the bonus set by the seller.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;In order to open the QR code, click on the item in the upper left corner of the screen. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;A sidebar will open at the bottom of which there will be a QR code, you can click on it to enlarge it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;After receiving the card, you can view additional information about the card by clicking on it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>### How to use?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;img src=&quot;qrc:/private/resources/help/Help1.jpg&quot; alt=&quot;tt&quot; width=&quot;100&quot;/&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>QrCodeView</name>
     <message>
         <source>It looks like this code should be shown to the seller!</source>
@@ -364,13 +553,51 @@
     </message>
 </context>
 <context>
+    <name>RC::AbstrcattableModelWithHeaders</name>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>RC::MainModel</name>
     <message>
-        <source>You try change production card rules!</source>
+        <source>Your customers already using this card!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Your clients alredy use this card and you try change bonus rules. I think users don&apos;t like this change. I can save this changes as a new card only. After save old card continue works correctly. Do you want to save this card as new card?</source>
+        <source> You trying to change the bonus rules. These changes will be saved as a new card. The old card continue work correctly and all customers data will be saved. Do you want to continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Oops</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Some kind of garbage happened when reading the qr code. Try again</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>RC::SellerStatisticModel</name>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last visit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Id</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Purchases</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Issued</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

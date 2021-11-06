@@ -1,6 +1,6 @@
 //#
 //# Copyright (C) 2021-2021 QuasarApp.
-//# Distributed under the lgplv3 software license, see the accompanying
+//# Distributed under the GPLv3 software license, see the accompanying
 //# Everyone is permitted to copy and distribute verbatim copies
 //# of this license document, but changing it is not allowed.
 //#
@@ -22,7 +22,7 @@ class UsersCards;
 class CardDataRequest;
 class CardStatusRequest;
 class Session;
-
+class User;
 
 class CHEATCARD_CORE_EXPORT BaseNode: public QH::AbstractNode
 {
@@ -43,6 +43,9 @@ public:
     getUserCardData(unsigned int userId, unsigned int cardId) const;
     QList<QSharedPointer<UsersCards> >
     getAllUserFromCard(unsigned int cardId, bool includeOwner = true) const;
+
+    QList<QSharedPointer<User> >
+    getAllUserDataFromCard(unsigned int cardId, bool includeOwner = true) const;
 
     QSharedPointer<Card> getCard(unsigned int cardId);
 
