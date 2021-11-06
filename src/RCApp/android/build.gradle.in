@@ -38,8 +38,6 @@ android {
     compileSdkVersion androidCompileSdkVersion.toInteger()
 
     buildToolsVersion '31.0.0'
-// setup from OS enviroment
-//    ndkVersion '23.1.7779620'
 
     sourceSets {
         main {
@@ -75,7 +73,7 @@ android {
     defaultConfig {
         resConfig "en"
         multiDexEnabled true
-        minSdkVersion = 27
-        targetSdkVersion = 31
+        minSdkVersion = 22
+        targetSdkVersion = @ANDROID_API_VERSION@
     }
 }
