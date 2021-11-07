@@ -83,6 +83,9 @@ Page {
                             activityProcessor.popItem();
 
                         }
+
+            currentCamera: (root.model)? root.model.cameraId : currentCamera
+
             onVisibleChanged: {
                 if(!visible)
                     destroy()
