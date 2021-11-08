@@ -635,6 +635,37 @@
     </message>
 </context>
 <context>
+    <name>Settings</name>
+    <message>
+        <source>Externality</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change the main color of the application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Privacy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Share name with seller</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Developer settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Host</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Port</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>WaitConnectView</name>
     <message>
         <source>Seal</source>

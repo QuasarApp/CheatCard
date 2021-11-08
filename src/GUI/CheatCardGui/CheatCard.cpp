@@ -7,10 +7,12 @@
 
 #include "CheatCard.h"
 
+#include <QObject>
 #include <CheatCard/database.h>
 #include <SBarcodeFilter.h>
 #include <SBarcodeGenerator.h>
 #include <imageprovider.h>
+#include "settingsmodel.h"
 #include "mainmodel.h"
 #include "quasarapp.h"
 #include "mainmodel.h"
@@ -52,6 +54,7 @@ bool CheatCard::init(QQmlApplicationEngine *engine, IBilling *billingObject) {
     _model = new MainModel(_db->db());
 
     root->setContextProperty("mainModel", QVariant::fromValue(_model));
+    root->setContextProperty("config", QVariant::fromValue(static_cast<QObject*>(SettingsModel<SettingsModel>::instance())));
 
     qmlRegisterType<SBarcodeGenerator>("com.scythestudio.scodes", 1, 0, "SBarcodeGenerator");
     qmlRegisterType<SBarcodeFilter>("com.scythestudio.scodes", 1, 0, "SBarcodeFilter");

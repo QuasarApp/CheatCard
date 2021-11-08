@@ -9,11 +9,22 @@
 #ifndef SETTINGSMODEL_H
 #define SETTINGSMODEL_H
 
+#include "quasarapp.h"
 
-class SettingsModel
-{
+namespace RC {
+
+
+class SettingsModel: public QuasarAppUtils::ISettings {
 public:
     SettingsModel();
+
+    // ISettings interface
+protected:
+    void syncImplementation();
+    QVariant getValueImplementation(const QString &key, const QVariant &def);
+    void setValueImplementation(const QString key, const QVariant &value);
 };
+
+}
 
 #endif // SETTINGSMODEL_H

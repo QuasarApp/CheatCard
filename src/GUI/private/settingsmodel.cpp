@@ -8,7 +8,23 @@
 
 #include "settingsmodel.h"
 
-SettingsModel::SettingsModel()
-{
+namespace RC {
+
+
+SettingsModel::SettingsModel() {
+
+}
+
+void SettingsModel::syncImplementation() {
+
+}
+
+QVariant SettingsModel::getValueImplementation(const QString &key, const QVariant &def) {
+
+}
+
+void SettingsModel::setValueImplementation(const QString key, const QVariant &value) {
+
+}
 
 }
