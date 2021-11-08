@@ -20,7 +20,7 @@
 
 namespace RC {
 
-Server::Server(QH::ISqlDBCache *db): BaseNode(db) {
+Server::Server(QH::ISqlDBCache *db): BaseNodeV1(db) {
     registerPackageType<Session>();
     registerPackageType<CardStatusRequest>();
     registerPackageType<QH::PKG::DataPack<UsersCards>>();
@@ -47,7 +47,7 @@ Server::Server(QH::ISqlDBCache *db): BaseNode(db) {
 }
 
 void Server::nodeConnected(QH::AbstractNodeInfo *node) {
-    BaseNode::nodeConnected(node);
+    BaseNodeV1::nodeConnected(node);
     auto address = node->networkAddress();
     QTimer::singleShot(WAIT_CONFIRM_TIME, this, [this, address](){
         removeNode(address);
@@ -55,13 +55,13 @@ void Server::nodeConnected(QH::AbstractNodeInfo *node) {
 }
 
 void Server::nodeDisconnected(QH::AbstractNodeInfo *node) {
-    BaseNode::nodeDisconnected(node);
+    BaseNodeV1::nodeDisconnected(node);
 }
 
 void Server::nodeErrorOccured(QH::AbstractNodeInfo *nodeInfo, QAbstractSocket::SocketError errorCode, QString errorString) {
     // ignore QAbstractSocket::SocketError::RemoteHostClosedError
     if (errorCode != QAbstractSocket::SocketError::RemoteHostClosedError) {
-        BaseNode::nodeErrorOccured(nodeInfo, errorCode, errorString);
+        BaseNodeV1::nodeErrorOccured(nodeInfo, errorCode, errorString);
     }
 }
 
@@ -83,7 +83,7 @@ bool Server::processSession(const QSharedPointer<Session> &message,
                             const QH::AbstractNodeInfo *sender,
                             const QH::Header &hdr) {
 
-    return BaseNode::processSession(message, sender, hdr);
+    return BaseNodeV1::processSession(message, sender, hdr);
 
 }
 
@@ -91,14 +91,14 @@ bool Server::processCardStatus(const QSharedPointer<QH::PKG::DataPack<UsersCards
                                const QH::AbstractNodeInfo *sender,
                                const QH::Header &hdr) {
 
-    return BaseNode::processCardStatus(cardStatuses, sender, hdr);
+    return BaseNodeV1::processCardStatus(cardStatuses, sender, hdr);
 
 }
 
 bool Server::applayPurchases(const QSharedPointer<UsersCards> &dbCard,
                              const QH::AbstractNodeInfo *sender) {
 
-    return BaseNode::applayPurchases(dbCard, sender);
+    return BaseNodeV1::applayPurchases(dbCard, sender);
 
 }
 
@@ -106,7 +106,7 @@ bool Server::processCardRequest(const QSharedPointer<CardDataRequest> &cardStatu
                                 const QH::AbstractNodeInfo *sender,
                                 const QH::Header &hdr) {
 
-    return BaseNode::processCardRequest(cardStatus, sender, hdr);
+    return BaseNodeV1::processCardRequest(cardStatus, sender, hdr);
 
 }
 
@@ -114,14 +114,14 @@ bool Server::processCardData(const QSharedPointer<QH::PKG::DataPack<Card> > &car
                              const QH::AbstractNodeInfo *sender,
                              const QH::Header &hdr) {
 
-    return BaseNode::processCardData(cardrequest, sender, hdr);
+    return BaseNodeV1::processCardData(cardrequest, sender, hdr);
 
 }
 
 QH::ParserResult Server::parsePackage(const QSharedPointer<QH::PKG::AbstractData> &pkg,
                                       const QH::Header &pkgHeader,
                                       const QH::AbstractNodeInfo *sender) {
-    QH::ParserResult result = BaseNode::parsePackage(pkg, pkgHeader, sender);
+    QH::ParserResult result = BaseNodeV1::parsePackage(pkg, pkgHeader, sender);
 
     if (result == QH::ParserResult::Error) {
         removeNode(sender->networkAddress());
