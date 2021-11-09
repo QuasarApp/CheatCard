@@ -24,6 +24,8 @@ class CardModel: public QObject
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY objChanged)
 
     Q_PROPERTY(int purchasesNumber READ purchasesNumber NOTIFY purchasesNumberChanged)
+    Q_PROPERTY(int receivedItems READ receivedItems NOTIFY receivedItemsChanged)
+
     Q_PROPERTY(int freeIndex READ freeIndex WRITE setFreeIndex NOTIFY objChanged)
     Q_PROPERTY(int cardVersion READ cardVersion NOTIFY objChanged)
 
@@ -87,10 +89,15 @@ public:
 
     int cardVersion() const;
 
+    int receivedItems() const;
+    void setReceivedItems(int newReceivedItems);
+
 signals:
     void objChanged();
     void editFinished(const QSharedPointer<Card>& card);
     void purchasesNumberChanged();
+
+    void receivedItemsChanged();
 
 private:
 
@@ -98,6 +105,8 @@ private:
 
     QSharedPointer<Card> _card = nullptr;
     int _purchasesNumber = 1;
+    int _receivedItems = 0;
+
 };
 
 }

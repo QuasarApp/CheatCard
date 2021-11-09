@@ -566,6 +566,14 @@
         <source>Some kind of garbage happened when reading the qr code. Try again</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Sorry but not</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This client do not have any bonuses. Sorry... </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RegistrationFinishedPage</name>
@@ -606,6 +614,10 @@
     <message>
         <source>Seal</source>
         <translation>Foka</translation>
+    </message>
+    <message>
+        <source>Check</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
