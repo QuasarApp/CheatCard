@@ -10,12 +10,11 @@
 #ifndef SESSION_H
 #define SESSION_H
 
-#include "appversion.h"
 #include "dbobject.h"
 
 namespace RC {
 
-class Session : public QH::PKG::DBObject, public AppVersion
+class Session : public QH::PKG::DBObject
 {
     QH_PACKAGE(Session, "Session")
 

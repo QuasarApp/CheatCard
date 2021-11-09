@@ -43,8 +43,6 @@ QDataStream &Session::fromStream(QDataStream &stream) {
     stream >> sessionId;
     stream >> usercardId;
 
-    AppVersion::fromStream(stream);
-
     return stream;
 }
 
@@ -53,8 +51,6 @@ QDataStream &Session::toStream(QDataStream &stream) const {
 
     stream << sessionId;
     stream << usercardId;
-
-    AppVersion::toStream(stream);
 
     return stream;
 }

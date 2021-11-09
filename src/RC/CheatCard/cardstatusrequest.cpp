@@ -24,8 +24,6 @@ QDataStream &CardStatusRequest::fromStream(QDataStream &stream) {
 
     stream >> sessionId;
 
-    AppVersion::fromStream(stream);
-
     return stream;
 }
 
@@ -34,8 +32,6 @@ QDataStream &CardStatusRequest::toStream(QDataStream &stream) const {
     RequestToken::toStream(stream);
 
     stream << sessionId;
-
-    AppVersion::toStream(stream);
 
     return stream;
 }

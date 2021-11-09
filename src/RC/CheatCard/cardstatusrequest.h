@@ -10,12 +10,11 @@
 #define CARDSTATUSREQUEST_H
 
 #include <abstractdata.h>
-#include "appversion.h"
 #include "requesttoken.h"
 
 namespace RC {
 
-class CHEATCARD_CORE_EXPORT CardStatusRequest: public QH::PKG::AbstractData, public RC::RequestToken, public RC::AppVersion
+class CHEATCARD_CORE_EXPORT CardStatusRequest: public QH::PKG::AbstractData, public RC::RequestToken
 {
     QH_PACKAGE(CardStatusRequest, "CardStatusRequest")
 public:

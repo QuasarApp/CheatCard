@@ -9,14 +9,14 @@
 #define SERVER_H
 
 #include "abstractnode.h"
-#include "basenodev1.h"
+#include "basenode.h"
 #include "clearolddata.h"
 
 #include <isqldbcache.h>
 
 namespace RC {
 
-class CHEATCARD_CORE_EXPORT Server: public BaseNodeV1
+class CHEATCARD_CORE_EXPORT Server: public BaseNode
 {
     Q_OBJECT
 public:
