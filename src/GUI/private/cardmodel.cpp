@@ -262,6 +262,17 @@ QByteArray CardModel::convert(const QString& imagePath) {
     return result;;
 }
 
+int CardModel::receivedItems() const {
+    return _receivedItems;
+}
+
+void CardModel::setReceivedItems(int newReceivedItems) {
+    if (_receivedItems == newReceivedItems)
+        return;
+    _receivedItems = newReceivedItems;
+    emit receivedItemsChanged();
+}
+
 QString CardModel::getFreeItem() const {
     if (!_card)
         return "";

@@ -171,7 +171,7 @@ void MainModel::setCurrentUser(QSharedPointer<UserModel> value) {
 
         QH::PKG::DBObjectsRequest<UsersCards> requestPurchase("UsersCards", where);
         if (auto result =_db->getObject(requestPurchase)) {
-            _cardsListModel->setPurchasesNumbers(result->data());
+            _cardsListModel->updateMetaData(result->data());
         }
 
         _settings.setValue(CURRENT_USER, _currentUser->user()->userId());
@@ -409,6 +409,14 @@ QObject *MainModel::cardsList() const {
 
 void MainModel::handleCardReceived(QSharedPointer<RC::Card> card) {
     _cardsListModel->importCard(card);
+
+    if (_backEndModel) {
+        auto metaData = _backEndModel->getUserCardData(_currentUser->user()->userId(), card->cardId());
+
+        if (metaData) {
+            getCurrentListModel()->updateMetaData({metaData});
+        }
+    }
 }
 
 void RC::MainModel::saveCard(const QSharedPointer<Card>& card) {
@@ -493,18 +501,11 @@ void MainModel::handleConnectWasFinished() {
 void MainModel::handlePurchaseWasSuccessful(QSharedPointer<RC::UsersCards> card){
 
     soundEffectPlayback("Seal");
-    int freeIndex;
-    QSharedPointer<CardModel> cardModel;
+    auto cardModel = getCurrentListModel()->cache().value(card->getCard());
+    int freeIndex = _backEndModel->getCardFreeIndex(card->getCard());
 
     if (_mode == Mode::Client) {
-        cardModel = _cardsListModel->cache().value(card->getCard());
-        _cardsListModel->setPurchasesNumbers({card});
-        freeIndex = _backEndModel->getCardFreeIndex(card->getCard());
-
-    } else {
-        cardModel = _ownCardsListModel->cache().value(card->getCard());
-
-        freeIndex = cardModel->card()->getFreeIndex();
+        getCurrentListModel()->updateMetaData({card});
     }
 
     int freeItems = _backEndModel->getFreeItemsCount(card, freeIndex);
@@ -513,6 +514,17 @@ void MainModel::handlePurchaseWasSuccessful(QSharedPointer<RC::UsersCards> card)
     if (freeItems > 0) {
         emit freeItem(cardModel.data(), card->getUser(), freeItems);
         soundEffectPlayback("Bonus");
+    } else {
+        if (_mode == Mode::Seller && _fShowEmptyBonuspackaMessage) {
+            _fShowEmptyBonuspackaMessage = false;
+
+            auto service = QmlNotificationService::NotificationService::getService();
+
+            service->setNotify(tr("Sorry but not"),
+                               tr("This client do not have any bonuses. Sorry... "),
+                               "", QmlNotificationService::NotificationData::Normal);
+
+        }
     }
 }
 
@@ -524,20 +536,32 @@ void MainModel::handleListenStart(int purchasesCount,
     header->fromBytes(QByteArray::fromHex(extraData.toLatin1()));
     _lastUserHeader = header;
 
-    sendSellerDataToServer(header, model->card()->cardId(), purchasesCount);
+    sendSellerDataToServer(header, model->card()->cardId(), purchasesCount, false);
 }
 
 bool MainModel::sendSellerDataToServer(const QSharedPointer<UserHeader>& header,
                                        unsigned int cardId,
-                                       int purchasesCount) {
+                                       int purchasesCount,
+                                       bool sendOnly) {
+
     auto seller = _backEndModel.dynamicCast<Seller>();
 
     if (!seller)
         return false;
 
-    if (!seller->incrementPurchase(header,
-                                   cardId,
-                                   purchasesCount)) {
+    bool sendResult = false;
+    if (sendOnly) {
+        sendResult = seller->sentDataToServerPurchase(header, cardId);
+    } else {
+
+        // show message about users bonuses. see handlePurchaseWasSuccessful function.
+        _fShowEmptyBonuspackaMessage = !purchasesCount;
+        sendResult = seller->incrementPurchase(header,
+                                               cardId,
+                                               purchasesCount);
+    }
+
+    if (!sendResult) {
 
         QuasarAppUtils::Params::log("Failed to increment user card data",
                                     QuasarAppUtils::Error);
@@ -604,7 +628,7 @@ void MainModel::handleBonusGivOut(int userId, int cardId, int count) {
 
         _db->insertIfExistsUpdateObject(card);
 
-        sendSellerDataToServer(_lastUserHeader, cardId, 0);
+        sendSellerDataToServer(_lastUserHeader, cardId, 0, true);
     }
 }
 

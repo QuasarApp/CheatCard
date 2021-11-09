@@ -163,7 +163,8 @@ private:
 
     bool sendSellerDataToServer(const QSharedPointer<UserHeader> &header,
                                 unsigned int cardId,
-                                int purchasesCount);
+                                int purchasesCount,
+                                bool sendOnly);
 
     CardsListModel* getCurrentListModel() const;
     void saveCard(const QSharedPointer<RC::Card> &card);
@@ -193,6 +194,7 @@ private:
     QSharedPointer<UserHeader> _lastUserHeader;
 
     Mode _mode = Mode::Client;
+    bool _fShowEmptyBonuspackaMessage = false;
     friend class ImageProvider;
 
 };
