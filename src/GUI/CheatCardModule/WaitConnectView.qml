@@ -42,9 +42,9 @@ Page {
                 id: purchaseInput
                 Layout.alignment: Qt.AlignHCenter
 
-                from: 1
+                from: 0
                 to: 10
-
+                value: 1
                 stepSize: 1
 
                 onValueChanged: () => {
@@ -57,7 +57,7 @@ Page {
             Button {
                 Layout.alignment: Qt.AlignHCenter
                 id: start
-                text: qsTr("Seal");
+                text: (purchaseInput.value)? qsTr("Seal"): qsTr("Check");
 
                 onClicked:  () => {
                                 if (root.model) {

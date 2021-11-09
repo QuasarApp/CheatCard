@@ -2,6 +2,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
+import QtGraphicalEffects 1.15
 
 import "Style"
 
@@ -67,6 +68,15 @@ Page {
                 fillMode: Image.PreserveAspectCrop
                 source: "image://cards/background/" + ((root.model)? root.model.id  + "/" + root.model.cardVersion: "0")
                 anchors.fill: parent
+
+                layer.enabled: true
+                layer.effect: OpacityMask {
+                    maskSource: Rectangle {
+                            width: cardBackground.width
+                            height: cardBackground.height
+                            radius: cardRectangle.radius
+                        }
+                }
             }
 
             MouseArea {
