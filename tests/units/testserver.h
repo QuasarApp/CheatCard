@@ -5,7 +5,7 @@
 
 class TestDataBaseWrapper;
 
-class TestServer: public RC::Server
+class TestServer: public RC::ServerV1
 {
     Q_OBJECT
 public:
