@@ -2,6 +2,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
+import QtGraphicalEffects 1.15
 
 import "Style"
 
@@ -13,13 +14,7 @@ Page {
 
     property int purchasesNumber: (model)? model.purchasesNumber: 1
     property int freeIndexCount :(model)? model.freeIndex: 0
-    property int receivedItems :(mainModel && model)? mainModel.getReceivedItemsCount(model.id): 0
-
-    // To do This is very bad solution we need to fix it. The receivedItems should be updated automaticaly
-    onPurchasesNumberChanged: {
-        if(mainModel && model)
-            receivedItems = mainModel.getReceivedItemsCount(model.id);
-    }
+    property int receivedItems: (model)? model.receivedItems: 0
 
     property bool backSide: false
 
@@ -67,6 +62,15 @@ Page {
                 fillMode: Image.PreserveAspectCrop
                 source: "image://cards/background/" + ((root.model)? root.model.id  + "/" + root.model.cardVersion: "0")
                 anchors.fill: parent
+
+                layer.enabled: true
+                layer.effect: OpacityMask {
+                    maskSource: Rectangle {
+                            width: cardBackground.width
+                            height: cardBackground.height
+                            radius: cardRectangle.radius
+                        }
+                }
             }
 
             MouseArea {

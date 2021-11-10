@@ -13,17 +13,7 @@
 #include "datapack.h"
 #include <isqldbcache.h>
 
-#define TEST_SELLER_TOKEN "testbase64tokenofseller"
-#define USERREQUEST_TIMEOUT 10
 namespace RC {
-
-class CardStatus;
-class Card;
-class UsersCards;
-class CardDataRequest;
-class CardStatusRequest;
-class Session;
-class User;
 
 class CHEATCARD_CORE_EXPORT BaseNodeV1: public BaseNode
 {

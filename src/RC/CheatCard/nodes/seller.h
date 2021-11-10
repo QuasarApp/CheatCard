@@ -25,12 +25,18 @@ public:
                             const QString& domain = DEFAULT_CHEAT_CARD_HOST,
                             int port = DEFAULT_CHEAT_CARD_PORT_SSL);
 
+    bool sentDataToServerPurchase (const QSharedPointer<UserHeader> &userHeaderData,
+                            unsigned int cardId, const QString& domain = DEFAULT_CHEAT_CARD_HOST,
+                            int port = DEFAULT_CHEAT_CARD_PORT_SSL);
+
 protected:
     void nodeConnected(QH::AbstractNodeInfo *node) override;
     bool incrementPurchases(const QSharedPointer<UsersCards> &usersCardsData,
                             int purchasesCount);
 
 private:
+    QSharedPointer<UsersCards> prepareData(const QSharedPointer<UserHeader> &userHeaderData,
+                         unsigned int cardId);
 
     QString randomUserName() const;
 

@@ -28,6 +28,9 @@ bool Seller::incrementPurchases(const QSharedPointer<UsersCards> &usersCardsData
     if (!usersCardsData)
         return false;
 
+    if (purchasesCount < 0)
+        return false;
+
     usersCardsData->setPurchasesNumber(usersCardsData->getPurchasesNumber() + purchasesCount);
 
     if (!db()->insertIfExistsUpdateObject(usersCardsData)) {
@@ -85,11 +88,11 @@ QString Seller::randomUserName() const {
     return list[rand() % list.size()];
 }
 
-bool Seller::incrementPurchase(const QSharedPointer<UserHeader> &userHeaderData,
-                               unsigned int cardId, int purchasesCount,
-                               const QString &domain, int port) {
+QSharedPointer<UsersCards> Seller::prepareData(const QSharedPointer<UserHeader> &userHeaderData,
+                         unsigned int cardId) {
+
     if (!userHeaderData->isValid())
-        return false;
+        return nullptr;
 
     auto session = QSharedPointer<Session>::create();
 
@@ -97,7 +100,7 @@ bool Seller::incrementPurchase(const QSharedPointer<UserHeader> &userHeaderData,
     session->setUsercardId(UsersCards::genId(userHeaderData->getUserId(), cardId));
 
     if (!session->isValid()) {
-        return false;
+        return nullptr;
     }
 
     session->setPrintError(false);
@@ -128,12 +131,37 @@ bool Seller::incrementPurchase(const QSharedPointer<UserHeader> &userHeaderData,
         userCardsData->setCard(cardId);
     }
 
-    if (purchasesCount > 0 && !incrementPurchases(userCardsData, purchasesCount)) {
+    return userCardsData;
+}
+
+bool Seller::incrementPurchase(const QSharedPointer<UserHeader> &userHeaderData,
+                               unsigned int cardId, int purchasesCount,
+                               const QString &domain, int port) {
+
+    auto userCardsData = prepareData(userHeaderData, cardId);
+    if (!userCardsData) {
+        return false;
+    }
+
+    if (!incrementPurchases(userCardsData, purchasesCount)) {
         QuasarAppUtils::Params::log("Failed to update data", QuasarAppUtils::Error);
 
         return false;
     }
 
+
+    return addNode(domain, port);
+}
+
+bool Seller::sentDataToServerPurchase(const QSharedPointer<UserHeader> &userHeaderData,
+                                      unsigned int cardId,
+                                      const QString &domain,
+                                      int port) {
+
+    auto userCardsData = prepareData(userHeaderData, cardId);
+    if (!userCardsData) {
+        return false;
+    }
 
     return addNode(domain, port);
 }
@@ -145,5 +173,7 @@ void Seller::nodeConnected(QH::AbstractNodeInfo *node) {
 
         sendData(session.data(), node);
     }
+
+    _lastRequested.clear();
 }
 }
