@@ -7,10 +7,10 @@
 
 
 #include "basenode.h"
-#include "carddatarequest.h"
-#include "cardstatusrequest.h"
-#include "nodeinfo.h"
-#include "user.h"
+#include "CheatCard/carddatarequest.h"
+#include "CheatCard/cardstatusrequest.h"
+#include "CheatCard/nodeinfo.h"
+#include "CheatCard/user.h"
 
 #include <CheatCard/card.h>
 #include <dbobjectsrequest.h>
@@ -24,11 +24,6 @@ namespace RC {
 
 BaseNode::BaseNode(QH::ISqlDBCache *db) {
     _db = db;
-
-    useSystemSslConfiguration();
-    setIgnoreSslErrors(QList<QSslError>() << QSslError::SelfSignedCertificate
-                       << QSslError::SelfSignedCertificateInChain
-                       << QSslError::HostNameMismatch);
 }
 
 QH::ParserResult BaseNode::parsePackage(const QSharedPointer<QH::PKG::AbstractData> &pkg,

@@ -6,8 +6,8 @@
 //#
 
 
-#include "carddatarequest.h"
-#include "cardstatusrequest.h"
+#include "CheatCard/carddatarequest.h"
+#include "CheatCard/cardstatusrequest.h"
 #include "server.h"
 
 #include <CheatCard/card.h>
@@ -15,7 +15,7 @@
 #include <CheatCard/userscards.h>
 
 #include <badrequest.h>
-#include "clearolddata.h"
+#include "CheatCard/clearolddata.h"
 #include <QCoreApplication>
 
 namespace RC {

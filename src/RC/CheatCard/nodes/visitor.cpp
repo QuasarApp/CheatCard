@@ -6,8 +6,8 @@
 //#
 
 
-#include "cardstatusrequest.h"
-#include "nodeinfo.h"
+#include "CheatCard/cardstatusrequest.h"
+#include "CheatCard/nodeinfo.h"
 #include "visitor.h"
 
 #include <CheatCard/user.h>
@@ -19,7 +19,7 @@
 namespace RC {
 
 
-Visitor::Visitor(QH::ISqlDBCache *db): BaseNode(db) {
+Visitor::Visitor(QH::ISqlDBCache *db): BaseNodeV1(db) {
     registerPackageType<QH::PKG::DataPack<UsersCards>>();
     registerPackageType<QH::PKG::DataPack<Card>>();
 

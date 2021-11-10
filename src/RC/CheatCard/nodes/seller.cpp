@@ -6,11 +6,11 @@
 //#
 
 
-#include "carddatarequest.h"
-#include "cardstatusrequest.h"
-#include "dataconvertor.h"
+#include "CheatCard/carddatarequest.h"
+#include "CheatCard/cardstatusrequest.h"
+#include "CheatCard/dataconvertor.h"
 #include "seller.h"
-#include "userheader.h"
+#include "CheatCard/userheader.h"
 
 #include <CheatCard/session.h>
 #include <CheatCard/user.h>
@@ -18,7 +18,7 @@
 
 namespace RC {
 
-Seller::Seller(QH::ISqlDBCache *db): BaseNode(db) {
+Seller::Seller(QH::ISqlDBCache *db): BaseNodeV1(db) {
     registerPackageType<CardStatusRequest>();
     registerPackageType<CardDataRequest>();
 }

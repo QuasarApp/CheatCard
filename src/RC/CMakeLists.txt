@@ -15,6 +15,8 @@ updateGitVars()
 file(GLOB SOURCE_CPP
     "*CheatCard/*.cpp"
      "private/*.cpp"
+     "CheatCard/nodes/*.cpp"
+
 )
 
 if (${QT_VERSION_MAJOR})
@@ -22,6 +24,7 @@ if (${QT_VERSION_MAJOR})
         "*.qrc"
         "CheatCard/*.qrc"
         "private/*.qrc"
+        "CheatCard/nodes/*.qrc"
     )
 
 endif()
