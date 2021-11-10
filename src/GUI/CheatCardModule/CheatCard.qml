@@ -162,11 +162,12 @@ ApplicationWindow {
                         }
         }
 	
-	MenuItem {
+        MenuItem {
             text: qsTr("Settings")
 
             onClicked:  () => {
                             activityProcessor.newActivity("qrc:/CheatCardModule/Settings.qml");
+//                            activityProcessor.newActivityFromComponent(about, mainModel.getAboutModel());
                         }
         }
     }

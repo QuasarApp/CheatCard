@@ -37,6 +37,7 @@ Page {
                     horizontalAlignment: Qt.AlignLeft
                     verticalAlignment: Qt.AlignVCenter
                     wrapMode: Text.WordWrap
+                    font.bold: true
 
                     Layout.fillWidth: true
                 }
@@ -102,6 +103,7 @@ Page {
                     horizontalAlignment: Qt.AlignLeft
                     verticalAlignment: Qt.AlignVCenter
                     wrapMode: Text.WordWrap
+                    font.bold: true
 
                     Layout.fillWidth: true
                 }
@@ -162,10 +164,76 @@ Page {
                 implicitWidth: 0x0
 
                 Text {
+                    text: qsTr("Camera")
+                    horizontalAlignment: Qt.AlignLeft
+                    verticalAlignment: Qt.AlignVCenter
+                    font.bold: true
+                    wrapMode: Text.WordWrap
+
+                    Layout.fillWidth: true
+                }
+
+                SwitchDelegate {
+                    id: camera
+                    text: qsTr("Select work camera")
+                    checked: false
+
+                    Layout.fillWidth: true
+
+                    contentItem: Text {
+                        rightPadding: camera.indicator.width + camera.spacing
+                        text: camera.text
+                        font: camera.font
+                        opacity: enabled ? 1.0 : 0.3
+                        elide: Text.ElideRight
+                        verticalAlignment: Text.AlignVCenter
+                        wrapMode: Text.WordWrap
+                    }
+
+                    indicator: Rectangle {
+                        implicitWidth: 38
+                        implicitHeight: 16
+                        x: camera.width - width - camera.rightPadding
+                        y: parent.height / 2 - height / 2
+                        radius: 13
+                        color: camera.checked ? "#17a81a" : "transparent"
+                        border.color: camera.checked ? "#17a81a" : "#cccccc"
+
+                        Rectangle {
+                            x: camera.checked ? parent.width - width : 0
+                            y: -2
+                            width: 20
+                            height: 20
+                            radius: 13
+                            color: camera.down ? "#cccccc" : "#ffffff"
+                            border.color: camera.checked ? (camera.down ? "#17a81a" : "#21be2b") : "#999999"
+                        }
+                    }
+
+                }
+            }
+        }
+
+        Frame {
+
+            background: Rectangle{
+                color: "#e6e6e6"
+                radius: 10
+            }
+
+            Layout.margins: 8
+            Layout.alignment: Qt.AlignHCenter
+            Layout.fillWidth: true
+
+            contentItem: ColumnLayout {
+                implicitWidth: 0x0
+
+                Text {
                     text: qsTr("Developer settings")
                     horizontalAlignment: Qt.AlignLeft
                     verticalAlignment: Qt.AlignVCenter
                     wrapMode: Text.WordWrap
+                    font.bold: true
 
                     Layout.fillWidth: true
                 }

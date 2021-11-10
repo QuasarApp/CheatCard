@@ -54,7 +54,7 @@ bool CheatCard::init(QQmlApplicationEngine *engine, IBilling *billingObject) {
     _model = new MainModel(_db->db());
 
     root->setContextProperty("mainModel", QVariant::fromValue(_model));
-    root->setContextProperty("config", QVariant::fromValue(SettingsModel::instance<SettingsModel>()));
+    root->setContextProperty("config", QVariant::fromValue(SettingsModel::instance<SettingsModel>(_db->db())));
 
     qmlRegisterType<SBarcodeGenerator>("com.scythestudio.scodes", 1, 0, "SBarcodeGenerator");
     qmlRegisterType<SBarcodeFilter>("com.scythestudio.scodes", 1, 0, "SBarcodeFilter");

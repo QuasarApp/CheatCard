@@ -9,6 +9,7 @@
 #ifndef SETTINGSMODEL_H
 #define SETTINGSMODEL_H
 
+#include <CheatCard/database.h>
 #include "quasarapp.h"
 
 namespace RC {
@@ -16,13 +17,17 @@ namespace RC {
 
 class SettingsModel: public QuasarAppUtils::ISettings {
 public:
-    SettingsModel();
+    SettingsModel(QH::ISqlDBCache* db);
+    ~SettingsModel();
 
     // ISettings interface
 protected:
     void syncImplementation();
     QVariant getValueImplementation(const QString &key, const QVariant &def);
     void setValueImplementation(const QString key, const QVariant &value);
+
+private:
+    QH::ISqlDBCache * _db = nullptr;
 };
 
 }

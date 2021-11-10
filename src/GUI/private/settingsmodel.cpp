@@ -6,12 +6,18 @@
 //#
 
 
+#include <getsinglevalue.h>
+#include <setsinglevalue.h>
 #include "settingsmodel.h"
 
 namespace RC {
 
 
-SettingsModel::SettingsModel() {
+SettingsModel::SettingsModel(QH::ISqlDBCache *db) {
+    _db = db;
+}
+
+SettingsModel::~SettingsModel() {
 
 }
 
@@ -21,9 +27,21 @@ void SettingsModel::syncImplementation() {
 
 QVariant SettingsModel::getValueImplementation(const QString &key, const QVariant &def) {
 
+    QH::PKG::GetSingleValue request({"Config", "There will be id"}, key);
+    auto result = _db->getObject(request);
+
+    if (!result) {
+        return 0;
+    }
+
+    return result->value();
+
 }
 
 void SettingsModel::setValueImplementation(const QString key, const QVariant &value) {
+
+    QH::PKG::SetSingleValue request({"Config", "There will be id"}, key, value);
+    _db->getObject(request);
 
 }
 
