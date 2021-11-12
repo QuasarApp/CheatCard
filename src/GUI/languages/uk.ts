@@ -672,6 +672,10 @@
         <source>Select work camera</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Select application color</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>WaitConnectView</name>

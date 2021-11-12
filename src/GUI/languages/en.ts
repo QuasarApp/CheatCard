@@ -818,39 +818,43 @@
     <name>Settings</name>
     <message>
         <source>Externality</source>
-        <translation type="unfinished"></translation>
+        <translation>Externality</translation>
     </message>
     <message>
         <source>Change the main color of the application</source>
-        <translation type="unfinished"></translation>
+        <translation>Change the main color of the application</translation>
     </message>
     <message>
         <source>Privacy</source>
-        <translation type="unfinished"></translation>
+        <translation>Privacy</translation>
     </message>
     <message>
         <source>Share name with seller</source>
-        <translation type="unfinished"></translation>
+        <translation>Share name with seller</translation>
     </message>
     <message>
         <source>Developer settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Developer settings</translation>
     </message>
     <message>
         <source>Host</source>
-        <translation type="unfinished"></translation>
+        <translation>Host</translation>
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Port</translation>
     </message>
     <message>
         <source>Camera</source>
-        <translation type="unfinished"></translation>
+        <translation>Camera</translation>
     </message>
     <message>
         <source>Select work camera</source>
-        <translation type="unfinished"></translation>
+        <translation>Select work camera</translation>
+    </message>
+    <message>
+        <source>Select application color</source>
+        <translation>Select application color</translation>
     </message>
 </context>
 <context>

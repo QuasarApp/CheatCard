@@ -15,10 +15,12 @@ import QtQuick.Controls.Material 2.15
 
 Page {
     id: root
+    property var model: null
 
     contentItem: ColumnLayout {
 
         Frame {
+            id: externality
 
             background: Rectangle{
                 color: "#e6e6e6"
@@ -38,6 +40,7 @@ Page {
                     verticalAlignment: Qt.AlignVCenter
                     wrapMode: Text.WordWrap
                     font.bold: true
+                    font.pointSize: 12
 
                     Layout.fillWidth: true
                 }
@@ -52,33 +55,62 @@ Page {
                     contentItem: Text {
                         rightPadding: control.indicator.width + control.spacing
                         text: control.text
-                        font: control.font
-                        opacity: enabled ? 1.0 : 0.3
+                        font.pointSize: 11
                         elide: Text.ElideRight
                         verticalAlignment: Text.AlignVCenter
                         wrapMode: Text.WordWrap
                     }
 
-                    indicator: Rectangle {
-                        implicitWidth: 38
-                        implicitHeight: 16
-                        x: control.width - width - control.rightPadding
-                        y: parent.height / 2 - height / 2
-                        radius: 13
-                        color: control.checked ? "#17a81a" : "transparent"
-                        border.color: control.checked ? "#17a81a" : "#cccccc"
+                }
 
-                        Rectangle {
-                            x: control.checked ? parent.width - width : 0
-                            y: -2
-                            width: 20
-                            height: 20
-                            radius: 13
-                            color: control.down ? "#cccccc" : "#ffffff"
-                            border.color: control.checked ? (control.down ? "#17a81a" : "#21be2b") : "#999999"
-                        }
+                ToolSeparator {
+                    Layout.fillWidth: true
+                    orientation: Qt.Horizontal
+
+                    padding: 1
+                    topPadding: 1
+                    bottomPadding: 1
+
+                    contentItem: Rectangle {
+                        implicitWidth: 1
+                        implicitHeight: 1
+                        color: "#c3c3c3"
                     }
 
+                }
+
+                Button {
+                    id: selectColor
+                    onClicked: popup.open()
+                    enabled: control.checked
+
+                    text: qsTr("Select application color")
+                    Layout.fillWidth: true
+
+                    contentItem: Text {
+                        text: selectColor.text
+                        horizontalAlignment: Text.AlignVCenter
+                        font.pointSize: 11
+                        opacity: enabled ? 1.0 : 0.3
+                        wrapMode: Text.WordWrap
+                    }
+
+                    Popup {
+                        id: popup
+
+                        parent: Overlay.overlay
+
+                        width: root.width
+                        height: root.height
+
+                        ColorPicker {
+                            id: colorPick
+                            implicitHeight: 0x0
+
+                        }
+
+
+                    }
                 }
 
             }
@@ -104,6 +136,7 @@ Page {
                     verticalAlignment: Qt.AlignVCenter
                     wrapMode: Text.WordWrap
                     font.bold: true
+                    font.pointSize: 12
 
                     Layout.fillWidth: true
                 }
@@ -118,31 +151,11 @@ Page {
                     contentItem: Text {
                         rightPadding: privacy.indicator.width + privacy.spacing
                         text: privacy.text
-                        font: privacy.font
+                        font.pointSize: 11
                         opacity: enabled ? 1.0 : 0.3
                         elide: Text.ElideRight
                         verticalAlignment: Text.AlignVCenter
                         wrapMode: Text.WordWrap
-                    }
-
-                    indicator: Rectangle {
-                        implicitWidth: 38
-                        implicitHeight: 16
-                        x: privacy.width - width - privacy.rightPadding
-                        y: parent.height / 2 - height / 2
-                        radius: 13
-                        color: privacy.checked ? "#17a81a" : "transparent"
-                        border.color: privacy.checked ? "#17a81a" : "#cccccc"
-
-                        Rectangle {
-                            x: privacy.checked ? parent.width - width : 0
-                            y: -2
-                            width: 20
-                            height: 20
-                            radius: 13
-                            color: privacy.down ? "#cccccc" : "#ffffff"
-                            border.color: privacy.checked ? (privacy.down ? "#17a81a" : "#21be2b") : "#999999"
-                        }
                     }
 
                 }
@@ -168,6 +181,7 @@ Page {
                     horizontalAlignment: Qt.AlignLeft
                     verticalAlignment: Qt.AlignVCenter
                     font.bold: true
+                    font.pointSize: 12
                     wrapMode: Text.WordWrap
 
                     Layout.fillWidth: true
@@ -183,33 +197,12 @@ Page {
                     contentItem: Text {
                         rightPadding: camera.indicator.width + camera.spacing
                         text: camera.text
-                        font: camera.font
+                        font.pointSize: 11
                         opacity: enabled ? 1.0 : 0.3
                         elide: Text.ElideRight
                         verticalAlignment: Text.AlignVCenter
                         wrapMode: Text.WordWrap
                     }
-
-                    indicator: Rectangle {
-                        implicitWidth: 38
-                        implicitHeight: 16
-                        x: camera.width - width - camera.rightPadding
-                        y: parent.height / 2 - height / 2
-                        radius: 13
-                        color: camera.checked ? "#17a81a" : "transparent"
-                        border.color: camera.checked ? "#17a81a" : "#cccccc"
-
-                        Rectangle {
-                            x: camera.checked ? parent.width - width : 0
-                            y: -2
-                            width: 20
-                            height: 20
-                            radius: 13
-                            color: camera.down ? "#cccccc" : "#ffffff"
-                            border.color: camera.checked ? (camera.down ? "#17a81a" : "#21be2b") : "#999999"
-                        }
-                    }
-
                 }
             }
         }
@@ -234,14 +227,23 @@ Page {
                     verticalAlignment: Qt.AlignVCenter
                     wrapMode: Text.WordWrap
                     font.bold: true
+                    font.pointSize: 12
 
                     Layout.fillWidth: true
                 }
 
                 RowLayout {
-                    Layout.fillWidth: true
-                    TextField { text: qsTr("Host") }
-                    TextField { text: qsTr("Port") }
+                    TextField {
+                        Layout.fillWidth: true
+                        font.pointSize: 11
+                        placeholderText: qsTr("Host")
+                    }
+
+                    TextField {
+                        Layout.fillWidth: true
+                        font.pointSize: 11
+                        placeholderText: qsTr("Port")
+                    }
                 }
             }
         }

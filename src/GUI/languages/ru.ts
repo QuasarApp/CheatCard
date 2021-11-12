@@ -767,39 +767,43 @@
     <name>Settings</name>
     <message>
         <source>Externality</source>
-        <translation type="unfinished"></translation>
+        <translation>Внешний вид</translation>
     </message>
     <message>
         <source>Change the main color of the application</source>
-        <translation type="unfinished"></translation>
+        <translation>Изменить основной цвет приложения</translation>
     </message>
     <message>
         <source>Privacy</source>
-        <translation type="unfinished"></translation>
+        <translation>Приватность</translation>
     </message>
     <message>
         <source>Share name with seller</source>
-        <translation type="unfinished"></translation>
+        <translation>Поделиться именем с продавцо</translation>
     </message>
     <message>
         <source>Developer settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Настройки разработчика</translation>
     </message>
     <message>
         <source>Host</source>
-        <translation type="unfinished"></translation>
+        <translation>Хост</translation>
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Порт</translation>
     </message>
     <message>
         <source>Camera</source>
-        <translation type="unfinished"></translation>
+        <translation>Камера</translation>
     </message>
     <message>
         <source>Select work camera</source>
-        <translation type="unfinished"></translation>
+        <translation>Выбрать рабочую камеру</translation>
+    </message>
+    <message>
+        <source>Select application color</source>
+        <translation>Выбрать цвет приложения</translation>
     </message>
 </context>
 <context>

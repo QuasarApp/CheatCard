@@ -5,10 +5,11 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-
+#include <QSharedPointer>
 #include <getsinglevalue.h>
 #include <setsinglevalue.h>
 #include "settingsmodel.h"
+#include "dbaddress.h"
 
 namespace RC {
 
@@ -31,7 +32,7 @@ QVariant SettingsModel::getValueImplementation(const QString &key, const QVarian
     auto result = _db->getObject(request);
 
     if (!result) {
-        return 0;
+        return def;
     }
 
     return result->value();
@@ -40,8 +41,10 @@ QVariant SettingsModel::getValueImplementation(const QString &key, const QVarian
 
 void SettingsModel::setValueImplementation(const QString key, const QVariant &value) {
 
-    QH::PKG::SetSingleValue request({"Config", "There will be id"}, key, value);
-    _db->getObject(request);
+    auto updateRequest = QSharedPointer<QH::PKG::SetSingleValue>::create(
+                QH::DbAddress{"Config", "There will be id"}, key, value);
+
+    _db->updateObject(updateRequest);
 
 }
 
