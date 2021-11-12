@@ -298,7 +298,7 @@ bool BaseNode::processCardData(const QSharedPointer<QH::PKG::DataPack<Card>> &ca
     if (tokens.requestToken() != senderInfo->token()) {
         QuasarAppUtils::Params::log("Receive not signed Card!",
                                     QuasarAppUtils::Error);
-        return false;;
+        return false;
     }
 
     for (const auto& card : qAsConst(cards->packData())) {

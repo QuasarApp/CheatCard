@@ -11,8 +11,9 @@
 namespace RC {
 
 User::User(): QH::PKG::DBObject("Users") {
-    _key = QCryptographicHash::hash(randomArray(), QCryptographicHash::Sha256);
-    setId(QVariant::fromValue(qHash(_key)));
+    _secret = QCryptographicHash::hash(randomArray(), QCryptographicHash::Sha256);
+    _key = makeKey(_secret);
+    setId(QVariant::fromValue(makeId(_key)));
 }
 
 QH::PKG::DBObject *User::createDBObject() const {
@@ -22,7 +23,8 @@ QH::PKG::DBObject *User::createDBObject() const {
 QH::PKG::DBVariantMap User::variantMap() const {
     return {{"id",          {getId(),     QH::PKG::MemberType::PrimaryKey}},
             {"name",        {_name,       QH::PKG::MemberType::InsertUpdate}},
-            {"key",         {_key,        QH::PKG::MemberType::InsertUpdate}},
+            {"key",         {_key,        QH::PKG::MemberType::Insert}},
+            {"secret",      {_secret,     QH::PKG::MemberType::Insert}},
             {"time",        {static_cast<int>(time(0)),      QH::PKG::MemberType::InsertUpdate}},
 
 
@@ -61,6 +63,22 @@ QByteArray User::randomArray() const {
     return result;
 }
 
+const QByteArray &User::secret() const {
+    return _secret;
+}
+
+void User::setSecret(const QByteArray &newSecret) {
+    _secret = newSecret;
+}
+
+QByteArray User::makeKey(const QByteArray &secret) {
+    return QCryptographicHash::hash(secret, QCryptographicHash::Sha256);
+}
+
+unsigned int User::makeId(const QByteArray &key) {
+    return qHash(key);
+}
+
 const QByteArray &User::getKey() const {
     return _key;
 }
@@ -94,6 +112,7 @@ bool User::fromSqlRecord(const QSqlRecord &q) {
     setId(q.value("id").toUInt());
     setName(q.value("name").toString());
     setKey(q.value("key").toByteArray());
+    setSecret(q.value("secret").toByteArray());
 
     return true;
 }

@@ -15,6 +15,12 @@
 
 namespace RC {
 
+/**
+ * @brief The BaseNodeV1 class
+ * General changes betwin BaseNode and BaseNodev1
+ *
+ * The BaseNodeV1 dropped all tokens validation. now validation works only on server (used seller secret)
+ */
 class CHEATCARD_CORE_EXPORT BaseNodeV1: public BaseNode
 {
     Q_OBJECT
@@ -40,6 +46,19 @@ protected:
                                   const QH::Header &pkgHeader,
                                   const QH::AbstractNodeInfo *sender) override;
 
+    /**
+     * @brief cardValidation This method must check card data only on server. This implementation do nothing.
+     * @return true if card is pass validation.
+     */
+    virtual bool cardValidation(const QSharedPointer<Card>& card, const QByteArray &ownerSecret) const;
+
+    /**
+     * @brief sealValidation This method check seal data. This validation must be work only on server so this method implementation do nothing.
+     * @return true if seal is pass validation.
+     */
+    virtual bool sealValidation(const QSharedPointer<UsersCards> &userCardData,
+                                const QSharedPointer<Card> &cardFromDb,
+                                const QByteArray &ownerSecret) const;
 };
 }
 #endif // BASENODEV1_H

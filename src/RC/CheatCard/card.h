@@ -85,6 +85,7 @@ private:
     QByteArray _logo;
     QByteArray _seal;
     QByteArray _background;
+    QByteArray _ownerSignature;
 
     QString _phone;
     QString _telegramm;
