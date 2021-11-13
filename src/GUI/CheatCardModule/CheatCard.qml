@@ -167,7 +167,6 @@ ApplicationWindow {
 
             onClicked:  () => {
                             activityProcessor.newActivity("qrc:/CheatCardModule/Settings.qml");
-//                            activityProcessor.newActivityFromComponent(about, mainModel.getAboutModel());
                         }
         }
     }

@@ -81,7 +81,10 @@ Page {
 
                 Button {
                     id: selectColor
-                    onClicked: popup.open()
+                    onClicked: () => {
+                                   activityProcessor.newActivityFromComponent(settingdColor);
+
+                               }
                     enabled: control.checked
 
                     text: qsTr("Select application color")
@@ -94,24 +97,28 @@ Page {
                         opacity: enabled ? 1.0 : 0.3
                         wrapMode: Text.WordWrap
                     }
+                }
 
-                    Popup {
-                        id: popup
+                Component {
+                    id: settingdColor
 
-                        parent: Overlay.overlay
-
-                        width: root.width
-                        height: root.height
-
-                        ColorPicker {
-                            id: colorPick
-                            implicitHeight: 0x0
-
+                    ColorPicker {
+                        id: colorPick
+                        implicitHeight: 0x0
+                        header: Label {
+                            horizontalAlignment: Label.AlignHCenter
+                            text: qsTr("Please choose a color")
+                            font.bold: true
                         }
 
+                        footer: DialogButtonBox {
+                            onAccepted: () => {}
 
+                            standardButtons: Dialog.Open
+                        }
                     }
                 }
+
 
             }
         }

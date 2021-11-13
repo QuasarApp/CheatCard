@@ -28,7 +28,7 @@ void SettingsModel::syncImplementation() {
 
 QVariant SettingsModel::getValueImplementation(const QString &key, const QVariant &def) {
 
-    QH::PKG::GetSingleValue request({"Config", "There will be id"}, key);
+    QH::PKG::GetSingleValue request({"Config", "There will be id"}, key, "user");
     auto result = _db->getObject(request);
 
     if (!result) {
@@ -42,7 +42,7 @@ QVariant SettingsModel::getValueImplementation(const QString &key, const QVarian
 void SettingsModel::setValueImplementation(const QString key, const QVariant &value) {
 
     auto updateRequest = QSharedPointer<QH::PKG::SetSingleValue>::create(
-                QH::DbAddress{"Config", "There will be id"}, key, value);
+                QH::DbAddress{"Config", "There will be id"}, key, value, "user");
 
     _db->updateObject(updateRequest);
 
