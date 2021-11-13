@@ -75,6 +75,9 @@ public:
 
     void idGen();
 
+    const QByteArray &ownerSignature() const;
+    void setOwnerSignature(const QByteArray &newOwnerSignature);
+
 protected:
     QString primaryKey() const override;
     QDataStream &fromStream(QDataStream &stream) override;
