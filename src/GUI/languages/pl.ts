@@ -642,10 +642,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Change the main color of the application</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Privacy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -676,6 +672,10 @@
     <message>
         <source>Select application color</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please choose a color</source>
+        <translation type="unfinished">Proszę wybrać kolor</translation>
     </message>
 </context>
 <context>

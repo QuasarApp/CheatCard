@@ -771,7 +771,7 @@
     </message>
     <message>
         <source>Change the main color of the application</source>
-        <translation>Изменить основной цвет приложения</translation>
+        <translation type="vanished">Изменить основной цвет приложения</translation>
     </message>
     <message>
         <source>Privacy</source>
@@ -804,6 +804,10 @@
     <message>
         <source>Select application color</source>
         <translation>Выбрать цвет приложения</translation>
+    </message>
+    <message>
+        <source>Please choose a color</source>
+        <translation type="unfinished">Пожалуйста, выберите цвет</translation>
     </message>
 </context>
 <context>

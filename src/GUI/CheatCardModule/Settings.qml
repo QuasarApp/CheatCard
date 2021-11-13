@@ -14,252 +14,274 @@ import QtQuick.Controls.Material 2.15
 
 
 Page {
-    id: root
-    property var model: null
+    id: rootSettins
 
-    contentItem: ColumnLayout {
+    contentItem: Flickable {
+        id: flickable
+        ScrollBar.vertical: ScrollBar {}
+        contentHeight: listSettings.height
+        clip: true
 
-        Frame {
-            id: externality
 
-            background: Rectangle{
-                color: "#e6e6e6"
-                radius: 10
-            }
+        ColumnLayout {
+            id: listSettings
+            anchors.fill: parent
 
-            Layout.margins: 8
-            Layout.alignment: Qt.AlignHCenter
-            Layout.fillWidth: true
+            Pane {
+                id: externality
 
-            contentItem: ColumnLayout {
-                implicitWidth: 0x0
+                Layout.margins: 8
+                Layout.alignment: Qt.AlignHCenter
+                Layout.fillWidth: true
 
-                Text {
-                    text: qsTr("Externality")
-                    horizontalAlignment: Qt.AlignLeft
-                    verticalAlignment: Qt.AlignVCenter
-                    wrapMode: Text.WordWrap
-                    font.bold: true
-                    font.pointSize: 12
+                contentItem: ColumnLayout {
+                    implicitWidth: 0x0
 
-                    Layout.fillWidth: true
-                }
-
-                SwitchDelegate {
-                    id: control
-                    text: qsTr("Change the main color of the application")
-                    checked: false
-
-                    Layout.fillWidth: true
-
-                    contentItem: Text {
-                        rightPadding: control.indicator.width + control.spacing
-                        text: control.text
-                        font.pointSize: 11
-                        elide: Text.ElideRight
-                        verticalAlignment: Text.AlignVCenter
+                    Text {
+                        text: qsTr("Externality")
+                        horizontalAlignment: Qt.AlignLeft
+                        verticalAlignment: Qt.AlignVCenter
                         wrapMode: Text.WordWrap
+                        font.bold: true
+                        font.pointSize: 12
+
+                        Layout.fillWidth: true
                     }
 
-                }
+                    RowLayout {
 
-                ToolSeparator {
-                    Layout.fillWidth: true
-                    orientation: Qt.Horizontal
+                        Text {
+                            text: qsTr("Select application color")
+                            horizontalAlignment: Text.AlignVCenter
+                            font.pointSize: 11
+                            opacity: enabled ? 1.0 : 0.3
+                            wrapMode: Text.WordWrap
 
-                    padding: 1
-                    topPadding: 1
-                    bottomPadding: 1
-
-                    contentItem: Rectangle {
-                        implicitWidth: 1
-                        implicitHeight: 1
-                        color: "#c3c3c3"
-                    }
-
-                }
-
-                Button {
-                    id: selectColor
-                    onClicked: () => {
-                                   activityProcessor.newActivityFromComponent(settingdColor);
-
-                               }
-                    enabled: control.checked
-
-                    text: qsTr("Select application color")
-                    Layout.fillWidth: true
-
-                    contentItem: Text {
-                        text: selectColor.text
-                        horizontalAlignment: Text.AlignVCenter
-                        font.pointSize: 11
-                        opacity: enabled ? 1.0 : 0.3
-                        wrapMode: Text.WordWrap
-                    }
-                }
-
-                Component {
-                    id: settingdColor
-
-                    ColorPicker {
-                        id: colorPick
-                        implicitHeight: 0x0
-                        header: Label {
-                            horizontalAlignment: Label.AlignHCenter
-                            text: qsTr("Please choose a color")
-                            font.bold: true
+                            Layout.fillWidth: true
                         }
 
-                        footer: DialogButtonBox {
-                            onAccepted: () => {}
+                        ToolButton {
+                            id: btnSelectColor
+                            text: qsTr("Select")
+                            font.pointSize: 9
 
-                            standardButtons: Dialog.Open
+                            icon.source: "qrc:/images/private/resources/settings_icons/1299816282.svg"
+                            icon.height: 30
+                            icon.width: 30
+                            icon.color: "transparent"
+
+                            onClicked: () => {
+                                           activityProcessor.newActivityFromComponent(settingdColor);
+                                       }
+                        }
+
+                    }
+
+                    Component {
+                        id: settingdColor
+
+                        ColorPicker {
+                            id: colorPick
+                            implicitHeight: 0x0
+                            header: Label {
+                                horizontalAlignment: Label.AlignHCenter
+                                text: qsTr("Please choose a color")
+                                font.bold: true
+                            }
+
+                            footer: DialogButtonBox {
+                                onAccepted: () => {}
+
+                                standardButtons: Dialog.Open
+                            }
                         }
                     }
                 }
-
-
-            }
-        }
-
-        Frame {
-
-            background: Rectangle{
-                color: "#e6e6e6"
-                radius: 10
             }
 
-            Layout.margins: 8
-            Layout.alignment: Qt.AlignHCenter
-            Layout.fillWidth: true
+            ToolSeparator {
+                Layout.fillWidth: true
+                orientation: Qt.Horizontal
 
-            contentItem: ColumnLayout {
-                implicitWidth: 0x0
+                padding: 1
+                topPadding: 1
+                bottomPadding: 1
 
-                Text {
-                    text: qsTr("Privacy")
-                    horizontalAlignment: Qt.AlignLeft
-                    verticalAlignment: Qt.AlignVCenter
-                    wrapMode: Text.WordWrap
-                    font.bold: true
-                    font.pointSize: 12
-
-                    Layout.fillWidth: true
+                contentItem: Rectangle {
+                    implicitWidth: 1
+                    implicitHeight: 1
+                    color: "#c3c3c3"
                 }
 
-                SwitchDelegate {
-                    id: privacy
-                    text: qsTr("Share name with seller")
-                    checked: false
+            }
 
-                    Layout.fillWidth: true
+            Pane {
 
-                    contentItem: Text {
-                        rightPadding: privacy.indicator.width + privacy.spacing
-                        text: privacy.text
-                        font.pointSize: 11
-                        opacity: enabled ? 1.0 : 0.3
-                        elide: Text.ElideRight
-                        verticalAlignment: Text.AlignVCenter
+                Layout.margins: 8
+                Layout.alignment: Qt.AlignHCenter
+                Layout.fillWidth: true
+
+                contentItem: ColumnLayout {
+                    implicitWidth: 0x0
+
+                    Text {
+                        text: qsTr("Privacy")
+                        horizontalAlignment: Qt.AlignLeft
+                        verticalAlignment: Qt.AlignVCenter
                         wrapMode: Text.WordWrap
+                        font.bold: true
+                        font.pointSize: 12
+
+                        Layout.fillWidth: true
                     }
 
+                    SwitchDelegate {
+                        id: privacy
+                        text: qsTr("Share name with seller")
+                        checked: false
+
+                        Layout.fillWidth: true
+
+                        contentItem: Text {
+                            rightPadding: privacy.indicator.width + privacy.spacing
+                            text: privacy.text
+                            font.pointSize: 11
+                            opacity: enabled ? 1.0 : 0.3
+                            elide: Text.ElideRight
+                            verticalAlignment: Text.AlignVCenter
+                            wrapMode: Text.WordWrap
+                        }
+
+                    }
                 }
             }
-        }
 
-        Frame {
+            ToolSeparator {
+                Layout.fillWidth: true
+                orientation: Qt.Horizontal
 
-            background: Rectangle{
-                color: "#e6e6e6"
-                radius: 10
-            }
+                padding: 1
+                topPadding: 1
+                bottomPadding: 1
 
-            Layout.margins: 8
-            Layout.alignment: Qt.AlignHCenter
-            Layout.fillWidth: true
-
-            contentItem: ColumnLayout {
-                implicitWidth: 0x0
-
-                Text {
-                    text: qsTr("Camera")
-                    horizontalAlignment: Qt.AlignLeft
-                    verticalAlignment: Qt.AlignVCenter
-                    font.bold: true
-                    font.pointSize: 12
-                    wrapMode: Text.WordWrap
-
-                    Layout.fillWidth: true
+                contentItem: Rectangle {
+                    implicitWidth: 1
+                    implicitHeight: 1
+                    color: "#c3c3c3"
                 }
 
-                SwitchDelegate {
-                    id: camera
-                    text: qsTr("Select work camera")
-                    checked: false
+            }
 
-                    Layout.fillWidth: true
+            Pane {
 
-                    contentItem: Text {
-                        rightPadding: camera.indicator.width + camera.spacing
-                        text: camera.text
-                        font.pointSize: 11
-                        opacity: enabled ? 1.0 : 0.3
-                        elide: Text.ElideRight
-                        verticalAlignment: Text.AlignVCenter
+                Layout.margins: 8
+                Layout.alignment: Qt.AlignHCenter
+                Layout.fillWidth: true
+
+                contentItem: ColumnLayout {
+                    implicitWidth: 0x0
+
+                    Text {
+                        text: qsTr("Camera")
+                        horizontalAlignment: Qt.AlignLeft
+                        verticalAlignment: Qt.AlignVCenter
+                        font.bold: true
+                        font.pointSize: 12
                         wrapMode: Text.WordWrap
-                    }
-                }
-            }
-        }
 
-        Frame {
-
-            background: Rectangle{
-                color: "#e6e6e6"
-                radius: 10
-            }
-
-            Layout.margins: 8
-            Layout.alignment: Qt.AlignHCenter
-            Layout.fillWidth: true
-
-            contentItem: ColumnLayout {
-                implicitWidth: 0x0
-
-                Text {
-                    text: qsTr("Developer settings")
-                    horizontalAlignment: Qt.AlignLeft
-                    verticalAlignment: Qt.AlignVCenter
-                    wrapMode: Text.WordWrap
-                    font.bold: true
-                    font.pointSize: 12
-
-                    Layout.fillWidth: true
-                }
-
-                RowLayout {
-                    TextField {
                         Layout.fillWidth: true
-                        font.pointSize: 11
-                        placeholderText: qsTr("Host")
                     }
 
-                    TextField {
-                        Layout.fillWidth: true
-                        font.pointSize: 11
-                        placeholderText: qsTr("Port")
+                    RowLayout {
+                        Text {
+                            id: name
+                            text: qsTr("Select work camera")
+                            font.pointSize: 11
+                            opacity: enabled ? 1.0 : 0.3
+                            verticalAlignment: Text.AlignVCenter
+                            wrapMode: Text.WordWrap
+                            Layout.fillWidth: true
+                        }
+
+                        ComboBox {
+                            id: camera
+                            editable: true
+
+                            Layout.fillWidth: true
+
+                            model: ListModel {
+                                id: model
+                                ListElement { text: "Banana" }
+                                ListElement { text: "Apple" }
+                                ListElement { text: "Coconut" }
+                            }
+    //                        onAccepted: {
+    //                            if (find(editText) === -1)
+    //                                model.append({text: editText})
+    //                        }
+                        }
                     }
                 }
             }
+
+            ToolSeparator {
+                Layout.fillWidth: true
+                orientation: Qt.Horizontal
+
+                padding: 1
+                topPadding: 1
+                bottomPadding: 1
+
+                contentItem: Rectangle {
+                    implicitWidth: 1
+                    implicitHeight: 1
+                    color: "#c3c3c3"
+                }
+
+            }
+
+            Pane {
+
+                Layout.margins: 8
+                Layout.alignment: Qt.AlignHCenter
+                Layout.fillWidth: true
+
+                contentItem: ColumnLayout {
+                    implicitWidth: 0x0
+
+                    Text {
+                        text: qsTr("Developer settings")
+                        horizontalAlignment: Qt.AlignLeft
+                        verticalAlignment: Qt.AlignVCenter
+                        wrapMode: Text.WordWrap
+                        font.bold: true
+                        font.pointSize: 12
+
+                        Layout.fillWidth: true
+                    }
+
+                    RowLayout {
+                        TextField {
+                            Layout.fillWidth: true
+                            font.pointSize: 11
+                            placeholderText: qsTr("Host")
+                        }
+
+                        TextField {
+                            Layout.fillWidth: true
+                            font.pointSize: 11
+                            placeholderText: qsTr("Port")
+                        }
+                    }
+                }
+            }
+
+            Item {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+
+            }
+
         }
-
-        Item {
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-
-        }
-
     }
 }

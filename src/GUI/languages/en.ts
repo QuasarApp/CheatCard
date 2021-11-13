@@ -822,7 +822,7 @@
     </message>
     <message>
         <source>Change the main color of the application</source>
-        <translation>Change the main color of the application</translation>
+        <translation type="vanished">Change the main color of the application</translation>
     </message>
     <message>
         <source>Privacy</source>
@@ -855,6 +855,10 @@
     <message>
         <source>Select application color</source>
         <translation>Select application color</translation>
+    </message>
+    <message>
+        <source>Please choose a color</source>
+        <translation type="unfinished">Please choose a color</translation>
     </message>
 </context>
 <context>
