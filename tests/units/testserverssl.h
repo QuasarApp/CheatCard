@@ -5,11 +5,11 @@
 
 class TestDataBaseWrapper;
 
-class TestServer: public RC::Server
+class TestServerSSL: public RC::ServerSSL
 {
     Q_OBJECT
 public:
-    TestServer(QSharedPointer<TestDataBaseWrapper>);
+    TestServerSSL(QSharedPointer<TestDataBaseWrapper>);
     QSharedPointer<RC::Card> getCard(unsigned int cardId) const;
     int getPurchaseCount(unsigned int userId,unsigned int cardId);
 

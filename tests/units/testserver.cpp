@@ -6,14 +6,9 @@
 
 #include <QCoreApplication>
 
-TestServer::TestServer(QSharedPointer<TestDataBaseWrapper> db): RC::ServerSSL(db->db()) {
+TestServer::TestServer(QSharedPointer<TestDataBaseWrapper> db):
+    RC::Server(db->db()) {
     privateDb = db;
-
-    QH::SslSrtData sslData;
-    sslData.commonName = "localhost";
-    sslData.organization = QCoreApplication::organizationName();
-
-    useSelfSignedSslConfiguration(sslData);
 }
 
 QSharedPointer<RC::Card> TestServer::getCard(unsigned int cardId) const {

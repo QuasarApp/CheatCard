@@ -1,6 +1,7 @@
 #include "testdatabasewrapper.h"
 
-TestDataBaseWrapper::TestDataBaseWrapper(const QString &name, const QString& dbPath):
+TestDataBaseWrapper::TestDataBaseWrapper(const QString &name,
+                                         const QString& dbPath):
     RC::DataBase(name) {
     _dbPath = dbPath;
 }
