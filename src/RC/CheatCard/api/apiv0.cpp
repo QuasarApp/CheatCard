@@ -7,7 +7,7 @@
 
 
 #include "apiv0.h"
-#include "basenode.h"
+#include "CheatCard/basenode.h"
 #include "CheatCard/carddatarequest.h"
 #include "CheatCard/cardstatusrequest.h"
 #include "CheatCard/nodeinfo.h"

@@ -19,7 +19,7 @@
 #include <getsinglevalue.h>
 #include <cmath>
 #include <dbobjectsrequest.h>
-#include "basenode.h"
+#include "CheatCard/basenode.h"
 
 namespace RC {
 
@@ -38,7 +38,7 @@ bool ApiV1::processCardStatus(const QSharedPointer<QH::PKG::DataPack<UsersCards>
 
         auto dbCard = db()->getObject(userrquest);
 
-        if (node()->sealValidation(cardStatus, dbCard, cardStatuses->customData())) {
+        if (node()->cardValidation(dbCard, cardStatuses->customData())) {
 
             QuasarAppUtils::Params::log("Receive not signed cards seal");
             break;

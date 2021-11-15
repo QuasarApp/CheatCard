@@ -9,6 +9,7 @@
 #include "CheatCard/carddatarequest.h"
 #include "CheatCard/cardstatusrequest.h"
 #include "server.h"
+#include "user.h"
 
 #include <CheatCard/card.h>
 #include <CheatCard/session.h>
@@ -43,12 +44,7 @@ Server::Server(QH::ISqlDBCache *db): BaseNode(db) {
 bool Server::cardValidation(const QSharedPointer<Card> &card,
                             const QByteArray &ownerSecret) const {
 
-}
-
-bool Server::sealValidation(const QSharedPointer<UsersCards> &userCardData,
-                            const QSharedPointer<Card> &cardFromDb,
-                            const QByteArray &ownerSecret) const {
-
+    return card && card->ownerSignature() == User::makeKey(ownerSecret);
 }
 
 void Server::nodeConnected(QH::AbstractNodeInfo *node) {

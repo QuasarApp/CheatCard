@@ -31,9 +31,6 @@ public:
 
     bool cardValidation(const QSharedPointer<Card> &card,
                         const QByteArray &ownerSecret) const override;
-    bool sealValidation(const QSharedPointer<UsersCards> &userCardData,
-                        const QSharedPointer<Card> &cardFromDb,
-                        const QByteArray &ownerSecret) const override;
 
 protected:
     void nodeConnected(QH::AbstractNodeInfo *node) override;

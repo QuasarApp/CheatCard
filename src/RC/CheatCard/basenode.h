@@ -60,14 +60,6 @@ public:
     virtual bool cardValidation(const QSharedPointer<Card>& card,
                                 const QByteArray &ownerSecret) const = 0;
 
-    /**
-     * @brief sealValidation This method check seal data. This validation must be work only on server so this method implementation do nothing.
-     * @return true if seal is pass validation.
-     */
-    virtual bool sealValidation(const QSharedPointer<UsersCards> &userCardData,
-                                const QSharedPointer<Card> &cardFromDb,
-                                const QByteArray &ownerSecret) const = 0;
-
     QH::ISqlDBCache *db() const;
 
 signals:

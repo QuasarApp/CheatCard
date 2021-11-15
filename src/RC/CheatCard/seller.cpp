@@ -51,17 +51,6 @@ bool Seller::cardValidation(const QSharedPointer<Card> &card,
     return true;
 }
 
-bool Seller::sealValidation(const QSharedPointer<UsersCards> &userCardData,
-                             const QSharedPointer<Card> &cardFromDb,
-                             const QByteArray &ownerSecret) const {
-
-    Q_UNUSED(userCardData);
-    Q_UNUSED(cardFromDb);
-    Q_UNUSED(ownerSecret);
-
-    return true;
-}
-
 QString Seller::randomUserName() const {
 
     static QStringList list = {

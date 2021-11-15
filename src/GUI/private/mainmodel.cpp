@@ -38,6 +38,8 @@
 
 #include <CheatCardGui/ibilling.h>
 
+#include <CheatCard/api/apiv1.h>
+
 #define CURRENT_USER "CURRENT_USER"
 
 namespace RC {
@@ -381,13 +383,20 @@ int MainModel::getMode() const {
 }
 
 void RC::MainModel::configureCardsList() {
+    BaseNode* client = nullptr;
+
     if (_mode == Mode::Client) {
         setCardListModel(_cardsListModel);
-        setBackEndModel(QSharedPointer<BaseNode>(new VisitorSSL(_db), softRemove));
+        client = new VisitorSSL(_db);
+
     } else {
         setCardListModel(_ownCardsListModel);
-        setBackEndModel(QSharedPointer<BaseNode>(new SellerSSL(_db), softRemove));
+        client = new SellerSSL(_db);
     }
+
+    client->addApiParser(QSharedPointer<ApiV1>::create(client));
+
+    setBackEndModel(QSharedPointer<BaseNode>(client, softRemove));
 }
 
 void MainModel::setMode(int newMode) {

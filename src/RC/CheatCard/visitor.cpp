@@ -57,18 +57,6 @@ bool Visitor::cardValidation(const QSharedPointer<Card> &card,
     return true;
 }
 
-bool Visitor::sealValidation(const QSharedPointer<UsersCards> &userCardData,
-                             const QSharedPointer<Card> &cardFromDb,
-                             const QByteArray &ownerSecret) const {
-
-    Q_UNUSED(userCardData);
-    Q_UNUSED(cardFromDb);
-    Q_UNUSED(ownerSecret);
-
-    return true;
-}
-
-
 void Visitor::nodeConnected(QH::AbstractNodeInfo *node) {
     BaseNode::nodeConnected(node);
 

@@ -23,9 +23,6 @@ public:
     Server(QH::ISqlDBCache *db);
     bool cardValidation(const QSharedPointer<Card> &card,
                         const QByteArray &ownerSecret) const override;
-    bool sealValidation(const QSharedPointer<UsersCards> &userCardData,
-                        const QSharedPointer<Card> &cardFromDb,
-                        const QByteArray &ownerSecret) const override;
 
     // AbstractNode interface
 protected:
