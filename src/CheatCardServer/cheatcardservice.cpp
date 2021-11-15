@@ -8,6 +8,7 @@
 #include "cheatcardservice.h"
 #include <QDateTime>
 #include <CheatCard/serverssl.h>
+#include <CheatCard/api/apiv1.h>
 
 CheatCardService::CheatCardService(int argc, char **argv):
     Patronum::Service<QCoreApplication>(argc, argv) {
@@ -44,6 +45,7 @@ bool CheatCardService::onStart() {
 
     if (!_server) {
         _server = new RC::Server(_db->db());
+        _server->addApiParser(QSharedPointer<RC::ApiV0>::create(_server));
     }
 
     if (!_server->run({}, DEFAULT_CHEAT_CARD_PORT)) {
@@ -53,6 +55,8 @@ bool CheatCardService::onStart() {
 
     if (!_serverSSL) {
         _serverSSL = new RC::ServerSSL(_db->db());
+        _serverSSL->addApiParser(QSharedPointer<RC::ApiV1>::create(_serverSSL));
+
     }
 
     if (!_serverSSL->run({}, DEFAULT_CHEAT_CARD_PORT_SSL)) {
