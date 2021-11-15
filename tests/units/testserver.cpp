@@ -6,7 +6,7 @@
 
 #include <QCoreApplication>
 
-TestServer::TestServer(QSharedPointer<TestDataBaseWrapper> db): RC::ServerV1(db->db()) {
+TestServer::TestServer(QSharedPointer<TestDataBaseWrapper> db): RC::ServerSSL(db->db()) {
     privateDb = db;
 
     QH::SslSrtData sslData;

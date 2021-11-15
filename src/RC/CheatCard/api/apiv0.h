@@ -28,11 +28,8 @@ class BaseNode;
 
 class CHEATCARD_CORE_EXPORT ApiV0: public QH::iParser
 {
-    Q_OBJECT
 public:
     ApiV0(BaseNode* node);
-
-    BaseNode *node() const;
 
     int version() const override;
 
@@ -41,6 +38,8 @@ public:
                                   const QH::AbstractNodeInfo *sender) override;
 
 protected:
+    BaseNode *node() const;
+
     virtual bool processCardStatusRequest(const QSharedPointer<CardStatusRequest> &message,
                            const QH::AbstractNodeInfo *sender, const QH::Header&);
 

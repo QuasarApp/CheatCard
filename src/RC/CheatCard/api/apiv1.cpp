@@ -19,43 +19,12 @@
 #include <getsinglevalue.h>
 #include <cmath>
 #include <dbobjectsrequest.h>
+#include "basenode.h"
 
 namespace RC {
 
-ApiV1::ApiV1(QH::ISqlDBCache *db): ApiV0(db) {
+ApiV1::ApiV1(BaseNode *node): ApiV0(node) {
 
-    useSystemSslConfiguration();
-    setIgnoreSslErrors(QList<QSslError>() << QSslError::SelfSignedCertificate
-                       << QSslError::SelfSignedCertificateInChain
-                       << QSslError::HostNameMismatch);
-}
-
-QH::ParserResult ApiV1::parsePackage(const QSharedPointer<QH::PKG::AbstractData> &pkg,
-                                          const QH::Header &pkgHeader,
-                                          const QH::AbstractNodeInfo *sender) {
-
-    auto parentResult = ApiV0::parsePackage(pkg, pkgHeader, sender);
-    if (parentResult != QH::ParserResult::NotProcessed) {
-        return parentResult;
-    }
-
-    return QH::ParserResult::NotProcessed;
-}
-
-bool ApiV1::cardValidation(const QSharedPointer<Card> &card,
-                                const QByteArray& ownerSecret) const {
-    Q_UNUSED(card)
-    Q_UNUSED(ownerSecret)
-    return true;
-}
-
-bool ApiV1::sealValidation(const QSharedPointer<UsersCards> &userCardData,
-                                const QSharedPointer<Card> &cardFromDb,
-                                const QByteArray& ownerSecret) const {
-    Q_UNUSED(userCardData)
-    Q_UNUSED(cardFromDb)
-    Q_UNUSED(ownerSecret)
-    return true;
 }
 
 bool ApiV1::processCardStatus(const QSharedPointer<QH::PKG::DataPack<UsersCards> > &cardStatuses,
@@ -69,7 +38,7 @@ bool ApiV1::processCardStatus(const QSharedPointer<QH::PKG::DataPack<UsersCards>
 
         auto dbCard = db()->getObject(userrquest);
 
-        if (sealValidation(cardStatus, dbCard, cardStatuses->customData())) {
+        if (node()->sealValidation(cardStatus, dbCard, cardStatuses->customData())) {
 
             QuasarAppUtils::Params::log("Receive not signed cards seal");
             break;
@@ -88,7 +57,7 @@ bool ApiV1::processCardStatus(const QSharedPointer<QH::PKG::DataPack<UsersCards>
 
     if (request.getCardIds().size()) {
 
-        if (!sendData(&request, sender)) {
+        if (!node()->sendData(&request, sender)) {
             QuasarAppUtils::Params::log("Failed to send responce", QuasarAppUtils::Error);
 
             return false;
@@ -97,7 +66,7 @@ bool ApiV1::processCardStatus(const QSharedPointer<QH::PKG::DataPack<UsersCards>
         return true;
     }
 
-    return removeNode(sender->networkAddress());
+    return node()->removeNode(sender->networkAddress());
 }
 
 bool ApiV1::applayPurchases(const QSharedPointer<UsersCards> &dbCard,
@@ -112,7 +81,7 @@ bool ApiV1::processCardRequest(const QSharedPointer<CardDataRequest> &cardreques
     QH::PKG::DataPack<Card> cards{};
 
     for (unsigned int cardId : cardrequest->getCardIds()) {
-        auto card = getCard(cardId);
+        auto card = node()->getCard(cardId);
 
         if (!card) {
             QuasarAppUtils::Params::log(QString("Failed to find card with id: %0").
@@ -129,7 +98,7 @@ bool ApiV1::processCardRequest(const QSharedPointer<CardDataRequest> &cardreques
         return false;
     }
 
-    if (!sendData(&cards, sender)) {
+    if (!node()->sendData(&cards, sender)) {
 
         QuasarAppUtils::Params::log("Failed to send responce", QuasarAppUtils::Error);
         return false;
@@ -152,7 +121,7 @@ bool ApiV1::processCardData(const QSharedPointer<QH::PKG::DataPack<Card>> &cards
             continue;
         }
 
-        if (cardValidation(card, cards->customData())) {
+        if (node()->cardValidation(card, cards->customData())) {
 
             QuasarAppUtils::Params::log("Receive not signed card");
             break;
@@ -162,10 +131,10 @@ bool ApiV1::processCardData(const QSharedPointer<QH::PKG::DataPack<Card>> &cards
             continue;
         }
 
-        emit sigCardReceived(card);
+        emit node()->sigCardReceived(card);
     }
 
-    return removeNode(sender->networkAddress());
+    return node()->removeNode(sender->networkAddress());
 }
 
 bool ApiV1::processCardStatusRequest(const QSharedPointer<CardStatusRequest> &cardStatus,
@@ -188,11 +157,11 @@ bool ApiV1::processCardStatusRequest(const QSharedPointer<CardStatusRequest> &ca
     QH::PKG::DataPack<UsersCards> responce;
 
     for (const auto &data : qAsConst(result->data())) {
-        data->setCardVersion(getCardVersion(data->getCard()));
+        data->setCardVersion(node()->getCardVersion(data->getCard()));
         responce.push(data);
     }
 
-    if (!sendData(&responce, sender)) {
+    if (!node()->sendData(&responce, sender)) {
         return false;
     }
 
@@ -214,7 +183,7 @@ bool ApiV1::processSession(const QSharedPointer<Session> &session,
 
     requestData.setSessionId(session->getSessionId());
 
-    return sendData(&requestData, sender->networkAddress());
+    return node()->sendData(&requestData, sender->networkAddress());
 
 }
 

@@ -35,7 +35,15 @@ QH::ParserResult BaseNode::parsePackage(const QSharedPointer<QH::PKG::AbstractDa
         return parentResult;
     }
 
-    return QH::ParserResult::NotProcessed;
+    // here node must be receive version of connected application.
+    // if not use the default version (0)
+
+    auto parser = _apiParsers.value(static_cast<const NodeInfo*>(sender)->version());
+
+    if (!parser)
+        return QH::ParserResult::NotProcessed;
+
+    return parser->parsePackage(pkg, pkgHeader, sender);
 }
 
 QH::AbstractNodeInfo *BaseNode::createNodeInfo(QAbstractSocket *socket,
@@ -145,8 +153,7 @@ QSharedPointer<Card> BaseNode::getCard(unsigned int cardId) {
 }
 
 void RC::BaseNode::addApiParser(const QSharedPointer<iParser>& api) {
-
-    _apiParsers[api]
+    _apiParsers[api->version()] = api;
 }
 
 QH::ISqlDBCache *BaseNode::db() const {

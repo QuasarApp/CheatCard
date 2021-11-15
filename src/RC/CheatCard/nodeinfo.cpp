@@ -11,8 +11,7 @@
 namespace RC {
 
 NodeInfo::NodeInfo(QAbstractSocket *sct, const QH::HostAddress *address):
-    QH::AbstractNodeInfo(sct, address)
-{
+    QH::AbstractNodeInfo(sct, address) {
 
 }
 
@@ -22,5 +21,13 @@ unsigned long long NodeInfo::token() const {
 
 void NodeInfo::setToken(unsigned long long newToken) {
     _token = newToken;
+}
+
+int NodeInfo::version() const {
+    return _version;
+}
+
+void NodeInfo::setVersion(int newVersion) {
+    _version = newVersion;
 }
 }

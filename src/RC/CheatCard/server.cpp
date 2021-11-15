@@ -38,12 +38,17 @@ Server::Server(QH::ISqlDBCache *db): BaseNode(db) {
     task->setMode(QH::ScheduleMode::Repeat);
 
     sheduleTask(task);
+}
 
-    QH::SslSrtData sslData;
-    sslData.commonName = DEFAULT_CHEAT_CARD_HOST;
-    sslData.organization = QCoreApplication::organizationName();
+bool Server::cardValidation(const QSharedPointer<Card> &card,
+                            const QByteArray &ownerSecret) const {
 
-    useSelfSignedSslConfiguration(sslData);
+}
+
+bool Server::sealValidation(const QSharedPointer<UsersCards> &userCardData,
+                            const QSharedPointer<Card> &cardFromDb,
+                            const QByteArray &ownerSecret) const {
+
 }
 
 void Server::nodeConnected(QH::AbstractNodeInfo *node) {

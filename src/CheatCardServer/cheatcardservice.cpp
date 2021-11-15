@@ -7,7 +7,7 @@
 
 #include "cheatcardservice.h"
 #include <QDateTime>
-#include <CheatCard/nodes/serverv1.h>
+#include <CheatCard/serverssl.h>
 
 CheatCardService::CheatCardService(int argc, char **argv):
     Patronum::Service<QCoreApplication>(argc, argv) {
@@ -52,7 +52,7 @@ bool CheatCardService::onStart() {
     }
 
     if (!_serverSSL) {
-        _serverSSL = new RC::ServerV1(_db->db());
+        _serverSSL = new RC::ServerSSL(_db->db());
     }
 
     if (!_serverSSL->run({}, DEFAULT_CHEAT_CARD_PORT_SSL)) {

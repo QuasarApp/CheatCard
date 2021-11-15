@@ -25,7 +25,7 @@ class CardsListModel;
 class UserModel;
 class ItemsModel;
 class WaitConnectionModel;
-class ApiV0;
+class BaseNode;
 class UsersCards;
 class IBilling;
 class UserHeader;
@@ -149,7 +149,7 @@ private:
 
     void initCardsListModels();
     void initImagesModels();
-    void setBackEndModel(const QSharedPointer<ApiV0> &newModel);
+    void setBackEndModel(const QSharedPointer<BaseNode> &newModel);
     void initWaitConnectionModel();
     void initSellerStatisticModel();
     void configureCardsList();
@@ -187,7 +187,7 @@ private:
 
     IBilling *_billing = nullptr;
 
-    QSharedPointer<ApiV0> _backEndModel = nullptr;
+    QSharedPointer<BaseNode> _backEndModel = nullptr;
     WaitConnectionModel *_waitModel = nullptr;
     QSettings _settings;
 

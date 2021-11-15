@@ -30,8 +30,8 @@
 #include "cmath"
 #include <qmlnotifyservice.h>
 
-#include <CheatCard/seller.h>
-#include <CheatCard/visitor.h>
+#include <CheatCard/sellerssl.h>
+#include <CheatCard/visitorssl.h>
 
 #include <QDir>
 #include <QGuiApplication>
@@ -42,7 +42,7 @@
 
 namespace RC {
 
-void softRemove(ApiV0 * obj) {
+void softRemove(BaseNode * obj) {
     obj->softDelete();
 };
 
@@ -277,13 +277,13 @@ void MainModel::initImagesModels() {
 
 }
 
-void MainModel::setBackEndModel(const QSharedPointer<ApiV0>& newModel) {
+void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
     _backEndModel = newModel;
 
-    connect(_backEndModel.data(), &ApiV0::sigPurchaseWasSuccessful,
+    connect(_backEndModel.data(), &BaseNode::sigPurchaseWasSuccessful,
             this, &MainModel::handlePurchaseWasSuccessful);
 
-    connect(_backEndModel.data(), &ApiV0::sigCardReceived,
+    connect(_backEndModel.data(), &BaseNode::sigCardReceived,
             this, &MainModel::handleCardReceived);
 }
 
@@ -383,10 +383,10 @@ int MainModel::getMode() const {
 void RC::MainModel::configureCardsList() {
     if (_mode == Mode::Client) {
         setCardListModel(_cardsListModel);
-        setBackEndModel(QSharedPointer<ApiV0>(new Visitor(_db), softRemove));
+        setBackEndModel(QSharedPointer<BaseNode>(new VisitorSSL(_db), softRemove));
     } else {
         setCardListModel(_ownCardsListModel);
-        setBackEndModel(QSharedPointer<ApiV0>(new Seller(_db), softRemove));
+        setBackEndModel(QSharedPointer<BaseNode>(new SellerSSL(_db), softRemove));
     }
 }
 

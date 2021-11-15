@@ -5,32 +5,28 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#ifndef SERVERV1_H
-#define SERVERV1_H
-
+#ifndef APIV1_H
+#define APIV1_H
 #include "abstractnode.h"
+#include "CheatCard/core_global.h"
 #include "apiv0.h"
-#include "server.h"
-#include "CheatCard/clearolddata.h"
-
+#include "datapack.h"
 #include <isqldbcache.h>
 
 namespace RC {
 
-class CHEATCARD_CORE_EXPORT ServerV1: public Server
+/**
+ * @brief The ApiV1 class
+ * General changes betwin BaseNode and BaseNodev1
+ *
+ * The BaseNodeV1 dropped all tokens validation. now validation works only on server (used seller secret)
+ */
+class CHEATCARD_CORE_EXPORT ApiV1: public ApiV0
 {
-    Q_OBJECT
 public:
-    ServerV1(QH::ISqlDBCache *db);
+    ApiV1(BaseNode* node);
 
-    // AbstractNode interface
 protected:
-    void nodeConnected(QH::AbstractNodeInfo *node) override;
-    void nodeDisconnected(QH::AbstractNodeInfo *node) override;
-    void nodeErrorOccured(QH::AbstractNodeInfo *nodeInfo,
-                          QAbstractSocket::SocketError errorCode,
-                          QString errorString) override;
-
     bool processCardStatusRequest(const QSharedPointer<CardStatusRequest> &message,
                                   const QH::AbstractNodeInfo *sender, const QH::Header&) override;
 
@@ -44,21 +40,6 @@ protected:
                             const QH::AbstractNodeInfo *sender, const QH::Header&) override;
     bool processCardData(const QSharedPointer<QH::PKG::DataPack<Card> > &cardrequest,
                          const QH::AbstractNodeInfo *sender, const QH::Header &) override;
-
-    QH::ParserResult parsePackage(const QSharedPointer<QH::PKG::AbstractData> &pkg,
-                                  const QH::Header &pkgHeader,
-                                  const QH::AbstractNodeInfo *sender) override;
-
-    bool cardValidation(const QSharedPointer<Card>& card,
-                        const QByteArray &ownerSecret) const override;
-
-    bool sealValidation(const QSharedPointer<UsersCards> &userCardData,
-                                const QSharedPointer<Card> &cardFromDb,
-                                const QByteArray &ownerSecret) const override;
-
-    friend class ClearOldData;
-
-
 };
 }
-#endif // SERVERV1_H
+#endif // APIV1_H

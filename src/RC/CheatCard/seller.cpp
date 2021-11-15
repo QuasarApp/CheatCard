@@ -9,6 +9,7 @@
 #include "CheatCard/carddatarequest.h"
 #include "CheatCard/cardstatusrequest.h"
 #include "CheatCard/dataconvertor.h"
+#include "basenode.h"
 #include "seller.h"
 #include "CheatCard/userheader.h"
 
@@ -18,7 +19,7 @@
 
 namespace RC {
 
-Seller::Seller(QH::ISqlDBCache *db): ApiV1(db) {
+Seller::Seller(QH::ISqlDBCache *db): BaseNode(db) {
     registerPackageType<CardStatusRequest>();
     registerPackageType<CardDataRequest>();
 }
@@ -38,6 +39,25 @@ bool Seller::incrementPurchases(const QSharedPointer<UsersCards> &usersCardsData
     }
 
     emit sigPurchaseWasSuccessful(usersCardsData);
+
+    return true;
+}
+
+bool Seller::cardValidation(const QSharedPointer<Card> &card,
+                             const QByteArray &ownerSecret) const {
+    Q_UNUSED(card);
+    Q_UNUSED(ownerSecret);
+
+    return true;
+}
+
+bool Seller::sealValidation(const QSharedPointer<UsersCards> &userCardData,
+                             const QSharedPointer<Card> &cardFromDb,
+                             const QByteArray &ownerSecret) const {
+
+    Q_UNUSED(userCardData);
+    Q_UNUSED(cardFromDb);
+    Q_UNUSED(ownerSecret);
 
     return true;
 }
@@ -167,7 +187,7 @@ bool Seller::sentDataToServerPurchase(const QSharedPointer<UserHeader> &userHead
 }
 
 void Seller::nodeConnected(QH::AbstractNodeInfo *node) {
-    ApiV0::nodeConnected(node);
+    BaseNode::nodeConnected(node);
 
     for (const auto &session: qAsConst(_lastRequested)) {
 

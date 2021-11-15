@@ -28,7 +28,7 @@ void softDeleteWrapDB(TestDataBaseWrapper* obj) {
     obj->softDelete();
 }
 
-void softDeleteWrapNode(RC::ApiV0* obj) {
+void softDeleteWrapNode(RC::BaseNode* obj) {
     obj->softDelete();
 }
 

@@ -23,8 +23,12 @@ public:
     unsigned long long token() const;
     void setToken(unsigned long long newToken);
 
+    int version() const;
+    void setVersion(int newVersion);
+
 private:
     unsigned long long _token;
+    int _version = 0;
 };
 }
 #endif // NODEINFO_H

@@ -19,7 +19,7 @@
 namespace RC {
 
 
-Visitor::Visitor(QH::ISqlDBCache *db): ApiV1(db) {
+Visitor::Visitor(QH::ISqlDBCache *db): BaseNode(db) {
     registerPackageType<QH::PKG::DataPack<UsersCards>>();
     registerPackageType<QH::PKG::DataPack<Card>>();
 
@@ -49,9 +49,28 @@ bool Visitor::checkCardData(long long session,
     return addNode(domain, port);
 }
 
+bool Visitor::cardValidation(const QSharedPointer<Card> &card,
+                             const QByteArray &ownerSecret) const {
+    Q_UNUSED(card);
+    Q_UNUSED(ownerSecret);
+
+    return true;
+}
+
+bool Visitor::sealValidation(const QSharedPointer<UsersCards> &userCardData,
+                             const QSharedPointer<Card> &cardFromDb,
+                             const QByteArray &ownerSecret) const {
+
+    Q_UNUSED(userCardData);
+    Q_UNUSED(cardFromDb);
+    Q_UNUSED(ownerSecret);
+
+    return true;
+}
+
 
 void Visitor::nodeConnected(QH::AbstractNodeInfo *node) {
-    ApiV0::nodeConnected(node);
+    BaseNode::nodeConnected(node);
 
     CardStatusRequest request;
 
