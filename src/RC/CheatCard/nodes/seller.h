@@ -9,13 +9,13 @@
 
 #ifndef SELLER_H
 #define SELLER_H
-#include "basenodev1.h"
+#include "apiv1.h"
 
 namespace RC {
 
 class UserHeader;
 
-class CHEATCARD_CORE_EXPORT Seller: public BaseNodeV1
+class CHEATCARD_CORE_EXPORT Seller: public ApiV1
 {
     Q_OBJECT
 public:

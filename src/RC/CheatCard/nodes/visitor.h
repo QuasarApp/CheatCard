@@ -9,12 +9,12 @@
 #ifndef VISITOR_H
 #define VISITOR_H
 
-#include "basenodev1.h"
+#include "apiv1.h"
 
 namespace RC {
 
 
-class CHEATCARD_CORE_EXPORT Visitor: public BaseNodeV1
+class CHEATCARD_CORE_EXPORT Visitor: public ApiV1
 {
     Q_OBJECT
 public:

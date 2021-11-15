@@ -5,27 +5,27 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#ifndef BASENODEV1_H
-#define BASENODEV1_H
+#ifndef APIV1_H
+#define APIV1_H
 #include "abstractnode.h"
 #include "CheatCard/core_global.h"
-#include "basenode.h"
+#include "apiv0.h"
 #include "datapack.h"
 #include <isqldbcache.h>
 
 namespace RC {
 
 /**
- * @brief The BaseNodeV1 class
+ * @brief The ApiV1 class
  * General changes betwin BaseNode and BaseNodev1
  *
  * The BaseNodeV1 dropped all tokens validation. now validation works only on server (used seller secret)
  */
-class CHEATCARD_CORE_EXPORT BaseNodeV1: public BaseNode
+class CHEATCARD_CORE_EXPORT ApiV1: public ApiV0
 {
     Q_OBJECT
 public:
-    BaseNodeV1(QH::ISqlDBCache *db);
+    ApiV1(QH::ISqlDBCache *db);
 
 protected:
     bool processCardStatusRequest(const QSharedPointer<CardStatusRequest> &message,
@@ -61,4 +61,4 @@ protected:
                                 const QByteArray &ownerSecret) const;
 };
 }
-#endif // BASENODEV1_H
+#endif // APIV1_H

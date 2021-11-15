@@ -42,7 +42,7 @@
 
 namespace RC {
 
-void softRemove(BaseNode * obj) {
+void softRemove(ApiV0 * obj) {
     obj->softDelete();
 };
 
@@ -277,13 +277,13 @@ void MainModel::initImagesModels() {
 
 }
 
-void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
+void MainModel::setBackEndModel(const QSharedPointer<ApiV0>& newModel) {
     _backEndModel = newModel;
 
-    connect(_backEndModel.data(), &BaseNode::sigPurchaseWasSuccessful,
+    connect(_backEndModel.data(), &ApiV0::sigPurchaseWasSuccessful,
             this, &MainModel::handlePurchaseWasSuccessful);
 
-    connect(_backEndModel.data(), &BaseNode::sigCardReceived,
+    connect(_backEndModel.data(), &ApiV0::sigCardReceived,
             this, &MainModel::handleCardReceived);
 }
 
@@ -383,10 +383,10 @@ int MainModel::getMode() const {
 void RC::MainModel::configureCardsList() {
     if (_mode == Mode::Client) {
         setCardListModel(_cardsListModel);
-        setBackEndModel(QSharedPointer<BaseNode>(new Visitor(_db), softRemove));
+        setBackEndModel(QSharedPointer<ApiV0>(new Visitor(_db), softRemove));
     } else {
         setCardListModel(_ownCardsListModel);
-        setBackEndModel(QSharedPointer<BaseNode>(new Seller(_db), softRemove));
+        setBackEndModel(QSharedPointer<ApiV0>(new Seller(_db), softRemove));
     }
 }
 

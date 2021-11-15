@@ -17,7 +17,7 @@ AboutModel::AboutModel()
 }
 
 QString AboutModel::getCoreLibVr() const {
-    return RC::BaseNode::libVersion();
+    return RC::ApiV0::libVersion();
 }
 
 QString AboutModel::getHeartLibVr() const {

@@ -9,7 +9,7 @@
 #define SERVERV1_H
 
 #include "abstractnode.h"
-#include "basenode.h"
+#include "apiv0.h"
 #include "server.h"
 #include "CheatCard/clearolddata.h"
 

@@ -48,39 +48,31 @@ public:
 
     QSharedPointer<Card> getCard(unsigned int cardId);
 
+    const QMap<int, QSharedPointer<QH::iParser> > &apiParsers() const;
+    void setApiParsers(const QMap<int, QSharedPointer<QH::iParser> > &newApiParsers);
+    void addApiParser(QSharedPointer<QH::iParser>);
+
+    QH::ISqlDBCache *db() const;
+
 signals:
     void sigPurchaseWasSuccessful(QSharedPointer<RC::UsersCards> data);
     void sigCardReceived(QSharedPointer<RC::Card> err);
 
 
 protected:
-    QH::ISqlDBCache *db() const;
-    virtual bool processCardStatusRequest(const QSharedPointer<CardStatusRequest> &message,
-                           const QH::AbstractNodeInfo *sender, const QH::Header&);
-
-    virtual bool processSession(const QSharedPointer<Session> &message,
-                           const QH::AbstractNodeInfo *sender, const QH::Header&);
-    virtual bool processCardStatus(const QSharedPointer<QH::PKG::DataPack<UsersCards>> &cardStatuses,
-                           const QH::AbstractNodeInfo *sender, const QH::Header&);
-    virtual bool applayPurchases(const QSharedPointer<UsersCards> &dbCard,
-                         const QH::AbstractNodeInfo *sender);
-    virtual bool processCardRequest(const QSharedPointer<CardDataRequest> &cardStatus,
-                            const QH::AbstractNodeInfo *sender, const QH::Header&);
-    virtual bool processCardData(const QSharedPointer<QH::PKG::DataPack<Card> > &cardrequest,
-                         const QH::AbstractNodeInfo *sender, const QH::Header &);
 
     QH::ParserResult parsePackage(const QSharedPointer<QH::PKG::AbstractData> &pkg,
                                   const QH::Header &pkgHeader,
                                   const QH::AbstractNodeInfo *sender) override;
 
-    // AbstractNode interface
-protected:
+
     QH::AbstractNodeInfo *createNodeInfo(QAbstractSocket *socket,
                                          const QH::HostAddress *clientAddress) const override;
 
 private:
     QH::ISqlDBCache *_db = nullptr;
 
+    QMap<int, QSharedPointer<QH::iParser>> _apiParsers;
 
 };
 }

@@ -18,7 +18,7 @@
 
 namespace RC {
 
-Seller::Seller(QH::ISqlDBCache *db): BaseNodeV1(db) {
+Seller::Seller(QH::ISqlDBCache *db): ApiV1(db) {
     registerPackageType<CardStatusRequest>();
     registerPackageType<CardDataRequest>();
 }
@@ -167,7 +167,7 @@ bool Seller::sentDataToServerPurchase(const QSharedPointer<UserHeader> &userHead
 }
 
 void Seller::nodeConnected(QH::AbstractNodeInfo *node) {
-    BaseNode::nodeConnected(node);
+    ApiV0::nodeConnected(node);
 
     for (const auto &session: qAsConst(_lastRequested)) {
 

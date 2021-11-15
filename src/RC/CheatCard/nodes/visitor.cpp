@@ -19,7 +19,7 @@
 namespace RC {
 
 
-Visitor::Visitor(QH::ISqlDBCache *db): BaseNodeV1(db) {
+Visitor::Visitor(QH::ISqlDBCache *db): ApiV1(db) {
     registerPackageType<QH::PKG::DataPack<UsersCards>>();
     registerPackageType<QH::PKG::DataPack<Card>>();
 
@@ -51,7 +51,7 @@ bool Visitor::checkCardData(long long session,
 
 
 void Visitor::nodeConnected(QH::AbstractNodeInfo *node) {
-    BaseNode::nodeConnected(node);
+    ApiV0::nodeConnected(node);
 
     CardStatusRequest request;
 
