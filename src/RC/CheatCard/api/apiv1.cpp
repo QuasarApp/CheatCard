@@ -27,6 +27,10 @@ ApiV1::ApiV1(BaseNode *node): ApiV0(node) {
 
 }
 
+int ApiV1::version() const {
+    return 1;
+}
+
 bool ApiV1::processCardStatus(const QSharedPointer<QH::PKG::DataPack<UsersCards> > &cardStatuses,
                                    const QH::AbstractNodeInfo *sender, const QH::Header &) {
 

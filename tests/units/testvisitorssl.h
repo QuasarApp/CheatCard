@@ -1,5 +1,5 @@
-#ifndef TESTVISITOR_H
-#define TESTVISITOR_H
+#ifndef TESTVISITORSSL_H
+#define TESTVISITORSSL_H
 
 #include <CheatCard/visitorssl.h>
 
@@ -16,4 +16,4 @@ private:
     QSharedPointer<TestDataBaseWrapper> privateDb;
 };
 
-#endif // TESTVISITOR_H
+#endif // TESTVISITORSSL_H

@@ -6,6 +6,7 @@
 //#
 
 
+#include "applicationversion.h"
 #include "basenode.h"
 #include "CheatCard/carddatarequest.h"
 #include "CheatCard/cardstatusrequest.h"
@@ -24,6 +25,10 @@ namespace RC {
 
 BaseNode::BaseNode(QH::ISqlDBCache *db) {
     _db = db;
+
+    setIgnoreSslErrors(QList<QSslError>() << QSslError::SelfSignedCertificate
+                       << QSslError::SelfSignedCertificateInChain
+                       << QSslError::HostNameMismatch);
 }
 
 QH::ParserResult BaseNode::parsePackage(const QSharedPointer<QH::PKG::AbstractData> &pkg,
@@ -36,19 +41,51 @@ QH::ParserResult BaseNode::parsePackage(const QSharedPointer<QH::PKG::AbstractDa
     }
 
     // here node must be receive version of connected application.
-    // if not use the default version (0)
+    // if not use the default version (0)ApplicationVersion
+    parentResult = commandHandler<ApplicationVersion>(this, &BaseNode::processAppVersion,
+                                               pkg, sender, pkgHeader);
+    if (parentResult != QH::ParserResult::NotProcessed) {
+        return parentResult;
+    }
 
-    auto parser = _apiParsers.value(static_cast<const NodeInfo*>(sender)->version());
+    int distVersion = static_cast<const NodeInfo*>(sender)->version();
+    auto parser = _apiParsers.value(distVersion);
 
-    if (!parser)
+    if (!parser) {
+        QuasarAppUtils::Params::log("Can't found requeried parser for version: " + QString::number(distVersion),
+                                    QuasarAppUtils::Warning);
+
         return QH::ParserResult::NotProcessed;
+    }
 
     return parser->parsePackage(pkg, pkgHeader, sender);
+}
+
+bool BaseNode::processAppVersion(const QSharedPointer<ApplicationVersion> &message,
+                                 const QH::AbstractNodeInfo *sender,
+                                 const QH::Header &) {
+
+    auto nodeInfo = dynamic_cast<NodeInfo*>(getInfoPtr(sender->networkAddress()));
+    nodeInfo->setVersion(message->version());
+
+    return true;
 }
 
 QH::AbstractNodeInfo *BaseNode::createNodeInfo(QAbstractSocket *socket,
                                                const QH::HostAddress *clientAddress) const {
     return new NodeInfo(socket, clientAddress);
+}
+
+void BaseNode::nodeConnected(QH::AbstractNodeInfo *node) {
+    QH::AbstractNode::nodeConnected(node);
+
+    ApplicationVersion appVersion;
+    if (_apiParsers.size()) {
+        int version = _apiParsers.last()->version();
+        appVersion.setVersion(version);
+    }
+
+    sendData(&appVersion, node);
 }
 
 int BaseNode::getFreeItemsCount(unsigned int userId,

@@ -22,6 +22,7 @@ class CardDataRequest;
 class CardStatusRequest;
 class Session;
 class User;
+class ApplicationVersion;
 
 class CHEATCARD_CORE_EXPORT BaseNode: public QH::AbstractNode
 {
@@ -52,6 +53,11 @@ public:
     void setApiParsers(const QMap<int, QSharedPointer<QH::iParser> > &newApiParsers);
     void addApiParser(const QSharedPointer<QH::iParser>& );
 
+    template<class AptType>
+    void addApiParser() {
+        addApiParser(QSharedPointer<AptType>::create(this));
+    }
+
 
     /**
      * @brief cardValidation This method must check card data only on server. This implementation do nothing.
@@ -73,15 +79,19 @@ protected:
                                   const QH::Header &pkgHeader,
                                   const QH::AbstractNodeInfo *sender) override;
 
+    bool processAppVersion(const QSharedPointer<ApplicationVersion> &message,
+                           const QH::AbstractNodeInfo *sender, const QH::Header&);
+
 
     QH::AbstractNodeInfo *createNodeInfo(QAbstractSocket *socket,
                                          const QH::HostAddress *clientAddress) const override;
+
+    void nodeConnected(QH::AbstractNodeInfo *node) override;
 
 private:
     QH::ISqlDBCache *_db = nullptr;
 
     QMap<int, QSharedPointer<QH::iParser>> _apiParsers;
-
 };
 }
 #endif // BASENODE_H

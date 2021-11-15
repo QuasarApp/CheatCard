@@ -26,6 +26,8 @@ class CHEATCARD_CORE_EXPORT ApiV1: public ApiV0
 public:
     ApiV1(BaseNode* node);
 
+    int version() const override;
+
 protected:
     bool processCardStatusRequest(const QSharedPointer<CardStatusRequest> &message,
                                   const QH::AbstractNodeInfo *sender, const QH::Header&) override;

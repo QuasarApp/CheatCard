@@ -1,5 +1,5 @@
-#ifndef TESTSERVER_H
-#define TESTSERVER_H
+#ifndef TESTSERVERSSL_H
+#define TESTSERVERSSL_H
 
 #include <CheatCard/serverssl.h>
 

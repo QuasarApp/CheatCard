@@ -19,6 +19,7 @@
 #include <testseller.h>
 #include <testvisitor.h>
 #include <type_traits>
+#include <CheatCard/api/apiv1.h>
 
 #define TEST_CHEAT_PORT 15001
 #define TEST_CHEAT_HOST "localhost"
@@ -73,6 +74,17 @@ void ConnectionTest::firstContact() {
     auto seller = makeNode<TestSeller>();
     auto client = makeNode<TestVisitor>();
     auto server = makeNode<TestServer>();
+
+    seller->addApiParser<RC::ApiV0>();
+    client->addApiParser<RC::ApiV0>();
+    server->addApiParser<RC::ApiV0>();
+
+    apiTest(seller, client, server);
+}
+
+void ConnectionTest::apiTest(const QSharedPointer<TestSeller> &seller,
+                             const QSharedPointer<TestVisitor> &client,
+                             const QSharedPointer<TestServer> &server) {
 
     // random session
     long long session = rand() * rand();
@@ -164,7 +176,6 @@ void ConnectionTest::firstContact() {
     }, WAIT_TIME));
 
     // To Do check free items count
-
 }
 
 QSharedPointer<RC::User> ConnectionTest::makeUser() const {

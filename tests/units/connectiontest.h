@@ -19,6 +19,10 @@ namespace RC {
     class User;
 }
 
+class TestSeller;
+class TestVisitor;
+class TestServer;
+
 class ConnectionTest: public Test, protected TestUtils
 {
 public:
@@ -29,6 +33,9 @@ public:
 
 private:
     void firstContact();
+    void apiTest(const QSharedPointer<TestSeller> &seller,
+                 const QSharedPointer<TestVisitor> &client,
+                 const QSharedPointer<TestServer> &server);
 
     QSharedPointer<RC::User> makeUser() const;
 
