@@ -767,7 +767,7 @@
     <name>Settings</name>
     <message>
         <source>Externality</source>
-        <translation>Внешний вид</translation>
+        <translation type="vanished">Внешний вид</translation>
     </message>
     <message>
         <source>Change the main color of the application</source>
@@ -807,7 +807,19 @@
     </message>
     <message>
         <source>Please choose a color</source>
-        <translation type="unfinished">Пожалуйста, выберите цвет</translation>
+        <translation>Пожалуйста, выберите цвет</translation>
+    </message>
+    <message>
+        <source>Select</source>
+        <translation>Выбрать</translation>
+    </message>
+    <message>
+        <source>Appearance</source>
+        <translation>Внешний вид</translation>
+    </message>
+    <message>
+        <source>Unlock</source>
+        <translation>Разблокировать</translation>
     </message>
 </context>
 <context>

@@ -818,7 +818,7 @@
     <name>Settings</name>
     <message>
         <source>Externality</source>
-        <translation>Externality</translation>
+        <translation type="vanished">Externality</translation>
     </message>
     <message>
         <source>Change the main color of the application</source>
@@ -858,7 +858,19 @@
     </message>
     <message>
         <source>Please choose a color</source>
-        <translation type="unfinished">Please choose a color</translation>
+        <translation>Please choose a color</translation>
+    </message>
+    <message>
+        <source>Select</source>
+        <translation>Select</translation>
+    </message>
+    <message>
+        <source>Appearance</source>
+        <translation>Appearance</translation>
+    </message>
+    <message>
+        <source>Unlock</source>
+        <translation>Unlock</translation>
     </message>
 </context>
 <context>

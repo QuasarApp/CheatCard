@@ -23,6 +23,8 @@ ApplicationWindow {
 //    height: 350
 //    width: 640
 
+    Material.primary: config.colorTheme
+
     onClosing: {
         // this is bad solution. but it is works fine.
         // we handle close event that emit when user click back button and use own back button if it is needed.

@@ -637,10 +637,6 @@
 <context>
     <name>Settings</name>
     <message>
-        <source>Externality</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Privacy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -675,6 +671,18 @@
     <message>
         <source>Please choose a color</source>
         <translation type="unfinished">Виберіть колір</translation>
+    </message>
+    <message>
+        <source>Select</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Appearance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unlock</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

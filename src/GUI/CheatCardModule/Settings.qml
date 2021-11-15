@@ -37,8 +37,8 @@ Page {
                 contentItem: ColumnLayout {
                     implicitWidth: 0x0
 
-                    Text {
-                        text: qsTr("Externality")
+                    Label {
+                        text: qsTr("Appearance")
                         horizontalAlignment: Qt.AlignLeft
                         verticalAlignment: Qt.AlignVCenter
                         wrapMode: Text.WordWrap
@@ -60,15 +60,18 @@ Page {
                             Layout.fillWidth: true
                         }
 
-                        ToolButton {
+                        Rectangle {
+                            id: colorView
+                            width: 25
+                            height: 25
+                            radius: 5
+                            color: Material.primary
+                        }
+
+                        Button {
                             id: btnSelectColor
                             text: qsTr("Select")
                             font.pointSize: 9
-
-                            icon.source: "qrc:/images/private/resources/settings_icons/1299816282.svg"
-                            icon.height: 30
-                            icon.width: 30
-                            icon.color: "transparent"
 
                             onClicked: () => {
                                            activityProcessor.newActivityFromComponent(settingdColor);
@@ -90,7 +93,14 @@ Page {
                             }
 
                             footer: DialogButtonBox {
-                                onAccepted: () => {}
+                                onAccepted: () => {
+                                                colorView.color = colorPick.color
+//                                                config.colorTheme = colorPick.color
+                                                config.setValue("colorTheme", colorPick.color)
+
+                                                activityProcessor.popItem();
+
+                                            }
 
                                 standardButtons: Dialog.Open
                             }
@@ -110,7 +120,7 @@ Page {
                 contentItem: Rectangle {
                     implicitWidth: 1
                     implicitHeight: 1
-                    color: "#c3c3c3"
+                    color: Material.primary
                 }
 
             }
@@ -124,7 +134,7 @@ Page {
                 contentItem: ColumnLayout {
                     implicitWidth: 0x0
 
-                    Text {
+                    Label {
                         text: qsTr("Privacy")
                         horizontalAlignment: Qt.AlignLeft
                         verticalAlignment: Qt.AlignVCenter
@@ -139,6 +149,7 @@ Page {
                         id: privacy
                         text: qsTr("Share name with seller")
                         checked: false
+                        padding: 0
 
                         Layout.fillWidth: true
 
@@ -153,6 +164,7 @@ Page {
                         }
 
                     }
+
                 }
             }
 
@@ -167,7 +179,7 @@ Page {
                 contentItem: Rectangle {
                     implicitWidth: 1
                     implicitHeight: 1
-                    color: "#c3c3c3"
+                    color: Material.primary
                 }
 
             }
@@ -181,7 +193,7 @@ Page {
                 contentItem: ColumnLayout {
                     implicitWidth: 0x0
 
-                    Text {
+                    Label {
                         text: qsTr("Camera")
                         horizontalAlignment: Qt.AlignLeft
                         verticalAlignment: Qt.AlignVCenter
@@ -211,14 +223,9 @@ Page {
 
                             model: ListModel {
                                 id: model
-                                ListElement { text: "Banana" }
-                                ListElement { text: "Apple" }
-                                ListElement { text: "Coconut" }
+                                ListElement { text: "Camera 1" }
+                                ListElement { text: "Camera 2" }
                             }
-    //                        onAccepted: {
-    //                            if (find(editText) === -1)
-    //                                model.append({text: editText})
-    //                        }
                         }
                     }
                 }
@@ -235,7 +242,7 @@ Page {
                 contentItem: Rectangle {
                     implicitWidth: 1
                     implicitHeight: 1
-                    color: "#c3c3c3"
+                    color: Material.primary
                 }
 
             }
@@ -249,7 +256,7 @@ Page {
                 contentItem: ColumnLayout {
                     implicitWidth: 0x0
 
-                    Text {
+                    Label {
                         text: qsTr("Developer settings")
                         horizontalAlignment: Qt.AlignLeft
                         verticalAlignment: Qt.AlignVCenter
@@ -260,20 +267,55 @@ Page {
                         Layout.fillWidth: true
                     }
 
+                    SwitchDelegate {
+                        id: unlock
+                        text: qsTr("Unlock")
+                        checked: false
+                        padding: 0
+
+                        Layout.fillWidth: true
+
+                        contentItem: Text {
+                            text: unlock.text
+                            font.pointSize: 11
+                            opacity: enabled ? 1.0 : 0.3
+                            verticalAlignment: Text.AlignVCenter
+                            wrapMode: Text.WordWrap
+                        }
+                    }
+
                     RowLayout {
                         TextField {
+                            enabled: unlock.checked
                             Layout.fillWidth: true
                             font.pointSize: 11
                             placeholderText: qsTr("Host")
                         }
 
                         TextField {
+                            enabled: unlock.checked
                             Layout.fillWidth: true
                             font.pointSize: 11
                             placeholderText: qsTr("Port")
                         }
                     }
                 }
+            }
+
+            ToolSeparator {
+                Layout.fillWidth: true
+                orientation: Qt.Horizontal
+
+                padding: 1
+                topPadding: 1
+                bottomPadding: 1
+
+                contentItem: Rectangle {
+                    implicitWidth: 1
+                    implicitHeight: 1
+                    color: Material.primary
+                }
+
             }
 
             Item {

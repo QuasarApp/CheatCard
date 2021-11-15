@@ -7,7 +7,6 @@
 
 #include "CheatCard.h"
 
-#include <QObject>
 #include <CheatCard/database.h>
 #include <SBarcodeFilter.h>
 #include <SBarcodeGenerator.h>
