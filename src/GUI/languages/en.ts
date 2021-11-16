@@ -870,7 +870,11 @@
     </message>
     <message>
         <source>Unlock</source>
-        <translation>Unlock</translation>
+        <translation type="vanished">Unlock</translation>
+    </message>
+    <message>
+        <source>Use custom server</source>
+        <translation>Use custom server</translation>
     </message>
 </context>
 <context>

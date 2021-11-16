@@ -9,6 +9,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
+import QtMultimedia 5.15
 
 import QtQuick.Controls.Material 2.15
 
@@ -95,7 +96,7 @@ Page {
                             footer: DialogButtonBox {
                                 onAccepted: () => {
                                                 colorView.color = colorPick.color
-//                                                config.colorTheme = colorPick.color
+                                                config.colorTheme = colorPick.color
                                                 config.setValue("colorTheme", colorPick.color)
 
                                                 activityProcessor.popItem();
@@ -185,6 +186,15 @@ Page {
             }
 
             Pane {
+                id: cameraPage
+
+                property var devicesList: QtMultimedia.availableCameras
+                property var comboBoxModel: []
+
+                onDevicesListChanged: {
+                    cameraPage.comboBoxModel = []
+                    cameraPage.devicesList.forEach((item)=>{cameraPage.comboBoxModel += item.displayName})
+                }
 
                 Layout.margins: 8
                 Layout.alignment: Qt.AlignHCenter
@@ -216,16 +226,12 @@ Page {
                         }
 
                         ComboBox {
-                            id: camera
+                            id: selectCamera
                             editable: true
 
                             Layout.fillWidth: true
 
-                            model: ListModel {
-                                id: model
-                                ListElement { text: "Camera 1" }
-                                ListElement { text: "Camera 2" }
-                            }
+                            model: cameraPage.comboBoxModel
                         }
                     }
                 }
@@ -269,7 +275,7 @@ Page {
 
                     SwitchDelegate {
                         id: unlock
-                        text: qsTr("Unlock")
+                        text: qsTr("Use custom server")
                         checked: false
                         padding: 0
 

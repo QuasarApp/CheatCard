@@ -819,7 +819,11 @@
     </message>
     <message>
         <source>Unlock</source>
-        <translation>Разблокировать</translation>
+        <translation type="vanished">Разблокировать</translation>
+    </message>
+    <message>
+        <source>Use custom server</source>
+        <translation>Использовать собственный сервер</translation>
     </message>
 </context>
 <context>

@@ -682,7 +682,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unlock</source>
+        <source>Use custom server</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
