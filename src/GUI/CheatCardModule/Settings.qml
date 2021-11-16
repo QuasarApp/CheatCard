@@ -121,7 +121,7 @@ Page {
                 contentItem: Rectangle {
                     implicitWidth: 1
                     implicitHeight: 1
-                    color: Material.primary
+                    color: "#c3c3c3c3"
                 }
 
             }
@@ -180,7 +180,7 @@ Page {
                 contentItem: Rectangle {
                     implicitWidth: 1
                     implicitHeight: 1
-                    color: Material.primary
+                    color: "#c3c3c3c3"
                 }
 
             }
@@ -193,7 +193,7 @@ Page {
 
                 onDevicesListChanged: {
                     cameraPage.comboBoxModel = []
-                    cameraPage.devicesList.forEach((item)=>{cameraPage.comboBoxModel += item.displayName})
+                    cameraPage.devicesList.forEach((item)=>{cameraPage.comboBoxModel.push(item.displayName)})
                 }
 
                 Layout.margins: 8
@@ -228,6 +228,7 @@ Page {
                         ComboBox {
                             id: selectCamera
                             editable: true
+                            enabled: (cameraPage.comboBoxModel.lenght)? true: false
 
                             Layout.fillWidth: true
 
@@ -248,7 +249,7 @@ Page {
                 contentItem: Rectangle {
                     implicitWidth: 1
                     implicitHeight: 1
-                    color: Material.primary
+                    color: "#c3c3c3c3"
                 }
 
             }
@@ -319,7 +320,7 @@ Page {
                 contentItem: Rectangle {
                     implicitWidth: 1
                     implicitHeight: 1
-                    color: Material.primary
+                    color: "#c3c3c3c3"
                 }
 
             }
