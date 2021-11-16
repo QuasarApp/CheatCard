@@ -82,9 +82,9 @@ void ConnectionTest::firstContact() {
 
     apiTest(seller, client, server);
 
-    seller->setApiParsers({});
-    client->setApiParsers({});
-    server->setApiParsers({});
+    seller = makeNode<TestSeller>();
+    client = makeNode<TestVisitor>();
+    server = makeNode<TestServer>();
 
     // test Api v1
     seller->addApiParser<RC::ApiV1>();

@@ -10,7 +10,7 @@
 namespace RC {
 
 bool CardDataRequest::isValid() const {
-    return AbstractData::isValid() && cardIds.size() && requestToken();
+    return AbstractData::isValid() && cardIds.size();
 }
 
 QDataStream &CardDataRequest::fromStream(QDataStream &stream) {
