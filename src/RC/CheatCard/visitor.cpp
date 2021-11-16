@@ -57,6 +57,10 @@ bool Visitor::cardValidation(const QSharedPointer<Card> &card,
     return true;
 }
 
+void Visitor::getSignData(QByteArray &) const {
+
+}
+
 void Visitor::nodeConnected(QH::AbstractNodeInfo *node) {
     BaseNode::nodeConnected(node);
 

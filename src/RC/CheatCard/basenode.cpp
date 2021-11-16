@@ -90,6 +90,14 @@ void BaseNode::nodeConnected(QH::AbstractNodeInfo *node) {
     sendData(&appVersion, node);
 }
 
+const QSharedPointer<User>& BaseNode::currentUser() const {
+    return _currentUser;
+}
+
+void BaseNode::setCurrentUser(QSharedPointer<User> newCurrentUser) {
+    _currentUser = newCurrentUser;
+}
+
 int BaseNode::getFreeItemsCount(unsigned int userId,
                                 unsigned int cardId) const {
     return getFreeItemsCount(getUserCardData(userId, cardId));
@@ -143,6 +151,13 @@ QString BaseNode::libVersion() {
     return CHEAT_CARD_VERSION;
 }
 
+QSharedPointer<User> BaseNode::getUserData(unsigned int userId) const {
+    User request;
+    request.setId(userId);
+
+    return db()->getObject(request);
+}
+
 QSharedPointer<UsersCards>
 BaseNode::getUserCardData(unsigned int userId, unsigned int cardId) const {
     UsersCards request;
@@ -189,6 +204,13 @@ QSharedPointer<Card> BaseNode::getCard(unsigned int cardId) {
     request.setId(cardId);
 
     return _db->getObject(request);
+}
+
+QByteArray BaseNode::getUserSecret(unsigned int userId) const {
+    QH::PKG::GetSingleValue reqest({"Users", userId}, "secret");
+
+    auto result = db()->getObject(reqest);
+    return result->value().toByteArray();
 }
 
 void RC::BaseNode::addApiParser(const QSharedPointer<iParser>& api) {

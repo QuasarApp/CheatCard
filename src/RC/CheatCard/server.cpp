@@ -47,6 +47,10 @@ bool Server::cardValidation(const QSharedPointer<Card> &card,
     return card && card->ownerSignature() == User::makeKey(ownerSecret);
 }
 
+void Server::getSignData(QByteArray &) const {
+
+}
+
 void Server::nodeConnected(QH::AbstractNodeInfo *node) {
     BaseNode::nodeConnected(node);
     auto address = node->networkAddress();

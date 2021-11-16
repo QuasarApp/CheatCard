@@ -85,6 +85,7 @@ void ConnectionTest::firstContact() {
     seller = makeNode<TestSeller>();
     client = makeNode<TestVisitor>();
     server = makeNode<TestServer>();
+    seller->setCurrentUser(seller->getUserData(4230689991));
 
     // test Api v1
     seller->addApiParser<RC::ApiV1>();
@@ -112,7 +113,7 @@ void ConnectionTest::apiTest(const QSharedPointer<TestSeller> &seller,
     obj->setUserId(user->userId());
 
     // 3619648333 This is card id from test database.
-    unsigned int cardId = 1815674861;
+    unsigned int cardId = 3646711041;
     for (int i = 0; i < 100; i++) {
 
         qDebug () << "test case " << i << "/" << 100;

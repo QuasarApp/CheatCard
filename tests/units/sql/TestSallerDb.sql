@@ -1,94 +1,98 @@
 BEGIN TRANSACTION;
 CREATE TABLE IF NOT EXISTS "NetworkMembers" (
-        "id"	VARCHAR(32),
-        "authenticationData"	BLOB NOT NULL,
-        "trust"	INTEGER DEFAULT 0,
-        PRIMARY KEY("id")
+	"id"	VARCHAR(32),
+	"authenticationData"	BLOB NOT NULL,
+	"trust"	INTEGER DEFAULT 0,
+	PRIMARY KEY("id")
 );
 CREATE TABLE IF NOT EXISTS "MemberPermisions" (
-        "memberId"	VARCHAR(32) NOT NULL,
-        "dbAddress"	VARCHAR(44) NOT NULL,
-        "lvl"	tinyint NOT NULL,
-        FOREIGN KEY("memberId") REFERENCES "NetworkMembers"("id") ON UPDATE CASCADE ON DELETE CASCADE
+	"memberId"	VARCHAR(32) NOT NULL,
+	"dbAddress"	VARCHAR(44) NOT NULL,
+	"lvl"	tinyint NOT NULL,
+	FOREIGN KEY("memberId") REFERENCES "NetworkMembers"("id") ON UPDATE CASCADE ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS "DefaultPermissions" (
-        "dbAddress"	VARCHAR(44) NOT NULL UNIQUE,
-        "lvl"	tinyint NOT NULL,
-        FOREIGN KEY("dbAddress") REFERENCES "MemberPermisions"("dbAddress") ON UPDATE CASCADE ON DELETE CASCADE
+	"dbAddress"	VARCHAR(44) NOT NULL UNIQUE,
+	"lvl"	tinyint NOT NULL,
+	FOREIGN KEY("dbAddress") REFERENCES "MemberPermisions"("dbAddress") ON UPDATE CASCADE ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS "DataBaseAttributes" (
-        "name"	TEXT NOT NULL,
-        "value"	INT NOT NULL UNIQUE,
-        PRIMARY KEY("name")
+	"name"	TEXT NOT NULL,
+	"value"	INT NOT NULL UNIQUE,
+	PRIMARY KEY("name")
 );
 CREATE TABLE IF NOT EXISTS "Cards" (
-        "id"	INTEGER NOT NULL,
-        "logo"	BLOB DEFAULT NULL,
-        "seal"	BLOB DEFAULT NULL,
-        "background"	BLOB DEFAULT NULL,
-        "title"	TEXT,
-        "phone"	TEXT,
-        "telegramm"	TEXT,
-        "instagramm"	TEXT,
-        "physicalAddress"	TEXT,
-        "webSite"	TEXT,
-        "freeItemName"	TEXT NOT NULL,
-        "color"	INTEGER DEFAULT 0x00777777,
-        "fontColor"	INTEGER DEFAULT 0x00777777,
-        "freeIndex"	INTEGER DEFAULT 0,
-        "time"	INTEGER NOT NULL DEFAULT 0,
-        PRIMARY KEY("id")
+	"id"	INTEGER NOT NULL,
+	"logo"	BLOB DEFAULT NULL,
+	"seal"	BLOB DEFAULT NULL,
+	"background"	BLOB DEFAULT NULL,
+	"title"	TEXT,
+	"phone"	TEXT,
+	"telegramm"	TEXT,
+	"instagramm"	TEXT,
+	"physicalAddress"	TEXT,
+	"webSite"	TEXT,
+	"freeItemName"	TEXT NOT NULL,
+	"color"	INTEGER DEFAULT 0x00777777,
+	"fontColor"	INTEGER DEFAULT 0x00777777,
+	"freeIndex"	INTEGER DEFAULT 0,
+	"time"	INTEGER NOT NULL DEFAULT 0,
+	"cardVersion"	INT DEFAULT 0,
+	"ownerSignature"	BLOB DEFAULT NULL,
+	PRIMARY KEY("id")
 );
 CREATE TABLE IF NOT EXISTS "Users" (
-        "id"	INTEGER NOT NULL,
-        "name"	TEXT NOT NULL,
-        "key"	BLOB NOT NULL,
-        "time"	INTEGER NOT NULL DEFAULT 0,
-        PRIMARY KEY("id")
+	"id"	INTEGER NOT NULL,
+	"name"	TEXT NOT NULL,
+	"key"	BLOB NOT NULL,
+	"time"	INTEGER NOT NULL DEFAULT 0,
+	"secret"	BLOB DEFAULT NULL,
+	PRIMARY KEY("id")
 );
 CREATE TABLE IF NOT EXISTS "Config" (
-        "user"	INTEGER NOT NULL UNIQUE,
-        "fFirst"	BOOLEAN NOT NULL DEFAULT false,
-        "fSellerMode"	BOOLEAN NOT NULL DEFAULT true,
-        FOREIGN KEY("user") REFERENCES "Users"("id") ON UPDATE CASCADE ON DELETE CASCADE
+	"user"	INTEGER NOT NULL UNIQUE,
+	"fFirst"	BOOLEAN NOT NULL DEFAULT false,
+	"fSellerMode"	BOOLEAN NOT NULL DEFAULT true,
+	FOREIGN KEY("user") REFERENCES "Users"("id") ON UPDATE CASCADE ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS "UsersCards" (
-        "id"	INTEGER NOT NULL UNIQUE,
-        "user"	INTEGER NOT NULL,
-        "card"	INTEGER NOT NULL,
-        "owner"	BOOLEAN NOT NULL DEFAULT false,
-        "purchasesNumber"	INTEGER DEFAULT 1,
-        "received"	INTEGER DEFAULT 0,
-        "time"	INTEGER NOT NULL DEFAULT 0,
-        FOREIGN KEY("card") REFERENCES "Cards"("id") ON UPDATE CASCADE ON DELETE CASCADE,
-        FOREIGN KEY("user") REFERENCES "Users"("id") ON UPDATE CASCADE ON DELETE CASCADE
+	"id"	INTEGER NOT NULL UNIQUE,
+	"user"	INTEGER NOT NULL,
+	"card"	INTEGER NOT NULL,
+	"owner"	BOOLEAN NOT NULL DEFAULT false,
+	"purchasesNumber"	INTEGER DEFAULT 1,
+	"received"	INTEGER DEFAULT 0,
+	"time"	INTEGER NOT NULL DEFAULT 0,
+	FOREIGN KEY("card") REFERENCES "Cards"("id") ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY("user") REFERENCES "Users"("id") ON UPDATE CASCADE ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS "Sessions" (
-        "id"	INTEGER NOT NULL,
-        "usersCardsID"	INTEGER NOT NULL,
-        "time"	INTEGER NOT NULL DEFAULT 0,
-        FOREIGN KEY("usersCardsID") REFERENCES "UsersCards"("id") ON UPDATE CASCADE ON DELETE CASCADE
+	"id"	INTEGER NOT NULL,
+	"usersCardsID"	INTEGER NOT NULL,
+	"time"	INTEGER NOT NULL DEFAULT 0,
+	FOREIGN KEY("usersCardsID") REFERENCES "UsersCards"("id") ON UPDATE CASCADE ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS "Contacts" (
-        "user"	INTEGER NOT NULL,
-        "contactUser"	INTEGER NOT NULL,
-        FOREIGN KEY("contactUser") REFERENCES "Users"("id") ON UPDATE CASCADE ON DELETE CASCADE,
-        FOREIGN KEY("user") REFERENCES "Users"("id") ON UPDATE CASCADE ON DELETE CASCADE
+	"user"	INTEGER NOT NULL,
+	"contactUser"	INTEGER NOT NULL,
+	FOREIGN KEY("contactUser") REFERENCES "Users"("id") ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY("user") REFERENCES "Users"("id") ON UPDATE CASCADE ON DELETE CASCADE
 );
-INSERT INTO "Cards" VALUES (1815674861,NULL,NULL,NULL,'Test',NULL,NULL,NULL,NULL,NULL,'Test','#777777','#000000',6,1635265633);
-INSERT INTO "Users" VALUES (2019509448,'Test',X'5fe0ebbcbaebcf33a823deaf8f0c1dc27d009dda614b8904f58be2f03af072a6',1635265637);
-INSERT INTO "Config" VALUES (2019509448,0,1);
-INSERT INTO "UsersCards" VALUES (8673727034938687469,2019509448,1815674861,1,0,0,1635265633);
+INSERT INTO "DataBaseAttributes" VALUES ('version',3);
+INSERT INTO "Cards" VALUES (3646711041,NULL,NULL,NULL,'Тест',NULL,NULL,NULL,NULL,NULL,'Тест','#777777','#000000',6,1637072026,1880769937,NULL);
+INSERT INTO "Users" VALUES (4230689991,'Azz','��b�B�A�O英ְJB�h�H���x���r',1637072808,X'5fe0ebbcbaebcf33a823deaf8f0c1dc27d009dda614b8904f58be2f03af072a6');
+INSERT INTO "Config" VALUES (4230689991,0,1);
+INSERT INTO "UsersCards" VALUES (-276068919203306239,4230689991,3646711041,1,0,0,1637072026);
 CREATE UNIQUE INDEX IF NOT EXISTS "MemberPermisionsIndex" ON "MemberPermisions" (
-        "memberId",
-        "dbAddress"
+	"memberId",
+	"dbAddress"
 );
 CREATE UNIQUE INDEX IF NOT EXISTS "SessionsIndex" ON "Sessions" (
-        "id",
-        "usersCardsID"
+	"id",
+	"usersCardsID"
 );
 CREATE UNIQUE INDEX IF NOT EXISTS "ContactsIndex" ON "Contacts" (
-        "user",
-        "contactUser"
+	"user",
+	"contactUser"
 );
 COMMIT;

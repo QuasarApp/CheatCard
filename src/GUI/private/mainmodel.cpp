@@ -57,8 +57,10 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
     initWaitConnectionModel();
     initSellerStatisticModel();
 
+    configureCardsList();
+
     setCurrentUser(initUser());
-    _config = initConfig(_currentUser->user()->userId());
+    _config = initConfig(getCurrentUser()->user()->userId());
 
     qRegisterMetaType<RC::UsersCards>();
     qRegisterMetaType<RC::Card>();
@@ -78,9 +80,6 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
                          Qt::DirectConnection);
 
     }
-
-    configureCardsList();
-
 }
 
 MainModel::~MainModel() {
@@ -129,7 +128,7 @@ QObject *MainModel::currentUser() const {
     return _currentUser.data();
 }
 
-QSharedPointer<UserModel> MainModel::getCurrentUser() const {
+const QSharedPointer<UserModel>& MainModel::getCurrentUser() const {
     return _currentUser;
 }
 
@@ -143,6 +142,10 @@ void MainModel::setCurrentUser(QSharedPointer<UserModel> value) {
         return;
 
     _currentUser = value;
+
+    if (_backEndModel) {
+        _backEndModel->setCurrentUser(_currentUser->user());
+    }
 
     if (_currentUser) {
 

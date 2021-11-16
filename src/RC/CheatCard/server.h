@@ -23,6 +23,7 @@ public:
     Server(QH::ISqlDBCache *db);
     bool cardValidation(const QSharedPointer<Card> &card,
                         const QByteArray &ownerSecret) const override;
+    void getSignData(QByteArray &data) const override;
 
     // AbstractNode interface
 protected:
@@ -37,6 +38,7 @@ protected:
                                   const QH::AbstractNodeInfo *sender) override;
 
     friend class ClearOldData;
+
 };
 }
 #endif // SERVER_H

@@ -112,7 +112,8 @@ bool User::fromSqlRecord(const QSqlRecord &q) {
     setId(q.value("id").toUInt());
     setName(q.value("name").toString());
     setKey(q.value("key").toByteArray());
-    setSecret(q.value("secret").toByteArray());
+    setSecret(QByteArray::fromBase64(q.value("secret").toByteArray(),
+                                     QByteArray::Base64UrlEncoding));
 
     return true;
 }

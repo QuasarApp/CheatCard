@@ -51,6 +51,11 @@ bool Seller::cardValidation(const QSharedPointer<Card> &card,
     return true;
 }
 
+void Seller::getSignData(QByteArray &data) const {
+    if (currentUser())
+        data = currentUser()->secret();
+}
+
 QString Seller::randomUserName() const {
 
     static QStringList list = {

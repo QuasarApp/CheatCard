@@ -102,6 +102,10 @@ bool ApiV1::processCardRequest(const QSharedPointer<CardDataRequest> &cardreques
         return false;
     }
 
+    QByteArray secret;
+    node()->getSignData(secret);
+    cards.setCustomData(secret);
+
     if (!node()->sendData(&cards, sender)) {
 
         QuasarAppUtils::Params::log("Failed to send responce", QuasarAppUtils::Error);
@@ -164,6 +168,10 @@ bool ApiV1::processCardStatusRequest(const QSharedPointer<CardStatusRequest> &ca
         data->setCardVersion(node()->getCardVersion(data->getCard()));
         responce.push(data);
     }
+
+    QByteArray secret;
+    node()->getSignData(secret);
+    responce.setCustomData(secret);
 
     if (!node()->sendData(&responce, sender)) {
         return false;

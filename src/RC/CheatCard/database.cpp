@@ -6,6 +6,9 @@
 //#
 
 #include "database.h"
+#include "dbobjectsrequest.h"
+#include "user.h"
+
 namespace RC {
 
 DataBase::DataBase(const QString &name) {
@@ -45,7 +48,21 @@ QH::DBPatchMap DataBase::dbPatches() const {
 
     // See task #201 https://quasarapp.ddns.net:3000/QuasarApp/CheatCard/issues/201
     result += [](const QH::iObjectProvider* database) -> bool {
-        return database->doSql(":/DataBase/private/sql/SQLPatch_3.sql");
+
+        QH::PKG::DBObjectsRequest<User> request("Users", "");
+
+        auto db = const_cast<QH::iObjectProvider*>(database);
+
+        auto result = db->getObject(request);
+
+        if (!database->doSql(":/DataBase/private/sql/SQLPatch_3.sql")) {
+            return false;
+        }
+
+        for (const auto &ptr: qAsConst(result->data())) {
+            ptr->setKey()
+            db->insertObject(ptr);
+        }
     };
 
     return result;

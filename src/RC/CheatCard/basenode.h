@@ -39,6 +39,9 @@ public:
 
     static QString libVersion();
 
+    QSharedPointer<User>
+    getUserData(unsigned int userId) const;
+
     QSharedPointer<UsersCards>
     getUserCardData(unsigned int userId, unsigned int cardId) const;
     QList<QSharedPointer<UsersCards> >
@@ -48,6 +51,7 @@ public:
     getAllUserDataFromCard(unsigned int cardId, bool includeOwner = true) const;
 
     QSharedPointer<Card> getCard(unsigned int cardId);
+    QByteArray getUserSecret(unsigned int userId) const;
 
     const QMap<int, QSharedPointer<QH::iParser> > &apiParsers() const;
     void setApiParsers(const QMap<int, QSharedPointer<QH::iParser> > &newApiParsers);
@@ -66,7 +70,16 @@ public:
     virtual bool cardValidation(const QSharedPointer<Card>& card,
                                 const QByteArray &ownerSecret) const = 0;
 
+    /**
+     * @brief getSignData This method sets to @a data seecret key of this node. This method should be works only for sellers.
+     * @param data result value.
+     */
+    virtual void getSignData(QByteArray& data) const = 0;
+
     QH::ISqlDBCache *db() const;
+
+    const QSharedPointer<User> &currentUser() const;
+    void setCurrentUser(QSharedPointer<User> newCurrentUser);
 
 signals:
     void sigPurchaseWasSuccessful(QSharedPointer<RC::UsersCards> data);
@@ -92,6 +105,9 @@ private:
     QH::ISqlDBCache *_db = nullptr;
 
     QMap<int, QSharedPointer<QH::iParser>> _apiParsers;
+
+    QSharedPointer<User> _currentUser;
+
 };
 }
 #endif // BASENODE_H

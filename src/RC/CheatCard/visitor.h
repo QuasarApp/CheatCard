@@ -25,6 +25,7 @@ public:
 
     bool cardValidation(const QSharedPointer<Card> &card,
                         const QByteArray &ownerSecret) const override;
+    void getSignData(QByteArray &data) const override;
 
 protected:
     void nodeConnected(QH::AbstractNodeInfo *node) override;
@@ -45,7 +46,6 @@ private:
 
     int _lastRequest = 0;
     QTimer *_timer = nullptr;
-
 };
 
 }

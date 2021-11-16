@@ -31,6 +31,7 @@ public:
 
     bool cardValidation(const QSharedPointer<Card> &card,
                         const QByteArray &ownerSecret) const override;
+    void getSignData(QByteArray &data) const override;
 
 protected:
     void nodeConnected(QH::AbstractNodeInfo *node) override;
@@ -44,6 +45,7 @@ private:
     QString randomUserName() const;
 
     QHash<long long, QSharedPointer<Session>> _lastRequested;
+
 };
 }
 #endif // SELLER_H
