@@ -9,6 +9,9 @@
 #include "dbobjectsrequest.h"
 #include "user.h"
 
+#include <customdbrequest.h>
+#include <getsinglevalue.h>
+
 namespace RC {
 
 DataBase::DataBase(const QString &name) {
@@ -49,20 +52,46 @@ QH::DBPatchMap DataBase::dbPatches() const {
     // See task #201 https://quasarapp.ddns.net:3000/QuasarApp/CheatCard/issues/201
     result += [](const QH::iObjectProvider* database) -> bool {
 
-        QH::PKG::DBObjectsRequest<User> request("Users", "");
+        QH::PKG::CustomDBRequest<User> request("SELECT * FROM Users");
 
         auto db = const_cast<QH::iObjectProvider*>(database);
+        QList<QSharedPointer<QH::PKG::DBObject>> result;
+        if (!db->getAllObjects(request, result))
+            return false;
 
-        auto result = db->getObject(request);
+        for (const auto &obj: qAsConst(result)) {
+
+            auto ptr = obj.dynamicCast<User>();
+
+            if (!ptr)
+                return false;
+
+            if (ptr->fSaller()) {
+                ptr->regenerateKeys();
+            } else {
+                QH::PKG::GetSingleValue request({"Users", ptr->userId()}, "key");
+                auto keyWrapper = db->getObject(request);
+                QByteArray key = keyWrapper->value().toByteArray();
+
+                if (ptr->userId() != User::makeId(key)) {
+                    return false;
+                }
+
+                ptr->setKey(key);
+            }
+        }
 
         if (!database->doSql(":/DataBase/private/sql/SQLPatch_3.sql")) {
             return false;
         }
 
-        for (const auto &ptr: qAsConst(result->data())) {
-            ptr->setKey()
-            db->insertObject(ptr);
+        for (const auto &ptr: qAsConst(result)) {
+            if (!db->insertObject(ptr, true)) {
+                return false;
+            }
         }
+
+        return true;
     };
 
     return result;

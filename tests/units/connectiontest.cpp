@@ -49,7 +49,9 @@ QSharedPointer<NodeType> makeNode() {
 
     auto sallerDb = QSharedPointer<TestDataBaseWrapper>(source,
                                                         softDeleteWrapDB);
-    sallerDb->initSqlDb();
+    if (!sallerDb->initSqlDb()) {
+        return {};
+    }
 
     return QSharedPointer<NodeType>(new NodeType(sallerDb), softDeleteWrapNode);
 }

@@ -11,6 +11,10 @@
 namespace RC {
 
 User::User(): QH::PKG::DBObject("Users") {
+    regenerateKeys();
+}
+
+void RC::User::regenerateKeys() {
     _secret = QCryptographicHash::hash(randomArray(), QCryptographicHash::Sha256);
     _key = makeKey(_secret);
     setId(QVariant::fromValue(makeId(_key)));
@@ -23,10 +27,9 @@ QH::PKG::DBObject *User::createDBObject() const {
 QH::PKG::DBVariantMap User::variantMap() const {
     return {{"id",          {getId(),     QH::PKG::MemberType::PrimaryKey}},
             {"name",        {_name,       QH::PKG::MemberType::InsertUpdate}},
-            {"key",         {_key,        QH::PKG::MemberType::Insert}},
-            {"secret",      {_secret,     QH::PKG::MemberType::Insert}},
+            {"key",         {_key.toBase64(QByteArray::Base64UrlEncoding),    QH::PKG::MemberType::Insert}},
+            {"secret",      {_secret.toBase64(QByteArray::Base64UrlEncoding), QH::PKG::MemberType::Insert}},
             {"time",        {static_cast<int>(time(0)),      QH::PKG::MemberType::InsertUpdate}},
-
 
     };
 }
@@ -97,6 +100,10 @@ bool User::fSaller() const {
 
 void User::setFSaller(bool newFSaller) {
     _fSaller = newFSaller;
+
+    if (secret().isEmpty()) {
+        regenerateKeys();
+    }
 }
 
 const QString &User::name() const {
@@ -111,7 +118,8 @@ bool User::fromSqlRecord(const QSqlRecord &q) {
 
     setId(q.value("id").toUInt());
     setName(q.value("name").toString());
-    setKey(q.value("key").toByteArray());
+    setKey(QByteArray::fromBase64(q.value("key").toByteArray(),
+                                  QByteArray::Base64UrlEncoding));
     setSecret(QByteArray::fromBase64(q.value("secret").toByteArray(),
                                      QByteArray::Base64UrlEncoding));
 

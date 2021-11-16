@@ -56,6 +56,7 @@ public:
 
     static QByteArray makeKey(const QByteArray& secret);
     static unsigned int makeId(const QByteArray& key);
+    void regenerateKeys();
 
 protected:
     QString primaryKey() const override;
