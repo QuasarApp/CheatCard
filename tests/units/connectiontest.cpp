@@ -75,9 +75,21 @@ void ConnectionTest::firstContact() {
     auto client = makeNode<TestVisitor>();
     auto server = makeNode<TestServer>();
 
+    // test Api V0
     seller->addApiParser<RC::ApiV0>();
     client->addApiParser<RC::ApiV0>();
     server->addApiParser<RC::ApiV0>();
+
+    apiTest(seller, client, server);
+
+    seller->setApiParsers({});
+    client->setApiParsers({});
+    server->setApiParsers({});
+
+    // test Api v1
+    seller->addApiParser<RC::ApiV1>();
+    client->addApiParser<RC::ApiV1>();
+    server->addApiParser<RC::ApiV1>();
 
     apiTest(seller, client, server);
 }

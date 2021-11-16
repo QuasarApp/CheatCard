@@ -26,6 +26,8 @@ namespace RC {
 BaseNode::BaseNode(QH::ISqlDBCache *db) {
     _db = db;
 
+    registerPackageType<ApplicationVersion>();
+
     setIgnoreSslErrors(QList<QSslError>() << QSslError::SelfSignedCertificate
                        << QSslError::SelfSignedCertificateInChain
                        << QSslError::HostNameMismatch);
