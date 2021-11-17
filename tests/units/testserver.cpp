@@ -1,8 +1,8 @@
 #include "testdatabasewrapper.h"
 #include "testserver.h"
 
-#include <CheatCard/card.h>
-#include <CheatCard/userscards.h>
+#include <CheatCard/api/api0/card.h>
+#include <CheatCard/api/api0/userscards.h>
 
 #include <QCoreApplication>
 

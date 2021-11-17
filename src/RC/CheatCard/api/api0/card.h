@@ -7,7 +7,7 @@
 
 #include <dbobject.h>
 #include "CheatCard/core_global.h"
-#include "requesttoken.h"
+#include "CheatCard/requesttoken.h"
 #include <QSharedPointer>
 
 #ifndef CARD_H

@@ -1,8 +1,8 @@
 #include "testvisitorssl.h"
 
 #include <testdatabasewrapper.h>
-#include <CheatCard/card.h>
-#include <CheatCard/userscards.h>
+#include <CheatCard/api/api0/card.h>
+#include <CheatCard/api/api0/userscards.h>
 
 TestVisitorSSL::TestVisitorSSL(QSharedPointer<TestDataBaseWrapper> db):
     RC::VisitorSSL(db->db()) {

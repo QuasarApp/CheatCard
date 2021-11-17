@@ -6,16 +6,15 @@
 //#
 
 
-#include "CheatCard/carddatarequest.h"
-#include "CheatCard/cardstatusrequest.h"
+#include "CheatCard/api/api0/carddatarequest.h"
+#include "CheatCard/api/api0/cardstatusrequest.h"
 #include "CheatCard/dataconvertor.h"
 #include "basenode.h"
 #include "seller.h"
-#include "CheatCard/userheader.h"
-
-#include <CheatCard/session.h>
-#include <CheatCard/user.h>
-#include <CheatCard/userscards.h>
+#include "CheatCard/api/api0/userheader.h"
+#include <CheatCard/api/api0/session.h>
+#include <CheatCard/api/api0/user.h>
+#include <CheatCard/api/api0/userscards.h>
 
 namespace RC {
 

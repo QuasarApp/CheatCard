@@ -7,8 +7,8 @@
 //#
 
 #include "dataconvertor.h"
-#include "user.h"
-#include "userheader.h"
+#include "CheatCard/api/api0/user.h"
+#include "CheatCard/api/api0/userheader.h"
 
 namespace RC {
 DataConvertor::DataConvertor()

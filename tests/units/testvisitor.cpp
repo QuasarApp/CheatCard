@@ -1,8 +1,8 @@
 #include "testvisitor.h"
 
 #include <testdatabasewrapper.h>
-#include <CheatCard/card.h>
-#include <CheatCard/userscards.h>
+#include <CheatCard/api/api0/card.h>
+#include <CheatCard/api/api0/userscards.h>
 
 TestVisitor::TestVisitor(QSharedPointer<TestDataBaseWrapper> db): RC::Visitor(db->db()) {
         privateDb = db;

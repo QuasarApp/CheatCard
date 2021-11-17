@@ -5,15 +5,14 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-
-#include "CheatCard/carddatarequest.h"
-#include "CheatCard/cardstatusrequest.h"
 #include "server.h"
-#include "user.h"
 
-#include <CheatCard/card.h>
-#include <CheatCard/session.h>
-#include <CheatCard/userscards.h>
+#include "CheatCard/api/api0/user.h"
+#include <CheatCard/api/api0/card.h>
+#include <CheatCard/api/api0/session.h>
+#include <CheatCard/api/api0/userscards.h>
+#include "CheatCard/api/api0/carddatarequest.h"
+#include "CheatCard/api/api0/cardstatusrequest.h"
 
 #include <badrequest.h>
 #include "CheatCard/clearolddata.h"

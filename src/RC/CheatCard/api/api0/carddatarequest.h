@@ -8,7 +8,7 @@
 #ifndef CARDDATAREQUEST_H
 #define CARDDATAREQUEST_H
 
-#include "requesttoken.h"
+#include "CheatCard/requesttoken.h"
 
 #include <abstractdata.h>
 

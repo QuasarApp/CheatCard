@@ -7,9 +7,10 @@
 
 
 #include "cardslistmodel.h"
-#include "CheatCard/card.h"
+#include "CheatCard/api/api0/card.h"
+#include "CheatCard/api/api0/userscards.h"
+
 #include "cardmodel.h"
-#include "CheatCard/userscards.h"
 
 namespace RC {
 

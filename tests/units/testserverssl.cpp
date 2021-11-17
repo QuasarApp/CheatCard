@@ -3,8 +3,8 @@
 
 #include <QCoreApplication>
 
-#include <CheatCard/card.h>
-#include <CheatCard/userscards.h>
+#include <CheatCard/api/api0/card.h>
+#include <CheatCard/api/api0/userscards.h>
 
 
 TestServerSSL::TestServerSSL(QSharedPointer<TestDataBaseWrapper> db):

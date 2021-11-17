@@ -16,6 +16,8 @@ file(GLOB SOURCE_CPP
     "*CheatCard/*.cpp"
      "private/*.cpp"
      "CheatCard/api/*.cpp"
+     "CheatCard/api/api0/*.cpp"
+     "CheatCard/api/api1/*.cpp"
 
 )
 

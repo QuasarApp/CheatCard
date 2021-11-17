@@ -16,13 +16,15 @@
 #include "sellerstatisticmodel.h"
 
 #include <CheatCard/database.h>
-#include "CheatCard/user.h"
-#include "CheatCard/card.h"
+
+#include "CheatCard/api/api0/user.h"
+#include "CheatCard/api/api0/card.h"
+#include "CheatCard/api/api0/userscards.h"
+
 #include "dbobjectsrequest.h"
 #include "deleteobject.h"
 #include "config.h"
 #include "cardslistmodel.h"
-#include "CheatCard/userscards.h"
 #include "usermodel.h"
 #include <getsinglevalue.h>
 

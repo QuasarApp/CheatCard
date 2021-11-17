@@ -6,7 +6,7 @@
 //#
 
 #include "usermodel.h"
-#include "CheatCard/user.h"
+#include "CheatCard/api/api0/user.h"
 
 namespace RC {
 

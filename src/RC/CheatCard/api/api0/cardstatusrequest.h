@@ -10,7 +10,7 @@
 #define CARDSTATUSREQUEST_H
 
 #include <abstractdata.h>
-#include "requesttoken.h"
+#include "CheatCard/requesttoken.h"
 
 namespace RC {
 

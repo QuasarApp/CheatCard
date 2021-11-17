@@ -7,7 +7,7 @@
 
 #include "database.h"
 #include "dbobjectsrequest.h"
-#include "user.h"
+#include "CheatCard/api/api0/user.h"
 
 #include <customdbrequest.h>
 #include <getsinglevalue.h>

@@ -8,15 +8,15 @@
 
 #include "applicationversion.h"
 #include "basenode.h"
-#include "CheatCard/carddatarequest.h"
-#include "CheatCard/cardstatusrequest.h"
+#include "CheatCard/api/api0/carddatarequest.h"
+#include "CheatCard/api/api0/cardstatusrequest.h"
 #include "CheatCard/nodeinfo.h"
-#include "CheatCard/user.h"
+#include "CheatCard/api/api0/user.h"
 
-#include <CheatCard/card.h>
+#include <CheatCard/api/api0/card.h>
 #include <dbobjectsrequest.h>
-#include <CheatCard/session.h>
-#include <CheatCard/userscards.h>
+#include <CheatCard/api/api0/session.h>
+#include <CheatCard/api/api0/userscards.h>
 #include <getsinglevalue.h>
 #include <cmath>
 #include <dbobjectsrequest.h>
