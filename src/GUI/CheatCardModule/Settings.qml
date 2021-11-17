@@ -96,8 +96,7 @@ Page {
                             footer: DialogButtonBox {
                                 onAccepted: () => {
                                                 colorView.color = colorPick.color
-                                                config.colorTheme = colorPick.color
-                                                config.setValue("colorTheme", colorPick.color)
+                                                config.setStrValue("colorTheme", colorPick.color)
 
                                                 activityProcessor.popItem();
 
@@ -193,7 +192,7 @@ Page {
 
                 onDevicesListChanged: {
                     cameraPage.comboBoxModel = []
-                    cameraPage.devicesList.forEach((item)=>{cameraPage.comboBoxModel.push(item.displayName)})
+                    cameraPage.devicesList.forEach((item)=>{cameraPage.comboBoxModel.push(item.deviceId)})
                 }
 
                 Layout.margins: 8

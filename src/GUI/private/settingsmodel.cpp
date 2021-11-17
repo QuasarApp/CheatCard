@@ -46,6 +46,10 @@ void SettingsModel::setValueImplementation(const QString key, const QVariant &va
 
     _db->updateObject(updateRequest);
 
+
+    _db->updateObject(updateRequest);
+
+
 }
 
 }
