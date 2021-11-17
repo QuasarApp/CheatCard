@@ -16,7 +16,7 @@ import com.scythestudio.scodes 1.0
 Page {
     id: root
     signal captured(var data)
-    property string currentCamera: (camera.devices.length)? camera.devices[deviceIndex].displayName : ""
+    property string currentCamera: (camera.devices.length)? camera.devices[deviceIndex].deviceId : ""
 
     Camera {
         id: camera
@@ -31,7 +31,7 @@ Page {
 
         deviceId: (currentCamera.length)?
                       currentCamera:
-                      devices[deviceIndex % devices.length].displayName
+                      devices[deviceIndex % devices.length].deviceId
 
     }
 
