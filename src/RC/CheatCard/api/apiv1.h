@@ -27,6 +27,9 @@ public:
     ApiV1(BaseNode* node);
 
     int version() const override;
+    QH::ParserResult parsePackage(const QSharedPointer<QH::PKG::AbstractData> &pkg,
+                                  const QH::Header &pkgHeader,
+                                  const QH::AbstractNodeInfo *sender) override;
 
 protected:
     bool processCardStatusRequest(const QSharedPointer<CardStatusRequest> &message,
@@ -42,6 +45,7 @@ protected:
                             const QH::AbstractNodeInfo *sender, const QH::Header&) override;
     bool processCardData(const QSharedPointer<QH::PKG::DataPack<Card> > &cardrequest,
                          const QH::AbstractNodeInfo *sender, const QH::Header &) override;
+
 };
 }
 #endif // APIV1_H

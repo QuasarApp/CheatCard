@@ -33,8 +33,19 @@ int ApiV1::version() const {
     return 1;
 }
 
+QH::ParserResult ApiV1::parsePackage(const QSharedPointer<QH::PKG::AbstractData> &pkg,
+                                     const QH::Header &pkgHeader,
+                                     const QH::AbstractNodeInfo *sender) {
+    auto parentResult = ApiV0::parsePackage(pkg, pkgHeader, sender);
+    if (parentResult != QH::ParserResult::NotProcessed) {
+        return parentResult;
+    }
+
+    return QH::ParserResult::NotProcessed;
+}
+
 bool ApiV1::processCardStatus(const QSharedPointer<QH::PKG::DataPack<UsersCards> > &cardStatuses,
-                                   const QH::AbstractNodeInfo *sender, const QH::Header &) {
+                              const QH::AbstractNodeInfo *sender, const QH::Header &) {
 
     CardDataRequest request;
 
@@ -76,13 +87,13 @@ bool ApiV1::processCardStatus(const QSharedPointer<QH::PKG::DataPack<UsersCards>
 }
 
 bool ApiV1::applayPurchases(const QSharedPointer<UsersCards> &dbCard,
-                                 const QH::AbstractNodeInfo * sender) {
+                            const QH::AbstractNodeInfo * sender) {
 
     return ApiV0::applayPurchases(dbCard, sender);
 }
 
 bool ApiV1::processCardRequest(const QSharedPointer<CardDataRequest> &cardrequest,
-                                    const QH::AbstractNodeInfo *sender, const QH::Header &) {
+                               const QH::AbstractNodeInfo *sender, const QH::Header &) {
 
     QH::PKG::DataPack<Card> cards{};
 
@@ -118,7 +129,7 @@ bool ApiV1::processCardRequest(const QSharedPointer<CardDataRequest> &cardreques
 }
 
 bool ApiV1::processCardData(const QSharedPointer<QH::PKG::DataPack<Card>> &cards,
-                                 const QH::AbstractNodeInfo *sender, const QH::Header &) {
+                            const QH::AbstractNodeInfo *sender, const QH::Header &) {
 
     if (!(cards && db())) {
         return false;
@@ -148,7 +159,7 @@ bool ApiV1::processCardData(const QSharedPointer<QH::PKG::DataPack<Card>> &cards
 }
 
 bool ApiV1::processCardStatusRequest(const QSharedPointer<CardStatusRequest> &cardStatus,
-                                          const QH::AbstractNodeInfo *sender, const QH::Header &) {
+                                     const QH::AbstractNodeInfo *sender, const QH::Header &) {
 
     auto sessionId = cardStatus->getSessionId();
 
@@ -183,8 +194,8 @@ bool ApiV1::processCardStatusRequest(const QSharedPointer<CardStatusRequest> &ca
 }
 
 bool ApiV1::processSession(const QSharedPointer<Session> &session,
-                                const QH::AbstractNodeInfo *sender,
-                                const QH::Header &) {
+                           const QH::AbstractNodeInfo *sender,
+                           const QH::Header &) {
 
     if (!session->isValid()) {
         return false;
