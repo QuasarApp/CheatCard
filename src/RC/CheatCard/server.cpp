@@ -44,7 +44,13 @@ Server::Server(QH::ISqlDBCache *db): BaseNode(db) {
 bool Server::cardValidation(const QSharedPointer<Card> &card,
                             const QByteArray &ownerSecret) const {
 
-    return card && card->ownerSignature() == User::makeKey(ownerSecret);
+    if (!card)
+        return true;
+
+    auto signature = card->ownerSignature();
+    auto ownerSignature =  User::makeKey(ownerSecret);
+
+    return signature == ownerSignature;
 }
 
 void Server::getSignData(QByteArray &) const {

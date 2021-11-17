@@ -42,7 +42,7 @@ bool ApiV1::processCardStatus(const QSharedPointer<QH::PKG::DataPack<UsersCards>
 
         auto dbCard = db()->getObject(userrquest);
 
-        if (node()->cardValidation(dbCard, cardStatuses->customData())) {
+        if (!node()->cardValidation(dbCard, cardStatuses->customData())) {
 
             QuasarAppUtils::Params::log("Receive not signed cards seal");
             break;
@@ -129,7 +129,7 @@ bool ApiV1::processCardData(const QSharedPointer<QH::PKG::DataPack<Card>> &cards
             continue;
         }
 
-        if (node()->cardValidation(card, cards->customData())) {
+        if (!node()->cardValidation(card, cards->customData())) {
 
             QuasarAppUtils::Params::log("Receive not signed card");
             break;

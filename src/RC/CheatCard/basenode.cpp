@@ -53,6 +53,7 @@ QH::ParserResult BaseNode::parsePackage(const QSharedPointer<QH::PKG::AbstractDa
     int distVersion = static_cast<const NodeInfo*>(sender)->version();
     auto parser = _apiParsers.value(distVersion);
 
+
     if (!parser) {
         QuasarAppUtils::Params::log("Can't found requeried parser for version: " + QString::number(distVersion),
                                     QuasarAppUtils::Warning);

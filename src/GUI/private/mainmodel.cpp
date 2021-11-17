@@ -442,6 +442,8 @@ void RC::MainModel::saveCard(const QSharedPointer<Card>& card) {
 
 void MainModel::handleCardEditFinished(const QSharedPointer<Card>& card) {
 
+    card->setOwnerSignature(getCurrentUser()->user()->getKey());
+
     auto localCard = _backEndModel->getCard(card->cardId());
 
     if (localCard && localCard->compare(*card.data())) {

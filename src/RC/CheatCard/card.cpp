@@ -43,7 +43,7 @@ QH::PKG::DBVariantMap Card::variantMap() const {
             {"freeIndex",       {freeIndex,       QH::PKG::MemberType::InsertUpdate}},
             {"time",            {static_cast<int>(time(0)),      QH::PKG::MemberType::InsertUpdate}},
             {"cardVersion",     {cardVersion,     QH::PKG::MemberType::InsertUpdate}},
-            {"ownerSignature",  {_ownerSignature, QH::PKG::MemberType::InsertUpdate}},
+            {"ownerSignature",  {_ownerSignature.toBase64(QByteArray::Base64UrlEncoding), QH::PKG::MemberType::InsertUpdate}},
 
     };
 }
@@ -89,7 +89,9 @@ bool Card::fromSqlRecord(const QSqlRecord &q) {
     setFreeItemName(q.value("freeItemName").toString());
 
     setCardVersion(q.value("cardVersion").toUInt());
-    setOwnerSignature(q.value("ownerSignature").toByteArray());
+
+    setOwnerSignature(QByteArray::fromBase64(q.value("ownerSignature").toByteArray(),
+                                             QByteArray::Base64UrlEncoding));
 
     return true;
 }
