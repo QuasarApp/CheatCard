@@ -20,6 +20,9 @@ public:
     SettingsModel(QH::ISqlDBCache* db);
     ~SettingsModel();
 
+    int getCurrUser();
+    void setCurrUser(unsigned int id);
+
     // ISettings interface
 protected:
     void syncImplementation();
@@ -28,6 +31,7 @@ protected:
 
 private:
     QH::ISqlDBCache * _db = nullptr;
+    unsigned int _currUser = 0;
 };
 
 }

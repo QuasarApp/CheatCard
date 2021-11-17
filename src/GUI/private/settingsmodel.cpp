@@ -22,6 +22,18 @@ SettingsModel::~SettingsModel() {
 
 }
 
+void SettingsModel::setCurrUser(unsigned int id) {
+    _currUser = id;
+
+    QH::PKG::GetSingleValue req({"Config", id}, "user", "user");
+    auto result = _db->getObject(req);
+
+    if (result && result->value().toUInt() != id) {
+        _db->doQuery(QString("INSERT INTO Config(user) VALUES(%0)").arg(id));
+    }
+
+}
+
 void SettingsModel::syncImplementation() {
 
 }
