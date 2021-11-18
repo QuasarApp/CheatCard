@@ -44,7 +44,7 @@ public:
     const QList<int> &cards() const;
     void setCards(const QList<QSharedPointer<Card>> &newCards);
     QSharedPointer<CardModel> importCard(const QSharedPointer<Card> & card);
-    void setPurchasesNumbers(const QList<QSharedPointer<RC::UsersCards> > &purchasesNumbers);
+    void updateMetaData(const QList<QSharedPointer<RC::UsersCards> > &purchasesNumbers);
 
     Q_INVOKABLE void addCard() override;
     Q_INVOKABLE void removeCard(int cardId) override;

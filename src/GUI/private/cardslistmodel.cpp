@@ -105,10 +105,11 @@ CardsListModel::updateCard(const QSharedPointer<Card> &card) {
     return cardModel;
 }
 
-void CardsListModel::setPurchasesNumbers(const QList<QSharedPointer<UsersCards>> &purchasesNumbers) {
+void CardsListModel::updateMetaData(const QList<QSharedPointer<UsersCards>> &purchasesNumbers) {
     for (const auto &sp:  purchasesNumbers) {
         if (auto model = _cache.value(sp->getCard())) {
             model->setPurchasesNumber(sp->getPurchasesNumber());
+            model->setReceivedItems(sp->getReceived());
         }
     }
 }

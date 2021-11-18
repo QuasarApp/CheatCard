@@ -52,6 +52,8 @@ file(MAKE_DIRECTORY ${TARGET_DIR})
 
 if (ANDROID)
     set(ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/android CACHE INTERNAL "")
+    set(ENV{ANDROID_API_VERSION} 31)
+    set(ANDROID_API_VERSION $ENV{ANDROID_API_VERSION})
     set(OPENSSL_ROOT_PATH "$ENV{OPENSSL_ROOT_DIR}")
 
     set(SNAKE_EXTRA_LIBS
@@ -92,6 +94,9 @@ if (ANDROID)
 
     set(manifest_file "${CMAKE_CURRENT_SOURCE_DIR}/android/AndroidManifest.xml")
     configure_file("${manifest_file}.in" ${manifest_file} @ONLY)
+
+    set(gradle_file "${CMAKE_CURRENT_SOURCE_DIR}/android/build.gradle")
+    configure_file("${gradle_file}.in" ${gradle_file} @ONLY)
 
     file(GLOB java_files
         "android/src/com/quasarapp/androidtools/*.java"

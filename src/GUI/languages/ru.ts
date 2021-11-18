@@ -681,6 +681,13 @@
     </message>
 </context>
 <context>
+    <name>QrScanner</name>
+    <message>
+        <source>switch camera</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>RC::AbstrcattableModelWithHeaders</name>
     <message>
         <source>Unknown</source>
@@ -704,6 +711,14 @@
     <message>
         <source>Some kind of garbage happened when reading the qr code. Try again</source>
         <translation>При чтении qr кода произошла какая-то фигня. Попробуйте снова</translation>
+    </message>
+    <message>
+        <source>Sorry but not</source>
+        <translation>Прости, но нет</translation>
+    </message>
+    <message>
+        <source>This client do not have any bonuses. Sorry... </source>
+        <translation>У этого клиента нет ни одного бонуса. Сорян ... </translation>
     </message>
 </context>
 <context>
@@ -831,6 +846,10 @@
     <message>
         <source>Seal</source>
         <translation>Печать</translation>
+    </message>
+    <message>
+        <source>Check</source>
+        <translation>Проверить</translation>
     </message>
 </context>
 </TS>

@@ -16,14 +16,22 @@ import com.scythestudio.scodes 1.0
 Page {
     id: root
     signal captured(var data)
+    property string currentCamera: (camera.devices.length)? camera.devices[deviceIndex].deviceId : ""
 
     Camera {
         id: camera
+
+        property int deviceIndex: 0
+        property var devices: QtMultimedia.availableCameras
+
         focus {
             focusMode: CameraFocus.FocusContinuous
             focusPointMode: CameraFocus.FocusPointAuto
         }
 
+        deviceId: (currentCamera.length)?
+                      currentCamera:
+                      devices[deviceIndex % devices.length].deviceId
 
     }
 
@@ -71,6 +79,18 @@ Page {
 
         onCapturedChanged: (captured) => {
             root.captured(captured)
+        }
+    }
+
+    ToolButton {
+        text: qsTr("switch camera")
+
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        anchors.bottom: parent.bottom
+        icon.source: "qrc:/images/private/resources/Interface_icons/Camera_switch.svg"
+        onClicked:  {
+            camera.deviceIndex++
         }
     }
 }
