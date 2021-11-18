@@ -50,12 +50,14 @@ QH::ParserResult BaseNode::parsePackage(const QSharedPointer<QH::PKG::AbstractDa
         return parentResult;
     }
 
-    int distVersion = static_cast<const NodeInfo*>(sender)->version();
-    auto parser = _apiParsers.value(distVersion);
 
+    auto distVersion = static_cast<const NodeInfo*>(sender)->version();
+    auto parser = selectParser(static_cast<const NodeInfo*>(sender)->version());
 
     if (!parser) {
-        QuasarAppUtils::Params::log("Can't found requeried parser for version: " + QString::number(distVersion),
+        QuasarAppUtils::Params::log(QString("Can't found requeried parser for versions: %0-%1").
+                                    arg(distVersion.minimum()).
+                                    arg(distVersion.maximum()),
                                     QuasarAppUtils::Warning);
 
         return QH::ParserResult::NotProcessed;
@@ -69,7 +71,7 @@ bool BaseNode::processAppVersion(const QSharedPointer<ApplicationVersion> &messa
                                  const QH::Header &) {
 
     auto nodeInfo = dynamic_cast<NodeInfo*>(getInfoPtr(sender->networkAddress()));
-    nodeInfo->setVersion(message->version());
+    nodeInfo->setVersion(*message.data());
 
     return true;
 }
@@ -83,12 +85,37 @@ void BaseNode::nodeConnected(QH::AbstractNodeInfo *node) {
     QH::AbstractNode::nodeConnected(node);
 
     ApplicationVersion appVersion;
-    if (_apiParsers.size()) {
-        int version = _apiParsers.last()->version();
-        appVersion.setVersion(version);
-    }
+    appVersion.setMaximum(maximumApiVersion());
+    appVersion.setMinimum(minimumApiVersion());
 
     sendData(&appVersion, node);
+}
+
+int BaseNode::maximumApiVersion() const {
+    if (_apiParsers.size()) {
+        return _apiParsers.last()->version();
+    }
+
+    return 0;
+}
+
+int BaseNode::minimumApiVersion() const {
+    if (_apiParsers.size()) {
+        return _apiParsers.first()->version();
+    }
+
+    return 0;
+}
+
+QSharedPointer<QH::iParser>
+BaseNode::selectParser(const ApplicationVersion &distVersion) const {
+    for (int version = distVersion.maximum(); version >= distVersion.minimum(); --version) {
+        auto parser = _apiParsers.value(version, nullptr);
+        if (parser)
+            return parser;
+    }
+
+    return nullptr;
 }
 
 const QSharedPointer<User>& BaseNode::currentUser() const {

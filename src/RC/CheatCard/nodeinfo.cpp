@@ -24,11 +24,11 @@ void NodeInfo::setToken(unsigned long long newToken) {
     _fVersionReceived = false;
 }
 
-int NodeInfo::version() const {
+const ApplicationVersion &NodeInfo::version() const {
     return _version;
 }
 
-void NodeInfo::setVersion(int newVersion) {
+void NodeInfo::setVersion(const ApplicationVersion &newVersion) {
     _version = newVersion;
     _fVersionReceived = true;
 }

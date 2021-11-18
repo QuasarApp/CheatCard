@@ -39,6 +39,8 @@ private slots:
     void handleTick();
 private:
 
+    void action(QH::AbstractNodeInfo *node);
+
     int _requestInterval = USERREQUEST_TIMEOUT;
 
     long long _lastRequested = 0;

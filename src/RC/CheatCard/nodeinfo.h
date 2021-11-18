@@ -10,6 +10,7 @@
 #define NODEINFO_H
 
 #include <abstractnodeinfo.h>
+#include "applicationversion.h"
 #include "core_global.h"
 namespace RC {
 
@@ -23,8 +24,8 @@ public:
     unsigned long long token() const;
     void setToken(unsigned long long newToken);
 
-    int version() const;
-    void setVersion(int newVersion);
+    const ApplicationVersion& version() const;
+    void setVersion(const ApplicationVersion& newVersion);
 
 
     // AbstractNodeInfo interface
@@ -33,7 +34,7 @@ protected:
 
 private:
     unsigned long long _token;
-    int _version = 0;
+    ApplicationVersion _version;
     bool _fVersionReceived = false;
 
 };

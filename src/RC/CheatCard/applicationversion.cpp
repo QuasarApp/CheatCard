@@ -15,21 +15,33 @@ ApplicationVersion::ApplicationVersion() {
 
 QDataStream &ApplicationVersion::fromStream(QDataStream &stream) {
 
-    stream >> _version;
+    stream >> _minimum;
+    stream >> _maximum;
+
     return stream;
 }
 
 QDataStream &ApplicationVersion::toStream(QDataStream &stream) const {
-    stream << _version;
+    stream << _minimum;
+    stream << _maximum;
+
     return stream;
 }
 
-int ApplicationVersion::version() const {
-    return _version;
+short ApplicationVersion::maximum() const {
+    return _maximum;
 }
 
-void ApplicationVersion::setVersion(int newVersion) {
-    _version = newVersion;
+void ApplicationVersion::setMaximum(short newMaximum) {
+    _maximum = newMaximum;
+}
+
+short ApplicationVersion::minimum() const {
+    return _minimum;
+}
+
+void ApplicationVersion::setMinimum(short newMinimum) {
+    _minimum = newMinimum;
 }
 
 }

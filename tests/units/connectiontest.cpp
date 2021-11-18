@@ -75,26 +75,74 @@ void ConnectionTest::test() {
 
 void ConnectionTest::firstContact() {
 
+    qDebug() << "TEST API V0";
+
     auto seller = makeNode<TestSeller>();
     auto client = makeNode<TestVisitor>();
     auto server = makeNode<TestServer>();
 
-    // test Api V0
     seller->addApiParser<RC::ApiV0>();
     client->addApiParser<RC::ApiV0>();
     server->addApiParser<RC::ApiV0>();
 
     apiTest(seller, client, server);
 
+
+    qDebug() << "TEST API V1";
+
     seller = makeNode<TestSeller>();
     client = makeNode<TestVisitor>();
     server = makeNode<TestServer>();
     seller->setCurrentUser(seller->getUserData(2936319662));
 
-    // test Api v1
     seller->addApiParser<RC::ApiV1>();
     client->addApiParser<RC::ApiV1>();
     server->addApiParser<RC::ApiV1>();
+
+    apiTest(seller, client, server);
+
+
+    qDebug() << "TEST MULTI API V1 (SELLER: V1, CLIENT: V0)";
+
+    seller = makeNode<TestSeller>();
+    client = makeNode<TestVisitor>();
+    server = makeNode<TestServer>();
+    seller->setCurrentUser(seller->getUserData(2936319662));
+
+    seller->addApiParser<RC::ApiV1>();
+    client->addApiParser<RC::ApiV0>();
+    server->addApiParser<RC::ApiV1>();
+    server->addApiParser<RC::ApiV0>();
+
+    apiTest(seller, client, server);
+
+
+    qDebug() << "TEST MULTI API V1 (SELLER: V0, CLIENT: V1)";
+
+    seller = makeNode<TestSeller>();
+    client = makeNode<TestVisitor>();
+    server = makeNode<TestServer>();
+    seller->setCurrentUser(seller->getUserData(2936319662));
+
+    seller->addApiParser<RC::ApiV0>();
+    client->addApiParser<RC::ApiV1>();
+    server->addApiParser<RC::ApiV1>();
+    server->addApiParser<RC::ApiV0>();
+
+    apiTest(seller, client, server);
+
+
+    qDebug() << "TEST MULTI API V1 (SELLER: V0, CLIENT: V0)";
+
+    seller = makeNode<TestSeller>();
+    client = makeNode<TestVisitor>();
+    server = makeNode<TestServer>();
+    seller->setCurrentUser(seller->getUserData(2936319662));
+
+    seller->addApiParser<RC::ApiV0>();
+    client->addApiParser<RC::ApiV0>();
+    server->addApiParser<RC::ApiV1>();
+    server->addApiParser<RC::ApiV0>();
 
     apiTest(seller, client, server);
 }

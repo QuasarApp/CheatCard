@@ -13,16 +13,19 @@ class ApplicationVersion: public QH::PKG::AbstractData
 public:
     ApplicationVersion();
 
-    // StreamBase interface
-    int version() const;
-    void setVersion(int newVersion);
+    short minimum() const;
+    void setMinimum(short newMinimum);
+
+    short maximum() const;
+    void setMaximum(short newMaximum);
 
 protected:
     QDataStream &fromStream(QDataStream &stream) override;
     QDataStream &toStream(QDataStream &stream) const override;
 
 private:
-    int _version = 0;
+    short _minimum = 0;
+    short _maximum = 0;
 
 };
 

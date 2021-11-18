@@ -67,7 +67,15 @@ void Visitor::nodeConnected(QH::AbstractNodeInfo *node) {
 
 void Visitor::nodeConfirmend(QH::AbstractNodeInfo *node) {
     BaseNode::nodeConfirmend(node);
+    action(node);
+}
 
+void Visitor::handleTick() {
+    _timer->stop();
+    addNode(_domain, _port);
+}
+
+void Visitor::action(QH::AbstractNodeInfo *node) {
     CardStatusRequest request;
 
     auto senderInfo = static_cast<NodeInfo*>(node);
@@ -82,11 +90,6 @@ void Visitor::nodeConfirmend(QH::AbstractNodeInfo *node) {
     sendData(&request, node->networkAddress());
 
     _lastRequest = time(0);
-}
-
-void Visitor::handleTick() {
-    _timer->stop();
-    addNode(_domain, _port);
 }
 
 int Visitor::getRequestInterval() const {

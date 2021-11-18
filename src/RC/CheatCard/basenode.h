@@ -101,6 +101,12 @@ protected:
 
     void nodeConnected(QH::AbstractNodeInfo *node) override;
 
+    int maximumApiVersion() const;
+    int minimumApiVersion() const;
+
+    QSharedPointer<QH::iParser>
+    selectParser(const ApplicationVersion& distVersion) const;
+
 private:
     QH::ISqlDBCache *_db = nullptr;
 
