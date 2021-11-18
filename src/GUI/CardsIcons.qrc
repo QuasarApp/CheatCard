@@ -59,5 +59,12 @@
         <file>private/resources/Interface_icons/Edit_menu.svg</file>
         <file>private/resources/Interface_icons/Close_sidebar.svg</file>
         <file>private/resources/Interface_icons/Camera_switch.svg</file>
+        <file>private/resources/Backgrounds/Layer_34.png</file>
+        <file>private/resources/Backgrounds/Layer_33.png</file>
+        <file>private/resources/Backgrounds/Layer_32.png</file>
+        <file>private/resources/Backgrounds/Layer_31.png</file>
+        <file>private/resources/Backgrounds/Layer_30.png</file>
+        <file>private/resources/Backgrounds/Layer_29.png</file>
+        <file>private/resources/Backgrounds/Layer_28.png</file>
     </qresource>
 </RCC>
