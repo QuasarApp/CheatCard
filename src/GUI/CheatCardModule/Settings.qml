@@ -44,7 +44,6 @@ Page {
                         verticalAlignment: Qt.AlignVCenter
                         wrapMode: Text.WordWrap
                         font.bold: true
-                        font.pointSize: 12
 
                         Layout.fillWidth: true
                     }
@@ -54,7 +53,6 @@ Page {
                         Text {
                             text: qsTr("Select application color")
                             horizontalAlignment: Text.AlignVCenter
-                            font.pointSize: 11
                             opacity: enabled ? 1.0 : 0.3
                             wrapMode: Text.WordWrap
 
@@ -72,7 +70,6 @@ Page {
                         Button {
                             id: btnSelectColor
                             text: qsTr("Select")
-                            font.pointSize: 9
 
                             onClicked: () => {
                                            activityProcessor.newActivityFromComponent(settingdColor);
@@ -141,7 +138,6 @@ Page {
                         verticalAlignment: Qt.AlignVCenter
                         wrapMode: Text.WordWrap
                         font.bold: true
-                        font.pointSize: 12
 
                         Layout.fillWidth: true
                     }
@@ -153,7 +149,7 @@ Page {
                         padding: 0
 
                         onCheckedChanged: () => {
-                                              config.setStrValue("shareName", privacy.checked)
+                                              config.setValue("shareName", privacy.checked)
                                           }
 
                         Layout.fillWidth: true
@@ -161,7 +157,6 @@ Page {
                         contentItem: Text {
                             rightPadding: privacy.indicator.width + privacy.spacing
                             text: privacy.text
-                            font.pointSize: 11
                             opacity: enabled ? 1.0 : 0.3
                             elide: Text.ElideRight
                             verticalAlignment: Text.AlignVCenter
@@ -212,7 +207,6 @@ Page {
                         horizontalAlignment: Qt.AlignLeft
                         verticalAlignment: Qt.AlignVCenter
                         font.bold: true
-                        font.pointSize: 12
                         wrapMode: Text.WordWrap
 
                         Layout.fillWidth: true
@@ -222,7 +216,6 @@ Page {
                         Text {
                             id: name
                             text: qsTr("Select work camera")
-                            font.pointSize: 11
                             opacity: enabled ? 1.0 : 0.3
                             verticalAlignment: Text.AlignVCenter
                             wrapMode: Text.WordWrap
@@ -281,7 +274,6 @@ Page {
                         verticalAlignment: Qt.AlignVCenter
                         wrapMode: Text.WordWrap
                         font.bold: true
-                        font.pointSize: 12
 
                         Layout.fillWidth: true
                     }
@@ -293,14 +285,13 @@ Page {
                         padding: 0
 
                         onCheckedChanged: () => {
-                                              config.setStrValue("devSettingEnable", unlock.checked)
+                                              config.setValue("devSettingEnable", unlock.checked)
                                           }
 
                         Layout.fillWidth: true
 
                         contentItem: Text {
                             text: unlock.text
-                            font.pointSize: 11
                             opacity: enabled ? 1.0 : 0.3
                             verticalAlignment: Text.AlignVCenter
                             wrapMode: Text.WordWrap
@@ -312,9 +303,8 @@ Page {
                             id: host
                             enabled: unlock.checked
                             Layout.fillWidth: true
-                            font.pointSize: 11
                             placeholderText: qsTr("Host")
-                            text: config.getStrValue("host", "Enter host name!")
+                            text: config.getStrValue("host", " ")
 
                             onEditingFinished: () => {
                                                    config.setStrValue("host", host.displayText)
@@ -327,9 +317,8 @@ Page {
                             id: port
                             enabled: unlock.checked
                             Layout.fillWidth: true
-                            font.pointSize: 11
                             placeholderText: qsTr("Port")
-                            text: config.getStrValue("port", "Enter port name!")
+                            text: config.getStrValue("port", " ")
 
                             onEditingFinished: () => {
                                                    config.setStrValue("port", port.displayText)
@@ -372,35 +361,23 @@ Page {
                         verticalAlignment: Qt.AlignVCenter
                         wrapMode: Text.WordWrap
                         font.bold: true
-                        font.pointSize: 12
 
                         Layout.fillWidth: true
                     }
 
-                    RowLayout {
+                    Button {
+                        id: btnReset
+                        text: qsTr("Reset all settings")
+                        Layout.fillWidth: true
 
-                        Text {
-                            text: qsTr("Reset all settings")
-                            horizontalAlignment: Text.AlignVCenter
-                            font.pointSize: 11
-                            opacity: enabled ? 1.0 : 0.3
-                            wrapMode: Text.WordWrap
-
-                            Layout.fillWidth: true
-                        }
-
-                        Button {
-                            id: btnReset
-                            text: qsTr("reset")
-                            font.pointSize: 9
-
-                            onClicked: () => {
-                                           config.setStrValue("colorTheme", null)
-                                           config.setStrValue("shareName", null)
-                                           config.setStrValue("cameraDevice", null)
-                                       }
-                        }
-
+                        onClicked: () => {
+                                       config.setValue("colorTheme", null)
+                                       config.setValue("shareName", null)
+                                       config.setValue("cameraDevice", null)
+                                       config.setValue("devSettingEnable", null)
+                                       config.setValue("host", null)
+                                       config.setValue("port", null)
+                                   }
                     }
 
                 }
