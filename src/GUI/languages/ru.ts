@@ -677,6 +677,13 @@
     </message>
 </context>
 <context>
+    <name>QrScanner</name>
+    <message>
+        <source>switch camera</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>RC::AbstrcattableModelWithHeaders</name>
     <message>
         <source>Unknown</source>
