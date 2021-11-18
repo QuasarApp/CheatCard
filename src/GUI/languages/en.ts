@@ -891,6 +891,18 @@
         <source>Use custom server</source>
         <translation>Use custom server</translation>
     </message>
+    <message>
+        <source>Reset all settings</source>
+        <translation>Reset all settings</translation>
+    </message>
+    <message>
+        <source>reset</source>
+        <translation>reset</translation>
+    </message>
+    <message>
+        <source>Default settings</source>
+        <translation>Default settings</translation>
+    </message>
 </context>
 <context>
     <name>WaitConnectView</name>

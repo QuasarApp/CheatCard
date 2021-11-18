@@ -699,6 +699,18 @@
         <source>Use custom server</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Reset all settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>reset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default settings</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>WaitConnectView</name>

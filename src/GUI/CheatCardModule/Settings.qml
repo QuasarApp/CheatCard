@@ -126,6 +126,7 @@ Page {
             }
 
             Pane {
+                id: privacySettings
 
                 Layout.margins: 8
                 Layout.alignment: Qt.AlignHCenter
@@ -150,6 +151,12 @@ Page {
                         text: qsTr("Share name with seller")
                         checked: false
                         padding: 0
+
+                        onCheckedChanged: () => {
+                                              if (privacy.checked) {
+                                                  config.setStrValue("clientName", privacy.checked)
+                                              }
+                                          }
 
                         Layout.fillWidth: true
 
@@ -226,13 +233,20 @@ Page {
 
                         ComboBox {
                             id: selectCamera
-                            editable: true
                             enabled: (cameraPage.comboBoxModel.lenght)? true: false
+
+                            onCurrentTextChanged: () => {
+                                  if (selectCamera.enabled) {
+                                      config.setStrValue("cameraDevice", selectCamera.currentText)
+                                  }
+
+                              }
 
                             Layout.fillWidth: true
 
                             model: cameraPage.comboBoxModel
                         }
+
                     }
                 }
             }
@@ -254,6 +268,7 @@ Page {
             }
 
             Pane {
+                id: devSettings
 
                 Layout.margins: 8
                 Layout.alignment: Qt.AlignHCenter
@@ -279,6 +294,12 @@ Page {
                         checked: false
                         padding: 0
 
+                        onCheckedChanged: () => {
+                                              if (unlock.checked) {
+                                                  config.setStrValue("devSettingEnable", unlock.checked)
+                                              }
+                                          }
+
                         Layout.fillWidth: true
 
                         contentItem: Text {
@@ -292,19 +313,102 @@ Page {
 
                     RowLayout {
                         TextField {
+                            id: host
                             enabled: unlock.checked
                             Layout.fillWidth: true
                             font.pointSize: 11
                             placeholderText: qsTr("Host")
+
+                            onEditingFinished: () => {
+                                                   if (host.displayText.length) {
+                                                       config.setStrValue("host", host.displayText)
+                                                   }
+                                               }
+
+
                         }
 
                         TextField {
+                            id: port
                             enabled: unlock.checked
                             Layout.fillWidth: true
                             font.pointSize: 11
                             placeholderText: qsTr("Port")
+
+                            onEditingFinished: () => {
+                                                   if (port.displayText.length) {
+                                                       config.setStrValue("port", port.displayText)
+                                                   }
+                                               }
+
                         }
                     }
+                }
+            }
+
+            ToolSeparator {
+                Layout.fillWidth: true
+                orientation: Qt.Horizontal
+
+                padding: 1
+                topPadding: 1
+                bottomPadding: 1
+
+                contentItem: Rectangle {
+                    implicitWidth: 1
+                    implicitHeight: 1
+                    color: "#c3c3c3c3"
+                }
+
+            }
+
+            Pane {
+                id: resetSettings
+
+                Layout.margins: 8
+                Layout.alignment: Qt.AlignHCenter
+                Layout.fillWidth: true
+
+                contentItem: ColumnLayout {
+                    implicitWidth: 0x0
+
+                    Label {
+                        text: qsTr("Default settings")
+                        horizontalAlignment: Qt.AlignLeft
+                        verticalAlignment: Qt.AlignVCenter
+                        wrapMode: Text.WordWrap
+                        font.bold: true
+                        font.pointSize: 12
+
+                        Layout.fillWidth: true
+                    }
+
+                    RowLayout {
+
+                        Text {
+                            text: qsTr("Reset all settings")
+                            horizontalAlignment: Text.AlignVCenter
+                            font.pointSize: 11
+                            opacity: enabled ? 1.0 : 0.3
+                            wrapMode: Text.WordWrap
+
+                            Layout.fillWidth: true
+                        }
+
+                        Button {
+                            id: btnReset
+                            text: qsTr("reset")
+                            font.pointSize: 9
+
+                            onClicked: () => {
+                                           config.setStrValue("colorTheme", null)
+                                           config.setStrValue("clientName", null)
+                                           config.setStrValue("cameraDevice", null)
+                                       }
+                        }
+
+                    }
+
                 }
             }
 

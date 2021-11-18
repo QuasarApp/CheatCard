@@ -840,6 +840,18 @@
         <source>Use custom server</source>
         <translation>Использовать собственный сервер</translation>
     </message>
+    <message>
+        <source>Reset all settings</source>
+        <translation>Сбросить все настройки</translation>
+    </message>
+    <message>
+        <source>reset</source>
+        <translation>Сброс</translation>
+    </message>
+    <message>
+        <source>Default settings</source>
+        <translation>Настройки по умолчанию</translation>
+    </message>
 </context>
 <context>
     <name>WaitConnectView</name>
