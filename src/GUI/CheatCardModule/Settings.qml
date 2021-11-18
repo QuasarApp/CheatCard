@@ -154,7 +154,7 @@ Page {
 
                         onCheckedChanged: () => {
                                               if (privacy.checked) {
-                                                  config.setStrValue("clientName", privacy.checked)
+                                                  config.setStrValue("shareName", privacy.checked)
                                               }
                                           }
 
@@ -402,7 +402,7 @@ Page {
 
                             onClicked: () => {
                                            config.setStrValue("colorTheme", null)
-                                           config.setStrValue("clientName", null)
+                                           config.setStrValue("shareName", null)
                                            config.setStrValue("cameraDevice", null)
                                        }
                         }
