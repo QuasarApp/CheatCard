@@ -26,7 +26,6 @@ Page {
 
         ColumnLayout {
             id: listSettings
-            anchors.fill: parent
 
             Pane {
                 id: externality
@@ -239,6 +238,7 @@ Page {
                                   if (selectCamera.enabled) {
                                       config.setStrValue("cameraDevice", selectCamera.currentText)
                                   }
+//                                  config.getStrValue("cameraDevice")
 
                               }
 
@@ -291,13 +291,11 @@ Page {
                     SwitchDelegate {
                         id: unlock
                         text: qsTr("Use custom server")
-                        checked: false
+                        checked: config.getValue("devSettingEnable", false)
                         padding: 0
 
                         onCheckedChanged: () => {
-                                              if (unlock.checked) {
-                                                  config.setStrValue("devSettingEnable", unlock.checked)
-                                              }
+                                              config.setStrValue("devSettingEnable", unlock.checked)
                                           }
 
                         Layout.fillWidth: true
@@ -318,6 +316,7 @@ Page {
                             Layout.fillWidth: true
                             font.pointSize: 11
                             placeholderText: qsTr("Host")
+                            text: config.getStrValue("host", "Enter host name!")
 
                             onEditingFinished: () => {
                                                    if (host.displayText.length) {
@@ -334,6 +333,7 @@ Page {
                             Layout.fillWidth: true
                             font.pointSize: 11
                             placeholderText: qsTr("Port")
+                            text: config.getStrValue("port", "Enter host name!")
 
                             onEditingFinished: () => {
                                                    if (port.displayText.length) {
