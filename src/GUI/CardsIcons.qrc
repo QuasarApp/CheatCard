@@ -58,5 +58,6 @@
         <file>private/resources/Interface_icons/Less.svg</file>
         <file>private/resources/Interface_icons/Edit_menu.svg</file>
         <file>private/resources/Interface_icons/Close_sidebar.svg</file>
+        <file>private/resources/Interface_icons/Camera_switch.svg</file>
     </qresource>
 </RCC>
