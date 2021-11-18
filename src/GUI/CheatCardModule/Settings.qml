@@ -368,7 +368,7 @@ Page {
                     Button {
                         id: btnReset
                         text: qsTr("Reset all settings")
-                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignHCenter
 
                         onClicked: () => {
                                        config.setValue("colorTheme", null)
