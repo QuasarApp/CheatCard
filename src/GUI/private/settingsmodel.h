@@ -16,6 +16,7 @@ namespace RC {
 
 
 class SettingsModel: public QuasarAppUtils::ISettings {
+
 public:
     SettingsModel(QH::ISqlDBCache* db);
     ~SettingsModel();
@@ -23,7 +24,9 @@ public:
     unsigned int getCurrUser();
     void setCurrUser(unsigned int id);
 
-    // ISettings interface
+signals:
+    void colorThemeChanged();
+
 protected:
     void syncImplementation();
     QVariant getValueImplementation(const QString &key, const QVariant &def);

@@ -32,7 +32,7 @@ void SettingsModel::setCurrUser(unsigned int id) {
     QH::PKG::GetSingleValue req({"Config", id}, "user", "user");
     auto result = _db->getObject(req);
 
-    if (result && result->value().toUInt() != id) {
+    if (!result || result->value().toUInt() != id) {
         _db->doQuery(QString("INSERT INTO Config(user) VALUES(%0)").arg(id));
     }
 }
@@ -46,7 +46,7 @@ QVariant SettingsModel::getValueImplementation(const QString &key, const QVarian
     QH::PKG::GetSingleValue request({"Config", _currUser}, key, "user");
     auto result = _db->getObject(request);
 
-    if (!result) {
+    if (!result || result->value().isNull()) {
         return def;
     }
 
@@ -61,10 +61,7 @@ void SettingsModel::setValueImplementation(const QString key, const QVariant &va
 
     _db->updateObject(updateRequest);
 
-
-    _db->updateObject(updateRequest);
-
-
 }
+
 
 }

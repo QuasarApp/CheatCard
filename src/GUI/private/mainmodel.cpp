@@ -146,6 +146,8 @@ void MainModel::setCurrentUser(QSharedPointer<UserModel> value) {
 
     if (_currentUser) {
 
+        _config->setCurrUser(_currentUser->user()->userId());
+
         // get list of owned cards
         QString where = QString("id IN (SELECT card FROM UsersCards WHERE user = %0 AND owner = %1)").
                 arg(_currentUser->user()->userId()).
