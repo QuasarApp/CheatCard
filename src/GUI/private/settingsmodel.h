@@ -20,7 +20,7 @@ public:
     SettingsModel(QH::ISqlDBCache* db);
     ~SettingsModel();
 
-    int getCurrUser();
+    unsigned int getCurrUser();
     void setCurrUser(unsigned int id);
 
     // ISettings interface

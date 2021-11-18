@@ -20,7 +20,6 @@ class Card;
 class CardModel;
 class AboutModel;
 class User;
-class Config;
 class CardsListModel;
 class UserModel;
 class ItemsModel;
@@ -31,6 +30,7 @@ class IBilling;
 class UserHeader;
 class CardProxyModel;
 class SellerStatisticModel;
+class SettingsModel;
 
 /**
  * @brief The MainModel class is main model of the application.
@@ -145,8 +145,6 @@ private:
 
     QSharedPointer<UserModel> initUser();
 
-    QSharedPointer<Config> initConfig(int userId);
-
     void initCardsListModels();
     void initImagesModels();
     void setBackEndModel(const QSharedPointer<BaseNode> &newModel);
@@ -156,8 +154,7 @@ private:
 
     void setCardListModel(CardsListModel *model);
 
-    void initMode(const QSharedPointer<UserModel>& user,
-                  const QSharedPointer<Config>& config);
+    void initMode(const QSharedPointer<UserModel>& user);
 
     void soundEffectPlayback(const QString &soundName);
 
@@ -170,7 +167,7 @@ private:
 
     QH::ISqlDBCache * _db = nullptr;
     QSharedPointer<UserModel> _currentUser;
-    QSharedPointer<Config> _config;
+    SettingsModel* _config = nullptr;
 
     CardsListModel *_cardsListModel = nullptr;
     CardsListModel *_ownCardsListModel = nullptr;
