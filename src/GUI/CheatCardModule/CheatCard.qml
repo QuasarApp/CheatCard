@@ -23,7 +23,6 @@ ApplicationWindow {
 //    height: 350
 //    width: 640
 
-    Material.primary: config.colorTheme
 
     onClosing: {
         // this is bad solution. but it is works fine.
@@ -36,6 +35,9 @@ ApplicationWindow {
 
     property var model: mainModel
     property var user: (mainModel)? mainModel.currentUser: null
+    Material.primary: config.getStrValue("colorTheme", "#ff6b01")
+    Material.accent: Material.Orange
+
 
     Connections {
         target: model
@@ -55,6 +57,15 @@ ApplicationWindow {
         function onConnectionWasBegin() {
             connectionStatus.open()
 
+        }
+    }
+
+    Connections {
+        target: config
+        function onValueStrChanged(key, value) {
+            if (key === "colorTheme") {
+                mainWindow.Material.primary = value;
+            }
         }
     }
 

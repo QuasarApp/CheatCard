@@ -22,16 +22,19 @@ SettingsModel::~SettingsModel() {
 
 }
 
+unsigned int SettingsModel::getCurrUser() {
+    return _currUser;
+}
+
 void SettingsModel::setCurrUser(unsigned int id) {
     _currUser = id;
 
     QH::PKG::GetSingleValue req({"Config", id}, "user", "user");
     auto result = _db->getObject(req);
 
-    if (result && result->value().toUInt() != id) {
+    if (!result || result->value().toUInt() != id) {
         _db->doQuery(QString("INSERT INTO Config(user) VALUES(%0)").arg(id));
     }
-
 }
 
 void SettingsModel::syncImplementation() {
@@ -40,10 +43,10 @@ void SettingsModel::syncImplementation() {
 
 QVariant SettingsModel::getValueImplementation(const QString &key, const QVariant &def) {
 
-    QH::PKG::GetSingleValue request({"Config", "There will be id"}, key, "user");
+    QH::PKG::GetSingleValue request({"Config", _currUser}, key, "user");
     auto result = _db->getObject(request);
 
-    if (!result) {
+    if (!result || result->value().isNull()) {
         return def;
     }
 
@@ -54,14 +57,11 @@ QVariant SettingsModel::getValueImplementation(const QString &key, const QVarian
 void SettingsModel::setValueImplementation(const QString key, const QVariant &value) {
 
     auto updateRequest = QSharedPointer<QH::PKG::SetSingleValue>::create(
-                QH::DbAddress{"Config", "There will be id"}, key, value, "user");
+                QH::DbAddress{"Config", _currUser}, key, value, "user");
 
     _db->updateObject(updateRequest);
-
-
-    _db->updateObject(updateRequest);
-
 
 }
+
 
 }
