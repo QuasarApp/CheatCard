@@ -33,9 +33,10 @@ ApplicationWindow {
         }
     }
 
+    readonly property string defaultpPimaryColor: "#ff6b01"
     property var model: mainModel
     property var user: (mainModel)? mainModel.currentUser: null
-    Material.primary: config.getStrValue("colorTheme", "#ff6b01")
+    Material.primary: config.getStrValue("colorTheme", defaultpPimaryColor)
     Material.accent: Material.Orange
 
 
@@ -64,6 +65,8 @@ ApplicationWindow {
         target: config
         function onValueStrChanged(key, value) {
             if (key === "colorTheme") {
+                if (!value)
+                    value = defaultpPimaryColor
                 mainWindow.Material.primary = value;
             }
         }

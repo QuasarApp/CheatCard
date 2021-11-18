@@ -153,7 +153,7 @@ Page {
                         padding: 0
 
                         onCheckedChanged: () => {
-                                              config.setStrValue("shareName", privacy.checked)
+                                              config.setValue("shareName", privacy.checked)
                                           }
 
                         Layout.fillWidth: true
@@ -293,7 +293,7 @@ Page {
                         padding: 0
 
                         onCheckedChanged: () => {
-                                              config.setStrValue("devSettingEnable", unlock.checked)
+                                              config.setValue("devSettingEnable", unlock.checked)
                                           }
 
                         Layout.fillWidth: true
@@ -395,9 +395,9 @@ Page {
                             font.pointSize: 9
 
                             onClicked: () => {
-                                           config.setStrValue("colorTheme", null)
-                                           config.setStrValue("shareName", null)
-                                           config.setStrValue("cameraDevice", null)
+                                           config.setValue("colorTheme", null)
+                                           config.setValue("shareName", null)
+                                           config.setValue("cameraDevice", null)
                                        }
                         }
 
