@@ -26,6 +26,7 @@ Page {
 
         ColumnLayout {
             id: listSettings
+            width: flickable.width
 
             Pane {
                 id: externality
@@ -148,13 +149,11 @@ Page {
                     SwitchDelegate {
                         id: privacy
                         text: qsTr("Share name with seller")
-                        checked: false
+                        checked: config.getValue("shareName", false)
                         padding: 0
 
                         onCheckedChanged: () => {
-                                              if (privacy.checked) {
-                                                  config.setStrValue("shareName", privacy.checked)
-                                              }
+                                              config.setStrValue("shareName", privacy.checked)
                                           }
 
                         Layout.fillWidth: true
@@ -232,13 +231,12 @@ Page {
 
                         ComboBox {
                             id: selectCamera
-                            enabled: (cameraPage.comboBoxModel.lenght)? true: false
+                            enabled: cameraPage.comboBoxModel.length
+
+                            displayText: config.getStrValue("cameraDevice", (cameraPage.comboBoxModel.length? cameraPage.comboBoxModel[0]: ""))
 
                             onCurrentTextChanged: () => {
-                                  if (selectCamera.enabled) {
-                                      config.setStrValue("cameraDevice", selectCamera.currentText)
-                                  }
-//                                  config.getStrValue("cameraDevice")
+                                  config.setStrValue("cameraDevice", selectCamera.currentText)
 
                               }
 
@@ -319,9 +317,7 @@ Page {
                             text: config.getStrValue("host", "Enter host name!")
 
                             onEditingFinished: () => {
-                                                   if (host.displayText.length) {
-                                                       config.setStrValue("host", host.displayText)
-                                                   }
+                                                   config.setStrValue("host", host.displayText)
                                                }
 
 
@@ -333,12 +329,10 @@ Page {
                             Layout.fillWidth: true
                             font.pointSize: 11
                             placeholderText: qsTr("Port")
-                            text: config.getStrValue("port", "Enter host name!")
+                            text: config.getStrValue("port", "Enter port name!")
 
                             onEditingFinished: () => {
-                                                   if (port.displayText.length) {
-                                                       config.setStrValue("port", port.displayText)
-                                                   }
+                                                   config.setStrValue("port", port.displayText)
                                                }
 
                         }
