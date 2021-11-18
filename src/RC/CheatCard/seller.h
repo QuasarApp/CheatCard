@@ -35,6 +35,7 @@ public:
 
 protected:
     void nodeConnected(QH::AbstractNodeInfo *node) override;
+    void nodeConfirmend(QH::AbstractNodeInfo *node) override;
     bool incrementPurchases(const QSharedPointer<UsersCards> &usersCardsData,
                             int purchasesCount);
 

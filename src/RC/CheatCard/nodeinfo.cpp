@@ -21,6 +21,7 @@ unsigned long long NodeInfo::token() const {
 
 void NodeInfo::setToken(unsigned long long newToken) {
     _token = newToken;
+    _fVersionReceived = false;
 }
 
 int NodeInfo::version() const {
@@ -29,5 +30,10 @@ int NodeInfo::version() const {
 
 void NodeInfo::setVersion(int newVersion) {
     _version = newVersion;
+    _fVersionReceived = true;
+}
+
+bool NodeInfo::confirmData() const {
+    return _fVersionReceived;
 }
 }

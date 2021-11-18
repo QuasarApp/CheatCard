@@ -26,9 +26,16 @@ public:
     int version() const;
     void setVersion(int newVersion);
 
+
+    // AbstractNodeInfo interface
+protected:
+    bool confirmData() const override;
+
 private:
     unsigned long long _token;
     int _version = 0;
+    bool _fVersionReceived = false;
+
 };
 }
 #endif // NODEINFO_H

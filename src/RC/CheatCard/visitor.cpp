@@ -63,6 +63,10 @@ void Visitor::getSignData(QByteArray &) const {
 
 void Visitor::nodeConnected(QH::AbstractNodeInfo *node) {
     BaseNode::nodeConnected(node);
+}
+
+void Visitor::nodeConfirmend(QH::AbstractNodeInfo *node) {
+    BaseNode::nodeConfirmend(node);
 
     CardStatusRequest request;
 

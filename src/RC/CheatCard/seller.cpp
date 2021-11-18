@@ -181,9 +181,12 @@ bool Seller::sentDataToServerPurchase(const QSharedPointer<UserHeader> &userHead
 
 void Seller::nodeConnected(QH::AbstractNodeInfo *node) {
     BaseNode::nodeConnected(node);
+}
+
+void Seller::nodeConfirmend(QH::AbstractNodeInfo *node) {
+    BaseNode::nodeConfirmend(node);
 
     for (const auto &session: qAsConst(_lastRequested)) {
-
         sendData(session.data(), node);
     }
 
