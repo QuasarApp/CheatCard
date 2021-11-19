@@ -11,6 +11,7 @@
 #include <SBarcodeFilter.h>
 #include <SBarcodeGenerator.h>
 #include <imageprovider.h>
+#include "settingsmodel.h"
 #include "mainmodel.h"
 #include "quasarapp.h"
 #include "mainmodel.h"
@@ -48,10 +49,13 @@ bool CheatCard::init(QQmlApplicationEngine *engine, IBilling *billingObject) {
     engine->addImageProvider(QLatin1String("cards"), new ImageProvider(_db));
 
     auto root = engine->rootContext();
+    auto settingsInstance = SettingsModel::init<SettingsModel>(_db->db());
 
     _model = new MainModel(_db->db());
 
     root->setContextProperty("mainModel", QVariant::fromValue(_model));
+    root->setContextProperty("config", QVariant::fromValue(settingsInstance));
+
 
     qmlRegisterType<SBarcodeGenerator>("com.scythestudio.scodes", 1, 0, "SBarcodeGenerator");
     qmlRegisterType<SBarcodeFilter>("com.scythestudio.scodes", 1, 0, "SBarcodeFilter");

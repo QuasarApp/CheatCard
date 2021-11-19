@@ -39,7 +39,7 @@
 #include <QGuiApplication>
 
 #include <CheatCardGui/ibilling.h>
-
+#include "settingsmodel.h"
 #include <CheatCard/api/apiv1.h>
 
 #define CURRENT_USER "CURRENT_USER"
@@ -54,6 +54,9 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
     _db = db;
     _soundEffect = new SoundPlayback;
 
+    _config = dynamic_cast<SettingsModel*>(
+                QuasarAppUtils::Settings::ISettings::instance());
+
     initCardsListModels();
     initImagesModels();
     initWaitConnectionModel();
@@ -62,7 +65,6 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
     configureCardsList();
 
     setCurrentUser(initUser());
-    _config = initConfig(getCurrentUser()->user()->userId());
 
     qRegisterMetaType<RC::UsersCards>();
     qRegisterMetaType<RC::Card>();
@@ -105,15 +107,14 @@ bool MainModel::fFirst() const {
     if (!_config)
         return true;
 
-    return _config->getFirstRun();
+    return _config->getValue("fFirst", true).toBool();
 }
 
 void MainModel::configureFinished() {
     // First run setiing id.
     saveUser();
-
-    _config->setUserId(_currentUser->user()->userId());
-    _config->setFirstRun(false);
+    _config->setCurrUser(getCurrentUser()->user()->userId());
+    _config->setValue("fFirst", false);
 
     saveConfig();
 }
@@ -145,11 +146,12 @@ void MainModel::setCurrentUser(QSharedPointer<UserModel> value) {
 
     _currentUser = value;
 
-    if (_backEndModel) {
-        _backEndModel->setCurrentUser(_currentUser->user());
-    }
-
     if (_currentUser) {
+
+         if (_backEndModel) {
+             _backEndModel->setCurrentUser(_currentUser->user());
+         }
+        _config->setCurrUser(_currentUser->user()->userId());
 
         // get list of owned cards
         QString where = QString("id IN (SELECT card FROM UsersCards WHERE user = %0 AND owner = %1)").
@@ -192,7 +194,7 @@ void MainModel::saveUser() {
 }
 
 void MainModel::saveConfig() {
-    _db->insertIfExistsUpdateObject(_config);
+    _config->sync();
 }
 
 QSharedPointer<UserModel> MainModel::initUser() {
@@ -218,20 +220,6 @@ QSharedPointer<UserModel> MainModel::initUser() {
     }
 
     return QSharedPointer<UserModel>::create(QSharedPointer<User>::create());
-}
-
-QSharedPointer<Config> MainModel::initConfig(int userId) {
-    if (_config) {
-        return _config;
-    }
-
-    Config requestConfig;
-    requestConfig.setUserId(userId);
-    if (auto conf = _db->getObject(requestConfig)) {
-        return conf;
-    }
-
-    return QSharedPointer<Config>::create(userId);
 }
 
 void MainModel::initCardsListModels() {
@@ -312,9 +300,9 @@ void MainModel::setCardListModel(CardsListModel *model) {
     _currentCardsListModel->setSourceModel(model);
 }
 
-void MainModel::initMode(const QSharedPointer<UserModel> &user,
-                         const QSharedPointer<Config> &config) {
-    setMode(user && user->fSaller() && config && config->getFSellerEnabled());
+void MainModel::initMode(const QSharedPointer<UserModel> &user) {
+    bool fSallerEnabled = _config && _config->getValue("fSellerMode", false).toBool();
+    setMode(user && user->fSaller() && fSallerEnabled);
 }
 
 void MainModel::soundEffectPlayback(const QString &soundName) {
@@ -413,7 +401,7 @@ void MainModel::setMode(int newMode) {
 
     configureCardsList();
 
-    _config->setFSellerEnabled(newMode);
+    _config->setValue("fSellerMode", static_cast<bool>(newMode));
     saveConfig();
 }
 
@@ -618,7 +606,7 @@ void MainModel::handlePurchaseReceived(Purchase purchase) {
     _currentUser->setSellerToken(QByteArray::fromBase64(purchase.token.toLatin1(),
                                           QByteArray::Base64UrlEncoding));
 
-    initMode(_currentUser, _config);
+    initMode(_currentUser);
 
 }
 

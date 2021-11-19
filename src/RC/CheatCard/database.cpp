@@ -49,6 +49,11 @@ QH::DBPatchMap DataBase::dbPatches() const {
         return database->doSql(":/DataBase/private/sql/SQLPatch_1.sql");
     };
 
+    // See task #111 https://quasarapp.ddns.net:3000/QuasarApp/CheatCard/issues/111
+    result += [](const QH::iObjectProvider* database) -> bool {
+        return database->doSql(":/DataBase/private/sql/SQLPatch_2.sql");
+    };
+
     // See task #201 https://quasarapp.ddns.net:3000/QuasarApp/CheatCard/issues/201
     result += [](const QH::iObjectProvider* database) -> bool {
 

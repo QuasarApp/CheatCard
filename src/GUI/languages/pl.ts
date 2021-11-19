@@ -86,6 +86,10 @@
         <source>Help</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ColorPicker</name>
@@ -643,6 +647,69 @@
     <name>ScannerOverlay</name>
     <message>
         <source>Scan QR code</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Settings</name>
+    <message>
+        <source>Privacy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Share name with seller</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Developer settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Host</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Camera</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select work camera</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select application color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please choose a color</source>
+        <translation type="unfinished">Proszę wybrać kolor</translation>
+    </message>
+    <message>
+        <source>Select</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Appearance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use custom server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset all settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>reset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default settings</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
