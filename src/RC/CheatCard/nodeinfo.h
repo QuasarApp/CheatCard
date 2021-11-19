@@ -29,6 +29,13 @@ public:
 
 
     // AbstractNodeInfo interface
+    bool fVersionDelivered() const;
+    void setFVersionDelivered(bool newFVersionDelivered);
+
+    // AbstractNodeInfo interface
+public slots:
+    void removeSocket() override;
+
 protected:
     bool confirmData() const override;
 
@@ -36,6 +43,9 @@ private:
     unsigned long long _token;
     ApplicationVersion _version;
     bool _fVersionReceived = false;
+    bool _fVersionDelivered = false;
+
+
 
 };
 }

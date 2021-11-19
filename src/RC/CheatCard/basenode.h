@@ -23,6 +23,7 @@ class CardStatusRequest;
 class Session;
 class User;
 class ApplicationVersion;
+class VersionIsReceived;
 
 class CHEATCARD_CORE_EXPORT BaseNode: public QH::AbstractNode
 {
@@ -95,6 +96,8 @@ protected:
     bool processAppVersion(const QSharedPointer<ApplicationVersion> &message,
                            const QH::AbstractNodeInfo *sender, const QH::Header&);
 
+    bool versionDeliveredSuccessful(const QSharedPointer<VersionIsReceived> &message,
+                           const QH::AbstractNodeInfo *sender, const QH::Header&);
 
     QH::AbstractNodeInfo *createNodeInfo(QAbstractSocket *socket,
                                          const QH::HostAddress *clientAddress) const override;

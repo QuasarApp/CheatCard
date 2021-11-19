@@ -8,6 +8,7 @@
 
 #include "applicationversion.h"
 #include "basenode.h"
+#include "versionisreceived.h"
 #include "CheatCard/api/api0/carddatarequest.h"
 #include "CheatCard/api/api0/cardstatusrequest.h"
 #include "CheatCard/nodeinfo.h"
@@ -27,6 +28,7 @@ BaseNode::BaseNode(QH::ISqlDBCache *db) {
     _db = db;
 
     registerPackageType<ApplicationVersion>();
+    registerPackageType<VersionIsReceived>();
 
     setIgnoreSslErrors(QList<QSslError>() << QSslError::SelfSignedCertificate
                        << QSslError::SelfSignedCertificateInChain
@@ -50,6 +52,13 @@ QH::ParserResult BaseNode::parsePackage(const QSharedPointer<QH::PKG::AbstractDa
         return parentResult;
     }
 
+    // here node must be receive responce that version is delivered.
+    // when node receive this message then node status are confirmed
+    parentResult = commandHandler<VersionIsReceived>(this, &BaseNode::versionDeliveredSuccessful,
+                                               pkg, sender, pkgHeader);
+    if (parentResult != QH::ParserResult::NotProcessed) {
+        return parentResult;
+    }
 
     auto distVersion = static_cast<const NodeInfo*>(sender)->version();
     auto parser = selectParser(static_cast<const NodeInfo*>(sender)->version());
@@ -72,6 +81,16 @@ bool BaseNode::processAppVersion(const QSharedPointer<ApplicationVersion> &messa
 
     auto nodeInfo = dynamic_cast<NodeInfo*>(getInfoPtr(sender->networkAddress()));
     nodeInfo->setVersion(*message.data());
+
+    VersionIsReceived result;
+    return sendData(&result, sender);
+}
+
+bool BaseNode::versionDeliveredSuccessful(const QSharedPointer<VersionIsReceived> &,
+                                          const QH::AbstractNodeInfo *sender,
+                                          const QH::Header &) {
+    auto nodeInfo = dynamic_cast<NodeInfo*>(getInfoPtr(sender->networkAddress()));
+    nodeInfo->setFVersionDelivered(true);
 
     return true;
 }

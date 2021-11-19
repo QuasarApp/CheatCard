@@ -21,7 +21,6 @@ unsigned long long NodeInfo::token() const {
 
 void NodeInfo::setToken(unsigned long long newToken) {
     _token = newToken;
-    _fVersionReceived = false;
 }
 
 const ApplicationVersion &NodeInfo::version() const {
@@ -34,6 +33,21 @@ void NodeInfo::setVersion(const ApplicationVersion &newVersion) {
 }
 
 bool NodeInfo::confirmData() const {
-    return _fVersionReceived;
+    return _fVersionReceived && _fVersionDelivered;
+}
+
+bool NodeInfo::fVersionDelivered() const {
+    return _fVersionDelivered;
+}
+
+void NodeInfo::setFVersionDelivered(bool newFVersionDelivered) {
+    _fVersionDelivered = newFVersionDelivered;
+}
+
+void NodeInfo::removeSocket() {
+    _fVersionReceived = false;
+    _fVersionDelivered = false;
+
+    AbstractNodeInfo::removeSocket();
 }
 }
