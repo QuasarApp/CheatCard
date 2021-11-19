@@ -6,15 +6,15 @@
 //#
 
 
-#include "cardstatusrequest.h"
-#include "nodeinfo.h"
+#include "CheatCard/nodeinfo.h"
 #include "visitor.h"
-
-#include <CheatCard/user.h>
 #include <cstring>
-#include <CheatCard/session.h>
-#include <CheatCard/userscards.h>
-#include <CheatCard/card.h>
+
+#include "CheatCard/api/api0/cardstatusrequest.h"
+#include <CheatCard/api/api0/user.h>
+#include <CheatCard/api/api0/session.h>
+#include <CheatCard/api/api0/userscards.h>
+#include <CheatCard/api/api0/card.h>
 
 namespace RC {
 
@@ -49,10 +49,33 @@ bool Visitor::checkCardData(long long session,
     return addNode(domain, port);
 }
 
+bool Visitor::cardValidation(const QSharedPointer<Card> &card,
+                             const QByteArray &ownerSecret) const {
+    Q_UNUSED(card);
+    Q_UNUSED(ownerSecret);
+
+    return true;
+}
+
+void Visitor::getSignData(QByteArray &) const {
+
+}
 
 void Visitor::nodeConnected(QH::AbstractNodeInfo *node) {
     BaseNode::nodeConnected(node);
+}
 
+void Visitor::nodeConfirmend(QH::AbstractNodeInfo *node) {
+    BaseNode::nodeConfirmend(node);
+    action(node);
+}
+
+void Visitor::handleTick() {
+    _timer->stop();
+    addNode(_domain, _port);
+}
+
+void Visitor::action(QH::AbstractNodeInfo *node) {
     CardStatusRequest request;
 
     auto senderInfo = static_cast<NodeInfo*>(node);
@@ -67,11 +90,6 @@ void Visitor::nodeConnected(QH::AbstractNodeInfo *node) {
     sendData(&request, node->networkAddress());
 
     _lastRequest = time(0);
-}
-
-void Visitor::handleTick() {
-    _timer->stop();
-    addNode(_domain, _port);
 }
 
 int Visitor::getRequestInterval() const {

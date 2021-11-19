@@ -2,8 +2,8 @@
 #include "sellerstatisticmodel.h"
 #include "statisticklistproxymodel.h"
 
-#include <CheatCard/user.h>
-#include <CheatCard/userscards.h>
+#include <CheatCard/api/api0/user.h>
+#include <CheatCard/api/api0/userscards.h>
 
 namespace RC {
 

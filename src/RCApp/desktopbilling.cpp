@@ -4,6 +4,7 @@
 #include <qmlnotifyservice.h>
 
 #define TEST_SELLER_ID "TestSeller"
+#define TEST_SELLER_TOKEN "testbase64tokenofseller"
 
 DesktopBilling::DesktopBilling() {
 

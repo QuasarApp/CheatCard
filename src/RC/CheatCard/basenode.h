@@ -8,11 +8,10 @@
 #ifndef BASENODE_H
 #define BASENODE_H
 #include "abstractnode.h"
-#include "core_global.h"
+#include "CheatCard/core_global.h"
 #include "datapack.h"
 #include <isqldbcache.h>
 
-#define TEST_SELLER_TOKEN "testbase64tokenofseller"
 #define USERREQUEST_TIMEOUT 3
 namespace RC {
 
@@ -23,6 +22,8 @@ class CardDataRequest;
 class CardStatusRequest;
 class Session;
 class User;
+class ApplicationVersion;
+class VersionIsReceived;
 
 class CHEATCARD_CORE_EXPORT BaseNode: public QH::AbstractNode
 {
@@ -39,6 +40,9 @@ public:
 
     static QString libVersion();
 
+    QSharedPointer<User>
+    getUserData(unsigned int userId) const;
+
     QSharedPointer<UsersCards>
     getUserCardData(unsigned int userId, unsigned int cardId) const;
     QList<QSharedPointer<UsersCards> >
@@ -48,6 +52,35 @@ public:
     getAllUserDataFromCard(unsigned int cardId, bool includeOwner = true) const;
 
     QSharedPointer<Card> getCard(unsigned int cardId);
+    QByteArray getUserSecret(unsigned int userId) const;
+
+    const QMap<int, QSharedPointer<QH::iParser> > &apiParsers() const;
+    void setApiParsers(const QMap<int, QSharedPointer<QH::iParser> > &newApiParsers);
+    void addApiParser(const QSharedPointer<QH::iParser>& );
+
+    template<class AptType>
+    void addApiParser() {
+        addApiParser(QSharedPointer<AptType>::create(this));
+    }
+
+
+    /**
+     * @brief cardValidation This method must check card data only on server. This implementation do nothing.
+     * @return true if card is pass validation.
+     */
+    virtual bool cardValidation(const QSharedPointer<Card>& card,
+                                const QByteArray &ownerSecret) const = 0;
+
+    /**
+     * @brief getSignData This method sets to @a data seecret key of this node. This method should be works only for sellers.
+     * @param data result value.
+     */
+    virtual void getSignData(QByteArray& data) const = 0;
+
+    QH::ISqlDBCache *db() const;
+
+    const QSharedPointer<User> &currentUser() const;
+    void setCurrentUser(QSharedPointer<User> newCurrentUser);
 
 signals:
     void sigPurchaseWasSuccessful(QSharedPointer<RC::UsersCards> data);
@@ -55,33 +88,34 @@ signals:
 
 
 protected:
-    QH::ISqlDBCache *db() const;
-    virtual bool processCardStatusRequest(const QSharedPointer<CardStatusRequest> &message,
-                           const QH::AbstractNodeInfo *sender, const QH::Header&);
-
-    virtual bool processSession(const QSharedPointer<Session> &message,
-                           const QH::AbstractNodeInfo *sender, const QH::Header&);
-    virtual bool processCardStatus(const QSharedPointer<QH::PKG::DataPack<UsersCards>> &cardStatuses,
-                           const QH::AbstractNodeInfo *sender, const QH::Header&);
-    virtual bool applayPurchases(const QSharedPointer<UsersCards> &dbCard,
-                         const QH::AbstractNodeInfo *sender);
-    virtual bool processCardRequest(const QSharedPointer<CardDataRequest> &cardStatus,
-                            const QH::AbstractNodeInfo *sender, const QH::Header&);
-    virtual bool processCardData(const QSharedPointer<QH::PKG::DataPack<Card> > &cardrequest,
-                         const QH::AbstractNodeInfo *sender, const QH::Header &);
 
     QH::ParserResult parsePackage(const QSharedPointer<QH::PKG::AbstractData> &pkg,
                                   const QH::Header &pkgHeader,
                                   const QH::AbstractNodeInfo *sender) override;
 
-    // AbstractNode interface
-protected:
+    bool processAppVersion(const QSharedPointer<ApplicationVersion> &message,
+                           const QH::AbstractNodeInfo *sender, const QH::Header&);
+
+    bool versionDeliveredSuccessful(const QSharedPointer<VersionIsReceived> &message,
+                           const QH::AbstractNodeInfo *sender, const QH::Header&);
+
     QH::AbstractNodeInfo *createNodeInfo(QAbstractSocket *socket,
                                          const QH::HostAddress *clientAddress) const override;
+
+    void nodeConnected(QH::AbstractNodeInfo *node) override;
+
+    int maximumApiVersion() const;
+    int minimumApiVersion() const;
+
+    QSharedPointer<QH::iParser>
+    selectParser(const ApplicationVersion& distVersion) const;
 
 private:
     QH::ISqlDBCache *_db = nullptr;
 
+    QMap<int, QSharedPointer<QH::iParser>> _apiParsers;
+
+    QSharedPointer<User> _currentUser;
 
 };
 }

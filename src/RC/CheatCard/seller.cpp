@@ -6,15 +6,15 @@
 //#
 
 
-#include "carddatarequest.h"
-#include "cardstatusrequest.h"
-#include "dataconvertor.h"
+#include "CheatCard/api/api0/carddatarequest.h"
+#include "CheatCard/api/api0/cardstatusrequest.h"
+#include "CheatCard/dataconvertor.h"
+#include "basenode.h"
 #include "seller.h"
-#include "userheader.h"
-
-#include <CheatCard/session.h>
-#include <CheatCard/user.h>
-#include <CheatCard/userscards.h>
+#include "CheatCard/api/api0/userheader.h"
+#include <CheatCard/api/api0/session.h>
+#include <CheatCard/api/api0/user.h>
+#include <CheatCard/api/api0/userscards.h>
 
 namespace RC {
 
@@ -40,6 +40,19 @@ bool Seller::incrementPurchases(const QSharedPointer<UsersCards> &usersCardsData
     emit sigPurchaseWasSuccessful(usersCardsData);
 
     return true;
+}
+
+bool Seller::cardValidation(const QSharedPointer<Card> &card,
+                             const QByteArray &ownerSecret) const {
+    Q_UNUSED(card);
+    Q_UNUSED(ownerSecret);
+
+    return true;
+}
+
+void Seller::getSignData(QByteArray &data) const {
+    if (currentUser())
+        data = currentUser()->secret();
 }
 
 QString Seller::randomUserName() const {
@@ -168,9 +181,12 @@ bool Seller::sentDataToServerPurchase(const QSharedPointer<UserHeader> &userHead
 
 void Seller::nodeConnected(QH::AbstractNodeInfo *node) {
     BaseNode::nodeConnected(node);
+}
+
+void Seller::nodeConfirmend(QH::AbstractNodeInfo *node) {
+    BaseNode::nodeConfirmend(node);
 
     for (const auto &session: qAsConst(_lastRequested)) {
-
         sendData(session.data(), node);
     }
 

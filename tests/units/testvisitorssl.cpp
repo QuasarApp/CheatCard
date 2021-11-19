@@ -1,15 +1,16 @@
-#include "testvisitor.h"
+#include "testvisitorssl.h"
 
 #include <testdatabasewrapper.h>
 #include <CheatCard/api/api0/card.h>
 #include <CheatCard/api/api0/userscards.h>
 
-TestVisitor::TestVisitor(QSharedPointer<TestDataBaseWrapper> db): RC::Visitor(db->db()) {
+TestVisitorSSL::TestVisitorSSL(QSharedPointer<TestDataBaseWrapper> db):
+    RC::VisitorSSL(db->db()) {
         privateDb = db;
         setRequestInterval(0);
 }
 
-QSharedPointer<RC::Card> TestVisitor::getCard(unsigned int cardId) const {
+QSharedPointer<RC::Card> TestVisitorSSL::getCard(unsigned int cardId) const {
     RC::Card card;
     card.setId(cardId);
 
@@ -17,7 +18,7 @@ QSharedPointer<RC::Card> TestVisitor::getCard(unsigned int cardId) const {
     return cardObj;
 }
 
-int TestVisitor::getPurchaseCount(unsigned int userId, unsigned int cardId) {
+int TestVisitorSSL::getPurchaseCount(unsigned int userId, unsigned int cardId) {
     QSharedPointer<RC::UsersCards> result = getUserCardData(userId, cardId);
 
     if (!result)

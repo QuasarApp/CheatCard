@@ -16,13 +16,15 @@
 #include "sellerstatisticmodel.h"
 
 #include <CheatCard/database.h>
-#include "CheatCard/user.h"
-#include "CheatCard/card.h"
+
+#include "CheatCard/api/api0/user.h"
+#include "CheatCard/api/api0/card.h"
+#include "CheatCard/api/api0/userscards.h"
+
 #include "dbobjectsrequest.h"
 #include "deleteobject.h"
 #include "config.h"
 #include "cardslistmodel.h"
-#include "CheatCard/userscards.h"
 #include "usermodel.h"
 #include <getsinglevalue.h>
 
@@ -30,14 +32,15 @@
 #include "cmath"
 #include <qmlnotifyservice.h>
 
-#include <CheatCard/seller.h>
-#include <CheatCard/visitor.h>
+#include <CheatCard/sellerssl.h>
+#include <CheatCard/visitorssl.h>
 
 #include <QDir>
 #include <QGuiApplication>
 
 #include <CheatCardGui/ibilling.h>
 #include "settingsmodel.h"
+#include <CheatCard/api/apiv1.h>
 
 #define CURRENT_USER "CURRENT_USER"
 
@@ -59,6 +62,8 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
     initWaitConnectionModel();
     initSellerStatisticModel();
 
+    configureCardsList();
+
     setCurrentUser(initUser());
 
     qRegisterMetaType<RC::UsersCards>();
@@ -79,9 +84,6 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
                          Qt::DirectConnection);
 
     }
-
-    configureCardsList();
-
 }
 
 MainModel::~MainModel() {
@@ -129,7 +131,7 @@ QObject *MainModel::currentUser() const {
     return _currentUser.data();
 }
 
-QSharedPointer<UserModel> MainModel::getCurrentUser() const {
+const QSharedPointer<UserModel>& MainModel::getCurrentUser() const {
     return _currentUser;
 }
 
@@ -146,6 +148,9 @@ void MainModel::setCurrentUser(QSharedPointer<UserModel> value) {
 
     if (_currentUser) {
 
+         if (_backEndModel) {
+             _backEndModel->setCurrentUser(_currentUser->user());
+         }
         _config->setCurrUser(_currentUser->user()->userId());
 
         // get list of owned cards
@@ -371,13 +376,20 @@ int MainModel::getMode() const {
 }
 
 void RC::MainModel::configureCardsList() {
+    BaseNode* client = nullptr;
+
     if (_mode == Mode::Client) {
         setCardListModel(_cardsListModel);
-        setBackEndModel(QSharedPointer<BaseNode>(new Visitor(_db), softRemove));
+        client = new VisitorSSL(_db);
+
     } else {
         setCardListModel(_ownCardsListModel);
-        setBackEndModel(QSharedPointer<BaseNode>(new Seller(_db), softRemove));
+        client = new SellerSSL(_db);
     }
+
+    client->addApiParser(QSharedPointer<ApiV1>::create(client));
+
+    setBackEndModel(QSharedPointer<BaseNode>(client, softRemove));
 }
 
 void MainModel::setMode(int newMode) {
@@ -419,6 +431,8 @@ void RC::MainModel::saveCard(const QSharedPointer<Card>& card) {
 }
 
 void MainModel::handleCardEditFinished(const QSharedPointer<Card>& card) {
+
+    card->setOwnerSignature(getCurrentUser()->user()->getKey());
 
     auto localCard = _backEndModel->getCard(card->cardId());
 

@@ -8,17 +8,20 @@
 #include "connectiontest.h"
 #include "testdatabasewrapper.h"
 #include "testserver.h"
-#include <CheatCard/card.h>
-#include <CheatCard/user.h>
+
+#include <CheatCard/api/api0/card.h>
+#include <CheatCard/api/api0/user.h>
+#include <CheatCard/api/api0/userheader.h>
+
 #include <thread>
 #include <chrono>
 #include <CheatCard/visitor.h>
 #include <CheatCard/seller.h>
 #include <CheatCard/server.h>
-#include <CheatCard/userheader.h>
 #include <testseller.h>
 #include <testvisitor.h>
 #include <type_traits>
+#include <CheatCard/api/apiv1.h>
 
 #define TEST_CHEAT_PORT 15001
 #define TEST_CHEAT_HOST "localhost"
@@ -48,7 +51,9 @@ QSharedPointer<NodeType> makeNode() {
 
     auto sallerDb = QSharedPointer<TestDataBaseWrapper>(source,
                                                         softDeleteWrapDB);
-    sallerDb->initSqlDb();
+    if (!sallerDb->initSqlDb()) {
+        return {};
+    }
 
     return QSharedPointer<NodeType>(new NodeType(sallerDb), softDeleteWrapNode);
 }
@@ -62,7 +67,7 @@ ConnectionTest::~ConnectionTest() {
 }
 
 void ConnectionTest::test() {
-    QDir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)).removeRecursively();
+    QDir(APP_DATA_LOCATION).removeRecursively();
 
 
     firstContact();
@@ -70,9 +75,81 @@ void ConnectionTest::test() {
 
 void ConnectionTest::firstContact() {
 
+    qDebug() << "TEST API V0";
+
     auto seller = makeNode<TestSeller>();
     auto client = makeNode<TestVisitor>();
     auto server = makeNode<TestServer>();
+
+    seller->addApiParser<RC::ApiV0>();
+    client->addApiParser<RC::ApiV0>();
+    server->addApiParser<RC::ApiV0>();
+
+    apiTest(seller, client, server);
+
+
+    qDebug() << "TEST API V1";
+
+    seller = makeNode<TestSeller>();
+    client = makeNode<TestVisitor>();
+    server = makeNode<TestServer>();
+    seller->setCurrentUser(seller->getUserData(2936319662));
+
+    seller->addApiParser<RC::ApiV1>();
+    client->addApiParser<RC::ApiV1>();
+    server->addApiParser<RC::ApiV1>();
+
+    apiTest(seller, client, server);
+
+
+    qDebug() << "TEST MULTI API V1 (SELLER: V1, CLIENT: V0)";
+
+    seller = makeNode<TestSeller>();
+    client = makeNode<TestVisitor>();
+    server = makeNode<TestServer>();
+    seller->setCurrentUser(seller->getUserData(2936319662));
+
+    seller->addApiParser<RC::ApiV1>();
+    client->addApiParser<RC::ApiV0>();
+    server->addApiParser<RC::ApiV1>();
+    server->addApiParser<RC::ApiV0>();
+
+    apiTest(seller, client, server);
+
+
+    qDebug() << "TEST MULTI API V1 (SELLER: V0, CLIENT: V1)";
+
+    seller = makeNode<TestSeller>();
+    client = makeNode<TestVisitor>();
+    server = makeNode<TestServer>();
+    seller->setCurrentUser(seller->getUserData(2936319662));
+
+    seller->addApiParser<RC::ApiV0>();
+    client->addApiParser<RC::ApiV1>();
+    server->addApiParser<RC::ApiV1>();
+    server->addApiParser<RC::ApiV0>();
+
+    apiTest(seller, client, server);
+
+
+    qDebug() << "TEST MULTI API V1 (SELLER: V0, CLIENT: V0)";
+
+    seller = makeNode<TestSeller>();
+    client = makeNode<TestVisitor>();
+    server = makeNode<TestServer>();
+    seller->setCurrentUser(seller->getUserData(2936319662));
+
+    seller->addApiParser<RC::ApiV0>();
+    client->addApiParser<RC::ApiV0>();
+    server->addApiParser<RC::ApiV1>();
+    server->addApiParser<RC::ApiV0>();
+
+    apiTest(seller, client, server);
+}
+
+void ConnectionTest::apiTest(const QSharedPointer<TestSeller> &seller,
+                             const QSharedPointer<TestVisitor> &client,
+                             const QSharedPointer<TestServer> &server) {
 
     // random session
     long long session = rand() * rand();
@@ -88,7 +165,7 @@ void ConnectionTest::firstContact() {
     obj->setUserId(user->userId());
 
     // 3619648333 This is card id from test database.
-    unsigned int cardId = 1815674861;
+    unsigned int cardId = 1990574875;
     for (int i = 0; i < 100; i++) {
 
         qDebug () << "test case " << i << "/" << 100;
@@ -164,7 +241,6 @@ void ConnectionTest::firstContact() {
     }, WAIT_TIME));
 
     // To Do check free items count
-
 }
 
 QSharedPointer<RC::User> ConnectionTest::makeUser() const {

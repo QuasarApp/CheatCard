@@ -5,7 +5,21 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#include "successful.h"
+#ifndef SELLERSSL_H
+#define SELLERSSL_H
+
+#include "seller.h"
+
 namespace RC {
 
+class UserHeader;
+
+class CHEATCARD_CORE_EXPORT SellerSSL: public Seller
+{
+    Q_OBJECT
+public:
+    SellerSSL(QH::ISqlDBCache *db);
+
+};
 }
+#endif // SELLERSSL_H

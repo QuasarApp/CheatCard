@@ -14,7 +14,7 @@
         ],
     "extraLib": "crypto",
     "targetDir": "@CMAKE_SOURCE_DIR@/Distro",
-    "deployVersion": "0.@GIT_COMMIT_COUNT@.@GIT_COMMIT_HASH@",
+    "deployVersion": "@CHEAT_CARD_VERSION@",
     "qif": true,
     "zip": true,
     "deb": true

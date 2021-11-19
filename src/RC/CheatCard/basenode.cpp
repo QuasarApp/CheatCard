@@ -6,16 +6,18 @@
 //#
 
 
+#include "applicationversion.h"
 #include "basenode.h"
-#include "carddatarequest.h"
-#include "cardstatusrequest.h"
-#include "nodeinfo.h"
-#include "user.h"
+#include "versionisreceived.h"
+#include "CheatCard/api/api0/carddatarequest.h"
+#include "CheatCard/api/api0/cardstatusrequest.h"
+#include "CheatCard/nodeinfo.h"
+#include "CheatCard/api/api0/user.h"
 
-#include <CheatCard/card.h>
+#include <CheatCard/api/api0/card.h>
 #include <dbobjectsrequest.h>
-#include <CheatCard/session.h>
-#include <CheatCard/userscards.h>
+#include <CheatCard/api/api0/session.h>
+#include <CheatCard/api/api0/userscards.h>
 #include <getsinglevalue.h>
 #include <cmath>
 #include <dbobjectsrequest.h>
@@ -25,7 +27,9 @@ namespace RC {
 BaseNode::BaseNode(QH::ISqlDBCache *db) {
     _db = db;
 
-    useSystemSslConfiguration();
+    registerPackageType<ApplicationVersion>();
+    registerPackageType<VersionIsReceived>();
+
     setIgnoreSslErrors(QList<QSslError>() << QSslError::SelfSignedCertificate
                        << QSslError::SelfSignedCertificateInChain
                        << QSslError::HostNameMismatch);
@@ -40,42 +44,105 @@ QH::ParserResult BaseNode::parsePackage(const QSharedPointer<QH::PKG::AbstractDa
         return parentResult;
     }
 
-    auto result = commandHandler<Session>(this, &BaseNode::processSession,
-                                          pkg, sender, pkgHeader);
-    if (result != QH::ParserResult::NotProcessed) {
-        return result;
-    }
-
-    result = commandHandler<CardStatusRequest>(this, &BaseNode::processCardStatusRequest,
+    // here node must be receive version of connected application.
+    // if not use the default version (0)ApplicationVersion
+    parentResult = commandHandler<ApplicationVersion>(this, &BaseNode::processAppVersion,
                                                pkg, sender, pkgHeader);
-    if (result != QH::ParserResult::NotProcessed) {
-        return result;
+    if (parentResult != QH::ParserResult::NotProcessed) {
+        return parentResult;
     }
 
-    result = commandHandler<QH::PKG::DataPack<UsersCards>>(this, &BaseNode::processCardStatus,
-                                        pkg, sender, pkgHeader);
-    if (result != QH::ParserResult::NotProcessed) {
-        return result;
+    // here node must be receive responce that version is delivered.
+    // when node receive this message then node status are confirmed
+    parentResult = commandHandler<VersionIsReceived>(this, &BaseNode::versionDeliveredSuccessful,
+                                               pkg, sender, pkgHeader);
+    if (parentResult != QH::ParserResult::NotProcessed) {
+        return parentResult;
     }
 
-    result = commandHandler<CardDataRequest>(this, &BaseNode::processCardRequest,
-                                             pkg, sender, pkgHeader);
-    if (result != QH::ParserResult::NotProcessed) {
-        return result;
+    auto distVersion = static_cast<const NodeInfo*>(sender)->version();
+    auto parser = selectParser(static_cast<const NodeInfo*>(sender)->version());
+
+    if (!parser) {
+        QuasarAppUtils::Params::log(QString("Can't found requeried parser for versions: %0-%1").
+                                    arg(distVersion.minimum()).
+                                    arg(distVersion.maximum()),
+                                    QuasarAppUtils::Warning);
+
+        return QH::ParserResult::NotProcessed;
     }
 
-    result = commandHandler<QH::PKG::DataPack<Card>>(this, &BaseNode::processCardData,
-                                  pkg, sender, pkgHeader);
-    if (result != QH::ParserResult::NotProcessed) {
-        return result;
-    }
+    return parser->parsePackage(pkg, pkgHeader, sender);
+}
 
-    return QH::ParserResult::NotProcessed;
+bool BaseNode::processAppVersion(const QSharedPointer<ApplicationVersion> &message,
+                                 const QH::AbstractNodeInfo *sender,
+                                 const QH::Header &) {
+
+    auto nodeInfo = dynamic_cast<NodeInfo*>(getInfoPtr(sender->networkAddress()));
+    nodeInfo->setVersion(*message.data());
+
+    VersionIsReceived result;
+    return sendData(&result, sender);
+}
+
+bool BaseNode::versionDeliveredSuccessful(const QSharedPointer<VersionIsReceived> &,
+                                          const QH::AbstractNodeInfo *sender,
+                                          const QH::Header &) {
+    auto nodeInfo = dynamic_cast<NodeInfo*>(getInfoPtr(sender->networkAddress()));
+    nodeInfo->setFVersionDelivered(true);
+
+    return true;
 }
 
 QH::AbstractNodeInfo *BaseNode::createNodeInfo(QAbstractSocket *socket,
                                                const QH::HostAddress *clientAddress) const {
     return new NodeInfo(socket, clientAddress);
+}
+
+void BaseNode::nodeConnected(QH::AbstractNodeInfo *node) {
+    QH::AbstractNode::nodeConnected(node);
+
+    ApplicationVersion appVersion;
+    appVersion.setMaximum(maximumApiVersion());
+    appVersion.setMinimum(minimumApiVersion());
+
+    sendData(&appVersion, node);
+}
+
+int BaseNode::maximumApiVersion() const {
+    if (_apiParsers.size()) {
+        return _apiParsers.last()->version();
+    }
+
+    return 0;
+}
+
+int BaseNode::minimumApiVersion() const {
+    if (_apiParsers.size()) {
+        return _apiParsers.first()->version();
+    }
+
+    return 0;
+}
+
+QSharedPointer<QH::iParser>
+BaseNode::selectParser(const ApplicationVersion &distVersion) const {
+    for (int version = distVersion.maximum(); version >= distVersion.minimum(); --version) {
+        auto parser = _apiParsers.value(version, nullptr);
+        if (parser)
+            return parser;
+    }
+
+    return nullptr;
+}
+
+const QSharedPointer<User>& BaseNode::currentUser() const {
+    return _currentUser;
+}
+
+void BaseNode::setCurrentUser(QSharedPointer<User> newCurrentUser) {
+    _currentUser = newCurrentUser;
 }
 
 int BaseNode::getFreeItemsCount(unsigned int userId,
@@ -131,67 +198,11 @@ QString BaseNode::libVersion() {
     return CHEAT_CARD_VERSION;
 }
 
-bool BaseNode::processCardStatus(const QSharedPointer<QH::PKG::DataPack<UsersCards> > &cardStatuses,
-                                 const QH::AbstractNodeInfo *sender, const QH::Header &) {
+QSharedPointer<User> BaseNode::getUserData(unsigned int userId) const {
+    User request;
+    request.setId(userId);
 
-    QuasarAppUtils::Params::log(QString("processCardStatus: begin"), QuasarAppUtils::Info);
-    CardDataRequest request;
-
-    auto senderInfo = static_cast<const NodeInfo*>(sender);
-
-    RequestToken tokens;
-    tokens.fromBytes(cardStatuses->customData());
-    if (senderInfo->token() != tokens.requestToken()) {
-        QuasarAppUtils::Params::log("Receive not signed UsersCards!",
-                                    QuasarAppUtils::Error);
-
-        return false;
-    }
-
-    for (const auto& cardStatus : cardStatuses->packData()) {
-        Card userrquest;
-        userrquest.setId(cardStatus->getCard());
-
-        if (!applayPurchases(cardStatus, sender)) {
-            return false;
-        }
-
-        auto dbCard = _db->getObject(userrquest);
-        bool hasUpdate = dbCard && dbCard->getCardVersion() < cardStatus->getCardVersion();
-
-        if (!dbCard || hasUpdate) {
-            request.push(cardStatus->getCard());
-        }
-    }
-
-    if (request.getCardIds().size()) {
-        request.setRequestToken(tokens.requestToken());
-        request.setResponceToken(tokens.responceToken());
-
-        if (!sendData(&request, sender)) {
-            QuasarAppUtils::Params::log("Failed to send responce", QuasarAppUtils::Error);
-
-            return false;
-        }
-
-        return true;
-    }
-
-    return removeNode(sender->networkAddress());
-}
-
-bool BaseNode::applayPurchases(const QSharedPointer<UsersCards> &dbCard,
-                               const QH::AbstractNodeInfo *) {
-
-    if (!_db->insertIfExistsUpdateObject(dbCard)) {
-        QuasarAppUtils::Params::log("Failed to update data", QuasarAppUtils::Error);
-        return false;
-    }
-
-    emit sigPurchaseWasSuccessful(dbCard);
-
-    return true;
-
+    return db()->getObject(request);
 }
 
 QSharedPointer<UsersCards>
@@ -230,7 +241,7 @@ BaseNode::getAllUserDataFromCard(unsigned int cardId, bool includeOwner) const {
     where = QString("id IN (select user from UsersCards where %0)").arg(where);
 
     QH::PKG::DBObjectsRequest<User> request("Users",
-                                             where);
+                                            where);
 
     return _db->getObject(request)->data();
 }
@@ -242,153 +253,27 @@ QSharedPointer<Card> BaseNode::getCard(unsigned int cardId) {
     return _db->getObject(request);
 }
 
-bool BaseNode::processCardRequest(const QSharedPointer<CardDataRequest> &cardrequest,
-                                  const QH::AbstractNodeInfo *sender, const QH::Header &) {
+QByteArray BaseNode::getUserSecret(unsigned int userId) const {
+    QH::PKG::GetSingleValue reqest({"Users", userId}, "secret");
 
-    QuasarAppUtils::Params::log(QString("processCardRequest: begin"), QuasarAppUtils::Info);
-
-    QH::PKG::DataPack<Card> cards{};
-    auto senderInfo = static_cast<const NodeInfo*>(sender);
-
-    if (senderInfo->token() != cardrequest->responceToken()) {
-        QuasarAppUtils::Params::log("Receive not signed CardDataRequest!",
-                                    QuasarAppUtils::Error);
-        return false;
-    }
-
-    RequestToken tokens;
-    tokens.setRequestToken(cardrequest->requestToken());
-    tokens.setResponceToken(cardrequest->responceToken());
-
-
-    for (unsigned int cardId : cardrequest->getCardIds()) {
-        auto card = getCard(cardId);
-
-        if (!card) {
-            QuasarAppUtils::Params::log(QString("Failed to find card with id: %0").
-                                        arg(cardId),
-                                        QuasarAppUtils::Error);
-            continue;
-        }
-        cards.push(card);
-    }
-
-    if (!cards.packData().size()) {
-        QuasarAppUtils::Params::log(QString("Failed to find any cards "),
-                                    QuasarAppUtils::Error);
-        return false;
-    }
-
-    cards.setCustomData(tokens.toBytes());
-
-    if (!sendData(&cards, sender)) {
-
-        QuasarAppUtils::Params::log("Failed to send responce", QuasarAppUtils::Error);
-        return false;
-    }
-
-    return true;
+    auto result = db()->getObject(reqest);
+    return result->value().toByteArray();
 }
 
-bool BaseNode::processCardData(const QSharedPointer<QH::PKG::DataPack<Card>> &cards,
-                               const QH::AbstractNodeInfo *sender, const QH::Header &) {
-
-    QuasarAppUtils::Params::log(QString("processCardData: begin"), QuasarAppUtils::Info);
-
-    auto senderInfo = static_cast<const NodeInfo*>(sender);
-
-    RequestToken tokens;
-    tokens.fromBytes(cards->customData());
-
-    if (tokens.requestToken() != senderInfo->token()) {
-        QuasarAppUtils::Params::log("Receive not signed Card!",
-                                    QuasarAppUtils::Error);
-        return false;;
-    }
-
-    for (const auto& card : qAsConst(cards->packData())) {
-        if (!card->isValid()) {
-            QuasarAppUtils::Params::log("Received invalid card data!",
-                                        QuasarAppUtils::Error);
-            continue;
-        }
-
-        if (!_db->insertIfExistsUpdateObject(card)) {
-            continue;
-        }
-
-        emit sigCardReceived(card);
-    }
-
-    return removeNode(sender->networkAddress());
+void RC::BaseNode::addApiParser(const QSharedPointer<iParser>& api) {
+    _apiParsers[api->version()] = api;
 }
 
 QH::ISqlDBCache *BaseNode::db() const {
     return _db;
 }
 
-bool BaseNode::processCardStatusRequest(const QSharedPointer<CardStatusRequest> &cardStatus,
-                                        const QH::AbstractNodeInfo *sender, const QH::Header &) {
-
-    QuasarAppUtils::Params::log(QString("processCardStatusRequest: begin"), QuasarAppUtils::Info);
-
-    auto sessionId = cardStatus->getSessionId();
-
-    QString where = QString("id IN (SELECT usersCardsID FROM Sessions WHERE id = %0)").
-            arg(sessionId);
-    QH::PKG::DBObjectsRequest<UsersCards> request("UsersCards", where);
-
-    auto result = _db->getObject(request);
-    if (!result || result->data().isEmpty()) {
-        QuasarAppUtils::Params::log(QString("The session %0 is missing").
-                                    arg(sessionId),
-                                    QuasarAppUtils::Error);
-        return false;
-    }
-
-    QH::PKG::DataPack<UsersCards> responce;
-
-    RequestToken tokens;
-    tokens.setRequestToken(cardStatus->requestToken());
-    long long token = rand() * rand();
-    tokens.setResponceToken(token);
-
-    auto senderInfo = static_cast<NodeInfo*>(getInfoPtr(sender->networkAddress()));
-    senderInfo->setToken(token);
-    responce.setCustomData(tokens.toBytes());
-
-    for (const auto &data : qAsConst(result->data())) {
-        data->setCardVersion(getCardVersion(data->getCard()));
-        responce.push(data);
-    }
-
-    if (!sendData(&responce, sender)) {
-        return false;
-    }
-
-    return true;
+const QMap<int, QSharedPointer<QH::iParser> > &BaseNode::apiParsers() const {
+    return _apiParsers;
 }
 
-bool BaseNode::processSession(const QSharedPointer<Session> &session,
-                              const QH::AbstractNodeInfo *sender, const QH::Header &) {
-
-    if (!session->isValid()) {
-        return false;
-    }
-
-    session->setPrintError(false);
-    db()->insertObject(session);
-
-    CardStatusRequest requestData;
-    long long token = rand() * rand();
-
-    requestData.setRequestToken(token);
-    requestData.setSessionId(session->getSessionId());
-
-    auto senderInfo = static_cast<NodeInfo*>(getInfoPtr(sender->networkAddress()));
-    senderInfo->setToken(token);
-
-    return sendData(&requestData, sender->networkAddress());
+void BaseNode::setApiParsers(const QMap<int, QSharedPointer<QH::iParser> > &newApiParsers) {
+    _apiParsers = newApiParsers;
 }
 
 

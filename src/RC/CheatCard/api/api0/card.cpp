@@ -43,6 +43,7 @@ QH::PKG::DBVariantMap Card::variantMap() const {
             {"freeIndex",       {freeIndex,       QH::PKG::MemberType::InsertUpdate}},
             {"time",            {static_cast<int>(time(0)),      QH::PKG::MemberType::InsertUpdate}},
             {"cardVersion",     {cardVersion,     QH::PKG::MemberType::InsertUpdate}},
+            {"ownerSignature",  {_ownerSignature.toBase64(QByteArray::Base64UrlEncoding), QH::PKG::MemberType::InsertUpdate}},
 
     };
 }
@@ -89,6 +90,9 @@ bool Card::fromSqlRecord(const QSqlRecord &q) {
 
     setCardVersion(q.value("cardVersion").toUInt());
 
+    setOwnerSignature(QByteArray::fromBase64(q.value("ownerSignature").toByteArray(),
+                                             QByteArray::Base64UrlEncoding));
+
     return true;
 }
 
@@ -113,6 +117,7 @@ QDataStream &Card::fromStream(QDataStream &stream) {
     stream >> fontColor;
     stream >> _freeItemName;
     stream >> cardVersion;
+    stream >> _ownerSignature;
 
     return stream;
 }
@@ -134,8 +139,17 @@ QDataStream &Card::toStream(QDataStream &stream) const {
     stream << fontColor;
     stream << _freeItemName;
     stream << cardVersion;
+    stream << _ownerSignature;
 
     return stream;
+}
+
+const QByteArray &Card::ownerSignature() const {
+    return _ownerSignature;
+}
+
+void Card::setOwnerSignature(const QByteArray &newOwnerSignature) {
+    _ownerSignature = newOwnerSignature;
 }
 
 unsigned int Card::getCardVersion() const {

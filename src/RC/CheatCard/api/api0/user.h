@@ -18,6 +18,16 @@ namespace RC {
 
 /**
  * @brief The User class This is maic class for contatins all information about user
+ * The user structure is:
+ * Secreet - value with that user will be prove to the server that it is owner.
+ * User Key - this is hash of secret value (unique user key)
+ * user id - short user id using for database key.
+ *
+ * ## Generate seteps:
+ *
+ * make secret
+ * from secrete make key
+ * from key make id.
  */
 class CHEATCARD_CORE_EXPORT User: public QH::PKG::DBObject
 {
@@ -41,6 +51,13 @@ public:
     void setKey(const QByteArray &newKey);
 
     unsigned int userId() const;
+    const QByteArray &secret() const;
+    void setSecret(const QByteArray &newSecret);
+
+    static QByteArray makeKey(const QByteArray& secret);
+    static unsigned int makeId(const QByteArray& key);
+    void regenerateKeys();
+
 protected:
     QString primaryKey() const override;
     QDataStream &fromStream(QDataStream &stream) override;
@@ -51,6 +68,8 @@ private:
     QByteArray randomArray() const;
 
     QByteArray _key;
+    QByteArray _secret;
+
     QString _name;
     bool _fSaller = false;
 };

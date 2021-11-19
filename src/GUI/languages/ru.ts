@@ -846,7 +846,7 @@
     </message>
     <message>
         <source>reset</source>
-        <translation>Сброс</translation>
+        <translation type="vanished">Сброс</translation>
     </message>
     <message>
         <source>Default settings</source>

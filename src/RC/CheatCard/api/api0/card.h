@@ -7,7 +7,7 @@
 
 #include <dbobject.h>
 #include "CheatCard/core_global.h"
-#include "requesttoken.h"
+#include "CheatCard/requesttoken.h"
 #include <QSharedPointer>
 
 #ifndef CARD_H
@@ -75,6 +75,9 @@ public:
 
     void idGen();
 
+    const QByteArray &ownerSignature() const;
+    void setOwnerSignature(const QByteArray &newOwnerSignature);
+
 protected:
     QString primaryKey() const override;
     QDataStream &fromStream(QDataStream &stream) override;
@@ -85,6 +88,7 @@ private:
     QByteArray _logo;
     QByteArray _seal;
     QByteArray _background;
+    QByteArray _ownerSignature;
 
     QString _phone;
     QString _telegramm;

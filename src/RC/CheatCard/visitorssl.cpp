@@ -5,13 +5,12 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#ifndef SUCCESSFUL_H
-#define SUCCESSFUL_H
-#include <abstractdata.h>
-#include "core_global.h"
+#include "visitorssl.h"
+
+
 namespace RC {
 
-class CHEATCARD_CORE_EXPORT Successful: public QH::PKG::AbstractData{QH_PACKAGE(Successful, "Successful")};
-
+VisitorSSL::VisitorSSL(QH::ISqlDBCache *db): Visitor(db) {
+    useSystemSslConfiguration();
 }
-#endif // SUCCESSFUL_H
+}

@@ -21,11 +21,15 @@ public:
     Visitor(QH::ISqlDBCache *db);
     bool checkCardData(long long session,
                        const QString& domain = DEFAULT_CHEAT_CARD_HOST,
-                       int port = DEFAULT_CHEAT_CARD_PORT);
+                       int port = DEFAULT_CHEAT_CARD_PORT_SSL);
 
+    bool cardValidation(const QSharedPointer<Card> &card,
+                        const QByteArray &ownerSecret) const override;
+    void getSignData(QByteArray &data) const override;
 
 protected:
     void nodeConnected(QH::AbstractNodeInfo *node) override;
+    void nodeConfirmend(QH::AbstractNodeInfo *node) override;
 
     int getRequestInterval() const;
     void setRequestInterval(int newRequestInterval);
@@ -34,6 +38,8 @@ private slots:
 
     void handleTick();
 private:
+
+    void action(QH::AbstractNodeInfo *node);
 
     int _requestInterval = USERREQUEST_TIMEOUT;
 

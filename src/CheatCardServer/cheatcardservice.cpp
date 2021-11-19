@@ -7,6 +7,8 @@
 
 #include "cheatcardservice.h"
 #include <QDateTime>
+#include <CheatCard/serverssl.h>
+#include <CheatCard/api/apiv1.h>
 
 CheatCardService::CheatCardService(int argc, char **argv):
     Patronum::Service<QCoreApplication>(argc, argv) {
@@ -29,6 +31,10 @@ CheatCardService::~CheatCardService() {
     if (_server) {
         _server->softDelete();
     }
+
+    if (_serverSSL) {
+        _serverSSL->softDelete();
+    }
 }
 
 bool CheatCardService::onStart() {
@@ -39,10 +45,23 @@ bool CheatCardService::onStart() {
 
     if (!_server) {
         _server = new RC::Server(_db->db());
+        _server->addApiParser<RC::ApiV0>();
+
     }
 
     if (!_server->run({}, DEFAULT_CHEAT_CARD_PORT)) {
         QuasarAppUtils::Params::log("Failed to start server!");
+        return false;
+    }
+
+    if (!_serverSSL) {
+        _serverSSL = new RC::ServerSSL(_db->db());
+        _serverSSL->addApiParser<RC::ApiV0>();
+        _serverSSL->addApiParser<RC::ApiV1>();
+    }
+
+    if (!_serverSSL->run({}, DEFAULT_CHEAT_CARD_PORT_SSL)) {
+        QuasarAppUtils::Params::log("Failed to start ssl server!");
         return false;
     }
 
@@ -60,11 +79,18 @@ bool CheatCardService::handleReceive(const Patronum::Feature &data) {
         sendResuylt("Pong");
     } else if (data.cmd() == "state") {
         QVariantMap result;
-        result["1. Status"] = _server->getWorkState().toString();
-        result["2. Log file available"] = QuasarAppUtils::Params::getArg("fileLog", "Not used");
-        result["3. Core lib version"] = _server->libVersion();
-        result["4. Heart lib version"] = QH::heartLibVersion();
-        result["5. Patronum lib version"] = Patronum::patronumLibVersion();
+        result["00. Server Status:"] = _server->getWorkState().toString();
+
+        result["01. Status"] = _server->getWorkState().toString();
+        result["02. Log file available"] = QuasarAppUtils::Params::getArg("fileLog", "Not used");
+        result["03. Core lib version"] = _server->libVersion();
+        result["04. Heart lib version"] = QH::heartLibVersion();
+        result["05. Patronum lib version"] = Patronum::patronumLibVersion();
+
+        result["10. SSL Server Status:"] = _server->getWorkState().toString();
+
+        result["11. Status"] = _serverSSL->getWorkState().toString();
+        result["12. Core lib version"] = _serverSSL->libVersion();
 
         sendResuylt(result);
     } else if (data.cmd() == "setVerbose") {
@@ -77,6 +103,7 @@ bool CheatCardService::handleReceive(const Patronum::Feature &data) {
         task->setTime(0);
 
         _server->sheduleTask(task);
+        _serverSSL->sheduleTask(task);
         sendResuylt("Task are pushed");
 
     } else if (data.cmd() == "forceClearData") {
@@ -85,6 +112,8 @@ bool CheatCardService::handleReceive(const Patronum::Feature &data) {
         task->setTime(0);
 
         _server->sheduleTask(task);
+        _serverSSL->sheduleTask(task);
+
         sendResuylt("Task are pushed");
     }
 
@@ -109,5 +138,7 @@ void CheatCardService::onResume() {
 
 void CheatCardService::onPause() {
     _server->stop();
+    _serverSSL->stop();
+
     sendResuylt("Server stopped successful. (paused)");
 }

@@ -705,10 +705,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>reset</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Default settings</source>
         <translation type="unfinished"></translation>
     </message>

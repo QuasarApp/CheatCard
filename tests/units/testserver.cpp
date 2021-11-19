@@ -1,19 +1,14 @@
 #include "testdatabasewrapper.h"
 #include "testserver.h"
 
-#include <CheatCard/card.h>
-#include <CheatCard/userscards.h>
+#include <CheatCard/api/api0/card.h>
+#include <CheatCard/api/api0/userscards.h>
 
 #include <QCoreApplication>
 
-TestServer::TestServer(QSharedPointer<TestDataBaseWrapper> db): RC::Server(db->db()) {
+TestServer::TestServer(QSharedPointer<TestDataBaseWrapper> db):
+    RC::Server(db->db()) {
     privateDb = db;
-
-    QH::SslSrtData sslData;
-    sslData.commonName = "localhost";
-    sslData.organization = QCoreApplication::organizationName();
-
-    useSelfSignedSslConfiguration(sslData);
 }
 
 QSharedPointer<RC::Card> TestServer::getCard(unsigned int cardId) const {

@@ -13,7 +13,7 @@
 #include <QSharedPointer>
 #include <qqml.h>
 
-#include <CheatCard/userheader.h>
+#include <CheatCard/api/api0/userheader.h>
 
 #include <CheatCardGui/ibilling.h>
 

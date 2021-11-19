@@ -63,7 +63,7 @@ public:
     Q_INVOKABLE void configureFinished();
     Q_INVOKABLE QObject *getAboutModel();
     QObject *currentUser() const;
-    QSharedPointer<UserModel> getCurrentUser() const;
+    const QSharedPointer<UserModel>& getCurrentUser() const;
 
     void setCurrentUser(UserModel *newCurrentUser);
     void setCurrentUser(QSharedPointer<UserModel> newCurrentUser);

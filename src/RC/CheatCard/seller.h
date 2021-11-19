@@ -23,25 +23,29 @@ public:
     bool incrementPurchase (const QSharedPointer<UserHeader> &userHeaderData,
                             unsigned int cardId, int purchasesCount = 1,
                             const QString& domain = DEFAULT_CHEAT_CARD_HOST,
-                            int port = DEFAULT_CHEAT_CARD_PORT);
+                            int port = DEFAULT_CHEAT_CARD_PORT_SSL);
 
     bool sentDataToServerPurchase (const QSharedPointer<UserHeader> &userHeaderData,
                             unsigned int cardId, const QString& domain = DEFAULT_CHEAT_CARD_HOST,
-                            int port = DEFAULT_CHEAT_CARD_PORT);
+                            int port = DEFAULT_CHEAT_CARD_PORT_SSL);
+
+    bool cardValidation(const QSharedPointer<Card> &card,
+                        const QByteArray &ownerSecret) const override;
+    void getSignData(QByteArray &data) const override;
 
 protected:
     void nodeConnected(QH::AbstractNodeInfo *node) override;
+    void nodeConfirmend(QH::AbstractNodeInfo *node) override;
     bool incrementPurchases(const QSharedPointer<UsersCards> &usersCardsData,
                             int purchasesCount);
 
 private:
-
     QSharedPointer<UsersCards> prepareData(const QSharedPointer<UserHeader> &userHeaderData,
-                     unsigned int cardId);
+                         unsigned int cardId);
+
     QString randomUserName() const;
 
     QHash<long long, QSharedPointer<Session>> _lastRequested;
-
 
 };
 }
