@@ -93,6 +93,10 @@
         <source>Help</source>
         <translation>Help</translation>
     </message>
+    <message>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ColorPicker</name>
@@ -823,6 +827,81 @@
     <message>
         <source>Scan QR code</source>
         <translation>Scan QR code</translation>
+    </message>
+</context>
+<context>
+    <name>Settings</name>
+    <message>
+        <source>Externality</source>
+        <translation type="vanished">Externality</translation>
+    </message>
+    <message>
+        <source>Change the main color of the application</source>
+        <translation type="vanished">Change the main color of the application</translation>
+    </message>
+    <message>
+        <source>Privacy</source>
+        <translation>Privacy</translation>
+    </message>
+    <message>
+        <source>Share name with seller</source>
+        <translation>Share name with seller</translation>
+    </message>
+    <message>
+        <source>Developer settings</source>
+        <translation>Developer settings</translation>
+    </message>
+    <message>
+        <source>Host</source>
+        <translation>Host</translation>
+    </message>
+    <message>
+        <source>Port</source>
+        <translation>Port</translation>
+    </message>
+    <message>
+        <source>Camera</source>
+        <translation>Camera</translation>
+    </message>
+    <message>
+        <source>Select work camera</source>
+        <translation>Select work camera</translation>
+    </message>
+    <message>
+        <source>Select application color</source>
+        <translation>Select application color</translation>
+    </message>
+    <message>
+        <source>Please choose a color</source>
+        <translation>Please choose a color</translation>
+    </message>
+    <message>
+        <source>Select</source>
+        <translation>Select</translation>
+    </message>
+    <message>
+        <source>Appearance</source>
+        <translation>Appearance</translation>
+    </message>
+    <message>
+        <source>Unlock</source>
+        <translation type="vanished">Unlock</translation>
+    </message>
+    <message>
+        <source>Use custom server</source>
+        <translation>Use custom server</translation>
+    </message>
+    <message>
+        <source>Reset all settings</source>
+        <translation>Reset all settings</translation>
+    </message>
+    <message>
+        <source>reset</source>
+        <translation>reset</translation>
+    </message>
+    <message>
+        <source>Default settings</source>
+        <translation>Default settings</translation>
     </message>
 </context>
 <context>

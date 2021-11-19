@@ -23,6 +23,7 @@ ApplicationWindow {
 //    height: 350
 //    width: 640
 
+
     onClosing: {
         // this is bad solution. but it is works fine.
         // we handle close event that emit when user click back button and use own back button if it is needed.
@@ -32,8 +33,12 @@ ApplicationWindow {
         }
     }
 
+    readonly property string defaultpPimaryColor: "#ff6b01"
     property var model: mainModel
     property var user: (mainModel)? mainModel.currentUser: null
+    Material.primary: config.getStrValue("colorTheme", defaultpPimaryColor)
+    Material.accent: Material.Orange
+
 
     Connections {
         target: model
@@ -53,6 +58,17 @@ ApplicationWindow {
         function onConnectionWasBegin() {
             connectionStatus.open()
 
+        }
+    }
+
+    Connections {
+        target: config
+        function onValueStrChanged(key, value) {
+            if (key === "colorTheme") {
+                if (!value)
+                    value = defaultpPimaryColor
+                mainWindow.Material.primary = value;
+            }
         }
     }
 
@@ -119,6 +135,7 @@ ApplicationWindow {
                 font.bold: true
                 font.pointSize: 14
                 enabled: !firstRun.visible
+
                 onClicked: mainMenu.popup(this, menuButton.x, menuButton.height)
             }
         }
@@ -158,6 +175,14 @@ ApplicationWindow {
                             }
 
 
+                        }
+        }
+	
+        MenuItem {
+            text: qsTr("Settings")
+
+            onClicked:  () => {
+                            activityProcessor.newActivity("qrc:/CheatCardModule/Settings.qml");
                         }
         }
     }
@@ -230,6 +255,11 @@ ApplicationWindow {
     Component {
         id: about
         About {}
+    }
+
+    Component {
+        id: settings
+        Settings {}
     }
 
     Drawer {

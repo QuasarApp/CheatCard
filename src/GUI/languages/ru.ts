@@ -89,6 +89,10 @@
         <source>Help</source>
         <translation>Помощь</translation>
     </message>
+    <message>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ColorPicker</name>
@@ -772,6 +776,81 @@
     <message>
         <source>Scan QR code</source>
         <translation>Скан QR кода</translation>
+    </message>
+</context>
+<context>
+    <name>Settings</name>
+    <message>
+        <source>Externality</source>
+        <translation type="vanished">Внешний вид</translation>
+    </message>
+    <message>
+        <source>Change the main color of the application</source>
+        <translation type="vanished">Изменить основной цвет приложения</translation>
+    </message>
+    <message>
+        <source>Privacy</source>
+        <translation>Приватность</translation>
+    </message>
+    <message>
+        <source>Share name with seller</source>
+        <translation>Поделиться именем с продавцо</translation>
+    </message>
+    <message>
+        <source>Developer settings</source>
+        <translation>Настройки разработчика</translation>
+    </message>
+    <message>
+        <source>Host</source>
+        <translation>Хост</translation>
+    </message>
+    <message>
+        <source>Port</source>
+        <translation>Порт</translation>
+    </message>
+    <message>
+        <source>Camera</source>
+        <translation>Камера</translation>
+    </message>
+    <message>
+        <source>Select work camera</source>
+        <translation>Выбрать рабочую камеру</translation>
+    </message>
+    <message>
+        <source>Select application color</source>
+        <translation>Выбрать цвет приложения</translation>
+    </message>
+    <message>
+        <source>Please choose a color</source>
+        <translation>Пожалуйста, выберите цвет</translation>
+    </message>
+    <message>
+        <source>Select</source>
+        <translation>Выбрать</translation>
+    </message>
+    <message>
+        <source>Appearance</source>
+        <translation>Внешний вид</translation>
+    </message>
+    <message>
+        <source>Unlock</source>
+        <translation type="vanished">Разблокировать</translation>
+    </message>
+    <message>
+        <source>Use custom server</source>
+        <translation>Использовать собственный сервер</translation>
+    </message>
+    <message>
+        <source>Reset all settings</source>
+        <translation>Сбросить все настройки</translation>
+    </message>
+    <message>
+        <source>reset</source>
+        <translation>Сброс</translation>
+    </message>
+    <message>
+        <source>Default settings</source>
+        <translation>Настройки по умолчанию</translation>
     </message>
 </context>
 <context>
