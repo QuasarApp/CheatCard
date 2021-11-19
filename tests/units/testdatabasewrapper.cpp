@@ -12,3 +12,12 @@ QStringList TestDataBaseWrapper::SQLSources() const {
 
     return RC::DataBase::SQLSources();
 }
+
+QVariantMap TestDataBaseWrapper::defaultDbParams() const {
+    auto result = RC::DataBase::defaultDbParams();
+
+    result["DBFilePath"] =  APP_DATA_LOCATION + "/" + localNodeName() + "/" + localNodeName() + "_" + DEFAULT_DB_NAME;
+
+    return result;
+
+}
