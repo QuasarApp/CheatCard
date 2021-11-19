@@ -165,7 +165,7 @@ void ConnectionTest::apiTest(const QSharedPointer<TestSeller> &seller,
     obj->setUserId(user->userId());
 
     // 3619648333 This is card id from test database.
-    unsigned int cardId = 3559386958;
+    unsigned int cardId = 1990574875;
     for (int i = 0; i < 100; i++) {
 
         qDebug () << "test case " << i << "/" << 100;
