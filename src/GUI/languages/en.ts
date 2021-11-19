@@ -897,7 +897,7 @@
     </message>
     <message>
         <source>reset</source>
-        <translation>reset</translation>
+        <translation type="vanished">reset</translation>
     </message>
     <message>
         <source>Default settings</source>
