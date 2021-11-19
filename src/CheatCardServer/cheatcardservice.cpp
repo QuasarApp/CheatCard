@@ -45,7 +45,8 @@ bool CheatCardService::onStart() {
 
     if (!_server) {
         _server = new RC::Server(_db->db());
-        _server->addApiParser(QSharedPointer<RC::ApiV0>::create(_server));
+        _server->addApiParser<RC::ApiV0>();
+
     }
 
     if (!_server->run({}, DEFAULT_CHEAT_CARD_PORT)) {
@@ -55,8 +56,8 @@ bool CheatCardService::onStart() {
 
     if (!_serverSSL) {
         _serverSSL = new RC::ServerSSL(_db->db());
-        _serverSSL->addApiParser(QSharedPointer<RC::ApiV1>::create(_serverSSL));
-
+        _serverSSL->addApiParser<RC::ApiV0>();
+        _serverSSL->addApiParser<RC::ApiV1>();
     }
 
     if (!_serverSSL->run({}, DEFAULT_CHEAT_CARD_PORT_SSL)) {
