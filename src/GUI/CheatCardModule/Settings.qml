@@ -301,29 +301,22 @@ Page {
                     RowLayout {
                         TextField {
                             id: host
-                            enabled: unlock.checked
+                            opacity: unlock.checked
+                            visible: Boolean(opacity)
                             Layout.fillWidth: true
                             placeholderText: qsTr("Host")
-                            text: config.getStrValue("host", " ")
+                            text: config.getStrValue("host", "")
 
                             onEditingFinished: () => {
                                                    config.setStrValue("host", host.displayText)
                                                }
 
-
-                        }
-
-                        TextField {
-                            id: port
-                            enabled: unlock.checked
-                            Layout.fillWidth: true
-                            placeholderText: qsTr("Port")
-                            text: config.getStrValue("port", " ")
-
-                            onEditingFinished: () => {
-                                                   config.setStrValue("port", port.displayText)
-                                               }
-
+                            Behavior on opacity {
+                                 NumberAnimation {
+                                     duration: 550
+                                     easing.type: Easing.OutCirc
+                                 }
+                            }
                         }
                     }
                 }

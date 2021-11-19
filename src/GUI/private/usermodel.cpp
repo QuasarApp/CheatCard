@@ -7,14 +7,17 @@
 
 #include "usermodel.h"
 #include "CheatCard/api/api0/user.h"
+#include "settingsmodel.h"
 
 namespace RC {
 
+void RC::UserModel::regenerateSessionKey() {
+    setSessinon(static_cast<long long >(rand()) * rand());
+}
+
 UserModel::UserModel(QSharedPointer<User> user) {
     setUser(user);
-
     srand(time(0));
-    setSessinon(static_cast<long long >(rand()) * rand());
 }
 
 bool UserModel::fSaller() const {
@@ -72,9 +75,19 @@ UserHeader UserModel::getHelloPackage() const {
     header.setSessionId(getSessinon());
     header.setUserId(user()->userId());
     header.setToken(user()->getKey());
-    header.setUserName(name());
+
+    auto settings = SettingsModel::instance();
+    if (settings && settings->getValue("shareName", false).toBool()) {
+        header.setUserName(name());
+    }
 
     return header;
+}
+
+void UserModel::handleSettingsChanged(const QString &key, const QVariant &) {
+    if (key == "shareName") {
+        regenerateSessionKey();
+    }
 }
 
 const QByteArray &UserModel::sellerToken() const {

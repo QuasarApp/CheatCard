@@ -162,6 +162,9 @@ bool Seller::incrementPurchase(const QSharedPointer<UserHeader> &userHeaderData,
         return false;
     }
 
+    if (domain.isEmpty()) {
+        return addNode(getServerHost(), port);
+    }
 
     return addNode(domain, port);
 }
@@ -174,6 +177,10 @@ bool Seller::sentDataToServerPurchase(const QSharedPointer<UserHeader> &userHead
     auto userCardsData = prepareData(userHeaderData, cardId);
     if (!userCardsData) {
         return false;
+    }
+
+    if (domain.isEmpty()) {
+        return addNode(getServerHost(), port);
     }
 
     return addNode(domain, port);

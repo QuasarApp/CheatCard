@@ -16,7 +16,8 @@ import com.scythestudio.scodes 1.0
 Page {
     id: root
     signal captured(var data)
-    property string currentCamera: (camera.devices.length)? camera.devices[deviceIndex].deviceId : ""
+    property string defaultCamera: (camera.devices.length)? camera.devices[camera.deviceIndex].deviceId : ""
+    property string currentCamera: config.getValue("cameraDevice", defaultCamera);
 
     Camera {
         id: camera
