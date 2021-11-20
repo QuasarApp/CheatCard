@@ -231,7 +231,7 @@ Page {
 
                             onCurrentTextChanged: () => {
                                                       config.setStrValue("cameraDevice", selectCamera.currentText)
-                                                      displayText = displayText;
+                                                      displayText = selectCamera.currentText;
 
                                                   }
 
