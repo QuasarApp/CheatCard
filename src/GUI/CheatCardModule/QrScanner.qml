@@ -16,23 +16,20 @@ import com.scythestudio.scodes 1.0
 Page {
     id: root
     signal captured(var data)
-    property string defaultCamera: (camera.devices.length)? camera.devices[camera.deviceIndex].deviceId : ""
-    property string currentCamera: config.getStrValue("cameraDevice", defaultCamera);
 
     Camera {
         id: camera
 
         property int deviceIndex: 0
         property var devices: QtMultimedia.availableCameras
+        property string defaultCamera: (devices.length)? devices[deviceIndex  % devices.length].deviceId : ""
 
         focus {
             focusMode: CameraFocus.FocusContinuous
             focusPointMode: CameraFocus.FocusPointAuto
         }
 
-        deviceId: (currentCamera.length)?
-                      currentCamera:
-                      devices[deviceIndex % devices.length].deviceId
+        deviceId: (deviceIndex)? defaultCamera : config.getStrValue("cameraDevice", defaultCamera);
 
     }
 
