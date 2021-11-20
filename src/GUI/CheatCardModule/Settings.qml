@@ -191,7 +191,7 @@ Page {
                 property var comboBoxModel: []
 
                 onDevicesListChanged: {
-                    cameraPage.comboBoxModel = ["Morda"]
+                    cameraPage.comboBoxModel = []
                     cameraPage.devicesList.forEach((item)=>{cameraPage.comboBoxModel.push(item.deviceId)})
                 }
 
