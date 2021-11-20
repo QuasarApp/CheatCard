@@ -77,7 +77,7 @@ UserHeader UserModel::getHelloPackage() const {
     header.setToken(user()->getKey());
 
     auto settings = SettingsModel::instance();
-    if (settings && settings->getValue("shareName", false).toBool()) {
+    if (settings && settings->getValue("shareName", true).toBool()) {
         header.setUserName(name());
     }
 

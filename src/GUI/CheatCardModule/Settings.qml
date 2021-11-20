@@ -145,7 +145,7 @@ Page {
                     SwitchDelegate {
                         id: privacy
                         text: qsTr("Share name with seller")
-                        checked: config.getValue("shareName", false)
+                        checked: config.getValue("shareName", true)
                         padding: 0
 
                         onCheckedChanged: () => {
@@ -226,12 +226,14 @@ Page {
                             id: selectCamera
                             enabled: cameraPage.comboBoxModel.length
 
-                            displayText: config.getStrValue("cameraDevice", (cameraPage.comboBoxModel.length? cameraPage.comboBoxModel[0]: ""))
+                            displayText: config.getStrValue("cameraDevice",
+                                                            (cameraPage.comboBoxModel.length? cameraPage.comboBoxModel[0]: ""))
 
                             onCurrentTextChanged: () => {
-                                  config.setStrValue("cameraDevice", selectCamera.currentText)
+                                                      config.setStrValue("cameraDevice", selectCamera.currentText)
+                                                      displayText = displayText;
 
-                              }
+                                                  }
 
                             Layout.fillWidth: true
 
@@ -312,10 +314,10 @@ Page {
                                                }
 
                             Behavior on opacity {
-                                 NumberAnimation {
-                                     duration: 550
-                                     easing.type: Easing.OutCirc
-                                 }
+                                NumberAnimation {
+                                    duration: 550
+                                    easing.type: Easing.OutCirc
+                                }
                             }
                         }
                     }

@@ -17,7 +17,7 @@ Page {
     id: root
     signal captured(var data)
     property string defaultCamera: (camera.devices.length)? camera.devices[camera.deviceIndex].deviceId : ""
-    property string currentCamera: config.getValue("cameraDevice", defaultCamera);
+    property string currentCamera: config.setStrValue("cameraDevice", defaultCamera);
 
     Camera {
         id: camera
