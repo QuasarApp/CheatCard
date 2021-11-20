@@ -191,7 +191,7 @@ Page {
                 property var comboBoxModel: []
 
                 onDevicesListChanged: {
-                    cameraPage.comboBoxModel = []
+                    cameraPage.comboBoxModel = ["Morda"]
                     cameraPage.devicesList.forEach((item)=>{cameraPage.comboBoxModel.push(item.deviceId)})
                 }
 
@@ -229,11 +229,12 @@ Page {
                             displayText: config.getStrValue("cameraDevice",
                                                             (cameraPage.comboBoxModel.length? cameraPage.comboBoxModel[0]: ""))
 
-                            onCurrentTextChanged: () => {
-                                                      config.setStrValue("cameraDevice", selectCamera.currentText)
-                                                      displayText = selectCamera.currentText;
 
-                                                  }
+                            onActivated: (index) => {
+                                const newId = cameraPage.comboBoxModel[index];
+                                config.setStrValue("cameraDevice", newId)
+                                displayText = newId;
+                            }
 
                             Layout.fillWidth: true
 
