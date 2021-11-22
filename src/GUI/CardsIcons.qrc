@@ -71,6 +71,11 @@
         <file>private/resources/Interface_icons/Less.svg</file>
         <file>private/resources/Interface_icons/Edit_menu.svg</file>
         <file>private/resources/Interface_icons/Close_sidebar.svg</file>
-        <file>private/resources/Interface_icons/Camera_switch.svg</file>    
+        <file>private/resources/Interface_icons/Camera_switch.svg</file>
+        <file>private/resources/Interface_icons/settings.svg</file>        
+        <file>private/resources/Interface_icons/help.svg</file>         
+        <file>private/resources/Interface_icons/about.svg</file>
+        <file>private/resources/Interface_icons/contact_developers.svg</file>
+            
     </qresource>
 </RCC>

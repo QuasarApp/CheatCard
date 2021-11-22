@@ -145,45 +145,86 @@ ApplicationWindow {
         id: mainMenu
 
         MenuItem {
-            text: qsTr("Contact with developers")
             visible: (mainModel)? mainModel.mode: false
-
             height: visible ? implicitHeight : 0
 
-            onClicked:  () => {
-                            activityProcessor.newActivity("qrc:/CheatCardModule/Contacts.qml");
-                        }
-        }
+            Component {
+                id: pageContactdev
 
-        MenuItem {
-            text: qsTr("About")
+                Contacts {}
+            }
 
-            onClicked:  () => {
-                            activityProcessor.newActivityFromComponent(about, mainModel.getAboutModel());
-                        }
-        }
-
-        MenuItem {
-            text: qsTr("Help")
-
-            onClicked:  () => {
-
-                            if (mainModel.mode) {
-                                activityProcessor.newActivity("qrc:CheatCardModule/PageHelpSeller.qml");
-                            } else {
-                                activityProcessor.newActivity("qrc:CheatCardModule/PageHelpVisitor.qml");
+            ToolButton {
+                text: qsTr("Contact with developers")
+                icon.source: "qrc:/images/private/resources/Interface_icons/contact_developers.svg"
+                onClicked:  () => {
+                                activityProcessor.newActivityFromComponent(pageContactdev);
                             }
+            }
+        }
+
+        MenuItem {            
+
+            Component {
+                id: about
+                About {}
+            }
+
+            ToolButton {
+                text: qsTr("About")
+                icon.source: "qrc:/images/private/resources/Interface_icons/about.svg"
+
+                onClicked:  () => {
+                                activityProcessor.newActivityFromComponent(about, mainModel.getAboutModel());
+                            }
+            }
+
+        }
+
+        MenuItem {
+
+            Component {
+                id: pageSeller
+                PageHelpSeller {}
+            }
+
+            Component {
+                id: pageVisitor
+                PageHelpVisitor {}
+            }
+
+            ToolButton {
+                text: qsTr("Help")
+                icon.source: "qrc:/images/private/resources/Interface_icons/help.svg"
+                onClicked:  () => {
+
+                                if (mainModel.mode) {
+                                    activityProcessor.newActivityFromComponent(pageSeller);
+                                } else {
+                                    activityProcessor.newActivityFromComponent(pageVisitor);
+                                }
 
 
-                        }
+                            }
+            }
         }
 	
         MenuItem {
-            text: qsTr("Settings")
 
-            onClicked:  () => {
-                            activityProcessor.newActivity("qrc:/CheatCardModule/Settings.qml");
-                        }
+            Component {
+                id: settings
+                Settings {}
+            }
+
+            ToolButton {
+                text: qsTr("Settings")
+                icon.source: "qrc:/images/private/resources/Interface_icons/settings.svg"
+
+                onClicked: () => {
+                               activityProcessor.newActivityFromComponent(settings);
+                           }
+            }
+
         }
     }
 
@@ -250,16 +291,6 @@ ApplicationWindow {
                                    newActivity("qrc:/CheatCardModule/MainActivity.qml",
                                                mainModel);
                                }
-    }
-
-    Component {
-        id: about
-        About {}
-    }
-
-    Component {
-        id: settings
-        Settings {}
     }
 
     Drawer {
