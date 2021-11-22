@@ -11,6 +11,8 @@ import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
 
+import "Style"
+
 Page {
     id: root
     title: qsTr("Registration");
@@ -32,17 +34,11 @@ Page {
             Layout.fillWidth: true
             Layout.fillHeight: true
 
-            Page {
+            CPage {
                 implicitWidth: 0x0
 
                 id: selectTypePage
-                header: Label {
-                    horizontalAlignment: Label.AlignHCenter
-                    text: qsTr("Who are you?");
-                    font.pointSize: 20
-                    color: "#424242"
-                    wrapMode: Label.WordWrap
-                }
+                title: qsTr("Who are you?");
 
                 contentItem: Item {
                     ButtonGroup {
@@ -87,23 +83,17 @@ Page {
                 }
             }
 
-            Page {
+            CPage {
                 id: selectName
                 implicitWidth: 0x0
 
-                header: Label {
-                    horizontalAlignment: Label.AlignHCenter
-                    text: (!rSaller.checked)? qsTr("What is your name?") :
-                                             qsTr("What is the name of your company?");
-                    font.pointSize: 20
-                    color: "#424242"
-                    wrapMode: Label.WordWrap
-                }
+                title: (!rSaller.checked)? qsTr("What is your name?") :
+                                           qsTr("What is the name of your company?");
 
 
                 Keys.onReleased: {
                     if ((event.key === Qt.Key_Back ||
-                        event.key === Qt.Key_Escape)) {
+                         event.key === Qt.Key_Escape)) {
                         event.accepted = true
                         view.currentIndex--;
                     }

@@ -745,6 +745,29 @@
     </message>
 </context>
 <context>
+    <name>RecoveryPage</name>
+    <message>
+        <source>Done!</source>
+        <translation type="obsolete">Готово!</translation>
+    </message>
+    <message>
+        <source>Recovery your cadrs data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>**Attention**: This operation redefine your current application data (Cards, seals, users data). All current data will be removed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter your recovery word</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation type="unfinished">Далее</translation>
+    </message>
+</context>
+<context>
     <name>RegistrationFinishedPage</name>
     <message>
         <source>The registration of the new user finished successful. Now you can use you card.</source>

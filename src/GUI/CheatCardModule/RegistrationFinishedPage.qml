@@ -2,20 +2,14 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
+import "Style"
 
-Page {
+CPage {
     id: root
 
     signal finished();
 
-    header: Label {
-        horizontalAlignment: Label.AlignHCenter
-        text: qsTr("Done!")
-        font.pointSize: 20
-        color: "#424242"
-        wrapMode: Label.WordWrap
-
-    }
+    title: qsTr("Done!")
 
     contentItem: Item {
 

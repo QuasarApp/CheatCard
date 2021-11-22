@@ -35,7 +35,10 @@
         <file>private/resources/help/Help2.jpg</file>
         <file>private/resources/help/Help3.jpg</file>
         <file>CheatCardModule/SellerStatistic.qml</file>
-	<file>CheatCardModule/Settings.qml</file>
+        <file>CheatCardModule/Settings.qml</file>
+        <file>CheatCardModule/RecoveryPage.qml</file>
+        <file>CheatCardModule/Style/CPage.qml</file>
+        <file>CheatCardModule/IncludeRecoveryWordPage.qml</file>
     </qresource>
     <qresource prefix="/CheatCardTr">
         <file>languages/en.qm</file>
