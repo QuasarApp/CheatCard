@@ -17,6 +17,12 @@ Page {
 
     implicitHeight: 0x0    // disable resize by content
 
+    onModelChanged: () => {
+                        if (root.model) {
+                            root.model.purchaseCount = purchaseInput.value
+                        }
+                    }
+
     contentItem:
         ColumnLayout {
 
