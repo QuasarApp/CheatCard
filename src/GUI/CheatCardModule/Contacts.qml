@@ -82,6 +82,39 @@ Page {
             }
         }
 
+        Frame {
+
+            background: Rectangle{
+                color: "#e6e6e6"
+                radius: 10
+            }
+
+            Layout.margins: 8
+            Layout.alignment: Qt.AlignHCenter
+            Layout.fillWidth: true
+
+            contentItem: RowLayout {
+                implicitWidth: 0x0
+
+                ToolButton {
+                    icon.height: 80
+                    icon.width: 80
+                    icon.color: "transparent"
+                    icon.source: "qrc:/images/private/resources/platformsIcon/Instagram.svg"
+                    onClicked: Qt.openUrlExternally("https://www.instagram.com/QuasarApp.CheatCard/")
+                }
+
+                Text {
+                    text: qsTr("Join to our Instagram channel for get support and see the last changes.")
+                    horizontalAlignment: Qt.AlignLeft
+                    verticalAlignment: Qt.AlignVCenter
+                    wrapMode: Text.WordWrap
+
+                    Layout.fillWidth: true
+                }
+            }
+        }
+
         Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
