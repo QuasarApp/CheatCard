@@ -76,7 +76,7 @@ Page {
                         icon.width: 80
                         icon.color: "transparent"
                         icon.source: "qrc:/images/private/resources/platformsIcon/telegram.svg"
-                        onClicked: Qt.openUrlExternally("https://t.me/joinchat/Msv_LWw4GI4zNTIy")
+                        onClicked: Qt.openUrlExternally("https://t.me/cheatcardru")
                     }
 
                     Text {
