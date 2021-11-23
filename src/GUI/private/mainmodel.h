@@ -185,6 +185,9 @@ private:
     IBilling *_billing = nullptr;
 
     QSharedPointer<BaseNode> _backEndModel = nullptr;
+    QSharedPointer<BaseNode> _sellerbackEndModel = nullptr;
+    QSharedPointer<BaseNode> _visitorbackEndModel = nullptr;
+
     WaitConnectionModel *_waitModel = nullptr;
     QSettings _settings;
 

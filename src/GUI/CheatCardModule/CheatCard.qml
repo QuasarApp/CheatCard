@@ -90,12 +90,6 @@ ApplicationWindow {
                                if (!enabled)
                                    return;
 
-                               if (activityProcessor.depth == 2) {
-                                   if (mainModel) {
-                                       mainModel.handleFirstDataSendet();
-                                   }
-                               }
-
                                if (activityProcessor.depth > 1) {
                                    activityProcessor.popItem();
                                    return;
@@ -103,9 +97,6 @@ ApplicationWindow {
 
                                if (userPanel.visible) {
                                    userPanel.close()
-                                   if (mainModel) {
-                                       mainModel.handleFirstDataSendet();
-                                   }
                                } else {
                                    userPanel.open()
                                }
@@ -191,6 +182,12 @@ ApplicationWindow {
         id: activityProcessor
         anchors.fill: parent
 
+        onDepthChanged: {
+            if (depth <= 1 && mainModel) {
+                mainModel.handleFirstDataSendet();
+            }
+        }
+
         function newActivityFromComponent(component, activityModel) {
             var activity = component.createObject(activityProcessor);
             if (activity === null) {
@@ -266,6 +263,14 @@ ApplicationWindow {
         id: userPanel
         y: header.height
         height: mainWindow.height
+
+        property int isOpen: position
+
+        onIsOpenChanged: {
+            if (mainModel && !isOpen) {
+                mainModel.handleFirstDataSendet();
+            }
+        }
 
         contentItem: EditUserView {
             model: mainModel
