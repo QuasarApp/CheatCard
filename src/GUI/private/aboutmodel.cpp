@@ -7,12 +7,12 @@
 
 #include "aboutmodel.h"
 #include "heart.h"
+#include "qmlnotifyservice.h"
 #include "CheatCard/basenode.h"
 
 namespace RC {
 
-AboutModel::AboutModel()
-{
+AboutModel::AboutModel() {
 
 }
 
@@ -34,6 +34,10 @@ QString AboutModel::getSCodesLibVr() const {
 
 QString AboutModel::getQtLibVr() const {
     return QT_VERSION_STR;
+}
+
+QString AboutModel::getSimpleQmlNotifyLibVr() const {
+    return "";
 }
 
 }

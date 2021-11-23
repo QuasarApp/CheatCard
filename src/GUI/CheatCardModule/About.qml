@@ -51,6 +51,11 @@ Credits {
             color: "#777777"
         },
         {
+            text: "SimpleQmlNotify " + ((model)? model.getSimpleQmlNotifyLibVr() : ""),
+            align: Label.AlignHCenter,
+            color: "#777777"
+        },
+        {
             text: qsTr(" "),
             align: Label.AlignHCenter
         },
