@@ -15,6 +15,8 @@ import QtQuick.Layouts 1.15
 Page {
     id: root
 
+    implicitHeight: 0x0
+
     contentItem: ColumnLayout {
 
         Text {
@@ -29,8 +31,8 @@ Page {
         Image {
             id: imgQr
             fillMode: Image.PreserveAspectFit
-            Layout.preferredHeight: Math.min(parent.width * 0.9, parent.height * 0.9)
-            Layout.preferredWidth:  Math.min(parent.width * 0.9, parent.height * 0.9)
+            Layout.preferredHeight: Math.min(root.width * 0.9, root.height * 0.9)
+            Layout.preferredWidth:  Math.min(root.width * 0.9, root.height * 0.9)
             Layout.alignment: Qt.AlignHCenter
             source: "qrc:/images/private/resources/Interface_icons/share_url_qrcode.png"
             layer.enabled: true
