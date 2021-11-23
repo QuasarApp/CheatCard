@@ -193,7 +193,8 @@ Page {
                     let comboBoxModel = [];
                     cameraPage.devicesList.forEach((item) =>
                                                    {
-                                                       comboBoxModel.push(item.deviceId)
+                                                       if (!comboBoxModel.includes(item))
+                                                           comboBoxModel.push(item.deviceId)
                                                    })
 
                     selectCamera.model = comboBoxModel;
