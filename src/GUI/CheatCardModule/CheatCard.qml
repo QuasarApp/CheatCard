@@ -185,6 +185,22 @@ ApplicationWindow {
                             activityProcessor.newActivity("qrc:/CheatCardModule/Settings.qml");
                         }
         }
+
+        MenuItem {
+            text: qsTr("Recovery cards")
+
+            onClicked:  () => {
+                            activityProcessor.newActivity("qrc:/CheatCardModule/RecoveryPage.qml");
+                        }
+        }
+
+        MenuItem {
+            text: qsTr("Export your key")
+
+            onClicked:  () => {
+                            activityProcessor.newActivity("qrc:/CheatCardModule/ExportUserKeyPage.qml");
+                        }
+        }
     }
 
     StackView {

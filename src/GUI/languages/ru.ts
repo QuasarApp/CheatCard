@@ -93,6 +93,14 @@
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Recovery cards</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export your key</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ColorPicker</name>
@@ -339,6 +347,25 @@
     </message>
 </context>
 <context>
+    <name>ExportUserKeyPage</name>
+    <message>
+        <source>Export user key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>**For what this use**</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Some times you can drop your application data or your device. Therefore you can create a backup qr code that can recovery your application data after dropping</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export to file</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FirstRunPage</name>
     <message>
         <source>Registration</source>
@@ -410,6 +437,13 @@
     <message>
         <source>Wooooh seems like someone available %0 %1 !!!</source>
         <translation>Ооо кажется у кого то доступно %0 %1 !!!</translation>
+    </message>
+</context>
+<context>
+    <name>IncludeRecoveryWordPage</name>
+    <message>
+        <source>Next</source>
+        <translation type="obsolete">Далее</translation>
     </message>
 </context>
 <context>
@@ -755,16 +789,20 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>**Attention**: This operation redefine your current application data (Cards, seals, users data). All current data will be removed.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enter your recovery word</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Next</source>
-        <translation type="unfinished">Далее</translation>
+        <translation type="obsolete">Далее</translation>
+    </message>
+    <message>
+        <source>**Attention** : This operation redefine your current application data (Cards, seals, users data). All current data will be removed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import from qr code scanner</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import from file with qr code</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -885,6 +923,13 @@
     <message>
         <source>Check</source>
         <translation>Проверить</translation>
+    </message>
+</context>
+<context>
+    <name>exportUserKeyPage</name>
+    <message>
+        <source>Next</source>
+        <translation type="obsolete">Далее</translation>
     </message>
 </context>
 </TS>

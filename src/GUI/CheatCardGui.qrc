@@ -38,7 +38,7 @@
         <file>CheatCardModule/Settings.qml</file>
         <file>CheatCardModule/RecoveryPage.qml</file>
         <file>CheatCardModule/Style/CPage.qml</file>
-        <file>CheatCardModule/IncludeRecoveryWordPage.qml</file>
+        <file>CheatCardModule/ExportUserKeyPage.qml</file>
     </qresource>
     <qresource prefix="/CheatCardTr">
         <file>languages/en.qm</file>

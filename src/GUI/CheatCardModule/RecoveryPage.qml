@@ -30,13 +30,17 @@ CPage {
             textFormat: Text.MarkdownText
         }
 
-        CTextField {
-            placeholderText: qsTr("Enter your recovery word");
+
+        Button {
+            text: qsTr("Import from qr code scanner");
             Layout.alignment: Qt.AlignHCenter
+
         }
 
         Button {
-            text: qsTr("Next");
+            text: qsTr("Import from file with qr code");
+            Layout.alignment: Qt.AlignHCenter
+
         }
 
         Item {
