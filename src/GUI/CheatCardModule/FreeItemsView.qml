@@ -44,7 +44,7 @@ Frame {
             property int w:  Math.min(root.width, root.height) * 0.5
             property int h: Math.min(root.width, root.height) * 0.5
 
-            source: "image://cards/seal/" +
+            source: "image://cards/seal:" +
                     ((root.model)? root.model.id : "0")
 
             opacity: 0

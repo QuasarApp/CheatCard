@@ -22,11 +22,11 @@ public:
     Seller(QH::ISqlDBCache *db);
     bool incrementPurchase (const QSharedPointer<UserHeader> &userHeaderData,
                             unsigned int cardId, int purchasesCount = 1,
-                            const QString& domain = DEFAULT_CHEAT_CARD_HOST,
+                            const QString& domain = "",
                             int port = DEFAULT_CHEAT_CARD_PORT_SSL);
 
     bool sentDataToServerPurchase (const QSharedPointer<UserHeader> &userHeaderData,
-                            unsigned int cardId, const QString& domain = DEFAULT_CHEAT_CARD_HOST,
+                            unsigned int cardId, const QString& domain = "",
                             int port = DEFAULT_CHEAT_CARD_PORT_SSL);
 
     bool cardValidation(const QSharedPointer<Card> &card,
