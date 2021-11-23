@@ -12,6 +12,7 @@ namespace RC {
 
 User::User(): QH::PKG::DBObject("Users") {
     regenerateKeys();
+    srand(time(0));
 }
 
 void RC::User::regenerateKeys() {

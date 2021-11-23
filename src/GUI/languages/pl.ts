@@ -680,10 +680,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Port</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Camera</source>
         <translation type="unfinished"></translation>
     </message>

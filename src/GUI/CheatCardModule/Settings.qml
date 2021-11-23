@@ -145,7 +145,7 @@ Page {
                     SwitchDelegate {
                         id: privacy
                         text: qsTr("Share name with seller")
-                        checked: config.getValue("shareName", false)
+                        checked: config.getValue("shareName", true)
                         padding: 0
 
                         onCheckedChanged: () => {
@@ -188,11 +188,16 @@ Page {
                 id: cameraPage
 
                 property var devicesList: QtMultimedia.availableCameras
-                property var comboBoxModel: []
 
                 onDevicesListChanged: {
-                    cameraPage.comboBoxModel = []
-                    cameraPage.devicesList.forEach((item)=>{cameraPage.comboBoxModel.push(item.deviceId)})
+                    let comboBoxModel = [];
+                    cameraPage.devicesList.forEach((item) =>
+                                                   {
+                                                       if (!comboBoxModel.includes(item))
+                                                           comboBoxModel.push(item.deviceId)
+                                                   })
+
+                    selectCamera.model = comboBoxModel;
                 }
 
                 Layout.margins: 8
@@ -224,18 +229,19 @@ Page {
 
                         ComboBox {
                             id: selectCamera
-                            enabled: cameraPage.comboBoxModel.length
+                            enabled: model.length
 
-                            displayText: config.getStrValue("cameraDevice", (cameraPage.comboBoxModel.length? cameraPage.comboBoxModel[0]: ""))
+                            displayText: config.getStrValue("cameraDevice",
+                                                            (model.length? model[0]: ""))
 
-                            onCurrentTextChanged: () => {
-                                  config.setStrValue("cameraDevice", selectCamera.currentText)
 
-                              }
+                            onActivated: (index) => {
+                                const newId = model[index];
+                                config.setStrValue("cameraDevice", newId)
+                                displayText = newId;
+                            }
 
                             Layout.fillWidth: true
-
-                            model: cameraPage.comboBoxModel
                         }
 
                     }
@@ -301,29 +307,22 @@ Page {
                     RowLayout {
                         TextField {
                             id: host
-                            enabled: unlock.checked
+                            opacity: unlock.checked
+                            visible: Boolean(opacity)
                             Layout.fillWidth: true
                             placeholderText: qsTr("Host")
-                            text: config.getStrValue("host", " ")
+                            text: config.getStrValue("host", "")
 
                             onEditingFinished: () => {
                                                    config.setStrValue("host", host.displayText)
                                                }
 
-
-                        }
-
-                        TextField {
-                            id: port
-                            enabled: unlock.checked
-                            Layout.fillWidth: true
-                            placeholderText: qsTr("Port")
-                            text: config.getStrValue("port", " ")
-
-                            onEditingFinished: () => {
-                                                   config.setStrValue("port", port.displayText)
-                                               }
-
+                            Behavior on opacity {
+                                NumberAnimation {
+                                    duration: 550
+                                    easing.type: Easing.OutCirc
+                                }
+                            }
                         }
                     }
                 }

@@ -12,6 +12,7 @@
 
 #include <QSharedPointer>
 #include <qqml.h>
+#include <settingslistner.h>
 
 #include <CheatCard/api/api0/userheader.h>
 
@@ -22,7 +23,7 @@ namespace RC {
 
 class User;
 
-class UserModel: public QObject
+class UserModel: public QObject, public QuasarAppUtils::SettingsListner
 {
     Q_OBJECT
 
@@ -53,6 +54,8 @@ public:
     const QByteArray &sellerToken() const;
     void setSellerToken(const QByteArray &newSellerToken);
 
+    void regenerateSessionKey();
+
 signals:
     void objChanged();
     void sigBecomeSeller() const;
@@ -61,6 +64,7 @@ signals:
 protected:
     void setSessinon(long long newSessinon);
     UserHeader getHelloPackage() const;
+    void handleSettingsChanged(const QString& key, const QVariant& value) override;
 
 private:
 
