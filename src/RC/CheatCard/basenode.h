@@ -63,7 +63,7 @@ public:
         addApiParser(QSharedPointer<AptType>::create(this));
     }
 
-
+    QString getServerHost() const;
     /**
      * @brief cardValidation This method must check card data only on server. This implementation do nothing.
      * @return true if card is pass validation.

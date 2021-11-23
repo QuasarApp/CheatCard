@@ -14,7 +14,7 @@ namespace RC {
 
 ServerSSL::ServerSSL(QH::ISqlDBCache *db): Server(db) {
     QH::SslSrtData sslData;
-    sslData.commonName = DEFAULT_CHEAT_CARD_HOST;
+    sslData.commonName = getServerHost();
     sslData.organization = QCoreApplication::organizationName();
 
     useSelfSignedSslConfiguration(sslData);
