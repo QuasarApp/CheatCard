@@ -148,84 +148,49 @@ ApplicationWindow {
             visible: (mainModel)? mainModel.mode: false
             height: visible ? implicitHeight : 0
 
-            Component {
-                id: pageContactdev
-
-                Contacts {}
-            }
-
-            ToolButton {
-                text: qsTr("Contact with developers")
-                icon.source: "qrc:/images/private/resources/Interface_icons/contact_developers.svg"
-                onClicked:  () => {
-                                activityProcessor.newActivityFromComponent(pageContactdev);
-                            }
-            }
+            text: qsTr("Contact with developers")
+            icon.source: "qrc:/images/private/resources/Interface_icons/contact_developers.svg"
+            onClicked:  () => {
+                            activityProcessor.newActivityFromComponent(pageContactdev);
+                        }
         }
 
-        MenuItem {            
+        MenuItem {
 
-            Component {
-                id: about
-                About {}
-            }
-
-            ToolButton {
-                text: qsTr("About")
-                icon.source: "qrc:/images/private/resources/Interface_icons/about.svg"
-
-                onClicked:  () => {
-                                activityProcessor.newActivityFromComponent(about, mainModel.getAboutModel());
-                            }
-            }
+            text: qsTr("About")
+            icon.source: "qrc:/images/private/resources/Interface_icons/help.svg"
+            onClicked:  () => {
+                            activityProcessor.newActivityFromComponent(about, mainModel.getAboutModel());
+                        }
 
         }
 
         MenuItem {
 
-            Component {
-                id: pageSeller
-                PageHelpSeller {}
-            }
+            text: qsTr("Help")
+            icon.source: "qrc:/images/private/resources/Interface_icons/about.svg"
+            onClicked:  () => {
 
-            Component {
-                id: pageVisitor
-                PageHelpVisitor {}
-            }
-
-            ToolButton {
-                text: qsTr("Help")
-                icon.source: "qrc:/images/private/resources/Interface_icons/help.svg"
-                onClicked:  () => {
-
-                                if (mainModel.mode) {
-                                    activityProcessor.newActivityFromComponent(pageSeller);
-                                } else {
-                                    activityProcessor.newActivityFromComponent(pageVisitor);
-                                }
-
-
+                            if (mainModel.mode) {
+                                activityProcessor.newActivityFromComponent(pageSeller);
+                            } else {
+                                activityProcessor.newActivityFromComponent(pageVisitor);
                             }
-            }
+
+
+                        }
         }
-	
+
         MenuItem {
 
-            Component {
-                id: settings
-                Settings {}
-            }
-
-            ToolButton {
-                text: qsTr("Settings")
-                icon.source: "qrc:/images/private/resources/Interface_icons/settings.svg"
-
-                onClicked: () => {
-                               activityProcessor.newActivityFromComponent(settings);
-                           }
-            }
+            text: qsTr("Settings")
+            icon.source: "qrc:/images/private/resources/Interface_icons/settings.svg"
+            onClicked: () => {
+                           activityProcessor.newActivityFromComponent(settings);
+                       }
 
         }
+
     }
 
     StackView {
@@ -291,6 +256,31 @@ ApplicationWindow {
                                    newActivity("qrc:/CheatCardModule/MainActivity.qml",
                                                mainModel);
                                }
+    }
+
+    Component {
+        id: pageContactdev
+        Contacts {}
+    }
+
+    Component {
+        id: about
+        About {}
+    }
+
+    Component {
+        id: pageSeller
+        PageHelpSeller {}
+    }
+
+    Component {
+        id: pageVisitor
+        PageHelpVisitor {}
+    }
+
+    Component {
+        id: settings
+        Settings {}
     }
 
     Drawer {
