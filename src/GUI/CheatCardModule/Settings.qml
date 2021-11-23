@@ -188,11 +188,15 @@ Page {
                 id: cameraPage
 
                 property var devicesList: QtMultimedia.availableCameras
-                property var comboBoxModel: []
 
                 onDevicesListChanged: {
-                    cameraPage.comboBoxModel = []
-                    cameraPage.devicesList.forEach((item)=>{cameraPage.comboBoxModel.push(item.deviceId)})
+                    let comboBoxModel = [];
+                    cameraPage.devicesList.forEach((item) =>
+                                                   {
+                                                       comboBoxModel.push(item.deviceId)
+                                                   })
+
+                    selectCamera.model = comboBoxModel;
                 }
 
                 Layout.margins: 8
@@ -224,7 +228,7 @@ Page {
 
                         ComboBox {
                             id: selectCamera
-                            enabled: cameraPage.comboBoxModel.length
+                            enabled: model.length
 
                             displayText: config.getStrValue("cameraDevice",
                                                             (model.length? model[0]: ""))
@@ -237,8 +241,6 @@ Page {
                             }
 
                             Layout.fillWidth: true
-
-                            model: cameraPage.comboBoxModel
                         }
 
                     }
