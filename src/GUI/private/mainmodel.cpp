@@ -370,10 +370,16 @@ int MainModel::getMode() const {
 void RC::MainModel::configureCardsList() {
     if (_mode == Mode::Client) {
         setCardListModel(_cardsListModel);
-        setBackEndModel(QSharedPointer<BaseNode>(new Visitor(_db), softRemove));
+        if (!_visitorbackEndModel)
+            _visitorbackEndModel = QSharedPointer<BaseNode>(new Visitor(_db), softRemove);
+
+        setBackEndModel(_visitorbackEndModel);
     } else {
         setCardListModel(_ownCardsListModel);
-        setBackEndModel(QSharedPointer<BaseNode>(new Seller(_db), softRemove));
+        if (!_sellerbackEndModel)
+            _sellerbackEndModel = QSharedPointer<BaseNode>(new Seller(_db), softRemove);
+
+        setBackEndModel(_sellerbackEndModel);
     }
 }
 
