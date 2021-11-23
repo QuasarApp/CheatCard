@@ -90,12 +90,6 @@ ApplicationWindow {
                                if (!enabled)
                                    return;
 
-                               if (activityProcessor.depth == 2) {
-                                   if (mainModel) {
-                                       mainModel.handleFirstDataSendet();
-                                   }
-                               }
-
                                if (activityProcessor.depth > 1) {
                                    activityProcessor.popItem();
                                    return;
@@ -103,9 +97,6 @@ ApplicationWindow {
 
                                if (userPanel.visible) {
                                    userPanel.close()
-                                   if (mainModel) {
-                                       mainModel.handleFirstDataSendet();
-                                   }
                                } else {
                                    userPanel.open()
                                }
@@ -145,45 +136,50 @@ ApplicationWindow {
         id: mainMenu
 
         MenuItem {
-            text: qsTr("Contact with developers")
             visible: (mainModel)? mainModel.mode: false
-
             height: visible ? implicitHeight : 0
 
+            text: qsTr("Contact with developers")
+            icon.source: "qrc:/images/private/resources/Interface_icons/contact_developers.svg"
             onClicked:  () => {
-                            activityProcessor.newActivity("qrc:/CheatCardModule/Contacts.qml");
+                            activityProcessor.newActivityFromComponent(pageContactdev);
                         }
         }
 
         MenuItem {
-            text: qsTr("About")
 
+            text: qsTr("About")
+            icon.source: "qrc:/images/private/resources/Interface_icons/help.svg"
             onClicked:  () => {
                             activityProcessor.newActivityFromComponent(about, mainModel.getAboutModel());
                         }
+
         }
 
         MenuItem {
-            text: qsTr("Help")
 
+            text: qsTr("Help")
+            icon.source: "qrc:/images/private/resources/Interface_icons/about.svg"
             onClicked:  () => {
 
                             if (mainModel.mode) {
-                                activityProcessor.newActivity("qrc:CheatCardModule/PageHelpSeller.qml");
+                                activityProcessor.newActivityFromComponent(pageSeller);
                             } else {
-                                activityProcessor.newActivity("qrc:CheatCardModule/PageHelpVisitor.qml");
+                                activityProcessor.newActivityFromComponent(pageVisitor);
                             }
 
 
                         }
         }
-	
-        MenuItem {
-            text: qsTr("Settings")
 
-            onClicked:  () => {
-                            activityProcessor.newActivity("qrc:/CheatCardModule/Settings.qml");
-                        }
+        MenuItem {
+
+            text: qsTr("Settings")
+            icon.source: "qrc:/images/private/resources/Interface_icons/settings.svg"
+            onClicked: () => {
+                           activityProcessor.newActivityFromComponent(settings);
+                       }
+
         }
 
         MenuItem {
@@ -206,6 +202,12 @@ ApplicationWindow {
     StackView {
         id: activityProcessor
         anchors.fill: parent
+
+        onDepthChanged: {
+            if (depth <= 1 && mainModel) {
+                mainModel.handleFirstDataSendet();
+            }
+        }
 
         function newActivityFromComponent(component, activityModel) {
             var activity = component.createObject(activityProcessor);
@@ -269,8 +271,23 @@ ApplicationWindow {
     }
 
     Component {
+        id: pageContactdev
+        Contacts {}
+    }
+
+    Component {
         id: about
         About {}
+    }
+
+    Component {
+        id: pageSeller
+        PageHelpSeller {}
+    }
+
+    Component {
+        id: pageVisitor
+        PageHelpVisitor {}
     }
 
     Component {
@@ -282,6 +299,14 @@ ApplicationWindow {
         id: userPanel
         y: header.height
         height: mainWindow.height
+
+        property int isOpen: position
+
+        onIsOpenChanged: {
+            if (mainModel && !isOpen) {
+                mainModel.handleFirstDataSendet();
+            }
+        }
 
         contentItem: EditUserView {
             model: mainModel
