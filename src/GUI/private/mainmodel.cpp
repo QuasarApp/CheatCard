@@ -383,16 +383,21 @@ void RC::MainModel::configureCardsList() {
 
     if (_mode == Mode::Client) {
         setCardListModel(_cardsListModel);
-        client = new VisitorSSL(_db);
+        if (!_visitorbackEndModel) {
+            _visitorbackEndModel = QSharedPointer<BaseNode>(new VisitorSSL(_db), softRemove);
+            _visitorbackEndModel->addApiParser<ApiV1>();        
+        }
 
+        setBackEndModel(_visitorbackEndModel);
     } else {
         setCardListModel(_ownCardsListModel);
-        client = new SellerSSL(_db);
+        if (!_sellerbackEndModel) {
+            _sellerbackEndModel = QSharedPointer<BaseNode>(new SellerSSL(_db), softRemove);
+            _sellerbackEndModel->addApiParser<ApiV1>();
+        }
+
+        setBackEndModel(_sellerbackEndModel);
     }
-
-    client->addApiParser(QSharedPointer<ApiV1>::create(client));
-
-    setBackEndModel(QSharedPointer<BaseNode>(client, softRemove));
 }
 
 void MainModel::setMode(int newMode) {

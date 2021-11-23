@@ -676,45 +676,58 @@ Page {
         id: customisationMenu
 
         MenuItem {
+
             text: qsTr("Background color")
+            icon.source: "qrc:/images/private/resources/Interface_icons/background_color.svg"
             onClicked: () => {
                            activityProcessor.newActivityFromComponent(defaultColor);
 
                        }
+
         }
 
         MenuItem {
+
             text: qsTr("Foreground color")
+            icon.source: "qrc:/images/private/resources/Interface_icons/main_color.svg"
             onClicked: () => {
                            activityProcessor.newActivityFromComponent(defaultColorFont);
 
                        }
+
         }
 
         MenuItem {
-            text: qsTr("Background image")
 
+            text: qsTr("Background image")
+            icon.source: "qrc:/images/private/resources/Interface_icons/background_image.svg"
             onClicked: () => {
                            activityProcessor.newActivityFromComponent(selectImage);
 
                        }
+
         }
 
         MenuItem {
-            text: qsTr("Card logo")
 
+            text: qsTr("Card logo")
+            icon.source: "qrc:/images/private/resources/Interface_icons/logo.svg"
             onClicked: () => {
                            activityProcessor.newActivityFromComponent(defaultLogos);
 
                        }
+
         }
 
         MenuItem {
-            text: qsTr("Card seal")
 
+            text: qsTr("Card seal")
+            icon.source: "qrc:/images/private/resources/Interface_icons/seal.svg"
             onClicked: () => {
                            activityProcessor.newActivityFromComponent(defaultSeels);
                        }
+
         }
+
     }
 }
