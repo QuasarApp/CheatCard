@@ -227,11 +227,11 @@ Page {
                             enabled: cameraPage.comboBoxModel.length
 
                             displayText: config.getStrValue("cameraDevice",
-                                                            (cameraPage.comboBoxModel.length? cameraPage.comboBoxModel[0]: ""))
+                                                            (model.length? model[0]: ""))
 
 
                             onActivated: (index) => {
-                                const newId = cameraPage.comboBoxModel[index];
+                                const newId = model[index];
                                 config.setStrValue("cameraDevice", newId)
                                 displayText = newId;
                             }
