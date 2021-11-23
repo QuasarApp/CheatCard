@@ -37,7 +37,7 @@ QString AboutModel::getQtLibVr() const {
 }
 
 QString AboutModel::getSimpleQmlNotifyLibVr() const {
-    return "";
+    return QmlNotificationService::NotificationService::libVersion();
 }
 
 }
