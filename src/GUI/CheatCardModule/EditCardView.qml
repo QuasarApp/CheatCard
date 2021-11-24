@@ -60,7 +60,7 @@ Page {
             Image {
                 id: cardBackground
                 fillMode: Image.PreserveAspectCrop
-                source: "image://cards/background/" + ((root.model)? root.model.id  + "/" + root.model.cardVersion: "0")
+                source: "image://cards/background:" + ((root.model)? root.model.id  + ":" + root.model.cardVersion: "0")
                 anchors.fill: parent
 
                 layer.enabled: true
@@ -125,7 +125,7 @@ Page {
                 Image {
                     id: cardLogoIamge
                     fillMode: Image.PreserveAspectFit
-                    source: "image://cards/logo/" + ((root.model)? root.model.id  + "/" + root.model.cardVersion : "0")
+                    source: "image://cards/logo:" + ((root.model)? root.model.id  + ":" + root.model.cardVersion : "0")
                     Layout.alignment: Qt.AlignHCenter
 
                     Layout.rowSpan: 1
@@ -363,8 +363,8 @@ Page {
                                     width: parent.width * 0.9
                                     height: parent.width * 0.9
 
-                                    source: "image://cards/seal/" +
-                                            ((root.model)? root.model.id  + "/" + root.model.cardVersion: "0")
+                                    source: "image://cards/seal:" +
+                                            ((root.model)? root.model.id  + ":" + root.model.cardVersion: "0")
 
                                     Connections {
                                         target: cardRectangle

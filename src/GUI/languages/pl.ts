@@ -127,6 +127,10 @@
         <source>Join to our telegram channel for get support and see the last changes.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Join to our Instagram channel for get support and see the last changes.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditCardView</name>
@@ -723,10 +727,6 @@
     </message>
     <message>
         <source>Host</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Port</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

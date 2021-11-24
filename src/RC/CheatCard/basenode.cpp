@@ -264,6 +264,19 @@ void RC::BaseNode::addApiParser(const QSharedPointer<iParser>& api) {
     _apiParsers[api->version()] = api;
 }
 
+QString BaseNode::getServerHost() const {
+    auto settings = QuasarAppUtils::ISettings::instance();
+
+    if (!settings)
+        return DEFAULT_CHEAT_CARD_HOST;
+
+    if (!settings->getValue("devSettingEnable", false).toBool()) {
+        return DEFAULT_CHEAT_CARD_HOST;
+    }
+
+    return settings->getStrValue("host", DEFAULT_CHEAT_CARD_HOST);
+}
+
 QH::ISqlDBCache *BaseNode::db() const {
     return _db;
 }

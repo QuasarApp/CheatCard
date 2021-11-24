@@ -119,16 +119,19 @@ Frame {
                     onInputTextChanged: {
                         if (inputText.length)
                             process(inputText);
+
+                        imgQr.qrIndex++
                     }
                 }
                 visible: !Boolean(root.model && root.model.mode)
-                source: "file:/" + generator.filePath
+                source: "image://cards/file:" + generator.filePath + ":" + qrIndex
                 layer.enabled: true
                 layer.effect: ShaderColorOverlay {
                     color: Material.primary
                     fragSh: "qrc:/private/resources/shaders/shaderColorQrCode.fsh"
                 }
 
+                property int qrIndex: 0
             }
 
             MouseArea {

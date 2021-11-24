@@ -139,6 +139,10 @@
         <source>Join to our telegram channel for get support and see the last changes.</source>
         <translation>Присоединяйтесь к нашему каналу Telegram, чтобы получить поддержку и увидеть последние изменения.</translation>
     </message>
+    <message>
+        <source>Join to our Instagram channel for get support and see the last changes.</source>
+        <translation>Присоединяйтесь к нашему каналу Instagram, чтобы получить поддержку и увидеть последние изменения.</translation>
+    </message>
 </context>
 <context>
     <name>EditCardView</name>
@@ -867,7 +871,7 @@
     </message>
     <message>
         <source>Port</source>
-        <translation>Порт</translation>
+        <translation type="vanished">Порт</translation>
     </message>
     <message>
         <source>Camera</source>

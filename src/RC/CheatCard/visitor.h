@@ -20,7 +20,7 @@ class CHEATCARD_CORE_EXPORT Visitor: public BaseNode
 public:
     Visitor(QH::ISqlDBCache *db);
     bool checkCardData(long long session,
-                       const QString& domain = DEFAULT_CHEAT_CARD_HOST,
+                       const QString& domain = "",
                        int port = DEFAULT_CHEAT_CARD_PORT_SSL);
 
     bool cardValidation(const QSharedPointer<Card> &card,

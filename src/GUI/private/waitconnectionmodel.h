@@ -24,7 +24,6 @@ class WaitConnectionModel: public QObject
     Q_PROPERTY(int purchaseCount READ purchaseCount WRITE setPurchaseCount NOTIFY purchaseCountChanged)
 
     Q_PROPERTY(QString extraData READ extraData WRITE setExtraData NOTIFY extraDataChanged)
-    Q_PROPERTY(QString cameraId READ cameraId NOTIFY cameraIdChanged)
 
 public:
     WaitConnectionModel();
@@ -40,10 +39,6 @@ public:
 
     const QString &extraData() const;
     void setExtraData(const QString &newExtraData);
-
-
-    const QString &cameraId() const;
-    void setCameraId(const QString &newCameraId);
 
 signals:
     void cardChanged();
@@ -64,7 +59,6 @@ private:
     int _purchaseCount = 1;
 
     QString _extraData;
-    QString _cameraId;
 };
 }
 #endif // WAITCONNECTIONMODEL_H

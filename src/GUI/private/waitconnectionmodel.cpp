@@ -59,15 +59,4 @@ void WaitConnectionModel::setExtraData(const QString &newExtraData) {
     emit extraDataChanged();
 }
 
-const QString &WaitConnectionModel::cameraId() const {
-    return _cameraId;
-}
-
-void WaitConnectionModel::setCameraId(const QString &newCameraId) {
-    if (_cameraId == newCameraId)
-        return;
-    _cameraId = newCameraId;
-    emit cameraIdChanged();
-}
-
 }
