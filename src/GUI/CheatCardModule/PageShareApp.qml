@@ -19,20 +19,36 @@ Page {
 
     contentItem: ColumnLayout {
 
+        Image {
+            id: imgLogo
+            fillMode: Image.PreserveAspectFit
+            Layout.preferredHeight: Math.min(root.width * 0.4, root.height * 0.4)
+            Layout.preferredWidth:  Math.min(root.width * 0.4, root.height * 0.4)
+            Layout.alignment: Qt.AlignHCenter
+            source: "qrc:/images/private/resources/Interface_icons/Google_play_logo.png"
+            mipmap: true
+        }
+
         Text {
             text: qsTr("To get a cheat card, scan the QR code and follow the link.")
             horizontalAlignment: Qt.AlignHCenter
-            verticalAlignment: Qt.AlignVCenter
+            verticalAlignment: Qt.AlignTop
             wrapMode: Text.WordWrap
+            font.pointSize: 14
 
+            Layout.fillWidth: true
+        }
+
+        Item {
+            Layout.fillHeight: true
             Layout.fillWidth: true
         }
 
         Image {
             id: imgQr
             fillMode: Image.PreserveAspectFit
-            Layout.preferredHeight: Math.min(root.width * 0.9, root.height * 0.9)
-            Layout.preferredWidth:  Math.min(root.width * 0.9, root.height * 0.9)
+            Layout.preferredHeight: Math.min(root.width * 0.8, root.height * 0.8)
+            Layout.preferredWidth:  Math.min(root.width * 0.8, root.height * 0.8)
             Layout.alignment: Qt.AlignHCenter
             source: "qrc:/images/private/resources/Interface_icons/share_url_qrcode.png"
             layer.enabled: true
@@ -42,7 +58,10 @@ Page {
             }
         }
 
-
+        Item {
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+        }
 
     }
 }
