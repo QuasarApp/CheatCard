@@ -23,24 +23,24 @@ Page {
         flow: (alignroot.fHorisontal)? GridLayout.LeftToRight : GridLayout.TopToBottom
 
         ColumnLayout {
-        Image {
-            id: imgLogo
-            fillMode: Image.PreserveAspectFit
-            Layout.preferredWidth:  Math.min(root.width * 0.4, root.height * 0.4)
-            Layout.preferredHeight: width * 0.4
-            Layout.alignment: Qt.AlignHCenter
-            source: "qrc:/images/private/resources/Interface_icons/Google_play_logo.png"
-        }
+            Image {
+                id: imgLogo
+                fillMode: Image.PreserveAspectFit
+                Layout.preferredWidth:  Math.min(root.width * 0.4, root.height * 0.4)
+                Layout.preferredHeight: width * 0.4
+                Layout.alignment: Qt.AlignHCenter
+                source: "qrc:/images/private/resources/Interface_icons/Google_play_logo.png"
+            }
 
-        Text {
-            text: qsTr("To get a cheat card, scan the QR code and follow the link.")
-            horizontalAlignment: Qt.AlignHCenter
-            verticalAlignment: Qt.AlignTop
-            wrapMode: Text.WordWrap
-            font.pointSize: 14
+            Text {
+                text: qsTr("To get a cheat card, scan the QR code and follow the link.")
+                horizontalAlignment: Qt.AlignHCenter
+                verticalAlignment: Qt.AlignTop
+                wrapMode: Text.WordWrap
+                font.pointSize: 14
 
-            Layout.fillWidth: true
-        }
+                Layout.fillWidth: true
+            }
         }
 
         Item {
