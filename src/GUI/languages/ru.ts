@@ -91,7 +91,7 @@
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Нстройки</translation>
     </message>
 </context>
 <context>
@@ -688,14 +688,14 @@
     <name>QrScanner</name>
     <message>
         <source>switch camera</source>
-        <translation type="unfinished"></translation>
+        <translation>Изменить камеру</translation>
     </message>
 </context>
 <context>
     <name>RC::AbstrcattableModelWithHeaders</name>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Неизвестно</translation>
     </message>
 </context>
 <context>
@@ -729,23 +729,23 @@
     <name>RC::SellerStatisticModel</name>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Имя</translation>
     </message>
     <message>
         <source>Last visit</source>
-        <translation type="unfinished"></translation>
+        <translation>Последний визит</translation>
     </message>
     <message>
         <source>Id</source>
-        <translation type="unfinished"></translation>
+        <translation>Id</translation>
     </message>
     <message>
         <source>Purchases</source>
-        <translation type="unfinished"></translation>
+        <translation>Покупки</translation>
     </message>
     <message>
         <source>Issued</source>
-        <translation type="unfinished"></translation>
+        <translation>Выданно</translation>
     </message>
 </context>
 <context>
