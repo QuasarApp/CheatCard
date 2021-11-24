@@ -48,6 +48,7 @@ class MainModel : public QObject
     Q_PROPERTY(QObject * defaultBackgroundsModel READ defaultBackgroundsModel NOTIFY defaultBackgroundsModelChanged)
     Q_PROPERTY(QObject * waitModel READ waitModel NOTIFY waitModelChanged)
     Q_PROPERTY(QObject * statisticModel READ statisticModel NOTIFY statisticModelChanged)
+    Q_PROPERTY(QObject * exportImportModel READ exportImportModel NOTIFY exportImportModelChanged)
 
 
 public:
@@ -63,6 +64,8 @@ public:
     Q_INVOKABLE void configureFinished();
     Q_INVOKABLE QObject *getAboutModel();
     QObject *currentUser() const;
+    Q_INVOKABLE bool importUser(QString base64UserData);
+
     const QSharedPointer<UserModel>& getCurrentUser() const;
 
     void setCurrentUser(UserModel *newCurrentUser);
@@ -93,6 +96,7 @@ public:
 
     QObject * statisticModel() const;
 
+    QObject *exportImportModel() const;
 
 public slots:
     void handleFirstDataSendet();
@@ -119,6 +123,8 @@ signals:
 
     void waitModelChanged();
     void statisticModelChanged();
+
+    void exportImportModelChanged();
 
 private slots:
     void handleCardReceived(QSharedPointer<RC::Card> card);
@@ -150,6 +156,7 @@ private:
     void setBackEndModel(const QSharedPointer<BaseNode> &newModel);
     void initWaitConnectionModel();
     void initSellerStatisticModel();
+
     void configureCardsList();
 
     void setCardListModel(CardsListModel *model);
@@ -178,7 +185,6 @@ private:
     AboutModel *_aboutModel = nullptr;
     SoundPlayback *_soundEffect = nullptr;
     SellerStatisticModel *_statisticModel = nullptr;
-
     ItemsModel *_defaultLogosModel = nullptr;
     ItemsModel *_defaultBackgroundsModel = nullptr;
 
@@ -197,6 +203,7 @@ private:
     bool _fShowEmptyBonuspackaMessage = false;
     friend class ImageProvider;
 
+    QObject *m_exportImportModel;
 };
 
 }

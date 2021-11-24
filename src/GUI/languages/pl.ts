@@ -309,7 +309,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Export to file</source>
+        <source>Save and open in files</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -376,6 +376,25 @@
     </message>
     <message>
         <source>Wooooh seems like someone available %0 %1 !!!</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ImportUserKeyPage</name>
+    <message>
+        <source>Recovery your cadrs data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>**Attention** : This operation redefine your current application data (Cards, seals, users data). All current data will be removed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import from qr code scanner</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import from file with qr code</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -657,24 +676,8 @@
 <context>
     <name>RecoveryPage</name>
     <message>
-        <source>Recovery your cadrs data</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Next</source>
         <translation type="obsolete">Następny</translation>
-    </message>
-    <message>
-        <source>**Attention** : This operation redefine your current application data (Cards, seals, users data). All current data will be removed.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Import from qr code scanner</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Import from file with qr code</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

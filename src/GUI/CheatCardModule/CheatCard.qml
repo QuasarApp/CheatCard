@@ -186,7 +186,8 @@ ApplicationWindow {
             text: qsTr("Recovery cards")
 
             onClicked:  () => {
-                            activityProcessor.newActivity("qrc:/CheatCardModule/RecoveryPage.qml");
+                            activityProcessor.newActivity("qrc:/CheatCardModule/ImportUserKeyPage.qml",
+                                                          mainModel.currentUser);
                         }
         }
 
@@ -194,7 +195,8 @@ ApplicationWindow {
             text: qsTr("Export your key")
 
             onClicked:  () => {
-                            activityProcessor.newActivity("qrc:/CheatCardModule/ExportUserKeyPage.qml");
+                            activityProcessor.newActivity("qrc:/CheatCardModule/ExportUserKeyPage.qml",
+                                                          mainModel.currentUser);
                         }
         }
     }

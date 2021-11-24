@@ -66,6 +66,7 @@ void UserModel::setUser(const QSharedPointer<User>& newUser) {
         return;
 
     _user = newUser;
+    _userBackUp = _user->toBytes().toBase64(QByteArray::Base64UrlEncoding);
     emit objChanged();
 
 }
@@ -118,6 +119,15 @@ const QString &UserModel::sessionCode() const {
 
 void UserModel::becomeSellerRequest() const {
     emit sigBecomeSeller();
+}
+
+QString UserModel::userBackUpPath() const {
+    QString path = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+    return path;
+}
+
+const QString &UserModel::userBackUp() const {
+    return _userBackUp;
 }
 
 }

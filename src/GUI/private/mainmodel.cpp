@@ -53,7 +53,6 @@ void softRemove(BaseNode * obj) {
 MainModel::MainModel(QH::ISqlDBCache *db) {
     _db = db;
     _soundEffect = new SoundPlayback;
-
     _config = dynamic_cast<SettingsModel*>(
                 QuasarAppUtils::Settings::ISettings::instance());
 
@@ -96,6 +95,8 @@ MainModel::~MainModel() {
         delete _aboutModel;
     }
 
+    delete  _statisticModel;
+
     delete _defaultLogosModel;
     delete _defaultBackgroundsModel;
 
@@ -129,6 +130,41 @@ QObject *MainModel::getAboutModel()
 
 QObject *MainModel::currentUser() const {
     return _currentUser.data();
+}
+
+bool MainModel::importUser(QString base64UserData) {
+
+    auto userData = QSharedPointer<User>::create();
+    userData->fromBytes(QByteArray::fromBase64(base64UserData.toLatin1(),
+                                               QByteArray::Base64UrlEncoding));
+
+    auto service = QmlNotificationService::NotificationService::getService();
+
+
+    if (!userData->isValid()) {
+
+        if (service) {
+
+            service->setNotify(tr("Wow shit"),
+                               tr("This qr code is invalid. Sorry... "),
+                               "", QmlNotificationService::NotificationData::Error);
+        }
+
+
+        return false;
+    }
+
+    auto newUser = QSharedPointer<UserModel>::create(userData);
+
+    setCurrentUser(newUser);
+    _config->setValue("fFirst", false);
+    saveUser();
+
+    service->setNotify(tr("I managed to do it !"),
+                       tr("Yor secret key are imported"),
+                       "", QmlNotificationService::NotificationData::Normal);
+
+    return true;
 }
 
 const QSharedPointer<UserModel>& MainModel::getCurrentUser() const {
@@ -194,6 +230,7 @@ void MainModel::setCurrentUser(QSharedPointer<UserModel> value) {
 
 void MainModel::saveUser() {
     _db->insertIfExistsUpdateObject(_currentUser->user());
+    _settings.setValue(CURRENT_USER, _currentUser->user()->userId());
 }
 
 void MainModel::saveConfig() {
@@ -379,8 +416,6 @@ int MainModel::getMode() const {
 }
 
 void RC::MainModel::configureCardsList() {
-    BaseNode* client = nullptr;
-
     if (_mode == Mode::Client) {
         setCardListModel(_cardsListModel);
         if (!_visitorbackEndModel) {
@@ -650,6 +685,10 @@ QObject *MainModel::defaultLogosModel() const {
 
 QObject *MainModel::defaultBackgroundsModel() const {
     return _defaultBackgroundsModel;
+}
+
+QObject *MainModel::exportImportModel() const {
+    return m_exportImportModel;
 }
 
 }

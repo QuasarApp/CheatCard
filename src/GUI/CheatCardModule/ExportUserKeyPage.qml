@@ -10,6 +10,7 @@ import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
 
 import com.scythestudio.scodes 1.0
+import QtQuick.Dialogs 1.3
 
 import "Style"
 
@@ -19,6 +20,8 @@ CPage {
     title: qsTr("Export user key")
     implicitHeight: 0x0
     implicitWidth: 0x0
+
+    property var model: null
 
     contentItem: ColumnLayout {
 
@@ -55,23 +58,28 @@ CPage {
             fillMode: Image.PreserveAspectFit
             SBarcodeGenerator {
                 id: generator
-                fileName: "recovery";
-                inputText: "recovery"
+                fileName: "CheatCard-" + ((root.model)? root.model.name: "") + ".qrrc";
+                inputText: (root.model)? root.model.userBackUp: "Sorry"
                 height: parent.height
                 width:  parent.width
                 margin: 0
                 onInputTextChanged: {
                     if (inputText.length)
                         process(inputText);
+                    imgQr.qrIndex++
+
                 }
 
                 onWidthChanged: {
                     if (inputText.length)
                         process(inputText);
+                    imgQr.qrIndex++
                 }
 
             }
-            source: "file:/" + generator.filePath
+            property int qrIndex: 0
+
+            source: "image://cards/file:" + generator.filePath + ":" + qrIndex
             layer.enabled: true
             layer.effect: ShaderColorOverlay {
                 color: Material.primary
@@ -80,8 +88,13 @@ CPage {
 
         }
         Button {
-            text: qsTr("Export to file");
+            text: qsTr("Save and open in files");
             Layout.alignment: Qt.AlignHCenter
+
+            onClicked: {
+                generator.saveImage();
+                Qt.openUrlExternally("file://" + generator.exportDir);
+            }
 
         }
 
