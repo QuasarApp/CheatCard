@@ -134,6 +134,10 @@
         <source>Join to our telegram channel for get support and see the last changes.</source>
         <translation>Join to our telegram channel for get support and see the last changes.</translation>
     </message>
+    <message>
+        <source>Join to our Instagram channel for get support and see the last changes.</source>
+        <translation>Join to our Instagram channel for get support and see the last changes.</translation>
+    </message>
 </context>
 <context>
     <name>EditCardView</name>
