@@ -17,16 +17,19 @@ Page {
 
     implicitHeight: 0x0
 
-    contentItem: ColumnLayout {
+    contentItem: GridLayout {
+        id: rootGrid
 
+        flow: (alignroot.fHorisontal)? GridLayout.LeftToRight : GridLayout.TopToBottom
+
+        ColumnLayout {
         Image {
             id: imgLogo
             fillMode: Image.PreserveAspectFit
-            Layout.preferredHeight: Math.min(root.width * 0.4, root.height * 0.4)
             Layout.preferredWidth:  Math.min(root.width * 0.4, root.height * 0.4)
+            Layout.preferredHeight: width * 0.4
             Layout.alignment: Qt.AlignHCenter
             source: "qrc:/images/private/resources/Interface_icons/Google_play_logo.png"
-            mipmap: true
         }
 
         Text {
@@ -37,6 +40,7 @@ Page {
             font.pointSize: 14
 
             Layout.fillWidth: true
+        }
         }
 
         Item {
@@ -59,8 +63,11 @@ Page {
         }
 
         Item {
+            id: alignroot
             Layout.fillHeight: true
             Layout.fillWidth: true
+
+            property bool fHorisontal: rootGrid.height < rootGrid.width
         }
 
     }
