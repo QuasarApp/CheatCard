@@ -183,7 +183,7 @@ ApplicationWindow {
         }
 
         MenuItem {
-            text: qsTr("Recovery cards")
+            text: qsTr("Import your key")
 
             onClicked:  () => {
                             activityProcessor.newActivity("qrc:/CheatCardModule/ImportUserKeyPage.qml",

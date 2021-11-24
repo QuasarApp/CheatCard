@@ -91,11 +91,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Recovery cards</source>
+        <source>Export your key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Export your key</source>
+        <source>Import your key</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -382,10 +382,6 @@
 <context>
     <name>ImportUserKeyPage</name>
     <message>
-        <source>Recovery your cadrs data</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>**Attention** : This operation redefine your current application data (Cards, seals, users data). All current data will be removed.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -395,6 +391,14 @@
     </message>
     <message>
         <source>Import from file with qr code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import your cadrs data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select your backup qr code</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -647,6 +651,22 @@
     </message>
     <message>
         <source>This client do not have any bonuses. Sorry... </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wow shit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This qr code is invalid. Sorry... </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>I managed to do it !</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Yor secret key are imported</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
