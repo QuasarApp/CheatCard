@@ -745,7 +745,7 @@
     </message>
     <message>
         <source>Issued</source>
-        <translation>Выданно</translation>
+        <translation type="unfinished">Выдано</translation>
     </message>
 </context>
 <context>
