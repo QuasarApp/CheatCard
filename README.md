@@ -4,7 +4,7 @@
 
 ## About this app 
 
-CheatCard - This is service which provides the ability to conveniently create discount cards for the clients of your business. 
+CheatCard - This is service which provides the ability to conveniently create discount cards for the clients of your business.  
 
 ### How its work
 
