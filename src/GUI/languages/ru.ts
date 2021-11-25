@@ -93,6 +93,10 @@
         <source>Settings</source>
         <translation>Нстройки</translation>
     </message>
+    <message>
+        <source>Share application</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ColorPicker</name>
@@ -655,6 +659,17 @@
     <message>
         <source>&lt;img src=&quot;qrc:/private/resources/help/Help1.jpg&quot; alt=&quot;tt&quot; width=&quot;100&quot;/&gt;</source>
         <translation></translation>
+    </message>
+</context>
+<context>
+    <name>PageShareApp</name>
+    <message>
+        <source>Join to our slack channel for get support and see the last changes.</source>
+        <translation type="obsolete">Присоединяйтесь к нашему каналу Slack, чтобы получить поддержку и увидеть последние изменения.</translation>
+    </message>
+    <message>
+        <source>To get a cheat card, scan the QR code and follow the link.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

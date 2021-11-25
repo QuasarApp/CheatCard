@@ -158,6 +158,16 @@ ApplicationWindow {
 
         MenuItem {
 
+            text: qsTr("Share application")
+            icon.source: "qrc:/images/private/resources/Interface_icons/sharing_icon.svg"
+            onClicked:  () => {
+                            activityProcessor.newActivityFromComponent(shareApp);
+                        }
+
+        }
+
+        MenuItem {
+
             text: qsTr("Help")
             icon.source: "qrc:/images/private/resources/Interface_icons/about.svg"
             onClicked:  () => {
@@ -263,6 +273,11 @@ ApplicationWindow {
     Component {
         id: about
         About {}
+    }
+
+    Component {
+        id: shareApp
+        PageShareApp {}
     }
 
     Component {

@@ -90,6 +90,10 @@
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Share application</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ColorPicker</name>
@@ -538,6 +542,13 @@
     </message>
     <message>
         <source>&lt;img src=&quot;qrc:/private/resources/help/Help1.jpg&quot; alt=&quot;tt&quot; width=&quot;100&quot;/&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PageShareApp</name>
+    <message>
+        <source>To get a cheat card, scan the QR code and follow the link.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
