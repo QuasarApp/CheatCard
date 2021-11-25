@@ -81,7 +81,9 @@
         <file>private/resources/Interface_icons/background_image.svg</file>
         <file>private/resources/Interface_icons/main_color.svg</file>
         <file>private/resources/Interface_icons/logo.svg</file>
-        <file>private/resources/Interface_icons/seal.svg</file>  
-                    
+        <file>private/resources/Interface_icons/seal.svg</file>
+        <file>private/resources/Interface_icons/sharing_icon.svg</file>
+        <file>private/resources/Interface_icons/share_url_qrcode.png</file>
+        <file>private/resources/Interface_icons/Google_play_logo.png</file>
     </qresource>
 </RCC>

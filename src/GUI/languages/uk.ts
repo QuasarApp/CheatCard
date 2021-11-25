@@ -90,11 +90,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Export your key</source>
+        <source>Share application</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Import your key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export your key</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -381,6 +385,10 @@
 <context>
     <name>ImportUserKeyPage</name>
     <message>
+        <source>Import your cadrs data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>**Attention** : This operation redefine your current application data (Cards, seals, users data). All current data will be removed.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -393,19 +401,8 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Import your cadrs data</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Select your backup qr code</source>
         <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>IncludeRecoveryWordPage</name>
-    <message>
-        <source>Next</source>
-        <translation type="obsolete">Далі</translation>
     </message>
 </context>
 <context>
@@ -598,6 +595,13 @@
     </message>
 </context>
 <context>
+    <name>PageShareApp</name>
+    <message>
+        <source>To get a cheat card, scan the QR code and follow the link.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>QrCodeView</name>
     <message>
         <source>It looks like this code should be shown to the seller!</source>
@@ -690,13 +694,6 @@
     <message>
         <source>Issued</source>
         <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>RecoveryPage</name>
-    <message>
-        <source>Next</source>
-        <translation type="obsolete">Далі</translation>
     </message>
 </context>
 <context>
@@ -797,13 +794,6 @@
     <message>
         <source>Check</source>
         <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>exportUserKeyPage</name>
-    <message>
-        <source>Next</source>
-        <translation type="obsolete">Далі</translation>
     </message>
 </context>
 </TS>

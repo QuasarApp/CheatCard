@@ -36,6 +36,7 @@
         <file>private/resources/help/Help3.jpg</file>
         <file>CheatCardModule/SellerStatistic.qml</file>
         <file>CheatCardModule/Settings.qml</file>
+        <file>CheatCardModule/PageShareApp.qml</file>
         <file>CheatCardModule/Style/CPage.qml</file>
         <file>CheatCardModule/ExportUserKeyPage.qml</file>
         <file>CheatCardModule/ImportUserKeyPage.qml</file>
