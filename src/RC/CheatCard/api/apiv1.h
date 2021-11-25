@@ -15,6 +15,8 @@
 
 namespace RC {
 
+class RestoreDataRequest;
+
 /**
  * @brief The ApiV1 class
  * General changes betwin BaseNode and BaseNodev1
@@ -45,6 +47,9 @@ protected:
                             const QH::AbstractNodeInfo *sender, const QH::Header&) override;
     bool processCardData(const QSharedPointer<QH::PKG::DataPack<Card> > &cardrequest,
                          const QH::AbstractNodeInfo *sender, const QH::Header &) override;
+
+    virtual bool processRestoreDataRequest(const QSharedPointer<RestoreDataRequest> &cardrequest,
+                         const QH::AbstractNodeInfo *sender, const QH::Header &);
 
 };
 }

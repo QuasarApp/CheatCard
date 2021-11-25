@@ -14,6 +14,8 @@
 #include <CheatCard/api/api0/card.h>
 #include "CheatCard/api/api0/user.h"
 
+#include <CheatCard/api/api1/restoredatarequest.h>
+
 #include "CheatCard/nodeinfo.h"
 
 #include <dbobjectsrequest.h>
@@ -22,6 +24,7 @@
 #include <cmath>
 #include <dbobjectsrequest.h>
 #include "CheatCard/basenode.h"
+
 
 namespace RC {
 
@@ -156,6 +159,34 @@ bool ApiV1::processCardData(const QSharedPointer<QH::PKG::DataPack<Card>> &cards
     }
 
     return node()->removeNode(sender->networkAddress());
+}
+
+bool ApiV1::processRestoreDataRequest(const QSharedPointer<RestoreDataRequest> &cardrequest,
+                                      const QH::AbstractNodeInfo *sender, const QH::Header &) {
+
+
+    QH::PKG::DataPack<UsersCards> responce;
+
+    QH::PKG::DBObjectsRequest<UsersCards> request("UsersCards",
+                                                  QString("user='%0'").arg(cardrequest->userId()));
+
+    auto result = db()->getObject(request);
+
+    for (const auto &data : qAsConst(result->data())) {
+        data->setCardVersion(node()->getCardVersion(data->getCard()));
+        responce.push(data);
+    }
+
+    QByteArray secret;
+    node()->getSignData(secret);
+    responce.setCustomData(secret);
+
+    if (!node()->sendData(&responce, sender)) {
+        return false;
+    }
+
+    return true;
+
 }
 
 bool ApiV1::processCardStatusRequest(const QSharedPointer<CardStatusRequest> &cardStatus,

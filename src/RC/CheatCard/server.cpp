@@ -14,6 +14,8 @@
 #include "CheatCard/api/api0/carddatarequest.h"
 #include "CheatCard/api/api0/cardstatusrequest.h"
 
+#include <CheatCard/api/api1/restoredatarequest.h>
+
 #include <badrequest.h>
 #include "CheatCard/clearolddata.h"
 #include <QCoreApplication>
@@ -26,6 +28,7 @@ Server::Server(QH::ISqlDBCache *db): BaseNode(db) {
     registerPackageType<QH::PKG::DataPack<UsersCards>>();
     registerPackageType<CardDataRequest>();
     registerPackageType<QH::PKG::DataPack<Card>>();
+    registerPackageType<RestoreDataRequest>();
 
     auto task = QSharedPointer<ClearOldData>::create();
     task->setTime(0);

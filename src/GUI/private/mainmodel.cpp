@@ -164,7 +164,9 @@ bool MainModel::importUser(QString base64UserData) {
                        tr("Yor secret key are imported"),
                        "", QmlNotificationService::NotificationData::Normal);
 
-    return true;
+    auto visitor = _backEndModel.dynamicCast<Visitor>();
+
+    return visitor->restoreOldData(userData->userId());
 }
 
 const QSharedPointer<UserModel>& MainModel::getCurrentUser() const {

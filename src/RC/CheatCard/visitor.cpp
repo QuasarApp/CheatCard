@@ -15,6 +15,7 @@
 #include <CheatCard/api/api0/session.h>
 #include <CheatCard/api/api0/userscards.h>
 #include <CheatCard/api/api0/card.h>
+#include <CheatCard/api/api1/restoredatarequest.h>
 
 namespace RC {
 
@@ -53,7 +54,12 @@ bool Visitor::checkCardData(long long session,
         return true;
     }
 
-    return addNode(_domain, _port);
+    auto action = [this](QH::AbstractNodeInfo *node) {
+        this->action(node);
+    };
+
+    return addNode(QH::HostAddress{_domain, _port},
+                   action, QH::NodeCoonectionStatus::Confirmed);
 }
 
 bool Visitor::cardValidation(const QSharedPointer<Card> &card,
@@ -68,13 +74,26 @@ void Visitor::getSignData(QByteArray &) const {
 
 }
 
+bool Visitor::restoreOldData(unsigned int curentUserId,
+                             const QString &domain, int port) {
+
+    RestoreDataRequest request;
+    request.setUserId(curentUserId);
+
+    auto action = [this](QH::AbstractNodeInfo *node) {
+        this->action(node);
+    };
+
+    return addNode(QH::HostAddress{domain, port},
+                   action, QH::NodeCoonectionStatus::Confirmed);
+}
+
 void Visitor::nodeConnected(QH::AbstractNodeInfo *node) {
     BaseNode::nodeConnected(node);
 }
 
 void Visitor::nodeConfirmend(QH::AbstractNodeInfo *node) {
     BaseNode::nodeConfirmend(node);
-    action(node);
 }
 
 void Visitor::handleTick() {
