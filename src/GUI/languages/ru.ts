@@ -91,11 +91,11 @@
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Нстройки</translation>
     </message>
     <message>
         <source>Share application</source>
-        <translation type="unfinished"></translation>
+        <translation>Поделится</translation>
     </message>
 </context>
 <context>
@@ -626,7 +626,7 @@
     </message>
     <message>
         <source>* Showed the QR code in the application at the checkout.</source>
-        <translation>* Показал qr код в приложении на кассе.</translation>
+        <translation>* Показал QR код в приложении на кассе.</translation>
     </message>
     <message>
         <source>* Received print to card.</source>
@@ -669,7 +669,7 @@
     </message>
     <message>
         <source>To get a cheat card, scan the QR code and follow the link.</source>
-        <translation type="unfinished"></translation>
+        <translation>Что бы получить Чит карту просканируйте QR код</translation>
     </message>
 </context>
 <context>
@@ -703,14 +703,14 @@
     <name>QrScanner</name>
     <message>
         <source>switch camera</source>
-        <translation type="unfinished"></translation>
+        <translation>Переключить камеру</translation>
     </message>
 </context>
 <context>
     <name>RC::AbstrcattableModelWithHeaders</name>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Неизвестно</translation>
     </message>
 </context>
 <context>
@@ -744,23 +744,23 @@
     <name>RC::SellerStatisticModel</name>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Имя</translation>
     </message>
     <message>
         <source>Last visit</source>
-        <translation type="unfinished"></translation>
+        <translation>Последний визит</translation>
     </message>
     <message>
         <source>Id</source>
-        <translation type="unfinished"></translation>
+        <translation>Id</translation>
     </message>
     <message>
         <source>Purchases</source>
-        <translation type="unfinished"></translation>
+        <translation>Покупки</translation>
     </message>
     <message>
         <source>Issued</source>
-        <translation type="unfinished"></translation>
+        <translation>Выдано</translation>
     </message>
 </context>
 <context>
@@ -813,7 +813,7 @@
     </message>
     <message>
         <source>Share name with seller</source>
-        <translation>Поделиться именем с продавцо</translation>
+        <translation>Делиться именем с продавцом</translation>
     </message>
     <message>
         <source>Developer settings</source>

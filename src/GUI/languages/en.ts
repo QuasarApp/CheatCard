@@ -95,11 +95,11 @@
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Settings</translation>
     </message>
     <message>
         <source>Share application</source>
-        <translation type="unfinished"></translation>
+        <translation>Share application</translation>
     </message>
 </context>
 <context>
@@ -708,7 +708,7 @@
     </message>
     <message>
         <source>To get a cheat card, scan the QR code and follow the link.</source>
-        <translation type="unfinished"></translation>
+        <translation>To get a cheat card, scan the QR code and follow the link.</translation>
     </message>
 </context>
 <context>
@@ -742,14 +742,14 @@
     <name>QrScanner</name>
     <message>
         <source>switch camera</source>
-        <translation type="unfinished"></translation>
+        <translation>switch camera</translation>
     </message>
 </context>
 <context>
     <name>RC::AbstrcattableModelWithHeaders</name>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Unknown</translation>
     </message>
 </context>
 <context>
@@ -772,42 +772,42 @@
     </message>
     <message>
         <source>Oops</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Some kind of garbage happened when reading the qr code. Try again</source>
-        <translation type="unfinished"></translation>
+        <translation>Some kind of garbage happened when reading the qr code. Try again</translation>
     </message>
     <message>
         <source>Sorry but not</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>This client do not have any bonuses. Sorry... </source>
-        <translation type="unfinished"></translation>
+        <translation>This client do not have any bonuses. Sorry... </translation>
     </message>
 </context>
 <context>
     <name>RC::SellerStatisticModel</name>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Name</translation>
     </message>
     <message>
         <source>Last visit</source>
-        <translation type="unfinished"></translation>
+        <translation>Last visit</translation>
     </message>
     <message>
         <source>Id</source>
-        <translation type="unfinished"></translation>
+        <translation>Id</translation>
     </message>
     <message>
         <source>Purchases</source>
-        <translation type="unfinished"></translation>
+        <translation>Purchases</translation>
     </message>
     <message>
         <source>Issued</source>
-        <translation type="unfinished"></translation>
+        <translation>Issued</translation>
     </message>
 </context>
 <context>
@@ -931,7 +931,7 @@
     </message>
     <message>
         <source>Check</source>
-        <translation type="unfinished"></translation>
+        <translation>Check</translation>
     </message>
 </context>
 </TS>
