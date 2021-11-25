@@ -688,7 +688,7 @@
     <name>QrScanner</name>
     <message>
         <source>switch camera</source>
-        <translation>Изменить камеру</translation>
+        <translation>Переключить камеру</translation>
     </message>
 </context>
 <context>
@@ -745,7 +745,7 @@
     </message>
     <message>
         <source>Issued</source>
-        <translation type="unfinished">Выдано</translation>
+        <translation>Выдано</translation>
     </message>
 </context>
 <context>
@@ -798,7 +798,7 @@
     </message>
     <message>
         <source>Share name with seller</source>
-        <translation>Поделиться именем с продавцо</translation>
+        <translation>Поделиться именем с продавцом</translation>
     </message>
     <message>
         <source>Developer settings</source>
