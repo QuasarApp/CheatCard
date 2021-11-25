@@ -95,7 +95,7 @@
     </message>
     <message>
         <source>Share application</source>
-        <translation type="unfinished"></translation>
+        <translation>Поделится</translation>
     </message>
 </context>
 <context>
@@ -669,7 +669,7 @@
     </message>
     <message>
         <source>To get a cheat card, scan the QR code and follow the link.</source>
-        <translation type="unfinished"></translation>
+        <translation>Что бы получить Чит карту просканируйте QR код</translation>
     </message>
 </context>
 <context>
