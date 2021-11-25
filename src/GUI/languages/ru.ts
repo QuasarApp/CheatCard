@@ -626,7 +626,7 @@
     </message>
     <message>
         <source>* Showed the QR code in the application at the checkout.</source>
-        <translation>* Показал qr код в приложении на кассе.</translation>
+        <translation>* Показал QR код в приложении на кассе.</translation>
     </message>
     <message>
         <source>* Received print to card.</source>
@@ -813,7 +813,7 @@
     </message>
     <message>
         <source>Share name with seller</source>
-        <translation>Поделиться именем с продавцом</translation>
+        <translation>Делиться именем с продавцом</translation>
     </message>
     <message>
         <source>Developer settings</source>
