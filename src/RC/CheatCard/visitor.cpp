@@ -61,7 +61,7 @@ bool Visitor::checkCardData(long long session,
         this->action(node);
     };
 
-    return addNode(QH::HostAddress{_domain, _port},
+    return addNode(_domain, _port,
                    action, QH::NodeCoonectionStatus::Confirmed);
 }
 
@@ -87,8 +87,8 @@ bool Visitor::restoreOldData(unsigned int curentUserId,
         this->action(node);
     };
 
-    return addNode(QH::HostAddress{domain, port},
-                   action, QH::NodeCoonectionStatus::Confirmed);
+    return addNode(domain, port, action,
+                   QH::NodeCoonectionStatus::Confirmed);
 }
 
 void Visitor::nodeConnected(QH::AbstractNodeInfo *node) {
