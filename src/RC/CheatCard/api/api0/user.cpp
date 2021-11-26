@@ -28,8 +28,8 @@ QH::PKG::DBObject *User::createDBObject() const {
 QH::PKG::DBVariantMap User::variantMap() const {
     return {{"id",          {getId(),     QH::PKG::MemberType::PrimaryKey}},
             {"name",        {_name,       QH::PKG::MemberType::InsertUpdate}},
-            {"key",         {_key.toBase64(QByteArray::Base64UrlEncoding),    QH::PKG::MemberType::Insert}},
-            {"secret",      {_secret.toBase64(QByteArray::Base64UrlEncoding), QH::PKG::MemberType::Insert}},
+            {"key",         {QString(_key.toBase64(QByteArray::Base64UrlEncoding)),    QH::PKG::MemberType::Insert}},
+            {"secret",      {QString(_secret.toBase64(QByteArray::Base64UrlEncoding)), QH::PKG::MemberType::Insert}},
             {"time",        {static_cast<int>(time(0)),      QH::PKG::MemberType::InsertUpdate}},
 
     };
@@ -85,6 +85,10 @@ unsigned int User::makeId(const QByteArray &key) {
 
 const QByteArray &User::getKey() const {
     return _key;
+}
+
+const QString User::getSignature() const {
+    return getKey().toBase64(QByteArray::Base64UrlEncoding);
 }
 
 void User::setKey(const QByteArray &newKey){

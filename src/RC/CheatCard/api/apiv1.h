@@ -16,6 +16,7 @@
 namespace RC {
 
 class RestoreDataRequest;
+class UsersCardsV1;
 
 /**
  * @brief The ApiV1 class
@@ -40,7 +41,9 @@ protected:
     bool processSession(const QSharedPointer<Session> &message,
                         const QH::AbstractNodeInfo *sender, const QH::Header&) override;
     bool processCardStatus(const QSharedPointer<QH::PKG::DataPack<UsersCards>> &cardStatuses,
-                           const QH::AbstractNodeInfo *sender, const QH::Header&) override;
+                           const QH::AbstractNodeInfo *sender, const QH::Header&) override final;
+    virtual bool processCardStatusV1(const QSharedPointer<QH::PKG::DataPack<UsersCardsV1>> &cardStatuses,
+                                   const QH::AbstractNodeInfo *sender, const QH::Header&);
     bool applayPurchases(const QSharedPointer<UsersCards> &dbCard,
                          const QH::AbstractNodeInfo *sender) override;
     bool processCardRequest(const QSharedPointer<CardDataRequest> &cardStatus,
@@ -49,7 +52,7 @@ protected:
                          const QH::AbstractNodeInfo *sender, const QH::Header &) override;
 
     virtual bool processRestoreDataRequest(const QSharedPointer<RestoreDataRequest> &cardrequest,
-                         const QH::AbstractNodeInfo *sender, const QH::Header &);
+                                           const QH::AbstractNodeInfo *sender, const QH::Header &);
 
 };
 }

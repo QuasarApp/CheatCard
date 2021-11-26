@@ -194,6 +194,7 @@ ApplicationWindow {
 
         MenuItem {
             text: qsTr("Import your key")
+            icon.source: "qrc:/images/private/resources/Interface_icons/key_pull.svg"
 
             onClicked:  () => {
                             activityProcessor.newActivity("qrc:/CheatCardModule/ImportUserKeyPage.qml",
@@ -203,6 +204,7 @@ ApplicationWindow {
 
         MenuItem {
             text: qsTr("Export your key")
+            icon.source: "qrc:/images/private/resources/Interface_icons/key_push.svg"
 
             onClicked:  () => {
                             activityProcessor.newActivity("qrc:/CheatCardModule/ExportUserKeyPage.qml",

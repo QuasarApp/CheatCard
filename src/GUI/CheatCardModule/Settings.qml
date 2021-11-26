@@ -84,11 +84,7 @@ Page {
                         ColorPicker {
                             id: colorPick
                             implicitHeight: 0x0
-                            header: Label {
-                                horizontalAlignment: Label.AlignHCenter
-                                text: qsTr("Please choose a color")
-                                font.bold: true
-                            }
+                            title: qsTr("Please choose a color")
 
                             footer: DialogButtonBox {
                                 onAccepted: () => {

@@ -216,13 +216,9 @@ BaseNode::getUserCardData(unsigned int userId, unsigned int cardId) const {
 }
 
 QList<QSharedPointer<UsersCards> >
-BaseNode::getAllUserFromCard(unsigned int cardId, bool includeOwner) const {
+BaseNode::getAllUserFromCard(unsigned int cardId) const {
 
     QString where = QString("card=%0").arg(cardId);
-
-    if (!includeOwner) {
-        where += " AND owner=0";
-    }
 
     QH::PKG::DBObjectsRequest<UsersCards> request("UsersCards",
                                                   where);
@@ -231,12 +227,8 @@ BaseNode::getAllUserFromCard(unsigned int cardId, bool includeOwner) const {
 }
 
 QList<QSharedPointer<User> >
-BaseNode::getAllUserDataFromCard(unsigned int cardId, bool includeOwner) const {
+BaseNode::getAllUserDataFromCard(unsigned int cardId) const {
     QString where = QString("card=%0").arg(cardId);
-
-    if (!includeOwner) {
-        where += " AND owner=0";
-    }
 
     where = QString("id IN (select user from UsersCards where %0)").arg(where);
 

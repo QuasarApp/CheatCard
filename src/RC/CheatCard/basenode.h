@@ -46,10 +46,10 @@ public:
     QSharedPointer<UsersCards>
     getUserCardData(unsigned int userId, unsigned int cardId) const;
     QList<QSharedPointer<UsersCards> >
-    getAllUserFromCard(unsigned int cardId, bool includeOwner = true) const;
+    getAllUserFromCard(unsigned int cardId) const;
 
     QList<QSharedPointer<User> >
-    getAllUserDataFromCard(unsigned int cardId, bool includeOwner = true) const;
+    getAllUserDataFromCard(unsigned int cardId) const;
 
     QSharedPointer<Card> getCard(unsigned int cardId);
     QByteArray getUserSecret(unsigned int userId) const;

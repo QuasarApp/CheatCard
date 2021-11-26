@@ -189,15 +189,16 @@ void MainModel::setCurrentUser(QSharedPointer<UserModel> value) {
          if (_backEndModel) {
              _backEndModel->setCurrentUser(_currentUser->user());
          }
+         unsigned int userId = _currentUser->user()->userId();
+         QString userSignature = _currentUser->user()->getSignature();
 
-        _config->setCurrUser(_currentUser->user()->userId());
+        _config->setCurrUser(userId);
 
         _currentUser->regenerateSessionKey();
 
         // get list of owned cards
-        QString where = QString("id IN (SELECT card FROM UsersCards WHERE user = %0 AND owner = %1)").
-                arg(_currentUser->user()->userId()).
-                arg("true");
+        QString where = QString("ownerSignature= '%0'").
+                arg(userSignature);
 
         QH::PKG::DBObjectsRequest<Card> request("Cards", where);
         if (auto result =_db->getObject(request)) {
@@ -205,9 +206,8 @@ void MainModel::setCurrentUser(QSharedPointer<UserModel> value) {
         }
 
         // get list of included cards
-        where = QString("id IN (SELECT card FROM UsersCards WHERE user = %0 AND owner = %1)").
-                arg(_currentUser->user()->userId()).
-                arg("false");
+        where = QString("ownerSignature!= '%0'").
+                arg(userSignature);
 
         request.setConditions(where);
         if (auto result =_db->getObject(request)) {
@@ -215,16 +215,15 @@ void MainModel::setCurrentUser(QSharedPointer<UserModel> value) {
         }
 
         // get list of cards usings statuses
-        where = QString("user = %0 AND owner = %1").
-                arg(_currentUser->user()->userId()).
-                arg("false");
+        where = QString("user = %0").
+                arg(userId);
 
         QH::PKG::DBObjectsRequest<UsersCards> requestPurchase("UsersCards", where);
         if (auto result =_db->getObject(requestPurchase)) {
             _cardsListModel->updateMetaData(result->data());
         }
 
-        _settings.setValue(CURRENT_USER, _currentUser->user()->userId());
+        _settings.setValue(CURRENT_USER, userId);
     }
 
     emit currentUserChanged();
@@ -470,9 +469,6 @@ void RC::MainModel::saveCard(const QSharedPointer<Card>& card) {
     card->setCardVersion(card->getCardVersion() + 1);
 
     _db->insertIfExistsUpdateObject(card);
-    auto cards = QSharedPointer<UsersCards>::create(_currentUser->user()->userId(),
-                                                    card->cardId(), true);
-    _db->insertIfExistsUpdateObject(cards);
 }
 
 void MainModel::handleCardEditFinished(const QSharedPointer<Card>& card) {
@@ -485,7 +481,7 @@ void MainModel::handleCardEditFinished(const QSharedPointer<Card>& card) {
         return;
     }
 
-    auto listOfUsers = _backEndModel->getAllUserFromCard(card->cardId(), false);
+    auto listOfUsers = _backEndModel->getAllUserFromCard(card->cardId());
 
     if (localCard && listOfUsers.size() && localCard->getFreeIndex() != card->getFreeIndex()) {
 
@@ -533,8 +529,8 @@ void MainModel::handleCardSelectedForWork(const QSharedPointer<CardModel> &card)
 }
 
 void MainModel::handleCardSelectedForStatistic(const QSharedPointer<CardModel> &card) {
-    auto usersList = _backEndModel->getAllUserFromCard(card->card()->cardId(), false);
-    auto usersDataList = _backEndModel->getAllUserDataFromCard(card->card()->cardId(), false);
+    auto usersList = _backEndModel->getAllUserFromCard(card->card()->cardId());
+    auto usersDataList = _backEndModel->getAllUserDataFromCard(card->card()->cardId());
 
     _statisticModel->setDataList(card, usersList, usersDataList);
 }

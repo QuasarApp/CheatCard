@@ -93,7 +93,6 @@ QSharedPointer<UsersCards> Seller::prepareData(const QSharedPointer<UserHeader> 
     auto userCardsData = getUserCardData(userHeaderData->getUserId(), cardId);
     if (!userCardsData) {
         userCardsData = QSharedPointer<UsersCards>::create();
-        userCardsData->setOwner(false);
         userCardsData->setUser(userHeaderData->getUserId());
         userCardsData->setPurchasesNumber(0);
         userCardsData->setCard(cardId);

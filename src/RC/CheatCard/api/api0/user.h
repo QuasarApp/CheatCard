@@ -48,6 +48,7 @@ public:
     void setFSaller(bool newFSaller);
 
     const QByteArray &getKey() const;
+    const QString getSignature() const;
     void setKey(const QByteArray &newKey);
 
     unsigned int userId() const;

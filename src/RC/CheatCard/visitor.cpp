@@ -15,13 +15,16 @@
 #include <CheatCard/api/api0/session.h>
 #include <CheatCard/api/api0/userscards.h>
 #include <CheatCard/api/api0/card.h>
+
 #include <CheatCard/api/api1/restoredatarequest.h>
+#include <CheatCard/api/api1/userscardsv1.h>
 
 namespace RC {
 
 
 Visitor::Visitor(QH::ISqlDBCache *db): BaseNode(db) {
     registerPackageType<QH::PKG::DataPack<UsersCards>>();
+    registerPackageType<QH::PKG::DataPack<UsersCardsV1>>();
     registerPackageType<QH::PKG::DataPack<Card>>();
 
     _timer = new QTimer(this);
