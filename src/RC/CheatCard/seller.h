@@ -45,8 +45,6 @@ private:
     QSharedPointer<UsersCards> prepareData(const QSharedPointer<UserHeader> &userHeaderData,
                          unsigned int cardId);
 
-    QString randomUserName() const;
-
     QHash<long long, QSharedPointer<Session>> _lastRequested;
 
 };

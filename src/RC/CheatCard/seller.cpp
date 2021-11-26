@@ -10,6 +10,7 @@
 #include "CheatCard/api/api0/cardstatusrequest.h"
 #include "CheatCard/dataconvertor.h"
 #include "basenode.h"
+#include "usersnames.h"
 #include "seller.h"
 #include "CheatCard/api/api0/userheader.h"
 #include <CheatCard/api/api0/session.h>
@@ -55,52 +56,6 @@ void Seller::getSignData(QByteArray &data) const {
         data = currentUser()->secret();
 }
 
-QString Seller::randomUserName() const {
-
-    static QStringList list = {
-        tr("Forget bag"),
-        tr("Forget bag"),
-        tr("Warty Warthog"),
-        tr("Hoary Hedgehog"),
-        tr("Breezy Badger"),
-        tr("Dapper Drake"),
-        tr("Edgy Eft"),
-        tr("Feisty Fawn"),
-        tr("Gutsy Gibbon"),
-        tr("Hardy Heron"),
-        tr("Intrepid Ibex"),
-        tr("Jaunty Jackalope"),
-        tr("Karmic Koala"),
-        tr("Lucid Lynx"),
-        tr("Maverick Meerkat"),
-        tr("Natty Narwhal"),
-        tr("Oneiric Ocelot"),
-        tr("Precise Pangolin"),
-        tr("Quantal Quetzal"),
-        tr("Raring Ringtail"),
-        tr("Saucy Salamander"),
-        tr("Trusty Tahr"),
-        tr("Utopic Unicorn"),
-        tr("Vivid Vervet"),
-        tr("Wily Werewolf"),
-        tr("Xenial Xerus"),
-        tr("Yakkety Yak"),
-        tr("Zesty Zapus"),
-        tr("Artful Aardvark"),
-        tr("Bionic Beaver"),
-        tr("Cosmic Cuttlefish"),
-        tr("Disco Dingo"),
-        tr("Eoan Ermine"),
-        tr("Focal Fossa"),
-        tr("Groovy Gorilla"),
-        tr("Hirsute Hippo"),
-        tr("Impish Indri")
-
-    };
-
-    return list[rand() % list.size()];
-}
-
 QSharedPointer<UsersCards> Seller::prepareData(const QSharedPointer<UserHeader> &userHeaderData,
                          unsigned int cardId) {
 
@@ -127,7 +82,7 @@ QSharedPointer<UsersCards> Seller::prepareData(const QSharedPointer<UserHeader> 
     auto dbUser = DataConvertor::toUser(userHeaderData);
 
     if (dbUser->name().isEmpty()) {
-        dbUser->setName(randomUserName());
+        dbUser->setName(UsersNames::randomUserName());
     }
 
     if (!db()->insertIfExistsUpdateObject(dbUser)) {
