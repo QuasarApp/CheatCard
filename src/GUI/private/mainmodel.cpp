@@ -166,7 +166,7 @@ bool MainModel::importUser(QString base64UserData) {
 
     auto visitor = _backEndModel.dynamicCast<Visitor>();
 
-    return visitor->restoreOldData(userData->userId());
+    return visitor->restoreOldData(userData->getKey());
 }
 
 const QSharedPointer<UserModel>& MainModel::getCurrentUser() const {
@@ -186,36 +186,26 @@ void MainModel::setCurrentUser(QSharedPointer<UserModel> value) {
 
     if (_currentUser) {
 
-         if (_backEndModel) {
-             _backEndModel->setCurrentUser(_currentUser->user());
-         }
-         unsigned int userId = _currentUser->user()->userId();
-         QString userSignature = _currentUser->user()->getSignature();
+        if (_backEndModel) {
+            _backEndModel->setCurrentUser(_currentUser->user());
+        }
+        unsigned int userId = _currentUser->user()->userId();
+        QByteArray userKey = _currentUser->user()->getKey();
 
         _config->setCurrUser(userId);
 
         _currentUser->regenerateSessionKey();
 
         // get list of owned cards
-        QString where = QString("ownerSignature= '%0'").
-                arg(userSignature);
-
-        QH::PKG::DBObjectsRequest<Card> request("Cards", where);
-        if (auto result =_db->getObject(request)) {
-            _ownCardsListModel->setCards(result->data());
-        }
+        _ownCardsListModel->setCards(_backEndModel->getAllUserCards(userKey,
+                                                                    false));
 
         // get list of included cards
-        where = QString("ownerSignature!= '%0'").
-                arg(userSignature);
-
-        request.setConditions(where);
-        if (auto result =_db->getObject(request)) {
-            _cardsListModel->setCards(result->data());
-        }
+        _cardsListModel->setCards(_backEndModel->getAllUserCards(userKey,
+                                                                 true));
 
         // get list of cards usings statuses
-        where = QString("user = %0").
+        QString where = QString("user = %0").
                 arg(userId);
 
         QH::PKG::DBObjectsRequest<UsersCards> requestPurchase("UsersCards", where);

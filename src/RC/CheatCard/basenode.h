@@ -52,6 +52,15 @@ public:
     getAllUserDataFromCard(unsigned int cardId) const;
 
     QSharedPointer<Card> getCard(unsigned int cardId);
+
+    /**
+     * @brief getAllUserCards This method will return list of available cards of the user with @a userKey key
+     * @param userKey user key
+     * @param restOf This option force return list of not ovned cards.
+     * @return cards list;
+     */
+    QList<QSharedPointer<Card>> getAllUserCards(const QByteArray &userKey,
+                                                bool restOf = false);
     QByteArray getUserSecret(unsigned int userId) const;
 
     const QMap<int, QSharedPointer<QH::iParser> > &apiParsers() const;

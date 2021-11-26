@@ -12,28 +12,31 @@ RestoreDataRequest::RestoreDataRequest() {
 
 }
 
-unsigned int RestoreDataRequest::userId() const {
-    return _userId;
-}
-
-void RestoreDataRequest::setUserId(unsigned int newUserId) {
-    _userId = newUserId;
-}
-
 bool RestoreDataRequest::isValid() const {
-    return _userId;
+    return _userKey.size();
 }
 
 QDataStream &RestoreDataRequest::fromStream(QDataStream &stream) {
-    stream >> _userId;
+    stream >> _userKey;
     return stream;
 }
 
 QDataStream &RestoreDataRequest::toStream(QDataStream &stream) const {
-    stream << _userId;
+    stream << _userKey;
 
     return stream;
+}
 
+const QByteArray &RestoreDataRequest::userKey() const {
+    return _userKey;
+}
+
+QString RestoreDataRequest::userKeyBase64() const {
+    return userKey().toBase64(QByteArray::Base64UrlEncoding);
+}
+
+void RestoreDataRequest::setUserKey(const QByteArray &newUserKey) {
+    _userKey = newUserKey;
 }
 
 }

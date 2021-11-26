@@ -182,8 +182,10 @@ bool ApiV1::processRestoreDataRequest(const QSharedPointer<RestoreDataRequest> &
 
     QH::PKG::DataPack<UsersCardsV1> responce;
 
+    unsigned int userID = User::makeId(cardrequest->userKey());
+
     QH::PKG::DBObjectsRequest<UsersCardsV1> request("UsersCards",
-                                                    QString("user='%0'").arg(cardrequest->userId()));
+                                                    QString("user='%0'").arg(userID));
 
     auto result = db()->getObject(request);
 
@@ -197,6 +199,13 @@ bool ApiV1::processRestoreDataRequest(const QSharedPointer<RestoreDataRequest> &
     responce.setCustomData(secret);
 
     if (!node()->sendData(&responce, sender)) {
+        return false;
+    }
+
+    auto cardsList = node()->getAllUserCards(cardrequest->userKey());
+    QH::PKG::DataPack<Card> cardsPack(cardsList);
+
+    if (cardsPack.isValid() && !node()->sendData(&cardsPack, sender)) {
         return false;
     }
 

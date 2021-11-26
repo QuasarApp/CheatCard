@@ -19,17 +19,19 @@ class CHEATCARD_CORE_EXPORT RestoreDataRequest: public QH::PKG::AbstractData
 
 public:
     RestoreDataRequest();
-    unsigned int userId() const;
-    void setUserId(unsigned int newUserId);
     bool isValid() const override;
 
     // StreamBase interface
+    const QByteArray &userKey() const;
+    QString userKeyBase64() const;
+    void setUserKey(const QByteArray &newUserKey);
+
 protected:
     QDataStream &fromStream(QDataStream &stream) override;
     QDataStream &toStream(QDataStream &stream) const override;
 
 private:
-    unsigned int _userId;
+    QByteArray _userKey;
 
 };
 }

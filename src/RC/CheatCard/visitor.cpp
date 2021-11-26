@@ -77,11 +77,11 @@ void Visitor::getSignData(QByteArray &) const {
 
 }
 
-bool Visitor::restoreOldData(unsigned int curentUserId,
+bool Visitor::restoreOldData(const QByteArray &curentUserKey,
                              const QString &domain, int port) {
 
     RestoreDataRequest request;
-    request.setUserId(curentUserId);
+    request.setUserKey(curentUserKey);
 
     auto action = [this](QH::AbstractNodeInfo *node) {
         this->action(node);

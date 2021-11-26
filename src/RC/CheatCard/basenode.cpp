@@ -47,7 +47,7 @@ QH::ParserResult BaseNode::parsePackage(const QSharedPointer<QH::PKG::AbstractDa
     // here node must be receive version of connected application.
     // if not use the default version (0)ApplicationVersion
     parentResult = commandHandler<ApplicationVersion>(this, &BaseNode::processAppVersion,
-                                               pkg, sender, pkgHeader);
+                                                      pkg, sender, pkgHeader);
     if (parentResult != QH::ParserResult::NotProcessed) {
         return parentResult;
     }
@@ -55,7 +55,7 @@ QH::ParserResult BaseNode::parsePackage(const QSharedPointer<QH::PKG::AbstractDa
     // here node must be receive responce that version is delivered.
     // when node receive this message then node status are confirmed
     parentResult = commandHandler<VersionIsReceived>(this, &BaseNode::versionDeliveredSuccessful,
-                                               pkg, sender, pkgHeader);
+                                                     pkg, sender, pkgHeader);
     if (parentResult != QH::ParserResult::NotProcessed) {
         return parentResult;
     }
@@ -243,6 +243,24 @@ QSharedPointer<Card> BaseNode::getCard(unsigned int cardId) {
     request.setId(cardId);
 
     return _db->getObject(request);
+}
+
+QList<QSharedPointer<Card> > BaseNode::getAllUserCards(const QByteArray& userKey,
+                                                       bool restOf) {
+
+    QString where = "ownerSignature= '%0'";
+    if (restOf) {
+        where = "ownerSignature!= '%0'";
+    }
+
+    where = where.arg(QString(userKey.toBase64(QByteArray::Base64UrlEncoding)));
+
+    QH::PKG::DBObjectsRequest<Card> cardRequest("Cards", where);
+    if (auto result = db()->getObject(cardRequest)) {
+        return result->data();
+    }
+
+    return {};
 }
 
 QByteArray BaseNode::getUserSecret(unsigned int userId) const {

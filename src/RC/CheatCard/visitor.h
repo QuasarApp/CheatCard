@@ -27,7 +27,7 @@ public:
                         const QByteArray &ownerSecret) const override;
     void getSignData(QByteArray &data) const override;
 
-    bool restoreOldData(unsigned int curentUserId,
+    bool restoreOldData(const QByteArray &curentUserKey,
                         const QString& domain = "",
                         int port = DEFAULT_CHEAT_CARD_PORT_SSL);
 
