@@ -66,7 +66,6 @@ void UserModel::setUser(const QSharedPointer<User>& newUser) {
         return;
 
     _user = newUser;
-    _userBackUp = _user->toBytes().toBase64(QByteArray::Base64UrlEncoding);
     emit objChanged();
 
 }
@@ -126,8 +125,8 @@ QString UserModel::userBackUpPath() const {
     return path;
 }
 
-const QString &UserModel::userBackUp() const {
-    return _userBackUp;
+QString UserModel::userBackUpData() const {
+    return _user->toBytes().toBase64(QByteArray::Base64UrlEncoding);
 }
 
 }

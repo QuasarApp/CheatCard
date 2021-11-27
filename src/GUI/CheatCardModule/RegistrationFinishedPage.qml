@@ -7,7 +7,7 @@ import "Style"
 CPage {
     id: root
 
-    signal finished();
+    signal finished(var backupData);
 
     title: qsTr("Done!")
 
@@ -15,7 +15,7 @@ CPage {
 
         ColumnLayout {
             anchors.fill: parent
-
+            spacing: 20
             Item {
                 Layout.fillHeight: true
             }
@@ -23,9 +23,25 @@ CPage {
             Label {
                 Layout.alignment: Qt.AlignHCenter
                 Layout.fillWidth: true
-                text: qsTr("Now let's move on to using!")
+                text: qsTr("All Done! <b>But If you drop your application data then all your cards will be removed</b>. For save it self of this situations we recommends create a back up your master key.")
                 wrapMode: Label.WordWrap
                 horizontalAlignment: TextInput.AlignHCenter
+            }
+
+            RowLayout {
+                Layout.preferredWidth: parent.width
+                CheckBox {
+                    id: restore
+                    Layout.alignment: Qt.AlignCenter
+
+                }
+
+                Label {
+                    Layout.fillWidth: true
+                    wrapMode: Label.WordWrap
+                    horizontalAlignment: TextInput.AlignLeft
+                    text: qsTr("Create a back up of master key for save data of my account.")
+                }
             }
 
             Button {
@@ -33,7 +49,7 @@ CPage {
                 Layout.alignment: Qt.AlignHCenter
 
                 onClicked: () => {
-                               root.finished()
+                               root.finished(restore.checked)
                            }
             }
 

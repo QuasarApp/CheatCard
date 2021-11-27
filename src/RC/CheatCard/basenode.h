@@ -51,6 +51,10 @@ public:
     QList<QSharedPointer<User> >
     getAllUserDataFromCard(unsigned int cardId) const;
 
+    bool restoreOldData(const QByteArray &curentUserKey,
+                        const QString& domain = "",
+                        int port = DEFAULT_CHEAT_CARD_PORT_SSL);
+
     QSharedPointer<Card> getCard(unsigned int cardId);
 
     /**

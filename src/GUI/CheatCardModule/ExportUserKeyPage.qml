@@ -59,7 +59,7 @@ CPage {
             SBarcodeGenerator {
                 id: generator
                 fileName: "CheatCard-" + ((root.model)? root.model.name: "") + ".qrrc";
-                inputText: (root.model)? root.model.userBackUp: "Sorry"
+                inputText: (root.model)? root.model.userBackUpData(): "Sorry"
                 height: parent.height
                 width:  parent.width
                 margin: 0

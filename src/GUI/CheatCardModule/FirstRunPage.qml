@@ -13,7 +13,7 @@ import QtQuick.Layouts 1.15
 
 import "Style"
 
-Page {
+CPage {
     id: root
     title: qsTr("Registration");
 
@@ -49,47 +49,34 @@ Page {
                         id: column
                         anchors.fill: parent
 
-                        Item {
-                            Layout.fillHeight: true
-                        }
-
                         ColumnLayout {
-                            Layout.alignment: Qt.AlignCenter
+                            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
                             RadioButton {
+                                id: fClient
                                 checked: true
                                 text: qsTr("I am client")
                             }
 
                             RadioButton {
-                                id: rSaller
+                                id: fSaller
                                 text: qsTr("I am seller")
                             }
-                        }
 
-                        Button {
-                            text: qsTr("Next")
-                            Layout.alignment: Qt.AlignHCenter
-
-                            onClicked: () => {
-                                           view.currentIndex++;
-                                       }
-                        }
-
-                        Item {
-                            Layout.fillHeight: true
+                            RadioButton {
+                                id: fRestore
+                                text: qsTr("Nobody, I just want to recover data")
+                            }
                         }
                     }
                 }
             }
 
             CPage {
-                id: selectName
+                id: confugurePage
                 implicitWidth: 0x0
 
-                title: (!rSaller.checked)? qsTr("What is your name?") :
-                                           qsTr("What is the name of your company?");
-
+                property bool done: !visible
 
                 Keys.onReleased: {
                     if ((event.key === Qt.Key_Back ||
@@ -105,69 +92,72 @@ Page {
 
                     ColumnLayout {
                         anchors.fill: parent
+                        visible: fClient.checked || fSaller.checked
 
-                        Item {
-                            Layout.fillHeight: true
+                        Label {
+                            horizontalAlignment: Label.AlignHCenter
+                            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+
+                            font.pointSize: 20
+                            color: "#424242"
+                            wrapMode: Label.WordWrap
+                            text: (!fSaller.checked)? qsTr("What is your name?") :
+                                                      qsTr("What is the name of your company?");
                         }
 
                         TextField {
                             id: name
-                            Layout.alignment: Qt.AlignHCenter
+                            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                             Layout.fillWidth: true
                             placeholderText: qsTr("Please enter your name here")
                             horizontalAlignment: TextInput.AlignHCenter
 
-                        }
-
-                        RowLayout {
-                            Layout.alignment: Qt.AlignHCenter
-                            Button {
-                                text: qsTr("Back")
-                                Layout.alignment: Qt.AlignHCenter
-
-                                onClicked: () => {
-                                               view.currentIndex--;
-                                           }
-
+                            onTextChanged: {
+                                confugurePage.done = text.length
                             }
 
+                        }
+                    }
 
-                            Button {
-                                text: qsTr("Go!")
-                                enabled: name.text.length
-                                onClicked: () => {
-                                               view.currentIndex = 2;
-                                           }
-                            }
+                    ImportUserKeyPage {
+                        implicitWidth: 0x0
+                        model: (root.model)? root.model.currentUser : null
+
+                        anchors.fill: parent
+                        visible: fRestore.checked
+
+                        onImportFinished: {
+                            root.finished();
                         }
 
-
-                        Item {
-                            Layout.fillHeight: true
-                        }
                     }
                 }
             }
 
             RegistrationFinishedPage {
                 implicitWidth: 0x0
-                onFinished: {
-                    if (!root.model)
-                        return;
+                onFinished: (backUp) => {
+                                if (!root.model)
+                                return;
 
+                                const object = root.model.currentUser;
 
-                    const object = root.model.currentUser;
+                                object.name = name.text;
 
-                    object.name = name.text;
+                                if (fSaller.checked) {
+                                    object.becomeSellerRequest();
+                                }
 
-                    if (rSaller.checked) {
-                        object.becomeSellerRequest();
-                    }
+                                root.model.configureFinished();
 
-                    root.model.configureFinished();
+                                if (backUp) {
+                                    activityProcessor.newActivity("qrc:/CheatCardModule/ExportUserKeyPage.qml",
+                                                                  mainModel.currentUser);
 
-                    root.finished();
-                }
+                                }
+
+                                root.finished();
+                            }
             }
         }
 
@@ -178,6 +168,32 @@ Page {
             count: view.count
             currentIndex: view.currentIndex
             interactive: false
+        }
+    }
+
+    footer: RowLayout {
+        Layout.alignment: Qt.AlignHCenter
+        visible: view.currentIndex < 2
+        Button {
+            text: qsTr("Back")
+            Layout.alignment: Qt.AlignHCenter
+            enabled: view.currentIndex
+            onClicked: () => {
+                           view.currentIndex--;
+                           if (view.currentIndex === 0) {
+                               name.text = ""
+                           }
+                       }
+        }
+
+        Button {
+            id: nextButton
+            Layout.alignment: Qt.AlignHCenter
+            enabled: confugurePage.done || view.currentIndex != 1
+            text: (view.currentIndex < 1)? qsTr("Next"): qsTr("Done!")
+            onClicked: () => {
+                           view.currentIndex++;
+                       }
         }
     }
 }

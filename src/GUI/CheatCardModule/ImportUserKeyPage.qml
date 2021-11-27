@@ -18,6 +18,7 @@ CPage {
     title: qsTr("Import your cadrs data")
 
     property var model: null
+    signal importFinished()
 
     contentItem: ColumnLayout {
 
@@ -63,12 +64,7 @@ CPage {
         QrScanner {
             id:qrScaner
             onCaptured: (data) => {
-                            if (!root.model) {
-                                return
-                            }
-                            root.model.importUser(data);
-                            activityProcessor.popItem();
-
+                            privateRoot.importDataFinished(data)
                         }
 
             onVisibleChanged: {
@@ -98,7 +94,24 @@ CPage {
 
 
         onCapturedChanged: (captured) => {
-                               mainModel.importUser(captured);
+                               privateRoot.importDataFinished(captured)
                            }
+    }
+
+    Item {
+        id: privateRoot
+
+        function importDataFinished (data) {
+            if (!mainModel) {
+                return
+            }
+
+            if(mainModel.importUser(data)) {
+                root.importFinished()
+            }
+
+            activityProcessor.popItem();
+        }
+
     }
 }

@@ -160,13 +160,21 @@ bool MainModel::importUser(QString base64UserData) {
     _config->setValue("fFirst", false);
     saveUser();
 
+    if (!_backEndModel->restoreOldData(userData->getKey())) {
+        service->setNotify(tr("We Has a troubles"),
+                           tr("Yor secret key are imported successful but donwload backup data from server is failed."
+                              " Please check your internet connection and try restore your data again"),
+                           "", QmlNotificationService::NotificationData::Warning);
+
+        return false;
+    }
+
     service->setNotify(tr("I managed to do it !"),
                        tr("Yor secret key are imported"),
                        "", QmlNotificationService::NotificationData::Normal);
 
-    auto visitor = _backEndModel.dynamicCast<Visitor>();
 
-    return visitor->restoreOldData(userData->getKey());
+    return true;
 }
 
 const QSharedPointer<UserModel>& MainModel::getCurrentUser() const {

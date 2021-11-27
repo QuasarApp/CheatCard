@@ -32,7 +32,6 @@ class UserModel: public QObject, public QuasarAppUtils::SettingsListner
     Q_PROPERTY(bool fSaller READ fSaller NOTIFY objChanged)
     Q_PROPERTY(long long sessinon READ getSessinon NOTIFY sessinonChanged)
     Q_PROPERTY(QString sessionCode READ sessionCode NOTIFY sessinonChanged)
-    Q_PROPERTY(QString userBackUp READ userBackUp NOTIFY objChanged)
 
     QML_ELEMENT
 
@@ -58,7 +57,7 @@ public:
 
     void regenerateSessionKey();
 
-    const QString &userBackUp() const;
+    Q_INVOKABLE QString userBackUpData() const;
 
 signals:
     void objChanged();
@@ -76,7 +75,6 @@ private:
     long long sessinon;
     QString _sessionCode;
     QByteArray _sellerToken;
-    QString _userBackUp;
 };
 
 }

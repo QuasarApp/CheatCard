@@ -77,20 +77,6 @@ void Visitor::getSignData(QByteArray &) const {
 
 }
 
-bool Visitor::restoreOldData(const QByteArray &curentUserKey,
-                             const QString &domain, int port) {
-
-    RestoreDataRequest request;
-    request.setUserKey(curentUserKey);
-
-    auto action = [this](QH::AbstractNodeInfo *node) {
-        this->action(node);
-    };
-
-    return addNode(domain, port, action,
-                   QH::NodeCoonectionStatus::Confirmed);
-}
-
 void Visitor::nodeConnected(QH::AbstractNodeInfo *node) {
     BaseNode::nodeConnected(node);
 }

@@ -11,13 +11,14 @@
 #include "versionisreceived.h"
 #include "CheatCard/api/api0/carddatarequest.h"
 #include "CheatCard/api/api0/cardstatusrequest.h"
-#include "CheatCard/nodeinfo.h"
 #include "CheatCard/api/api0/user.h"
-
 #include <CheatCard/api/api0/card.h>
-#include <dbobjectsrequest.h>
 #include <CheatCard/api/api0/session.h>
 #include <CheatCard/api/api0/userscards.h>
+
+#include <CheatCard/api/api1/restoredatarequest.h>
+
+#include "CheatCard/nodeinfo.h"
 #include <getsinglevalue.h>
 #include <cmath>
 #include <dbobjectsrequest.h>
@@ -236,6 +237,21 @@ BaseNode::getAllUserDataFromCard(unsigned int cardId) const {
                                             where);
 
     return _db->getObject(request)->data();
+}
+
+bool BaseNode::restoreOldData(const QByteArray &curentUserKey,
+                             const QString &domain, int port) {
+
+    auto action = [this, curentUserKey](QH::AbstractNodeInfo *node) {
+
+        RestoreDataRequest request;
+        request.setUserKey(curentUserKey);
+
+        sendData(&request, node);
+    };
+
+    return addNode(domain, port, action,
+                   QH::NodeCoonectionStatus::Confirmed);
 }
 
 QSharedPointer<Card> BaseNode::getCard(unsigned int cardId) {
