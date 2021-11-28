@@ -23,9 +23,6 @@ namespace RC {
 
 
 Visitor::Visitor(QH::ISqlDBCache *db): BaseNode(db) {
-    registerPackageType<QH::PKG::DataPack<UsersCards>>();
-    registerPackageType<QH::PKG::DataPack<UsersCardsV1>>();
-    registerPackageType<QH::PKG::DataPack<Card>>();
 
     _timer = new QTimer(this);
 

@@ -17,7 +17,7 @@ ClearOldData::ClearOldData(int duration) {
 }
 
 bool ClearOldData::execute(QH::AbstractNode *node) const {
-    auto server = dynamic_cast<Server*>(node);
+    auto server = dynamic_cast<BaseNode*>(node);
 
     if (!server)
         return false;

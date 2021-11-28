@@ -356,11 +356,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Go!</source>
+        <source>Back</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Back</source>
+        <source>Nobody, I just want to recover data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Done!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -680,6 +684,14 @@
         <source>Yor secret key are imported</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>We Has a troubles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Yor secret key are imported successful but donwload backup data from server is failed. Please check your internet connection and try restore your data again</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RC::SellerStatisticModel</name>
@@ -726,15 +738,19 @@
         <translation>Go to use</translation>
     </message>
     <message>
-        <source>Now let&apos;s move on to using!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Registered!</source>
         <translation type="vanished">Zarejestrowany!</translation>
     </message>
     <message>
         <source>Done!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Done! &lt;b&gt;But If you drop your application data then all your cards will be removed&lt;/b&gt;. For save it self of this situations we recommends create a back up your master key.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create a back up of master key for save data of my account.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

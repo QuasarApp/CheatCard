@@ -17,6 +17,7 @@
 #include <CheatCard/api/api0/userscards.h>
 
 #include <CheatCard/api/api1/restoredatarequest.h>
+#include <CheatCard/api/api1/userscardsv1.h>
 
 #include "CheatCard/nodeinfo.h"
 #include <getsinglevalue.h>
@@ -30,6 +31,12 @@ BaseNode::BaseNode(QH::ISqlDBCache *db) {
 
     registerPackageType<ApplicationVersion>();
     registerPackageType<VersionIsReceived>();
+
+
+    registerPackageType<QH::PKG::DataPack<UsersCards>>();
+    registerPackageType<QH::PKG::DataPack<UsersCardsV1>>();
+    registerPackageType<QH::PKG::DataPack<Card>>();
+
 
     setIgnoreSslErrors(QList<QSslError>() << QSslError::SelfSignedCertificate
                        << QSslError::SelfSignedCertificateInChain
