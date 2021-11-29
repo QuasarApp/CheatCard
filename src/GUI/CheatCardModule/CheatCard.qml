@@ -49,16 +49,6 @@ ApplicationWindow {
             activity.freeItems = freeItemsCount
             activity.userId = userId
         }
-
-        function onConnectionWasEnd() {
-            connectionStatus.close()
-
-        }
-
-        function onConnectionWasBegin() {
-            connectionStatus.open()
-
-        }
     }
 
     Connections {
@@ -104,7 +94,7 @@ ApplicationWindow {
 
                 font.bold: true
 
-                enabled: !firstRun.visible
+                enabled: !((model)? model.fFirst : false) || fBack
 
             }
 
@@ -125,7 +115,7 @@ ApplicationWindow {
                 icon.source: "qrc:/images/private/resources/Interface_icons/Right_topmenu.svg"
                 font.bold: true
                 font.pointSize: 14
-                enabled: !firstRun.visible
+                enabled: !((model)? model.fFirst : false)
 
                 onClicked: mainMenu.popup(this, menuButton.x, menuButton.height)
             }
@@ -329,41 +319,6 @@ ApplicationWindow {
 
         contentItem: EditUserView {
             model: mainModel
-        }
-    }
-
-    Dialog {
-        id: firstRun;
-        visible: (model)? model.fFirst : false
-
-        closePolicy: Popup.NoAutoClose
-
-        height: mainWindow.height * 0.95
-        width: mainWindow.width * 0.95
-        x: (mainWindow.width - width) / 2
-        y: (mainWindow.height - height) / 2
-
-        FirstRunPage {
-            anchors.fill: parent
-            model: mainModel
-            onFinished: () => {
-                            firstRun.close()
-                        }
-        }
-    }
-
-    Dialog {
-        id: connectionStatus;
-
-        closePolicy: Popup.NoAutoClose
-        modal: true
-        height: mainWindow.height * 0.95
-        width: mainWindow.width * 0.95
-        x: (mainWindow.width - width) / 2
-        y: (mainWindow.height - height) / 2
-
-        ConnectionStatus {
-            anchors.fill: parent
         }
     }
 

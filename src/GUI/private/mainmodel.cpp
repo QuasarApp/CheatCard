@@ -675,6 +675,12 @@ void MainModel::handleBonusGivOut(int userId, int cardId, int count) {
     }
 }
 
+void MainModel::handleSettingsChanged(const QString &key, const QVariant &) {
+    if ("fFirst" == key) {
+        emit fFirstChanged();
+    }
+}
+
 QObject *MainModel::defaultLogosModel() const {
     return _defaultLogosModel;
 }

@@ -94,7 +94,7 @@ CPage {
 
             onClicked: {
                 generator.saveImage();
-                notificationService.setNotify(qsTr("Done"), qsTr("Backup code exported successful. The BackUp Code Available in your documnets folder."));
+                notificationService.setNotify(qsTr("Done"), qsTr("Backup code exported successful. The BackUp Code Available in your documnets folder. See <b>%0</b> path").arg(root.model.userBackUpPath()));
             }
 
         }

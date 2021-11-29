@@ -10,6 +10,7 @@
 
 #include <QObject>
 #include <QSettings>
+#include <settingslistner.h>
 #include <CheatCard/database.h>
 #include <CheatCardGui/ibilling.h>
 
@@ -35,7 +36,7 @@ class SettingsModel;
 /**
  * @brief The MainModel class is main model of the application.
  */
-class MainModel : public QObject
+class MainModel : public QObject, public QuasarAppUtils::SettingsListner
 {
     Q_OBJECT
     Q_PROPERTY(bool fFirst READ fFirst  NOTIFY fFirstChanged)
@@ -126,6 +127,10 @@ signals:
 
     void exportImportModelChanged();
 
+    // SettingsListner interface
+protected:
+    void handleSettingsChanged(const QString &key, const QVariant &value) override;
+
 private slots:
     void handleCardReceived(QSharedPointer<RC::Card> card);
 
@@ -204,6 +209,7 @@ private:
     friend class ImageProvider;
 
     QObject *m_exportImportModel;
+
 };
 
 }
