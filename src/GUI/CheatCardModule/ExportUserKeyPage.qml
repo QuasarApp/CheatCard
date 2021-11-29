@@ -93,7 +93,7 @@ CPage {
 
             onClicked: {
                 generator.saveImage();
-                Qt.openUrlExternally("file:" + generator.exportDir);
+                Qt.openUrlExternally("content:" + generator.exportDir);
             }
 
         }
