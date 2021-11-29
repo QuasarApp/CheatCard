@@ -188,7 +188,7 @@ ApplicationWindow {
 
             onClicked:  () => {
                             activityProcessor.newActivity("qrc:/CheatCardModule/ImportUserKeyPage.qml",
-                                                          mainModel.currentUser);
+                                                          mainModel.exportImportModel);
                         }
         }
 

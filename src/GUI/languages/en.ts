@@ -387,6 +387,14 @@
         <source>Save and open in files</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Done</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Backup code exported successful. The BackUp Code Available in your documnets folder. See &lt;b&gt;%0&lt;/b&gt; path</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FirstRunPage</name>
@@ -510,6 +518,10 @@
     </message>
     <message>
         <source>Select your backup qr code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>codes</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -815,6 +827,21 @@
     <message>
         <source>Unknown</source>
         <translation>Unknown</translation>
+    </message>
+</context>
+<context>
+    <name>RC::ImportExportUserModel</name>
+    <message>
+        <source>Oh shit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Permission denied to selected file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>It looks like the file you selected does not contain a recovery code</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

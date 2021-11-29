@@ -121,7 +121,7 @@ CPage {
 
                     ImportUserKeyPage {
                         implicitWidth: 0x0
-                        model: (root.model)? root.model.currentUser : null
+                        model: (root.model)? root.model.exportImportModel : null
 
                         anchors.fill: parent
                         visible: fRestore.checked

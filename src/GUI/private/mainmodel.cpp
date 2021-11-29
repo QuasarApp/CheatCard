@@ -14,6 +14,7 @@
 #include "soundplayback.h"
 #include "cardproxymodel.h"
 #include "sellerstatisticmodel.h"
+#include "importexportusermodel.h"
 
 #include <CheatCard/database.h>
 
@@ -60,6 +61,7 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
     initImagesModels();
     initWaitConnectionModel();
     initSellerStatisticModel();
+    initImportExportModel();
 
     configureCardsList();
 
@@ -330,6 +332,13 @@ void MainModel::initWaitConnectionModel() {
 
 void MainModel::initSellerStatisticModel() {
     _statisticModel = new SellerStatisticModel;
+}
+
+void MainModel::initImportExportModel() {
+    if (!_importExportModel) {
+        _importExportModel = new ImportExportUserModel();
+        emit exportImportModelChanged();
+    }
 }
 
 void MainModel::setCardListModel(CardsListModel *model) {
@@ -690,7 +699,7 @@ QObject *MainModel::defaultBackgroundsModel() const {
 }
 
 QObject *MainModel::exportImportModel() const {
-    return m_exportImportModel;
+    return _importExportModel;
 }
 
 }

@@ -77,24 +77,25 @@ CPage {
 
     FileDialog {
         id: fromFile
-        folder: (root.model)? "file:///" + root.model.userBackUpPath() : ""
+        folder: shortcuts.documents
+        nameFilters: [qsTr("codes") + " (*.png)"]
+
         selectFolder: false
         selectMultiple: false
         selectExisting: true
         title: qsTr("Select your backup qr code")
         onSelectionAccepted: {
-
-            barcodeFilter.process(fileUrl)
+            if (root.model)
+                root.model.processQrCode(fileUrl);
         }
     }
 
-    SBarcodeFilter {
-        id: barcodeFilter
+    Connections {
+        target: root.model
 
-
-        onCapturedChanged: (captured) => {
-                               privateRoot.importDataFinished(captured)
-                           }
+        function onDecodeFinished(captured) {
+            privateRoot.importDataFinished(captured)
+        }
     }
 
     Item {

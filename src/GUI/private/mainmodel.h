@@ -32,6 +32,7 @@ class UserHeader;
 class CardProxyModel;
 class SellerStatisticModel;
 class SettingsModel;
+class ImportExportUserModel;
 
 /**
  * @brief The MainModel class is main model of the application.
@@ -161,6 +162,7 @@ private:
     void setBackEndModel(const QSharedPointer<BaseNode> &newModel);
     void initWaitConnectionModel();
     void initSellerStatisticModel();
+    void initImportExportModel();
 
     void configureCardsList();
 
@@ -193,6 +195,7 @@ private:
     ItemsModel *_defaultLogosModel = nullptr;
     ItemsModel *_defaultBackgroundsModel = nullptr;
 
+    ImportExportUserModel *_importExportModel = nullptr;
     IBilling *_billing = nullptr;
 
     QSharedPointer<BaseNode> _backEndModel = nullptr;
@@ -207,8 +210,6 @@ private:
     Mode _mode = Mode::Client;
     bool _fShowEmptyBonuspackaMessage = false;
     friend class ImageProvider;
-
-    QObject *m_exportImportModel;
 
 };
 
