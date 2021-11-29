@@ -86,9 +86,7 @@ public:
 signals:
     void sigPurchaseWasSuccessful(QSharedPointer<RC::UsersCards> data);
     void sigCardReceived(QSharedPointer<RC::Card> err);
-    void sigWarningOfflineMode(QH::AbstractNodeInfo *nodeInfo,
-                               QAbstractSocket::SocketError errorCode,
-                               QString errorString);
+    void sigNetworkError(QAbstractSocket::SocketError errorCode);
 
 protected:
 

@@ -385,7 +385,12 @@ void RC::MainModel::configureCardsList() {
         setCardListModel(_cardsListModel);
         if (!_visitorbackEndModel) {
             _visitorbackEndModel = QSharedPointer<BaseNode>(new VisitorSSL(_db), softRemove);
-            _visitorbackEndModel->addApiParser<ApiV1>();        
+            _visitorbackEndModel->addApiParser<ApiV1>();
+
+            connect(_visitorbackEndModel.data(),
+                    &BaseNode::sigNetworkError,
+                    this,
+                    &MainModel::handleNetworkError);
         }
 
         setBackEndModel(_visitorbackEndModel);
@@ -394,6 +399,11 @@ void RC::MainModel::configureCardsList() {
         if (!_sellerbackEndModel) {
             _sellerbackEndModel = QSharedPointer<BaseNode>(new SellerSSL(_db), softRemove);
             _sellerbackEndModel->addApiParser<ApiV1>();
+
+            connect(_sellerbackEndModel.data(),
+                    &BaseNode::sigNetworkError,
+                    this,
+                    &MainModel::handleNetworkError);
         }
 
         setBackEndModel(_sellerbackEndModel);
@@ -616,6 +626,15 @@ void MainModel::handlePurchaseReceived(Purchase purchase) {
 
     initMode(_currentUser);
 
+}
+
+void MainModel::handleNetworkError(QAbstractSocket::SocketError errorCode) {
+
+    auto service = QmlNotificationService::NotificationService::getService();
+
+    service->setNotify(tr("Oops"),
+                       tr("Error: Network error occured on the :0 node. Message: Node found."),
+                       "", QmlNotificationService::NotificationData::Warning);
 }
 
 void MainModel::handleFirstDataSendet() {
