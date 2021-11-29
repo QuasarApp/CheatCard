@@ -633,7 +633,7 @@ void MainModel::handleNetworkError(QAbstractSocket::SocketError) {
     auto service = QmlNotificationService::NotificationService::getService();
 
     service->setNotify(tr("Oops"),
-                       tr("Network error occured on the :0 node. Node found."),
+                       tr("You have network problems. Don't worry, all cards and your bonuses are saved on the merchant's host and will be available the next time you visit. Even if you will don't have internet connection."),
                        "", QmlNotificationService::NotificationData::Warning);
 }
 
