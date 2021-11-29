@@ -12,6 +12,7 @@
 #include "datapack.h"
 #include <isqldbcache.h>
 
+
 #define USERREQUEST_TIMEOUT 3
 namespace RC {
 
@@ -85,7 +86,9 @@ public:
 signals:
     void sigPurchaseWasSuccessful(QSharedPointer<RC::UsersCards> data);
     void sigCardReceived(QSharedPointer<RC::Card> err);
-
+    void sigWarningOfflineMode(QH::AbstractNodeInfo *nodeInfo,
+                               QAbstractSocket::SocketError errorCode,
+                               QString errorString);
 
 protected:
 
@@ -117,6 +120,12 @@ private:
 
     QSharedPointer<User> _currentUser;
 
+
+    // AbstractNode interface
+protected slots:
+    void nodeErrorOccured(QH::AbstractNodeInfo *nodeInfo,
+                          QAbstractSocket::SocketError errorCode,
+                          QString errorString);
 };
 }
 #endif // BASENODE_H
