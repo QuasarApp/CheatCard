@@ -11,6 +11,7 @@ import QtQuick.Layouts 1.15
 
 import com.scythestudio.scodes 1.0
 import QtQuick.Dialogs 1.3
+import NotifyModule 1.0
 
 import "Style"
 
@@ -93,7 +94,7 @@ CPage {
 
             onClicked: {
                 generator.saveImage();
-                Qt.openUrlExternally("content:" + generator.exportDir);
+                notificationService.setNotify(qsTr("Done"), qsTr("Backup code exported successful. The BackUp Code Available in your documnets folder."));
             }
 
         }

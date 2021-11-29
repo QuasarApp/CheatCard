@@ -77,12 +77,11 @@ CPage {
 
     FileDialog {
         id: fromFile
-        folder: (root.model)? "file://" + root.model.userBackUpPath() : ""
+        folder: (root.model)? "file:///" + root.model.userBackUpPath() : ""
         selectFolder: false
         selectMultiple: false
         selectExisting: true
         title: qsTr("Select your backup qr code")
-        nameFilters: ["*.qrrc*"]
         onSelectionAccepted: {
 
             barcodeFilter.process(fileUrl)
