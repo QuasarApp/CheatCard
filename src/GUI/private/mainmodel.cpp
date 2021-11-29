@@ -628,12 +628,12 @@ void MainModel::handlePurchaseReceived(Purchase purchase) {
 
 }
 
-void MainModel::handleNetworkError(QAbstractSocket::SocketError errorCode) {
+void MainModel::handleNetworkError(QAbstractSocket::SocketError) {
 
     auto service = QmlNotificationService::NotificationService::getService();
 
     service->setNotify(tr("Oops"),
-                       tr("Error: Network error occured on the :0 node. Message: Node found."),
+                       tr("Network error occured on the :0 node. Node found."),
                        "", QmlNotificationService::NotificationData::Warning);
 }
 

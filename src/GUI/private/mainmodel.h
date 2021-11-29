@@ -137,7 +137,7 @@ private slots:
     void handleListenStop();
     void handleAppStateChanged(Qt::ApplicationState state);
     void handlePurchaseReceived(Purchase purchase);
-    void handleNetworkError(QAbstractSocket::SocketError errorCode);
+    void handleNetworkError(QAbstractSocket::SocketError);
 
 private:
     void saveConfig();
