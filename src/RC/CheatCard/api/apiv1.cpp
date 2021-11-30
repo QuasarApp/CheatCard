@@ -205,11 +205,7 @@ bool ApiV1::processRestoreDataRequest(const QSharedPointer<RestoreDataRequest> &
         responce.push(data);
     }
 
-    QByteArray secret;
-    node()->getSignData(secret);
-    responce.setCustomData(secret);
-
-    if (!node()->sendData(&responce, sender)) {
+    if (responce.isValid() && !node()->sendData(&responce, sender)) {
         return false;
     }
 
@@ -226,12 +222,15 @@ bool ApiV1::processRestoreDataRequest(const QSharedPointer<RestoreDataRequest> &
 
         QH::PKG::DBObjectsRequest<UsersCardsV1> request("UsersCards",
                                                         QString("card='%0'").arg(card->cardId()));
-
         auto result = db()->getObject(request);
 
         for (const auto &data : qAsConst(result->data())) {
             responce.push(data);
         }
+    }
+
+    if (responce.isValid() && !node()->sendData(&responce, sender)) {
+        return false;
     }
 
     return true;
