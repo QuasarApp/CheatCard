@@ -145,6 +145,14 @@ BaseNode::selectParser(const ApplicationVersion &distVersion) const {
     return nullptr;
 }
 
+void BaseNode::nodeErrorOccured(QH::AbstractNodeInfo *nodeInfo,
+                                QAbstractSocket::SocketError errorCode,
+                                QString errorString) {
+
+    QH::AbstractNode::nodeErrorOccured(nodeInfo, errorCode, errorString);
+    emit sigNetworkError(errorCode);
+}
+
 const QSharedPointer<User>& BaseNode::currentUser() const {
     return _currentUser;
 }
