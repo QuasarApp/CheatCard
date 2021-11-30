@@ -11,6 +11,7 @@
 #include <QPixmap>
 #include <QUrl>
 #include <qmlnotifyservice.h>
+#include <QDebug>
 
 #ifdef Q_OS_ANDROID
 #include <QtAndroid>

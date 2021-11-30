@@ -265,6 +265,11 @@ bool BaseNode::restoreOldData(const QByteArray &curentUserKey,
         sendData(&request, node);
     };
 
+    if (domain.isEmpty()) {
+        return addNode(getServerHost(), port, action,
+                       QH::NodeCoonectionStatus::Confirmed);
+    }
+
     return addNode(domain, port, action,
                    QH::NodeCoonectionStatus::Confirmed);
 }

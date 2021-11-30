@@ -213,15 +213,28 @@ bool ApiV1::processRestoreDataRequest(const QSharedPointer<RestoreDataRequest> &
         return false;
     }
 
-//    auto cardsList = node()->getAllUserCards(cardrequest->userKey());
-//    QH::PKG::DataPack<Card> cardsPack(cardsList);
+    auto cardsList = node()->getAllUserCards(cardrequest->userKey());
+    QH::PKG::DataPack<Card> cardsPack(cardsList);
 
-//    if (cardsPack.isValid() && !node()->sendData(&cardsPack, sender)) {
-//        return false;
-//    }
+    if (cardsPack.isValid() && !node()->sendData(&cardsPack, sender)) {
+        return false;
+    }
+
+    responce.setPackData({});
+
+    for (const auto &card: qAsConst(cardsList)) {
+
+        QH::PKG::DBObjectsRequest<UsersCardsV1> request("UsersCards",
+                                                        QString("card='%0'").arg(card->cardId()));
+
+        auto result = db()->getObject(request);
+
+        for (const auto &data : qAsConst(result->data())) {
+            responce.push(data);
+        }
+    }
 
     return true;
-
 }
 
 bool ApiV1::processCardStatusRequest(const QSharedPointer<CardStatusRequest> &cardStatus,

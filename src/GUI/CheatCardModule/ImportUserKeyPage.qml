@@ -94,6 +94,7 @@ CPage {
         target: root.model
 
         function onDecodeFinished(captured) {
+            console.log("bug")
             privateRoot.importDataFinished(captured)
         }
     }
@@ -102,14 +103,6 @@ CPage {
         id: privateRoot
 
         function importDataFinished (data) {
-            if (!mainModel) {
-                return
-            }
-
-            if(mainModel.importUser(data)) {
-                root.importFinished()
-            }
-
             activityProcessor.popItem();
         }
 

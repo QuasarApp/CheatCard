@@ -66,7 +66,6 @@ public:
     Q_INVOKABLE void configureFinished();
     Q_INVOKABLE QObject *getAboutModel();
     QObject *currentUser() const;
-    Q_INVOKABLE bool importUser(QString base64UserData);
 
     const QSharedPointer<UserModel>& getCurrentUser() const;
 
@@ -134,6 +133,8 @@ protected:
     void handleSettingsChanged(const QString &key, const QVariant &value) override;
 
 private slots:
+    bool handleImportUser(const QString &base64UserData);
+
     void handleCardReceived(QSharedPointer<RC::Card> card);
 
     void handleCardEditFinished(const QSharedPointer<RC::Card> &card);

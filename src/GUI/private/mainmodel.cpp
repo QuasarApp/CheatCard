@@ -133,7 +133,7 @@ QObject *MainModel::currentUser() const {
     return _currentUser.data();
 }
 
-bool MainModel::importUser(QString base64UserData) {
+bool MainModel::handleImportUser(const QString &base64UserData) {
 
     auto userData = QSharedPointer<User>::create();
     userData->fromBytes(QByteArray::fromBase64(base64UserData.toLatin1(),
@@ -347,6 +347,9 @@ void MainModel::initImportExportModel() {
     if (!_importExportModel) {
         _importExportModel = new ImportExportUserModel();
         emit exportImportModelChanged();
+
+        connect(_importExportModel, &ImportExportUserModel::decodeFinished,
+                this, &MainModel::handleImportUser);
     }
 }
 

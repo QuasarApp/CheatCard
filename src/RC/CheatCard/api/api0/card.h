@@ -96,7 +96,7 @@ private:
     QString _physicalAddress;
     QString _webSite;
     QString _freeItemName;
-    unsigned int cardVersion;
+    unsigned int cardVersion = 0;
 
     int freeIndex = 1;
     QString color = "#777777";

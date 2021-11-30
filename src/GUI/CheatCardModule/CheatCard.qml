@@ -127,6 +127,7 @@ ApplicationWindow {
 
         MenuItem {
             visible: (mainModel)? mainModel.mode: false
+            height: (visible)? implicitHeight: 0
 
             text: qsTr("Contact with developers")
             icon.source: "qrc:/images/private/resources/Interface_icons/contact_developers.svg"
