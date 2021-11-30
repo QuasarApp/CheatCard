@@ -14,6 +14,7 @@ Page {
     id: root
     property var model: null
     property bool editable: true
+    property bool editableCardView: false
     property alias cardCount: list.count
 
     signal finished()
@@ -81,7 +82,7 @@ Page {
                         id: cardView
                         model: card
                         opacity: (cardItem.ListView.isCurrentItem)? 1: 0.5
-                        editable: false
+                        editable: editableCardView
                         onFinished: () => {
                                         editable = false
                                         root.finished()
@@ -150,15 +151,26 @@ Page {
                         anchors.centerIn: parent
                     }
 
-                    Button {
-                        text: qsTr("Edit")
+//                    Button {
+//                        text: qsTr("Edit")
 
+//                        font.bold: true
+//                        visible:  cardItem.ListView.isCurrentItem && !cardView.editable && root.editable
+//                        onClicked: () => {
+//                                       cardView.editable = true
+//                                   }
+//                    }
+
+                    ToolButton {
+                        id: editCardBtn
+                        visible: cardItem.ListView.isCurrentItem && !cardView.editable && root.editable
+                        icon.source: "qrc:/images/private/resources/Interface_icons/Right_topmenu.svg"
                         font.bold: true
-                        visible:  cardItem.ListView.isCurrentItem && !cardView.editable && root.editable
-                        onClicked: () => {
-                                       cardView.editable = true
-                                   }
+                        font.pointSize: 14
+
+                        onClicked: editMenu.popup(this, editCardBtn.x, editCardBtn.height)
                     }
+
                 }
             }
 
@@ -175,5 +187,71 @@ Page {
 
                        }
         }
+    }
+
+    Menu {
+        id: editMenu
+
+        MenuItem {
+            visible: (mainModel)? mainModel.mode: false
+            height: visible ? implicitHeight : 0
+
+            text: qsTr("Edit card")
+            icon.source: "qrc:/images/private/resources/Interface_icons/edit_card.svg"
+            onClicked:  () => {
+                            root.editableCardView = true;
+                        }
+        }
+
+        MenuItem {
+
+            text: qsTr("Remove card")
+            icon.source: "qrc:/images/private/resources/Interface_icons/delete_card.svg"
+            onClicked:  () => {
+//                            activityProcessor.newActivityFromComponent(about, mainModel.getAboutModel());
+                        }
+
+        }
+
+        MenuItem {
+            visible: (mainModel)? mainModel.mode: false
+            height: visible ? implicitHeight : 0
+
+            text: qsTr("Activate card")
+            icon.source: "qrc:/images/private/resources/Interface_icons/Activate.svg"
+            onClicked:  () => {
+//                            activityProcessor.newActivityFromComponent(shareApp);
+                        }
+
+        }
+
+        MenuItem {
+
+            text: qsTr("Statistics")
+            icon.source: "qrc:/images/private/resources/Interface_icons/statistic.svg"
+            onClicked:  () => {
+
+//                            if (mainModel.mode) {
+//                                activityProcessor.newActivityFromComponent(pageSeller);
+//                            } else {
+//                                activityProcessor.newActivityFromComponent(pageVisitor);
+//                            }
+
+
+                        }
+        }
+
+//        Component {
+//            id: removeCard
+//        }
+
+//        Component {
+//            id: activateCard
+//        }
+
+//        Component {
+//            id: statisticsCard
+//        }
+
     }
 }
