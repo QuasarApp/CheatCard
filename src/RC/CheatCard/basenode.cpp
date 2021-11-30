@@ -13,7 +13,6 @@
 #include "CheatCard/api/api0/cardstatusrequest.h"
 #include "CheatCard/nodeinfo.h"
 #include "CheatCard/api/api0/user.h"
-
 #include <CheatCard/api/api0/card.h>
 #include <dbobjectsrequest.h>
 #include <CheatCard/api/api0/session.h>
@@ -135,6 +134,14 @@ BaseNode::selectParser(const ApplicationVersion &distVersion) const {
     }
 
     return nullptr;
+}
+
+void BaseNode::nodeErrorOccured(QH::AbstractNodeInfo *nodeInfo,
+                                QAbstractSocket::SocketError errorCode,
+                                QString errorString) {
+
+    QH::AbstractNode::nodeErrorOccured(nodeInfo, errorCode, errorString);
+    emit sigNetworkError(errorCode);
 }
 
 const QSharedPointer<User>& BaseNode::currentUser() const {
