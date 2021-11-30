@@ -151,16 +151,6 @@ Page {
                         anchors.centerIn: parent
                     }
 
-//                    Button {
-//                        text: qsTr("Edit")
-
-//                        font.bold: true
-//                        visible:  cardItem.ListView.isCurrentItem && !cardView.editable && root.editable
-//                        onClicked: () => {
-//                                       cardView.editable = true
-//                                   }
-//                    }
-
                     ToolButton {
                         id: editCardBtn
                         visible: cardItem.ListView.isCurrentItem && !cardView.editable && root.editable
