@@ -43,7 +43,6 @@
 #include "settingsmodel.h"
 #include <CheatCard/api/apiv1.h>
 
-#define CURRENT_USER "CURRENT_USER"
 
 namespace RC {
 
@@ -196,9 +195,14 @@ void MainModel::setCurrentUser(QSharedPointer<UserModel> value) {
 
     if (_currentUser) {
 
-        if (_backEndModel) {
-            _backEndModel->setCurrentUser(_currentUser->user());
+        if (_visitorbackEndModel) {
+            _visitorbackEndModel->setCurrentUser(_currentUser->user());
         }
+
+        if (_sellerbackEndModel) {
+            _sellerbackEndModel->setCurrentUser(_currentUser->user());
+        }
+
         unsigned int userId = _currentUser->user()->userId();
         QByteArray userKey = _currentUser->user()->getKey();
 
@@ -428,30 +432,43 @@ int MainModel::getMode() const {
     return static_cast<int>(_mode);
 }
 
+// template method for initialize back end model. using in configureCardsList method
+template <class BackEndType>
+QSharedPointer<BaseNode> initBackEndModel(const QSharedPointer<UserModel>& user,
+                                          QH::ISqlDBCache *db,
+                                          MainModel* thiz) {
+    QSharedPointer<BaseNode> result;
+    result = QSharedPointer<BaseNode>(new BackEndType(db), softRemove);
+    result->addApiParser<ApiV1>();
+
+    if (user) {
+        result->setCurrentUser(user->user());
+    }
+
+    thiz->connect(result.data(),
+            &BaseNode::sigNetworkError,
+            thiz,
+            &MainModel::handleNetworkError);
+
+    return result;
+};
+
 void RC::MainModel::configureCardsList() {
     if (_mode == Mode::Client) {
         setCardListModel(_cardsListModel);
         if (!_visitorbackEndModel) {
-            _visitorbackEndModel = QSharedPointer<BaseNode>(new VisitorSSL(_db), softRemove);
-            _visitorbackEndModel->addApiParser<ApiV1>();
-
-            connect(_visitorbackEndModel.data(),
-                    &BaseNode::sigNetworkError,
-                    this,
-                    &MainModel::handleNetworkError);
+            _visitorbackEndModel = initBackEndModel<VisitorSSL>(_currentUser,
+                                                    _db,
+                                                    this);
         }
 
         setBackEndModel(_visitorbackEndModel);
     } else {
         setCardListModel(_ownCardsListModel);
         if (!_sellerbackEndModel) {
-            _sellerbackEndModel = QSharedPointer<BaseNode>(new SellerSSL(_db), softRemove);
-            _sellerbackEndModel->addApiParser<ApiV1>();
-
-            connect(_sellerbackEndModel.data(),
-                    &BaseNode::sigNetworkError,
-                    this,
-                    &MainModel::handleNetworkError);
+            _sellerbackEndModel = initBackEndModel<SellerSSL>(_currentUser,
+                                                    _db,
+                                                    this);
         }
 
         setBackEndModel(_sellerbackEndModel);
@@ -468,6 +485,19 @@ void MainModel::setMode(int newMode) {
     configureCardsList();
 
     _config->setValue("fSellerMode", static_cast<bool>(newMode));
+
+    if (_mode == Mode::Seller) {
+        // test secret keys
+
+        auto userKey = _currentUser->user()->getKey();
+        auto secret = _currentUser->user()->secret();
+        if (userKey != User::makeKey(secret)) {
+            _currentUser->user()->regenerateKeys();
+            saveUser();
+            _settings.setValue(CURRENT_USER, _currentUser->user()->userId());
+        }
+    }
+
     saveConfig();
 }
 

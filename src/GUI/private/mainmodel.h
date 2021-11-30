@@ -103,6 +103,7 @@ public:
 public slots:
     void handleFirstDataSendet();
     void handleBonusGivOut(int userId, int cardId, int givOutcount);
+    void handleNetworkError(QAbstractSocket::SocketError);
 
 signals:
 
@@ -149,7 +150,6 @@ private slots:
     void handleListenStop();
     void handleAppStateChanged(Qt::ApplicationState state);
     void handlePurchaseReceived(Purchase purchase);
-    void handleNetworkError(QAbstractSocket::SocketError);
 
 private:
     void saveConfig();

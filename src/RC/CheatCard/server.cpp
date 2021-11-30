@@ -46,13 +46,13 @@ Server::Server(QH::ISqlDBCache *db): BaseNode(db) {
     sheduleTask(task);
 }
 
-bool Server::cardValidation(const QSharedPointer<Card> &card,
+bool Server::cardValidation(const QSharedPointer<Card> &cardFromDB,
                             const QByteArray &ownerSecret) const {
 
-    if (!card)
+    if (!cardFromDB)
         return true;
 
-    auto signature = card->ownerSignature();
+    auto signature = cardFromDB->ownerSignature();
     auto ownerSignature =  User::makeKey(ownerSecret);
 
     return signature == ownerSignature;

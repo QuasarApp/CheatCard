@@ -164,16 +164,17 @@ bool ApiV1::processCardData(const QSharedPointer<QH::PKG::DataPack<Card>> &cards
 
     for (const auto &card: qAsConst(cards->packData())) {
 
-        if (!node()->cardValidation(card, cards->customData())) {
-
-            QuasarAppUtils::Params::log("Receive not signed card");
-            break;
-        }
-
         if (!card->isValid()) {
             QuasarAppUtils::Params::log("Received invalid card data!",
                                         QuasarAppUtils::Error);
             continue;
+        }
+
+        if (!node()->cardValidation(db()->getObject(*card), cards->customData())) {
+
+            QuasarAppUtils::Params::log("Receive not signed card",
+                                        QuasarAppUtils::Error);
+            break;
         }
 
         if (!db()->insertIfExistsUpdateObject(card)) {

@@ -43,9 +43,9 @@ bool Seller::incrementPurchases(const QSharedPointer<UsersCards> &usersCardsData
     return true;
 }
 
-bool Seller::cardValidation(const QSharedPointer<Card> &card,
+bool Seller::cardValidation(const QSharedPointer<Card> &cardFromDB,
                              const QByteArray &ownerSecret) const {
-    Q_UNUSED(card);
+    Q_UNUSED(cardFromDB);
     Q_UNUSED(ownerSecret);
 
     return true;

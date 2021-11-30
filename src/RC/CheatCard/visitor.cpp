@@ -62,9 +62,9 @@ bool Visitor::checkCardData(long long session,
                    action, QH::NodeCoonectionStatus::Confirmed);
 }
 
-bool Visitor::cardValidation(const QSharedPointer<Card> &card,
+bool Visitor::cardValidation(const QSharedPointer<Card> &cardFromDB,
                              const QByteArray &ownerSecret) const {
-    Q_UNUSED(card);
+    Q_UNUSED(cardFromDB);
     Q_UNUSED(ownerSecret);
 
     return true;
