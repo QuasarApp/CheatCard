@@ -509,13 +509,21 @@ QObject *MainModel::cardsList() const {
 }
 
 void MainModel::handleCardReceived(QSharedPointer<RC::Card> card) {
-    _cardsListModel->importCard(card);
 
-    if (_backEndModel) {
-        auto metaData = _backEndModel->getUserCardData(_currentUser->user()->userId(), card->cardId());
+    if (card->isOvner(_currentUser->user()->userId())) {
+        _ownCardsListModel->importCard(card);
 
-        if (metaData) {
-            getCurrentListModel()->updateMetaData({metaData});
+    } else {
+        if (!_cardsListModel)
+            return;
+
+        _cardsListModel->importCard(card);
+        if (_backEndModel) {
+            auto metaData = _backEndModel->getUserCardData(_currentUser->user()->userId(), card->cardId());
+
+            if (metaData) {
+                _cardsListModel->updateMetaData({metaData});
+            }
         }
     }
 }

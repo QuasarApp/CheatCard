@@ -78,6 +78,8 @@ public:
     const QByteArray &ownerSignature() const;
     void setOwnerSignature(const QByteArray &newOwnerSignature);
 
+    bool isOvner(const unsigned int userId) const;
+
 protected:
     QString primaryKey() const override;
     QDataStream &fromStream(QDataStream &stream) override;
