@@ -24,7 +24,7 @@ class CHEATCARD_CORE_EXPORT UsersCards: public QH::PKG::DBObject
 
 public:
     UsersCards();
-    UsersCards(unsigned int user, unsigned int card, bool owner = false);
+    UsersCards(unsigned int user, unsigned int card);
 
 public:
     QH::PKG::DBObject *createDBObject() const override;
@@ -38,9 +38,6 @@ public:
 
     unsigned int getCard() const;
     void setCard(unsigned int newCard);
-
-    bool getOwner() const;
-    void setOwner(bool newOwner);
 
     unsigned int getPurchasesNumber() const;
     void setPurchasesNumber(unsigned int newPurchasesNumber);
@@ -62,7 +59,6 @@ protected:
     QString primaryKey() const override;
     QDataStream &fromStream(QDataStream &stream) override;
     QDataStream &toStream(QDataStream &stream) const override;
-private:
 
     long long id = 0;
     unsigned int user = 0;
@@ -71,9 +67,6 @@ private:
     unsigned int purchasesNumber = 0;
     unsigned int received = 0;
     QDateTime _time;
-    bool owner = false;
-
-
 };
 
 }

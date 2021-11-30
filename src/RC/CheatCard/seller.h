@@ -29,6 +29,8 @@ public:
                             unsigned int cardId, const QString& domain = "",
                             int port = DEFAULT_CHEAT_CARD_PORT_SSL);
 
+    bool requestAllDataFromUser();
+
     bool cardValidation(const QSharedPointer<Card> &card,
                         const QByteArray &ownerSecret) const override;
     void getSignData(QByteArray &data) const override;

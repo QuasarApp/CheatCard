@@ -27,12 +27,14 @@ public:
                         const QByteArray &ownerSecret) const override;
     void getSignData(QByteArray &data) const override;
 
+
 protected:
     void nodeConnected(QH::AbstractNodeInfo *node) override;
     void nodeConfirmend(QH::AbstractNodeInfo *node) override;
 
     int getRequestInterval() const;
     void setRequestInterval(int newRequestInterval);
+
 
 private slots:
 
@@ -42,10 +44,9 @@ private:
     void action(QH::AbstractNodeInfo *node);
 
     int _requestInterval = USERREQUEST_TIMEOUT;
-
+    QString _domain;
+    int _port;
     long long _lastRequested = 0;
-    QString _domain = "";
-    int _port = 0;
 
     int _lastRequest = 0;
     QTimer *_timer = nullptr;

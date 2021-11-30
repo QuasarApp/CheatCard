@@ -48,7 +48,7 @@
         <file>private/resources/Backgrounds/Layer_12.png</file>
         <file>private/resources/Backgrounds/Layer_11.png</file>
         <file>private/resources/Backgrounds/Layer_10.png</file>
-        <file>private/resources/Backgrounds/Layer_1.png</file>        
+        <file>private/resources/Backgrounds/Layer_1.png</file>
         <file>private/resources/freeItem.png</file>
         <file>private/resources/phone.png</file>
         <file>private/resources/Backgrounds/Layer_34.png</file>
@@ -73,10 +73,10 @@
         <file>private/resources/Interface_icons/Edit_menu.svg</file>
         <file>private/resources/Interface_icons/Close_sidebar.svg</file>
         <file>private/resources/Interface_icons/Camera_switch.svg</file>
-        <file>private/resources/Interface_icons/settings.svg</file>        
-        <file>private/resources/Interface_icons/help.svg</file>         
+        <file>private/resources/Interface_icons/settings.svg</file>
+        <file>private/resources/Interface_icons/help.svg</file>
         <file>private/resources/Interface_icons/about.svg</file>
-        <file>private/resources/Interface_icons/contact_developers.svg</file>        
+        <file>private/resources/Interface_icons/contact_developers.svg</file>
         <file>private/resources/Interface_icons/background_color.svg</file>
         <file>private/resources/Interface_icons/background_image.svg</file>
         <file>private/resources/Interface_icons/main_color.svg</file>
@@ -85,5 +85,11 @@
         <file>private/resources/Interface_icons/sharing_icon.svg</file>
         <file>private/resources/Interface_icons/share_url_qrcode.png</file>
         <file>private/resources/Interface_icons/Google_play_logo.png</file>
+        <file>private/resources/Interface_icons/statistic.svg</file>
+        <file>private/resources/Interface_icons/key_push.svg</file>
+        <file>private/resources/Interface_icons/key_pull.svg</file>
+        <file>private/resources/Interface_icons/Activate.svg</file>
+        <file>private/resources/Interface_icons/edit_card.svg</file>
+        <file>private/resources/Interface_icons/delete_card.svg</file>
     </qresource>
 </RCC>

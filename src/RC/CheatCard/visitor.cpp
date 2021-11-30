@@ -16,12 +16,13 @@
 #include <CheatCard/api/api0/userscards.h>
 #include <CheatCard/api/api0/card.h>
 
+#include <CheatCard/api/api1/restoredatarequest.h>
+#include <CheatCard/api/api1/userscardsv1.h>
+
 namespace RC {
 
 
 Visitor::Visitor(QH::ISqlDBCache *db): BaseNode(db) {
-    registerPackageType<QH::PKG::DataPack<UsersCards>>();
-    registerPackageType<QH::PKG::DataPack<Card>>();
 
     _timer = new QTimer(this);
 
@@ -53,7 +54,12 @@ bool Visitor::checkCardData(long long session,
         return true;
     }
 
-    return addNode(_domain, _port);
+    auto action = [this](QH::AbstractNodeInfo *node) {
+        this->action(node);
+    };
+
+    return addNode(_domain, _port,
+                   action, QH::NodeCoonectionStatus::Confirmed);
 }
 
 bool Visitor::cardValidation(const QSharedPointer<Card> &card,
@@ -74,7 +80,6 @@ void Visitor::nodeConnected(QH::AbstractNodeInfo *node) {
 
 void Visitor::nodeConfirmend(QH::AbstractNodeInfo *node) {
     BaseNode::nodeConfirmend(node);
-    action(node);
 }
 
 void Visitor::handleTick() {

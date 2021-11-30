@@ -37,8 +37,6 @@ private:
                  const QSharedPointer<TestVisitor> &client,
                  const QSharedPointer<TestServer> &server);
 
-    QSharedPointer<RC::User> makeUser() const;
-
 };
 
 #endif // EXAMPLE_TEST_H

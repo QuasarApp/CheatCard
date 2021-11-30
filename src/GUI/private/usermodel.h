@@ -50,11 +50,14 @@ public:
     const QString &sessionCode() const;
 
     Q_INVOKABLE void becomeSellerRequest() const;
+    Q_INVOKABLE QString userBackUpPath() const;
 
     const QByteArray &sellerToken() const;
     void setSellerToken(const QByteArray &newSellerToken);
 
     void regenerateSessionKey();
+
+    Q_INVOKABLE QString userBackUpData() const;
 
 signals:
     void objChanged();

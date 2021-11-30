@@ -5,6 +5,7 @@
 //# of this license document, but changing it is not allowed.
 //#
 
+#include "cheatcardtestshelper.h"
 #include "connectiontest.h"
 #include "testdatabasewrapper.h"
 #include "testserver.h"
@@ -27,37 +28,6 @@
 #define TEST_CHEAT_HOST "localhost"
 
 
-void softDeleteWrapDB(TestDataBaseWrapper* obj) {
-    obj->softDelete();
-}
-
-void softDeleteWrapNode(RC::BaseNode* obj) {
-    obj->softDelete();
-}
-
-template <class NodeType>
-QSharedPointer<NodeType> makeNode() {
-    srand(time(0) + rand());
-    QString randomNodeName = QByteArray::number(rand()).toHex() + typeid(NodeType).name();
-
-    TestDataBaseWrapper* source;
-    if (std::is_base_of<RC::Seller,NodeType>::value ) {
-
-        source = new TestDataBaseWrapper(randomNodeName,
-                                         ":/sql/units/sql/TestSallerDb.sql");
-    } else {
-        source = new TestDataBaseWrapper(randomNodeName);
-    }
-
-    auto sallerDb = QSharedPointer<TestDataBaseWrapper>(source,
-                                                        softDeleteWrapDB);
-    if (!sallerDb->initSqlDb()) {
-        return {};
-    }
-
-    return QSharedPointer<NodeType>(new NodeType(sallerDb), softDeleteWrapNode);
-}
-
 ConnectionTest::ConnectionTest() {
 
 }
@@ -68,8 +38,6 @@ ConnectionTest::~ConnectionTest() {
 
 void ConnectionTest::test() {
     QDir(APP_DATA_LOCATION).removeRecursively();
-
-
     firstContact();
 }
 
@@ -77,9 +45,9 @@ void ConnectionTest::firstContact() {
 
     qDebug() << "TEST API V0";
 
-    auto seller = makeNode<TestSeller>();
-    auto client = makeNode<TestVisitor>();
-    auto server = makeNode<TestServer>();
+    auto seller = CheatCardTestsHelper::makeNode<TestSeller>();
+    auto client = CheatCardTestsHelper::makeNode<TestVisitor>();
+    auto server = CheatCardTestsHelper::makeNode<TestServer>();
 
     seller->addApiParser<RC::ApiV0>();
     client->addApiParser<RC::ApiV0>();
@@ -90,10 +58,10 @@ void ConnectionTest::firstContact() {
 
     qDebug() << "TEST API V1";
 
-    seller = makeNode<TestSeller>();
-    client = makeNode<TestVisitor>();
-    server = makeNode<TestServer>();
-    seller->setCurrentUser(seller->getUserData(2936319662));
+    seller = CheatCardTestsHelper::makeNode<TestSeller>();
+    client = CheatCardTestsHelper::makeNode<TestVisitor>();
+    server = CheatCardTestsHelper::makeNode<TestServer>();
+    seller->setCurrentUser(seller->getUserData(CheatCardTestsHelper::testUserId()));
 
     seller->addApiParser<RC::ApiV1>();
     client->addApiParser<RC::ApiV1>();
@@ -104,10 +72,10 @@ void ConnectionTest::firstContact() {
 
     qDebug() << "TEST MULTI API V1 (SELLER: V1, CLIENT: V0)";
 
-    seller = makeNode<TestSeller>();
-    client = makeNode<TestVisitor>();
-    server = makeNode<TestServer>();
-    seller->setCurrentUser(seller->getUserData(2936319662));
+    seller = CheatCardTestsHelper::makeNode<TestSeller>();
+    client = CheatCardTestsHelper::makeNode<TestVisitor>();
+    server = CheatCardTestsHelper::makeNode<TestServer>();
+    seller->setCurrentUser(seller->getUserData(CheatCardTestsHelper::testUserId()));
 
     seller->addApiParser<RC::ApiV1>();
     client->addApiParser<RC::ApiV0>();
@@ -119,10 +87,10 @@ void ConnectionTest::firstContact() {
 
     qDebug() << "TEST MULTI API V1 (SELLER: V0, CLIENT: V1)";
 
-    seller = makeNode<TestSeller>();
-    client = makeNode<TestVisitor>();
-    server = makeNode<TestServer>();
-    seller->setCurrentUser(seller->getUserData(2936319662));
+    seller = CheatCardTestsHelper::makeNode<TestSeller>();
+    client = CheatCardTestsHelper::makeNode<TestVisitor>();
+    server = CheatCardTestsHelper::makeNode<TestServer>();
+    seller->setCurrentUser(seller->getUserData(CheatCardTestsHelper::testUserId()));
 
     seller->addApiParser<RC::ApiV0>();
     client->addApiParser<RC::ApiV1>();
@@ -134,10 +102,10 @@ void ConnectionTest::firstContact() {
 
     qDebug() << "TEST MULTI API V1 (SELLER: V0, CLIENT: V0)";
 
-    seller = makeNode<TestSeller>();
-    client = makeNode<TestVisitor>();
-    server = makeNode<TestServer>();
-    seller->setCurrentUser(seller->getUserData(2936319662));
+    seller = CheatCardTestsHelper::makeNode<TestSeller>();
+    client = CheatCardTestsHelper::makeNode<TestVisitor>();
+    server = CheatCardTestsHelper::makeNode<TestServer>();
+    seller->setCurrentUser(seller->getUserData(CheatCardTestsHelper::testUserId()));
 
     seller->addApiParser<RC::ApiV0>();
     client->addApiParser<RC::ApiV0>();
@@ -157,7 +125,7 @@ void ConnectionTest::apiTest(const QSharedPointer<TestSeller> &seller,
     // run server
     QVERIFY(server->run(TEST_CHEAT_HOST, TEST_CHEAT_PORT));
 
-    auto user = makeUser();
+    auto user = CheatCardTestsHelper::makeUser();
     auto obj = QSharedPointer<RC::UserHeader>::create();
 
     obj->setSessionId(session);
@@ -165,7 +133,7 @@ void ConnectionTest::apiTest(const QSharedPointer<TestSeller> &seller,
     obj->setUserId(user->userId());
 
     // 3619648333 This is card id from test database.
-    unsigned int cardId = 1990574875;
+    unsigned int cardId = CheatCardTestsHelper::testCardId();
     for (int i = 0; i < 100; i++) {
 
         qDebug () << "test case " << i << "/" << 100;
@@ -243,10 +211,3 @@ void ConnectionTest::apiTest(const QSharedPointer<TestSeller> &seller,
     // To Do check free items count
 }
 
-QSharedPointer<RC::User> ConnectionTest::makeUser() const {
-    auto result = QSharedPointer<RC::User>::create();
-
-    result->setName(QString("User%0").arg(rand()));
-
-    return result;
-}

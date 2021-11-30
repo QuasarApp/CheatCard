@@ -120,4 +120,13 @@ void UserModel::becomeSellerRequest() const {
     emit sigBecomeSeller();
 }
 
+QString UserModel::userBackUpPath() const {
+    QString path = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+    return path;
+}
+
+QString UserModel::userBackUpData() const {
+    return _user->toBytes().toBase64(QByteArray::Base64UrlEncoding);
+}
+
 }

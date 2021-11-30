@@ -15,10 +15,9 @@ UsersCards::UsersCards():QH::PKG::DBObject("UsersCards") {
 
 }
 
-UsersCards::UsersCards(unsigned int user, unsigned int card, bool owner): QH::PKG::DBObject("UsersCards") {
+UsersCards::UsersCards(unsigned int user, unsigned int card): QH::PKG::DBObject("UsersCards") {
     this->user = user;
     this->card = card;
-    this->owner = owner;
     id = genId(user, card);
 
 }
@@ -33,7 +32,6 @@ QH::PKG::DBVariantMap UsersCards::variantMap() const {
             {"id",             {id,             QH::PKG::MemberType::PrimaryKey}},
             {"purchasesNumber",{purchasesNumber,QH::PKG::MemberType::InsertUpdate}},
             {"received",       {received,       QH::PKG::MemberType::InsertUpdate}},
-            {"owner",          {owner,          QH::PKG::MemberType::InsertUpdate}},
             {"time",           {static_cast<int>(time(0)),      QH::PKG::MemberType::InsertUpdate}},
     };
 }
@@ -51,6 +49,7 @@ QDataStream &UsersCards::fromStream(QDataStream &stream) {
     stream >> id;
     stream >> purchasesNumber;
     stream >> received;
+    bool owner;
     stream >> owner;
     stream >> cardVersion;
 
@@ -65,6 +64,7 @@ QDataStream &UsersCards::toStream(QDataStream &stream) const {
     stream << id;
     stream << purchasesNumber;
     stream << received;
+    bool owner(false);
     stream << owner;
     stream << cardVersion;
 
@@ -115,14 +115,6 @@ void UsersCards::setPurchasesNumber(unsigned int newPurchasesNumber) {
     purchasesNumber = newPurchasesNumber;
 }
 
-bool UsersCards::getOwner() const {
-    return owner;
-}
-
-void UsersCards::setOwner(bool newOwner) {
-    owner = newOwner;
-}
-
 unsigned int UsersCards::getCard() const {
     return card;
 }
@@ -148,7 +140,6 @@ bool UsersCards::fromSqlRecord(const QSqlRecord &q) {
     purchasesNumber = q.value("purchasesNumber").toUInt();
     card = q.value("card").toUInt();
     received = q.value("received").toUInt();
-    owner = q.value("owner").toBool();
     _time = QDateTime::fromTime_t(q.value("time").toInt());
 
     return true;

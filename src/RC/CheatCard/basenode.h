@@ -47,12 +47,25 @@ public:
     QSharedPointer<UsersCards>
     getUserCardData(unsigned int userId, unsigned int cardId) const;
     QList<QSharedPointer<UsersCards> >
-    getAllUserFromCard(unsigned int cardId, bool includeOwner = true) const;
+    getAllUserFromCard(unsigned int cardId) const;
 
     QList<QSharedPointer<User> >
-    getAllUserDataFromCard(unsigned int cardId, bool includeOwner = true) const;
+    getAllUserDataFromCard(unsigned int cardId) const;
+
+    bool restoreOldData(const QByteArray &curentUserKey,
+                        const QString& domain = "",
+                        int port = DEFAULT_CHEAT_CARD_PORT_SSL);
 
     QSharedPointer<Card> getCard(unsigned int cardId);
+
+    /**
+     * @brief getAllUserCards This method will return list of available cards of the user with @a userKey key
+     * @param userKey user key
+     * @param restOf This option force return list of not ovned cards.
+     * @return cards list;
+     */
+    QList<QSharedPointer<Card>> getAllUserCards(const QByteArray &userKey,
+                                                bool restOf = false);
     QByteArray getUserSecret(unsigned int userId) const;
 
     const QMap<int, QSharedPointer<QH::iParser> > &apiParsers() const;

@@ -11,12 +11,15 @@
 #include "versionisreceived.h"
 #include "CheatCard/api/api0/carddatarequest.h"
 #include "CheatCard/api/api0/cardstatusrequest.h"
-#include "CheatCard/nodeinfo.h"
 #include "CheatCard/api/api0/user.h"
 #include <CheatCard/api/api0/card.h>
-#include <dbobjectsrequest.h>
 #include <CheatCard/api/api0/session.h>
 #include <CheatCard/api/api0/userscards.h>
+
+#include <CheatCard/api/api1/restoredatarequest.h>
+#include <CheatCard/api/api1/userscardsv1.h>
+
+#include "CheatCard/nodeinfo.h"
 #include <getsinglevalue.h>
 #include <cmath>
 #include <dbobjectsrequest.h>
@@ -28,6 +31,12 @@ BaseNode::BaseNode(QH::ISqlDBCache *db) {
 
     registerPackageType<ApplicationVersion>();
     registerPackageType<VersionIsReceived>();
+
+
+    registerPackageType<QH::PKG::DataPack<UsersCards>>();
+    registerPackageType<QH::PKG::DataPack<UsersCardsV1>>();
+    registerPackageType<QH::PKG::DataPack<Card>>();
+
 
     setIgnoreSslErrors(QList<QSslError>() << QSslError::SelfSignedCertificate
                        << QSslError::SelfSignedCertificateInChain
@@ -46,7 +55,7 @@ QH::ParserResult BaseNode::parsePackage(const QSharedPointer<QH::PKG::AbstractDa
     // here node must be receive version of connected application.
     // if not use the default version (0)ApplicationVersion
     parentResult = commandHandler<ApplicationVersion>(this, &BaseNode::processAppVersion,
-                                               pkg, sender, pkgHeader);
+                                                      pkg, sender, pkgHeader);
     if (parentResult != QH::ParserResult::NotProcessed) {
         return parentResult;
     }
@@ -54,7 +63,7 @@ QH::ParserResult BaseNode::parsePackage(const QSharedPointer<QH::PKG::AbstractDa
     // here node must be receive responce that version is delivered.
     // when node receive this message then node status are confirmed
     parentResult = commandHandler<VersionIsReceived>(this, &BaseNode::versionDeliveredSuccessful,
-                                               pkg, sender, pkgHeader);
+                                                     pkg, sender, pkgHeader);
     if (parentResult != QH::ParserResult::NotProcessed) {
         return parentResult;
     }
@@ -223,13 +232,9 @@ BaseNode::getUserCardData(unsigned int userId, unsigned int cardId) const {
 }
 
 QList<QSharedPointer<UsersCards> >
-BaseNode::getAllUserFromCard(unsigned int cardId, bool includeOwner) const {
+BaseNode::getAllUserFromCard(unsigned int cardId) const {
 
     QString where = QString("card=%0").arg(cardId);
-
-    if (!includeOwner) {
-        where += " AND owner=0";
-    }
 
     QH::PKG::DBObjectsRequest<UsersCards> request("UsersCards",
                                                   where);
@@ -238,12 +243,8 @@ BaseNode::getAllUserFromCard(unsigned int cardId, bool includeOwner) const {
 }
 
 QList<QSharedPointer<User> >
-BaseNode::getAllUserDataFromCard(unsigned int cardId, bool includeOwner) const {
+BaseNode::getAllUserDataFromCard(unsigned int cardId) const {
     QString where = QString("card=%0").arg(cardId);
-
-    if (!includeOwner) {
-        where += " AND owner=0";
-    }
 
     where = QString("id IN (select user from UsersCards where %0)").arg(where);
 
@@ -253,11 +254,44 @@ BaseNode::getAllUserDataFromCard(unsigned int cardId, bool includeOwner) const {
     return _db->getObject(request)->data();
 }
 
+bool BaseNode::restoreOldData(const QByteArray &curentUserKey,
+                             const QString &domain, int port) {
+
+    auto action = [this, curentUserKey](QH::AbstractNodeInfo *node) {
+
+        RestoreDataRequest request;
+        request.setUserKey(curentUserKey);
+
+        sendData(&request, node);
+    };
+
+    return addNode(domain, port, action,
+                   QH::NodeCoonectionStatus::Confirmed);
+}
+
 QSharedPointer<Card> BaseNode::getCard(unsigned int cardId) {
     Card request;
     request.setId(cardId);
 
     return _db->getObject(request);
+}
+
+QList<QSharedPointer<Card> > BaseNode::getAllUserCards(const QByteArray& userKey,
+                                                       bool restOf) {
+
+    QString where = "ownerSignature= '%0'";
+    if (restOf) {
+        where = "ownerSignature!= '%0'";
+    }
+
+    where = where.arg(QString(userKey.toBase64(QByteArray::Base64UrlEncoding)));
+
+    QH::PKG::DBObjectsRequest<Card> cardRequest("Cards", where);
+    if (auto result = db()->getObject(cardRequest)) {
+        return result->data();
+    }
+
+    return {};
 }
 
 QByteArray BaseNode::getUserSecret(unsigned int userId) const {

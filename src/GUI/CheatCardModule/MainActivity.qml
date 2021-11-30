@@ -23,6 +23,17 @@ ColumnLayout {
 
 
         editable: Boolean(root.model && root.model.mode)
+        visible: !firstRun.visible
+    }
+
+    FirstRunPage {
+        id: firstRun
+        visible: (model)? model.fFirst : false
+
+        Layout.fillHeight: true
+        Layout.fillWidth: true
+        model: mainModel
+
     }
 }
 

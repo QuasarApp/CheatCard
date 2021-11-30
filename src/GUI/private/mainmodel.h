@@ -10,6 +10,7 @@
 
 #include <QObject>
 #include <QSettings>
+#include <settingslistner.h>
 #include <CheatCard/database.h>
 #include <CheatCardGui/ibilling.h>
 
@@ -31,11 +32,12 @@ class UserHeader;
 class CardProxyModel;
 class SellerStatisticModel;
 class SettingsModel;
+class ImportExportUserModel;
 
 /**
  * @brief The MainModel class is main model of the application.
  */
-class MainModel : public QObject
+class MainModel : public QObject, public QuasarAppUtils::SettingsListner
 {
     Q_OBJECT
     Q_PROPERTY(bool fFirst READ fFirst  NOTIFY fFirstChanged)
@@ -48,6 +50,7 @@ class MainModel : public QObject
     Q_PROPERTY(QObject * defaultBackgroundsModel READ defaultBackgroundsModel NOTIFY defaultBackgroundsModelChanged)
     Q_PROPERTY(QObject * waitModel READ waitModel NOTIFY waitModelChanged)
     Q_PROPERTY(QObject * statisticModel READ statisticModel NOTIFY statisticModelChanged)
+    Q_PROPERTY(QObject * exportImportModel READ exportImportModel NOTIFY exportImportModelChanged)
 
 
 public:
@@ -63,6 +66,8 @@ public:
     Q_INVOKABLE void configureFinished();
     Q_INVOKABLE QObject *getAboutModel();
     QObject *currentUser() const;
+    Q_INVOKABLE bool importUser(QString base64UserData);
+
     const QSharedPointer<UserModel>& getCurrentUser() const;
 
     void setCurrentUser(UserModel *newCurrentUser);
@@ -93,6 +98,7 @@ public:
 
     QObject * statisticModel() const;
 
+    QObject *exportImportModel() const;
 
 public slots:
     void handleFirstDataSendet();
@@ -119,6 +125,12 @@ signals:
 
     void waitModelChanged();
     void statisticModelChanged();
+
+    void exportImportModelChanged();
+
+    // SettingsListner interface
+protected:
+    void handleSettingsChanged(const QString &key, const QVariant &value) override;
 
 private slots:
     void handleCardReceived(QSharedPointer<RC::Card> card);
@@ -151,6 +163,8 @@ private:
     void setBackEndModel(const QSharedPointer<BaseNode> &newModel);
     void initWaitConnectionModel();
     void initSellerStatisticModel();
+    void initImportExportModel();
+
     void configureCardsList();
 
     void setCardListModel(CardsListModel *model);
@@ -179,10 +193,10 @@ private:
     AboutModel *_aboutModel = nullptr;
     SoundPlayback *_soundEffect = nullptr;
     SellerStatisticModel *_statisticModel = nullptr;
-
     ItemsModel *_defaultLogosModel = nullptr;
     ItemsModel *_defaultBackgroundsModel = nullptr;
 
+    ImportExportUserModel *_importExportModel = nullptr;
     IBilling *_billing = nullptr;
 
     QSharedPointer<BaseNode> _backEndModel = nullptr;
