@@ -224,6 +224,11 @@ void MainModel::setCurrentUser(QSharedPointer<UserModel> value) {
         }
 
         _settings.setValue(CURRENT_USER, userId);
+
+        if (_billing) {
+            connect(_currentUser.data(), &UserModel::sigBecomeSeller,
+                    _billing, &IBilling::becomeSeller);
+        }
     }
 
     emit currentUserChanged();
