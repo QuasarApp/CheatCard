@@ -92,25 +92,7 @@ Page {
                         }
 
                         onSigSwipe: (side) => {
-                                        if (root.editable) {
-
-                                            if (root.model) {
-                                                root.model.cardSelected(card.id, 1)
-                                            }
-
-                                            const activity = "qrc:/CheatCardModule/SellerStatistic.qml";
-                                            activityProcessor.newActivity(activity,
-                                                                          mainModel.statisticModel)
-                                            return;
-                                        }
-
-                                        if (list.orientation === ListView.Vertical ||
-                                            side === 2 || side === 3) {
-
-                                            turnOverCard(list.orientation === ListView.Vertical);
-                                        } else {
-                                            turnOverCard(list.orientation === ListView.Vertical);
-                                        }
+                                        statisticsCard(side);
                                     }
 
                         Behavior on width {
@@ -153,6 +135,7 @@ Page {
                         id: editMenu
 
                         MenuItem {
+
                             visible: (mainModel)? mainModel.mode: false
                             height: (visible)? implicitHeight : 0
 
@@ -164,6 +147,7 @@ Page {
                         }
 
                         MenuItem {
+
                             visible: (mainModel)? mainModel.mode: false
                             height: (visible)? implicitHeight : 0
 
@@ -178,8 +162,9 @@ Page {
 
                             text: qsTr("Statistics")
                             icon.source: "qrc:/images/private/resources/Interface_icons/statistic.svg"
-                            onClicked:  (side) => {
+                            onClicked: (side) => {
 //                                            statisticsCard(side);
+
                                         }
                         }
 
@@ -223,9 +208,9 @@ Page {
                         if (list.orientation === ListView.Vertical ||
                             s === 2 || s === 3) {
 
-                            turnOverCard(list.orientation === ListView.Vertical);
+                            cardView.turnOverCard(list.orientation === ListView.Vertical);
                         } else {
-                            turnOverCard(list.orientation === ListView.Vertical);
+                            cardView.turnOverCard(list.orientation === ListView.Vertical);
                         }
                     }
 
