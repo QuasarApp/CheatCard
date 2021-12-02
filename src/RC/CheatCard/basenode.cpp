@@ -17,7 +17,6 @@
 #include <CheatCard/api/api0/userscards.h>
 
 #include <CheatCard/api/api1/restoredatarequest.h>
-#include <CheatCard/api/api1/userscardsv1.h>
 
 #include "CheatCard/nodeinfo.h"
 #include <getsinglevalue.h>
@@ -34,7 +33,6 @@ BaseNode::BaseNode(QH::ISqlDBCache *db) {
 
 
     registerPackageType<QH::PKG::DataPack<UsersCards>>();
-    registerPackageType<QH::PKG::DataPack<UsersCardsV1>>();
     registerPackageType<QH::PKG::DataPack<Card>>();
 
 
@@ -214,11 +212,23 @@ QString BaseNode::libVersion() {
     return CHEAT_CARD_VERSION;
 }
 
-QSharedPointer<User> BaseNode::getUserData(unsigned int userId) const {
+QSharedPointer<User> BaseNode::getUser(unsigned int userId) const {
     User request;
     request.setId(userId);
 
     return db()->getObject(request);
+}
+
+QList<QSharedPointer<UsersCards> > BaseNode::getAllUserData(unsigned int userId) const {
+    QH::PKG::DBObjectsRequest<UsersCards> request("UsersCards",
+                                                    QString("user='%0'").arg(userId));
+
+    auto result = db()->getObject(request);
+
+    if (!result)
+        return {};
+
+    return result->data();
 }
 
 QSharedPointer<UsersCards>
@@ -255,7 +265,7 @@ BaseNode::getAllUserDataFromCard(unsigned int cardId) const {
 }
 
 bool BaseNode::restoreOldData(const QByteArray &curentUserKey,
-                             const QString &domain, int port) {
+                              const QString &domain, int port) {
 
     auto action = [this, curentUserKey](QH::AbstractNodeInfo *node) {
 
@@ -297,6 +307,18 @@ QList<QSharedPointer<Card> > BaseNode::getAllUserCards(const QByteArray& userKey
     }
 
     return {};
+}
+
+QList<QSharedPointer<UsersCards>> BaseNode::getAllUserCardsData(const QByteArray &userKey) {
+    QString whereBlock = QString("card IN SELECT id FROM Cards WHERE ownerSignature = '%0'");
+    QH::PKG::DBObjectsRequest<UsersCards> request("UsersCards",
+                                                  whereBlock.arg(QString(userKey.toBase64(QByteArray::Base64UrlEncoding))));
+    auto result = db()->getObject(request);
+
+    if (!result)
+        return {};
+
+    return result->data();
 }
 
 QByteArray BaseNode::getUserSecret(unsigned int userId) const {

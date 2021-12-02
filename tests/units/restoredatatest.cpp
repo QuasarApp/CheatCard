@@ -25,7 +25,7 @@ void RestoreDataTest::test() {
     auto seller = CheatCardTestsHelper::makeNode<TestSeller>();
     auto client = CheatCardTestsHelper::makeNode<TestVisitor>();
     auto server = CheatCardTestsHelper::makeNode<TestServer>();
-    seller->setCurrentUser(seller->getUserData(CheatCardTestsHelper::testUserId()));
+    seller->setCurrentUser(seller->getUser(CheatCardTestsHelper::testUserId()));
 
     seller->addApiParser<RC::ApiV1>();
     client->addApiParser<RC::ApiV1>();

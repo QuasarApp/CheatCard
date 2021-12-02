@@ -17,7 +17,6 @@
 #include <CheatCard/api/api0/card.h>
 
 #include <CheatCard/api/api1/restoredatarequest.h>
-#include <CheatCard/api/api1/userscardsv1.h>
 
 namespace RC {
 
