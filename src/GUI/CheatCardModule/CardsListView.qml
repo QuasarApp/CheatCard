@@ -14,7 +14,6 @@ Page {
     id: root
     property var model: null
     property bool editable: true
-    property bool editableCardView: false
     property alias cardCount: list.count
 
     signal finished()
@@ -82,28 +81,17 @@ Page {
                         id: cardView
                         model: card
                         opacity: (cardItem.ListView.isCurrentItem)? 1: 0.5
-                        editable: editableCardView
+                        editable: false
                         onFinished: () => {
                                         editable = false
                                         root.finished()
                                     }
 
                         onSigHold: {
-                            if (root.model) {
-                                root.model.cardSelected(card.id, 0)
-                            }
-
-                            const fAvailable = root.editable && !cardView.editable && cardItem.ListView.isCurrentItem;
-                            if (!fAvailable) {
-                                return;
-                            }
-
-                            activityProcessor.newActivity("qrc:/CheatCardModule/WaitConnectView.qml",
-                                                          mainModel.waitModel)
+                            activityCard();
                         }
 
                         onSigSwipe: (side) => {
-
                                         if (root.editable) {
 
                                             if (root.model) {
@@ -161,6 +149,86 @@ Page {
                         onClicked: editMenu.popup(this, editCardBtn.x, editCardBtn.height)
                     }
 
+                    Menu {
+                        id: editMenu
+
+                        MenuItem {
+                            visible: (mainModel)? mainModel.mode: false
+                            height: (visible)? implicitHeight : 0
+
+                            text: qsTr("Edit card")
+                            icon.source: "qrc:/images/private/resources/Interface_icons/edit_card.svg"
+                            onClicked:  () => {
+                                            cardView.editable = true;
+                                        }
+                        }
+
+                        MenuItem {
+                            visible: (mainModel)? mainModel.mode: false
+                            height: (visible)? implicitHeight : 0
+
+                            text: qsTr("Activate card")
+                            icon.source: "qrc:/images/private/resources/Interface_icons/Activate.svg"
+                            onClicked:  () => {
+                                            activityCard();
+                                        }
+                        }
+
+                        MenuItem {
+
+                            text: qsTr("Statistics")
+                            icon.source: "qrc:/images/private/resources/Interface_icons/statistic.svg"
+                            onClicked:  (side) => {
+//                                            statisticsCard(side);
+                                        }
+                        }
+
+                        MenuItem {
+
+                            text: qsTr("Remove card")
+                            icon.source: "qrc:/images/private/resources/Interface_icons/delete_card.svg"
+                            onClicked:  () => {}
+
+                        }
+
+                    }
+
+                    function activityCard() {
+                        if (root.model) {
+                            root.model.cardSelected(card.id, 0)
+                        }
+
+                        const fAvailable = root.editable && !cardView.editable && cardItem.ListView.isCurrentItem;
+                        if (!fAvailable) {
+                            return;
+                        }
+
+                        activityProcessor.newActivity("qrc:/CheatCardModule/WaitConnectView.qml",
+                                                      mainModel.waitModel)
+                    }
+
+                    function statisticsCard(s) {
+                        if (root.editable) {
+
+                            if (root.model) {
+                                root.model.cardSelected(card.id, 1)
+                            }
+
+                            const activity = "qrc:/CheatCardModule/SellerStatistic.qml";
+                            activityProcessor.newActivity(activity,
+                                                          mainModel.statisticModel)
+                            return;
+                        }
+
+                        if (list.orientation === ListView.Vertical ||
+                            s === 2 || s === 3) {
+
+                            turnOverCard(list.orientation === ListView.Vertical);
+                        } else {
+                            turnOverCard(list.orientation === ListView.Vertical);
+                        }
+                    }
+
                 }
             }
 
@@ -179,69 +247,4 @@ Page {
         }
     }
 
-    Menu {
-        id: editMenu
-
-        MenuItem {
-            visible: (mainModel)? mainModel.mode: false
-            height: visible ? implicitHeight : 0
-
-            text: qsTr("Edit card")
-            icon.source: "qrc:/images/private/resources/Interface_icons/edit_card.svg"
-            onClicked:  () => {
-                            root.editableCardView = true;
-                        }
-        }
-
-        MenuItem {
-
-            text: qsTr("Remove card")
-            icon.source: "qrc:/images/private/resources/Interface_icons/delete_card.svg"
-            onClicked:  () => {
-//                            activityProcessor.newActivityFromComponent(about, mainModel.getAboutModel());
-                        }
-
-        }
-
-        MenuItem {
-            visible: (mainModel)? mainModel.mode: false
-            height: visible ? implicitHeight : 0
-
-            text: qsTr("Activate card")
-            icon.source: "qrc:/images/private/resources/Interface_icons/Activate.svg"
-            onClicked:  () => {
-//                            activityProcessor.newActivityFromComponent(shareApp);
-                        }
-
-        }
-
-        MenuItem {
-
-            text: qsTr("Statistics")
-            icon.source: "qrc:/images/private/resources/Interface_icons/statistic.svg"
-            onClicked:  () => {
-
-//                            if (mainModel.mode) {
-//                                activityProcessor.newActivityFromComponent(pageSeller);
-//                            } else {
-//                                activityProcessor.newActivityFromComponent(pageVisitor);
-//                            }
-
-
-                        }
-        }
-
-//        Component {
-//            id: removeCard
-//        }
-
-//        Component {
-//            id: activateCard
-//        }
-
-//        Component {
-//            id: statisticsCard
-//        }
-
-    }
 }
