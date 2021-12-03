@@ -92,8 +92,8 @@ Page {
                         }
 
                         onSigSwipe: (side) => {
-                                        statisticsCard(side);
-
+                                        statisticsCard();
+                                        swipeCard(side);
                                     }
 
                         Behavior on width {
@@ -124,7 +124,7 @@ Page {
 
                     ToolButton {
                         id: editCardBtn
-                        visible: cardItem.ListView.isCurrentItem && !cardView.editable && root.editable
+                        visible: cardItem.ListView.isCurrentItem && !cardView.editable
                         icon.source: "qrc:/images/private/resources/Interface_icons/Right_topmenu.svg"
                         font.bold: true
                         font.pointSize: 14
@@ -149,6 +149,14 @@ Page {
 
                         MenuItem {
 
+                            text: qsTr("Remove card")
+                            icon.source: "qrc:/images/private/resources/Interface_icons/delete_card.svg"
+                            onClicked:  () => {}
+
+                        }
+
+                        MenuItem {
+
                             visible: (mainModel)? mainModel.mode: false
                             height: (visible)? implicitHeight : 0
 
@@ -164,18 +172,13 @@ Page {
                             text: qsTr("Statistics")
                             icon.source: "qrc:/images/private/resources/Interface_icons/statistic.svg"
                             onClicked: (side) => {
-//                                            statisticsCard(side);
-
+                                           if (!root.model.mode) {
+                                               statisticsCard();
+                                               swipeCard(side);
+                                           }
+                                           statisticsCard();
                                         }
-                        }
-
-                        MenuItem {
-
-                            text: qsTr("Remove card")
-                            icon.source: "qrc:/images/private/resources/Interface_icons/delete_card.svg"
-                            onClicked:  () => {}
-
-                        }
+                        }        
 
                     }
 
@@ -193,7 +196,7 @@ Page {
                                                       mainModel.waitModel)
                     }
 
-                    function statisticsCard(s) {
+                    function statisticsCard() {
                         if (root.editable) {
 
                             if (root.model) {
@@ -205,6 +208,9 @@ Page {
                                                           mainModel.statisticModel)
                             return;
                         }
+                    }
+
+                    function swipeCard(s) {
 
                         if (list.orientation === ListView.Vertical ||
                             s === 2 || s === 3) {
@@ -213,6 +219,7 @@ Page {
                         } else {
                             cardView.turnOverCard(list.orientation === ListView.Vertical);
                         }
+
                     }
 
                 }
