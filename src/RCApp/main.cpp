@@ -8,6 +8,7 @@
 #include <QGuiApplication>
 #include <quasarapp.h>
 #include "CheatCardGui/CheatCard.h"
+#include <QSslSocket>
 #include <qmlnotifyservice.h>
 #include "androidbilling.h"
 #include "desktopbilling.h"
@@ -59,6 +60,6 @@ int main(int argc, char *argv[]) {
     if (!rc.init(&engine, getBillingInstance())) {
         return 0;
     }
-
+    qDebug() << "Device supports OpenSSL: " << QSslSocket::supportsSsl();
     return app.exec();
 }
