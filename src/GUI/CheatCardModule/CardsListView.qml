@@ -93,6 +93,7 @@ Page {
 
                         onSigSwipe: (side) => {
                                         statisticsCard(side);
+
                                     }
 
                         Behavior on width {
