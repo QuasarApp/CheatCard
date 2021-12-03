@@ -173,10 +173,11 @@ Page {
                             icon.source: "qrc:/images/private/resources/Interface_icons/statistic.svg"
                             onClicked: (side) => {
                                            if (!root.model.mode) {
-                                               statisticsCard();
-                                               swipeCard(side);
+                                               turnOverCard(side);
+                                           } else {
+                                               showStatisticsCard();
                                            }
-                                           statisticsCard();
+
                                         }
                         }        
 
@@ -196,7 +197,7 @@ Page {
                                                       mainModel.waitModel)
                     }
 
-                    function statisticsCard() {
+                    function showStatisticsCard() {
                         if (root.editable) {
 
                             if (root.model) {
@@ -210,7 +211,7 @@ Page {
                         }
                     }
 
-                    function swipeCard(s) {
+                    function turnOverCard(s) {
 
                         if (list.orientation === ListView.Vertical ||
                             s === 2 || s === 3) {
