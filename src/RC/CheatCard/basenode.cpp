@@ -188,6 +188,10 @@ int BaseNode::getCountOfReceivedItems(unsigned int userId,
     return getUserCardData(userId, cardId)->getReceived();
 }
 
+void BaseNode::removeUserCardFromBase(const QSharedPointer<QH::PKG::DBObject> &objUserCard) {
+    _db->deleteObject(objUserCard);
+}
+
 int RC::BaseNode::getCardFreeIndex(unsigned int cardId) const {
     QH::PKG::GetSingleValue request({"Cards", cardId}, "freeIndex");
     auto result = _db->getObject(request);

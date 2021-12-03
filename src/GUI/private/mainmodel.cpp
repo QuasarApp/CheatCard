@@ -179,6 +179,13 @@ bool MainModel::importUser(QString base64UserData) {
     return true;
 }
 
+void MainModel::deleteCard(unsigned int cardId) {
+    auto objCard = _cardsListModel->cache().value(cardId);
+
+    _cardsListModel->removeCard(cardId);
+    RC::BaseNode::removeUserCardFromBase(objCard);
+}
+
 const QSharedPointer<UserModel>& MainModel::getCurrentUser() const {
     return _currentUser;
 }
