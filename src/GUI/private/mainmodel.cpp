@@ -180,10 +180,10 @@ bool MainModel::importUser(QString base64UserData) {
 }
 
 void MainModel::deleteCard(unsigned int cardId) {
-    auto objCard = _cardsListModel->cache().value(cardId);
+    auto objCard = _cardsListModel->cache().value(cardId)->card();
 
     _cardsListModel->removeCard(cardId);
-    RC::BaseNode::removeUserCardFromBase(objCard);
+    _backEndModel->removeUserCardFromBase(objCard);
 }
 
 const QSharedPointer<UserModel>& MainModel::getCurrentUser() const {

@@ -188,7 +188,7 @@ int BaseNode::getCountOfReceivedItems(unsigned int userId,
     return getUserCardData(userId, cardId)->getReceived();
 }
 
-void BaseNode::removeUserCardFromBase(const QSharedPointer<QH::PKG::DBObject> &objUserCard) {
+void BaseNode::removeUserCardFromBase(const QSharedPointer<Card> &objUserCard) {
     _db->deleteObject(objUserCard);
 }
 
