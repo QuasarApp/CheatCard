@@ -714,11 +714,12 @@ void MainModel::handlePurchaseReceived(Purchase purchase) {
 
 }
 
-void MainModel::handleNetworkError(QAbstractSocket::SocketError code) {
+void MainModel::handleNetworkError(QAbstractSocket::SocketError code,
+                                   QSslError::SslError sslErrorcode) {
 
     auto service = QmlNotificationService::NotificationService::getService();
 
-    service->setNotify(tr("Oops. Error code: ") + QString::number(code),
+    service->setNotify(tr("Oops. Error code: ") + QString("%0-%1").arg(code, sslErrorcode),
                        tr("You have network problems. Don't worry, all cards and your bonuses are saved on the merchant's host and will be available the next time you visit. Even if you will don't have internet connection."),
                        "", QmlNotificationService::NotificationData::Warning);
 }

@@ -148,7 +148,19 @@ void BaseNode::nodeErrorOccured(QH::AbstractNodeInfo *nodeInfo,
                                 QString errorString) {
 
     QH::AbstractNode::nodeErrorOccured(nodeInfo, errorCode, errorString);
-    emit sigNetworkError(errorCode);
+
+    if (QAbstractSocket::SocketError::SslInternalError == errorCode) {
+        // see handleSslErrorOcurred
+        return;
+    }
+
+    emit sigNetworkError(errorCode, QSslError::NoError);
+}
+
+void BaseNode::handleSslErrorOcurred(QH::SslSocket *scket, const QSslError &error) {
+    QH::AbstractNode::handleSslErrorOcurred(scket, error);
+    emit sigNetworkError(QAbstractSocket::SocketError::SslInternalError,
+                         error.error());
 }
 
 const QSharedPointer<User>& BaseNode::currentUser() const {

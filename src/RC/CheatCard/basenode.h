@@ -11,6 +11,7 @@
 #include "CheatCard/core_global.h"
 #include "datapack.h"
 #include <isqldbcache.h>
+#include <QSslError>
 
 
 #define USERREQUEST_TIMEOUT 3
@@ -107,7 +108,8 @@ public:
 signals:
     void sigPurchaseWasSuccessful(QSharedPointer<RC::UsersCards> data);
     void sigCardReceived(QSharedPointer<RC::Card> err);
-    void sigNetworkError(QAbstractSocket::SocketError errorCode);
+    void sigNetworkError(QAbstractSocket::SocketError errorCode,
+                         QSslError::SslError sslError);
 
 protected:
 
@@ -138,6 +140,8 @@ protected slots:
     void nodeErrorOccured(QH::AbstractNodeInfo *nodeInfo,
                           QAbstractSocket::SocketError errorCode,
                           QString errorString) override;
+
+    void handleSslErrorOcurred(QH::SslSocket *scket, const QSslError &error) override;
 
 private:
     QH::ISqlDBCache *_db = nullptr;
