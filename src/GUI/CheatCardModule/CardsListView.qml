@@ -92,8 +92,11 @@ Page {
                         }
 
                         onSigSwipe: (side) => {
-                                        statisticsCard();
-                                        swipeCard(side);
+                                        if (!root.model.mode) {
+                                            turnOverCard(side);
+                                        } else {
+                                            showStatisticsCard();
+                                        }
                                     }
 
                         Behavior on width {
@@ -178,7 +181,6 @@ Page {
                                            } else {
                                                showStatisticsCard();
                                            }
-
                                         }
                         }        
 
