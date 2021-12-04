@@ -67,7 +67,6 @@ public:
     Q_INVOKABLE QObject *getAboutModel();
     QObject *currentUser() const;
     Q_INVOKABLE bool importUser(QString base64UserData);
-    Q_INVOKABLE void deleteCard(unsigned int cardId);
 
     const QSharedPointer<UserModel>& getCurrentUser() const;
 

@@ -152,7 +152,7 @@ Page {
                             text: qsTr("Remove card")
                             icon.source: "qrc:/images/private/resources/Interface_icons/delete_card.svg"
                             onClicked:  () => {
-                                            root.model.deleteCard(card.id);
+                                            root.model.removeCard(card.id);
                                         }
                         }
 
