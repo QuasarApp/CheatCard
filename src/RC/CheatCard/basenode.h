@@ -37,7 +37,7 @@ public:
     int getFreeItemsCount(const QSharedPointer<UsersCards>& inputData) const;
     int getFreeItemsCount(const QSharedPointer<UsersCards>& inputData, unsigned int freeIndex) const;
     int getCountOfReceivedItems(unsigned int userId, unsigned int cardId);
-    void removeUserCardFromBase(const QSharedPointer<Card> &objUserCard);
+    void removeCard(const QSharedPointer<Card> &objUserCard);
 
     int getCardFreeIndex(unsigned int cardId) const;
     unsigned int getCardVersion(unsigned int cardId) const;
