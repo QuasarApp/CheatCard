@@ -22,8 +22,8 @@ class WaitConnectionModel: public QObject
 
     Q_PROPERTY(QObject* card READ card NOTIFY cardChanged)
     Q_PROPERTY(int purchaseCount READ purchaseCount WRITE setPurchaseCount NOTIFY purchaseCountChanged)
-
     Q_PROPERTY(QString extraData READ extraData WRITE setExtraData NOTIFY extraDataChanged)
+    Q_PROPERTY(bool allowScreenDim READ allowScreenDim WRITE setAllowScreenDim NOTIFY allowScreenDimChanged)
 
 public:
     WaitConnectionModel();
@@ -40,6 +40,9 @@ public:
     const QString &extraData() const;
     void setExtraData(const QString &newExtraData);
 
+    bool allowScreenDim() const;
+    void setAllowScreenDim(bool newAllowScreenDim);
+
 signals:
     void cardChanged();
     void purchaseCountChanged();
@@ -52,6 +55,8 @@ signals:
 
     void cameraIdChanged();
 
+    void allowScreenDimChanged();
+
 private:
 
 
@@ -59,6 +64,7 @@ private:
     int _purchaseCount = 1;
 
     QString _extraData;
+    bool _allowScreenDim = true;
 };
 }
 #endif // WAITCONNECTIONMODEL_H
