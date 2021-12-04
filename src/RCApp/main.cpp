@@ -38,7 +38,9 @@ RC::IBilling * getBillingInstance() {
 }
 
 int main(int argc, char *argv[]) {
-
+#ifdef Q_OS_ANDROID
+    qputenv("ANDROID_OPENSSL_SUFFIX", "_1_1");
+#endif
     QuasarAppUtils::Params::parseParams(argc, argv);
 
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
