@@ -62,6 +62,5 @@ int main(int argc, char *argv[]) {
     if (!rc.init(&engine, getBillingInstance())) {
         return 0;
     }
-    qDebug() << "Device supports OpenSSL: " << QSslSocket::supportsSsl();
     return app.exec();
 }

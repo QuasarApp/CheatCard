@@ -69,6 +69,7 @@ void Server::nodeConnected(QH::AbstractNodeInfo *node) {
 }
 
 void Server::nodeDisconnected(QH::AbstractNodeInfo *node) {
+
     BaseNode::nodeDisconnected(node);
 }
 

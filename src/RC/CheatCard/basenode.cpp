@@ -107,6 +107,7 @@ QH::AbstractNodeInfo *BaseNode::createNodeInfo(QAbstractSocket *socket,
 }
 
 void BaseNode::nodeConnected(QH::AbstractNodeInfo *node) {
+
     QH::AbstractNode::nodeConnected(node);
 
     ApplicationVersion appVersion;

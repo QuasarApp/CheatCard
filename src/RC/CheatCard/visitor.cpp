@@ -87,16 +87,17 @@ void Visitor::handleTick() {
 }
 
 void Visitor::action(QH::AbstractNodeInfo *node) {
+
     CardStatusRequest request;
 
-    auto senderInfo = static_cast<NodeInfo*>(node);
-
-    long long token = rand() * rand();
-
-    senderInfo->setToken(token);
+    if (minimumApiVersion() <= 0 ) {
+        auto senderInfo = static_cast<NodeInfo*>(node);
+        long long token = rand() * rand();
+        senderInfo->setToken(token);
+        request.setRequestToken(token);
+    }
 
     request.setSessionId(_lastRequested);
-    request.setRequestToken(token);
 
     sendData(&request, node->networkAddress());
 
