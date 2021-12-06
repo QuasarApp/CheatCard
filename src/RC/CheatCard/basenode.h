@@ -9,6 +9,8 @@
 #define BASENODE_H
 #include "abstractnode.h"
 #include "CheatCard/core_global.h"
+#include <QSharedPointer>
+#include <dbobject.h>
 #include "datapack.h"
 #include <isqldbcache.h>
 #include <QSslError>
@@ -36,6 +38,7 @@ public:
     int getFreeItemsCount(const QSharedPointer<UsersCards>& inputData) const;
     int getFreeItemsCount(const QSharedPointer<UsersCards>& inputData, unsigned int freeIndex) const;
     int getCountOfReceivedItems(unsigned int userId, unsigned int cardId);
+    void removeCard(const QSharedPointer<Card> &objUserCard);
 
     int getCardFreeIndex(unsigned int cardId) const;
     unsigned int getCardVersion(unsigned int cardId) const;

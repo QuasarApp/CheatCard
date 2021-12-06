@@ -32,7 +32,7 @@
     </message>
     <message>
         <source>Edit</source>
-        <translation>Редактировать</translation>
+        <translation type="vanished">Редактировать</translation>
     </message>
     <message>
         <source>Add card</source>
@@ -53,6 +53,22 @@
     <message>
         <source>Let&apos;s go create the first card! Press &quot;Add Card &quot; button</source>
         <translation>Вперёд, создадим первую карту! Нажми кнопку &quot;Добавить карту&quot;</translation>
+    </message>
+    <message>
+        <source>Edit card</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove card</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Activate card</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Statistics</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
