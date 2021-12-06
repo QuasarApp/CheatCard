@@ -158,8 +158,8 @@ bool MainModel::handleImportUser(const QString &base64UserData) {
     auto newUser = QSharedPointer<UserModel>::create(userData);
 
     setCurrentUser(newUser);
-    _config->setValue("fFirst", false);
     saveUser();
+    _config->setValue("fFirst", false);
 
     if (!_backEndModel->restoreOldData(userData->getKey())) {
         service->setNotify(tr("We Has a troubles"),

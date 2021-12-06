@@ -94,7 +94,6 @@ CPage {
         target: root.model
 
         function onDecodeFinished(captured) {
-            console.log("bug")
             privateRoot.importDataFinished(captured)
         }
     }
