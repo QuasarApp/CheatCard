@@ -78,6 +78,8 @@ public:
     const QByteArray &ownerSignature() const;
     void setOwnerSignature(const QByteArray &newOwnerSignature);
 
+    bool isOvner(const unsigned int userId) const;
+
 protected:
     QString primaryKey() const override;
     QDataStream &fromStream(QDataStream &stream) override;
@@ -96,7 +98,7 @@ private:
     QString _physicalAddress;
     QString _webSite;
     QString _freeItemName;
-    unsigned int cardVersion;
+    unsigned int cardVersion = 0;
 
     int freeIndex = 1;
     QString color = "#777777";

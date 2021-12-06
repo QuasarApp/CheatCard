@@ -9,6 +9,7 @@
 #include "dbobjectsrequest.h"
 #include "CheatCard/api/api0/user.h"
 
+#include <QSettings>
 #include <customdbrequest.h>
 #include <getsinglevalue.h>
 
@@ -72,7 +73,9 @@ QH::DBPatchMap DataBase::dbPatches() const {
                 return false;
 
             if (ptr->fSaller()) {
+                database->doQuery(QString("DELETE FROM Users WHERE id = '%0'").arg(ptr->userId()));
                 ptr->regenerateKeys();
+                QSettings().setValue(CURRENT_USER, ptr->userId());
             } else {
                 QH::PKG::GetSingleValue request({"Users", ptr->userId()}, "key");
                 auto keyWrapper = db->getObject(request);

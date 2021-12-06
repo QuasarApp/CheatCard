@@ -61,7 +61,7 @@ void ConnectionTest::firstContact() {
     seller = CheatCardTestsHelper::makeNode<TestSeller>();
     client = CheatCardTestsHelper::makeNode<TestVisitor>();
     server = CheatCardTestsHelper::makeNode<TestServer>();
-    seller->setCurrentUser(seller->getUserData(CheatCardTestsHelper::testUserId()));
+    seller->setCurrentUser(seller->getUser(CheatCardTestsHelper::testUserId()));
 
     seller->addApiParser<RC::ApiV1>();
     client->addApiParser<RC::ApiV1>();
@@ -75,7 +75,7 @@ void ConnectionTest::firstContact() {
     seller = CheatCardTestsHelper::makeNode<TestSeller>();
     client = CheatCardTestsHelper::makeNode<TestVisitor>();
     server = CheatCardTestsHelper::makeNode<TestServer>();
-    seller->setCurrentUser(seller->getUserData(CheatCardTestsHelper::testUserId()));
+    seller->setCurrentUser(seller->getUser(CheatCardTestsHelper::testUserId()));
 
     seller->addApiParser<RC::ApiV1>();
     client->addApiParser<RC::ApiV0>();
@@ -90,7 +90,7 @@ void ConnectionTest::firstContact() {
     seller = CheatCardTestsHelper::makeNode<TestSeller>();
     client = CheatCardTestsHelper::makeNode<TestVisitor>();
     server = CheatCardTestsHelper::makeNode<TestServer>();
-    seller->setCurrentUser(seller->getUserData(CheatCardTestsHelper::testUserId()));
+    seller->setCurrentUser(seller->getUser(CheatCardTestsHelper::testUserId()));
 
     seller->addApiParser<RC::ApiV0>();
     client->addApiParser<RC::ApiV1>();
@@ -105,7 +105,7 @@ void ConnectionTest::firstContact() {
     seller = CheatCardTestsHelper::makeNode<TestSeller>();
     client = CheatCardTestsHelper::makeNode<TestVisitor>();
     server = CheatCardTestsHelper::makeNode<TestServer>();
-    seller->setCurrentUser(seller->getUserData(CheatCardTestsHelper::testUserId()));
+    seller->setCurrentUser(seller->getUser(CheatCardTestsHelper::testUserId()));
 
     seller->addApiParser<RC::ApiV0>();
     client->addApiParser<RC::ApiV0>();

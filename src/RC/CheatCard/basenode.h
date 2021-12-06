@@ -11,6 +11,7 @@
 #include "CheatCard/core_global.h"
 #include "datapack.h"
 #include <isqldbcache.h>
+#include <QSslError>
 
 
 #define USERREQUEST_TIMEOUT 3
@@ -42,7 +43,8 @@ public:
     static QString libVersion();
 
     QSharedPointer<User>
-    getUserData(unsigned int userId) const;
+    getUser(unsigned int userId) const;
+    QList<QSharedPointer<UsersCards> >getAllUserData(unsigned int userId) const;
 
     QSharedPointer<UsersCards>
     getUserCardData(unsigned int userId, unsigned int cardId) const;
@@ -66,6 +68,13 @@ public:
      */
     QList<QSharedPointer<Card>> getAllUserCards(const QByteArray &userKey,
                                                 bool restOf = false);
+    /**
+     * @brief getAllUserCardsData This method will return list of available userscards data of the user with @a userKey key
+     * @param userKey user key
+     * @return cards data list;
+     */
+    QList<QSharedPointer<UsersCards>>
+    getAllUserCardsData(const QByteArray &userKey);
     QByteArray getUserSecret(unsigned int userId) const;
 
     const QMap<int, QSharedPointer<QH::iParser> > &apiParsers() const;
@@ -99,7 +108,8 @@ public:
 signals:
     void sigPurchaseWasSuccessful(QSharedPointer<RC::UsersCards> data);
     void sigCardReceived(QSharedPointer<RC::Card> err);
-    void sigNetworkError(QAbstractSocket::SocketError errorCode);
+    void sigNetworkError(QAbstractSocket::SocketError errorCode,
+                         QSslError::SslError sslError);
 
 protected:
 
@@ -124,6 +134,15 @@ protected:
     QSharedPointer<QH::iParser>
     selectParser(const ApplicationVersion& distVersion) const;
 
+
+    // AbstractNode interface
+protected slots:
+    void nodeErrorOccured(QH::AbstractNodeInfo *nodeInfo,
+                          QAbstractSocket::SocketError errorCode,
+                          QString errorString) override;
+
+    void handleSslErrorOcurred(QH::SslSocket *scket, const QSslError &error) override;
+
 private:
     QH::ISqlDBCache *_db = nullptr;
 
@@ -131,12 +150,6 @@ private:
 
     QSharedPointer<User> _currentUser;
 
-
-    // AbstractNode interface
-protected slots:
-    void nodeErrorOccured(QH::AbstractNodeInfo *nodeInfo,
-                          QAbstractSocket::SocketError errorCode,
-                          QString errorString);
 };
 }
 #endif // BASENODE_H

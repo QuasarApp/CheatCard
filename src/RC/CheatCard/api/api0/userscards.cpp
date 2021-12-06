@@ -49,6 +49,8 @@ QDataStream &UsersCards::fromStream(QDataStream &stream) {
     stream >> id;
     stream >> purchasesNumber;
     stream >> received;
+    // To-Do
+    // will drop on second release 2.xx
     bool owner;
     stream >> owner;
     stream >> cardVersion;
@@ -64,6 +66,9 @@ QDataStream &UsersCards::toStream(QDataStream &stream) const {
     stream << id;
     stream << purchasesNumber;
     stream << received;
+
+    // To-Do
+    // will drop on second release 2.xx
     bool owner(false);
     stream << owner;
     stream << cardVersion;

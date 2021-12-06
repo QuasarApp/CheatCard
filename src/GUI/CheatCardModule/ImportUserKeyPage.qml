@@ -102,14 +102,6 @@ CPage {
         id: privateRoot
 
         function importDataFinished (data) {
-            if (!mainModel) {
-                return
-            }
-
-            if(mainModel.importUser(data)) {
-                root.importFinished()
-            }
-
             activityProcessor.popItem();
         }
 
