@@ -6,15 +6,18 @@
 //#
 
 #include "usermodel.h"
-#include "CheatCard/user.h"
+#include "CheatCard/api/api0/user.h"
+#include "settingsmodel.h"
 
 namespace RC {
 
+void RC::UserModel::regenerateSessionKey() {
+    setSessinon(static_cast<long long >(rand()) * rand());
+}
+
 UserModel::UserModel(QSharedPointer<User> user) {
     setUser(user);
-
     srand(time(0));
-    setSessinon(static_cast<long long >(rand()) * rand());
 }
 
 bool UserModel::fSaller() const {
@@ -73,7 +76,18 @@ UserHeader UserModel::getHelloPackage() const {
     header.setUserId(user()->userId());
     header.setToken(user()->getKey());
 
+    auto settings = SettingsModel::instance();
+    if (settings && settings->getValue("shareName", true).toBool()) {
+        header.setUserName(name());
+    }
+
     return header;
+}
+
+void UserModel::handleSettingsChanged(const QString &key, const QVariant &) {
+    if (key == "shareName") {
+        regenerateSessionKey();
+    }
 }
 
 const QByteArray &UserModel::sellerToken() const {
@@ -104,6 +118,15 @@ const QString &UserModel::sessionCode() const {
 
 void UserModel::becomeSellerRequest() const {
     emit sigBecomeSeller();
+}
+
+QString UserModel::userBackUpPath() const {
+    QString path = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+    return path;
+}
+
+QString UserModel::userBackUpData() const {
+    return _user->toBytes().toBase64(QByteArray::Base64UrlEncoding);
 }
 
 }

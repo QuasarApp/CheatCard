@@ -1,7 +1,7 @@
 #ifndef TESTSERVER_H
 #define TESTSERVER_H
 
-#include <CheatCard/server.h>
+#include <CheatCard/serverssl.h>
 
 class TestDataBaseWrapper;
 

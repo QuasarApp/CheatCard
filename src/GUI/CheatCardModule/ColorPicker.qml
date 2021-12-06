@@ -3,7 +3,9 @@ import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
 
-Page {
+import "Style"
+
+CPage {
     property alias color: preview.color
     implicitHeight: 0x0
 
@@ -38,14 +40,10 @@ Page {
 
                 TextField {
                     text: red.value.toFixed(4)
-
-                    validator: DoubleValidator {
-                        bottom: red.from;
-                        top: red.to;
-                    }
                     horizontalAlignment: Text.AlignHCenter
+
                     onEditingFinished: {
-                        red.value = text
+                        red.value = Number(text)
                     }
 
                 }
@@ -67,14 +65,10 @@ Page {
 
                 TextField {
                     text: green.value.toFixed(4)
-                    validator: DoubleValidator {
-                        bottom: green.from;
-                        top: green.to;
-                    }
                     horizontalAlignment: Text.AlignHCenter
 
                     onEditingFinished: {
-                        green.value = text
+                        green.value = Number(text)
                     }
                 }
             }
@@ -95,14 +89,10 @@ Page {
 
                 TextField {
                     text: blue.value.toFixed(4)
-                    validator: DoubleValidator {
-                        bottom: blue.from;
-                        top: blue.to;
-                    }
                     horizontalAlignment: Text.AlignHCenter
 
                     onEditingFinished: {
-                        blue.value = text
+                        blue.value = Number(text)
                     }
                 }
             }

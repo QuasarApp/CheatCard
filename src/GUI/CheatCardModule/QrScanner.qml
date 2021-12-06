@@ -19,11 +19,17 @@ Page {
 
     Camera {
         id: camera
+
+        property int deviceIndex: 0
+        property var devices: QtMultimedia.availableCameras
+        property string defaultCamera: (devices.length)? devices[deviceIndex  % devices.length].deviceId : ""
+
         focus {
             focusMode: CameraFocus.FocusContinuous
             focusPointMode: CameraFocus.FocusPointAuto
         }
 
+        deviceId: (deviceIndex)? defaultCamera : config.getStrValue("cameraDevice", defaultCamera);
 
     }
 
@@ -71,6 +77,18 @@ Page {
 
         onCapturedChanged: (captured) => {
             root.captured(captured)
+        }
+    }
+
+    ToolButton {
+        text: qsTr("switch camera")
+
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        anchors.bottom: parent.bottom
+        icon.source: "qrc:/images/private/resources/Interface_icons/Camera_switch.svg"
+        onClicked:  {
+            camera.deviceIndex++
         }
     }
 }

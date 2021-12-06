@@ -6,22 +6,22 @@
 //#
 
 
-#include "cardstatusrequest.h"
-#include "nodeinfo.h"
+#include "CheatCard/nodeinfo.h"
 #include "visitor.h"
-
-#include <CheatCard/user.h>
 #include <cstring>
-#include <CheatCard/session.h>
-#include <CheatCard/userscards.h>
-#include <CheatCard/card.h>
+
+#include "CheatCard/api/api0/cardstatusrequest.h"
+#include <CheatCard/api/api0/user.h>
+#include <CheatCard/api/api0/session.h>
+#include <CheatCard/api/api0/userscards.h>
+#include <CheatCard/api/api0/card.h>
+
+#include <CheatCard/api/api1/restoredatarequest.h>
 
 namespace RC {
 
 
 Visitor::Visitor(QH::ISqlDBCache *db): BaseNode(db) {
-    registerPackageType<QH::PKG::DataPack<UsersCards>>();
-    registerPackageType<QH::PKG::DataPack<Card>>();
 
     _timer = new QTimer(this);
 
@@ -37,41 +37,71 @@ bool Visitor::checkCardData(long long session,
     _lastRequested = session;
 
     int currentTime = time(0);
+
+    if (domain.isEmpty()) {
+        _domain = getServerHost();
+    } else {
+        _domain = domain;
+    }
+    _port = port;
+
+
     if (_lastRequest + _requestInterval > currentTime) {
 
-        _domain = domain;
-        _port = port;
         _timer->start((_lastRequest + _requestInterval - currentTime) * 1000);
 
         return true;
     }
 
-    return addNode(domain, port);
+    auto action = [this](QH::AbstractNodeInfo *node) {
+        this->action(node);
+    };
+
+    return addNode(_domain, _port,
+                   action, QH::NodeCoonectionStatus::Confirmed);
 }
 
+bool Visitor::cardValidation(const QSharedPointer<Card> &cardFromDB,
+                             const QByteArray &ownerSecret) const {
+    Q_UNUSED(cardFromDB);
+    Q_UNUSED(ownerSecret);
+
+    return true;
+}
+
+void Visitor::getSignData(QByteArray &) const {
+
+}
 
 void Visitor::nodeConnected(QH::AbstractNodeInfo *node) {
     BaseNode::nodeConnected(node);
+}
 
-    CardStatusRequest request;
-
-    auto senderInfo = static_cast<NodeInfo*>(node);
-
-    long long token = rand() * rand();
-
-    senderInfo->setToken(token);
-
-    request.setSessionId(_lastRequested);
-    request.setRequestToken(token);
-
-    sendData(&request, node->networkAddress());
-
-    _lastRequest = time(0);
+void Visitor::nodeConfirmend(QH::AbstractNodeInfo *node) {
+    BaseNode::nodeConfirmend(node);
 }
 
 void Visitor::handleTick() {
     _timer->stop();
     addNode(_domain, _port);
+}
+
+void Visitor::action(QH::AbstractNodeInfo *node) {
+
+    CardStatusRequest request;
+
+    if (minimumApiVersion() <= 0 ) {
+        auto senderInfo = static_cast<NodeInfo*>(node);
+        long long token = rand() * rand();
+        senderInfo->setToken(token);
+        request.setRequestToken(token);
+    }
+
+    request.setSessionId(_lastRequested);
+
+    sendData(&request, node->networkAddress());
+
+    _lastRequest = time(0);
 }
 
 int Visitor::getRequestInterval() const {

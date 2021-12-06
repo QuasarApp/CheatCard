@@ -7,6 +7,7 @@
 
 
 
+#include "iplatformtools.h"
 #include "waitconnectionmodel.h"
 
 #include <QTimer>
@@ -57,6 +58,20 @@ void WaitConnectionModel::setExtraData(const QString &newExtraData) {
         return;
     _extraData = newExtraData;
     emit extraDataChanged();
+}
+
+bool WaitConnectionModel::allowScreenDim() const {
+    return _allowScreenDim;
+}
+
+void WaitConnectionModel::setAllowScreenDim(bool newAllowScreenDim) {
+    if (_allowScreenDim == newAllowScreenDim)
+        return;
+    _allowScreenDim = newAllowScreenDim;
+
+    IPlatformTools::instance()->setScreanDim(newAllowScreenDim);
+
+    emit allowScreenDimChanged();
 }
 
 }

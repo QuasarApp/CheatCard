@@ -25,13 +25,27 @@ ImageProvider::~ImageProvider() = default;
 
 
 QPixmap ImageProvider::requestPixmap(const QString &id,
-                                     QSize *,
+                                     QSize *imageSize,
                                      const QSize &requestedSize) {
 
-    auto request = id.split('/');
+    auto request = id.split(':', Qt::SkipEmptyParts);
 
     QPixmap result(1,1);
     auto type = request.value(0);
+
+    if (type == "file") {
+        result.load(request.value(1));
+
+        if (imageSize) {
+            imageSize->setHeight(result.height());
+            imageSize->setWidth(result.width());
+        }
+
+        if (requestedSize.isValid()) {
+            return result.scaled(requestedSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+        }
+        return result;
+    }
 
     if (_db) {
         unsigned int id = request.value(1).toUInt();

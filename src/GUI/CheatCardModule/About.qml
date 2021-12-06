@@ -41,6 +41,11 @@ Credits {
             color: "#777777"
         },
         {
+            text: "SimpleQmlNotify " + ((model)? model.getSimpleQmlNotifyLibVr() : ""),
+            align: Label.AlignHCenter,
+            color: "#777777"
+        },
+        {
             text: "ZXing-C++ " + ((model)? model.getZxingCppLibVr() : ""),
             align: Label.AlignHCenter,
             color: "#777777"

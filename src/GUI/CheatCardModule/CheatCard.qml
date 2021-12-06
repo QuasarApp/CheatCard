@@ -23,6 +23,7 @@ ApplicationWindow {
 //    height: 350
 //    width: 640
 
+
     onClosing: {
         // this is bad solution. but it is works fine.
         // we handle close event that emit when user click back button and use own back button if it is needed.
@@ -32,8 +33,12 @@ ApplicationWindow {
         }
     }
 
+    readonly property string defaultpPimaryColor: "#ff6b01"
     property var model: mainModel
     property var user: (mainModel)? mainModel.currentUser: null
+    Material.primary: config.getStrValue("colorTheme", defaultpPimaryColor)
+    Material.accent: Material.Orange
+
 
     Connections {
         target: model
@@ -44,15 +49,16 @@ ApplicationWindow {
             activity.freeItems = freeItemsCount
             activity.userId = userId
         }
+    }
 
-        function onConnectionWasEnd() {
-            connectionStatus.close()
-
-        }
-
-        function onConnectionWasBegin() {
-            connectionStatus.open()
-
+    Connections {
+        target: config
+        function onValueStrChanged(key, value) {
+            if (key === "colorTheme") {
+                if (!value)
+                    value = defaultpPimaryColor
+                mainWindow.Material.primary = value;
+            }
         }
     }
 
@@ -88,7 +94,7 @@ ApplicationWindow {
 
                 font.bold: true
 
-                enabled: !firstRun.visible
+                enabled: !((model)? model.fFirst : false) || fBack
 
             }
 
@@ -109,7 +115,8 @@ ApplicationWindow {
                 icon.source: "qrc:/images/private/resources/Interface_icons/Right_topmenu.svg"
                 font.bold: true
                 font.pointSize: 14
-                enabled: !firstRun.visible
+                enabled: !((model)? model.fFirst : false)
+
                 onClicked: mainMenu.popup(this, menuButton.x, menuButton.height)
             }
         }
@@ -119,36 +126,79 @@ ApplicationWindow {
         id: mainMenu
 
         MenuItem {
-            text: qsTr("Contact with developers")
             visible: (mainModel)? mainModel.mode: false
+            height: (visible)? implicitHeight: 0
 
-            height: visible ? implicitHeight : 0
-
+            text: qsTr("Contact with developers")
+            icon.source: "qrc:/images/private/resources/Interface_icons/contact_developers.svg"
             onClicked:  () => {
-                            activityProcessor.newActivity("qrc:/CheatCardModule/Contacts.qml");
+                            activityProcessor.newActivityFromComponent(pageContactdev);
                         }
         }
 
         MenuItem {
-            text: qsTr("About")
 
+            text: qsTr("About")
+            icon.source: "qrc:/images/private/resources/Interface_icons/help.svg"
             onClicked:  () => {
                             activityProcessor.newActivityFromComponent(about, mainModel.getAboutModel());
                         }
+
         }
 
         MenuItem {
-            text: qsTr("Help")
 
+            text: qsTr("Share application")
+            icon.source: "qrc:/images/private/resources/Interface_icons/sharing_icon.svg"
+            onClicked:  () => {
+                            activityProcessor.newActivityFromComponent(shareApp);
+                        }
+
+        }
+
+        MenuItem {
+
+            text: qsTr("Help")
+            icon.source: "qrc:/images/private/resources/Interface_icons/about.svg"
             onClicked:  () => {
 
                             if (mainModel.mode) {
-                                activityProcessor.newActivity("qrc:CheatCardModule/PageHelpSeller.qml");
+                                activityProcessor.newActivityFromComponent(pageSeller);
                             } else {
-                                activityProcessor.newActivity("qrc:CheatCardModule/PageHelpVisitor.qml");
+                                activityProcessor.newActivityFromComponent(pageVisitor);
                             }
 
 
+                        }
+        }
+
+        MenuItem {
+
+            text: qsTr("Settings")
+            icon.source: "qrc:/images/private/resources/Interface_icons/settings.svg"
+            onClicked: () => {
+                           activityProcessor.newActivityFromComponent(settings);
+                       }
+
+        }
+
+        MenuItem {
+            text: qsTr("Import your key")
+            icon.source: "qrc:/images/private/resources/Interface_icons/key_pull.svg"
+
+            onClicked:  () => {
+                            activityProcessor.newActivity("qrc:/CheatCardModule/ImportUserKeyPage.qml",
+                                                          mainModel.exportImportModel);
+                        }
+        }
+
+        MenuItem {
+            text: qsTr("Export your key")
+            icon.source: "qrc:/images/private/resources/Interface_icons/key_push.svg"
+
+            onClicked:  () => {
+                            activityProcessor.newActivity("qrc:/CheatCardModule/ExportUserKeyPage.qml",
+                                                          mainModel.currentUser);
                         }
         }
     }
@@ -225,8 +275,33 @@ ApplicationWindow {
     }
 
     Component {
+        id: pageContactdev
+        Contacts {}
+    }
+
+    Component {
         id: about
         About {}
+    }
+
+    Component {
+        id: shareApp
+        PageShareApp {}
+    }
+
+    Component {
+        id: pageSeller
+        PageHelpSeller {}
+    }
+
+    Component {
+        id: pageVisitor
+        PageHelpVisitor {}
+    }
+
+    Component {
+        id: settings
+        Settings {}
     }
 
     Drawer {
@@ -244,41 +319,6 @@ ApplicationWindow {
 
         contentItem: EditUserView {
             model: mainModel
-        }
-    }
-
-    Dialog {
-        id: firstRun;
-        visible: (model)? model.fFirst : false
-
-        closePolicy: Popup.NoAutoClose
-
-        height: mainWindow.height * 0.95
-        width: mainWindow.width * 0.95
-        x: (mainWindow.width - width) / 2
-        y: (mainWindow.height - height) / 2
-
-        FirstRunPage {
-            anchors.fill: parent
-            model: mainModel
-            onFinished: () => {
-                            firstRun.close()
-                        }
-        }
-    }
-
-    Dialog {
-        id: connectionStatus;
-
-        closePolicy: Popup.NoAutoClose
-        modal: true
-        height: mainWindow.height * 0.95
-        width: mainWindow.width * 0.95
-        x: (mainWindow.width - width) / 2
-        y: (mainWindow.height - height) / 2
-
-        ConnectionStatus {
-            anchors.fill: parent
         }
     }
 

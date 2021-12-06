@@ -6,7 +6,7 @@
 //#
 
 #include "cardmodel.h"
-#include "CheatCard/card.h"
+#include "CheatCard/api/api0/card.h"
 
 #include <QBuffer>
 #include <QPixmap>

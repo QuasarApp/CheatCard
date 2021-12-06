@@ -60,7 +60,7 @@ Page {
             Image {
                 id: cardBackground
                 fillMode: Image.PreserveAspectCrop
-                source: "image://cards/background/" + ((root.model)? root.model.id  + "/" + root.model.cardVersion: "0")
+                source: "image://cards/background:" + ((root.model)? root.model.id  + ":" + root.model.cardVersion: "0")
                 anchors.fill: parent
 
                 layer.enabled: true
@@ -97,10 +97,14 @@ Page {
 
                 onReleased: (mouse) => {
 
+                                const width = 20;
+
                                 if(directionX > directionY) {
-                                    root.sigSwipe(directionX > 0)
+                                    if (directionX > width)
+                                        root.sigSwipe(directionX > 0)
                                 } else {
-                                    root.sigSwipe(2 + directionY > 0)
+                                    if (directionY > width)
+                                        root.sigSwipe(2 + (directionY > 0))
                                 }
 
                             }
@@ -121,7 +125,7 @@ Page {
                 Image {
                     id: cardLogoIamge
                     fillMode: Image.PreserveAspectFit
-                    source: "image://cards/logo/" + ((root.model)? root.model.id  + "/" + root.model.cardVersion : "0")
+                    source: "image://cards/logo:" + ((root.model)? root.model.id  + ":" + root.model.cardVersion : "0")
                     Layout.alignment: Qt.AlignHCenter
 
                     Layout.rowSpan: 1
@@ -359,8 +363,8 @@ Page {
                                     width: parent.width * 0.9
                                     height: parent.width * 0.9
 
-                                    source: "image://cards/seal/" +
-                                            ((root.model)? root.model.id  + "/" + root.model.cardVersion: "0")
+                                    source: "image://cards/seal:" +
+                                            ((root.model)? root.model.id  + ":" + root.model.cardVersion: "0")
 
                                     Connections {
                                         target: cardRectangle
@@ -620,11 +624,8 @@ Page {
         ColorPicker {
             id: colorPick
             implicitHeight: 0x0
-            header: Label {
-                horizontalAlignment: Label.AlignHCenter
-                text: qsTr("Please choose a color")
-                font.bold: true
-            }
+            title: qsTr("Please choose a color")
+
 
             footer: DialogButtonBox {
                 onAccepted: () => {
@@ -647,11 +648,7 @@ Page {
         ColorPicker {
             id: colorPickFont
 
-            header: Label {
-                horizontalAlignment: Label.AlignHCenter
-                text: qsTr("Please choose a color")
-                font.bold: true
-            }
+            title: qsTr("Please choose a color")
 
             footer: DialogButtonBox {
                 onAccepted: () => {
@@ -672,45 +669,58 @@ Page {
         id: customisationMenu
 
         MenuItem {
+
             text: qsTr("Background color")
+            icon.source: "qrc:/images/private/resources/Interface_icons/background_color.svg"
             onClicked: () => {
                            activityProcessor.newActivityFromComponent(defaultColor);
 
                        }
+
         }
 
         MenuItem {
+
             text: qsTr("Foreground color")
+            icon.source: "qrc:/images/private/resources/Interface_icons/main_color.svg"
             onClicked: () => {
                            activityProcessor.newActivityFromComponent(defaultColorFont);
 
                        }
+
         }
 
         MenuItem {
-            text: qsTr("Background image")
 
+            text: qsTr("Background image")
+            icon.source: "qrc:/images/private/resources/Interface_icons/background_image.svg"
             onClicked: () => {
                            activityProcessor.newActivityFromComponent(selectImage);
 
                        }
+
         }
 
         MenuItem {
-            text: qsTr("Card logo")
 
+            text: qsTr("Card logo")
+            icon.source: "qrc:/images/private/resources/Interface_icons/logo.svg"
             onClicked: () => {
                            activityProcessor.newActivityFromComponent(defaultLogos);
 
                        }
+
         }
 
         MenuItem {
-            text: qsTr("Card seal")
 
+            text: qsTr("Card seal")
+            icon.source: "qrc:/images/private/resources/Interface_icons/seal.svg"
             onClicked: () => {
                            activityProcessor.newActivityFromComponent(defaultSeels);
                        }
+
         }
+
     }
 }

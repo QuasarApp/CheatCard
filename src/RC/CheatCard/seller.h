@@ -22,25 +22,30 @@ public:
     Seller(QH::ISqlDBCache *db);
     bool incrementPurchase (const QSharedPointer<UserHeader> &userHeaderData,
                             unsigned int cardId, int purchasesCount = 1,
-                            const QString& domain = DEFAULT_CHEAT_CARD_HOST,
-                            int port = DEFAULT_CHEAT_CARD_PORT);
+                            const QString& domain = "",
+                            int port = DEFAULT_CHEAT_CARD_PORT_SSL);
 
     bool sentDataToServerPurchase (const QSharedPointer<UserHeader> &userHeaderData,
-                            unsigned int cardId, const QString& domain = DEFAULT_CHEAT_CARD_HOST,
-                            int port = DEFAULT_CHEAT_CARD_PORT);
+                            unsigned int cardId, const QString& domain = "",
+                            int port = DEFAULT_CHEAT_CARD_PORT_SSL);
+
+    bool requestAllDataFromUser();
+
+    bool cardValidation(const QSharedPointer<Card> &cardFromDB,
+                        const QByteArray &ownerSecret) const override;
+    void getSignData(QByteArray &data) const override;
 
 protected:
     void nodeConnected(QH::AbstractNodeInfo *node) override;
+    void nodeConfirmend(QH::AbstractNodeInfo *node) override;
     bool incrementPurchases(const QSharedPointer<UsersCards> &usersCardsData,
                             int purchasesCount);
 
 private:
-
     QSharedPointer<UsersCards> prepareData(const QSharedPointer<UserHeader> &userHeaderData,
-                     unsigned int cardId);
+                         unsigned int cardId);
 
     QHash<long long, QSharedPointer<Session>> _lastRequested;
-
 
 };
 }

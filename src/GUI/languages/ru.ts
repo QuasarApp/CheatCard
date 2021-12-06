@@ -32,7 +32,7 @@
     </message>
     <message>
         <source>Edit</source>
-        <translation>Редактировать</translation>
+        <translation type="vanished">Редактировать</translation>
     </message>
     <message>
         <source>Add card</source>
@@ -53,6 +53,22 @@
     <message>
         <source>Let&apos;s go create the first card! Press &quot;Add Card &quot; button</source>
         <translation>Вперёд, создадим первую карту! Нажми кнопку &quot;Добавить карту&quot;</translation>
+    </message>
+    <message>
+        <source>Edit card</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove card</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Activate card</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Statistics</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -88,6 +104,22 @@
     <message>
         <source>Help</source>
         <translation>Помощь</translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation>Нстройки</translation>
+    </message>
+    <message>
+        <source>Share application</source>
+        <translation>Поделится</translation>
+    </message>
+    <message>
+        <source>Export your key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import your key</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -126,6 +158,10 @@
     <message>
         <source>Join to our telegram channel for get support and see the last changes.</source>
         <translation>Присоединяйтесь к нашему каналу Telegram, чтобы получить поддержку и увидеть последние изменения.</translation>
+    </message>
+    <message>
+        <source>Join to our Instagram channel for get support and see the last changes.</source>
+        <translation>Присоединяйтесь к нашему каналу Instagram, чтобы получить поддержку и увидеть последние изменения.</translation>
     </message>
 </context>
 <context>
@@ -335,6 +371,33 @@
     </message>
 </context>
 <context>
+    <name>ExportUserKeyPage</name>
+    <message>
+        <source>Export user key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>**For what this use**</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Some times you can drop your application data or your device. Therefore you can create a backup qr code that can recovery your application data after dropping</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save and open in files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Done</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Backup code exported successful. The BackUp Code Available in your documnets folder. See &lt;b&gt;%0&lt;/b&gt; path</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FirstRunPage</name>
     <message>
         <source>Registration</source>
@@ -374,11 +437,19 @@
     </message>
     <message>
         <source>Go!</source>
-        <translation>Вперёд!</translation>
+        <translation type="vanished">Вперёд!</translation>
     </message>
     <message>
         <source>Back</source>
         <translation>Назад</translation>
+    </message>
+    <message>
+        <source>Nobody, I just want to recover data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Done!</source>
+        <translation type="unfinished">Готово!</translation>
     </message>
 </context>
 <context>
@@ -406,6 +477,40 @@
     <message>
         <source>Wooooh seems like someone available %0 %1 !!!</source>
         <translation>Ооо кажется у кого то доступно %0 %1 !!!</translation>
+    </message>
+</context>
+<context>
+    <name>ImportUserKeyPage</name>
+    <message>
+        <source>**Attention** : This operation redefine your current application data (Cards, seals, users data). All current data will be removed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import from qr code scanner</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import from file with qr code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import your cadrs data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select your backup qr code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>codes</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>IncludeRecoveryWordPage</name>
+    <message>
+        <source>Next</source>
+        <translation type="obsolete">Далее</translation>
     </message>
 </context>
 <context>
@@ -614,7 +719,7 @@
     </message>
     <message>
         <source>* Showed the QR code in the application at the checkout.</source>
-        <translation>* Показал qr код в приложении на кассе.</translation>
+        <translation>* Показал QR код в приложении на кассе.</translation>
     </message>
     <message>
         <source>* Received print to card.</source>
@@ -650,6 +755,17 @@
     </message>
 </context>
 <context>
+    <name>PageShareApp</name>
+    <message>
+        <source>Join to our slack channel for get support and see the last changes.</source>
+        <translation type="obsolete">Присоединяйтесь к нашему каналу Slack, чтобы получить поддержку и увидеть последние изменения.</translation>
+    </message>
+    <message>
+        <source>To get a cheat card, scan the QR code and follow the link.</source>
+        <translation>Что бы получить Чит карту просканируйте QR код</translation>
+    </message>
+</context>
+<context>
     <name>QrCodeView</name>
     <message>
         <source>It looks like this code should be shown to the seller!</source>
@@ -674,6 +790,35 @@
     <message>
         <source>When all passed is successful, the Seller&apos;s device will complete the scan, and you will receive your bonuses as soon as you hide the Qr code.</source>
         <translation>Когда все пройдет успешно, устройство Продавца завершит сканирование, и вы получите свои бонусы, как только скроете QR-код.</translation>
+    </message>
+</context>
+<context>
+    <name>QrScanner</name>
+    <message>
+        <source>switch camera</source>
+        <translation>Переключить камеру</translation>
+    </message>
+</context>
+<context>
+    <name>RC::AbstrcattableModelWithHeaders</name>
+    <message>
+        <source>Unknown</source>
+        <translation>Неизвестно</translation>
+    </message>
+</context>
+<context>
+    <name>RC::ImportExportUserModel</name>
+    <message>
+        <source>Oh shit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Permission denied to selected file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>It looks like the file you selected does not contain a recovery code</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -702,6 +847,72 @@
         <source>This client do not have any bonuses. Sorry... </source>
         <translation>У этого клиента нет ни одного бонуса. Сорян ... </translation>
     </message>
+    <message>
+        <source>Wow shit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This qr code is invalid. Sorry... </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>I managed to do it !</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Yor secret key are imported</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>We Has a troubles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Yor secret key are imported successful but donwload backup data from server is failed. Please check your internet connection and try restore your data again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have network problems. Don&apos;t worry, all cards and your bonuses are saved on the merchant&apos;s host and will be available the next time you visit. Even if you will don&apos;t have internet connection.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Oops. Error code: </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>RC::SellerStatisticModel</name>
+    <message>
+        <source>Name</source>
+        <translation>Имя</translation>
+    </message>
+    <message>
+        <source>Last visit</source>
+        <translation>Последний визит</translation>
+    </message>
+    <message>
+        <source>Id</source>
+        <translation>Id</translation>
+    </message>
+    <message>
+        <source>Purchases</source>
+        <translation>Покупки</translation>
+    </message>
+    <message>
+        <source>Issued</source>
+        <translation>Выдано</translation>
+    </message>
+</context>
+<context>
+    <name>RecoveryPage</name>
+    <message>
+        <source>Done!</source>
+        <translation type="obsolete">Готово!</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation type="obsolete">Далее</translation>
+    </message>
 </context>
 <context>
     <name>RegistrationFinishedPage</name>
@@ -719,7 +930,7 @@
     </message>
     <message>
         <source>Now let&apos;s move on to using!</source>
-        <translation>А сейчас перейдём к использованию!</translation>
+        <translation type="vanished">А сейчас перейдём к использованию!</translation>
     </message>
     <message>
         <source>Registered!</source>
@@ -729,12 +940,95 @@
         <source>Done!</source>
         <translation>Готово!</translation>
     </message>
+    <message>
+        <source>All Done! &lt;b&gt;But If you drop your application data then all your cards will be removed&lt;/b&gt;. For save it self of this situations we recommends create a back up your master key.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create a back up of master key for save data of my account.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScannerOverlay</name>
     <message>
         <source>Scan QR code</source>
         <translation>Скан QR кода</translation>
+    </message>
+</context>
+<context>
+    <name>Settings</name>
+    <message>
+        <source>Externality</source>
+        <translation type="vanished">Внешний вид</translation>
+    </message>
+    <message>
+        <source>Change the main color of the application</source>
+        <translation type="vanished">Изменить основной цвет приложения</translation>
+    </message>
+    <message>
+        <source>Privacy</source>
+        <translation>Приватность</translation>
+    </message>
+    <message>
+        <source>Share name with seller</source>
+        <translation>Делиться именем с продавцом</translation>
+    </message>
+    <message>
+        <source>Developer settings</source>
+        <translation>Настройки разработчика</translation>
+    </message>
+    <message>
+        <source>Host</source>
+        <translation>Хост</translation>
+    </message>
+    <message>
+        <source>Port</source>
+        <translation type="vanished">Порт</translation>
+    </message>
+    <message>
+        <source>Camera</source>
+        <translation>Камера</translation>
+    </message>
+    <message>
+        <source>Select work camera</source>
+        <translation>Выбрать рабочую камеру</translation>
+    </message>
+    <message>
+        <source>Select application color</source>
+        <translation>Выбрать цвет приложения</translation>
+    </message>
+    <message>
+        <source>Please choose a color</source>
+        <translation>Пожалуйста, выберите цвет</translation>
+    </message>
+    <message>
+        <source>Select</source>
+        <translation>Выбрать</translation>
+    </message>
+    <message>
+        <source>Appearance</source>
+        <translation>Внешний вид</translation>
+    </message>
+    <message>
+        <source>Unlock</source>
+        <translation type="vanished">Разблокировать</translation>
+    </message>
+    <message>
+        <source>Use custom server</source>
+        <translation>Использовать собственный сервер</translation>
+    </message>
+    <message>
+        <source>Reset all settings</source>
+        <translation>Сбросить все настройки</translation>
+    </message>
+    <message>
+        <source>reset</source>
+        <translation type="vanished">Сброс</translation>
+    </message>
+    <message>
+        <source>Default settings</source>
+        <translation>Настройки по умолчанию</translation>
     </message>
 </context>
 <context>
@@ -746,6 +1040,13 @@
     <message>
         <source>Check</source>
         <translation>Проверить</translation>
+    </message>
+</context>
+<context>
+    <name>exportUserKeyPage</name>
+    <message>
+        <source>Next</source>
+        <translation type="obsolete">Далее</translation>
     </message>
 </context>
 </TS>

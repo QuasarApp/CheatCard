@@ -3,12 +3,24 @@
         <file>private/resources/Logo/CheatCard_Logo1.png</file>
         <file>private/resources/platformsIcon/slack-logo.svg</file>
         <file>private/resources/platformsIcon/telegram.svg</file>
+        <file>private/resources/platformsIcon/Instagram.svg</file>
         <file>private/resources/CoffeLogo.png</file>
         <file>private/resources/coffeSign.png</file>
         <file>private/resources/mapLogo.png</file>
         <file>private/resources/telegramm.png</file>
         <file>private/resources/instagramm.png</file>
         <file>private/resources/www.png</file>
+        <file>private/resources/Icons/Cup_icon_20.png</file>
+        <file>private/resources/Icons/Cup_icon_19.png</file>
+        <file>private/resources/Icons/Cup_icon_18.png</file>
+        <file>private/resources/Icons/Cup_icon_17.png</file>
+        <file>private/resources/Icons/Cup_icon_16.png</file>
+        <file>private/resources/Icons/Cup_icon_15.png</file>
+        <file>private/resources/Icons/Cup_icon_14.png</file>
+        <file>private/resources/Icons/Cup_icon_13.png</file>
+        <file>private/resources/Icons/Cup_icon_12.png</file>
+        <file>private/resources/Icons/Cup_icon_11.png</file>
+        <file>private/resources/Icons/Cup_icon_10.png</file>
         <file>private/resources/Icons/Cup_icon_9.png</file>
         <file>private/resources/Icons/Cup_icon_8.png</file>
         <file>private/resources/Icons/Cup_icon_7.png</file>
@@ -17,9 +29,7 @@
         <file>private/resources/Icons/Cup_icon_4.png</file>
         <file>private/resources/Icons/Cup_icon_3.png</file>
         <file>private/resources/Icons/Cup_icon_2.png</file>
-        <file>private/resources/Icons/Cup_icon_12.png</file>
-        <file>private/resources/Icons/Cup_icon_11.png</file>
-        <file>private/resources/Icons/Cup_icon_10.png</file>
+        <file>private/resources/Icons/Cup_icon_1.png</file>
         <file>private/resources/Backgrounds/Layer_9.png</file>
         <file>private/resources/Backgrounds/Layer_8.png</file>
         <file>private/resources/Backgrounds/Layer_7.png</file>
@@ -39,9 +49,15 @@
         <file>private/resources/Backgrounds/Layer_11.png</file>
         <file>private/resources/Backgrounds/Layer_10.png</file>
         <file>private/resources/Backgrounds/Layer_1.png</file>
-        <file>private/resources/Icons/Cup_icon_1.png</file>
         <file>private/resources/freeItem.png</file>
         <file>private/resources/phone.png</file>
+        <file>private/resources/Backgrounds/Layer_34.png</file>
+        <file>private/resources/Backgrounds/Layer_33.png</file>
+        <file>private/resources/Backgrounds/Layer_32.png</file>
+        <file>private/resources/Backgrounds/Layer_31.png</file>
+        <file>private/resources/Backgrounds/Layer_30.png</file>
+        <file>private/resources/Backgrounds/Layer_29.png</file>
+        <file>private/resources/Backgrounds/Layer_28.png</file>
         <file>private/resources/Backgrounds/Layer_27.png</file>
         <file>private/resources/Backgrounds/Layer_26.png</file>
         <file>private/resources/Backgrounds/Layer_25.png</file>
@@ -50,13 +66,30 @@
         <file>private/resources/Backgrounds/Layer_22.png</file>
         <file>private/resources/Backgrounds/Layer_21.png</file>
         <file>private/resources/Backgrounds/Layer_20.png</file>
-        <file>private/resources/Icons/Cup_icon_13.png</file>
-        <file>private/resources/Icons/Cup_icon_14.png</file>
         <file>private/resources/Interface_icons/Right_topmenu.svg</file>
         <file>private/resources/Interface_icons/Open_sidebar.svg</file>
         <file>private/resources/Interface_icons/More.svg</file>
         <file>private/resources/Interface_icons/Less.svg</file>
         <file>private/resources/Interface_icons/Edit_menu.svg</file>
         <file>private/resources/Interface_icons/Close_sidebar.svg</file>
+        <file>private/resources/Interface_icons/Camera_switch.svg</file>
+        <file>private/resources/Interface_icons/settings.svg</file>
+        <file>private/resources/Interface_icons/help.svg</file>
+        <file>private/resources/Interface_icons/about.svg</file>
+        <file>private/resources/Interface_icons/contact_developers.svg</file>
+        <file>private/resources/Interface_icons/background_color.svg</file>
+        <file>private/resources/Interface_icons/background_image.svg</file>
+        <file>private/resources/Interface_icons/main_color.svg</file>
+        <file>private/resources/Interface_icons/logo.svg</file>
+        <file>private/resources/Interface_icons/seal.svg</file>
+        <file>private/resources/Interface_icons/sharing_icon.svg</file>
+        <file>private/resources/Interface_icons/share_url_qrcode.png</file>
+        <file>private/resources/Interface_icons/Google_play_logo.png</file>
+        <file>private/resources/Interface_icons/statistic.svg</file>
+        <file>private/resources/Interface_icons/key_push.svg</file>
+        <file>private/resources/Interface_icons/key_pull.svg</file>
+        <file>private/resources/Interface_icons/Activate.svg</file>
+        <file>private/resources/Interface_icons/edit_card.svg</file>
+        <file>private/resources/Interface_icons/delete_card.svg</file>
     </qresource>
 </RCC>

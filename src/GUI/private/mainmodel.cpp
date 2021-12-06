@@ -13,15 +13,19 @@
 #include "waitconnectionmodel.h"
 #include "soundplayback.h"
 #include "cardproxymodel.h"
+#include "sellerstatisticmodel.h"
+#include "importexportusermodel.h"
 
 #include <CheatCard/database.h>
-#include "CheatCard/user.h"
-#include "CheatCard/card.h"
+
+#include "CheatCard/api/api0/user.h"
+#include "CheatCard/api/api0/card.h"
+#include "CheatCard/api/api0/userscards.h"
+
 #include "dbobjectsrequest.h"
 #include "deleteobject.h"
 #include "config.h"
 #include "cardslistmodel.h"
-#include "CheatCard/userscards.h"
 #include "usermodel.h"
 #include <getsinglevalue.h>
 
@@ -29,15 +33,16 @@
 #include "cmath"
 #include <qmlnotifyservice.h>
 
-#include <CheatCard/seller.h>
-#include <CheatCard/visitor.h>
+#include <CheatCard/sellerssl.h>
+#include <CheatCard/visitorssl.h>
 
 #include <QDir>
 #include <QGuiApplication>
 
 #include <CheatCardGui/ibilling.h>
+#include "settingsmodel.h"
+#include <CheatCard/api/apiv1.h>
 
-#define CURRENT_USER "CURRENT_USER"
 
 namespace RC {
 
@@ -48,13 +53,18 @@ void softRemove(BaseNode * obj) {
 MainModel::MainModel(QH::ISqlDBCache *db) {
     _db = db;
     _soundEffect = new SoundPlayback;
+    _config = dynamic_cast<SettingsModel*>(
+                QuasarAppUtils::Settings::ISettings::instance());
 
     initCardsListModels();
     initImagesModels();
     initWaitConnectionModel();
+    initSellerStatisticModel();
+    initImportExportModel();
+
+    configureCardsList();
 
     setCurrentUser(initUser());
-    _config = initConfig(_currentUser->user()->userId());
 
     qRegisterMetaType<RC::UsersCards>();
     qRegisterMetaType<RC::Card>();
@@ -74,9 +84,6 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
                          Qt::DirectConnection);
 
     }
-
-    configureCardsList();
-
 }
 
 MainModel::~MainModel() {
@@ -89,6 +96,8 @@ MainModel::~MainModel() {
         delete _aboutModel;
     }
 
+    delete  _statisticModel;
+
     delete _defaultLogosModel;
     delete _defaultBackgroundsModel;
 
@@ -100,15 +109,14 @@ bool MainModel::fFirst() const {
     if (!_config)
         return true;
 
-    return _config->getFirstRun();
+    return _config->getValue("fFirst", true).toBool();
 }
 
 void MainModel::configureFinished() {
     // First run setiing id.
     saveUser();
-
-    _config->setUserId(_currentUser->user()->userId());
-    _config->setFirstRun(false);
+    _config->setCurrUser(getCurrentUser()->user()->userId());
+    _config->setValue("fFirst", false);
 
     saveConfig();
 }
@@ -125,7 +133,52 @@ QObject *MainModel::currentUser() const {
     return _currentUser.data();
 }
 
-QSharedPointer<UserModel> MainModel::getCurrentUser() const {
+bool MainModel::handleImportUser(const QString &base64UserData) {
+
+    auto userData = QSharedPointer<User>::create();
+    userData->fromBytes(QByteArray::fromBase64(base64UserData.toLatin1(),
+                                               QByteArray::Base64UrlEncoding));
+
+    auto service = QmlNotificationService::NotificationService::getService();
+
+
+    if (!userData->isValid()) {
+
+        if (service) {
+
+            service->setNotify(tr("Wow shit"),
+                               tr("This qr code is invalid. Sorry... "),
+                               "", QmlNotificationService::NotificationData::Error);
+        }
+
+
+        return false;
+    }
+
+    auto newUser = QSharedPointer<UserModel>::create(userData);
+
+    setCurrentUser(newUser);
+    saveUser();
+    _config->setValue("fFirst", false);
+
+    if (!_backEndModel->restoreOldData(userData->getKey())) {
+        service->setNotify(tr("We Has a troubles"),
+                           tr("Yor secret key are imported successful but donwload backup data from server is failed."
+                              " Please check your internet connection and try restore your data again"),
+                           "", QmlNotificationService::NotificationData::Warning);
+
+        return false;
+    }
+
+    service->setNotify(tr("I managed to do it !"),
+                       tr("Yor secret key are imported"),
+                       "", QmlNotificationService::NotificationData::Normal);
+
+
+    return true;
+}
+
+const QSharedPointer<UserModel>& MainModel::getCurrentUser() const {
     return _currentUser;
 }
 
@@ -142,37 +195,44 @@ void MainModel::setCurrentUser(QSharedPointer<UserModel> value) {
 
     if (_currentUser) {
 
-        // get list of owned cards
-        QString where = QString("id IN (SELECT card FROM UsersCards WHERE user = %0 AND owner = %1)").
-                arg(_currentUser->user()->userId()).
-                arg("true");
-
-        QH::PKG::DBObjectsRequest<Card> request("Cards", where);
-        if (auto result =_db->getObject(request)) {
-            _ownCardsListModel->setCards(result->data());
+        if (_visitorbackEndModel) {
+            _visitorbackEndModel->setCurrentUser(_currentUser->user());
         }
+
+        if (_sellerbackEndModel) {
+            _sellerbackEndModel->setCurrentUser(_currentUser->user());
+        }
+
+        unsigned int userId = _currentUser->user()->userId();
+        QByteArray userKey = _currentUser->user()->getKey();
+
+        _config->setCurrUser(userId);
+
+        _currentUser->regenerateSessionKey();
+
+        // get list of owned cards
+        _ownCardsListModel->setCards(_backEndModel->getAllUserCards(userKey,
+                                                                    false));
 
         // get list of included cards
-        where = QString("id IN (SELECT card FROM UsersCards WHERE user = %0 AND owner = %1)").
-                arg(_currentUser->user()->userId()).
-                arg("false");
-
-        request.setConditions(where);
-        if (auto result =_db->getObject(request)) {
-            _cardsListModel->setCards(result->data());
-        }
+        _cardsListModel->setCards(_backEndModel->getAllUserCards(userKey,
+                                                                 true));
 
         // get list of cards usings statuses
-        where = QString("user = %0 AND owner = %1").
-                arg(_currentUser->user()->userId()).
-                arg("false");
+        QString where = QString("user = %0").
+                arg(userId);
 
         QH::PKG::DBObjectsRequest<UsersCards> requestPurchase("UsersCards", where);
         if (auto result =_db->getObject(requestPurchase)) {
             _cardsListModel->updateMetaData(result->data());
         }
 
-        _settings.setValue(CURRENT_USER, _currentUser->user()->userId());
+        _settings.setValue(CURRENT_USER, userId);
+
+        if (_billing) {
+            connect(_currentUser.data(), &UserModel::sigBecomeSeller,
+                    _billing, &IBilling::becomeSeller);
+        }
     }
 
     emit currentUserChanged();
@@ -180,10 +240,11 @@ void MainModel::setCurrentUser(QSharedPointer<UserModel> value) {
 
 void MainModel::saveUser() {
     _db->insertIfExistsUpdateObject(_currentUser->user());
+    _settings.setValue(CURRENT_USER, _currentUser->user()->userId());
 }
 
 void MainModel::saveConfig() {
-    _db->insertIfExistsUpdateObject(_config);
+    _config->sync();
 }
 
 QSharedPointer<UserModel> MainModel::initUser() {
@@ -211,20 +272,6 @@ QSharedPointer<UserModel> MainModel::initUser() {
     return QSharedPointer<UserModel>::create(QSharedPointer<User>::create());
 }
 
-QSharedPointer<Config> MainModel::initConfig(int userId) {
-    if (_config) {
-        return _config;
-    }
-
-    Config requestConfig;
-    requestConfig.setUserId(userId);
-    if (auto conf = _db->getObject(requestConfig)) {
-        return conf;
-    }
-
-    return QSharedPointer<Config>::create(userId);
-}
-
 void MainModel::initCardsListModels() {
     _cardsListModel = new CardsListModel();
     _ownCardsListModel = new CardsListModel();
@@ -242,6 +289,9 @@ void MainModel::initCardsListModels() {
 
     connect(_ownCardsListModel, &CardsListModel::sigCardSelectedForWork,
             this, &MainModel::handleCardSelectedForWork);
+
+    connect(_ownCardsListModel, &CardsListModel::sigCardSelectedForStatistic,
+            this, &MainModel::handleCardSelectedForStatistic);
 }
 
 void MainModel::initImagesModels() {
@@ -289,6 +339,20 @@ void MainModel::initWaitConnectionModel() {
             this, &MainModel::handleListenStart, Qt::QueuedConnection);
 }
 
+void MainModel::initSellerStatisticModel() {
+    _statisticModel = new SellerStatisticModel;
+}
+
+void MainModel::initImportExportModel() {
+    if (!_importExportModel) {
+        _importExportModel = new ImportExportUserModel();
+        emit exportImportModelChanged();
+
+        connect(_importExportModel, &ImportExportUserModel::decodeFinished,
+                this, &MainModel::handleImportUser);
+    }
+}
+
 void MainModel::setCardListModel(CardsListModel *model) {
     if (_currentCardsListModel->sourceModel() == model)
         return;
@@ -296,9 +360,9 @@ void MainModel::setCardListModel(CardsListModel *model) {
     _currentCardsListModel->setSourceModel(model);
 }
 
-void MainModel::initMode(const QSharedPointer<UserModel> &user,
-                         const QSharedPointer<Config> &config) {
-    setMode(user && user->fSaller() && config && config->getFSellerEnabled());
+void MainModel::initMode(const QSharedPointer<UserModel> &user) {
+    bool fSallerEnabled = _config && _config->getValue("fSellerMode", false).toBool();
+    setMode(user && user->fSaller() && fSallerEnabled);
 }
 
 void MainModel::soundEffectPlayback(const QString &soundName) {
@@ -363,21 +427,52 @@ int MainModel::getReceivedItemsCount(int cardId) const {
                 cardId);
 }
 
+QObject *MainModel::statisticModel() const {
+    return _statisticModel;
+}
+
 int MainModel::getMode() const {
     return static_cast<int>(_mode);
 }
 
+// template method for initialize back end model. using in configureCardsList method
+template <class BackEndType>
+QSharedPointer<BaseNode> initBackEndModel(const QSharedPointer<UserModel>& user,
+                                          QH::ISqlDBCache *db,
+                                          MainModel* thiz) {
+    QSharedPointer<BaseNode> result;
+    result = QSharedPointer<BaseNode>(new BackEndType(db), softRemove);
+    result->addApiParser<ApiV1>();
+
+    if (user) {
+        result->setCurrentUser(user->user());
+    }
+
+    thiz->connect(result.data(),
+            &BaseNode::sigNetworkError,
+            thiz,
+            &MainModel::handleNetworkError);
+
+    return result;
+};
+
 void RC::MainModel::configureCardsList() {
     if (_mode == Mode::Client) {
         setCardListModel(_cardsListModel);
-        if (!_visitorbackEndModel)
-            _visitorbackEndModel = QSharedPointer<BaseNode>(new Visitor(_db), softRemove);
+        if (!_visitorbackEndModel) {
+            _visitorbackEndModel = initBackEndModel<VisitorSSL>(_currentUser,
+                                                    _db,
+                                                    this);
+        }
 
         setBackEndModel(_visitorbackEndModel);
     } else {
         setCardListModel(_ownCardsListModel);
-        if (!_sellerbackEndModel)
-            _sellerbackEndModel = QSharedPointer<BaseNode>(new Seller(_db), softRemove);
+        if (!_sellerbackEndModel) {
+            _sellerbackEndModel = initBackEndModel<SellerSSL>(_currentUser,
+                                                    _db,
+                                                    this);
+        }
 
         setBackEndModel(_sellerbackEndModel);
     }
@@ -392,7 +487,20 @@ void MainModel::setMode(int newMode) {
 
     configureCardsList();
 
-    _config->setFSellerEnabled(newMode);
+    _config->setValue("fSellerMode", static_cast<bool>(newMode));
+
+    if (_mode == Mode::Seller) {
+        // test secret keys
+
+        auto userKey = _currentUser->user()->getKey();
+        auto secret = _currentUser->user()->secret();
+        if (userKey != User::makeKey(secret)) {
+            _currentUser->user()->regenerateKeys();
+            saveUser();
+            _settings.setValue(CURRENT_USER, _currentUser->user()->userId());
+        }
+    }
+
     saveConfig();
 }
 
@@ -401,13 +509,21 @@ QObject *MainModel::cardsList() const {
 }
 
 void MainModel::handleCardReceived(QSharedPointer<RC::Card> card) {
-    _cardsListModel->importCard(card);
 
-    if (_backEndModel) {
-        auto metaData = _backEndModel->getUserCardData(_currentUser->user()->userId(), card->cardId());
+    if (card->isOvner(_currentUser->user()->userId())) {
+        _ownCardsListModel->importCard(card);
 
-        if (metaData) {
-            getCurrentListModel()->updateMetaData({metaData});
+    } else {
+        if (!_cardsListModel)
+            return;
+
+        _cardsListModel->importCard(card);
+        if (_backEndModel) {
+            auto metaData = _backEndModel->getUserCardData(_currentUser->user()->userId(), card->cardId());
+
+            if (metaData) {
+                _cardsListModel->updateMetaData({metaData});
+            }
         }
     }
 }
@@ -416,12 +532,11 @@ void RC::MainModel::saveCard(const QSharedPointer<Card>& card) {
     card->setCardVersion(card->getCardVersion() + 1);
 
     _db->insertIfExistsUpdateObject(card);
-    auto cards = QSharedPointer<UsersCards>::create(_currentUser->user()->userId(),
-                                                    card->cardId(), true);
-    _db->insertIfExistsUpdateObject(cards);
 }
 
 void MainModel::handleCardEditFinished(const QSharedPointer<Card>& card) {
+
+    card->setOwnerSignature(getCurrentUser()->user()->getKey());
 
     auto localCard = _backEndModel->getCard(card->cardId());
 
@@ -429,7 +544,7 @@ void MainModel::handleCardEditFinished(const QSharedPointer<Card>& card) {
         return;
     }
 
-    auto listOfUsers = _backEndModel->getAllUserFromCard(card->cardId(), false);
+    auto listOfUsers = _backEndModel->getAllUserFromCard(card->cardId());
 
     if (localCard && listOfUsers.size() && localCard->getFreeIndex() != card->getFreeIndex()) {
 
@@ -474,6 +589,13 @@ void MainModel::handleCardRemoved(int id) {
 
 void MainModel::handleCardSelectedForWork(const QSharedPointer<CardModel> &card) {
     _waitModel->setCard(card);
+}
+
+void MainModel::handleCardSelectedForStatistic(const QSharedPointer<CardModel> &card) {
+    auto usersList = _backEndModel->getAllUserFromCard(card->card()->cardId());
+    auto usersDataList = _backEndModel->getAllUserDataFromCard(card->card()->cardId());
+
+    _statisticModel->setDataList(card, usersList, usersDataList);
 }
 
 void MainModel::handleConnectWasBegin() {
@@ -588,8 +710,18 @@ void MainModel::handlePurchaseReceived(Purchase purchase) {
     _currentUser->setSellerToken(QByteArray::fromBase64(purchase.token.toLatin1(),
                                           QByteArray::Base64UrlEncoding));
 
-    initMode(_currentUser, _config);
+    initMode(_currentUser);
 
+}
+
+void MainModel::handleNetworkError(QAbstractSocket::SocketError code,
+                                   QSslError::SslError sslErrorcode) {
+
+    auto service = QmlNotificationService::NotificationService::getService();
+
+    service->setNotify(tr("Oops. Error code: ") + QString("%0-%1").arg(code, sslErrorcode),
+                       tr("You have network problems. Don't worry, all cards and your bonuses are saved on the merchant's host and will be available the next time you visit. Even if you will don't have internet connection."),
+                       "", QmlNotificationService::NotificationData::Warning);
 }
 
 void MainModel::handleFirstDataSendet() {
@@ -618,12 +750,22 @@ void MainModel::handleBonusGivOut(int userId, int cardId, int count) {
     }
 }
 
+void MainModel::handleSettingsChanged(const QString &key, const QVariant &) {
+    if ("fFirst" == key) {
+        emit fFirstChanged();
+    }
+}
+
 QObject *MainModel::defaultLogosModel() const {
     return _defaultLogosModel;
 }
 
 QObject *MainModel::defaultBackgroundsModel() const {
     return _defaultBackgroundsModel;
+}
+
+QObject *MainModel::exportImportModel() const {
+    return _importExportModel;
 }
 
 }

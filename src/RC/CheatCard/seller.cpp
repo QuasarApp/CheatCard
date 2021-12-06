@@ -6,14 +6,16 @@
 //#
 
 
-#include "carddatarequest.h"
-#include "cardstatusrequest.h"
+#include "CheatCard/api/api0/carddatarequest.h"
+#include "CheatCard/api/api0/cardstatusrequest.h"
+#include "CheatCard/dataconvertor.h"
+#include "basenode.h"
+#include "usersnames.h"
 #include "seller.h"
-#include "userheader.h"
-
-#include <CheatCard/session.h>
-#include <CheatCard/user.h>
-#include <CheatCard/userscards.h>
+#include "CheatCard/api/api0/userheader.h"
+#include <CheatCard/api/api0/session.h>
+#include <CheatCard/api/api0/user.h>
+#include <CheatCard/api/api0/userscards.h>
 
 namespace RC {
 
@@ -41,6 +43,19 @@ bool Seller::incrementPurchases(const QSharedPointer<UsersCards> &usersCardsData
     return true;
 }
 
+bool Seller::cardValidation(const QSharedPointer<Card> &cardFromDB,
+                             const QByteArray &ownerSecret) const {
+    Q_UNUSED(cardFromDB);
+    Q_UNUSED(ownerSecret);
+
+    return true;
+}
+
+void Seller::getSignData(QByteArray &data) const {
+    if (currentUser())
+        data = currentUser()->secret();
+}
+
 QSharedPointer<UsersCards> Seller::prepareData(const QSharedPointer<UserHeader> &userHeaderData,
                          unsigned int cardId) {
 
@@ -63,25 +78,21 @@ QSharedPointer<UsersCards> Seller::prepareData(const QSharedPointer<UserHeader> 
 
     User userrquest;
     userrquest.setId(userHeaderData->getUserId());
-    auto dbUser = db()->getObject(userrquest);
 
-    if (!dbUser) {
+    auto dbUser = DataConvertor::toUser(userHeaderData);
 
-        dbUser = QSharedPointer<User>::create();
-        dbUser->setKey(userHeaderData->token());
-        dbUser->setId(userHeaderData->getUserId());
+    if (dbUser->name().isEmpty()) {
+        dbUser->setName(UsersNames::randomUserName());
+    }
 
-        if (!db()->insertIfExistsUpdateObject(dbUser)) {
-            QuasarAppUtils::Params::log("Failed to update data", QuasarAppUtils::Warning);
-
-        }
+    if (!db()->insertIfExistsUpdateObject(dbUser)) {
+        QuasarAppUtils::Params::log("Failed to update user data", QuasarAppUtils::Warning);
 
     }
 
     auto userCardsData = getUserCardData(userHeaderData->getUserId(), cardId);
     if (!userCardsData) {
         userCardsData = QSharedPointer<UsersCards>::create();
-        userCardsData->setOwner(false);
         userCardsData->setUser(userHeaderData->getUserId());
         userCardsData->setPurchasesNumber(0);
         userCardsData->setCard(cardId);
@@ -105,6 +116,9 @@ bool Seller::incrementPurchase(const QSharedPointer<UserHeader> &userHeaderData,
         return false;
     }
 
+    if (domain.isEmpty()) {
+        return addNode(getServerHost(), port);
+    }
 
     return addNode(domain, port);
 }
@@ -119,14 +133,21 @@ bool Seller::sentDataToServerPurchase(const QSharedPointer<UserHeader> &userHead
         return false;
     }
 
+    if (domain.isEmpty()) {
+        return addNode(getServerHost(), port);
+    }
+
     return addNode(domain, port);
 }
 
 void Seller::nodeConnected(QH::AbstractNodeInfo *node) {
     BaseNode::nodeConnected(node);
+}
+
+void Seller::nodeConfirmend(QH::AbstractNodeInfo *node) {
+    BaseNode::nodeConfirmend(node);
 
     for (const auto &session: qAsConst(_lastRequested)) {
-
         sendData(session.data(), node);
     }
 

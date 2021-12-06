@@ -32,7 +32,7 @@
     </message>
     <message>
         <source>Edit</source>
-        <translation>Edytować</translation>
+        <translation type="vanished">Edytować</translation>
     </message>
     <message>
         <source>Add card</source>
@@ -48,6 +48,22 @@
     </message>
     <message>
         <source>Let&apos;s go create the first card! Press &quot;Add Card &quot; button</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit card</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove card</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Activate card</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Statistics</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -86,6 +102,22 @@
         <source>Help</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export your key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import your key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Share application</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ColorPicker</name>
@@ -113,6 +145,10 @@
     </message>
     <message>
         <source>Join to our telegram channel for get support and see the last changes.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Join to our Instagram channel for get support and see the last changes.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -279,6 +315,33 @@
     </message>
 </context>
 <context>
+    <name>ExportUserKeyPage</name>
+    <message>
+        <source>Export user key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>**For what this use**</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Some times you can drop your application data or your device. Therefore you can create a backup qr code that can recovery your application data after dropping</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save and open in files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Done</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Backup code exported successful. The BackUp Code Available in your documnets folder. See &lt;b&gt;%0&lt;/b&gt; path</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FirstRunPage</name>
     <message>
         <source>Registration</source>
@@ -317,11 +380,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Go!</source>
+        <source>Back</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Back</source>
+        <source>Nobody, I just want to recover data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Done!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -342,6 +409,40 @@
     <message>
         <source>Wooooh seems like someone available %0 %1 !!!</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ImportUserKeyPage</name>
+    <message>
+        <source>**Attention** : This operation redefine your current application data (Cards, seals, users data). All current data will be removed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import from qr code scanner</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import from file with qr code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import your cadrs data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select your backup qr code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>codes</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>IncludeRecoveryWordPage</name>
+    <message>
+        <source>Next</source>
+        <translation type="obsolete">Następny</translation>
     </message>
 </context>
 <context>
@@ -534,6 +635,13 @@
     </message>
 </context>
 <context>
+    <name>PageShareApp</name>
+    <message>
+        <source>To get a cheat card, scan the QR code and follow the link.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>QrCodeView</name>
     <message>
         <source>It looks like this code should be shown to the seller!</source>
@@ -545,6 +653,35 @@
     </message>
     <message>
         <source>Show your phone to the seller, so that the drawn QR code gets into the scanning area.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QrScanner</name>
+    <message>
+        <source>switch camera</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>RC::AbstrcattableModelWithHeaders</name>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>RC::ImportExportUserModel</name>
+    <message>
+        <source>Oh shit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Permission denied to selected file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>It looks like the file you selected does not contain a recovery code</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -574,6 +711,68 @@
         <source>This client do not have any bonuses. Sorry... </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Wow shit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This qr code is invalid. Sorry... </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>I managed to do it !</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Yor secret key are imported</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>We Has a troubles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Yor secret key are imported successful but donwload backup data from server is failed. Please check your internet connection and try restore your data again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have network problems. Don&apos;t worry, all cards and your bonuses are saved on the merchant&apos;s host and will be available the next time you visit. Even if you will don&apos;t have internet connection.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Oops. Error code: </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>RC::SellerStatisticModel</name>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last visit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Id</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Purchases</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Issued</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>RecoveryPage</name>
+    <message>
+        <source>Next</source>
+        <translation type="obsolete">Następny</translation>
+    </message>
 </context>
 <context>
     <name>RegistrationFinishedPage</name>
@@ -590,10 +789,6 @@
         <translation>Go to use</translation>
     </message>
     <message>
-        <source>Now let&apos;s move on to using!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Registered!</source>
         <translation type="vanished">Zarejestrowany!</translation>
     </message>
@@ -601,11 +796,74 @@
         <source>Done!</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>All Done! &lt;b&gt;But If you drop your application data then all your cards will be removed&lt;/b&gt;. For save it self of this situations we recommends create a back up your master key.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create a back up of master key for save data of my account.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScannerOverlay</name>
     <message>
         <source>Scan QR code</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Settings</name>
+    <message>
+        <source>Privacy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Share name with seller</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Developer settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Host</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Camera</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select work camera</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select application color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please choose a color</source>
+        <translation type="unfinished">Proszę wybrać kolor</translation>
+    </message>
+    <message>
+        <source>Select</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Appearance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use custom server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset all settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default settings</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -618,6 +876,13 @@
     <message>
         <source>Check</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>exportUserKeyPage</name>
+    <message>
+        <source>Next</source>
+        <translation type="obsolete">Następny</translation>
     </message>
 </context>
 </TS>

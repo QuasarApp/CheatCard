@@ -17,7 +17,7 @@ public:
 
     virtual void addCard() = 0;
     virtual void removeCard(int cardId) = 0;
-    virtual void cardSelected(int cardId) = 0;
+    virtual void cardSelected(int cardId, int type) = 0;
 };
 }
 #endif // ICARDLISTMODEL_H

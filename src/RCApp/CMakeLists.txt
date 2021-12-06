@@ -54,6 +54,7 @@ if (ANDROID)
     set(ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/android CACHE INTERNAL "")
     set(ENV{ANDROID_API_VERSION} 31)
     set(ANDROID_API_VERSION $ENV{ANDROID_API_VERSION})
+    set(OPENSSL_ROOT_PATH "$ENV{OPENSSL_ROOT_DIR}")
 
     set(SNAKE_EXTRA_LIBS
         ${PROJECT_NAME}Core
@@ -64,6 +65,8 @@ if (ANDROID)
         QmlNotyfyService
         SCodes
         ZXing
+        ${OPENSSL_ROOT_PATH}/lib/libcrypto_1_1.so
+        ${OPENSSL_ROOT_PATH}/lib/libssl_1_1.so
         )
 
 

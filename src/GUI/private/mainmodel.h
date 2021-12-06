@@ -10,6 +10,7 @@
 
 #include <QObject>
 #include <QSettings>
+#include <settingslistner.h>
 #include <CheatCard/database.h>
 #include <CheatCardGui/ibilling.h>
 
@@ -20,7 +21,6 @@ class Card;
 class CardModel;
 class AboutModel;
 class User;
-class Config;
 class CardsListModel;
 class UserModel;
 class ItemsModel;
@@ -30,11 +30,14 @@ class UsersCards;
 class IBilling;
 class UserHeader;
 class CardProxyModel;
+class SellerStatisticModel;
+class SettingsModel;
+class ImportExportUserModel;
 
 /**
  * @brief The MainModel class is main model of the application.
  */
-class MainModel : public QObject
+class MainModel : public QObject, public QuasarAppUtils::SettingsListner
 {
     Q_OBJECT
     Q_PROPERTY(bool fFirst READ fFirst  NOTIFY fFirstChanged)
@@ -46,7 +49,8 @@ class MainModel : public QObject
     Q_PROPERTY(QObject * defaultLogosModel READ defaultLogosModel NOTIFY defaultLogosModelChanged)
     Q_PROPERTY(QObject * defaultBackgroundsModel READ defaultBackgroundsModel NOTIFY defaultBackgroundsModelChanged)
     Q_PROPERTY(QObject * waitModel READ waitModel NOTIFY waitModelChanged)
-
+    Q_PROPERTY(QObject * statisticModel READ statisticModel NOTIFY statisticModelChanged)
+    Q_PROPERTY(QObject * exportImportModel READ exportImportModel NOTIFY exportImportModelChanged)
 
 
 public:
@@ -62,7 +66,8 @@ public:
     Q_INVOKABLE void configureFinished();
     Q_INVOKABLE QObject *getAboutModel();
     QObject *currentUser() const;
-    QSharedPointer<UserModel> getCurrentUser() const;
+
+    const QSharedPointer<UserModel>& getCurrentUser() const;
 
     void setCurrentUser(UserModel *newCurrentUser);
     void setCurrentUser(QSharedPointer<UserModel> newCurrentUser);
@@ -90,9 +95,14 @@ public:
      */
     Q_INVOKABLE int getReceivedItemsCount(int cardId) const;
 
+    QObject * statisticModel() const;
+
+    QObject *exportImportModel() const;
+
 public slots:
     void handleFirstDataSendet();
     void handleBonusGivOut(int userId, int cardId, int givOutcount);
+    void handleNetworkError(QAbstractSocket::SocketError, QSslError::SslError sslErrorcode);
 
 signals:
 
@@ -114,14 +124,25 @@ signals:
     void modeChanged();
 
     void waitModelChanged();
+    void statisticModelChanged();
+
+    void exportImportModelChanged();
+
+    // SettingsListner interface
+protected:
+    void handleSettingsChanged(const QString &key, const QVariant &value) override;
 
 private slots:
+    bool handleImportUser(const QString &base64UserData);
+
     void handleCardReceived(QSharedPointer<RC::Card> card);
 
     void handleCardEditFinished(const QSharedPointer<RC::Card> &card);
 
     void handleCardRemoved(int id);
     void handleCardSelectedForWork(const QSharedPointer<CardModel>& card);
+    void handleCardSelectedForStatistic(const QSharedPointer<CardModel>& card);
+
     void handleConnectWasBegin();
     void handleConnectWasFinished();
 
@@ -138,18 +159,18 @@ private:
 
     QSharedPointer<UserModel> initUser();
 
-    QSharedPointer<Config> initConfig(int userId);
-
     void initCardsListModels();
     void initImagesModels();
     void setBackEndModel(const QSharedPointer<BaseNode> &newModel);
     void initWaitConnectionModel();
+    void initSellerStatisticModel();
+    void initImportExportModel();
+
     void configureCardsList();
 
     void setCardListModel(CardsListModel *model);
 
-    void initMode(const QSharedPointer<UserModel>& user,
-                  const QSharedPointer<Config>& config);
+    void initMode(const QSharedPointer<UserModel>& user);
 
     void soundEffectPlayback(const QString &soundName);
 
@@ -159,10 +180,11 @@ private:
                                 bool sendOnly);
 
     CardsListModel* getCurrentListModel() const;
+    void saveCard(const QSharedPointer<RC::Card> &card);
 
     QH::ISqlDBCache * _db = nullptr;
     QSharedPointer<UserModel> _currentUser;
-    QSharedPointer<Config> _config;
+    SettingsModel* _config = nullptr;
 
     CardsListModel *_cardsListModel = nullptr;
     CardsListModel *_ownCardsListModel = nullptr;
@@ -171,10 +193,11 @@ private:
 
     AboutModel *_aboutModel = nullptr;
     SoundPlayback *_soundEffect = nullptr;
-
+    SellerStatisticModel *_statisticModel = nullptr;
     ItemsModel *_defaultLogosModel = nullptr;
     ItemsModel *_defaultBackgroundsModel = nullptr;
 
+    ImportExportUserModel *_importExportModel = nullptr;
     IBilling *_billing = nullptr;
 
     QSharedPointer<BaseNode> _backEndModel = nullptr;
@@ -189,7 +212,7 @@ private:
     Mode _mode = Mode::Client;
     bool _fShowEmptyBonuspackaMessage = false;
     friend class ImageProvider;
-    void saveCard(const QSharedPointer<RC::Card> &card);
+
 };
 
 }

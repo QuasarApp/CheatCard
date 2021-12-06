@@ -5,25 +5,31 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-
-#include "carddatarequest.h"
-#include "cardstatusrequest.h"
 #include "server.h"
 
-#include <CheatCard/card.h>
-#include <CheatCard/session.h>
-#include <CheatCard/userscards.h>
+#include "CheatCard/api/api0/user.h"
+#include <CheatCard/api/api0/card.h>
+#include <CheatCard/api/api0/session.h>
+#include <CheatCard/api/api0/userscards.h>
+#include "CheatCard/api/api0/carddatarequest.h"
+#include "CheatCard/api/api0/cardstatusrequest.h"
+
+#include <CheatCard/api/api1/restoredatarequest.h>
 
 #include <badrequest.h>
-#include "clearolddata.h"
+#include "CheatCard/clearolddata.h"
+#include <QCoreApplication>
+
 namespace RC {
 
 Server::Server(QH::ISqlDBCache *db): BaseNode(db) {
     registerPackageType<Session>();
     registerPackageType<CardStatusRequest>();
     registerPackageType<QH::PKG::DataPack<UsersCards>>();
+
     registerPackageType<CardDataRequest>();
     registerPackageType<QH::PKG::DataPack<Card>>();
+    registerPackageType<RestoreDataRequest>();
 
     auto task = QSharedPointer<ClearOldData>::create();
     task->setTime(0);
@@ -38,6 +44,22 @@ Server::Server(QH::ISqlDBCache *db): BaseNode(db) {
     sheduleTask(task);
 }
 
+bool Server::cardValidation(const QSharedPointer<Card> &cardFromDB,
+                            const QByteArray &ownerSecret) const {
+
+    if (!cardFromDB)
+        return true;
+
+    auto signature = cardFromDB->ownerSignature();
+    auto ownerSignature =  User::makeKey(ownerSecret);
+
+    return signature == ownerSignature;
+}
+
+void Server::getSignData(QByteArray &) const {
+
+}
+
 void Server::nodeConnected(QH::AbstractNodeInfo *node) {
     BaseNode::nodeConnected(node);
     auto address = node->networkAddress();
@@ -47,6 +69,7 @@ void Server::nodeConnected(QH::AbstractNodeInfo *node) {
 }
 
 void Server::nodeDisconnected(QH::AbstractNodeInfo *node) {
+
     BaseNode::nodeDisconnected(node);
 }
 
@@ -55,59 +78,6 @@ void Server::nodeErrorOccured(QH::AbstractNodeInfo *nodeInfo, QAbstractSocket::S
     if (errorCode != QAbstractSocket::SocketError::RemoteHostClosedError) {
         BaseNode::nodeErrorOccured(nodeInfo, errorCode, errorString);
     }
-}
-
-bool Server::processCardStatusRequest(const QSharedPointer<CardStatusRequest> &message,
-                                      const QH::AbstractNodeInfo *sender,
-                                      const QH::Header &hdr) {
-
-    if (!BaseNode::processCardStatusRequest(message, sender, hdr)) {
-        return false;
-    }
-
-    auto request = QSharedPointer<Session>::create();
-    request->setSessionId(message->getSessionId());
-
-    return db()->deleteObject(request);
-}
-
-bool Server::processSession(const QSharedPointer<Session> &message,
-                            const QH::AbstractNodeInfo *sender,
-                            const QH::Header &hdr) {
-
-    return BaseNode::processSession(message, sender, hdr);
-
-}
-
-bool Server::processCardStatus(const QSharedPointer<QH::PKG::DataPack<UsersCards> > &cardStatuses,
-                               const QH::AbstractNodeInfo *sender,
-                               const QH::Header &hdr) {
-
-    return BaseNode::processCardStatus(cardStatuses, sender, hdr);
-
-}
-
-bool Server::applayPurchases(const QSharedPointer<UsersCards> &dbCard,
-                             const QH::AbstractNodeInfo *sender) {
-
-    return BaseNode::applayPurchases(dbCard, sender);
-
-}
-
-bool Server::processCardRequest(const QSharedPointer<CardDataRequest> &cardStatus,
-                                const QH::AbstractNodeInfo *sender,
-                                const QH::Header &hdr) {
-
-    return BaseNode::processCardRequest(cardStatus, sender, hdr);
-
-}
-
-bool Server::processCardData(const QSharedPointer<QH::PKG::DataPack<Card> > &cardrequest,
-                             const QH::AbstractNodeInfo *sender,
-                             const QH::Header &hdr) {
-
-    return BaseNode::processCardData(cardrequest, sender, hdr);
-
 }
 
 QH::ParserResult Server::parsePackage(const QSharedPointer<QH::PKG::AbstractData> &pkg,
