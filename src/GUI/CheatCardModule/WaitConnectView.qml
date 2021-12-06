@@ -20,8 +20,16 @@ Page {
     onModelChanged: () => {
                         if (root.model) {
                             root.model.purchaseCount = purchaseInput.value
+                            root.model.allowScreenDim = !visible;
+
                         }
                     }
+
+
+    onVisibleChanged: () => {
+                          if (root.model)
+                              root.model.allowScreenDim = !visible;
+                      }
 
     contentItem:
         ColumnLayout {
