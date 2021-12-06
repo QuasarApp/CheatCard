@@ -7,13 +7,8 @@
 
 
 
+#include "iplatformtools.h"
 #include "waitconnectionmodel.h"
-
-#ifdef Q_OS_ANDROID
-#include <QtAndroid>
-#include <QAndroidJniObject>
-#include <QAndroidJniEnvironment>
-#endif
 
 #include <QTimer>
 
@@ -74,31 +69,15 @@ void WaitConnectionModel::setAllowScreenDim(bool newAllowScreenDim) {
         return;
     _allowScreenDim = newAllowScreenDim;
 
-#ifdef Q_OS_ANDROID
-QAndroidJniObject activity = QtAndroid::androidActivity();
-if (activity.isValid()) {
-    QAndroidJniObject window = activity.callObjectMethod("getWindow", "()Landroid/view/Window;");
+    IPlatformTools::instance()->setScreanDim(newAllowScreenDim);
 
-    if (window.isValid()) {
-        const int FLAG_KEEP_SCREEN_ON = 128;
-
-        // see google docs https://developer.android.com/reference/android/view/Window
-        if (_allowScreenDim) {
-            window.callObjectMethod("clearFlags", "(I)V", FLAG_KEEP_SCREEN_ON);
-        } else {
-            window.callObjectMethod("addFlags", "(I)V", FLAG_KEEP_SCREEN_ON);
-        }
-
-    }
-
-    //Clear any possible pending exceptions.
-    QAndroidJniEnvironment env;
-    if (env->ExceptionCheck()) {
-        env->ExceptionClear();
-    }
-}
-#endif
     qDebug() << "_allowScreenDim" << _allowScreenDim;
+
+    if (_allowScreenDim) {
+        qDebug() << "clearFlags" << _allowScreenDim;
+    } else {
+        qDebug() << "addFlags" << _allowScreenDim;
+    }
 
     emit allowScreenDimChanged();
 }
