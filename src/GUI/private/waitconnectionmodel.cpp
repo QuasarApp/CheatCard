@@ -84,17 +84,10 @@ if (activity.isValid()) {
 
         // see google docs https://developer.android.com/reference/android/view/Window
         if (_allowScreenDim) {
-            window.callMethod<void>("clearFlags", "(I)V", FLAG_KEEP_SCREEN_ON);
+            window.callObjectMethod("clearFlags", "(I)V", FLAG_KEEP_SCREEN_ON);
         } else {
-            window.callMethod<void>("addFlags", "(I)V", FLAG_KEEP_SCREEN_ON);
+            window.callObjectMethod("addFlags", "(I)V", FLAG_KEEP_SCREEN_ON);
         }
-
-    }
-
-    //Clear any possible pending exceptions.
-    QAndroidJniEnvironment env;
-    if (env->ExceptionCheck()) {
-        env->ExceptionClear();
     }
 }
 #endif
