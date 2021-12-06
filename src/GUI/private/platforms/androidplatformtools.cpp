@@ -13,6 +13,7 @@
 #include <QtAndroid>
 #include <QAndroidJniObject>
 #include <QAndroidJniEnvironment>
+#include <QDebug>
 
 namespace RC {
 
@@ -23,24 +24,12 @@ AndroidPlatformTools::AndroidPlatformTools() {
 void AndroidPlatformTools::setScreanDim(bool enable) const {
     QAndroidJniObject activity = QtAndroid::androidActivity();
     if (activity.isValid()) {
-        QAndroidJniObject window = activity.callObjectMethod("getWindow", "()Landroid/view/Window;");
+        const int FLAG_KEEP_SCREEN_ON = 128;
 
-        if (window.isValid()) {
-            const int FLAG_KEEP_SCREEN_ON = 128;
-
-            // see google docs https://developer.android.com/reference/android/view/Window
-            if (enable) {
-                window.callMethod<void>("clearFlags", "(I)V", FLAG_KEEP_SCREEN_ON);
-            } else {
-                window.callMethod<void>("addFlags", "(I)V", FLAG_KEEP_SCREEN_ON);
-            }
-
-        }
-
-        //Clear any possible pending exceptions.
-        QAndroidJniEnvironment env;
-        if (env->ExceptionCheck()) {
-            env->ExceptionClear();
+        if (enable) {
+            activity.callMethod<void>("clearWindowFlagAsync", "(I)V", FLAG_KEEP_SCREEN_ON);
+        } else {
+            activity.callMethod<void>("addWindowFlagAsync", "(I)V", FLAG_KEEP_SCREEN_ON);
         }
     }
 }

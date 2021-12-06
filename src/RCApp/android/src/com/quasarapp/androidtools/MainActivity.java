@@ -14,6 +14,7 @@ import com.quasarapp.androidtools.CppProvider;
 import android.os.Bundle;
 
 import android.view.View;
+import android.view.Window;
 
 public class MainActivity extends QtActivity
 {
@@ -63,6 +64,32 @@ private void showSystemUI() {
 public void onBackPressed() {
     super.onBackPressed();
 
+}
+
+// see google docs https://developer.android.com/reference/android/view/Window
+public void clearWindowFlagAsync(int flag) {
+
+
+    //perform heavy task here and finally update the UI with result this way -
+    runOnUiThread(new Runnable() {
+        @Override
+        public void run() {
+            Window decorView = getWindow();
+            decorView.clearFlags(flag);
+        }
+    });
+}
+
+public void addWindowFlagAsync(int flag) {
+
+    //perform heavy task here and finally update the UI with result this way -
+    runOnUiThread(new Runnable() {
+        @Override
+        public void run() {
+            Window decorView = getWindow();
+            decorView.addFlags(flag);
+        }
+    });
 }
 
 private BillingProcessor billingProcessor;

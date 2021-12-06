@@ -71,14 +71,6 @@ void WaitConnectionModel::setAllowScreenDim(bool newAllowScreenDim) {
 
     IPlatformTools::instance()->setScreanDim(newAllowScreenDim);
 
-    qDebug() << "_allowScreenDim" << _allowScreenDim;
-
-    if (_allowScreenDim) {
-        qDebug() << "clearFlags" << _allowScreenDim;
-    } else {
-        qDebug() << "addFlags" << _allowScreenDim;
-    }
-
     emit allowScreenDimChanged();
 }
 
