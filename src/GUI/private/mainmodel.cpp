@@ -43,7 +43,6 @@
 #include "settingsmodel.h"
 #include <CheatCard/api/apiv1.h>
 
-#define CURRENT_USER "CURRENT_USER"
 
 namespace RC {
 
@@ -134,7 +133,7 @@ QObject *MainModel::currentUser() const {
     return _currentUser.data();
 }
 
-bool MainModel::importUser(QString base64UserData) {
+bool MainModel::handleImportUser(const QString &base64UserData) {
 
     auto userData = QSharedPointer<User>::create();
     userData->fromBytes(QByteArray::fromBase64(base64UserData.toLatin1(),
@@ -159,8 +158,8 @@ bool MainModel::importUser(QString base64UserData) {
     auto newUser = QSharedPointer<UserModel>::create(userData);
 
     setCurrentUser(newUser);
-    _config->setValue("fFirst", false);
     saveUser();
+    _config->setValue("fFirst", false);
 
     if (!_backEndModel->restoreOldData(userData->getKey())) {
         service->setNotify(tr("We Has a troubles"),
@@ -196,9 +195,14 @@ void MainModel::setCurrentUser(QSharedPointer<UserModel> value) {
 
     if (_currentUser) {
 
-        if (_backEndModel) {
-            _backEndModel->setCurrentUser(_currentUser->user());
+        if (_visitorbackEndModel) {
+            _visitorbackEndModel->setCurrentUser(_currentUser->user());
         }
+
+        if (_sellerbackEndModel) {
+            _sellerbackEndModel->setCurrentUser(_currentUser->user());
+        }
+
         unsigned int userId = _currentUser->user()->userId();
         QByteArray userKey = _currentUser->user()->getKey();
 
@@ -343,6 +347,9 @@ void MainModel::initImportExportModel() {
     if (!_importExportModel) {
         _importExportModel = new ImportExportUserModel();
         emit exportImportModelChanged();
+
+        connect(_importExportModel, &ImportExportUserModel::decodeFinished,
+                this, &MainModel::handleImportUser);
     }
 }
 
@@ -428,30 +435,43 @@ int MainModel::getMode() const {
     return static_cast<int>(_mode);
 }
 
+// template method for initialize back end model. using in configureCardsList method
+template <class BackEndType>
+QSharedPointer<BaseNode> initBackEndModel(const QSharedPointer<UserModel>& user,
+                                          QH::ISqlDBCache *db,
+                                          MainModel* thiz) {
+    QSharedPointer<BaseNode> result;
+    result = QSharedPointer<BaseNode>(new BackEndType(db), softRemove);
+    result->addApiParser<ApiV1>();
+
+    if (user) {
+        result->setCurrentUser(user->user());
+    }
+
+    thiz->connect(result.data(),
+            &BaseNode::sigNetworkError,
+            thiz,
+            &MainModel::handleNetworkError);
+
+    return result;
+};
+
 void RC::MainModel::configureCardsList() {
     if (_mode == Mode::Client) {
         setCardListModel(_cardsListModel);
         if (!_visitorbackEndModel) {
-            _visitorbackEndModel = QSharedPointer<BaseNode>(new VisitorSSL(_db), softRemove);
-            _visitorbackEndModel->addApiParser<ApiV1>();
-
-            connect(_visitorbackEndModel.data(),
-                    &BaseNode::sigNetworkError,
-                    this,
-                    &MainModel::handleNetworkError);
+            _visitorbackEndModel = initBackEndModel<VisitorSSL>(_currentUser,
+                                                    _db,
+                                                    this);
         }
 
         setBackEndModel(_visitorbackEndModel);
     } else {
         setCardListModel(_ownCardsListModel);
         if (!_sellerbackEndModel) {
-            _sellerbackEndModel = QSharedPointer<BaseNode>(new SellerSSL(_db), softRemove);
-            _sellerbackEndModel->addApiParser<ApiV1>();
-
-            connect(_sellerbackEndModel.data(),
-                    &BaseNode::sigNetworkError,
-                    this,
-                    &MainModel::handleNetworkError);
+            _sellerbackEndModel = initBackEndModel<SellerSSL>(_currentUser,
+                                                    _db,
+                                                    this);
         }
 
         setBackEndModel(_sellerbackEndModel);
@@ -468,6 +488,19 @@ void MainModel::setMode(int newMode) {
     configureCardsList();
 
     _config->setValue("fSellerMode", static_cast<bool>(newMode));
+
+    if (_mode == Mode::Seller) {
+        // test secret keys
+
+        auto userKey = _currentUser->user()->getKey();
+        auto secret = _currentUser->user()->secret();
+        if (userKey != User::makeKey(secret)) {
+            _currentUser->user()->regenerateKeys();
+            saveUser();
+            _settings.setValue(CURRENT_USER, _currentUser->user()->userId());
+        }
+    }
+
     saveConfig();
 }
 
@@ -476,13 +509,21 @@ QObject *MainModel::cardsList() const {
 }
 
 void MainModel::handleCardReceived(QSharedPointer<RC::Card> card) {
-    _cardsListModel->importCard(card);
 
-    if (_backEndModel) {
-        auto metaData = _backEndModel->getUserCardData(_currentUser->user()->userId(), card->cardId());
+    if (card->isOvner(_currentUser->user()->userId())) {
+        _ownCardsListModel->importCard(card);
 
-        if (metaData) {
-            getCurrentListModel()->updateMetaData({metaData});
+    } else {
+        if (!_cardsListModel)
+            return;
+
+        _cardsListModel->importCard(card);
+        if (_backEndModel) {
+            auto metaData = _backEndModel->getUserCardData(_currentUser->user()->userId(), card->cardId());
+
+            if (metaData) {
+                _cardsListModel->updateMetaData({metaData});
+            }
         }
     }
 }
@@ -673,11 +714,12 @@ void MainModel::handlePurchaseReceived(Purchase purchase) {
 
 }
 
-void MainModel::handleNetworkError(QAbstractSocket::SocketError) {
+void MainModel::handleNetworkError(QAbstractSocket::SocketError code,
+                                   QSslError::SslError sslErrorcode) {
 
     auto service = QmlNotificationService::NotificationService::getService();
 
-    service->setNotify(tr("Oops"),
+    service->setNotify(tr("Oops. Error code: ") + QString("%0-%1").arg(code, sslErrorcode),
                        tr("You have network problems. Don't worry, all cards and your bonuses are saved on the merchant's host and will be available the next time you visit. Even if you will don't have internet connection."),
                        "", QmlNotificationService::NotificationData::Warning);
 }

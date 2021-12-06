@@ -6,6 +6,7 @@
 //#
 
 #include "card.h"
+#include "user.h"
 #include <ctime>
 
 namespace RC {
@@ -150,6 +151,10 @@ const QByteArray &Card::ownerSignature() const {
 
 void Card::setOwnerSignature(const QByteArray &newOwnerSignature) {
     _ownerSignature = newOwnerSignature;
+}
+
+bool Card::isOvner(const unsigned int userId) const {
+    return User::makeId(_ownerSignature) == userId;
 }
 
 unsigned int Card::getCardVersion() const {

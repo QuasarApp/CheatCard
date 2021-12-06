@@ -16,7 +16,6 @@
 namespace RC {
 
 class RestoreDataRequest;
-class UsersCardsV1;
 
 /**
  * @brief The ApiV1 class
@@ -42,8 +41,6 @@ protected:
                         const QH::AbstractNodeInfo *sender, const QH::Header&) override;
     bool processCardStatus(const QSharedPointer<QH::PKG::DataPack<UsersCards>> &cardStatuses,
                            const QH::AbstractNodeInfo *sender, const QH::Header&) override final;
-    virtual bool processCardStatusV1(const QSharedPointer<QH::PKG::DataPack<UsersCardsV1>> &cardStatuses,
-                                   const QH::AbstractNodeInfo *sender, const QH::Header&);
     bool applayPurchases(const QSharedPointer<UsersCards> &dbCard,
                          const QH::AbstractNodeInfo *sender) override;
     bool processCardRequest(const QSharedPointer<CardDataRequest> &cardStatus,

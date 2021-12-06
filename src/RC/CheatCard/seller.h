@@ -31,7 +31,7 @@ public:
 
     bool requestAllDataFromUser();
 
-    bool cardValidation(const QSharedPointer<Card> &card,
+    bool cardValidation(const QSharedPointer<Card> &cardFromDB,
                         const QByteArray &ownerSecret) const override;
     void getSignData(QByteArray &data) const override;
 

@@ -66,7 +66,6 @@ public:
     Q_INVOKABLE void configureFinished();
     Q_INVOKABLE QObject *getAboutModel();
     QObject *currentUser() const;
-    Q_INVOKABLE bool importUser(QString base64UserData);
 
     const QSharedPointer<UserModel>& getCurrentUser() const;
 
@@ -103,6 +102,7 @@ public:
 public slots:
     void handleFirstDataSendet();
     void handleBonusGivOut(int userId, int cardId, int givOutcount);
+    void handleNetworkError(QAbstractSocket::SocketError, QSslError::SslError sslErrorcode);
 
 signals:
 
@@ -133,6 +133,8 @@ protected:
     void handleSettingsChanged(const QString &key, const QVariant &value) override;
 
 private slots:
+    bool handleImportUser(const QString &base64UserData);
+
     void handleCardReceived(QSharedPointer<RC::Card> card);
 
     void handleCardEditFinished(const QSharedPointer<RC::Card> &card);
@@ -149,7 +151,6 @@ private slots:
     void handleListenStop();
     void handleAppStateChanged(Qt::ApplicationState state);
     void handlePurchaseReceived(Purchase purchase);
-    void handleNetworkError(QAbstractSocket::SocketError);
 
 private:
     void saveConfig();

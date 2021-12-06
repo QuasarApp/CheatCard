@@ -14,6 +14,8 @@ set(CURRENT_PROJECT "${PROJECT_NAME}Gui")
 file(GLOB SOURCE_CPP
     "*CheatCardGui/*.cpp"
      "private/*.cpp"
+     "private/platforms/*.cpp"
+
 )
 
 if (${QT_VERSION_MAJOR})
