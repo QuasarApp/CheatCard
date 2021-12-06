@@ -13,6 +13,7 @@
 #include "isqldbcache.h"
 #include "core_global.h"
 
+#define CURRENT_USER "CURRENT_USER"
 
 namespace RC {
 

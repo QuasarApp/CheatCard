@@ -17,7 +17,6 @@
 #include <CheatCard/api/api0/card.h>
 
 #include <CheatCard/api/api1/restoredatarequest.h>
-#include <CheatCard/api/api1/userscardsv1.h>
 
 namespace RC {
 
@@ -62,9 +61,9 @@ bool Visitor::checkCardData(long long session,
                    action, QH::NodeCoonectionStatus::Confirmed);
 }
 
-bool Visitor::cardValidation(const QSharedPointer<Card> &card,
+bool Visitor::cardValidation(const QSharedPointer<Card> &cardFromDB,
                              const QByteArray &ownerSecret) const {
-    Q_UNUSED(card);
+    Q_UNUSED(cardFromDB);
     Q_UNUSED(ownerSecret);
 
     return true;
@@ -88,16 +87,17 @@ void Visitor::handleTick() {
 }
 
 void Visitor::action(QH::AbstractNodeInfo *node) {
+
     CardStatusRequest request;
 
-    auto senderInfo = static_cast<NodeInfo*>(node);
-
-    long long token = rand() * rand();
-
-    senderInfo->setToken(token);
+    if (minimumApiVersion() <= 0 ) {
+        auto senderInfo = static_cast<NodeInfo*>(node);
+        long long token = rand() * rand();
+        senderInfo->setToken(token);
+        request.setRequestToken(token);
+    }
 
     request.setSessionId(_lastRequested);
-    request.setRequestToken(token);
 
     sendData(&request, node->networkAddress());
 

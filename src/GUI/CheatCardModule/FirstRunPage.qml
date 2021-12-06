@@ -97,10 +97,11 @@ CPage {
                         Label {
                             horizontalAlignment: Label.AlignHCenter
                             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-
+                            Layout.fillWidth: true
                             font.pointSize: 20
                             color: "#424242"
                             wrapMode: Label.WordWrap
+
                             text: (!fSaller.checked)? qsTr("What is your name?") :
                                                       qsTr("What is the name of your company?");
                         }

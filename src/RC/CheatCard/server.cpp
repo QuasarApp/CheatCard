@@ -15,7 +15,6 @@
 #include "CheatCard/api/api0/cardstatusrequest.h"
 
 #include <CheatCard/api/api1/restoredatarequest.h>
-#include <CheatCard/api/api1/userscardsv1.h>
 
 #include <badrequest.h>
 #include "CheatCard/clearolddata.h"
@@ -27,7 +26,6 @@ Server::Server(QH::ISqlDBCache *db): BaseNode(db) {
     registerPackageType<Session>();
     registerPackageType<CardStatusRequest>();
     registerPackageType<QH::PKG::DataPack<UsersCards>>();
-    registerPackageType<QH::PKG::DataPack<UsersCardsV1>>();
 
     registerPackageType<CardDataRequest>();
     registerPackageType<QH::PKG::DataPack<Card>>();
@@ -46,13 +44,13 @@ Server::Server(QH::ISqlDBCache *db): BaseNode(db) {
     sheduleTask(task);
 }
 
-bool Server::cardValidation(const QSharedPointer<Card> &card,
+bool Server::cardValidation(const QSharedPointer<Card> &cardFromDB,
                             const QByteArray &ownerSecret) const {
 
-    if (!card)
+    if (!cardFromDB)
         return true;
 
-    auto signature = card->ownerSignature();
+    auto signature = cardFromDB->ownerSignature();
     auto ownerSignature =  User::makeKey(ownerSecret);
 
     return signature == ownerSignature;
@@ -71,6 +69,7 @@ void Server::nodeConnected(QH::AbstractNodeInfo *node) {
 }
 
 void Server::nodeDisconnected(QH::AbstractNodeInfo *node) {
+
     BaseNode::nodeDisconnected(node);
 }
 
