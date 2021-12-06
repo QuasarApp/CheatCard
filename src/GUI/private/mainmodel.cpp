@@ -579,7 +579,7 @@ void MainModel::handleCardEditFinished(const QSharedPointer<Card>& card) {
     saveCard(card);
 }
 
-void MainModel::handleCardRemoved(int id) {
+void MainModel::handleCardRemoved(unsigned int id) {
 
     auto reqest = QSharedPointer<Card>::create();
     reqest->setId(id);

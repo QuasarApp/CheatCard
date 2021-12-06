@@ -53,7 +53,7 @@ public:
     const QHash<int, QSharedPointer<CardModel>> &cache() const;
 
 signals:
-    void sigCardRemoved(int cardName);
+    void sigCardRemoved(unsigned int cardName);
     void sigEditFinished(const QSharedPointer<Card>& card);
     void sigCardSelectedForWork(const QSharedPointer<CardModel>& card);
     void sigCardSelectedForStatistic(const QSharedPointer<CardModel>& card);
