@@ -88,9 +88,17 @@ if (activity.isValid()) {
         } else {
             window.callObjectMethod("addFlags", "(I)V", FLAG_KEEP_SCREEN_ON);
         }
+
+    }
+
+    //Clear any possible pending exceptions.
+    QAndroidJniEnvironment env;
+    if (env->ExceptionCheck()) {
+        env->ExceptionClear();
     }
 }
 #endif
+    qDebug() << "_allowScreenDim" << _allowScreenDim;
 
     emit allowScreenDimChanged();
 }
