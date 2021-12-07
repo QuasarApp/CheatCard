@@ -529,11 +529,9 @@ void MainModel::handleCardReceived(QSharedPointer<RC::Card> card) {
 }
 
 void RC::MainModel::saveCard(const QSharedPointer<Card>& card) {
-    if (bool(Mode::Client)) {
+    if (getMode() == static_cast<int>(Mode::Client)) {
         card->setCardVersion(VERSION_CARD_USER);
-    }
-
-    if (bool(Mode::Seller)) {
+    } else {
         card->setCardVersion(card->getCardVersion() + 1);
     }
 
