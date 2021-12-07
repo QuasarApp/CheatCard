@@ -14,6 +14,7 @@ Page {
     id: root
     property var model: null
     property bool editable: true
+    property bool hasEdit: false
     property alias cardCount: list.count
 
     signal finished()
@@ -25,7 +26,7 @@ Page {
             id: list
             model: root.model
             currentIndex: count - 1;
-
+            interactive: !hasEdit
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.alignment: Qt.AlignHCenter
@@ -43,7 +44,10 @@ Page {
                                                                   itemWidth )
 
             highlightRangeMode: ListView.StrictlyEnforceRange
-            ScrollBar.vertical: ScrollBar {}
+            ScrollBar.vertical: ScrollBar {
+                id: scrollBar
+                enabled: !hasEdit
+            }
 
             orientation: (root.width < root.height)? ListView.Vertical : ListView.Horizontal
 
@@ -61,7 +65,6 @@ Page {
                 visible: !list.count
                 anchors.fill: parent
             }
-
 
             property int itemHeight: (itemWidth * 0.75)
             property int itemWidth: (root.editable)?
@@ -81,10 +84,11 @@ Page {
                         id: cardView
                         model: card
                         opacity: (cardItem.ListView.isCurrentItem)? 1: 0.5
-                        editable: false
+                        editable: !Boolean(card && card.title.length)
                         onFinished: () => {
-                                        editable = false
+                                        hasEdit = editable = false
                                         root.finished()
+
                                     }
 
                         onSigHold: {
@@ -129,6 +133,7 @@ Page {
                         id: editCardBtn
                         visible: cardItem.ListView.isCurrentItem && !cardView.editable
                         icon.source: "qrc:/images/private/resources/Interface_icons/Right_topmenu.svg"
+                        icon.color: (card)? card.fontColor: Material.foreground
                         font.bold: true
                         font.pointSize: 14
 
@@ -237,8 +242,10 @@ Page {
             text: qsTr("Add card")
             Layout.alignment: Qt.AlignHCenter
             visible: root.editable
+            enabled: !hasEdit
             onClicked: () => {
                            root.model.addCard()
+                           hasEdit = true;
 
                        }
         }

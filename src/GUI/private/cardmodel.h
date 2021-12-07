@@ -99,6 +99,8 @@ signals:
 
     void receivedItemsChanged();
 
+    void fEditingChanged();
+
 private:
 
     QByteArray convert(const QString& imagePath);
