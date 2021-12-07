@@ -138,7 +138,7 @@ Page {
                 }
 
                 GridLayout {
-                    rows: 3 + (visibleItemsCount <= 3 ) + (editable || visibleItemsCount > 4 )
+                    rows: 3 + (visibleItemsCount <= 3 ) + (root.editable || visibleItemsCount > 4 )
                     columns: (visibleItemsCount <= 3 )? 1: 2
                     Layout.alignment: Qt.AlignRight | Qt.AlignTop
                     Layout.rightMargin: 10
@@ -168,7 +168,7 @@ Page {
 
                         placeholderText: qsTr("Enter card title");
                         placeholderTextColor: "#c12300"
-                        readOnly: !editable
+                        readOnly: !root.editable
                     }
 
                     TextFieldWithLogo {
@@ -179,7 +179,7 @@ Page {
 
                         textField.text: (root.model)? root.model.telegramm : ""
                         textField.placeholderText: qsTr("Your telegramm");
-                        textField.readOnly: !editable
+                        textField.readOnly: !root.editable
                         textField.onTextChanged: {
                             if (!root.model)
                                 return
@@ -205,7 +205,7 @@ Page {
 
                         textField.text: (root.model)? root.model.instagramm : ""
                         textField.placeholderText: qsTr("Your instagramm");
-                        textField.readOnly: !editable
+                        textField.readOnly: !root.editable
                         textField.onTextChanged: {
                             if (!root.model)
                                 return
@@ -229,7 +229,7 @@ Page {
 
                         textField.text: (root.model)? root.model.physicalAddress : ""
                         textField.placeholderText: qsTr("Your physical address");
-                        textField.readOnly: !editable
+                        textField.readOnly: !root.editable
                         textField.onTextChanged: {
                             if (!root.model)
                                 return
@@ -263,7 +263,7 @@ Page {
                                    }
 
                         textField.placeholderText: qsTr("Your web site");
-                        textField.readOnly: !editable
+                        textField.readOnly: !root.editable
 
                         image: "qrc:/images/private/resources/www.png"
 
@@ -289,7 +289,7 @@ Page {
                                    }
 
                         textField.placeholderText: qsTr("Your phone number");
-                        textField.readOnly: !editable
+                        textField.readOnly: !root.editable
 
                         image: "qrc:/images/private/resources/phone.png"
 
@@ -313,7 +313,7 @@ Page {
                         textField.placeholderText: qsTr("Enter bonus name");
                         textField.placeholderTextColor: "#c12300"
 
-                        textField.readOnly: !editable
+                        textField.readOnly: !root.editable
 
                         image: "qrc:/images/private/resources/freeItem.png"
 
@@ -496,13 +496,13 @@ Page {
             }
         }
         RowLayout {
-            visible: customization || editable
+            visible: customization || root.editable
             Layout.alignment: Qt.AlignHCenter
 
 
             ToolButton {
                 id: menuButton
-                visible: customization || editable
+                visible: customization || root.editable
                 icon.source:  "qrc:/images/private/resources/Interface_icons/Right_topmenu.svg"
                 font.bold: true
                 font.pointSize: 14
@@ -513,7 +513,7 @@ Page {
 
             SpinBox {
                 id: freeIndex
-                visible: editable
+                visible: root.editable
                 value: (root.model)? root.model.freeIndex : privateRoot.rowSignCount
                 stepSize: Math.ceil((freeIndex.value + 1) / privateRoot.rowSignCount)
                 to: privateRoot.rowSignCount * privateRoot.maximumRowSignCount
@@ -529,7 +529,7 @@ Page {
 
             Button {
                 text: qsTr("Save");
-                visible: customization || editable
+                visible: customization || root.editable
                 enabled: cardTitle.text.length && cardfreeItem.textField.text.length
                 onClicked: () => {
                                if (root.model) {

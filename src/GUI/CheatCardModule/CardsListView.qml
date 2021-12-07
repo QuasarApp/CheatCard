@@ -151,7 +151,7 @@ Page {
                             text: qsTr("Edit card")
                             icon.source: "qrc:/images/private/resources/Interface_icons/edit_card.svg"
                             onClicked:  () => {
-                                            cardView.editable = true;
+                                            hasEdit = cardView.editable = true;
                                         }
                         }
 
