@@ -28,11 +28,11 @@ QH::PKG::DBObject *UsersCards::createDBObject() const {
 }
 
 QH::PKG::DBVariantMap UsersCards::variantMap() const {
-    return {{"user",           {user,           QH::PKG::MemberType::Insert}},
-            {"card",           {card,           QH::PKG::MemberType::Insert}},
-            {"id",             {id,             QH::PKG::MemberType::PrimaryKey}},
-            {"purchasesNumber",{purchasesNumber,QH::PKG::MemberType::InsertUpdate}},
-            {"received",       {received,       QH::PKG::MemberType::InsertUpdate}},
+    return {{"user",           {user,                           QH::PKG::MemberType::Insert}},
+            {"card",           {card,                           QH::PKG::MemberType::Insert}},
+            {"id",             {id,                             QH::PKG::MemberType::PrimaryKey}},
+            {"purchasesNumber",{purchasesNumber,                QH::PKG::MemberType::InsertUpdate}},
+            {"received",       {received,                       QH::PKG::MemberType::InsertUpdate}},
             {"time",           {static_cast<int>(time(0)),      QH::PKG::MemberType::InsertUpdate}},
     };
 }
@@ -50,8 +50,7 @@ QDataStream &UsersCards::fromStream(QDataStream &stream) {
     stream >> id;
     stream >> purchasesNumber;
     stream >> received;
-    // To-Do
-    // will drop on second release 2.xx
+
     bool owner;
     stream >> owner;
     stream >> cardVersion;
@@ -68,8 +67,6 @@ QDataStream &UsersCards::toStream(QDataStream &stream) const {
     stream << purchasesNumber;
     stream << received;
 
-    // To-Do
-    // will drop on second release 2.xx
     bool owner(false);
     stream << owner;
     stream << cardVersion;

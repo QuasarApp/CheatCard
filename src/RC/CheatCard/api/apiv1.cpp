@@ -10,12 +10,11 @@
 #include "CheatCard/api/api0/carddatarequest.h"
 #include "CheatCard/api/api0/cardstatusrequest.h"
 #include <CheatCard/api/api0/session.h>
-#include <CheatCard/api/api0/userscards.h>
-#include <CheatCard/api/api0/card.h>
 #include "CheatCard/api/api0/user.h"
 
 #include <CheatCard/api/api1/restoredatarequest.h>
 #include <CheatCard/api/api1/userscards.h>
+#include <CheatCard/api/api1/card.h>
 
 #include "CheatCard/nodeinfo.h"
 
@@ -65,7 +64,7 @@ QH::ParserResult ApiV1::parsePackage(const QSharedPointer<QH::PKG::AbstractData>
         return result;
     }
 
-    result = commandHandler<QH::PKG::DataPack<API::Card>>(this, &ApiV1::processCardData,
+    result = commandHandler<QH::PKG::DataPack<APIv1::Card>>(this, &ApiV1::processCardData,
                                   pkg, sender, pkgHeader);
     if (result != QH::ParserResult::NotProcessed) {
         return result;
@@ -131,7 +130,7 @@ bool ApiV1::processCardStatus(const QSharedPointer<QH::PKG::DataPack<APIv1::User
     return node()->removeNode(sender->networkAddress());
 }
 
-bool ApiV1::applayPurchases(const QSharedPointer<API::UsersCards> &dbCard,
+bool ApiV1::applayPurchases(const QSharedPointer<APIv1::UsersCards> &dbCard,
                             const QH::AbstractNodeInfo * sender) {
 
     return ApiV0::applayPurchases(dbCard, sender);
@@ -140,10 +139,11 @@ bool ApiV1::applayPurchases(const QSharedPointer<API::UsersCards> &dbCard,
 bool ApiV1::processCardRequest(const QSharedPointer<API::CardDataRequest> &cardrequest,
                                const QH::AbstractNodeInfo *sender, const QH::Header &) {
 
-    QH::PKG::DataPack<API::Card> cards{};
+    QH::PKG::DataPack<APIv1::Card> cards{};
 
     for (unsigned int cardId : cardrequest->getCardIds()) {
-        auto card = node()->getCard(cardId);
+        // bug
+        auto card = node()->getCard(cardId).staticCast<APIv1::Card>();
 
         if (!card) {
             QuasarAppUtils::Params::log(QString("Failed to find card with id: %0").
@@ -173,7 +173,7 @@ bool ApiV1::processCardRequest(const QSharedPointer<API::CardDataRequest> &cardr
     return true;
 }
 
-bool ApiV1::processCardData(const QSharedPointer<QH::PKG::DataPack<API::Card>> &cards,
+bool ApiV1::processCardData(const QSharedPointer<QH::PKG::DataPack<APIv1::Card>> &cards,
                             const QH::AbstractNodeInfo *sender, const QH::Header &) {
 
     if (!(cards && db())) {
@@ -224,8 +224,12 @@ bool ApiV1::processRestoreDataRequest(const QSharedPointer<APIv1::RestoreDataReq
         return false;
     }
 
-    auto cardsList = node()->getAllUserCards(cardrequest->userKey());
-    QH::PKG::DataPack<API::Card> cardsPack(cardsList);
+    const auto cardsList = node()->getAllUserCards(cardrequest->userKey());
+    QH::PKG::DataPack<APIv1::Card> cardsPack;
+
+    for (const auto& card : cardsList) {
+        cardsPack.push(card.staticCast<APIv1::Card>());
+    }
 
     const auto datalist = node()->getAllUserCardsData(cardrequest->userKey());
     for (const auto& item: datalist) {
@@ -258,7 +262,7 @@ bool ApiV1::processCardStatusRequest(const QSharedPointer<API::CardStatusRequest
 
     QH::PKG::DataPack<APIv1::UsersCards> responce;
 
-    for (const auto &data : qAsConst(result->data())) {
+    for (const QSharedPointer<APIv1::UsersCards> &data : qAsConst(result->data())) {
         data->setCardVersion(node()->getCardVersion(data->getCard()));
         responce.push(data);
     }

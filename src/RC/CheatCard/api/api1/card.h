@@ -5,35 +5,34 @@
 //# of this license document, but changing it is not allowed.
 //#
 
+#include <CheatCard/api/api0/card.h>
 
-
-#ifndef USERSCARDS_V1_H
-#define USERSCARDS_V1_H
-
-#include <CheatCard/api/api0/userscards.h>
+#ifndef CARD_V1_H
+#define CARD_V1_H
 
 namespace RC {
 namespace APIv1 {
 
-
-class CHEATCARD_CORE_EXPORT UsersCards: public API::UsersCards
+/**
+ * @brief The Card class
+ */
+class CHEATCARD_CORE_EXPORT Card: public API::Card
 {
-    QH_PACKAGE(APIv1::UsersCards, "APIv1::UsersCards")
-
+    QH_PACKAGE(APIv1::Card, "APIv1::Card")
 public:
-    UsersCards();
-    UsersCards(unsigned int user, unsigned int card);
+    Card();
     QH::PKG::DBObject *createDBObject() const override;
-
 
 protected:
     QDataStream &fromStream(QDataStream &stream) override;
     QDataStream &toStream(QDataStream &stream) const override;
+
 };
 
 }
 }
-Q_DECLARE_METATYPE(RC::APIv1::UsersCards)
-Q_DECLARE_METATYPE(QSharedPointer<RC::APIv1::UsersCards>)
 
-#endif // USERSCARDS_V1_H
+Q_DECLARE_METATYPE(RC::APIv1::Card)
+Q_DECLARE_METATYPE(QSharedPointer<RC::APIv1::Card>)
+
+#endif // CARD_V1_H

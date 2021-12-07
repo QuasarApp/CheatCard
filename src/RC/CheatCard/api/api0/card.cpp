@@ -119,7 +119,6 @@ QDataStream &Card::fromStream(QDataStream &stream) {
     stream >> fontColor;
     stream >> _freeItemName;
     stream >> cardVersion;
-    stream >> _ownerSignature;
 
     return stream;
 }
@@ -141,7 +140,6 @@ QDataStream &Card::toStream(QDataStream &stream) const {
     stream << fontColor;
     stream << _freeItemName;
     stream << cardVersion;
-    stream << _ownerSignature;
 
     return stream;
 }

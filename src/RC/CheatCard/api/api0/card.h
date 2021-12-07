@@ -86,7 +86,6 @@ protected:
     QDataStream &fromStream(QDataStream &stream) override;
     QDataStream &toStream(QDataStream &stream) const override;
 
-private:
     QString _title;
     QByteArray _logo;
     QByteArray _seal;

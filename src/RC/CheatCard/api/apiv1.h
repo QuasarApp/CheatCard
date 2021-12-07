@@ -18,6 +18,7 @@ namespace RC {
 namespace APIv1 {
 class RestoreDataRequest;
 class UsersCards;
+class Card;
 }
 
 
@@ -48,11 +49,11 @@ protected:
                         const QH::AbstractNodeInfo *sender, const QH::Header&);
     bool processCardStatus(const QSharedPointer<QH::PKG::DataPack<APIv1::UsersCards>> &cardStatuses,
                            const QH::AbstractNodeInfo *sender, const QH::Header&);
-    bool applayPurchases(const QSharedPointer<API::UsersCards> &dbCard,
+    bool applayPurchases(const QSharedPointer<APIv1::UsersCards> &dbCard,
                          const QH::AbstractNodeInfo *sender) ;
     bool processCardRequest(const QSharedPointer<API::CardDataRequest> &cardStatus,
                             const QH::AbstractNodeInfo *sender, const QH::Header&) ;
-    bool processCardData(const QSharedPointer<QH::PKG::DataPack<API::Card> > &cardrequest,
+    bool processCardData(const QSharedPointer<QH::PKG::DataPack<APIv1::Card> > &cardrequest,
                          const QH::AbstractNodeInfo *sender, const QH::Header &) ;
 
     virtual bool processRestoreDataRequest(const QSharedPointer<APIv1::RestoreDataRequest> &cardrequest,
