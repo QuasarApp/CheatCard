@@ -86,7 +86,7 @@ Page {
                         opacity: (cardItem.ListView.isCurrentItem)? 1: 0.5
                         editable: !Boolean(card && card.title.length)
                         onFinished: () => {
-                                        hasEdit = editable = false
+                                        hasEdit = editable = customization = false
                                         root.finished()
 
                                     }
@@ -131,7 +131,7 @@ Page {
 
                     ToolButton {
                         id: editCardBtn
-                        visible: cardItem.ListView.isCurrentItem && !cardView.editable
+                        visible: cardItem.ListView.isCurrentItem && !(cardView.editable || cardView.customization)
                         icon.source: "qrc:/images/private/resources/Interface_icons/Right_topmenu.svg"
                         icon.color: (card)? card.fontColor: Material.foreground
                         font.bold: true
@@ -151,7 +151,11 @@ Page {
                             text: qsTr("Edit card")
                             icon.source: "qrc:/images/private/resources/Interface_icons/edit_card.svg"
                             onClicked:  () => {
-                                            hasEdit = cardView.editable = true;
+                                            if (mainModel.mode)
+                                                hasEdit = cardView.editable = true;
+                                            else
+                                                hasEdit = cardView.customization = true;
+
                                         }
                         }
 

@@ -527,6 +527,11 @@ Page {
                                 }
             }
 
+            Item {
+                Layout.fillWidth: true
+                visible: !freeIndex.visible
+            }
+
             Button {
                 text: qsTr("Save");
                 visible: customization || root.editable
