@@ -145,7 +145,7 @@ Page {
 
                         MenuItem {
 
-                            visible: (mainModel)? mainModel.mode: false
+                            visible: true
                             height: (visible)? implicitHeight : 0
 
                             text: qsTr("Edit card")

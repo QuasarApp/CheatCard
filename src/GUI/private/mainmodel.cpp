@@ -529,7 +529,13 @@ void MainModel::handleCardReceived(QSharedPointer<RC::Card> card) {
 }
 
 void RC::MainModel::saveCard(const QSharedPointer<Card>& card) {
-    card->setCardVersion(card->getCardVersion() + 1);
+    if (bool(Mode::Client)) {
+        card->setCardVersion(VERSION_CARD_USER);
+    }
+
+    if (bool(Mode::Seller)) {
+        card->setCardVersion(card->getCardVersion() + 1);
+    }
 
     _db->insertIfExistsUpdateObject(card);
 }

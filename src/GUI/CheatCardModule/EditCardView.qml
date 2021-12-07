@@ -11,6 +11,7 @@ Page {
     property var model: null
     property string fontColor: (model)? model.fontColor : "#000000"
     property bool editable: true
+    property bool customization: false
 
     property int purchasesNumber: (model)? model.purchasesNumber: 1
     property int freeIndexCount :(model)? model.freeIndex: 0
@@ -495,12 +496,13 @@ Page {
             }
         }
         RowLayout {
-            visible: editable
+            visible: customization || editable
             Layout.alignment: Qt.AlignHCenter
 
 
             ToolButton {
                 id: menuButton
+                visible: customization || editable
                 icon.source:  "qrc:/images/private/resources/Interface_icons/Right_topmenu.svg"
                 font.bold: true
                 font.pointSize: 14
@@ -511,6 +513,7 @@ Page {
 
             SpinBox {
                 id: freeIndex
+                visible: editable
                 value: (root.model)? root.model.freeIndex : privateRoot.rowSignCount
                 stepSize: Math.ceil((freeIndex.value + 1) / privateRoot.rowSignCount)
                 to: privateRoot.rowSignCount * privateRoot.maximumRowSignCount
@@ -526,6 +529,7 @@ Page {
 
             Button {
                 text: qsTr("Save");
+                visible: customization || editable
                 enabled: cardTitle.text.length && cardfreeItem.textField.text.length
                 onClicked: () => {
                                if (root.model) {

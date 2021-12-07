@@ -12,6 +12,8 @@
 #include <qqml.h>
 #include "CheatCard/api/api0/card.h"
 
+#define VERSION_CARD_USER = 1000000
+
 namespace RC {
 
 /**
