@@ -14,6 +14,7 @@
 #define CARD_H
 
 namespace RC {
+namespace API {
 
 /**
  * @brief The Card class
@@ -107,8 +108,8 @@ private:
 };
 
 }
-
-Q_DECLARE_METATYPE(RC::Card)
-Q_DECLARE_METATYPE(QSharedPointer<RC::Card>)
+}
+Q_DECLARE_METATYPE(RC::API::Card)
+Q_DECLARE_METATYPE(QSharedPointer<RC::API::Card>)
 
 #endif // CARD_H

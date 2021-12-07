@@ -9,13 +9,14 @@
 #include "user.h"
 #include "QCryptographicHash"
 namespace RC {
+namespace API {
 
 User::User(): QH::PKG::DBObject("Users") {
     regenerateKeys();
     srand(time(0));
 }
 
-void RC::User::regenerateKeys() {
+void User::regenerateKeys() {
     _secret = QCryptographicHash::hash(randomArray(), QCryptographicHash::Sha256);
     _key = makeKey(_secret);
     setId(QVariant::fromValue(makeId(_key)));
@@ -131,4 +132,5 @@ bool User::fromSqlRecord(const QSqlRecord &q) {
     return true;
 }
 
+}
 }

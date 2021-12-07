@@ -41,14 +41,14 @@ class CardModel: public QObject
     QML_ELEMENT
 public:
     CardModel();
-    CardModel(QSharedPointer<Card> card);
+    CardModel(QSharedPointer<API::Card> card);
 
     unsigned int id() const;
     int purchasesNumber() const;
     int freeIndex() const;
 
-    QSharedPointer<Card> card() const;
-    void setCard(const QSharedPointer<Card> &newCard);
+    QSharedPointer<API::Card> card() const;
+    void setCard(const QSharedPointer<API::Card> &newCard);
 
     QString phone() const;
     void setPhone(const QString &newPhone);
@@ -94,7 +94,7 @@ public:
 
 signals:
     void objChanged();
-    void editFinished(const QSharedPointer<Card>& card);
+    void editFinished(const QSharedPointer<API::Card>& card);
     void purchasesNumberChanged();
 
     void receivedItemsChanged();
@@ -105,7 +105,7 @@ private:
 
     QByteArray convert(const QString& imagePath);
 
-    QSharedPointer<Card> _card = nullptr;
+    QSharedPointer<API::Card> _card = nullptr;
     int _purchasesNumber = 1;
     int _receivedItems = 0;
 

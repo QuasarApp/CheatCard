@@ -23,7 +23,7 @@ public:
                        const QString& domain = "",
                        int port = DEFAULT_CHEAT_CARD_PORT_SSL);
 
-    bool cardValidation(const QSharedPointer<Card> &card,
+    bool cardValidation(const QSharedPointer<API::Card> &card,
                         const QByteArray &ownerSecret) const override;
     void getSignData(QByteArray &data) const override;
 

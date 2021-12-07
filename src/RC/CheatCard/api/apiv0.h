@@ -17,6 +17,7 @@
 
 namespace RC {
 
+namespace API {
 class CardStatus;
 class Card;
 class UsersCards;
@@ -24,6 +25,8 @@ class CardDataRequest;
 class CardStatusRequest;
 class Session;
 class User;
+}
+
 class BaseNode;
 
 class CHEATCARD_CORE_EXPORT ApiV0: public QH::iParser
@@ -40,18 +43,18 @@ public:
 protected:
     BaseNode *node() const;
 
-    virtual bool processCardStatusRequest(const QSharedPointer<CardStatusRequest> &message,
+    virtual bool processCardStatusRequest(const QSharedPointer<API::CardStatusRequest> &message,
                            const QH::AbstractNodeInfo *sender, const QH::Header&);
 
-    virtual bool processSession(const QSharedPointer<Session> &message,
+    virtual bool processSession(const QSharedPointer<API::Session> &message,
                            const QH::AbstractNodeInfo *sender, const QH::Header&);
-    virtual bool processCardStatus(const QSharedPointer<QH::PKG::DataPack<UsersCards>> &cardStatuses,
+    virtual bool processCardStatus(const QSharedPointer<QH::PKG::DataPack<API::UsersCards>> &cardStatuses,
                            const QH::AbstractNodeInfo *sender, const QH::Header&);
-    virtual bool applayPurchases(const QSharedPointer<UsersCards> &dbCard,
+    virtual bool applayPurchases(const QSharedPointer<API::UsersCards> &dbCard,
                          const QH::AbstractNodeInfo *sender);
-    virtual bool processCardRequest(const QSharedPointer<CardDataRequest> &cardStatus,
+    virtual bool processCardRequest(const QSharedPointer<API::CardDataRequest> &cardStatus,
                             const QH::AbstractNodeInfo *sender, const QH::Header&);
-    virtual bool processCardData(const QSharedPointer<QH::PKG::DataPack<Card> > &cardrequest,
+    virtual bool processCardData(const QSharedPointer<QH::PKG::DataPack<API::Card> > &cardrequest,
                          const QH::AbstractNodeInfo *sender, const QH::Header &);
 
     QH::ISqlDBCache* db() const;

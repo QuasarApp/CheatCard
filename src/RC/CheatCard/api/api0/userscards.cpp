@@ -10,6 +10,7 @@
 #include "userscards.h"
 
 namespace RC {
+namespace API {
 
 UsersCards::UsersCards():QH::PKG::DBObject("UsersCards") {
 
@@ -154,4 +155,5 @@ bool UsersCards::isValid() const {
     return user && card && id;
 }
 
+}
 }

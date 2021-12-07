@@ -61,7 +61,7 @@ bool Visitor::checkCardData(long long session,
                    action, QH::NodeCoonectionStatus::Confirmed);
 }
 
-bool Visitor::cardValidation(const QSharedPointer<Card> &cardFromDB,
+bool Visitor::cardValidation(const QSharedPointer<API::Card> &cardFromDB,
                              const QByteArray &ownerSecret) const {
     Q_UNUSED(cardFromDB);
     Q_UNUSED(ownerSecret);
@@ -88,7 +88,7 @@ void Visitor::handleTick() {
 
 void Visitor::action(QH::AbstractNodeInfo *node) {
 
-    CardStatusRequest request;
+    API::CardStatusRequest request;
 
     if (minimumApiVersion() <= 0 ) {
         auto senderInfo = static_cast<NodeInfo*>(node);

@@ -9,6 +9,7 @@
 #include "contacts.h"
 
 namespace RC {
+namespace API {
 
 Contacts::Contacts(unsigned int user, unsigned int contactUser ): QH::PKG::DBObject("Contacts") {
     this->contactUser = contactUser;
@@ -37,4 +38,5 @@ bool Contacts::fromSqlRecord(const QSqlRecord &q) {
     return true;
 }
 
+}
 }

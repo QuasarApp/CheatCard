@@ -23,12 +23,12 @@
 namespace RC {
 
 Server::Server(QH::ISqlDBCache *db): BaseNode(db) {
-    registerPackageType<Session>();
-    registerPackageType<CardStatusRequest>();
-    registerPackageType<QH::PKG::DataPack<UsersCards>>();
+    registerPackageType<API::Session>();
+    registerPackageType<API::CardStatusRequest>();
+    registerPackageType<QH::PKG::DataPack<API::UsersCards>>();
 
-    registerPackageType<CardDataRequest>();
-    registerPackageType<QH::PKG::DataPack<Card>>();
+    registerPackageType<API::CardDataRequest>();
+    registerPackageType<QH::PKG::DataPack<API::Card>>();
     registerPackageType<RestoreDataRequest>();
 
     auto task = QSharedPointer<ClearOldData>::create();
@@ -44,14 +44,14 @@ Server::Server(QH::ISqlDBCache *db): BaseNode(db) {
     sheduleTask(task);
 }
 
-bool Server::cardValidation(const QSharedPointer<Card> &cardFromDB,
+bool Server::cardValidation(const QSharedPointer<API::Card> &cardFromDB,
                             const QByteArray &ownerSecret) const {
 
     if (!cardFromDB)
         return true;
 
     auto signature = cardFromDB->ownerSignature();
-    auto ownerSignature =  User::makeKey(ownerSecret);
+    auto ownerSignature =  API::User::makeKey(ownerSecret);
 
     return signature == ownerSignature;
 }

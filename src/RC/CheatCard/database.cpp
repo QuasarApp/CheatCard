@@ -58,7 +58,7 @@ QH::DBPatchMap DataBase::dbPatches() const {
     // See task #201 https://quasarapp.ddns.net:3000/QuasarApp/CheatCard/issues/201
     result += [](const QH::iObjectProvider* database) -> bool {
 
-        QH::PKG::CustomDBRequest<User> request("SELECT * FROM Users");
+        QH::PKG::CustomDBRequest<API::User> request("SELECT * FROM Users");
 
         auto db = const_cast<QH::iObjectProvider*>(database);
         QList<QSharedPointer<QH::PKG::DBObject>> result;
@@ -67,7 +67,7 @@ QH::DBPatchMap DataBase::dbPatches() const {
 
         for (const auto &obj: qAsConst(result)) {
 
-            auto ptr = obj.dynamicCast<User>();
+            auto ptr = obj.dynamicCast<API::User>();
 
             if (!ptr)
                 return false;
@@ -81,7 +81,7 @@ QH::DBPatchMap DataBase::dbPatches() const {
                 auto keyWrapper = db->getObject(request);
                 QByteArray key = keyWrapper->value().toByteArray();
 
-                if (ptr->userId() != User::makeId(key)) {
+                if (ptr->userId() != API::User::makeId(key)) {
                     return false;
                 }
 

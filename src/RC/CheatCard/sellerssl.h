@@ -12,7 +12,9 @@
 
 namespace RC {
 
+namespace API {
 class UserHeader;
+}
 
 class CHEATCARD_CORE_EXPORT SellerSSL: public Seller
 {

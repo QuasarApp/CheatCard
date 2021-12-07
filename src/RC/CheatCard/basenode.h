@@ -19,13 +19,16 @@
 #define USERREQUEST_TIMEOUT 3
 namespace RC {
 
-class CardStatus;
+namespace API {
 class Card;
 class UsersCards;
-class CardDataRequest;
-class CardStatusRequest;
 class Session;
 class User;
+class CardStatus;
+class CardDataRequest;
+class CardStatusRequest;
+}
+
 class ApplicationVersion;
 class VersionIsReceived;
 
@@ -35,33 +38,33 @@ class CHEATCARD_CORE_EXPORT BaseNode: public QH::AbstractNode
 public:
     BaseNode(QH::ISqlDBCache *db);
     int getFreeItemsCount(unsigned int userId, unsigned int cardId) const;
-    int getFreeItemsCount(const QSharedPointer<UsersCards>& inputData) const;
-    int getFreeItemsCount(const QSharedPointer<UsersCards>& inputData, unsigned int freeIndex) const;
+    int getFreeItemsCount(const QSharedPointer<API::UsersCards>& inputData) const;
+    int getFreeItemsCount(const QSharedPointer<API::UsersCards>& inputData, unsigned int freeIndex) const;
     int getCountOfReceivedItems(unsigned int userId, unsigned int cardId);
-    void removeCard(const QSharedPointer<Card> &objUserCard);
+    void removeCard(const QSharedPointer<API::Card> &objUserCard);
 
     int getCardFreeIndex(unsigned int cardId) const;
     unsigned int getCardVersion(unsigned int cardId) const;
 
     static QString libVersion();
 
-    QSharedPointer<User>
+    QSharedPointer<API::User>
     getUser(unsigned int userId) const;
-    QList<QSharedPointer<UsersCards> >getAllUserData(unsigned int userId) const;
+    QList<QSharedPointer<API::UsersCards> >getAllUserData(unsigned int userId) const;
 
-    QSharedPointer<UsersCards>
+    QSharedPointer<API::UsersCards>
     getUserCardData(unsigned int userId, unsigned int cardId) const;
-    QList<QSharedPointer<UsersCards> >
+    QList<QSharedPointer<API::UsersCards> >
     getAllUserFromCard(unsigned int cardId) const;
 
-    QList<QSharedPointer<User> >
+    QList<QSharedPointer<API::User> >
     getAllUserDataFromCard(unsigned int cardId) const;
 
     bool restoreOldData(const QByteArray &curentUserKey,
                         const QString& domain = "",
                         int port = DEFAULT_CHEAT_CARD_PORT_SSL);
 
-    QSharedPointer<Card> getCard(unsigned int cardId);
+    QSharedPointer<API::Card> getCard(unsigned int cardId);
 
     /**
      * @brief getAllUserCards This method will return list of available cards of the user with @a userKey key
@@ -69,14 +72,14 @@ public:
      * @param restOf This option force return list of not ovned cards.
      * @return cards list;
      */
-    QList<QSharedPointer<Card>> getAllUserCards(const QByteArray &userKey,
+    QList<QSharedPointer<API::Card>> getAllUserCards(const QByteArray &userKey,
                                                 bool restOf = false);
     /**
      * @brief getAllUserCardsData This method will return list of available userscards data of the user with @a userKey key
      * @param userKey user key
      * @return cards data list;
      */
-    QList<QSharedPointer<UsersCards>>
+    QList<QSharedPointer<API::UsersCards>>
     getAllUserCardsData(const QByteArray &userKey);
     QByteArray getUserSecret(unsigned int userId) const;
 
@@ -94,7 +97,7 @@ public:
      * @brief cardValidation This method must check card data only on server. This implementation do nothing.
      * @return true if card is pass validation.
      */
-    virtual bool cardValidation(const QSharedPointer<Card>& card,
+    virtual bool cardValidation(const QSharedPointer<API::Card>& card,
                                 const QByteArray &ownerSecret) const = 0;
 
     /**
@@ -105,12 +108,12 @@ public:
 
     QH::ISqlDBCache *db() const;
 
-    const QSharedPointer<User> &currentUser() const;
-    void setCurrentUser(QSharedPointer<User> newCurrentUser);
+    const QSharedPointer<API::User> &currentUser() const;
+    void setCurrentUser(QSharedPointer<API::User> newCurrentUser);
 
 signals:
-    void sigPurchaseWasSuccessful(QSharedPointer<RC::UsersCards> data);
-    void sigCardReceived(QSharedPointer<RC::Card> err);
+    void sigPurchaseWasSuccessful(QSharedPointer<RC::API::UsersCards> data);
+    void sigCardReceived(QSharedPointer<RC::API::Card> err);
     void sigNetworkError(QAbstractSocket::SocketError errorCode,
                          QSslError::SslError sslError);
 
@@ -151,7 +154,7 @@ private:
 
     QMap<int, QSharedPointer<QH::iParser>> _apiParsers;
 
-    QSharedPointer<User> _currentUser;
+    QSharedPointer<API::User> _currentUser;
 
 };
 }

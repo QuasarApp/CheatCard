@@ -10,6 +10,7 @@
 #include <ctime>
 
 namespace RC {
+namespace API {
 
 
 
@@ -17,7 +18,7 @@ Card::Card(): QH::PKG::DBObject("Cards") {
     idGen();
 }
 
-void RC::Card::idGen() {
+void RC::API::Card::idGen() {
     setId(QVariant::fromValue(rand() + time(0)));
 }
 
@@ -255,5 +256,6 @@ const QString &Card::getFontColor() const {
 
 void Card::setFontColor(const QString &newColor) {
     fontColor = newColor;
+}
 }
 }

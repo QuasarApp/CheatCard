@@ -34,18 +34,18 @@ public:
                                   const QH::AbstractNodeInfo *sender) override;
 
 protected:
-    bool processCardStatusRequest(const QSharedPointer<CardStatusRequest> &message,
+    bool processCardStatusRequest(const QSharedPointer<API::CardStatusRequest> &message,
                                   const QH::AbstractNodeInfo *sender, const QH::Header&) override;
 
-    bool processSession(const QSharedPointer<Session> &message,
+    bool processSession(const QSharedPointer<API::Session> &message,
                         const QH::AbstractNodeInfo *sender, const QH::Header&) override;
-    bool processCardStatus(const QSharedPointer<QH::PKG::DataPack<UsersCards>> &cardStatuses,
+    bool processCardStatus(const QSharedPointer<QH::PKG::DataPack<API::UsersCards>> &cardStatuses,
                            const QH::AbstractNodeInfo *sender, const QH::Header&) override final;
-    bool applayPurchases(const QSharedPointer<UsersCards> &dbCard,
+    bool applayPurchases(const QSharedPointer<API::UsersCards> &dbCard,
                          const QH::AbstractNodeInfo *sender) override;
-    bool processCardRequest(const QSharedPointer<CardDataRequest> &cardStatus,
+    bool processCardRequest(const QSharedPointer<API::CardDataRequest> &cardStatus,
                             const QH::AbstractNodeInfo *sender, const QH::Header&) override;
-    bool processCardData(const QSharedPointer<QH::PKG::DataPack<Card> > &cardrequest,
+    bool processCardData(const QSharedPointer<QH::PKG::DataPack<API::Card> > &cardrequest,
                          const QH::AbstractNodeInfo *sender, const QH::Header &) override;
 
     virtual bool processRestoreDataRequest(const QSharedPointer<RestoreDataRequest> &cardrequest,

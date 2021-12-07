@@ -13,6 +13,7 @@
 #include "dbobject.h"
 
 namespace RC {
+namespace API {
 
 class Session : public QH::PKG::DBObject
 {
@@ -48,5 +49,6 @@ private:
 
 };
 
+}
 }
 #endif // SESSION_H

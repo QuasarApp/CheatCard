@@ -32,8 +32,8 @@ BaseNode::BaseNode(QH::ISqlDBCache *db) {
     registerPackageType<VersionIsReceived>();
 
 
-    registerPackageType<QH::PKG::DataPack<UsersCards>>();
-    registerPackageType<QH::PKG::DataPack<Card>>();
+    registerPackageType<QH::PKG::DataPack<API::UsersCards>>();
+    registerPackageType<QH::PKG::DataPack<API::Card>>();
 
 
     setIgnoreSslErrors(QList<QSslError>() << QSslError::SelfSignedCertificate
@@ -164,11 +164,11 @@ void BaseNode::handleSslErrorOcurred(QH::SslSocket *scket, const QSslError &erro
                          error.error());
 }
 
-const QSharedPointer<User>& BaseNode::currentUser() const {
+const QSharedPointer<API::User>& BaseNode::currentUser() const {
     return _currentUser;
 }
 
-void BaseNode::setCurrentUser(QSharedPointer<User> newCurrentUser) {
+void BaseNode::setCurrentUser(QSharedPointer<API::User> newCurrentUser) {
     _currentUser = newCurrentUser;
 }
 
@@ -177,12 +177,12 @@ int BaseNode::getFreeItemsCount(unsigned int userId,
     return getFreeItemsCount(getUserCardData(userId, cardId));
 }
 
-int BaseNode::getFreeItemsCount(const QSharedPointer<UsersCards> &inputData) const {
+int BaseNode::getFreeItemsCount(const QSharedPointer<API::UsersCards> &inputData) const {
     unsigned int freeIndex = getCardFreeIndex(inputData->getCard());
     return getFreeItemsCount(inputData, freeIndex);
 }
 
-int BaseNode::getFreeItemsCount(const QSharedPointer<UsersCards> &inputData,
+int BaseNode::getFreeItemsCount(const QSharedPointer<API::UsersCards> &inputData,
                                 unsigned int freeIndex) const {
     if (freeIndex <= 0)
         return 0;
@@ -199,7 +199,7 @@ int BaseNode::getCountOfReceivedItems(unsigned int userId,
     return getUserCardData(userId, cardId)->getReceived();
 }
 
-void BaseNode::removeCard(const QSharedPointer<Card> &objUserCard) {
+void BaseNode::removeCard(const QSharedPointer<API::Card> &objUserCard) {
     _db->deleteObject(objUserCard);
 }
 
@@ -229,16 +229,16 @@ QString BaseNode::libVersion() {
     return CHEAT_CARD_VERSION;
 }
 
-QSharedPointer<User> BaseNode::getUser(unsigned int userId) const {
-    User request;
+QSharedPointer<API::User> BaseNode::getUser(unsigned int userId) const {
+    API::User request;
     request.setId(userId);
 
     return db()->getObject(request);
 }
 
-QList<QSharedPointer<UsersCards> > BaseNode::getAllUserData(unsigned int userId) const {
-    QH::PKG::DBObjectsRequest<UsersCards> request("UsersCards",
-                                                    QString("user='%0'").arg(userId));
+QList<QSharedPointer<API::UsersCards> > BaseNode::getAllUserData(unsigned int userId) const {
+    QH::PKG::DBObjectsRequest<API::UsersCards> request("UsersCards",
+                                                       QString("user='%0'").arg(userId));
 
     auto result = db()->getObject(request);
 
@@ -248,9 +248,9 @@ QList<QSharedPointer<UsersCards> > BaseNode::getAllUserData(unsigned int userId)
     return result->data();
 }
 
-QSharedPointer<UsersCards>
+QSharedPointer<API::UsersCards>
 BaseNode::getUserCardData(unsigned int userId, unsigned int cardId) const {
-    UsersCards request;
+    API::UsersCards request;
     request.setCard(cardId);
     request.setUser(userId);
 
@@ -258,25 +258,25 @@ BaseNode::getUserCardData(unsigned int userId, unsigned int cardId) const {
     return purches;
 }
 
-QList<QSharedPointer<UsersCards> >
+QList<QSharedPointer<API::UsersCards> >
 BaseNode::getAllUserFromCard(unsigned int cardId) const {
 
     QString where = QString("card=%0").arg(cardId);
 
-    QH::PKG::DBObjectsRequest<UsersCards> request("UsersCards",
-                                                  where);
+    QH::PKG::DBObjectsRequest<API::UsersCards> request("UsersCards",
+                                                       where);
 
     return _db->getObject(request)->data();
 }
 
-QList<QSharedPointer<User> >
+QList<QSharedPointer<API::User> >
 BaseNode::getAllUserDataFromCard(unsigned int cardId) const {
     QString where = QString("card=%0").arg(cardId);
 
     where = QString("id IN (select user from UsersCards where %0)").arg(where);
 
-    QH::PKG::DBObjectsRequest<User> request("Users",
-                                            where);
+    QH::PKG::DBObjectsRequest<API::User> request("Users",
+                                                 where);
 
     return _db->getObject(request)->data();
 }
@@ -301,15 +301,16 @@ bool BaseNode::restoreOldData(const QByteArray &curentUserKey,
                    QH::NodeCoonectionStatus::Confirmed);
 }
 
-QSharedPointer<Card> BaseNode::getCard(unsigned int cardId) {
-    Card request;
+QSharedPointer<API::Card> BaseNode::getCard(unsigned int cardId) {
+    API::Card request;
     request.setId(cardId);
 
     return _db->getObject(request);
 }
 
-QList<QSharedPointer<Card> > BaseNode::getAllUserCards(const QByteArray& userKey,
-                                                       bool restOf) {
+QList<QSharedPointer<API::Card> >
+BaseNode::getAllUserCards(const QByteArray& userKey,
+                          bool restOf) {
 
     QString where = "ownerSignature= '%0'";
     if (restOf) {
@@ -318,7 +319,7 @@ QList<QSharedPointer<Card> > BaseNode::getAllUserCards(const QByteArray& userKey
 
     where = where.arg(QString(userKey.toBase64(QByteArray::Base64UrlEncoding)));
 
-    QH::PKG::DBObjectsRequest<Card> cardRequest("Cards", where);
+    QH::PKG::DBObjectsRequest<API::Card> cardRequest("Cards", where);
     if (auto result = db()->getObject(cardRequest)) {
         return result->data();
     }
@@ -326,10 +327,11 @@ QList<QSharedPointer<Card> > BaseNode::getAllUserCards(const QByteArray& userKey
     return {};
 }
 
-QList<QSharedPointer<UsersCards>> BaseNode::getAllUserCardsData(const QByteArray &userKey) {
+QList<QSharedPointer<API::UsersCards>>
+BaseNode::getAllUserCardsData(const QByteArray &userKey) {
     QString whereBlock = QString("card IN SELECT id FROM Cards WHERE ownerSignature = '%0'");
-    QH::PKG::DBObjectsRequest<UsersCards> request("UsersCards",
-                                                  whereBlock.arg(QString(userKey.toBase64(QByteArray::Base64UrlEncoding))));
+    QH::PKG::DBObjectsRequest<API::UsersCards> request("UsersCards",
+                                                       whereBlock.arg(QString(userKey.toBase64(QByteArray::Base64UrlEncoding))));
     auto result = db()->getObject(request);
 
     if (!result)
