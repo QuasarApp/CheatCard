@@ -68,6 +68,19 @@ QH::ParserResult ApiV0::parsePackage(const QSharedPointer<QH::PKG::AbstractData>
     return QH::ParserResult::NotProcessed;
 }
 
+void ApiV0::sendCardStatusRequest(long long userSession, QH::AbstractNodeInfo *dist) {
+    API::CardStatusRequest request;
+
+    auto senderInfo = static_cast<NodeInfo*>(dist);
+    long long token = rand() * rand();
+    senderInfo->setToken(token);
+    request.setRequestToken(token);
+
+    request.setSessionId(userSession);
+
+    node()->sendData(&request, dist);
+}
+
 BaseNode *ApiV0::node() const {
     return _node;
 }

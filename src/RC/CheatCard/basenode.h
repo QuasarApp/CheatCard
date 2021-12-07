@@ -83,6 +83,8 @@ public:
     getAllUserCardsData(const QByteArray &userKey);
     QByteArray getUserSecret(unsigned int userId) const;
 
+    QSharedPointer<QH::iParser> getSelectedApiParser(QH::AbstractNodeInfo *node) const;
+
     const QMap<int, QSharedPointer<QH::iParser> > &apiParsers() const;
     void setApiParsers(const QMap<int, QSharedPointer<QH::iParser> > &newApiParsers);
     void addApiParser(const QSharedPointer<QH::iParser>& );

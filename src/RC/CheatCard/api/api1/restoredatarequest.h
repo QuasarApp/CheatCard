@@ -13,6 +13,8 @@
 
 namespace RC {
 
+namespace APIv1 {
+
 class CHEATCARD_CORE_EXPORT RestoreDataRequest: public QH::PKG::AbstractData
 {
     QH_PACKAGE(RestoreDataRequest, "RestoreDataRequest")
@@ -34,5 +36,6 @@ private:
     QByteArray _userKey;
 
 };
+}
 }
 #endif // RESTOREDATAREQUEST_H

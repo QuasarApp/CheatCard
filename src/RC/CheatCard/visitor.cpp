@@ -16,7 +16,7 @@
 #include <CheatCard/api/api0/userscards.h>
 #include <CheatCard/api/api0/card.h>
 
-#include <CheatCard/api/api1/restoredatarequest.h>
+#include <CheatCard/api/apiv0.h>
 
 namespace RC {
 
@@ -54,7 +54,14 @@ bool Visitor::checkCardData(long long session,
     }
 
     auto action = [this](QH::AbstractNodeInfo *node) {
-        this->action(node);
+        auto parser = getSelectedApiParser(node).dynamicCast<ApiV0>();
+
+        if (!parser)
+            return;
+
+        parser->sendCardStatusRequest(_lastRequested, node);
+        _lastRequest = time(0);
+
     };
 
     return addNode(_domain, _port,
@@ -84,24 +91,6 @@ void Visitor::nodeConfirmend(QH::AbstractNodeInfo *node) {
 void Visitor::handleTick() {
     _timer->stop();
     addNode(_domain, _port);
-}
-
-void Visitor::action(QH::AbstractNodeInfo *node) {
-
-    API::CardStatusRequest request;
-
-    if (minimumApiVersion() <= 0 ) {
-        auto senderInfo = static_cast<NodeInfo*>(node);
-        long long token = rand() * rand();
-        senderInfo->setToken(token);
-        request.setRequestToken(token);
-    }
-
-    request.setSessionId(_lastRequested);
-
-    sendData(&request, node->networkAddress());
-
-    _lastRequest = time(0);
 }
 
 int Visitor::getRequestInterval() const {

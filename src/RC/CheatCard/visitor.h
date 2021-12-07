@@ -41,8 +41,6 @@ private slots:
     void handleTick();
 private:
 
-    void action(QH::AbstractNodeInfo *node);
-
     int _requestInterval = USERREQUEST_TIMEOUT;
     QString _domain;
     int _port;

@@ -29,7 +29,7 @@ Server::Server(QH::ISqlDBCache *db): BaseNode(db) {
 
     registerPackageType<API::CardDataRequest>();
     registerPackageType<QH::PKG::DataPack<API::Card>>();
-    registerPackageType<RestoreDataRequest>();
+    registerPackageType<APIv1::RestoreDataRequest>();
 
     auto task = QSharedPointer<ClearOldData>::create();
     task->setTime(0);

@@ -17,6 +17,7 @@
 #include <CheatCard/api/api0/userscards.h>
 
 #include <CheatCard/api/api1/restoredatarequest.h>
+#include <CheatCard/api/api1/userscards.h>
 
 #include "CheatCard/nodeinfo.h"
 #include <getsinglevalue.h>
@@ -33,6 +34,8 @@ BaseNode::BaseNode(QH::ISqlDBCache *db) {
 
 
     registerPackageType<QH::PKG::DataPack<API::UsersCards>>();
+    registerPackageType<QH::PKG::DataPack<APIv1::UsersCards>>();
+
     registerPackageType<QH::PKG::DataPack<API::Card>>();
 
 
@@ -67,7 +70,7 @@ QH::ParserResult BaseNode::parsePackage(const QSharedPointer<QH::PKG::AbstractDa
     }
 
     auto distVersion = static_cast<const NodeInfo*>(sender)->version();
-    auto parser = selectParser(static_cast<const NodeInfo*>(sender)->version());
+    auto parser = selectParser(distVersion);
 
     if (!parser) {
         QuasarAppUtils::Params::log(QString("Can't found requeried parser for versions: %0-%1").
@@ -286,7 +289,7 @@ bool BaseNode::restoreOldData(const QByteArray &curentUserKey,
 
     auto action = [this, curentUserKey](QH::AbstractNodeInfo *node) {
 
-        RestoreDataRequest request;
+        APIv1::RestoreDataRequest request;
         request.setUserKey(curentUserKey);
 
         sendData(&request, node);
@@ -345,6 +348,11 @@ QByteArray BaseNode::getUserSecret(unsigned int userId) const {
 
     auto result = db()->getObject(reqest);
     return result->value().toByteArray();
+}
+
+QSharedPointer<QH::iParser> BaseNode::getSelectedApiParser(QH::AbstractNodeInfo *node) const {
+    auto distVersion = static_cast<const NodeInfo*>(node)->version();
+    return selectParser(distVersion);
 }
 
 void RC::BaseNode::addApiParser(const QSharedPointer<iParser>& api) {

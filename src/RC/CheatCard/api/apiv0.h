@@ -40,21 +40,23 @@ public:
                                   const QH::Header &pkgHeader,
                                   const QH::AbstractNodeInfo *sender) override;
 
+    virtual void sendCardStatusRequest(long long userSession, QH::AbstractNodeInfo *dist);
+
 protected:
     BaseNode *node() const;
 
-    virtual bool processCardStatusRequest(const QSharedPointer<API::CardStatusRequest> &message,
-                           const QH::AbstractNodeInfo *sender, const QH::Header&);
+    bool processCardStatusRequest(const QSharedPointer<API::CardStatusRequest> &message,
+                                  const QH::AbstractNodeInfo *sender, const QH::Header&);
 
-    virtual bool processSession(const QSharedPointer<API::Session> &message,
+    bool processSession(const QSharedPointer<API::Session> &message,
+                        const QH::AbstractNodeInfo *sender, const QH::Header&);
+    bool processCardStatus(const QSharedPointer<QH::PKG::DataPack<API::UsersCards>> &cardStatuses,
                            const QH::AbstractNodeInfo *sender, const QH::Header&);
-    virtual bool processCardStatus(const QSharedPointer<QH::PKG::DataPack<API::UsersCards>> &cardStatuses,
-                           const QH::AbstractNodeInfo *sender, const QH::Header&);
-    virtual bool applayPurchases(const QSharedPointer<API::UsersCards> &dbCard,
+    bool applayPurchases(const QSharedPointer<API::UsersCards> &dbCard,
                          const QH::AbstractNodeInfo *sender);
-    virtual bool processCardRequest(const QSharedPointer<API::CardDataRequest> &cardStatus,
+    bool processCardRequest(const QSharedPointer<API::CardDataRequest> &cardStatus,
                             const QH::AbstractNodeInfo *sender, const QH::Header&);
-    virtual bool processCardData(const QSharedPointer<QH::PKG::DataPack<API::Card> > &cardrequest,
+    bool processCardData(const QSharedPointer<QH::PKG::DataPack<API::Card> > &cardrequest,
                          const QH::AbstractNodeInfo *sender, const QH::Header &);
 
     QH::ISqlDBCache* db() const;
