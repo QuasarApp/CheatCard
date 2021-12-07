@@ -81,6 +81,14 @@ void ApiV0::sendCardStatusRequest(long long userSession, QH::AbstractNodeInfo *d
     node()->sendData(&request, dist);
 }
 
+void ApiV0::sendSessions(const QHash<long long, QSharedPointer<API::Session> > &sessions,
+                         QH::AbstractNodeInfo *dist) {
+
+    for (const auto &session: qAsConst(sessions)) {
+        node()->sendData(session.data(), dist);
+    }
+}
+
 BaseNode *ApiV0::node() const {
     return _node;
 }

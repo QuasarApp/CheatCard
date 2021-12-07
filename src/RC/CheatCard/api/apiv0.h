@@ -25,6 +25,7 @@ class CardDataRequest;
 class CardStatusRequest;
 class Session;
 class User;
+class UserHeader;
 }
 
 class BaseNode;
@@ -40,7 +41,11 @@ public:
                                   const QH::Header &pkgHeader,
                                   const QH::AbstractNodeInfo *sender) override;
 
+    // using on visitor
     virtual void sendCardStatusRequest(long long userSession, QH::AbstractNodeInfo *dist);
+
+    // using on seller
+    virtual void sendSessions(const QHash<long long, QSharedPointer<API::Session> > &sessions, QH::AbstractNodeInfo *dist);
 
 protected:
     BaseNode *node() const;
@@ -61,6 +66,9 @@ protected:
 
     QH::ISqlDBCache* db() const;
 
+    QSharedPointer<API::UsersCards>
+    userHeaderReceived(const QSharedPointer<API::UserHeader> &userHeaderData,
+                       unsigned int cardId);
 private:
 
     BaseNode* _node = nullptr;

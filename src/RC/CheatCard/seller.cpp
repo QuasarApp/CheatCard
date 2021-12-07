@@ -16,6 +16,7 @@
 #include <CheatCard/api/api0/session.h>
 #include <CheatCard/api/api0/user.h>
 #include <CheatCard/api/api0/userscards.h>
+#include <CheatCard/api/apiv0.h>
 
 namespace RC {
 
@@ -118,11 +119,21 @@ bool Seller::incrementPurchase(const QSharedPointer<API::UserHeader> &userHeader
         return false;
     }
 
+    auto action = [this](QH::AbstractNodeInfo *node) {
+        auto api = getSelectedApiParser(node).staticCast<ApiV0>();
+        if (api) {
+            api->sendSessions(_lastRequested, node);
+            _lastRequested.clear();
+        }
+    };
+
     if (domain.isEmpty()) {
-        return addNode(getServerHost(), port);
+        return addNode(getServerHost(), port, action,
+                       QH::NodeCoonectionStatus::Confirmed);
     }
 
-    return addNode(domain, port);
+    return addNode(domain, port, action,
+                   QH::NodeCoonectionStatus::Confirmed);
 }
 
 bool Seller::sentDataToServerPurchase(const QSharedPointer<API::UserHeader> &userHeaderData,
@@ -148,11 +159,5 @@ void Seller::nodeConnected(QH::AbstractNodeInfo *node) {
 
 void Seller::nodeConfirmend(QH::AbstractNodeInfo *node) {
     BaseNode::nodeConfirmend(node);
-
-    for (const auto &session: qAsConst(_lastRequested)) {
-        sendData(session.data(), node);
-    }
-
-    _lastRequested.clear();
 }
 }
