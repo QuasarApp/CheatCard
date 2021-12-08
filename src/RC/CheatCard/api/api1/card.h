@@ -18,7 +18,7 @@ namespace APIv1 {
  */
 class CHEATCARD_CORE_EXPORT Card: public API::Card
 {
-    QH_PACKAGE(APIv1::Card, "APIv1::Card")
+    QH_PACKAGE_AUTO(APIv1::Card)
 public:
     Card();
     QH::PKG::DBObject *createDBObject() const override;

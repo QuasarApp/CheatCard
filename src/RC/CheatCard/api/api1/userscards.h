@@ -18,7 +18,7 @@ namespace APIv1 {
 
 class CHEATCARD_CORE_EXPORT UsersCards: public API::UsersCards
 {
-    QH_PACKAGE(APIv1::UsersCards, "APIv1::UsersCards")
+    QH_PACKAGE_AUTO(APIv1::UsersCards)
 
 public:
     UsersCards();

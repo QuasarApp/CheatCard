@@ -14,6 +14,7 @@
 #include "datapack.h"
 #include <isqldbcache.h>
 #include <QSslError>
+#include <CheatCard/api/apiobjectsfactoryv1.h>
 
 
 #define USERREQUEST_TIMEOUT 3
@@ -32,7 +33,7 @@ class CardStatusRequest;
 class ApplicationVersion;
 class VersionIsReceived;
 
-class CHEATCARD_CORE_EXPORT BaseNode: public QH::AbstractNode
+class CHEATCARD_CORE_EXPORT BaseNode: public QH::AbstractNode, public APIObjectsFactoryV1
 {
     Q_OBJECT
 public:
@@ -48,39 +49,10 @@ public:
 
     static QString libVersion();
 
-    QSharedPointer<API::User>
-    getUser(unsigned int userId) const;
-    QList<QSharedPointer<API::UsersCards> >getAllUserData(unsigned int userId) const;
-
-    QSharedPointer<API::UsersCards>
-    getUserCardData(unsigned int userId, unsigned int cardId) const;
-    QList<QSharedPointer<API::UsersCards> >
-    getAllUserFromCard(unsigned int cardId) const;
-
-    QList<QSharedPointer<API::User> >
-    getAllUserDataFromCard(unsigned int cardId) const;
-
     bool restoreOldData(const QByteArray &curentUserKey,
                         const QString& domain = "",
                         int port = DEFAULT_CHEAT_CARD_PORT_SSL);
 
-    QSharedPointer<API::Card> getCard(unsigned int cardId);
-
-    /**
-     * @brief getAllUserCards This method will return list of available cards of the user with @a userKey key
-     * @param userKey user key
-     * @param restOf This option force return list of not ovned cards.
-     * @return cards list;
-     */
-    QList<QSharedPointer<API::Card>> getAllUserCards(const QByteArray &userKey,
-                                                bool restOf = false);
-    /**
-     * @brief getAllUserCardsData This method will return list of available userscards data of the user with @a userKey key
-     * @param userKey user key
-     * @return cards data list;
-     */
-    QList<QSharedPointer<API::UsersCards>>
-    getAllUserCardsData(const QByteArray &userKey);
     QByteArray getUserSecret(unsigned int userId) const;
 
     QSharedPointer<QH::iParser> getSelectedApiParser(QH::AbstractNodeInfo *node) const;

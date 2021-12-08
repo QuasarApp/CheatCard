@@ -17,7 +17,7 @@ namespace APIv1 {
 
 class CHEATCARD_CORE_EXPORT RestoreDataRequest: public QH::PKG::AbstractData
 {
-    QH_PACKAGE(RestoreDataRequest, "RestoreDataRequest")
+    QH_PACKAGE_AUTO(RestoreDataRequest)
 
 public:
     RestoreDataRequest();

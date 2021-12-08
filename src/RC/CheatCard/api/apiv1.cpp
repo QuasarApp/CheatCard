@@ -224,7 +224,7 @@ bool ApiV1::processRestoreDataRequest(const QSharedPointer<APIv1::RestoreDataReq
         return false;
     }
 
-    const auto cardsList = node()->getAllUserCards(cardrequest->userKey());
+    const auto cardsList = node()->getAllUserCards(cardrequest->userKey(), false);
     QH::PKG::DataPack<APIv1::Card> cardsPack;
 
     for (const auto& card : cardsList) {
