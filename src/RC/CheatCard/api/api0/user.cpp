@@ -44,6 +44,8 @@ QDataStream &User::fromStream(QDataStream &stream) {
 
      stream >> _name;
      stream >> _key;
+     stream >> _secret;
+     stream >> _fSaller;
 
      return stream;
 }
@@ -53,6 +55,8 @@ QDataStream &User::toStream(QDataStream &stream) const {
 
     stream << _name;
     stream << _key;
+    stream << _secret;
+    stream << _fSaller;
 
     return stream;
 }
