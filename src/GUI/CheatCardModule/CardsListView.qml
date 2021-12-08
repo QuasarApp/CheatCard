@@ -96,11 +96,7 @@ Page {
                         }
 
                         onSigSwipe: (side) => {
-                                        if (!root.model.mode) {
-                                            turnOverCard(side);
-                                        } else {
-                                            showStatisticsCard();
-                                        }
+                                        showStatistickAction(side);
                                     }
 
                         Behavior on width {
@@ -180,12 +176,8 @@ Page {
 
                             text: qsTr("Statistics")
                             icon.source: "qrc:/images/private/resources/Interface_icons/statistic.svg"
-                            onClicked: (side) => {
-                                           if (!root.model.mode) {
-                                               turnOverCard(side);
-                                           } else {
-                                               showStatisticsCard();
-                                           }
+                            onClicked: () => {
+                                           showStatistickAction();
                                         }
                         }        
 
@@ -229,6 +221,14 @@ Page {
                             cardView.turnOverCard(list.orientation === ListView.Vertical);
                         }
 
+                    }
+
+                    function showStatistickAction(side) {
+                        if (mainModel && mainModel.mode) {
+                            showStatisticsCard();
+                        } else {
+                            turnOverCard(side);
+                        }
                     }
 
                 }
