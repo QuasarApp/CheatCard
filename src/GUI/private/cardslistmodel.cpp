@@ -151,6 +151,7 @@ const QHash<int, QSharedPointer<CardModel> > &CardsListModel::cache() const {
 
 void CardsListModel::configureModel(const QSharedPointer<CardModel> &cardModel) {
     connect(cardModel.data(), &CardModel::editFinished, this, &CardsListModel::sigEditFinished);
+    connect(cardModel.data(), &CardModel::resetCardModel, this, &CardsListModel::sigResetCardModel);
 }
 
 }

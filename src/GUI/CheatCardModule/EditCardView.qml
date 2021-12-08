@@ -527,9 +527,16 @@ Page {
                                 }
             }
 
-            Item {
-                Layout.fillWidth: true
+            Button {
+                text: qsTr("Default");
                 visible: !freeIndex.visible
+                enabled: cardTitle.text.length && cardfreeItem.textField.text.length
+                onClicked: () => {
+                               if (root.model) {
+                                   root.finished()
+                                   root.model.cardReset()
+                               }
+                           }
             }
 
             Button {

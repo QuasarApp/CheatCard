@@ -78,6 +78,7 @@ public:
     void setFreeIndex(int newFreeIndex);
 
     Q_INVOKABLE void save();
+    Q_INVOKABLE void cardReset();
 
     Q_INVOKABLE void setNewBackGround(const QString &backgroundPath);
     Q_INVOKABLE void setNewLogo(const QString &logoPath);
@@ -95,8 +96,9 @@ public:
     void setReceivedItems(int newReceivedItems);
 
 signals:
-    void objChanged();
+    void objChanged();    
     void editFinished(const QSharedPointer<Card>& card);
+    void resetCardModel(const QSharedPointer<Card>& card);
     void purchasesNumberChanged();
 
     void receivedItemsChanged();
