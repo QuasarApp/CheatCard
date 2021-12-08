@@ -59,6 +59,9 @@ signals:
     void sigCardSelectedForWork(const QSharedPointer<CardModel>& card);
     void sigCardSelectedForStatistic(const QSharedPointer<CardModel>& card);
 
+private slots:
+    void handleActivate(const QSharedPointer<Card>& card);
+    void handleShowStatistic(const QSharedPointer<Card>& card);
 
 private:
     QSharedPointer<CardModel> updateCard(const QSharedPointer<Card> & card);
