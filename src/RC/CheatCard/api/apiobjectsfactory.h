@@ -142,7 +142,7 @@ protected:
 
         check_type(UsersCards);
 
-        QString whereBlock = QString("card IN SELECT id FROM Cards WHERE ownerSignature = '%0'");
+        QString whereBlock = QString("card IN (SELECT id FROM Cards WHERE ownerSignature = '%0')");
         QH::PKG::DBObjectsRequest<UsersCards>
                 request("UsersCards",
                         whereBlock.arg(QString(userKey.toBase64(QByteArray::Base64UrlEncoding))));

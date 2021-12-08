@@ -20,7 +20,8 @@ QH::PKG::DBObject *Card::createDBObject() const {
 }
 
 QDataStream &Card::fromStream(QDataStream &stream) {
-    DBObject::fromStream(stream);
+    DBObject::fromStream(stream); // clazy:exclude=skipped-base-method
+
 
     stream >> _title;
     stream >> _logo;
@@ -42,7 +43,8 @@ QDataStream &Card::fromStream(QDataStream &stream) {
 }
 
 QDataStream &Card::toStream(QDataStream &stream) const {
-    DBObject::toStream(stream);
+    DBObject::toStream(stream); // clazy:exclude=skipped-base-method
+
 
     stream << _title;
     stream << _logo;
