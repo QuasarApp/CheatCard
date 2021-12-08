@@ -27,6 +27,11 @@ ApiV0::ApiV0(BaseNode *node) {
     _node = node;
 }
 
+ApiV0::~ApiV0() {
+    if (_objectFactory)
+        delete _objectFactory;
+}
+
 int ApiV0::version() const {
     return 0;
 }
@@ -176,7 +181,7 @@ bool ApiV0::processCardRequest(const QSharedPointer<API::CardDataRequest> &cardr
 
 
     for (unsigned int cardId : cardrequest->getCardIds()) {
-        auto card = node()->getCard(cardId);
+        auto card = objectFactoryInstance()->getCard(cardId);
 
         if (!card) {
             QuasarAppUtils::Params::log(QString("Failed to find card with id: %0").
@@ -243,6 +248,18 @@ QH::ISqlDBCache *ApiV0::db() const {
     }
 
     return nullptr;
+}
+
+IAPIObjectsFactory *ApiV0::objectFactoryInstance() {
+
+    if (_objectFactory)
+        return _objectFactory;
+
+    return _objectFactory = initObjectFactory();
+}
+
+IAPIObjectsFactory *ApiV0::initObjectFactory() const {
+    return new APIObjectsFactoryV0(db());
 }
 
 bool ApiV0::processCardStatusRequest(const QSharedPointer<API::CardStatusRequest> &cardStatus,

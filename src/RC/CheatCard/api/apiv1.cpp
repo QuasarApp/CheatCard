@@ -89,15 +89,16 @@ void ApiV1::sendCardStatusRequest(long long userSession, QH::AbstractNodeInfo *d
     node()->sendData(&request, dist);
 }
 
+IAPIObjectsFactory *ApiV1::initObjectFactory() const {
+    return new APIObjectsFactoryV1(db());
+}
+
 bool ApiV1::processCardStatus(const QSharedPointer<QH::PKG::DataPack<APIv1::UsersCards> > &cardStatuses,
                                 const QH::AbstractNodeInfo *sender, const QH::Header &) {
     API::CardDataRequest request;
 
     for (const auto& cardStatus : cardStatuses->packData()) {
-        API::Card userrquest;
-        userrquest.setId(cardStatus->getCard());
-
-        auto dbCard = db()->getObject(userrquest);
+        auto dbCard = objectFactoryInstance()->getCard(cardStatus->getCard());
 
         if (!node()->cardValidation(dbCard, cardStatuses->customData())) {
 
@@ -143,7 +144,7 @@ bool ApiV1::processCardRequest(const QSharedPointer<API::CardDataRequest> &cardr
 
     for (unsigned int cardId : cardrequest->getCardIds()) {
         // bug
-        auto card = node()->getCard(cardId).staticCast<APIv1::Card>();
+        auto card = objectFactoryInstance()->getCard(cardId).staticCast<APIv1::Card>();
 
         if (!card) {
             QuasarAppUtils::Params::log(QString("Failed to find card with id: %0").
@@ -213,7 +214,7 @@ bool ApiV1::processRestoreDataRequest(const QSharedPointer<APIv1::RestoreDataReq
 
     unsigned int userID = API::User::makeId(cardrequest->userKey());
 
-    auto result = node()->getAllUserData(userID);
+    auto result = objectFactoryInstance()->getAllUserData(userID);
 
     for (const auto &data : qAsConst(result)) {
         data->setCardVersion(node()->getCardVersion(data->getCard()));
@@ -224,14 +225,14 @@ bool ApiV1::processRestoreDataRequest(const QSharedPointer<APIv1::RestoreDataReq
         return false;
     }
 
-    const auto cardsList = node()->getAllUserCards(cardrequest->userKey(), false);
+    const auto cardsList = objectFactoryInstance()->getAllUserCards(cardrequest->userKey(), false);
     QH::PKG::DataPack<APIv1::Card> cardsPack;
 
     for (const auto& card : cardsList) {
         cardsPack.push(card.staticCast<APIv1::Card>());
     }
 
-    const auto datalist = node()->getAllUserCardsData(cardrequest->userKey());
+    const auto datalist = objectFactoryInstance()->getAllUserCardsData(cardrequest->userKey());
     for (const auto& item: datalist) {
         responce.push(item.staticCast<APIv1::UsersCards>());
     }

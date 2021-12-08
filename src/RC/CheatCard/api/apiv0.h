@@ -29,11 +29,13 @@ class UserHeader;
 }
 
 class BaseNode;
+class IAPIObjectsFactory;
 
 class CHEATCARD_CORE_EXPORT ApiV0: public QH::iParser
 {
 public:
     ApiV0(BaseNode* node);
+    virtual ~ApiV0();
 
     int version() const override;
 
@@ -47,8 +49,12 @@ public:
     // using on seller
     virtual void sendSessions(const QHash<long long, QSharedPointer<API::Session> > &sessions, QH::AbstractNodeInfo *dist);
 
+
+
 protected:
     BaseNode *node() const;
+    IAPIObjectsFactory *objectFactoryInstance();
+    virtual IAPIObjectsFactory *initObjectFactory() const;
 
     bool processCardStatusRequest(const QSharedPointer<API::CardStatusRequest> &message,
                                   const QH::AbstractNodeInfo *sender, const QH::Header&);
@@ -65,13 +71,13 @@ protected:
                          const QH::AbstractNodeInfo *sender, const QH::Header &);
 
     QH::ISqlDBCache* db() const;
-
     QSharedPointer<API::UsersCards>
     userHeaderReceived(const QSharedPointer<API::UserHeader> &userHeaderData,
                        unsigned int cardId);
 private:
 
     BaseNode* _node = nullptr;
+    IAPIObjectsFactory *_objectFactory = nullptr;
 
 };
 }

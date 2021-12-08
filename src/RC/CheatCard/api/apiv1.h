@@ -40,8 +40,8 @@ public:
 
     void sendCardStatusRequest(long long userSession, QH::AbstractNodeInfo *dist) override;
 
-
 protected:
+    IAPIObjectsFactory *initObjectFactory() const override;
     bool processCardStatusRequest(const QSharedPointer<API::CardStatusRequest> &message,
                                   const QH::AbstractNodeInfo *sender, const QH::Header&) ;
 
@@ -58,6 +58,8 @@ protected:
 
     virtual bool processRestoreDataRequest(const QSharedPointer<APIv1::RestoreDataRequest> &cardrequest,
                                            const QH::AbstractNodeInfo *sender, const QH::Header &);
+
+
 
 };
 }
