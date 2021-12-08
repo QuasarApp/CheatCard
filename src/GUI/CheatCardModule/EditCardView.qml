@@ -17,6 +17,7 @@ Page {
     property int receivedItems: (model)? model.receivedItems: 0
 
     property bool backSide: false
+    property bool isCurrentItem: false
 
     signal finished();
     signal sigHold();
@@ -57,6 +58,110 @@ Page {
             radius: 10
             clip: false
 
+            ToolButton {
+                id: editCardBtn
+                visible: isCurrentItem && !root.editable && !root.backSide
+                icon.source: "qrc:/images/private/resources/Interface_icons/Right_topmenu.svg"
+                icon.color: (card)? card.fontColor: Material.foreground
+                font.bold: true
+                font.pointSize: 14
+
+                onClicked: editMenu.popup(this, editCardBtn.x, editCardBtn.height)
+            }
+
+            Menu {
+                id: editMenu
+
+                MenuItem {
+
+                    visible: (mainModel)? mainModel.mode: false
+                    height: (visible)? implicitHeight : 0
+
+                    text: qsTr("Edit card")
+                    icon.source: "qrc:/images/private/resources/Interface_icons/edit_card.svg"
+                    onClicked:  () => {
+                                    root.editable = true;
+                                }
+                }
+
+                MenuItem {
+
+                    text: qsTr("Remove card")
+                    icon.source: "qrc:/images/private/resources/Interface_icons/delete_card.svg"
+                    onClicked:  () => {
+                                    if (root.model) {
+                                        root.model.remove();
+                                    }
+                                }
+                }
+
+                MenuItem {
+
+                    visible: (mainModel)? mainModel.mode: false
+                    height: (visible)? implicitHeight : 0
+
+                    text: qsTr("Activate card")
+                    icon.source: "qrc:/images/private/resources/Interface_icons/Activate.svg"
+                    onClicked:  () => {
+                                    activityCard();
+                                }
+                }
+
+                MenuItem {
+
+                    text: qsTr("Statistics")
+                    icon.source: "qrc:/images/private/resources/Interface_icons/statistic.svg"
+                    onClicked: (side) => {
+                                   if (!root.model.mode) {
+                                       turnOverCard(side);
+                                   } else {
+                                       showStatisticsCard();
+                                   }
+                               }
+                }
+
+            }
+
+            function activityCard() {
+
+                const fAvailable = !root.editable && isCurrentItem;
+                if (!fAvailable) {
+                    return;
+                }
+
+                if (root.model) {
+                    root.model.activate()
+                }
+
+                activityProcessor.newActivity("qrc:/CheatCardModule/WaitConnectView.qml",
+                                              mainModel.waitModel)
+            }
+
+            function showStatisticsCard() {
+                if (!root.editable) {
+
+                    if (root.model) {
+                        root.model.showStatistick()
+                    }
+
+                    const activity = "qrc:/CheatCardModule/SellerStatistic.qml";
+                    activityProcessor.newActivity(activity,
+                                                  mainModel.statisticModel)
+                    return;
+                }
+            }
+
+            function turnOverCard(s) {
+
+                if (list.orientation === ListView.Vertical ||
+                        s === 2 || s === 3) {
+
+                    cardView.turnOverCard(list.orientation === ListView.Vertical);
+                } else {
+                    cardView.turnOverCard(list.orientation === ListView.Vertical);
+                }
+            }
+
             Image {
                 id: cardBackground
                 fillMode: Image.PreserveAspectCrop
@@ -66,10 +171,10 @@ Page {
                 layer.enabled: true
                 layer.effect: OpacityMask {
                     maskSource: Rectangle {
-                            width: cardBackground.width
-                            height: cardBackground.height
-                            radius: cardRectangle.radius
-                        }
+                        width: cardBackground.width
+                        height: cardBackground.height
+                        radius: cardRectangle.radius
+                    }
                 }
             }
 
@@ -78,6 +183,16 @@ Page {
                 property real previousPositionY: 0
                 property real directionX: 0
                 property real directionY: 0
+
+                function swipe(side) {
+                    root.sigSwipe(side);
+
+                    if (!mainModel.mode) {
+                        turnOverCard(side);
+                    } else {
+                        showStatisticsCard();
+                    }
+                }
 
                 anchors.fill: parent;
 
@@ -101,16 +216,17 @@ Page {
 
                                 if(directionX > directionY) {
                                     if (directionX > width)
-                                        root.sigSwipe(directionX > 0)
+                                        swipe(directionX > 0)
                                 } else {
                                     if (directionY > width)
-                                        root.sigSwipe(2 + (directionY > 0))
+                                        swipe(2 + (directionY > 0))
                                 }
 
                             }
 
                 onPressAndHold: (mouse) => {
                                     root.sigHold();
+                                    activityCard();
                                 }
             }
 
@@ -518,7 +634,7 @@ Page {
 
                 onValueChanged: () => {
                                     if (!root.model)
-                                        return
+                                    return
 
                                     root.model.freeIndex = freeIndex.value
                                 }

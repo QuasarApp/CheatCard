@@ -281,11 +281,14 @@ void MainModel::initCardsListModels() {
     _currentCardsListModel->sort(0);
     _currentCardsListModel->setDynamicSortFilter(true);
 
+    connect(_cardsListModel, &CardsListModel::sigRemoveRequest,
+            this, &MainModel::handleRemoveRequest);
+
     connect(_ownCardsListModel, &CardsListModel::sigEditFinished,
             this, &MainModel::handleCardEditFinished);
 
-    connect(_ownCardsListModel, &CardsListModel::sigCardRemoved,
-            this, &MainModel::handleCardRemoved);
+    connect(_ownCardsListModel, &CardsListModel::sigRemoveRequest,
+            this, &MainModel::handleRemoveRequest);
 
     connect(_ownCardsListModel, &CardsListModel::sigCardSelectedForWork,
             this, &MainModel::handleCardSelectedForWork);
@@ -579,12 +582,10 @@ void MainModel::handleCardEditFinished(const QSharedPointer<Card>& card) {
     saveCard(card);
 }
 
-void MainModel::handleCardRemoved(unsigned int id) {
+void MainModel::handleRemoveRequest(const QSharedPointer<Card> &card) {
 
-    auto reqest = QSharedPointer<Card>::create();
-    reqest->setId(id);
-
-    _db->deleteObject(reqest);
+    _currentCardsListModel->removeCard(card->cardId());
+    _db->deleteObject(card);
 }
 
 void MainModel::handleCardSelectedForWork(const QSharedPointer<CardModel> &card) {
