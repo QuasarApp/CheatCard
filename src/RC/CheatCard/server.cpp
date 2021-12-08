@@ -30,18 +30,6 @@ Server::Server(QH::ISqlDBCache *db): BaseNode(db) {
     registerPackageType<CardDataRequest>();
     registerPackageType<QH::PKG::DataPack<Card>>();
     registerPackageType<RestoreDataRequest>();
-
-    auto task = QSharedPointer<ClearOldData>::create();
-    task->setTime(0);
-    task->setMode(QH::ScheduleMode::SingleWork);
-
-    sheduleTask(task);
-
-    task = QSharedPointer<ClearOldData>::create();
-    task->setTime(30 * ClearOldData::Day);
-    task->setMode(QH::ScheduleMode::Repeat);
-
-    sheduleTask(task);
 }
 
 bool Server::cardValidation(const QSharedPointer<Card> &cardFromDB,
