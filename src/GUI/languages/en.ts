@@ -115,15 +115,23 @@
     </message>
     <message>
         <source>Export your key</source>
-        <translation>Export your key</translation>
+        <translation type="vanished">Export your key</translation>
     </message>
     <message>
         <source>Import your key</source>
-        <translation>Import your key</translation>
+        <translation type="vanished">Import your key</translation>
     </message>
     <message>
         <source>Share application</source>
         <translation>Share application</translation>
+    </message>
+    <message>
+        <source>Recovery</source>
+        <translation>Recovery</translation>
+    </message>
+    <message>
+        <source>Backup</source>
+        <translation>Backup</translation>
     </message>
 </context>
 <context>

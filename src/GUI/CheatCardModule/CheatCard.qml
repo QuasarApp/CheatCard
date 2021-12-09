@@ -183,7 +183,7 @@ ApplicationWindow {
         }
 
         MenuItem {
-            text: qsTr("Import your key")
+            text: qsTr("Recovery")
             icon.source: "qrc:/images/private/resources/Interface_icons/key_pull.svg"
 
             onClicked:  () => {
@@ -193,7 +193,7 @@ ApplicationWindow {
         }
 
         MenuItem {
-            text: qsTr("Export your key")
+            text: qsTr("Backup")
             icon.source: "qrc:/images/private/resources/Interface_icons/key_push.svg"
 
             onClicked:  () => {

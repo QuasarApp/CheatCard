@@ -115,11 +115,19 @@
     </message>
     <message>
         <source>Export your key</source>
-        <translation>Экспортировать ключ</translation>
+        <translation type="vanished">Экспортировать ключ</translation>
     </message>
     <message>
         <source>Import your key</source>
-        <translation>Импортировать ключ</translation>
+        <translation type="vanished">Импортировать ключ</translation>
+    </message>
+    <message>
+        <source>Recovery</source>
+        <translation>Восстановить</translation>
+    </message>
+    <message>
+        <source>Backup</source>
+        <translation>Резервное копирование</translation>
     </message>
 </context>
 <context>
