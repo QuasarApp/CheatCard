@@ -8,6 +8,7 @@
 
 #include "cardstatusrequest.h"
 namespace RC {
+namespace API {
 
 CardStatusRequest::CardStatusRequest() {
 
@@ -42,5 +43,6 @@ long long CardStatusRequest::getSessionId() const {
 
 void CardStatusRequest::setSessionId(long long newSessionId) {
     sessionId = newSessionId;
+}
 }
 }

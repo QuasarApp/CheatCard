@@ -14,6 +14,7 @@
 #define CARD_H
 
 namespace RC {
+namespace API {
 
 /**
  * @brief The Card class
@@ -85,7 +86,6 @@ protected:
     QDataStream &fromStream(QDataStream &stream) override;
     QDataStream &toStream(QDataStream &stream) const override;
 
-private:
     QString _title;
     QByteArray _logo;
     QByteArray _seal;
@@ -107,8 +107,8 @@ private:
 };
 
 }
-
-Q_DECLARE_METATYPE(RC::Card)
-Q_DECLARE_METATYPE(QSharedPointer<RC::Card>)
+}
+Q_DECLARE_METATYPE(RC::API::Card)
+Q_DECLARE_METATYPE(QSharedPointer<RC::API::Card>)
 
 #endif // CARD_H

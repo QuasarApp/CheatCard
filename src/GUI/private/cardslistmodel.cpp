@@ -54,12 +54,12 @@ const QList<int> &CardsListModel::cards() const {
     return _cards;
 }
 
-void CardsListModel::setCards(const QList<QSharedPointer<Card> > &newCards) {
+void CardsListModel::setCards(const QList<QSharedPointer<API::Card> > &newCards) {
     beginResetModel();
 
     _cache.clear();
 
-    for (const QSharedPointer<Card>& card : newCards) {
+    for (const QSharedPointer<API::Card>& card : newCards) {
         auto cardModel =  QSharedPointer<CardModel>::create(card);
         _cache.insert(card->cardId(),
                       cardModel
@@ -74,7 +74,7 @@ void CardsListModel::setCards(const QList<QSharedPointer<Card> > &newCards) {
 }
 
 QSharedPointer<CardModel>
-CardsListModel::importCard(const QSharedPointer<Card> &card) {
+CardsListModel::importCard(const QSharedPointer<API::Card> &card) {
 
     if (_cards.contains(card->cardId())) {
         return updateCard(card);
@@ -95,7 +95,7 @@ CardsListModel::importCard(const QSharedPointer<Card> &card) {
 }
 
 QSharedPointer<CardModel>
-CardsListModel::updateCard(const QSharedPointer<Card> &card) {
+CardsListModel::updateCard(const QSharedPointer<API::Card> &card) {
 
     auto cardModel =  _cache.value(card->cardId());
     if (!cardModel)
@@ -106,7 +106,7 @@ CardsListModel::updateCard(const QSharedPointer<Card> &card) {
     return cardModel;
 }
 
-void CardsListModel::updateMetaData(const QList<QSharedPointer<UsersCards>> &purchasesNumbers) {
+void CardsListModel::updateMetaData(const QList<QSharedPointer<API::UsersCards>> &purchasesNumbers) {
     for (const auto &sp:  purchasesNumbers) {
         if (auto model = _cache.value(sp->getCard())) {
             model->setPurchasesNumber(sp->getPurchasesNumber());
@@ -116,7 +116,7 @@ void CardsListModel::updateMetaData(const QList<QSharedPointer<UsersCards>> &pur
 }
 
 void CardsListModel::addCard() {
-    auto card = QSharedPointer<Card>::create();
+    auto card = QSharedPointer<API::Card>::create();
     importCard(card);
 }
 

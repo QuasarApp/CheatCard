@@ -5,47 +5,47 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-
-
 #ifndef SELLER_H
 #define SELLER_H
 #include "basenode.h"
 
 namespace RC {
 
+namespace API {
 class UserHeader;
+}
 
 class CHEATCARD_CORE_EXPORT Seller: public BaseNode
 {
     Q_OBJECT
 public:
     Seller(QH::ISqlDBCache *db);
-    bool incrementPurchase (const QSharedPointer<UserHeader> &userHeaderData,
+    bool incrementPurchase (const QSharedPointer<API::UserHeader> &userHeaderData,
                             unsigned int cardId, int purchasesCount = 1,
                             const QString& domain = "",
                             int port = DEFAULT_CHEAT_CARD_PORT_SSL);
 
-    bool sentDataToServerPurchase (const QSharedPointer<UserHeader> &userHeaderData,
-                            unsigned int cardId, const QString& domain = "",
-                            int port = DEFAULT_CHEAT_CARD_PORT_SSL);
+    bool sentDataToServerPurchase (const QSharedPointer<API::UserHeader> &userHeaderData,
+                                   unsigned int cardId, const QString& domain = "",
+                                   int port = DEFAULT_CHEAT_CARD_PORT_SSL);
 
     bool requestAllDataFromUser();
 
-    bool cardValidation(const QSharedPointer<Card> &cardFromDB,
+    bool cardValidation(const QSharedPointer<API::Card> &cardFromDB,
                         const QByteArray &ownerSecret) const override;
     void getSignData(QByteArray &data) const override;
 
 protected:
     void nodeConnected(QH::AbstractNodeInfo *node) override;
     void nodeConfirmend(QH::AbstractNodeInfo *node) override;
-    bool incrementPurchases(const QSharedPointer<UsersCards> &usersCardsData,
+    bool incrementPurchases(const QSharedPointer<API::UsersCards> &usersCardsData,
                             int purchasesCount);
 
 private:
-    QSharedPointer<UsersCards> prepareData(const QSharedPointer<UserHeader> &userHeaderData,
-                         unsigned int cardId);
+    QSharedPointer<API::UsersCards> prepareData(const QSharedPointer<API::UserHeader> &userHeaderData,
+                                                unsigned int cardId);
 
-    QHash<long long, QSharedPointer<Session>> _lastRequested;
+    QHash<long long, QSharedPointer<API::Session>> _lastRequested;
 
 };
 }

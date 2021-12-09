@@ -8,6 +8,7 @@
 
 #include "carddatarequest.h"
 namespace RC {
+namespace API {
 
 bool CardDataRequest::isValid() const {
     return AbstractData::isValid() && cardIds.size();
@@ -43,6 +44,7 @@ void CardDataRequest::push(unsigned int id) {
     cardIds.push_back(id);
 }
 
-RC::CardDataRequest::CardDataRequest() {}
+CardDataRequest::CardDataRequest() {}
 
+}
 }

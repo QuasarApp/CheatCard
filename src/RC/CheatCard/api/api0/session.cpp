@@ -8,6 +8,7 @@
 #include "session.h"
 #include "time.h"
 namespace RC {
+namespace API {
 
 Session::Session(): QH::PKG::DBObject("Sessions") {
 }
@@ -86,4 +87,4 @@ bool Session::isValid() const {
 }
 
 }
-
+}

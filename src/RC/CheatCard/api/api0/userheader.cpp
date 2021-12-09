@@ -8,6 +8,7 @@
 
 #include "userheader.h"
 namespace RC {
+namespace API {
 
 UserHeader::UserHeader() {
 
@@ -69,5 +70,6 @@ unsigned int UserHeader::getUserId() const {
 
 void UserHeader::setUserId(unsigned int newUserId) {
     _userId = newUserId;
+}
 }
 }

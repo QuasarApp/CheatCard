@@ -11,8 +11,8 @@ TestServer::TestServer(QSharedPointer<TestDataBaseWrapper> db):
     privateDb = db;
 }
 
-QSharedPointer<RC::Card> TestServer::getCard(unsigned int cardId) const {
-    RC::Card card;
+QSharedPointer<RC::API::Card> TestServer::getCard(unsigned int cardId) const {
+    RC::API::Card card;
     card.setId(cardId);
 
     auto cardObj = db()->getObject(card);
@@ -20,7 +20,7 @@ QSharedPointer<RC::Card> TestServer::getCard(unsigned int cardId) const {
 }
 
 int TestServer::getPurchaseCount(unsigned int userId, unsigned int cardId) {
-    QSharedPointer<RC::UsersCards> result = getUserCardData(userId, cardId);
+    QSharedPointer<RC::API::UsersCards> result = getUserCardData(userId, cardId);
 
     if (!result)
         return 0;

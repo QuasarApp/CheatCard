@@ -16,8 +16,8 @@ DataConvertor::DataConvertor()
 
 }
 
-QSharedPointer<User> DataConvertor::toUser(const QSharedPointer<UserHeader> &userHeader) {
-    auto result = QSharedPointer<User>::create();
+QSharedPointer<API::User> DataConvertor::toUser(const QSharedPointer<API::UserHeader> &userHeader) {
+    auto result = QSharedPointer<API::User>::create();
 
     result->setKey(userHeader->token());
     result->setId(userHeader->getUserId());
@@ -26,8 +26,8 @@ QSharedPointer<User> DataConvertor::toUser(const QSharedPointer<UserHeader> &use
     return  result;
 }
 
-QSharedPointer<UserHeader> DataConvertor::toUserHeader(const QSharedPointer<User> &user) {
-    auto result = QSharedPointer<UserHeader>::create();
+QSharedPointer<API::UserHeader> DataConvertor::toUserHeader(const QSharedPointer<API::User> &user) {
+    auto result = QSharedPointer<API::UserHeader>::create();
 
     result->setToken(user->getKey());
     result->setUserId(user->userId());

@@ -13,6 +13,7 @@
 #include "CheatCard/requesttoken.h"
 
 namespace RC {
+namespace API {
 
 class CHEATCARD_CORE_EXPORT CardStatusRequest: public QH::PKG::AbstractData, public RC::RequestToken
 {
@@ -32,5 +33,6 @@ protected:
 private:
     long long sessionId;
 };
+}
 }
 #endif // CARDSTATUSREQUEST_H

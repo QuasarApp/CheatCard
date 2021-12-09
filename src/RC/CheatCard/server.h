@@ -21,7 +21,7 @@ class CHEATCARD_CORE_EXPORT Server: public BaseNode
     Q_OBJECT
 public:
     Server(QH::ISqlDBCache *db);
-    bool cardValidation(const QSharedPointer<Card> &card,
+    bool cardValidation(const QSharedPointer<RC::API::Card> &card,
                         const QByteArray &ownerSecret) const override;
     void getSignData(QByteArray &data) const override;
 
