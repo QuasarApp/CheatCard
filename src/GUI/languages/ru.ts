@@ -879,6 +879,10 @@
         <source>Oops. Error code: </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Yor secret key and public key is not pair May be you scan not valid qr code ...</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RC::SellerStatisticModel</name>
