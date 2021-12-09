@@ -883,10 +883,6 @@
         <source>Yor secret key and public key is not pair May be you scan not valid qr code ...</source>
         <translation>Ваш секретный ключ и открытый ключ не совпадают. Возможно, вы отсканировали неверный qr-код ...</translation>
     </message>
-    <message>
-        <source>Yor secret key and public key is not pair May be you scan not valid qr code ...</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>RC::SellerStatisticModel</name>
