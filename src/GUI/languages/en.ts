@@ -56,19 +56,19 @@
     </message>
     <message>
         <source>Edit card</source>
-        <translation type="unfinished"></translation>
+        <translation>Edit card</translation>
     </message>
     <message>
         <source>Remove card</source>
-        <translation type="unfinished"></translation>
+        <translation>Remove card</translation>
     </message>
     <message>
         <source>Activate card</source>
-        <translation type="unfinished"></translation>
+        <translation>Activate card</translation>
     </message>
     <message>
         <source>Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Statistics</translation>
     </message>
 </context>
 <context>
@@ -115,15 +115,23 @@
     </message>
     <message>
         <source>Export your key</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Export your key</translation>
     </message>
     <message>
         <source>Import your key</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Import your key</translation>
     </message>
     <message>
         <source>Share application</source>
         <translation>Share application</translation>
+    </message>
+    <message>
+        <source>Recovery</source>
+        <translation>Recovery</translation>
+    </message>
+    <message>
+        <source>Backup</source>
+        <translation>Backup</translation>
     </message>
 </context>
 <context>
@@ -389,27 +397,27 @@
     <name>ExportUserKeyPage</name>
     <message>
         <source>Export user key</source>
-        <translation type="unfinished"></translation>
+        <translation>Export user key</translation>
     </message>
     <message>
         <source>**For what this use**</source>
-        <translation type="unfinished"></translation>
+        <translation>**For what this use**</translation>
     </message>
     <message>
         <source>Some times you can drop your application data or your device. Therefore you can create a backup qr code that can recovery your application data after dropping</source>
-        <translation type="unfinished"></translation>
+        <translation>Some times you can drop your application data or your device. Therefore you can create a backup qr code that can recovery your application data after dropping</translation>
     </message>
     <message>
         <source>Save and open in files</source>
-        <translation type="unfinished"></translation>
+        <translation>Save and open in files</translation>
     </message>
     <message>
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation>Done</translation>
     </message>
     <message>
         <source>Backup code exported successful. The BackUp Code Available in your documnets folder. See &lt;b&gt;%0&lt;/b&gt; path</source>
-        <translation type="unfinished"></translation>
+        <translation>Backup code exported successful. The BackUp Code Available in your documnets folder. See &lt;b&gt;%0&lt;/b&gt; path</translation>
     </message>
 </context>
 <context>
@@ -480,11 +488,11 @@
     </message>
     <message>
         <source>Nobody, I just want to recover data</source>
-        <translation type="unfinished"></translation>
+        <translation>Nobody, I just want to recover data</translation>
     </message>
     <message>
         <source>Done!</source>
-        <translation type="unfinished">Done!</translation>
+        <translation>Done!</translation>
     </message>
 </context>
 <context>
@@ -518,27 +526,27 @@
     <name>ImportUserKeyPage</name>
     <message>
         <source>**Attention** : This operation redefine your current application data (Cards, seals, users data). All current data will be removed.</source>
-        <translation type="unfinished"></translation>
+        <translation>**Attention** : This operation redefine your current application data (Cards, seals, users data). All current data will be removed.</translation>
     </message>
     <message>
         <source>Import from qr code scanner</source>
-        <translation type="unfinished"></translation>
+        <translation>Import from qr code scanner</translation>
     </message>
     <message>
         <source>Import from file with qr code</source>
-        <translation type="unfinished"></translation>
+        <translation>Import from file with qr code</translation>
     </message>
     <message>
         <source>Import your cadrs data</source>
-        <translation type="unfinished"></translation>
+        <translation>Import your cadrs data</translation>
     </message>
     <message>
         <source>Select your backup qr code</source>
-        <translation type="unfinished"></translation>
+        <translation>Select your backup qr code</translation>
     </message>
     <message>
         <source>codes</source>
-        <translation type="unfinished"></translation>
+        <translation>codes</translation>
     </message>
 </context>
 <context>
@@ -849,15 +857,15 @@
     <name>RC::ImportExportUserModel</name>
     <message>
         <source>Oh shit</source>
-        <translation type="unfinished"></translation>
+        <translation>Oh shit</translation>
     </message>
     <message>
         <source>Permission denied to selected file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Permission denied to selected file.</translation>
     </message>
     <message>
         <source>It looks like the file you selected does not contain a recovery code</source>
-        <translation type="unfinished"></translation>
+        <translation>It looks like the file you selected does not contain a recovery code</translation>
     </message>
 </context>
 <context>
@@ -896,35 +904,39 @@
     </message>
     <message>
         <source>Wow shit</source>
-        <translation type="unfinished"></translation>
+        <translation>Wow shit</translation>
     </message>
     <message>
         <source>This qr code is invalid. Sorry... </source>
-        <translation type="unfinished"></translation>
+        <translation>This qr code is invalid. Sorry... </translation>
     </message>
     <message>
         <source>I managed to do it !</source>
-        <translation type="unfinished"></translation>
+        <translation>I managed to do it !</translation>
     </message>
     <message>
         <source>Yor secret key are imported</source>
-        <translation type="unfinished"></translation>
+        <translation>Yor secret key are imported</translation>
     </message>
     <message>
         <source>We Has a troubles</source>
-        <translation type="unfinished"></translation>
+        <translation>We Has a troubles</translation>
     </message>
     <message>
         <source>Yor secret key are imported successful but donwload backup data from server is failed. Please check your internet connection and try restore your data again</source>
-        <translation type="unfinished"></translation>
+        <translation>Yor secret key are imported successful but donwload backup data from server is failed. Please check your internet connection and try restore your data again</translation>
     </message>
     <message>
         <source>You have network problems. Don&apos;t worry, all cards and your bonuses are saved on the merchant&apos;s host and will be available the next time you visit. Even if you will don&apos;t have internet connection.</source>
-        <translation type="unfinished"></translation>
+        <translation>You have network problems. Don&apos;t worry, all cards and your bonuses are saved on the merchant&apos;s host and will be available the next time you visit. Even if you will don&apos;t have internet connection.</translation>
     </message>
     <message>
         <source>Oops. Error code: </source>
-        <translation type="unfinished"></translation>
+        <translation>Oops. Error code: </translation>
+    </message>
+    <message>
+        <source>Yor secret key and public key is not pair May be you scan not valid qr code ...</source>
+        <translation>Yor secret key and public key is not pair May be you scan not valid qr code ...</translation>
     </message>
 </context>
 <context>
@@ -993,11 +1005,11 @@
     </message>
     <message>
         <source>All Done! &lt;b&gt;But If you drop your application data then all your cards will be removed&lt;/b&gt;. For save it self of this situations we recommends create a back up your master key.</source>
-        <translation type="unfinished"></translation>
+        <translation>All Done! &lt;b&gt;But If you drop your application data then all your cards will be removed&lt;/b&gt;. For save it self of this situations we recommends create a back up your master key.</translation>
     </message>
     <message>
         <source>Create a back up of master key for save data of my account.</source>
-        <translation type="unfinished"></translation>
+        <translation>Create a back up of master key for save data of my account.</translation>
     </message>
 </context>
 <context>

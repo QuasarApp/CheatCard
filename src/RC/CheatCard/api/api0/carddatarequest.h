@@ -13,6 +13,7 @@
 #include <abstractdata.h>
 
 namespace RC {
+namespace API {
 
 
 class CHEATCARD_CORE_EXPORT CardDataRequest: public QH::PKG::AbstractData, public RequestToken {
@@ -35,5 +36,6 @@ protected:
 private:
     QList<unsigned int> cardIds;
 };
+}
 }
 #endif // CARDDATAREQUEST_H

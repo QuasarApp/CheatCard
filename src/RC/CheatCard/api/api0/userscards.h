@@ -16,6 +16,7 @@
 #include <QSharedPointer>
 
 namespace RC {
+namespace API {
 
 
 class CHEATCARD_CORE_EXPORT UsersCards: public QH::PKG::DBObject
@@ -70,8 +71,8 @@ protected:
 };
 
 }
-
-Q_DECLARE_METATYPE(RC::UsersCards)
-Q_DECLARE_METATYPE(QSharedPointer<RC::UsersCards>)
+}
+Q_DECLARE_METATYPE(RC::API::UsersCards)
+Q_DECLARE_METATYPE(QSharedPointer<RC::API::UsersCards>)
 
 #endif // USERSCARDS_H

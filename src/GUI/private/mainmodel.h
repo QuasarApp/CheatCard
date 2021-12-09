@@ -16,19 +16,23 @@
 
 namespace RC {
 
-class SoundPlayback;
+namespace API {
 class Card;
+class User;
+class UsersCards;
+class UserHeader;
+
+}
+
+class SoundPlayback;
 class CardModel;
 class AboutModel;
-class User;
 class CardsListModel;
 class UserModel;
 class ItemsModel;
 class WaitConnectionModel;
 class BaseNode;
-class UsersCards;
 class IBilling;
-class UserHeader;
 class CardProxyModel;
 class SellerStatisticModel;
 class SettingsModel;
@@ -135,9 +139,9 @@ protected:
 private slots:
     bool handleImportUser(const QString &base64UserData);
 
-    void handleCardReceived(QSharedPointer<RC::Card> card);
+    void handleCardReceived(QSharedPointer<RC::API::Card> card);
 
-    void handleCardEditFinished(const QSharedPointer<RC::Card> &card);
+    void handleCardEditFinished(const QSharedPointer<RC::API::Card> &card);
     void handleResetCardModel(const QSharedPointer<RC::Card> &card);
 
     void handleCardRemoved(unsigned int id);
@@ -147,7 +151,7 @@ private slots:
     void handleConnectWasBegin();
     void handleConnectWasFinished();
 
-    void handlePurchaseWasSuccessful(QSharedPointer<RC::UsersCards>);
+    void handlePurchaseWasSuccessful(QSharedPointer<API::UsersCards>);
     void handleListenStart(int purchasesCount, QSharedPointer<CardModel> model, const QString &extraData);
     void handleListenStop();
     void handleAppStateChanged(Qt::ApplicationState state);
@@ -175,13 +179,13 @@ private:
 
     void soundEffectPlayback(const QString &soundName);
 
-    bool sendSellerDataToServer(const QSharedPointer<UserHeader> &header,
+    bool sendSellerDataToServer(const QSharedPointer<API::UserHeader> &header,
                                 unsigned int cardId,
                                 int purchasesCount,
                                 bool sendOnly);
 
     CardsListModel* getCurrentListModel() const;
-    void saveCard(const QSharedPointer<RC::Card> &card);
+    void saveCard(const QSharedPointer<RC::API::Card> &card);
 
     QH::ISqlDBCache * _db = nullptr;
     QSharedPointer<UserModel> _currentUser;
@@ -208,7 +212,7 @@ private:
     WaitConnectionModel *_waitModel = nullptr;
     QSettings _settings;
 
-    QSharedPointer<UserHeader> _lastUserHeader;
+    QSharedPointer<API::UserHeader> _lastUserHeader;
 
     Mode _mode = Mode::Client;
     bool _fShowEmptyBonuspackaMessage = false;

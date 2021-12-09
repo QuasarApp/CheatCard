@@ -9,13 +9,14 @@
 #include "user.h"
 #include "QCryptographicHash"
 namespace RC {
+namespace API {
 
 User::User(): QH::PKG::DBObject("Users") {
     regenerateKeys();
     srand(time(0));
 }
 
-void RC::User::regenerateKeys() {
+void User::regenerateKeys() {
     _secret = QCryptographicHash::hash(randomArray(), QCryptographicHash::Sha256);
     _key = makeKey(_secret);
     setId(QVariant::fromValue(makeId(_key)));
@@ -44,6 +45,8 @@ QDataStream &User::fromStream(QDataStream &stream) {
 
      stream >> _name;
      stream >> _key;
+     stream >> _secret;
+     stream >> _fSaller;
 
      return stream;
 }
@@ -53,6 +56,8 @@ QDataStream &User::toStream(QDataStream &stream) const {
 
     stream << _name;
     stream << _key;
+    stream << _secret;
+    stream << _fSaller;
 
     return stream;
 }
@@ -131,4 +136,5 @@ bool User::fromSqlRecord(const QSqlRecord &q) {
     return true;
 }
 
+}
 }

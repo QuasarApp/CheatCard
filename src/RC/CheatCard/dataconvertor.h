@@ -14,16 +14,18 @@
 
 namespace RC {
 
+namespace API {
 class UserHeader;
 class User;
+}
 
 class DataConvertor
 {
 public:
     DataConvertor();
 
-    static QSharedPointer<User> toUser(const QSharedPointer<UserHeader>& userHeader);
-    static QSharedPointer<UserHeader> toUserHeader(const QSharedPointer<User>& user);
+    static QSharedPointer<API::User> toUser(const QSharedPointer<RC::API::UserHeader>& userHeader);
+    static QSharedPointer<API::UserHeader> toUserHeader(const QSharedPointer<RC::API::User> &user);
 
 };
 }

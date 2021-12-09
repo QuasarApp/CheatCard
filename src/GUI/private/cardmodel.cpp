@@ -18,7 +18,7 @@ CardModel::CardModel() {
 
 }
 
-CardModel::CardModel(QSharedPointer<Card> card) {
+CardModel::CardModel(QSharedPointer<API::Card> card) {
     setCard(card);
 }
 
@@ -38,11 +38,11 @@ int CardModel::freeIndex() const {
     return _card->getFreeIndex();
 }
 
-QSharedPointer<Card> CardModel::card() const {
+QSharedPointer<API::Card> CardModel::card() const {
     return _card;
 }
 
-void CardModel::setCard(const QSharedPointer<Card> &newCard) {
+void CardModel::setCard(const QSharedPointer<API::Card> &newCard) {
     if (_card == newCard)
         return;
 

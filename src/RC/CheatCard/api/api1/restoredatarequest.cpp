@@ -7,6 +7,7 @@
 
 #include "restoredatarequest.h"
 namespace RC {
+namespace APIv1 {
 
 RestoreDataRequest::RestoreDataRequest() {
 
@@ -39,4 +40,5 @@ void RestoreDataRequest::setUserKey(const QByteArray &newUserKey) {
     _userKey = newUserKey;
 }
 
+}
 }

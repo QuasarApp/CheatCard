@@ -10,7 +10,7 @@ class TestServer: public RC::Server
     Q_OBJECT
 public:
     TestServer(QSharedPointer<TestDataBaseWrapper>);
-    QSharedPointer<RC::Card> getCard(unsigned int cardId) const;
+    QSharedPointer<RC::API::Card> getCard(unsigned int cardId) const;
     int getPurchaseCount(unsigned int userId,unsigned int cardId);
 
 private:
