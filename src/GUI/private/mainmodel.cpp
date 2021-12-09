@@ -295,6 +295,9 @@ void MainModel::initCardsListModels() {
     connect(_ownCardsListModel, &CardsListModel::sigEditFinished,
             this, &MainModel::handleCardEditFinished);
 
+    connect(_cardsListModel, &CardsListModel::sigEditFinished,
+            this, &MainModel::handleCardEditFinished);
+
     connect(_ownCardsListModel, &CardsListModel::sigCardRemoved,
             this, &MainModel::handleCardRemoved);
 
