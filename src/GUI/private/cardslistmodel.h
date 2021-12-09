@@ -58,7 +58,7 @@ public:
 signals:
     void sigCardRemoved(unsigned int cardName);
     void sigEditFinished(const QSharedPointer<API::Card>& card);
-    void sigResetCardModel(const QSharedPointer<Card>& card);
+    void sigResetCardModel(const QSharedPointer<API::Card>& card);
     void sigCardSelectedForWork(const QSharedPointer<CardModel>& card);
     void sigCardSelectedForStatistic(const QSharedPointer<CardModel>& card);
 

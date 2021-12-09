@@ -110,11 +110,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Import your key</source>
+        <source>Recovery</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Export your key</source>
+        <source>Backup</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -255,6 +255,10 @@
     </message>
     <message>
         <source>Card seal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -142,7 +142,7 @@ private slots:
     void handleCardReceived(QSharedPointer<RC::API::Card> card);
 
     void handleCardEditFinished(const QSharedPointer<RC::API::Card> &card);
-    void handleResetCardModel(const QSharedPointer<RC::Card> &card);
+    void handleResetCardModel(const QSharedPointer<RC::API::Card> &card);
 
     void handleCardRemoved(unsigned int id);
     void handleCardSelectedForWork(const QSharedPointer<CardModel>& card);

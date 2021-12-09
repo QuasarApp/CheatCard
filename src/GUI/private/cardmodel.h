@@ -98,7 +98,7 @@ public:
 signals:
     void objChanged();
     void editFinished(const QSharedPointer<API::Card>& card);
-    void resetCardModel(const QSharedPointer<Card>& card);
+    void resetCardModel(const QSharedPointer<API::Card>& card);
     void purchasesNumberChanged();
 
     void receivedItemsChanged();

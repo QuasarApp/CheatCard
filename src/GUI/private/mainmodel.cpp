@@ -597,7 +597,7 @@ void MainModel::handleCardEditFinished(const QSharedPointer<API::Card>& card) {
     saveCard(card);
 }
 
-void MainModel::handleResetCardModel(const QSharedPointer<Card> &card) {
+void MainModel::handleResetCardModel(const QSharedPointer<RC::API::Card> &card) {
     card->setCardVersion(0);
     _db->insertIfExistsUpdateObject(card);
 }

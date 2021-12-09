@@ -306,6 +306,10 @@
         <source>Received %0: </source>
         <translation>Полученно %0: </translation>
     </message>
+    <message>
+        <source>Default</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditUserView</name>
