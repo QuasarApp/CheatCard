@@ -587,68 +587,8 @@ void MainModel::handleCardEditFinished(const QSharedPointer<Card>& card) {
 }
 
 void MainModel::handleResetCardModel(const QSharedPointer<Card> &card) {
-
-    card->setOwnerSignature(getCurrentUser()->user()->getKey());
-
-    auto localCard = _backEndModel->getCard(card->cardId());
-
-    if (localCard && localCard->compare(*card.data())) {
-        return;
-    }
-
-    auto listOfUsers = _backEndModel->getAllUserFromCard(card->cardId());
-
-    if (localCard && listOfUsers.size() && localCard->getFreeIndex() != card->getFreeIndex()) {
-
-        auto service = QmlNotificationService::NotificationService::getService();
-
-        if (service) {
-
-            QmlNotificationService::Listner listner = [card, localCard, this] (bool accepted) {
-                getCurrentListModel()->importCard(localCard);
-
-                if (getMode() == static_cast<int>(Mode::Client)) {
-                    localCard->setCardVersion(0);
-                    _db->insertIfExistsUpdateObject(localCard);
-                } else {
-                    return;
-                }
-
-                if (accepted) {
-
-                    card->idGen();
-                    getCurrentListModel()->importCard(card);
-
-                    if (getMode() == static_cast<int>(Mode::Client)) {
-                        card->setCardVersion(0);
-                        _db->insertIfExistsUpdateObject(card);
-                    } else {
-                        return;
-                    }
-                }
-            };
-
-            service->setQuestion(listner, tr("Your customers already using this card!"),
-                                 tr(" You trying to change the bonus rules."
-                                    " These changes will be saved as a new card."
-                                    " The old card continue work correctly and all customers data will be saved."
-                                    " Do you want to continue?"));
-
-
-        }
-
-        return;
-    }
-
-    if (getMode() == static_cast<int>(Mode::Client)) {
-        card->setCardVersion(0);
-        _db->insertIfExistsUpdateObject(card);
-    } else {
-        return;
-    }
-
-
-
+    card->setCardVersion(0);
+    _db->insertIfExistsUpdateObject(card);
 }
 
 void MainModel::handleCardRemoved(unsigned int id) {
