@@ -12,14 +12,15 @@
 #include "CheatCard/core_global.h"
 
 namespace RC {
+namespace API {
 
 
 class CHEATCARD_CORE_EXPORT UserHeader: public QH::PKG::AbstractData
 {
     QH_PACKAGE(UserHeader, "UserHeader")
 
-public:
-    UserHeader();
+    public:
+        UserHeader();
     bool isValid() const override;
 
     unsigned int getUserId() const;
@@ -44,5 +45,6 @@ private:
     QByteArray _token;
     QString _userName;
 };
+}
 }
 #endif // USERHEADER_H

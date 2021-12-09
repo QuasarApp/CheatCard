@@ -15,9 +15,12 @@
 
 namespace RC {
 
-class CardModel;
+namespace API {
 class Card;
 class UsersCards;
+}
+class CardModel;
+
 
 class CardsListModel: public QAbstractListModel, public iCardListModel
 {
@@ -42,9 +45,9 @@ public:
     QHash<int, QByteArray> roleNames() const override;
 
     const QList<int> &cards() const;
-    void setCards(const QList<QSharedPointer<Card>> &newCards);
-    QSharedPointer<CardModel> importCard(const QSharedPointer<Card> & card);
-    void updateMetaData(const QList<QSharedPointer<RC::UsersCards> > &purchasesNumbers);
+    void setCards(const QList<QSharedPointer<API::Card>> &newCards);
+    QSharedPointer<CardModel> importCard(const QSharedPointer<API::Card> & card);
+    void updateMetaData(const QList<QSharedPointer<RC::API::UsersCards> > &purchasesNumbers);
 
     Q_INVOKABLE void addCard() override;
     Q_INVOKABLE void removeCard(int cardId) override;
@@ -54,13 +57,13 @@ public:
 
 signals:
     void sigCardRemoved(unsigned int cardName);
-    void sigEditFinished(const QSharedPointer<Card>& card);
+    void sigEditFinished(const QSharedPointer<API::Card>& card);
     void sigCardSelectedForWork(const QSharedPointer<CardModel>& card);
     void sigCardSelectedForStatistic(const QSharedPointer<CardModel>& card);
 
 
 private:
-    QSharedPointer<CardModel> updateCard(const QSharedPointer<Card> & card);
+    QSharedPointer<CardModel> updateCard(const QSharedPointer<API::Card> & card);
 
     void configureModel(const QSharedPointer<CardModel>& cardModel);
 
