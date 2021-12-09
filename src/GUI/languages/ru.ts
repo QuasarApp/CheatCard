@@ -56,19 +56,19 @@
     </message>
     <message>
         <source>Edit card</source>
-        <translation type="unfinished"></translation>
+        <translation>Редактировать</translation>
     </message>
     <message>
         <source>Remove card</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалить карту</translation>
     </message>
     <message>
         <source>Activate card</source>
-        <translation type="unfinished"></translation>
+        <translation>Активировать</translation>
     </message>
     <message>
         <source>Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Статистика</translation>
     </message>
 </context>
 <context>
@@ -115,11 +115,19 @@
     </message>
     <message>
         <source>Export your key</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Экспортировать ключ</translation>
     </message>
     <message>
         <source>Import your key</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Импортировать ключ</translation>
+    </message>
+    <message>
+        <source>Recovery</source>
+        <translation>Восстановить</translation>
+    </message>
+    <message>
+        <source>Backup</source>
+        <translation>Резервное копирование</translation>
     </message>
 </context>
 <context>
@@ -374,27 +382,27 @@
     <name>ExportUserKeyPage</name>
     <message>
         <source>Export user key</source>
-        <translation type="unfinished"></translation>
+        <translation>Экспорт ключа</translation>
     </message>
     <message>
         <source>**For what this use**</source>
-        <translation type="unfinished"></translation>
+        <translation>**Для чего это использовать**</translation>
     </message>
     <message>
         <source>Some times you can drop your application data or your device. Therefore you can create a backup qr code that can recovery your application data after dropping</source>
-        <translation type="unfinished"></translation>
+        <translation>Если случится так что вы потеряете данные приложения или свое устройство. Вы можете создать резервный qr-код, который восстановит данные вашего приложения после утери</translation>
     </message>
     <message>
         <source>Save and open in files</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить и показать</translation>
     </message>
     <message>
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation>Готово</translation>
     </message>
     <message>
         <source>Backup code exported successful. The BackUp Code Available in your documnets folder. See &lt;b&gt;%0&lt;/b&gt; path</source>
-        <translation type="unfinished"></translation>
+        <translation>Резервный код успешно экспортирован. Код резервной копии Доступен в папке с документами. Сохранён в &lt;b&gt;%0&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -445,11 +453,11 @@
     </message>
     <message>
         <source>Nobody, I just want to recover data</source>
-        <translation type="unfinished"></translation>
+        <translation>Никто! я хочу восстановить данные</translation>
     </message>
     <message>
         <source>Done!</source>
-        <translation type="unfinished">Готово!</translation>
+        <translation>Готово!</translation>
     </message>
 </context>
 <context>
@@ -483,27 +491,27 @@
     <name>ImportUserKeyPage</name>
     <message>
         <source>**Attention** : This operation redefine your current application data (Cards, seals, users data). All current data will be removed.</source>
-        <translation type="unfinished"></translation>
+        <translation>**Внимание** : Эта операция заменит ваши текущие данные приложения (карты, печати, данные пользователей). Все текущие данные будут удалены.</translation>
     </message>
     <message>
         <source>Import from qr code scanner</source>
-        <translation type="unfinished"></translation>
+        <translation>Импорт с помощью сканера qr-кода</translation>
     </message>
     <message>
         <source>Import from file with qr code</source>
-        <translation type="unfinished"></translation>
+        <translation>Импорт из файла qr кода</translation>
     </message>
     <message>
         <source>Import your cadrs data</source>
-        <translation type="unfinished"></translation>
+        <translation>Импорт данных ваших карт</translation>
     </message>
     <message>
         <source>Select your backup qr code</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберете ваш бэкап qr код</translation>
     </message>
     <message>
         <source>codes</source>
-        <translation type="unfinished"></translation>
+        <translation>коды</translation>
     </message>
 </context>
 <context>
@@ -762,7 +770,7 @@
     </message>
     <message>
         <source>To get a cheat card, scan the QR code and follow the link.</source>
-        <translation>Что бы получить Чит карту просканируйте QR код</translation>
+        <translation>Что бы получить Чит карту, просканируйте QR код.</translation>
     </message>
 </context>
 <context>
@@ -810,15 +818,15 @@
     <name>RC::ImportExportUserModel</name>
     <message>
         <source>Oh shit</source>
-        <translation type="unfinished"></translation>
+        <translation>Оу чёрт</translation>
     </message>
     <message>
         <source>Permission denied to selected file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Доступ к выбранному файлу запрещен.</translation>
     </message>
     <message>
         <source>It looks like the file you selected does not contain a recovery code</source>
-        <translation type="unfinished"></translation>
+        <translation>Похоже что выбранный вами файл не содержит кода восстановления</translation>
     </message>
 </context>
 <context>
@@ -849,39 +857,39 @@
     </message>
     <message>
         <source>Wow shit</source>
-        <translation type="unfinished"></translation>
+        <translation>Воу чё за хрень</translation>
     </message>
     <message>
         <source>This qr code is invalid. Sorry... </source>
-        <translation type="unfinished"></translation>
+        <translation>Этот qr-код недействителен. Сорян... </translation>
     </message>
     <message>
         <source>I managed to do it !</source>
-        <translation type="unfinished"></translation>
+        <translation>Мне это удалось!</translation>
     </message>
     <message>
         <source>Yor secret key are imported</source>
-        <translation type="unfinished"></translation>
+        <translation>Ваш секретный ключ импортирован</translation>
     </message>
     <message>
         <source>We Has a troubles</source>
-        <translation type="unfinished"></translation>
+        <translation>У нас походу проблемы</translation>
     </message>
     <message>
         <source>Yor secret key are imported successful but donwload backup data from server is failed. Please check your internet connection and try restore your data again</source>
-        <translation type="unfinished"></translation>
+        <translation>Ваш секретный ключ успешно импортирован, но загрузить данные резервной копии с сервера не удалось. Проверьте подключение к Интернету и попробуйте восстановить данные еще раз</translation>
     </message>
     <message>
         <source>You have network problems. Don&apos;t worry, all cards and your bonuses are saved on the merchant&apos;s host and will be available the next time you visit. Even if you will don&apos;t have internet connection.</source>
-        <translation type="unfinished"></translation>
+        <translation>У вас проблемы с сетью. Не волнуйтесь, все карты и ваши бонусы сохраняются на хосте продавца и будут доступны при следующем посещении. Даже если у вас не будет подключения к Интернету.</translation>
     </message>
     <message>
         <source>Oops. Error code: </source>
-        <translation type="unfinished"></translation>
+        <translation>Ойёй. Код ошибки: </translation>
     </message>
     <message>
         <source>Yor secret key and public key is not pair May be you scan not valid qr code ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Ваш секретный ключ и открытый ключ не совпадают. Возможно, вы отсканировали неверный qr-код ...</translation>
     </message>
 </context>
 <context>
@@ -946,11 +954,11 @@
     </message>
     <message>
         <source>All Done! &lt;b&gt;But If you drop your application data then all your cards will be removed&lt;/b&gt;. For save it self of this situations we recommends create a back up your master key.</source>
-        <translation type="unfinished"></translation>
+        <translation>Все готово! &lt;b&gt;Но если вы сбросите данные приложения, все ваши карты будут удалены&lt;/b&gt;. Чтобы избежать подобных ситуаций, мы рекомендуем создать резервную копию вашего мастер-ключа.</translation>
     </message>
     <message>
         <source>Create a back up of master key for save data of my account.</source>
-        <translation type="unfinished"></translation>
+        <translation>Создайте резервную копию мастер-ключа для сохранения данных моей учетной записи.</translation>
     </message>
 </context>
 <context>
