@@ -877,7 +877,7 @@
     </message>
     <message>
         <source>Oops. Error code: </source>
-        <translation>Ойёй ошибка кода: </translation>
+        <translation>Ойёй. Код ошибки: </translation>
     </message>
     <message>
         <source>Yor secret key and public key is not pair May be you scan not valid qr code ...</source>
