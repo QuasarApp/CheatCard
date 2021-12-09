@@ -139,8 +139,19 @@ bool MainModel::handleImportUser(const QString &base64UserData) {
     userData->fromBytes(QByteArray::fromBase64(base64UserData.toLatin1(),
                                                QByteArray::Base64UrlEncoding));
 
+
     auto service = QmlNotificationService::NotificationService::getService();
 
+    auto userKey = userData->getKey();
+    auto secret = userData->secret();
+    if (userKey != User::makeKey(secret)) {
+
+        service->setNotify(tr("We Has a troubles"),
+                           tr("Yor secret key and public key is not pair"
+                              " May be you scan not valid qr code ..."),
+                           "", QmlNotificationService::NotificationData::Error);
+        return false;
+    }
 
     if (!userData->isValid()) {
 
