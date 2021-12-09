@@ -144,7 +144,7 @@ bool MainModel::handleImportUser(const QString &base64UserData) {
 
     auto userKey = userData->getKey();
     auto secret = userData->secret();
-    if (userKey != User::makeKey(secret)) {
+    if (userKey != API::User::makeKey(secret)) {
 
         service->setNotify(tr("We Has a troubles"),
                            tr("Yor secret key and public key is not pair"
