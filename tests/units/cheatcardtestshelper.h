@@ -9,7 +9,9 @@
 
 
 namespace RC {
+namespace API {
 class User;
+}
 }
 
 void softDeleteWrapDB(TestDataBaseWrapper* obj);
@@ -43,7 +45,7 @@ public:
         return QSharedPointer<NodeType>(new NodeType(sallerDb), softDeleteWrapNode);
     }
 
-    static QSharedPointer<RC::User> makeUser();
+    static QSharedPointer<RC::API::User> makeUser();
     static unsigned int testCardId();
     static unsigned int testUserId();
     static QByteArray testUserPublicKey();

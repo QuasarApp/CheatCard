@@ -10,6 +10,7 @@
 #include <ctime>
 
 namespace RC {
+namespace API {
 
 
 
@@ -17,7 +18,7 @@ Card::Card(): QH::PKG::DBObject("Cards") {
     idGen();
 }
 
-void RC::Card::idGen() {
+void RC::API::Card::idGen() {
     setId(QVariant::fromValue(rand() + time(0)));
 }
 
@@ -118,7 +119,6 @@ QDataStream &Card::fromStream(QDataStream &stream) {
     stream >> fontColor;
     stream >> _freeItemName;
     stream >> cardVersion;
-    stream >> _ownerSignature;
 
     return stream;
 }
@@ -140,7 +140,6 @@ QDataStream &Card::toStream(QDataStream &stream) const {
     stream << fontColor;
     stream << _freeItemName;
     stream << cardVersion;
-    stream << _ownerSignature;
 
     return stream;
 }
@@ -255,5 +254,6 @@ const QString &Card::getFontColor() const {
 
 void Card::setFontColor(const QString &newColor) {
     fontColor = newColor;
+}
 }
 }

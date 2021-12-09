@@ -16,15 +16,17 @@
 #include <CheatCard/api/api0/session.h>
 #include <CheatCard/api/api0/user.h>
 #include <CheatCard/api/api0/userscards.h>
+#include <CheatCard/api/apiv0.h>
 
 namespace RC {
 
 Seller::Seller(QH::ISqlDBCache *db): BaseNode(db) {
-    registerPackageType<CardStatusRequest>();
-    registerPackageType<CardDataRequest>();
+    registerPackageType<API::CardStatusRequest>();
+    registerPackageType<API::CardDataRequest>();
 }
 
-bool Seller::incrementPurchases(const QSharedPointer<UsersCards> &usersCardsData, int purchasesCount) {
+bool Seller::incrementPurchases(const QSharedPointer<API::UsersCards> &usersCardsData,
+                                int purchasesCount) {
 
     if (!usersCardsData)
         return false;
@@ -43,8 +45,8 @@ bool Seller::incrementPurchases(const QSharedPointer<UsersCards> &usersCardsData
     return true;
 }
 
-bool Seller::cardValidation(const QSharedPointer<Card> &cardFromDB,
-                             const QByteArray &ownerSecret) const {
+bool Seller::cardValidation(const QSharedPointer<API::Card> &cardFromDB,
+                            const QByteArray &ownerSecret) const {
     Q_UNUSED(cardFromDB);
     Q_UNUSED(ownerSecret);
 
@@ -56,16 +58,17 @@ void Seller::getSignData(QByteArray &data) const {
         data = currentUser()->secret();
 }
 
-QSharedPointer<UsersCards> Seller::prepareData(const QSharedPointer<UserHeader> &userHeaderData,
-                         unsigned int cardId) {
+QSharedPointer<API::UsersCards>
+Seller::prepareData(const QSharedPointer<API::UserHeader> &userHeaderData,
+                    unsigned int cardId) {
 
     if (!userHeaderData->isValid())
         return nullptr;
 
-    auto session = QSharedPointer<Session>::create();
+    auto session = QSharedPointer<API::Session>::create();
 
     session->setSessionId(userHeaderData->getSessionId());
-    session->setUsercardId(UsersCards::genId(userHeaderData->getUserId(), cardId));
+    session->setUsercardId(API::UsersCards::genId(userHeaderData->getUserId(), cardId));
 
     if (!session->isValid()) {
         return nullptr;
@@ -76,7 +79,7 @@ QSharedPointer<UsersCards> Seller::prepareData(const QSharedPointer<UserHeader> 
 
     _lastRequested[session->getSessionId()] = session;
 
-    User userrquest;
+    API::User userrquest;
     userrquest.setId(userHeaderData->getUserId());
 
     auto dbUser = DataConvertor::toUser(userHeaderData);
@@ -92,7 +95,7 @@ QSharedPointer<UsersCards> Seller::prepareData(const QSharedPointer<UserHeader> 
 
     auto userCardsData = getUserCardData(userHeaderData->getUserId(), cardId);
     if (!userCardsData) {
-        userCardsData = QSharedPointer<UsersCards>::create();
+        userCardsData = QSharedPointer<API::UsersCards>::create();
         userCardsData->setUser(userHeaderData->getUserId());
         userCardsData->setPurchasesNumber(0);
         userCardsData->setCard(cardId);
@@ -101,7 +104,7 @@ QSharedPointer<UsersCards> Seller::prepareData(const QSharedPointer<UserHeader> 
     return userCardsData;
 }
 
-bool Seller::incrementPurchase(const QSharedPointer<UserHeader> &userHeaderData,
+bool Seller::incrementPurchase(const QSharedPointer<API::UserHeader> &userHeaderData,
                                unsigned int cardId, int purchasesCount,
                                const QString &domain, int port) {
 
@@ -116,14 +119,24 @@ bool Seller::incrementPurchase(const QSharedPointer<UserHeader> &userHeaderData,
         return false;
     }
 
+    auto action = [this](QH::AbstractNodeInfo *node) {
+        auto api = getSelectedApiParser(node).staticCast<ApiV0>();
+        if (api) {
+            api->sendSessions(_lastRequested, node);
+            _lastRequested.clear();
+        }
+    };
+
     if (domain.isEmpty()) {
-        return addNode(getServerHost(), port);
+        return addNode(getServerHost(), port, action,
+                       QH::NodeCoonectionStatus::Confirmed);
     }
 
-    return addNode(domain, port);
+    return addNode(domain, port, action,
+                   QH::NodeCoonectionStatus::Confirmed);
 }
 
-bool Seller::sentDataToServerPurchase(const QSharedPointer<UserHeader> &userHeaderData,
+bool Seller::sentDataToServerPurchase(const QSharedPointer<API::UserHeader> &userHeaderData,
                                       unsigned int cardId,
                                       const QString &domain,
                                       int port) {
@@ -146,11 +159,5 @@ void Seller::nodeConnected(QH::AbstractNodeInfo *node) {
 
 void Seller::nodeConfirmend(QH::AbstractNodeInfo *node) {
     BaseNode::nodeConfirmend(node);
-
-    for (const auto &session: qAsConst(_lastRequested)) {
-        sendData(session.data(), node);
-    }
-
-    _lastRequested.clear();
 }
 }

@@ -1,3 +1,4 @@
+
 //#
 //# Copyright (C) 2021-2021 QuasarApp.
 //# Distributed under the GPLv3 software license, see the accompanying
@@ -5,23 +6,14 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#ifndef SELLERSSL_H
-#define SELLERSSL_H
 
-#include "seller.h"
+#include "apiobjectsfactory.h"
 
 namespace RC {
-
-namespace API {
-class UserHeader;
-}
-
-class CHEATCARD_CORE_EXPORT SellerSSL: public Seller
+RC::APIObjectsFactory::APIObjectsFactory(QH::ISqlDBCache *db)
 {
-    Q_OBJECT
-public:
-    SellerSSL(QH::ISqlDBCache *db);
-
-};
+    _db = db;
 }
-#endif // SELLERSSL_H
+}
+
+

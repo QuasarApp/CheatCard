@@ -15,6 +15,7 @@
 #include <dbobject.h>
 
 namespace RC {
+namespace API {
 
 /**
  * @brief The User class This is maic class for contatins all information about user
@@ -75,5 +76,6 @@ private:
     bool _fSaller = false;
 };
 
+}
 }
 #endif // USER_H

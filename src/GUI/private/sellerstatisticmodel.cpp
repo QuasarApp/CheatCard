@@ -34,8 +34,8 @@ QVariant SellerStatisticModel::data(const QModelIndex &index, int role) const {
             return unknownValue();
         }
 
-        const QSharedPointer<RC::UsersCards> &item = _data.at(index.row());
-        const QSharedPointer<RC::User> &user = _users.value(item->getUser());
+        const QSharedPointer<RC::API::UsersCards> &item = _data.at(index.row());
+        const QSharedPointer<RC::API::User> &user = _users.value(item->getUser());
 
         switch (index.column()) {
         case 0 : {
@@ -74,8 +74,8 @@ QSortFilterProxyModel *SellerStatisticModel::proxyModel() const {
 }
 
 void SellerStatisticModel::setDataList(const QSharedPointer<CardModel> &cardData,
-                                       const QList<QSharedPointer<RC::UsersCards> > &newData,
-                                       const QList<QSharedPointer<RC::User>> & userData) {
+                                       const QList<QSharedPointer<RC::API::UsersCards> > &newData,
+                                       const QList<QSharedPointer<RC::API::User>> & userData) {
 
     beginResetModel();
     setCurrentCard(cardData);
@@ -104,11 +104,11 @@ void SellerStatisticModel::setCurrentCard(const QSharedPointer<CardModel> &newCu
     emit currentCardChanged();
 }
 
-const QHash<unsigned int, QSharedPointer<RC::User> > &SellerStatisticModel::users() const {
+const QHash<unsigned int, QSharedPointer<RC::API::User> > &SellerStatisticModel::users() const {
     return _users;
 }
 
-void SellerStatisticModel::setUsers(const QHash<unsigned int, QSharedPointer<RC::User> > &newUsers) {
+void SellerStatisticModel::setUsers(const QHash<unsigned int, QSharedPointer<RC::API::User> > &newUsers) {
     _users = newUsers;
 }
 

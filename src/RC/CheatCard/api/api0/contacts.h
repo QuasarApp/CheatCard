@@ -11,6 +11,7 @@
 
 
 namespace RC {
+namespace API {
 
 class Contacts: public QH::PKG::DBObject
 {
@@ -30,5 +31,6 @@ private:
     unsigned int user = 0;
 };
 
+}
 }
 #endif // SALLERSUSERS_H

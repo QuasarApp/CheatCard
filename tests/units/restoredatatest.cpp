@@ -46,7 +46,7 @@ void RestoreDataTest::restoreTest(const QSharedPointer<TestSeller> &seller,
     QVERIFY(server->run(TEST_CHEAT_HOST, TEST_CHEAT_PORT));
 
     auto user = CheatCardTestsHelper::makeUser();
-    auto obj = QSharedPointer<RC::UserHeader>::create();
+    auto obj = QSharedPointer<RC::API::UserHeader>::create();
 
     obj->setSessionId(session);
     obj->setToken(user->getKey());
@@ -100,8 +100,8 @@ void RestoreDataTest::restoreTest(const QSharedPointer<TestSeller> &seller,
     auto userKey = CheatCardTestsHelper::testUserPublicKey();
     auto testPrivKey = CheatCardTestsHelper::testUserPrivKey();
 
-    QVERIFY(RC::User::makeKey(testPrivKey) == userKey);
-    QVERIFY(RC::User::makeId(userKey) == CheatCardTestsHelper::testUserId());
+    QVERIFY(RC::API::User::makeKey(testPrivKey) == userKey);
+    QVERIFY(RC::API::User::makeId(userKey) == CheatCardTestsHelper::testUserId());
 
     seller->dropDB();
 

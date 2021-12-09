@@ -10,8 +10,8 @@ TestVisitor::TestVisitor(QSharedPointer<TestDataBaseWrapper> db): RC::Visitor(db
         setRequestInterval(0);
 }
 
-QSharedPointer<RC::Card> TestVisitor::getCard(unsigned int cardId) const {
-    RC::Card card;
+QSharedPointer<RC::API::Card> TestVisitor::getCard(unsigned int cardId) const {
+    RC::API::Card card;
     card.setId(cardId);
 
     auto cardObj = db()->getObject(card);
@@ -19,7 +19,7 @@ QSharedPointer<RC::Card> TestVisitor::getCard(unsigned int cardId) const {
 }
 
 int TestVisitor::getPurchaseCount(unsigned int userId, unsigned int cardId) {
-    QSharedPointer<RC::UsersCards> result = getUserCardData(userId, cardId);
+    QSharedPointer<RC::API::UsersCards> result = getUserCardData(userId, cardId);
 
     if (!result)
         return 0;

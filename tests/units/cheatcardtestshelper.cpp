@@ -7,8 +7,8 @@ CheatCardTestsHelper::CheatCardTestsHelper()
 
 }
 
-QSharedPointer<RC::User> CheatCardTestsHelper::makeUser() {
-    auto result = QSharedPointer<RC::User>::create();
+QSharedPointer<RC::API::User> CheatCardTestsHelper::makeUser() {
+    auto result = QSharedPointer<RC::API::User>::create();
 
     result->setName(QString("User%0").arg(rand()));
 
