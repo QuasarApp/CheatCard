@@ -56,19 +56,19 @@
     </message>
     <message>
         <source>Edit card</source>
-        <translation>Редактировать</translation>
+        <translation type="vanished">Редактировать</translation>
     </message>
     <message>
         <source>Remove card</source>
-        <translation>Удалить карту</translation>
+        <translation type="vanished">Удалить карту</translation>
     </message>
     <message>
         <source>Activate card</source>
-        <translation>Активировать</translation>
+        <translation type="vanished">Активировать</translation>
     </message>
     <message>
         <source>Statistics</source>
-        <translation>Статистика</translation>
+        <translation type="vanished">Статистика</translation>
     </message>
 </context>
 <context>
@@ -321,6 +321,10 @@
     <message>
         <source>Statistics</source>
         <translation type="unfinished">Статистика</translation>
+    </message>
+    <message>
+        <source>Hide statistics</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

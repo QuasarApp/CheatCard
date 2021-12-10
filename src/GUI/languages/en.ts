@@ -56,19 +56,19 @@
     </message>
     <message>
         <source>Edit card</source>
-        <translation>Edit card</translation>
+        <translation type="vanished">Edit card</translation>
     </message>
     <message>
         <source>Remove card</source>
-        <translation>Remove card</translation>
+        <translation type="vanished">Remove card</translation>
     </message>
     <message>
         <source>Activate card</source>
-        <translation>Activate card</translation>
+        <translation type="vanished">Activate card</translation>
     </message>
     <message>
         <source>Statistics</source>
-        <translation>Statistics</translation>
+        <translation type="vanished">Statistics</translation>
     </message>
 </context>
 <context>
@@ -328,6 +328,10 @@
     <message>
         <source>Statistics</source>
         <translation type="unfinished">Statistics</translation>
+    </message>
+    <message>
+        <source>Hide statistics</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
