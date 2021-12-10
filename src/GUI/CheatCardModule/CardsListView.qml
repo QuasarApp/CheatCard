@@ -83,20 +83,16 @@ Page {
                     EditCardView {
                         id: cardView
                         model: card
-                        opacity: (cardItem.ListView.isCurrentItem)? 1: 0.5
+                        opacity: (isCurrentItem)? 1: 0.5
                         editable: !Boolean(card && card.title.length)
+                        onEditableChanged: {
+                            hasEdit = editable
+                        }
+                        isCurrentItem: cardItem.ListView.isCurrentItem
                         onFinished: () => {
                                         hasEdit = editable = false
                                         root.finished()
 
-                                    }
-
-                        onSigHold: {
-                            activityCard();
-                        }
-
-                        onSigSwipe: (side) => {
-                                        showStatistickAction(side);
                                     }
 
                         Behavior on width {
@@ -124,113 +120,6 @@ Page {
                         width: parent.width * ((cardItem.ListView.isCurrentItem)? 1: 0.9)
                         anchors.centerIn: parent
                     }
-
-                    ToolButton {
-                        id: editCardBtn
-                        visible: cardItem.ListView.isCurrentItem && !cardView.editable
-                        icon.source: "qrc:/images/private/resources/Interface_icons/Right_topmenu.svg"
-                        icon.color: (card)? card.fontColor: Material.foreground
-                        font.bold: true
-                        font.pointSize: 14
-
-                        onClicked: editMenu.popup(this, editCardBtn.x, editCardBtn.height)
-                    }
-
-                    Menu {
-                        id: editMenu
-
-                        MenuItem {
-
-                            visible: (mainModel)? mainModel.mode: false
-                            height: (visible)? implicitHeight : 0
-
-                            text: qsTr("Edit card")
-                            icon.source: "qrc:/images/private/resources/Interface_icons/edit_card.svg"
-                            onClicked:  () => {
-                                            cardView.editable = true;
-                                        }
-                        }
-
-                        MenuItem {
-
-                            text: qsTr("Remove card")
-                            icon.source: "qrc:/images/private/resources/Interface_icons/delete_card.svg"
-                            onClicked:  () => {
-                                            root.model.removeCard(card.id);
-                                        }
-                        }
-
-                        MenuItem {
-
-                            visible: (mainModel)? mainModel.mode: false
-                            height: (visible)? implicitHeight : 0
-
-                            text: qsTr("Activate card")
-                            icon.source: "qrc:/images/private/resources/Interface_icons/Activate.svg"
-                            onClicked:  () => {
-                                            activityCard();
-                                        }
-                        }
-
-                        MenuItem {
-
-                            text: qsTr("Statistics")
-                            icon.source: "qrc:/images/private/resources/Interface_icons/statistic.svg"
-                            onClicked: () => {
-                                           showStatistickAction();
-                                        }
-                        }        
-
-                    }
-
-                    function activityCard() {
-                        if (root.model) {
-                            root.model.cardSelected(card.id, 0)
-                        }
-
-                        const fAvailable = root.editable && !cardView.editable && cardItem.ListView.isCurrentItem;
-                        if (!fAvailable) {
-                            return;
-                        }
-
-                        activityProcessor.newActivity("qrc:/CheatCardModule/WaitConnectView.qml",
-                                                      mainModel.waitModel)
-                    }
-
-                    function showStatisticsCard() {
-                        if (root.editable) {
-
-                            if (root.model) {
-                                root.model.cardSelected(card.id, 1)
-                            }
-
-                            const activity = "qrc:/CheatCardModule/SellerStatistic.qml";
-                            activityProcessor.newActivity(activity,
-                                                          mainModel.statisticModel)
-                            return;
-                        }
-                    }
-
-                    function turnOverCard(s) {
-
-                        if (list.orientation === ListView.Vertical ||
-                            s === 2 || s === 3) {
-
-                            cardView.turnOverCard(list.orientation === ListView.Vertical);
-                        } else {
-                            cardView.turnOverCard(list.orientation === ListView.Vertical);
-                        }
-
-                    }
-
-                    function showStatistickAction(side) {
-                        if (mainModel && mainModel.mode) {
-                            showStatisticsCard();
-                        } else {
-                            turnOverCard(side);
-                        }
-                    }
-
                 }
             }
 

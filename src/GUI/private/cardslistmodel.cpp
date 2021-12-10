@@ -137,20 +137,32 @@ void CardsListModel::removeCard(int cardId) {
     emit sigCardRemoved(cardId);
 }
 
-void CardsListModel::cardSelected(int cardId, int type) {
-    if (type == ForStatistick) {
-        emit sigCardSelectedForStatistic(_cache.value(cardId));
-    } else {
-        emit sigCardSelectedForWork(_cache.value(cardId));
-    }
-}
-
 const QHash<int, QSharedPointer<CardModel> > &CardsListModel::cache() const {
     return _cache;
 }
 
 void CardsListModel::configureModel(const QSharedPointer<CardModel> &cardModel) {
     connect(cardModel.data(), &CardModel::editFinished, this, &CardsListModel::sigEditFinished);
+    connect(cardModel.data(), &CardModel::sigRemoveRequest, this, &CardsListModel::sigRemoveRequest);
+    connect(cardModel.data(), &CardModel::sigActivate, this, &CardsListModel::handleActivate);
+    connect(cardModel.data(), &CardModel::sigShowStatistick, this, &CardsListModel::handleShowStatistic);
+
 }
 
+
+void CardsListModel::handleActivate(const QSharedPointer<API::Card>& card) {
+    auto cardModel = _cache.value(card->cardId());
+
+    if (cardModel) {
+        emit sigCardSelectedForWork(cardModel);
+    }
+}
+
+void CardsListModel::handleShowStatistic(const QSharedPointer<API::Card>& card) {
+    auto cardModel = _cache.value(card->cardId());
+
+    if (cardModel) {
+        emit sigCardSelectedForStatistic(cardModel);
+    }
+}
 }

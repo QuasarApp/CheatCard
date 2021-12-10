@@ -107,15 +107,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Export your key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Import your key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Share application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Recovery</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Backup</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -256,6 +256,22 @@
     </message>
     <message>
         <source>Card seal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit card</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove card</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Activate card</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Statistics</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

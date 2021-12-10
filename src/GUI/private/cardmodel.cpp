@@ -77,6 +77,21 @@ void CardModel::save() {
         emit editFinished(_card);
 }
 
+void CardModel::remove() {
+    if (_card)
+        emit sigRemoveRequest(_card);
+}
+
+void CardModel::activate() {
+    if (_card)
+        emit sigActivate(_card);
+}
+
+void CardModel::showStatistick() {
+    if (_card)
+        emit sigShowStatistick(_card);
+}
+
 void CardModel::setNewBackGround(const QString& backgroundPath) {
 
     if (!_card)

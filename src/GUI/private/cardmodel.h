@@ -76,6 +76,9 @@ public:
     void setFreeIndex(int newFreeIndex);
 
     Q_INVOKABLE void save();
+    Q_INVOKABLE void remove();
+    Q_INVOKABLE void activate();
+    Q_INVOKABLE void showStatistick();
 
     Q_INVOKABLE void setNewBackGround(const QString &backgroundPath);
     Q_INVOKABLE void setNewLogo(const QString &logoPath);
@@ -95,6 +98,10 @@ public:
 signals:
     void objChanged();
     void editFinished(const QSharedPointer<API::Card>& card);
+    void sigRemoveRequest(const QSharedPointer<API::Card>& card);
+    void sigActivate(const QSharedPointer<API::Card>& card);
+    void sigShowStatistick(const QSharedPointer<API::Card>& card);
+
     void purchasesNumberChanged();
 
     void receivedItemsChanged();

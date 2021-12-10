@@ -306,6 +306,22 @@
         <source>Received %0: </source>
         <translation>Полученно %0: </translation>
     </message>
+    <message>
+        <source>Edit card</source>
+        <translation type="unfinished">Редактировать</translation>
+    </message>
+    <message>
+        <source>Remove card</source>
+        <translation type="unfinished">Удалить карту</translation>
+    </message>
+    <message>
+        <source>Activate card</source>
+        <translation type="unfinished">Активировать</translation>
+    </message>
+    <message>
+        <source>Statistics</source>
+        <translation type="unfinished">Статистика</translation>
+    </message>
 </context>
 <context>
     <name>EditUserView</name>

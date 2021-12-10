@@ -313,6 +313,22 @@
         <source>Received %0: </source>
         <translation>Received %0: </translation>
     </message>
+    <message>
+        <source>Edit card</source>
+        <translation type="unfinished">Edit card</translation>
+    </message>
+    <message>
+        <source>Remove card</source>
+        <translation type="unfinished">Remove card</translation>
+    </message>
+    <message>
+        <source>Activate card</source>
+        <translation type="unfinished">Activate card</translation>
+    </message>
+    <message>
+        <source>Statistics</source>
+        <translation type="unfinished">Statistics</translation>
+    </message>
 </context>
 <context>
     <name>EditUserView</name>
