@@ -54,22 +54,6 @@
         <source>Let&apos;s go create the first card! Press &quot;Add Card &quot; button</source>
         <translation>Let&apos;s go create the first card! Press &quot;Add Card &quot; button</translation>
     </message>
-    <message>
-        <source>Edit card</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Remove card</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Activate card</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Statistics</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>CheatCard</name>
@@ -304,6 +288,22 @@
     <message>
         <source>Received %0: </source>
         <translation>Received %0: </translation>
+    </message>
+    <message>
+        <source>Edit card</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove card</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Activate card</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Statistics</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

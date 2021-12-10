@@ -83,8 +83,9 @@ Page {
                     EditCardView {
                         id: cardView
                         model: card
-                        opacity: (cardItem.ListView.isCurrentItem)? 1: 0.5
+                        opacity: (isCurrentItem)? 1: 0.5
                         editable: !Boolean(card && card.title.length)
+                        isCurrentItem: cardItem.ListView.isCurrentItem
                         onFinished: () => {
                                         hasEdit = editable = false
                                         root.finished()
