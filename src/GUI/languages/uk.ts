@@ -50,6 +50,22 @@
         <source>Let&apos;s go create the first card! Press &quot;Add Card &quot; button</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Edit card</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove card</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Activate card</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Statistics</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CheatCard</name>
@@ -94,11 +110,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Import your key</source>
+        <source>Recovery</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Export your key</source>
+        <source>Backup</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -733,6 +749,10 @@
     </message>
     <message>
         <source>Oops. Error code: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Yor secret key and public key is not pair May be you scan not valid qr code ...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -14,10 +14,14 @@
 
 namespace RC {
 
+namespace API {
 class UsersCards;
+class User;
+}
+
 class CardModel;
 class StatistickListProxyModel;
-class User;
+
 
 class SellerStatisticModel: public AbstrcattableModelWithHeaders
 {
@@ -35,24 +39,24 @@ public:
     QSortFilterProxyModel *proxyModel() const override;
 
     void setDataList(const QSharedPointer<RC::CardModel>& cardData,
-                     const QList<QSharedPointer<RC::UsersCards> > &newData,
-                     const QList<QSharedPointer<RC::User>> & userData);
+                     const QList<QSharedPointer<RC::API::UsersCards> > &newData,
+                     const QList<QSharedPointer<RC::API::User>> & userData);
 
     const QSharedPointer<RC::CardModel>& card() const;
 
     QObject *currentCard() const;
     void setCurrentCard(const QSharedPointer<CardModel> &newCurrentCard);
 
-    const QHash<unsigned int, QSharedPointer<RC::User> > &users() const;
-    void setUsers(const QHash<unsigned int, QSharedPointer<RC::User> > &newUsers);
+    const QHash<unsigned int, QSharedPointer<RC::API::User> > &users() const;
+    void setUsers(const QHash<unsigned int, QSharedPointer<RC::API::User> > &newUsers);
 
 signals:
     void currentCardChanged();
 
 private:
-    QList<QSharedPointer<RC::UsersCards>> _data;
+    QList<QSharedPointer<RC::API::UsersCards>> _data;
     QSharedPointer<RC::CardModel> _card;
-    QHash<unsigned int, QSharedPointer<RC::User>> _users;
+    QHash<unsigned int, QSharedPointer<RC::API::User>> _users;
 
 };
 

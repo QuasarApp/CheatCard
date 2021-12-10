@@ -15,7 +15,7 @@ void RC::UserModel::regenerateSessionKey() {
     setSessinon(static_cast<long long >(rand()) * rand());
 }
 
-UserModel::UserModel(QSharedPointer<User> user) {
+UserModel::UserModel(QSharedPointer<API::User> user) {
     setUser(user);
     srand(time(0));
 }
@@ -56,11 +56,11 @@ void UserModel::setName(const QString &newName) {
     emit objChanged();
 }
 
-QSharedPointer<User> UserModel::user() const {
+QSharedPointer<API::User> UserModel::user() const {
     return _user;
 }
 
-void UserModel::setUser(const QSharedPointer<User>& newUser) {
+void UserModel::setUser(const QSharedPointer<API::User>& newUser) {
 
     if (_user == newUser)
         return;
@@ -70,8 +70,8 @@ void UserModel::setUser(const QSharedPointer<User>& newUser) {
 
 }
 
-UserHeader UserModel::getHelloPackage() const {
-    UserHeader header;
+API::UserHeader UserModel::getHelloPackage() const {
+    API::UserHeader header;
     header.setSessionId(getSessinon());
     header.setUserId(user()->userId());
     header.setToken(user()->getKey());

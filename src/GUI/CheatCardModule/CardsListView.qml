@@ -119,6 +119,7 @@ Page {
                     }
                 }
             }
+
             delegate: delegateItem
         }
 

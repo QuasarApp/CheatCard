@@ -126,7 +126,7 @@ void ConnectionTest::apiTest(const QSharedPointer<TestSeller> &seller,
     QVERIFY(server->run(TEST_CHEAT_HOST, TEST_CHEAT_PORT));
 
     auto user = CheatCardTestsHelper::makeUser();
-    auto obj = QSharedPointer<RC::UserHeader>::create();
+    auto obj = QSharedPointer<RC::API::UserHeader>::create();
 
     obj->setSessionId(session);
     obj->setToken(user->getKey());

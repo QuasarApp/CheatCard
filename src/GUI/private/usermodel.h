@@ -21,7 +21,10 @@
 
 namespace RC {
 
+namespace API {
 class User;
+
+}
 
 class UserModel: public QObject, public QuasarAppUtils::SettingsListner
 {
@@ -36,15 +39,15 @@ class UserModel: public QObject, public QuasarAppUtils::SettingsListner
     QML_ELEMENT
 
 public:
-    UserModel(QSharedPointer<User> user);
+    UserModel(QSharedPointer<API::User> user);
 
     bool fSaller() const;
     void setFSaller(bool newFSaller);
     QString name() const;
     void setName(const QString &newName);
 
-    QSharedPointer<User> user() const;
-    void setUser(const QSharedPointer<User> &newUser);
+    QSharedPointer<API::User> user() const;
+    void setUser(const QSharedPointer<API::User> &newUser);
 
     long long getSessinon() const;
     const QString &sessionCode() const;
@@ -66,12 +69,12 @@ signals:
 
 protected:
     void setSessinon(long long newSessinon);
-    UserHeader getHelloPackage() const;
+    API::UserHeader getHelloPackage() const;
     void handleSettingsChanged(const QString& key, const QVariant& value) override;
 
 private:
 
-    QSharedPointer<User> _user;
+    QSharedPointer<API::User> _user;
     long long sessinon;
     QString _sessionCode;
     QByteArray _sellerToken;

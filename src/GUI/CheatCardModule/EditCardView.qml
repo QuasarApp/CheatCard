@@ -128,7 +128,7 @@ Page {
 
             ToolButton {
                 id: editCardBtn
-                visible: isCurrentItem && !root.editable && !root.backSide
+                visible: isCurrentItem && !root.editable
                 icon.source: "qrc:/images/private/resources/Interface_icons/Right_topmenu.svg"
                 icon.color: (card)? card.fontColor: Material.foreground
                 font.bold: true
@@ -564,6 +564,14 @@ Page {
             property int rowSignCount: 6
             property int maximumRowSignCount: 3
 
+            function showStatistickAction() {
+                if (mainModel && mainModel.mode) {
+                    showStatisticsCard();
+                } else {
+                    turnOverCard(side);
+                }
+            }
+
             function activityCard() {
 
                 const fAvailable = !root.editable && isCurrentItem;
@@ -594,14 +602,7 @@ Page {
             }
 
             function turnOverCard(s) {
-
-                if (list.orientation === ListView.Vertical ||
-                        s === 2 || s === 3) {
-
-                    cardView.turnOverCard(list.orientation === ListView.Vertical);
-                } else {
-                    cardView.turnOverCard(list.orientation === ListView.Vertical);
-                }
+                root.turnOverCard(true);
             }
         }
     }
@@ -766,14 +767,10 @@ Page {
 
         MenuItem {
 
-            text: qsTr("Statistics")
+            text: (root.backSide)? qsTr("Hide statistics"): qsTr("Statistics")
             icon.source: "qrc:/images/private/resources/Interface_icons/statistic.svg"
             onClicked: (side) => {
-                           if (!root.model.mode) {
-                               privateRoot.turnOverCard(side);
-                           } else {
-                               privateRoot.showStatisticsCard();
-                           }
+                           privateRoot.showStatistickAction();
                        }
         }
 
