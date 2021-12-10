@@ -574,7 +574,7 @@ Page {
 
             function activityCard() {
 
-                const fAvailable = !root.editable && isCurrentItem;
+                const fAvailable = mainModel.mode && isCurrentItem;
                 if (!fAvailable) {
                     return;
                 }
