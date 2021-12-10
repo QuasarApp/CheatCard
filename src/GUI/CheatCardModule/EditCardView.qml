@@ -568,7 +568,7 @@ Page {
                 if (mainModel && mainModel.mode) {
                     showStatisticsCard();
                 } else {
-                    turnOverCard(side);
+                    turnOverCard();
                 }
             }
 

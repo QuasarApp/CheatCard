@@ -85,6 +85,9 @@ Page {
                         model: card
                         opacity: (isCurrentItem)? 1: 0.5
                         editable: !Boolean(card && card.title.length)
+                        onEditableChanged: {
+                            hasEdit = editable
+                        }
                         isCurrentItem: cardItem.ListView.isCurrentItem
                         onFinished: () => {
                                         hasEdit = editable = false
