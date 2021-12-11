@@ -740,7 +740,7 @@
     </message>
     <message>
         <source>### Guide to using Cheat Cards for businessman</source>
-        <translation type="unfinished"></translation>
+        <translation>### Как использовать Чит Карту бизнессмену</translation>
     </message>
 </context>
 <context>

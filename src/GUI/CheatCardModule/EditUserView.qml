@@ -64,7 +64,7 @@ Frame {
         Label {
             text: (becomeaseller.visible)?
                       qsTr("Just a customer"):
-                      qsTr(" BusinessMan!");
+                      qsTr(" Businessman!");
         }
 
         Button {

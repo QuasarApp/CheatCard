@@ -779,7 +779,7 @@
     </message>
     <message>
         <source>### Guide to using Cheat Cards for businessman</source>
-        <translation type="unfinished"></translation>
+        <translation>### Guide to using Cheat Cards for businessman</translation>
     </message>
 </context>
 <context>
