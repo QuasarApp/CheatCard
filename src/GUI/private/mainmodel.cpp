@@ -595,8 +595,9 @@ void MainModel::handleCardEditFinished(const QSharedPointer<API::Card>& card) {
 
 void MainModel::handleRemoveRequest(const QSharedPointer<API::Card> &card) {
 
-    _currentCardsListModel->removeCard(card->cardId());
     _db->deleteObject(card);
+    _currentCardsListModel->removeCard(card->cardId());
+
 }
 
 void MainModel::handleCardSelectedForWork(const QSharedPointer<CardModel> &card) {
