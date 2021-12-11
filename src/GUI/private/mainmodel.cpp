@@ -604,8 +604,8 @@ void MainModel::handleRemoveRequest(const QSharedPointer<API::Card> &card) {
 
             if (accepted) {
 
-                _currentCardsListModel->removeCard(card->cardId());
                 _db->deleteObject(card);
+                _currentCardsListModel->removeCard(card->cardId());
             }
         };
 
