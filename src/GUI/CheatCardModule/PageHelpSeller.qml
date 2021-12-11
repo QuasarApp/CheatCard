@@ -17,7 +17,7 @@ Credits {
     iconWidth: 150
     listCustomInfo: [
         {
-            text: qsTr("### Guide to using Cheat Cards for merchants"),
+            text: qsTr("### Guide to using Cheat Cards for businessman"),
             align: Label.AlignHCenter,
         },
         {

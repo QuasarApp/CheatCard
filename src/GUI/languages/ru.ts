@@ -324,7 +324,7 @@
     </message>
     <message>
         <source>Hide statistics</source>
-        <translation>Спрятать </translation>
+        <translation>Спрятать статистику </translation>
     </message>
 </context>
 <context>
@@ -403,7 +403,7 @@
     </message>
     <message>
         <source>Start business</source>
-        <translation>Начнём бизнес!</translation>
+        <translation>Начать бизнес!</translation>
     </message>
 </context>
 <context>
@@ -640,7 +640,7 @@
     </message>
     <message>
         <source>### Guide to using Cheat Cards for merchants</source>
-        <translation>### Руководсвто по исользованию Чит Карты для продавцов</translation>
+        <translation type="vanished">### Руководсвто по исользованию Чит Карты для продавцов</translation>
     </message>
     <message>
         <source>&lt;img src=&quot;qrc:/private/resources/help/Help3.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
@@ -737,6 +737,10 @@
     <message>
         <source>* In order to issue the card to the client, press and hold on it.</source>
         <translation>* Для того что бы выдать карту клиенту необходимо нажать на неё и удерживать.</translation>
+    </message>
+    <message>
+        <source>### Guide to using Cheat Cards for businessman</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

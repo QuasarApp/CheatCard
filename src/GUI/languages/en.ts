@@ -679,7 +679,7 @@
     </message>
     <message>
         <source>### Guide to using Cheat Cards for merchants</source>
-        <translation>### Guide to using Cheat Cards for merchants</translation>
+        <translation type="vanished">### Guide to using Cheat Cards for merchants</translation>
     </message>
     <message>
         <source>&lt;img src=&quot;qrc:/private/resources/help/Help3.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
@@ -776,6 +776,10 @@
     <message>
         <source>* In order to issue the card to the client, press and hold on it.</source>
         <translation>* In order to issue the card to the client, press and hold on it.</translation>
+    </message>
+    <message>
+        <source>### Guide to using Cheat Cards for businessman</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
