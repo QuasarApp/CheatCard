@@ -65,7 +65,7 @@ CPage {
 
                             RadioButton {
                                 id: fRestore
-                                text: qsTr("Nobody, I just want to recover data")
+                                text: qsTr("I just want to recover data")
                             }
                         }
                     }

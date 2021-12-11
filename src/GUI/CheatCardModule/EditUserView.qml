@@ -64,12 +64,12 @@ Frame {
         Label {
             text: (becomeaseller.visible)?
                       qsTr("Just a customer"):
-                      qsTr("Salesman!");
+                      qsTr(" BusinessMan!");
         }
 
         Button {
             id: becomeaseller
-            text: qsTr("Become a seller");
+            text: qsTr("Start business");
             Layout.alignment: Qt.AlignHCenter
             Layout.columnSpan: 1
             visible: Boolean(root.userModel && !root.userModel.fSaller)

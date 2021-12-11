@@ -308,23 +308,23 @@
     </message>
     <message>
         <source>Edit card</source>
-        <translation type="unfinished">Редактировать</translation>
+        <translation>Редактировать</translation>
     </message>
     <message>
         <source>Remove card</source>
-        <translation type="unfinished">Удалить карту</translation>
+        <translation>Удалить карту</translation>
     </message>
     <message>
         <source>Activate card</source>
-        <translation type="unfinished">Активировать</translation>
+        <translation>Активировать</translation>
     </message>
     <message>
         <source>Statistics</source>
-        <translation type="unfinished">Статистика</translation>
+        <translation>Статистика</translation>
     </message>
     <message>
         <source>Hide statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Спрятать </translation>
     </message>
 </context>
 <context>
@@ -355,7 +355,7 @@
     </message>
     <message>
         <source>Become a seller</source>
-        <translation>Стать продавцом</translation>
+        <translation type="vanished">Стать продавцом</translation>
     </message>
     <message>
         <source>This user is seller</source>
@@ -379,7 +379,7 @@
     </message>
     <message>
         <source>Salesman!</source>
-        <translation>Продавец!</translation>
+        <translation type="vanished">Продавец!</translation>
     </message>
     <message>
         <source>Do you really want? </source>
@@ -396,6 +396,14 @@
     <message>
         <source>Oh, do you really want? </source>
         <translation type="vanished">А вы уверенны что оно вам надо? </translation>
+    </message>
+    <message>
+        <source> BusinessMan!</source>
+        <translation>БизнемсМен!</translation>
+    </message>
+    <message>
+        <source>Start business</source>
+        <translation>Начнём бизнес!</translation>
     </message>
 </context>
 <context>
@@ -473,11 +481,15 @@
     </message>
     <message>
         <source>Nobody, I just want to recover data</source>
-        <translation>Никто! я хочу восстановить данные</translation>
+        <translation type="vanished">Никто! я хочу восстановить данные</translation>
     </message>
     <message>
         <source>Done!</source>
         <translation>Готово!</translation>
+    </message>
+    <message>
+        <source>I just want to recover data</source>
+        <translation>Я просто хочу восстановить данные</translation>
     </message>
 </context>
 <context>

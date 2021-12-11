@@ -315,23 +315,23 @@
     </message>
     <message>
         <source>Edit card</source>
-        <translation type="unfinished">Edit card</translation>
+        <translation>Edit card</translation>
     </message>
     <message>
         <source>Remove card</source>
-        <translation type="unfinished">Remove card</translation>
+        <translation>Remove card</translation>
     </message>
     <message>
         <source>Activate card</source>
-        <translation type="unfinished">Activate card</translation>
+        <translation>Activate card</translation>
     </message>
     <message>
         <source>Statistics</source>
-        <translation type="unfinished">Statistics</translation>
+        <translation>Statistics</translation>
     </message>
     <message>
         <source>Hide statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Hide statistics</translation>
     </message>
 </context>
 <context>
@@ -370,7 +370,7 @@
     </message>
     <message>
         <source>Become a seller</source>
-        <translation>Become a seller</translation>
+        <translation type="vanished">Become a seller</translation>
     </message>
     <message>
         <source>This user is seller</source>
@@ -394,7 +394,7 @@
     </message>
     <message>
         <source>Salesman!</source>
-        <translation>Salesman!</translation>
+        <translation type="vanished">Salesman!</translation>
     </message>
     <message>
         <source>Do you really want? </source>
@@ -411,6 +411,14 @@
     <message>
         <source>Oh, do you really want? </source>
         <translation type="vanished">Oh, do you really want? </translation>
+    </message>
+    <message>
+        <source> BusinessMan!</source>
+        <translation> BusinessMan!</translation>
+    </message>
+    <message>
+        <source>Start business</source>
+        <translation>Start business</translation>
     </message>
 </context>
 <context>
@@ -508,11 +516,15 @@
     </message>
     <message>
         <source>Nobody, I just want to recover data</source>
-        <translation>Nobody, I just want to recover data</translation>
+        <translation type="vanished">Nobody, I just want to recover data</translation>
     </message>
     <message>
         <source>Done!</source>
         <translation>Done!</translation>
+    </message>
+    <message>
+        <source>I just want to recover data</source>
+        <translation>I just want to recover data</translation>
     </message>
 </context>
 <context>
