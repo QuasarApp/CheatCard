@@ -290,7 +290,7 @@
     </message>
     <message>
         <source>Become a seller</source>
-        <translation>Стань продавцем</translation>
+        <translation type="vanished">Стань продавцем</translation>
     </message>
     <message>
         <source>Seller mode</source>
@@ -313,7 +313,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Salesman!</source>
+        <source>Start business</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> Businessman!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -387,11 +391,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Nobody, I just want to recover data</source>
+        <source>Done!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Done!</source>
+        <source>I just want to recover data</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -476,10 +480,6 @@
     </message>
     <message>
         <source>### How to use?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>### Guide to using Cheat Cards for merchants</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -576,6 +576,10 @@
     </message>
     <message>
         <source>* In order to issue the card to the client, press and hold on it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>### Guide to using Cheat Cards for businessman</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

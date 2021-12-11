@@ -414,11 +414,15 @@
     </message>
     <message>
         <source> BusinessMan!</source>
-        <translation> BusinessMan!</translation>
+        <translation type="vanished"> BusinessMan!</translation>
     </message>
     <message>
         <source>Start business</source>
         <translation>Start business</translation>
+    </message>
+    <message>
+        <source> Businessman!</source>
+        <translation> Businessman!</translation>
     </message>
 </context>
 <context>

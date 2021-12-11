@@ -26,7 +26,7 @@ To implement the loyalty program of your institution using a cheat card, you nee
 
 * A menu with design settings (background and text colors, logo, as well as printing) will open
 
-* Optionally upload your logo or card print background design by clicking the add button in the appropriate sections, the image must be in png format.
+* Optionally upload your logo or card print background design by clicking the add button in the appropriate sections.
 
 * After completing all the settings, click the "Save" button which is located at the bottom of the map.
 

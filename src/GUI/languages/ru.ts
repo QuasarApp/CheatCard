@@ -399,11 +399,15 @@
     </message>
     <message>
         <source> BusinessMan!</source>
-        <translation>БизнемсМен!</translation>
+        <translation type="vanished">БизнемсМен!</translation>
     </message>
     <message>
         <source>Start business</source>
         <translation>Начать бизнес!</translation>
+    </message>
+    <message>
+        <source> Businessman!</source>
+        <translation>Бизнесмен!</translation>
     </message>
 </context>
 <context>
