@@ -19,28 +19,8 @@
 <context>
     <name>CardsListView</name>
     <message>
-        <source>You do not have any card. </source>
-        <translation type="vanished">У вас нет карт. </translation>
-    </message>
-    <message>
-        <source>Visit any coffee to get a new card and their bonuses</source>
-        <translation type="vanished">Посетите какое либо кафе, чтобы получить новую карту и свои бонусы</translation>
-    </message>
-    <message>
-        <source>Please create a new card for work</source>
-        <translation type="vanished">Пожалуйста, создайте новую карту для работы</translation>
-    </message>
-    <message>
-        <source>Edit</source>
-        <translation type="vanished">Редактировать</translation>
-    </message>
-    <message>
         <source>Add card</source>
         <translation>Добавить карту</translation>
-    </message>
-    <message>
-        <source>Please create a new card for work. Press &quot;Add Card &quot; button</source>
-        <translation type="vanished">Пожалуйста, создайте новую карточку для работы. Нажмите кнопку &quot;Добавить карту&quot;</translation>
     </message>
     <message>
         <source>Don&apos;t have any cards yet? </source>
@@ -54,40 +34,12 @@
         <source>Let&apos;s go create the first card! Press &quot;Add Card &quot; button</source>
         <translation>Вперёд, создадим первую карту! Нажми кнопку &quot;Добавить карту&quot;</translation>
     </message>
-    <message>
-        <source>Edit card</source>
-        <translation type="vanished">Редактировать</translation>
-    </message>
-    <message>
-        <source>Remove card</source>
-        <translation type="vanished">Удалить карту</translation>
-    </message>
-    <message>
-        <source>Activate card</source>
-        <translation type="vanished">Активировать</translation>
-    </message>
-    <message>
-        <source>Statistics</source>
-        <translation type="vanished">Статистика</translation>
-    </message>
 </context>
 <context>
     <name>CheatCard</name>
     <message>
-        <source>&lt;&lt;</source>
-        <translation type="vanished">&lt;&lt;</translation>
-    </message>
-    <message>
-        <source>三</source>
-        <translation type="vanished">三</translation>
-    </message>
-    <message>
         <source>Hello </source>
         <translation>Приветствуем </translation>
-    </message>
-    <message>
-        <source>⋮</source>
-        <translation type="vanished">⋮</translation>
     </message>
     <message>
         <source>Contact with developers</source>
@@ -114,14 +66,6 @@
         <translation>Поделится</translation>
     </message>
     <message>
-        <source>Export your key</source>
-        <translation type="vanished">Экспортировать ключ</translation>
-    </message>
-    <message>
-        <source>Import your key</source>
-        <translation type="vanished">Импортировать ключ</translation>
-    </message>
-    <message>
         <source>Recovery</source>
         <translation>Восстановить</translation>
     </message>
@@ -140,25 +84,12 @@
 <context>
     <name>ConnectionStatus</name>
     <message>
-        <source>please wait until the exchange is successful  </source>
-        <translatorcomment>Дождитесь окончания операции</translatorcomment>
-        <translation type="vanished">please wait until the exchange is successful  </translation>
-    </message>
-    <message>
         <source>Hachiko mode activated!  </source>
         <translation>Режим Хатико активирован!  </translation>
     </message>
 </context>
 <context>
     <name>Contacts</name>
-    <message>
-        <source>Enjoy to our slack chanal for get support and see the last changes.</source>
-        <translation type="vanished">Наслаждайтесь нашим slack каналом чтобы получить поддержку и увидеть последние изменения.</translation>
-    </message>
-    <message>
-        <source>Enjoy to our telegram chanal for get support and see the last changes.</source>
-        <translation type="vanished">Наслаждайтесь нашим телеграмм каналом чтобы получить поддержку и увидеть последние изменения.</translation>
-    </message>
     <message>
         <source>Join to our slack channel for get support and see the last changes.</source>
         <translation>Присоединяйтесь к нашему каналу Slack, чтобы получить поддержку и увидеть последние изменения.</translation>
@@ -179,30 +110,6 @@
         <translation>Введите название карты</translation>
     </message>
     <message>
-        <source>Enter telegramm chennal name</source>
-        <translation type="vanished">Введите название телеграмм канала</translation>
-    </message>
-    <message>
-        <source>Enter your instagramm page</source>
-        <translation type="vanished">Введите свою инстаграмм страницу</translation>
-    </message>
-    <message>
-        <source>Enter your physical address</source>
-        <translation type="vanished">Введите свой физический адрес</translation>
-    </message>
-    <message>
-        <source>Enter your web site domain</source>
-        <translation type="vanished">Введите адрес вашего веб-сайта</translation>
-    </message>
-    <message>
-        <source>Free</source>
-        <translation type="vanished">Бесплатно</translation>
-    </message>
-    <message>
-        <source>⋮</source>
-        <translation type="vanished">⋮</translation>
-    </message>
-    <message>
         <source>Save</source>
         <translation>Сохранить</translation>
     </message>
@@ -213,26 +120,6 @@
     <message>
         <source>Select Image</source>
         <translation>Выбрать изображение</translation>
-    </message>
-    <message>
-        <source>Change background color</source>
-        <translation type="vanished">Изменить цвет фона</translation>
-    </message>
-    <message>
-        <source>Change background image</source>
-        <translation type="vanished">Изменить фон</translation>
-    </message>
-    <message>
-        <source>Change card logo</source>
-        <translation type="vanished">Изменить логотип карты</translation>
-    </message>
-    <message>
-        <source>Change card seal</source>
-        <translation type="vanished">Сменить печать карты</translation>
-    </message>
-    <message>
-        <source>Enter your phone number</source>
-        <translation type="vanished">Введите свой номер телефона</translation>
     </message>
     <message>
         <source>Enter bonus name</source>
@@ -265,10 +152,6 @@
     <message>
         <source>Your phone number</source>
         <translation>Ваш номер</translation>
-    </message>
-    <message>
-        <source>Changed foreground color</source>
-        <translation type="obsolete">Выбрать цвет переднего плана</translation>
     </message>
     <message>
         <source>Background color</source>
@@ -330,10 +213,6 @@
 <context>
     <name>EditUserView</name>
     <message>
-        <source>Editing : </source>
-        <translation type="vanished">Редактирование : </translation>
-    </message>
-    <message>
         <source>No user selected</source>
         <translation>Пользователь не выбран</translation>
     </message>
@@ -342,24 +221,8 @@
         <translation>ID пользователя:</translation>
     </message>
     <message>
-        <source>Visible user name:</source>
-        <translation type="vanished">Видимое имя пользователя:</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to become a seller? </source>
-        <translation type="vanished">Вы уверены, что хотите стать продавцом? </translation>
-    </message>
-    <message>
-        <source>This user is not seller</source>
-        <translation type="vanished">Этот пользователь не продавец</translation>
-    </message>
-    <message>
         <source>Become a seller</source>
         <translation>Стать продавцом</translation>
-    </message>
-    <message>
-        <source>This user is seller</source>
-        <translation type="vanished">Этот пользователь продавец</translation>
     </message>
     <message>
         <source>Seller mode</source>
@@ -370,10 +233,6 @@
         <translation>Моё имя:</translation>
     </message>
     <message>
-        <source>My Id:</source>
-        <translation type="vanished">Мой ID:</translation>
-    </message>
-    <message>
         <source>Just a customer</source>
         <translation>Просто посетитель</translation>
     </message>
@@ -382,20 +241,8 @@
         <translation>Продавец!</translation>
     </message>
     <message>
-        <source>Do you really want? </source>
-        <translation type="vanished">А вы точно хотите? </translation>
-    </message>
-    <message>
-        <source>I want to sell!</source>
-        <translation type="vanished">Я хочу продавать!</translation>
-    </message>
-    <message>
         <source>Profile</source>
         <translation>Профиль</translation>
-    </message>
-    <message>
-        <source>Oh, do you really want? </source>
-        <translation type="vanished">А вы уверенны что оно вам надо? </translation>
     </message>
 </context>
 <context>
@@ -452,20 +299,12 @@
         <translation>Как называется ваша компания?</translation>
     </message>
     <message>
-        <source>Please enter your name or name your company here</source>
-        <translation type="vanished">Пожалуйста, введите свое имя или название компании</translation>
-    </message>
-    <message>
         <source>Who are you?</source>
         <translation>Кто вы?</translation>
     </message>
     <message>
         <source>Please enter your name here</source>
         <translation>Пожалуйста, введите ваше имя здесь</translation>
-    </message>
-    <message>
-        <source>Go!</source>
-        <translation type="vanished">Вперёд!</translation>
     </message>
     <message>
         <source>Back</source>
@@ -483,24 +322,8 @@
 <context>
     <name>FreeItemsView</name>
     <message>
-        <source>It seems you deserve a bonus.</source>
-        <translation type="vanished">Похоже, вы заслужили бонус.</translation>
-    </message>
-    <message>
-        <source>You have </source>
-        <translation type="vanished">У вас есть </translation>
-    </message>
-    <message>
-        <source>Wooooh seems like someone has %0 free %1 !!!</source>
-        <translation type="vanished">Вооооу кажется у кого-то есть %0 бесплатно %1 !!!</translation>
-    </message>
-    <message>
         <source>Give out</source>
         <translation>Выдать</translation>
-    </message>
-    <message>
-        <source>Wooooh seems like someone available %0 free %1 !!!</source>
-        <translation type="vanished">Ооо кажется у кого то доступно %0 бесплатно %1 !!!</translation>
     </message>
     <message>
         <source>Wooooh seems like someone available %0 %1 !!!</source>
@@ -532,13 +355,6 @@
     <message>
         <source>codes</source>
         <translation>коды</translation>
-    </message>
-</context>
-<context>
-    <name>IncludeRecoveryWordPage</name>
-    <message>
-        <source>Next</source>
-        <translation type="obsolete">Далее</translation>
     </message>
 </context>
 <context>
@@ -575,52 +391,8 @@
         <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Для реализации программы лояльности вашего заведения при помомощи чит карты необходимо сделать следующее:</translation>
     </message>
     <message>
-        <source>* Create a card for your establishment</source>
-        <translation type="vanished">* Создать карточку вашего заведения</translation>
-    </message>
-    <message>
-        <source>![tt](qrc:/private/resources/help/Help3.jpg)</source>
-        <translation type="vanished">![tt](qrc:/private/resources/help/Help3.jpg)</translation>
-    </message>
-    <message>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;In order to create a map, click the &quot;Add Map&quot; button at the bottom of the screen. After that, an empty card will be created, in order to fill it out, press the &quot;Edit&quot; button on the card. Now you can enter the contact and other data of your establishment, it is not necessary to fill in all the fields, except for those highlighted in red &quot;Card name&quot; and &quot;Bonus name&quot;. In the item &quot;Bonus name&quot; it is necessary to indicate what the client will receive in the form of a bonus (product / service / discount / etc.). Next, indicate how many purchases the client must make to receive the bonus you previously specified.</source>
-        <translation type="vanished">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Для того что бы создать карту нажмите кнопку &quot;Добавить карту&quot; в нижней части экрана. После этого создастся пустая карточка, для того что бы её заполнить нажмите кнопку &quot;Редактировать&quot; на карточке. Теперь вы можете ввести контактные и прочие данные вашего заведения, не обязательно заполнять все поля, кроме тех которые подсвеченны красным &quot;Название карты&quot; и &quot;Название бонуса&quot;. В пункте &quot;Название бонуса&quot; необходимо указать что получит клиент ввиде бонуса (товар/услугу/скидку/ и т.д.). Далее укажите какое количество покупок должен совершить клиент для получения ранее указанного вами бонуса.</translation>
-    </message>
-    <message>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;After that, you can customize the design of the card by clicking on this element at the bottom left of the card.</source>
-        <translation type="vanished">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;После этого вы можете настроить дизайн карты нажав на этот элемент снизу слева карты.</translation>
-    </message>
-    <message>
-        <source>![tt](qrc:/private/resources/help/Help2.jpg)</source>
-        <translation type="vanished">![tt](qrc:/private/resources/help/Help2.jpg)</translation>
-    </message>
-    <message>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;A menu will open in which you can customize the background and text colors, logo, as well as printing. You can upload your logo or card print background design by clicking the add button in the appropriate sections, the image must be in png format.</source>
-        <translation type="vanished">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Откроется меню в котором вы сможете настроить цвета фона и текста, логотип, а так же печати. Вы можете загрузить свой дизайн фона логотипа или печати карты нажав кнопку добавить в соответствующих разделах, изображение должно быть в формате png.</translation>
-    </message>
-    <message>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;After completing all the settings, click the &quot;Save&quot; button located at the bottom of the map.</source>
-        <translation type="vanished">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;После завершения всех настроек нажмите кнопку &quot;Сохранить&quot; которая находится снизу от карты.</translation>
-    </message>
-    <message>
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**IMPORTANT:** After you put at least one seal on the customer, the card cannot be edited. Instead, you can create a new map based on the old one. all customer data and their statistics will be automatically transferred to the corrected card. Instead, you can create a new map based on the old one. all customer data and their statistics will be automatically transferred to the corrected card.</source>
         <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**ВАЖНО:** После того как вы поставите хотя бы одну печать покупателю, карту нельзя будет редактировать. В место этого вы сможите создать новую карту на основе старой. все данные покупателей и их статистика будет автоматически перенесена на исправленную карту. В место этого вы сможите создать новую карту на основе старой. все данные покупателей и их статистика будет автоматически перенесена на исправленную карту.</translation>
-    </message>
-    <message>
-        <source>* Issue a card to a client</source>
-        <translation type="vanished">* Выдать карточку клиенту</translation>
-    </message>
-    <message>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;After you have created and configured the map, it will be displayed on the main screen of the application. In order to issue a card to a client, you need to press and hold on it, after which a screen will open where you can specify how many stamps to put to the client, then press print. Then scan the visitor&apos;s QR code. After that, the client will have a card with the number of seals that you specified. In the same way, you can put stamps to the client in the future when buying a product.</source>
-        <translation type="vanished">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;После того как вы создали и настроили карту она будет отображатся на основном экране приложения. Для того что бы выдать карту клиенту необходимо нажать на неё и удерживать, после чего откроется экран где вы сможете указать какое количество печатей поставить клиенту, далее нажмите печать. Почле чего просканируйте QR код посетителя. После этого у киента появится карта с тем количеством печатей которое вы указали. Точно таким же образом вы можете ставить в дальнейшем печати клиенту при покупке товара.</translation>
-    </message>
-    <message>
-        <source>* Issue a bonus</source>
-        <translation type="vanished">* Выдать бонус</translation>
-    </message>
-    <message>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;When the client has collected a sufficient number of stamps, you can give him a bonus, the application itself will notify you that the client has made a sufficient number of purchases. On the bonus issue screen, you can click the &apos;Issue&apos; button, or if the client can ask to save this bonus, then just click the back button. Bonuses can be accumulated by the client, if the client has accumulated several bonuses, then on the issuance screen you can choose how many bonuses to issue, after which they will be written off from the category of available ones and transferred to the category received on the client&apos;s card.</source>
-        <translation type="vanished">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Когда клиент собрал достаточное количество печатей вы можете выдать ему бонус, приложение само оповестит вас о том что клиент совершил достаточное количество покупок. На экране выдачи бонуса вы можете нажать кнопку &quot;Выдать&quot; или же если клиент может попросить сохранить этот бонус, тогда просто нажмите кнопку назад. Бонусы могут накапливатся у клиента, если клиент накопил несколько бонусов то на экране выдачи вы можете выбрать какое количество бонусов выдать, после чего они спишутся из категории доступных и перейдут в категорию полученных на карте клиента.</translation>
     </message>
     <message>
         <source>### How to use?</source>
@@ -637,10 +409,6 @@
     <message>
         <source>&lt;img src=&quot;qrc:/private/resources/help/Help2.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
         <translation></translation>
-    </message>
-    <message>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;In order to create a map, click the &quot;Add Card&quot; button at the bottom of the screen. After that, an empty card will be created, in order to fill it out, press the &quot;Edit&quot; button on the card. Now you can enter the contact and other data of your establishment, it is not necessary to fill in all the fields, except for those highlighted in red &quot;Card name&quot; and &quot;Bonus name&quot;. In the item &quot;Bonus name&quot; it is necessary to indicate what the client will receive in the form of a bonus (product / service / discount / etc.). Next, indicate how many purchases the client must make to receive the bonus you previously specified.</source>
-        <translation type="vanished">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Для того что бы создать карту нажмите кнопку &quot;Добавить карту&quot; в нижней части экрана. После этого создастся пустая карточка, для того что бы её заполнить нажмите кнопку &quot;Редактировать&quot; на карточке. Теперь вы можете ввести контактные и прочие данные вашего заведения, не обязательно заполнять все поля, кроме тех которые подсвеченны красным &quot;Название карты&quot; и &quot;Название бонуса&quot;. В пункте &quot;Название бонуса&quot; необходимо указать что получит клиент ввиде бонуса (товар/услугу/скидку/ и т.д.). Далее укажите какое количество покупок должен совершить клиент для получения ранее указанного вами бонуса.</translation>
     </message>
     <message>
         <source>### Create a card for your establishment</source>
@@ -762,10 +530,6 @@
         <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Для того что бы открыть QR код нажмите на элемент в верхнем левом углу экрана. </translation>
     </message>
     <message>
-        <source>![tt](qrc:/private/resources/help/Help1.jpg)</source>
-        <translation type="vanished">![tt](qrc:/private/resources/help/Help1.jpg)</translation>
-    </message>
-    <message>
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;A sidebar will open at the bottom of which there will be a QR code, you can click on it to enlarge it.</source>
         <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Откроется сайдбар внизу которого будет QR код, вы можете нажать на него что бы увеличить.</translation>
     </message>
@@ -785,10 +549,6 @@
 <context>
     <name>PageShareApp</name>
     <message>
-        <source>Join to our slack channel for get support and see the last changes.</source>
-        <translation type="obsolete">Присоединяйтесь к нашему каналу Slack, чтобы получить поддержку и увидеть последние изменения.</translation>
-    </message>
-    <message>
         <source>To get a cheat card, scan the QR code and follow the link.</source>
         <translation>Что бы получить Чит карту, просканируйте QR код.</translation>
     </message>
@@ -798,18 +558,6 @@
     <message>
         <source>It looks like this code should be shown to the seller!</source>
         <translation>А вот этот код нужно показать продавцу!</translation>
-    </message>
-    <message>
-        <source>Show your phone to the seller, so that the drawn QR code gets into the seller&apos;s dedicated scanning area.</source>
-        <translation type="obsolete">Покажи экран телефона продавцу, чтобы отображаемый QR-код попал в зону камеры устройства сканирования продавца.</translation>
-    </message>
-    <message>
-        <source>Show your phone the screen to the seller so that the displayed QR code is in the camera area of the seller&apos;s scanning device.</source>
-        <translation type="vanished">Покажи экран телефона продавцу, чтобы отображаемый QR-код попал в зону камеры устройства сканирования продавца.</translation>
-    </message>
-    <message>
-        <source>If the Seller&apos;s device completes the scan successfully, you can get your bonuses when you hide the QR code!</source>
-        <translation type="vanished">Если устройство Продавца успешно завершит сканирование,  ты сможешь получить свои бонусы когда скроешь QR-код!</translation>
     </message>
     <message>
         <source>Show your phone to the seller, so that the drawn QR code gets into the scanning area.</source>
@@ -911,6 +659,22 @@
         <source>Yor secret key and public key is not pair May be you scan not valid qr code ...</source>
         <translation>Ваш секретный ключ и открытый ключ не совпадают. Возможно, вы отсканировали неверный qr-код ...</translation>
     </message>
+    <message>
+        <source>Operation not permitted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This card have a active clients, so you can&apos;t to remove this card.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove Card</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You trying to delete this card, do not worry a seller that has give out this card save all bonuses locally,  so after repeat visit you will be get all your removed bonuses again. Do you want to continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RC::SellerStatisticModel</name>
@@ -936,37 +700,10 @@
     </message>
 </context>
 <context>
-    <name>RecoveryPage</name>
-    <message>
-        <source>Done!</source>
-        <translation type="obsolete">Готово!</translation>
-    </message>
-    <message>
-        <source>Next</source>
-        <translation type="obsolete">Далее</translation>
-    </message>
-</context>
-<context>
     <name>RegistrationFinishedPage</name>
-    <message>
-        <source>The registration of the new user finished successful. Now you can use you card.</source>
-        <translation type="vanished">Регистрация нового пользователя завершилась успешно. Теперь вы можете использовать свою карту.</translation>
-    </message>
     <message>
         <source>Go to use</source>
         <translation>Перейти к использованию</translation>
-    </message>
-    <message>
-        <source>Registration passed!!!</source>
-        <translation type="vanished">Регистрация прошла !!!</translation>
-    </message>
-    <message>
-        <source>Now let&apos;s move on to using!</source>
-        <translation type="vanished">А сейчас перейдём к использованию!</translation>
-    </message>
-    <message>
-        <source>Registered!</source>
-        <translation type="vanished">Зарегистрированы!</translation>
     </message>
     <message>
         <source>Done!</source>
@@ -991,14 +728,6 @@
 <context>
     <name>Settings</name>
     <message>
-        <source>Externality</source>
-        <translation type="vanished">Внешний вид</translation>
-    </message>
-    <message>
-        <source>Change the main color of the application</source>
-        <translation type="vanished">Изменить основной цвет приложения</translation>
-    </message>
-    <message>
         <source>Privacy</source>
         <translation>Приватность</translation>
     </message>
@@ -1013,10 +742,6 @@
     <message>
         <source>Host</source>
         <translation>Хост</translation>
-    </message>
-    <message>
-        <source>Port</source>
-        <translation type="vanished">Порт</translation>
     </message>
     <message>
         <source>Camera</source>
@@ -1043,20 +768,12 @@
         <translation>Внешний вид</translation>
     </message>
     <message>
-        <source>Unlock</source>
-        <translation type="vanished">Разблокировать</translation>
-    </message>
-    <message>
         <source>Use custom server</source>
         <translation>Использовать собственный сервер</translation>
     </message>
     <message>
         <source>Reset all settings</source>
         <translation>Сбросить все настройки</translation>
-    </message>
-    <message>
-        <source>reset</source>
-        <translation type="vanished">Сброс</translation>
     </message>
     <message>
         <source>Default settings</source>
@@ -1072,13 +789,6 @@
     <message>
         <source>Check</source>
         <translation>Проверить</translation>
-    </message>
-</context>
-<context>
-    <name>exportUserKeyPage</name>
-    <message>
-        <source>Next</source>
-        <translation type="obsolete">Далее</translation>
     </message>
 </context>
 </TS>
