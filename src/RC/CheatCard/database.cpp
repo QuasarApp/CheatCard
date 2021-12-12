@@ -105,7 +105,6 @@ QH::DBPatchMap DataBase::beta1Patches() const {
 
             if (result && localUserCards.size()) {
                 // if user has owned cards then they is seller. and we need to regenerate for them new keys..
-                database->doQuery(QString("DELETE FROM Users WHERE id = '%0'").arg(ptr->userId()));
 
                 // save old userid for move config to new id that will be generated after invke a  regenerateKeys method.
                 unsigned int oldUserId = ptr->userId();
@@ -146,6 +145,9 @@ QH::DBPatchMap DataBase::beta1Patches() const {
 
         // reinsert updated users.
         for (const auto &ptr: qAsConst(users)) {
+            // delete old user for refactoring data.
+            database->doQuery(QString("DELETE FROM Users WHERE id = '%0'").arg(ptr->getId().toUInt()));
+
             if (!db->insertObject(ptr, true)) {
                 return false;
             }
