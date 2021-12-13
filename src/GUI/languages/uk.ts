@@ -42,10 +42,6 @@
         <translation>Здравствуйте </translation>
     </message>
     <message>
-        <source> (Seller mode)</source>
-        <translation> (Режим продавця)</translation>
-    </message>
-    <message>
         <source>Contact with developers</source>
         <translation>Зв&apos;язатися</translation>
     </message>
@@ -71,6 +67,10 @@
     </message>
     <message>
         <source>Backup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> (work mode)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -221,14 +221,6 @@
         <translation>Ідентифікатор користувача:</translation>
     </message>
     <message>
-        <source>Become a seller</source>
-        <translation>Стань продавцем</translation>
-    </message>
-    <message>
-        <source>Seller mode</source>
-        <translation>Режим продавця</translation>
-    </message>
-    <message>
         <source>Profile</source>
         <translation type="unfinished"></translation>
     </message>
@@ -237,11 +229,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Just a customer</source>
+        <source>Work mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Salesman!</source>
+        <source>Start integration with business</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -287,10 +279,6 @@
         <translation>Я клієнт</translation>
     </message>
     <message>
-        <source>I am seller</source>
-        <translation>Я продавець</translation>
-    </message>
-    <message>
         <source>Next</source>
         <translation>Далі</translation>
     </message>
@@ -311,11 +299,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Nobody, I just want to recover data</source>
+        <source>Done!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Done!</source>
+        <source>I just want to recover data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>I am a business representative</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -392,10 +384,6 @@
     </message>
     <message>
         <source>### How to use?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>### Guide to using Cheat Cards for merchants</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -492,6 +480,10 @@
     </message>
     <message>
         <source>* In order to issue the card to the client, press and hold on it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>### Guide to using Cheat Cards for business</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

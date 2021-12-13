@@ -60,12 +60,12 @@ CPage {
 
                             RadioButton {
                                 id: fSaller
-                                text: qsTr("I am seller")
+                                text: qsTr("I am a business representative")
                             }
 
                             RadioButton {
                                 id: fRestore
-                                text: qsTr("Nobody, I just want to recover data")
+                                text: qsTr("I just want to recover data")
                             }
                         }
                     }

@@ -101,7 +101,7 @@ ApplicationWindow {
             Label {
                 text: (user)?
                           qsTr("Hello ") + user.name +
-                          ((mainModel && mainModel.mode)? qsTr(" (Seller mode)"):"")
+                          ((mainModel && mainModel.mode)? qsTr(" (work mode)"):"")
                         : ""
 
                 elide: Label.ElideRight
