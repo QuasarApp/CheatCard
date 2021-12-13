@@ -50,10 +50,6 @@
         <translation>About</translation>
     </message>
     <message>
-        <source> (Seller mode)</source>
-        <translation> (Seller mode)</translation>
-    </message>
-    <message>
         <source>Help</source>
         <translation>Help</translation>
     </message>
@@ -72,6 +68,10 @@
     <message>
         <source>Backup</source>
         <translation>Backup</translation>
+    </message>
+    <message>
+        <source> (work mode)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -221,10 +221,6 @@
         <translation>User Id:</translation>
     </message>
     <message>
-        <source>Seller mode</source>
-        <translation>Seller mode</translation>
-    </message>
-    <message>
         <source>Its my name:</source>
         <translation>Its my name:</translation>
     </message>
@@ -233,7 +229,11 @@
         <translation>Profile</translation>
     </message>
     <message>
-        <source>Start business</source>
+        <source>Work mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start integration with business</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -279,10 +279,6 @@
         <translation>Next</translation>
     </message>
     <message>
-        <source>I am seller</source>
-        <translation>I am seller</translation>
-    </message>
-    <message>
         <source>What is your name?</source>
         <translation>What is your name?</translation>
     </message>
@@ -308,6 +304,10 @@
     </message>
     <message>
         <source>I just want to recover data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>I am a business representative</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

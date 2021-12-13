@@ -63,7 +63,7 @@ Frame {
 
         Button {
             id: becomeaseller
-            text: qsTr("Start business");
+            text: qsTr("Start integration with business");
             Layout.alignment: Qt.AlignHCenter
             Layout.columnSpan: 2
             visible: Boolean(root.userModel && !root.userModel.fSaller)
@@ -81,7 +81,7 @@ Frame {
             Layout.columnSpan: 2
             Layout.alignment: Qt.AlignHCenter
 
-            text: qsTr("Seller mode");
+            text: qsTr("Work mode");
             onPositionChanged: () => {
                                    if (root.model) {
                                        root.model.mode = position;

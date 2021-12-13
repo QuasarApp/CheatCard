@@ -60,7 +60,7 @@ CPage {
 
                             RadioButton {
                                 id: fSaller
-                                text: qsTr("I am seller")
+                                text: qsTr("I am a business representative")
                             }
 
                             RadioButton {

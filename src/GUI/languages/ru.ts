@@ -50,10 +50,6 @@
         <translation>Информация</translation>
     </message>
     <message>
-        <source> (Seller mode)</source>
-        <translation> (Режим продавца)</translation>
-    </message>
-    <message>
         <source>Help</source>
         <translation>Помощь</translation>
     </message>
@@ -72,6 +68,10 @@
     <message>
         <source>Backup</source>
         <translation>Резервное копирование</translation>
+    </message>
+    <message>
+        <source> (work mode)</source>
+        <translation> (Рабочий режим)</translation>
     </message>
 </context>
 <context>
@@ -221,10 +221,6 @@
         <translation>ID пользователя:</translation>
     </message>
     <message>
-        <source>Seller mode</source>
-        <translation>Режим продавца</translation>
-    </message>
-    <message>
         <source>Its my name:</source>
         <translation>Моё имя:</translation>
     </message>
@@ -233,8 +229,12 @@
         <translation>Профиль</translation>
     </message>
     <message>
-        <source>Start business</source>
-        <translation>Начать бизнес</translation>
+        <source>Work mode</source>
+        <translation>Рабочий режим</translation>
+    </message>
+    <message>
+        <source>Start integration with business</source>
+        <translation>Начать интеграцию с бизнесом</translation>
     </message>
 </context>
 <context>
@@ -279,10 +279,6 @@
         <translation>Далее</translation>
     </message>
     <message>
-        <source>I am seller</source>
-        <translation>Я продавец</translation>
-    </message>
-    <message>
         <source>What is your name?</source>
         <translation>Как вас зовут?</translation>
     </message>
@@ -309,6 +305,10 @@
     <message>
         <source>I just want to recover data</source>
         <translation>Я просто хочу восстановить данные</translation>
+    </message>
+    <message>
+        <source>I am a business representative</source>
+        <translation>Я представитель бизнеса</translation>
     </message>
 </context>
 <context>
