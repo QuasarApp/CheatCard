@@ -483,7 +483,7 @@
         <translation>* In order to issue the card to the client, press and hold on it.</translation>
     </message>
     <message>
-        <source>### Guide to using Cheat Cards for businessman</source>
+        <source>### Guide to using Cheat Cards for business</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

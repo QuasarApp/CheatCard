@@ -483,8 +483,8 @@
         <translation>* Для того что бы выдать карту клиенту необходимо нажать на неё и удерживать.</translation>
     </message>
     <message>
-        <source>### Guide to using Cheat Cards for businessman</source>
-        <translation>### Руководство по использованию чит-карт для бизнесмена</translation>
+        <source>### Guide to using Cheat Cards for business</source>
+        <translation>### Руководство по использованию чит-карт для бизнеса</translation>
     </message>
 </context>
 <context>
