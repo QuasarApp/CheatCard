@@ -298,6 +298,9 @@ void MainModel::initCardsListModels() {
     connect(_ownCardsListModel, &CardsListModel::sigEditFinished,
             this, &MainModel::handleCardEditFinished);
 
+    connect(_cardsListModel, &CardsListModel::sigEditFinished,
+            this, &MainModel::saveCard);
+
     connect(_ownCardsListModel, &CardsListModel::sigRemoveRequest,
             this, &MainModel::handleRemoveRequest);
 
@@ -308,6 +311,9 @@ void MainModel::initCardsListModels() {
             this, &MainModel::handleCardSelectedForStatistic);
 
     connect(_cardsListModel, &CardsListModel::sigResetCardModel,
+            this, &MainModel::handleResetCardModel);
+
+    connect(_ownCardsListModel, &CardsListModel::sigResetCardModel,
             this, &MainModel::handleResetCardModel);
 }
 
@@ -603,6 +609,17 @@ void MainModel::handleCardEditFinished(const QSharedPointer<API::Card>& card) {
 void MainModel::handleResetCardModel(const QSharedPointer<RC::API::Card> &card) {
     card->setCardVersion(0);
     _db->insertIfExistsUpdateObject(card);
+
+    auto service = QmlNotificationService::NotificationService::getService();
+
+    if (!_backEndModel->restoreOldData(getCurrentUser()->user()->getKey())) {
+        service->setNotify(tr("We Has a troubles"),
+                           tr("Data dumped to default, successfully. The card with default parameters will be loaded on the next purchase."),
+                           "", QmlNotificationService::NotificationData::Warning);
+
+        return;
+    }
+
 }
 
 void MainModel::handleRemoveRequest(const QSharedPointer<API::Card> &card) {

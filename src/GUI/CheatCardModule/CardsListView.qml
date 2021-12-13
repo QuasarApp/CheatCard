@@ -90,7 +90,7 @@ Page {
                         }
                         isCurrentItem: cardItem.ListView.isCurrentItem
                         onFinished: () => {
-                                        hasEdit = editable = false
+                                        hasEdit = editable = customization = false
                                         root.finished()
 
                                     }

@@ -520,7 +520,7 @@ Page {
         RowLayout {
             visible: customization || root.editable
             Layout.alignment: Qt.AlignHCenter
-
+            Layout.rightMargin: 10
 
             ToolButton {
                 id: menuButton
@@ -531,6 +531,10 @@ Page {
                 onClicked: () => {
                                customisationMenu.popup(this, menuButton.x, menuButton.height)
                            }
+            }
+
+            Item {
+                Layout.fillWidth: true
             }
 
             SpinBox {
@@ -748,13 +752,15 @@ Page {
 
         MenuItem {
 
-            visible: (mainModel)? mainModel.mode: false
             height: (visible)? ganeralMenuItem.height: 0
 
             text: qsTr("Edit card")
             icon.source: "qrc:/images/private/resources/Interface_icons/edit_card.svg"
             onClicked:  () => {
-                            root.editable = true;
+                            if(mainModel.mode)
+                                hasEdit = cardView.editable = true;
+                            else
+                                hasEdit = cardView.customization = true;
                         }
         }
 
