@@ -222,10 +222,6 @@
         <translation>Identyfikator użytkownika:</translation>
     </message>
     <message>
-        <source>Become a seller</source>
-        <translation type="vanished">Zostań sprzedawcą</translation>
-    </message>
-    <message>
         <source>Seller mode</source>
         <translation>Tryb sprzedawcy</translation>
     </message>
@@ -238,15 +234,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Just a customer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Start business</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> Businessman!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

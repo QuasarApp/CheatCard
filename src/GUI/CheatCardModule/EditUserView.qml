@@ -61,17 +61,11 @@ Frame {
                                }
         }
 
-        Label {
-            text: (becomeaseller.visible)?
-                      qsTr("Just a customer"):
-                      qsTr(" Businessman!");
-        }
-
         Button {
             id: becomeaseller
             text: qsTr("Start business");
             Layout.alignment: Qt.AlignHCenter
-            Layout.columnSpan: 1
+            Layout.columnSpan: 2
             visible: Boolean(root.userModel && !root.userModel.fSaller)
 
             onClicked: {
@@ -84,6 +78,8 @@ Frame {
         Switch {
 
             checked: Boolean(root.model && root.model.mode)
+            Layout.columnSpan: 2
+            Layout.alignment: Qt.AlignHCenter
 
             text: qsTr("Seller mode");
             onPositionChanged: () => {

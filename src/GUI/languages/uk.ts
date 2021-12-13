@@ -221,10 +221,6 @@
         <translation>Ідентифікатор користувача:</translation>
     </message>
     <message>
-        <source>Become a seller</source>
-        <translation type="vanished">Стань продавцем</translation>
-    </message>
-    <message>
         <source>Seller mode</source>
         <translation>Режим продавця</translation>
     </message>
@@ -237,15 +233,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Just a customer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Start business</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> Businessman!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

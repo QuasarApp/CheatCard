@@ -221,10 +221,6 @@
         <translation>User Id:</translation>
     </message>
     <message>
-        <source>Become a seller</source>
-        <translation>Become a seller</translation>
-    </message>
-    <message>
         <source>Seller mode</source>
         <translation>Seller mode</translation>
     </message>
@@ -233,16 +229,12 @@
         <translation>Its my name:</translation>
     </message>
     <message>
-        <source>Just a customer</source>
-        <translation>Just a customer</translation>
-    </message>
-    <message>
-        <source>Salesman!</source>
-        <translation>Salesman!</translation>
-    </message>
-    <message>
         <source>Profile</source>
         <translation>Profile</translation>
+    </message>
+    <message>
+        <source>Start business</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -311,12 +303,12 @@
         <translation>Back</translation>
     </message>
     <message>
-        <source>Nobody, I just want to recover data</source>
-        <translation>Nobody, I just want to recover data</translation>
-    </message>
-    <message>
         <source>Done!</source>
         <translation>Done!</translation>
+    </message>
+    <message>
+        <source>I just want to recover data</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -397,10 +389,6 @@
     <message>
         <source>### How to use?</source>
         <translation>### How to use?</translation>
-    </message>
-    <message>
-        <source>### Guide to using Cheat Cards for merchants</source>
-        <translation>### Guide to using Cheat Cards for merchants</translation>
     </message>
     <message>
         <source>&lt;img src=&quot;qrc:/private/resources/help/Help3.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
@@ -493,6 +481,10 @@
     <message>
         <source>* In order to issue the card to the client, press and hold on it.</source>
         <translation>* In order to issue the card to the client, press and hold on it.</translation>
+    </message>
+    <message>
+        <source>### Guide to using Cheat Cards for businessman</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
