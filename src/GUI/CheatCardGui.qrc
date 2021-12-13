@@ -40,6 +40,7 @@
         <file>CheatCardModule/Style/CPage.qml</file>
         <file>CheatCardModule/ExportUserKeyPage.qml</file>
         <file>CheatCardModule/ImportUserKeyPage.qml</file>
+        <file>CheatCardModule/Style/CMenu.qml</file>
     </qresource>
     <qresource prefix="/CheatCardTr">
         <file>languages/en.qm</file>

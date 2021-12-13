@@ -727,13 +727,13 @@ Page {
     }
 
 
-    Menu {
+    CMenu {
         id: editMenu
 
         MenuItem {
 
             visible: (mainModel)? mainModel.mode: false
-            height: (visible)? implicitHeight : 0
+            height: (visible)? ganeralMenuItem.height: 0
 
             text: qsTr("Edit card")
             icon.source: "qrc:/images/private/resources/Interface_icons/edit_card.svg"
@@ -756,7 +756,7 @@ Page {
         MenuItem {
 
             visible: (mainModel)? mainModel.mode: false
-            height: (visible)? implicitHeight : 0
+            height: (visible)? ganeralMenuItem.height: 0
 
             text: qsTr("Activate card")
             icon.source: "qrc:/images/private/resources/Interface_icons/Activate.svg"
@@ -766,6 +766,7 @@ Page {
         }
 
         MenuItem {
+            id: ganeralMenuItem
 
             text: (root.backSide)? qsTr("Hide statistics"): qsTr("Statistics")
             icon.source: "qrc:/images/private/resources/Interface_icons/statistic.svg"
@@ -776,7 +777,7 @@ Page {
 
     }
 
-    Menu {
+    CMenu {
         id: customisationMenu
 
         MenuItem {
