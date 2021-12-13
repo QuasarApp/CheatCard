@@ -18,6 +18,7 @@ Page {
     property int receivedItems: (model)? model.receivedItems: 0
 
     property bool backSide: false
+    property bool isCurrentItem: false
 
     signal finished();
     signal sigHold();
@@ -67,10 +68,10 @@ Page {
                 layer.enabled: true
                 layer.effect: OpacityMask {
                     maskSource: Rectangle {
-                            width: cardBackground.width
-                            height: cardBackground.height
-                            radius: cardRectangle.radius
-                        }
+                        width: cardBackground.width
+                        height: cardBackground.height
+                        radius: cardRectangle.radius
+                    }
                 }
             }
 
@@ -79,6 +80,16 @@ Page {
                 property real previousPositionY: 0
                 property real directionX: 0
                 property real directionY: 0
+
+                function swipe(side) {
+                    root.sigSwipe(side);
+
+                    if (!mainModel.mode) {
+                        privateRoot.turnOverCard(side);
+                    } else {
+                        privateRoot.showStatisticsCard();
+                    }
+                }
 
                 anchors.fill: parent;
 
@@ -102,19 +113,30 @@ Page {
 
                                 if(directionX > directionY) {
                                     if (directionX > width)
-                                        root.sigSwipe(directionX > 0)
+                                        swipe(directionX > 0)
                                 } else {
                                     if (directionY > width)
-                                        root.sigSwipe(2 + (directionY > 0))
+                                        swipe(2 + (directionY > 0))
                                 }
 
                             }
 
                 onPressAndHold: (mouse) => {
                                     root.sigHold();
+                                    privateRoot.activityCard();
                                 }
             }
 
+            ToolButton {
+                id: editCardBtn
+                visible: isCurrentItem && !root.editable
+                icon.source: "qrc:/images/private/resources/Interface_icons/Right_topmenu.svg"
+                icon.color: (card)? card.fontColor: Material.foreground
+                font.bold: true
+                font.pointSize: 14
+
+                onClicked: editMenu.popup(this, editCardBtn.x, editCardBtn.height)
+            }
 
             GridLayout {
                 id: frontSide;
@@ -521,7 +543,7 @@ Page {
 
                 onValueChanged: () => {
                                     if (!root.model)
-                                        return
+                                    return
 
                                     root.model.freeIndex = freeIndex.value
                                 }
@@ -558,9 +580,48 @@ Page {
             property int rowSignCount: 6
             property int maximumRowSignCount: 3
 
+            function showStatistickAction() {
+                if (mainModel && mainModel.mode) {
+                    showStatisticsCard();
+                } else {
+                    turnOverCard();
+                }
+            }
+
+            function activityCard() {
+
+                const fAvailable = mainModel.mode && isCurrentItem;
+                if (!fAvailable) {
+                    return;
+                }
+
+                if (root.model) {
+                    root.model.activate()
+                }
+
+                activityProcessor.newActivity("qrc:/CheatCardModule/WaitConnectView.qml",
+                                              mainModel.waitModel)
+            }
+
+            function showStatisticsCard() {
+                if (!root.editable) {
+
+                    if (root.model) {
+                        root.model.showStatistick()
+                    }
+
+                    const activity = "qrc:/CheatCardModule/SellerStatistic.qml";
+                    activityProcessor.newActivity(activity,
+                                                  mainModel.statisticModel)
+                    return;
+                }
+            }
+
+            function turnOverCard(s) {
+                root.turnOverCard(true);
+            }
         }
     }
-
 
     Component {
         id: selectImage
@@ -681,7 +742,58 @@ Page {
         }
     }
 
-    Menu {
+
+    CMenu {
+        id: editMenu
+
+        MenuItem {
+
+            visible: (mainModel)? mainModel.mode: false
+            height: (visible)? ganeralMenuItem.height: 0
+
+            text: qsTr("Edit card")
+            icon.source: "qrc:/images/private/resources/Interface_icons/edit_card.svg"
+            onClicked:  () => {
+                            root.editable = true;
+                        }
+        }
+
+        MenuItem {
+
+            text: qsTr("Remove card")
+            icon.source: "qrc:/images/private/resources/Interface_icons/delete_card.svg"
+            onClicked:  () => {
+                            if (root.model) {
+                                root.model.remove();
+                            }
+                        }
+        }
+
+        MenuItem {
+
+            visible: (mainModel)? mainModel.mode: false
+            height: (visible)? ganeralMenuItem.height: 0
+
+            text: qsTr("Activate card")
+            icon.source: "qrc:/images/private/resources/Interface_icons/Activate.svg"
+            onClicked:  () => {
+                            privateRoot.activityCard();
+                        }
+        }
+
+        MenuItem {
+            id: ganeralMenuItem
+
+            text: (root.backSide)? qsTr("Hide statistics"): qsTr("Statistics")
+            icon.source: "qrc:/images/private/resources/Interface_icons/statistic.svg"
+            onClicked: (side) => {
+                           privateRoot.showStatistickAction();
+                       }
+        }
+
+    }
+
+    CMenu {
         id: customisationMenu
 
         MenuItem {

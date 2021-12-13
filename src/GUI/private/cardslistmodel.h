@@ -51,17 +51,21 @@ public:
 
     Q_INVOKABLE void addCard() override;
     Q_INVOKABLE void removeCard(int cardId) override;
-    Q_INVOKABLE void cardSelected(int cardId, int type) override;
 
     const QHash<int, QSharedPointer<CardModel>> &cache() const;
 
 signals:
     void sigCardRemoved(unsigned int cardName);
+    void sigRemoveRequest(const QSharedPointer<API::Card>& card);
+
     void sigEditFinished(const QSharedPointer<API::Card>& card);
     void sigResetCardModel(const QSharedPointer<API::Card>& card);
     void sigCardSelectedForWork(const QSharedPointer<CardModel>& card);
     void sigCardSelectedForStatistic(const QSharedPointer<CardModel>& card);
 
+private slots:
+    void handleActivate(const QSharedPointer<API::Card>& card);
+    void handleShowStatistic(const QSharedPointer<API::Card>& card);
 
 private:
     QSharedPointer<CardModel> updateCard(const QSharedPointer<API::Card> & card);

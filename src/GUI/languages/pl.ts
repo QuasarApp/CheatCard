@@ -19,22 +19,6 @@
 <context>
     <name>CardsListView</name>
     <message>
-        <source>You do not have any card. </source>
-        <translation type="vanished">Nie masz żadnej karty. </translation>
-    </message>
-    <message>
-        <source>Visit any coffee to get a new card and their bonuses</source>
-        <translation type="vanished">Odwiedź dowolną kawę, aby otrzymać nową kartę i jej bonusy</translation>
-    </message>
-    <message>
-        <source>Please create a new card for work. Press &quot;Add Card &quot; button</source>
-        <translation type="vanished">Utwórz nową kartę do pracy. Naciśnij przycisk „Dodaj kartę”</translation>
-    </message>
-    <message>
-        <source>Edit</source>
-        <translation type="vanished">Edytować</translation>
-    </message>
-    <message>
         <source>Add card</source>
         <translation>Dodaj kartę</translation>
     </message>
@@ -50,44 +34,12 @@
         <source>Let&apos;s go create the first card! Press &quot;Add Card &quot; button</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Edit card</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Remove card</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Activate card</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Statistics</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>CheatCard</name>
     <message>
-        <source>&lt;&lt;</source>
-        <translation type="vanished">&lt;&lt;</translation>
-    </message>
-    <message>
-        <source>三</source>
-        <translation type="vanished">三</translation>
-    </message>
-    <message>
         <source>Hello </source>
         <translation>Cześć </translation>
-    </message>
-    <message>
-        <source> (Seller mode)</source>
-        <translation> (Tryb sprzedawcy)</translation>
-    </message>
-    <message>
-        <source>⋮</source>
-        <translation type="vanished">⋮</translation>
     </message>
     <message>
         <source>Contact with developers</source>
@@ -118,6 +70,10 @@
         <source>Backup</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source> (work mode)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ColorPicker</name>
@@ -128,10 +84,6 @@
 </context>
 <context>
     <name>ConnectionStatus</name>
-    <message>
-        <source>please wait until the exchange is successful  </source>
-        <translation type="vanished">poczekaj, aż wymiana się powiedzie  </translation>
-    </message>
     <message>
         <source>Hachiko mode activated!  </source>
         <translation type="unfinished"></translation>
@@ -183,10 +135,6 @@
         <translation>Wpisz nazwę bonusu</translation>
     </message>
     <message>
-        <source>⋮</source>
-        <translation type="vanished">⋮</translation>
-    </message>
-    <message>
         <source>Save</source>
         <translation>Zapisać</translation>
     </message>
@@ -205,22 +153,6 @@
     <message>
         <source>Please choose a color</source>
         <translation>Proszę wybrać kolor</translation>
-    </message>
-    <message>
-        <source>Change background color</source>
-        <translation type="vanished">Zmień kolor tła</translation>
-    </message>
-    <message>
-        <source>Change background image</source>
-        <translation type="vanished">Zmień obraz tła</translation>
-    </message>
-    <message>
-        <source>Change card logo</source>
-        <translation type="vanished">Zmień logo karty</translation>
-    </message>
-    <message>
-        <source>Change card seal</source>
-        <translation type="vanished">Zmień pieczęć karty</translation>
     </message>
     <message>
         <source>Detail of </source>
@@ -259,16 +191,28 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Default</source>
+        <source>Edit card</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove card</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Activate card</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Statistics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide statistics</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>EditUserView</name>
-    <message>
-        <source>Editing : </source>
-        <translation type="vanished">Edycja : </translation>
-    </message>
     <message>
         <source>No user selected</source>
         <translation>Nie wybrano użytkownika</translation>
@@ -276,30 +220,6 @@
     <message>
         <source>User Id:</source>
         <translation>Identyfikator użytkownika:</translation>
-    </message>
-    <message>
-        <source>Visible user name:</source>
-        <translation type="vanished">Widoczna nazwa użytkownika:</translation>
-    </message>
-    <message>
-        <source>This user is not seller</source>
-        <translation type="vanished">Ten użytkownik nie jest sprzedawcą</translation>
-    </message>
-    <message>
-        <source>This user is seller</source>
-        <translation type="vanished">Ten użytkownik jest sprzedawcą</translation>
-    </message>
-    <message>
-        <source>Become a seller</source>
-        <translation>Zostań sprzedawcą</translation>
-    </message>
-    <message>
-        <source>Seller mode</source>
-        <translation>Tryb sprzedawcy</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to become a seller? </source>
-        <translation type="vanished">Czy na pewno chcesz zostać sprzedawcą? </translation>
     </message>
     <message>
         <source>Profile</source>
@@ -310,11 +230,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Just a customer</source>
+        <source>Work mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Salesman!</source>
+        <source>Start integration with business</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -360,10 +280,6 @@
         <translation>jestem klientem</translation>
     </message>
     <message>
-        <source>I am seller</source>
-        <translation>jestem sprzedawcą</translation>
-    </message>
-    <message>
         <source>Next</source>
         <translation>Następny</translation>
     </message>
@@ -376,10 +292,6 @@
         <translation>Jaka jest nazwa Twojej firmy?</translation>
     </message>
     <message>
-        <source>Please enter your name or name your company here</source>
-        <translation type="vanished">Nazwę swojej firmy</translation>
-    </message>
-    <message>
         <source>Please enter your name here</source>
         <translation type="unfinished"></translation>
     </message>
@@ -388,24 +300,20 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Nobody, I just want to recover data</source>
+        <source>Done!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Done!</source>
+        <source>I just want to recover data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>I am a business representative</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>FreeItemsView</name>
-    <message>
-        <source>It seems you deserve a bonus.</source>
-        <translation type="vanished">Wygląda na to, że zasługujesz na bonus.</translation>
-    </message>
-    <message>
-        <source>You have </source>
-        <translation type="vanished">Ty masz </translation>
-    </message>
     <message>
         <source>Give out</source>
         <translation type="unfinished"></translation>
@@ -443,13 +351,6 @@
     </message>
 </context>
 <context>
-    <name>IncludeRecoveryWordPage</name>
-    <message>
-        <source>Next</source>
-        <translation type="obsolete">Następny</translation>
-    </message>
-</context>
-<context>
     <name>ItemsView</name>
     <message>
         <source>Add</source>
@@ -484,10 +385,6 @@
     </message>
     <message>
         <source>### How to use?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>### Guide to using Cheat Cards for merchants</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -584,6 +481,10 @@
     </message>
     <message>
         <source>* In order to issue the card to the client, press and hold on it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>### Guide to using Cheat Cards for business</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -751,6 +652,22 @@
         <source>Yor secret key and public key is not pair May be you scan not valid qr code ...</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Operation not permitted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This card have a active clients, so you can&apos;t to remove this card.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove Card</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You trying to delete this card, do not worry a seller that has give out this card save all bonuses locally,  so after repeat visit you will be get all your removed bonuses again. Do you want to continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RC::SellerStatisticModel</name>
@@ -776,29 +693,10 @@
     </message>
 </context>
 <context>
-    <name>RecoveryPage</name>
-    <message>
-        <source>Next</source>
-        <translation type="obsolete">Następny</translation>
-    </message>
-</context>
-<context>
     <name>RegistrationFinishedPage</name>
-    <message>
-        <source>Registration passed!!!</source>
-        <translation type="vanished">Rejestracja przeszła!!!</translation>
-    </message>
-    <message>
-        <source>The registration of the new user finished successful. Now you can use you card.</source>
-        <translation type="vanished">Rejestracja nowego użytkownika zakończyła się pomyślnie. Teraz możesz użyć swojej karty.</translation>
-    </message>
     <message>
         <source>Go to use</source>
         <translation>Go to use</translation>
-    </message>
-    <message>
-        <source>Registered!</source>
-        <translation type="vanished">Zarejestrowany!</translation>
     </message>
     <message>
         <source>Done!</source>
@@ -884,13 +782,6 @@
     <message>
         <source>Check</source>
         <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>exportUserKeyPage</name>
-    <message>
-        <source>Next</source>
-        <translation type="obsolete">Następny</translation>
     </message>
 </context>
 </TS>

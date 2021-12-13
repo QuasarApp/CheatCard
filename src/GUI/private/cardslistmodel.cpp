@@ -151,7 +151,27 @@ const QHash<int, QSharedPointer<CardModel> > &CardsListModel::cache() const {
 
 void CardsListModel::configureModel(const QSharedPointer<CardModel> &cardModel) {
     connect(cardModel.data(), &CardModel::editFinished, this, &CardsListModel::sigEditFinished);
+    connect(cardModel.data(), &CardModel::sigRemoveRequest, this, &CardsListModel::sigRemoveRequest);
+    connect(cardModel.data(), &CardModel::sigActivate, this, &CardsListModel::handleActivate);
+    connect(cardModel.data(), &CardModel::sigShowStatistick, this, &CardsListModel::handleShowStatistic);
     connect(cardModel.data(), &CardModel::resetCardModel, this, &CardsListModel::sigResetCardModel);
+
 }
 
+
+void CardsListModel::handleActivate(const QSharedPointer<API::Card>& card) {
+    auto cardModel = _cache.value(card->cardId());
+
+    if (cardModel) {
+        emit sigCardSelectedForWork(cardModel);
+    }
+}
+
+void CardsListModel::handleShowStatistic(const QSharedPointer<API::Card>& card) {
+    auto cardModel = _cache.value(card->cardId());
+
+    if (cardModel) {
+        emit sigCardSelectedForStatistic(cardModel);
+    }
+}
 }

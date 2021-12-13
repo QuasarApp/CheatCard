@@ -22,7 +22,6 @@ public:
 
     Q_INVOKABLE void addCard() override;
     Q_INVOKABLE void removeCard(int cardId) override;
-    Q_INVOKABLE void cardSelected(int cardId, int type) override;
 
     // QSortFilterProxyModel interface
 protected:

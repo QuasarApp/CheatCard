@@ -11,6 +11,8 @@ import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
 import NotifyModule 1.0
 
+import "Style"
+
 ApplicationWindow {
     id: mainWindow
     visible: true
@@ -101,7 +103,7 @@ ApplicationWindow {
             Label {
                 text: (user)?
                           qsTr("Hello ") + user.name +
-                          ((mainModel && mainModel.mode)? qsTr(" (Seller mode)"):"")
+                          ((mainModel && mainModel.mode)? qsTr(" (work mode)"):"")
                         : ""
 
                 elide: Label.ElideRight
@@ -122,12 +124,13 @@ ApplicationWindow {
         }
     }
 
-    Menu {
+    CMenu {
         id: mainMenu
+
 
         MenuItem {
             visible: (mainModel)? mainModel.mode: false
-            height: (visible)? implicitHeight: 0
+            height: (visible)? ganeralMenuItem.height: 0
 
             text: qsTr("Contact with developers")
             icon.source: "qrc:/images/private/resources/Interface_icons/contact_developers.svg"
@@ -137,7 +140,7 @@ ApplicationWindow {
         }
 
         MenuItem {
-
+            id: ganeralMenuItem
             text: qsTr("About")
             icon.source: "qrc:/images/private/resources/Interface_icons/help.svg"
             onClicked:  () => {
@@ -147,7 +150,6 @@ ApplicationWindow {
         }
 
         MenuItem {
-
             text: qsTr("Share application")
             icon.source: "qrc:/images/private/resources/Interface_icons/sharing_icon.svg"
             onClicked:  () => {
@@ -157,7 +159,6 @@ ApplicationWindow {
         }
 
         MenuItem {
-
             text: qsTr("Help")
             icon.source: "qrc:/images/private/resources/Interface_icons/about.svg"
             onClicked:  () => {
@@ -173,7 +174,6 @@ ApplicationWindow {
         }
 
         MenuItem {
-
             text: qsTr("Settings")
             icon.source: "qrc:/images/private/resources/Interface_icons/settings.svg"
             onClicked: () => {
@@ -195,7 +195,6 @@ ApplicationWindow {
         MenuItem {
             text: qsTr("Backup")
             icon.source: "qrc:/images/private/resources/Interface_icons/key_push.svg"
-
             onClicked:  () => {
                             activityProcessor.newActivity("qrc:/CheatCardModule/ExportUserKeyPage.qml",
                                                           mainModel.currentUser);

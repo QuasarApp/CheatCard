@@ -292,14 +292,14 @@ void MainModel::initCardsListModels() {
     _currentCardsListModel->sort(0);
     _currentCardsListModel->setDynamicSortFilter(true);
 
+    connect(_cardsListModel, &CardsListModel::sigRemoveRequest,
+            this, &MainModel::handleRemoveRequest);
+
     connect(_ownCardsListModel, &CardsListModel::sigEditFinished,
             this, &MainModel::handleCardEditFinished);
 
-    connect(_cardsListModel, &CardsListModel::sigEditFinished,
-            this, &MainModel::handleCardEditFinished);
-
-    connect(_ownCardsListModel, &CardsListModel::sigCardRemoved,
-            this, &MainModel::handleCardRemoved);
+    connect(_ownCardsListModel, &CardsListModel::sigRemoveRequest,
+            this, &MainModel::handleRemoveRequest);
 
     connect(_ownCardsListModel, &CardsListModel::sigCardSelectedForWork,
             this, &MainModel::handleCardSelectedForWork);
@@ -605,12 +605,44 @@ void MainModel::handleResetCardModel(const QSharedPointer<RC::API::Card> &card) 
     _db->insertIfExistsUpdateObject(card);
 }
 
-void MainModel::handleCardRemoved(unsigned int id) {
+void MainModel::handleRemoveRequest(const QSharedPointer<API::Card> &card) {
 
-    auto reqest = QSharedPointer<API::Card>::create();
-    reqest->setId(id);
+    auto service = QmlNotificationService::NotificationService::getService();
 
-    _db->deleteObject(reqest);
+    if (service) {
+
+        QmlNotificationService::Listner listner = [card, this] (bool accepted) {
+
+            if (accepted) {
+
+                _db->deleteObject(card);
+                _currentCardsListModel->removeCard(card->cardId());
+            }
+        };
+
+        if (getMode()) {
+            auto listOfUsers = _backEndModel->getAllUserFromCard(card->cardId());
+
+            if (listOfUsers.size()) {
+                service->setNotify(tr("Operation not permitted"),
+                                tr("This card have a active clients, so you can't to remove this card."),
+                                "",
+                                QmlNotificationService::NotificationData::Error);
+                return;
+            }
+
+            listner(true);
+            return;
+        }
+
+
+        service->setQuestion(listner, tr("Remove Card"),
+                             tr("You trying to delete this card, do not worry a seller that has give out this card save all bonuses locally, "
+                                " so after repeat visit you will be get all your removed bonuses again."
+                                " Do you want to continue?"));
+
+
+    }
 }
 
 void MainModel::handleCardSelectedForWork(const QSharedPointer<CardModel> &card) {
