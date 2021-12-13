@@ -209,6 +209,10 @@
         <source>Hide statistics</source>
         <translation>Скрыть статистику</translation>
     </message>
+    <message>
+        <source>Default</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditUserView</name>
