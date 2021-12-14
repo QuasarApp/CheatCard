@@ -28,6 +28,7 @@ QPixmap ImageProvider::requestPixmap(const QString &id,
                                      QSize *imageSize,
                                      const QSize &requestedSize) {
 
+    qDebug () << id;
     auto request = id.split(':', Qt::SkipEmptyParts);
 
     QPixmap result(1,1);

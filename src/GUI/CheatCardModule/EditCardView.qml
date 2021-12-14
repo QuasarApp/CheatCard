@@ -9,7 +9,12 @@ import "Style"
 Page {
     id: root
     property var model: null
-    property string fontColor: (model)? model.fontColor : "#000000"
+    property string fontColor: ""
+    Binding {
+        target: root
+        property: "fontColor"
+        value: (root.model)? model.fontColor : "#777777"
+    }
     property bool editable: true
     property bool customization: false
 
@@ -55,7 +60,11 @@ Page {
             Layout.fillWidth: true
             Layout.fillHeight: true
 
-            color: (root.model)? root.model.color : "#777777"
+            Binding {
+                target: cardRectangle
+                property: "color"
+                value: (root.model)? root.model.color : "#777777"
+            }
             radius: 10
             clip: false
 
