@@ -37,6 +37,7 @@ Frame {
         }
 
         Image {
+            id: cardLogoIamge
             fillMode: Image.PreserveAspectFit
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             Layout.preferredHeight: h
