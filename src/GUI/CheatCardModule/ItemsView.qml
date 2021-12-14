@@ -83,7 +83,7 @@ Page {
             /// this bug occurred sometime and i don't understand why this happened. i thin this is bug of qt library
             FileDialog {
                 id: fileDialogView
-                nameFilters: [qsTr("Images") + " (*.png)"]
+                nameFilters: [qsTr("Images") + " (*.jpg *.png)"]
                 title: qsTr("Do you want to put your picture? You can choose but the picture must be in png format!")
                 folder: shortcuts.home
                 onAccepted: {
