@@ -121,7 +121,7 @@ protected:
 
         QString where = "ownerSignature= '%0'";
         if (restOf) {
-            where = "ownerSignature!= '%0'";
+            where = "ownerSignature!= '%0' OR ownerSignature IS NULL";
         }
 
         where = where.arg(QString(userKey.toBase64(QByteArray::Base64UrlEncoding)));

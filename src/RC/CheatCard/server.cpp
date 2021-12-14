@@ -40,6 +40,11 @@ bool Server::cardValidation(const QSharedPointer<API::Card> &cardFromDB,
         return true;
 
     auto signature = cardFromDB->ownerSignature();
+
+    if (signature.isEmpty()) {
+        return true;
+    }
+
     auto ownerSignature =  API::User::makeKey(ownerSecret);
 
     return signature == ownerSignature;
