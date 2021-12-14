@@ -20,4 +20,8 @@ ServerSSL::ServerSSL(QH::ISqlDBCache *db): Server(db) {
     useSelfSignedSslConfiguration(sslData);
 }
 
+NodeType ServerSSL::nodeType() const {
+    return Server::nodeType() | NodeType::SSL;
+}
+
 }
