@@ -139,18 +139,7 @@ Page {
                                     root.sigHold();
                                     privateRoot.activityCard();
                                 }
-            }
-
-            ToolButton {
-                id: editCardBtn
-                visible: isCurrentItem && !(root.editable || root.customization)
-                icon.source: "qrc:/images/private/resources/Interface_icons/Right_topmenu.svg"
-                icon.color: (card)? card.fontColor: Material.foreground
-                font.bold: true
-                font.pointSize: 14
-
-                onClicked: editMenu.popup(this, editCardBtn.x, editCardBtn.height)
-            }
+                 }
 
             GridLayout {
                 id: frontSide;
@@ -173,6 +162,15 @@ Page {
                     Layout.rowSpan: 1
                     Layout.fillWidth: true
                     Layout.preferredHeight: parent.height / 2
+
+                    layer.enabled: true
+                    layer.effect: OpacityMask {
+                        maskSource: Rectangle {
+                            width: cardLogoIamge.width
+                            height: cardLogoIamge.height
+                            radius: 25
+                        }
+                    }
 
                     opacity: height > 50 && width > 50
 
@@ -518,6 +516,16 @@ Page {
                 }
             }
 
+            ToolButton {
+                id: editCardBtn
+                visible: isCurrentItem && !(root.editable || root.customization)
+                icon.source: "qrc:/images/private/resources/Interface_icons/Right_topmenu.svg"
+                icon.color: (card)? card.fontColor: Material.foreground
+                font.bold: true
+                font.pointSize: 14
+
+                onClicked: editMenu.popup(this, editCardBtn.x, editCardBtn.height)
+            }
 
             transform: Rotation {
                 id: rotationObject

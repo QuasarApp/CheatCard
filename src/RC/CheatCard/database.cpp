@@ -13,6 +13,8 @@
 #include <customdbrequest.h>
 #include <getsinglevalue.h>
 
+#include <CheatCard/api/api0/card.h>
+
 namespace RC {
 
 DataBase::DataBase(const QString &name) {
@@ -45,6 +47,14 @@ QH::DBPatchMap DataBase::dbPatches() const {
         return true;
     };
 
+    result += beta1Patches();
+
+    return result;
+}
+
+QH::DBPatchMap DataBase::beta1Patches() const {
+    QH::DBPatchMap result;
+
     // See task #130 https://quasarapp.ddns.net:3000/QuasarApp/CheatCard/issues/130
     result += [](const QH::iObjectProvider* database) -> bool {
         return database->doSql(":/DataBase/private/sql/SQLPatch_1.sql");
@@ -56,27 +66,68 @@ QH::DBPatchMap DataBase::dbPatches() const {
     };
 
     // See task #201 https://quasarapp.ddns.net:3000/QuasarApp/CheatCard/issues/201
+    // This patch is very hard... and do not change this code.
     result += [](const QH::iObjectProvider* database) -> bool {
 
-        QH::PKG::CustomDBRequest<API::User> request("SELECT * FROM Users");
-
+        // get a database object for change it
         auto db = const_cast<QH::iObjectProvider*>(database);
-        QList<QSharedPointer<QH::PKG::DBObject>> result;
-        if (!db->getAllObjects(request, result))
+
+        // get all users for fix data.
+        QH::PKG::CustomDBRequest<API::User> usersrequest("SELECT * FROM Users");
+
+        // reserve result objects containers
+        QList<QSharedPointer<QH::PKG::DBObject>> users;
+        QList<QSharedPointer<API::Card>> cards;
+        QMap<unsigned int, unsigned int> remapConfig;
+
+        // get users
+        if (!db->getAllObjects(usersrequest, users))
             return false;
 
-        for (const auto &obj: qAsConst(result)) {
-
+        for (const auto &obj: qAsConst(users)) {
+            // for each users check owned cards list
+            // if users have owned cards then they is sellers ...
+            // next step is get all owned cards and fix them owners sigantures...
             auto ptr = obj.dynamicCast<API::User>();
 
             if (!ptr)
                 return false;
 
-            if (ptr->fSaller()) {
-                database->doQuery(QString("DELETE FROM Users WHERE id = '%0'").arg(ptr->userId()));
+            // get list of owned cards
+            // this code true only for beta 0 version
+            QString dbrequest = QString("SELECT * FROM Cards WHERE id IN (SELECT card FROM UsersCards WHERE user = %0 AND owner = %1)").
+                    arg(ptr->userId()).
+                    arg("true");
+
+            QList<QSharedPointer<QH::PKG::DBObject>> localUserCards;
+            QH::PKG::CustomDBRequest<API::Card> request(dbrequest);
+            auto result = db->getAllObjects(request, localUserCards);
+
+            if (result && localUserCards.size()) {
+                // if user has owned cards then they is seller. and we need to regenerate for them new keys..
+
+                // save old userid for move config to new id that will be generated after invke a  regenerateKeys method.
+                unsigned int oldUserId = ptr->userId();
+
                 ptr->regenerateKeys();
                 QSettings().setValue(CURRENT_USER, ptr->userId());
+                remapConfig.insert(ptr->userId(), oldUserId);
+
+                // sets new own signature for each seller card.
+                for (const auto &cardObj : qAsConst(localUserCards)) {
+                    auto card = cardObj.dynamicCast<API::Card>();
+                    if (!card) {
+                        continue;
+                    }
+
+                    card->setOwnerSignature(ptr->getKey());
+                    card->setCardVersion(card->getCardVersion() + 1);
+                    cards.push_back(card);
+                }
+
             } else {
+
+                // else just update structure of publick key..
                 QH::PKG::GetSingleValue request({"Users", ptr->userId()}, "key");
                 auto keyWrapper = db->getObject(request);
                 QByteArray key = keyWrapper->value().toByteArray();
@@ -93,8 +144,35 @@ QH::DBPatchMap DataBase::dbPatches() const {
             return false;
         }
 
-        for (const auto &ptr: qAsConst(result)) {
+        // reinsert updated users.
+        for (const auto &ptr: qAsConst(users)) {
+            // delete old user for refactoring data.
+            database->doQuery(QString("DELETE FROM Users WHERE id = '%0'").arg(ptr->getId().toUInt()));
+
             if (!db->insertObject(ptr, true)) {
+                return false;
+            }
+
+            unsigned int userId = ptr->getId().toUInt();
+
+            if (remapConfig.contains(userId)) {
+                unsigned int oldUserId = remapConfig.value(userId);
+                // remap old config for new users
+                QString updateConfigRequest = QString("INSERT INTO Config(user,fFirst,fSellerMode) VALUES("
+                                                      "'%0',"
+                                                      "(SELECT fFirst FROM Config WHERE user='%1'),"
+                                                      "(SELECT fSellerMode FROM Config WHERE user='%1'))").
+                                              arg(userId).arg(oldUserId);
+
+                if (!database->doQuery(updateConfigRequest)) {
+                    return false;
+                }
+            }
+        }
+
+        // update cards
+        for (const auto &ptr: qAsConst(cards)) {
+            if (!db->insertIfExistsUpdateObject(ptr, true)) {
                 return false;
             }
         }

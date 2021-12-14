@@ -10,6 +10,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
+import QtGraphicalEffects 1.15
 
 Frame {
     id: root
@@ -36,10 +37,20 @@ Frame {
         }
 
         Image {
+            id: cardLogoIamge
             fillMode: Image.PreserveAspectFit
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             Layout.preferredHeight: h
             Layout.preferredWidth: w
+
+            layer.enabled: true
+            layer.effect: OpacityMask {
+                maskSource: Rectangle {
+                    width: cardLogoIamge.width
+                    height: cardLogoIamge.height
+                    radius: 25
+                }
+            }
 
             property int w:  Math.min(root.width, root.height) * 0.5
             property int h: Math.min(root.width, root.height) * 0.5
