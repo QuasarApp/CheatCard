@@ -609,11 +609,6 @@ void MainModel::handleCardEditFinished(const QSharedPointer<API::Card>& card) {
 void MainModel::handleResetCardModel(const QSharedPointer<RC::API::Card> &card) {
 
     auto cardId = card->cardId();
-    auto model = getCurrentListModel()->cache().value(cardId);
-
-    if (model) {
-        model->refreshView();
-    }
 
     card->setCardVersion(0);
     _db->insertIfExistsUpdateObject(card);
