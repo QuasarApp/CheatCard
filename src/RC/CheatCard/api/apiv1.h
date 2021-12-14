@@ -68,7 +68,7 @@ private:
                         const QByteArray &ownerSecret) const;
 
     /**
-     * @brief getSignData This method sets to @a data seecret key of this node. This method should be works only for sellers.
+     * @brief getSignData This method sets to @a data secret key of this node. This method should be works only for sellers.
      * @param data result value.
      */
     void getSignData(QByteArray& data) const;
