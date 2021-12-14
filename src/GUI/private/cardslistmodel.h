@@ -59,6 +59,7 @@ signals:
     void sigRemoveRequest(const QSharedPointer<API::Card>& card);
 
     void sigEditFinished(const QSharedPointer<API::Card>& card);
+    void sigResetCardModel(const QSharedPointer<API::Card>& card);
     void sigCardSelectedForWork(const QSharedPointer<CardModel>& card);
     void sigCardSelectedForStatistic(const QSharedPointer<CardModel>& card);
 

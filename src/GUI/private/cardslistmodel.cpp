@@ -146,6 +146,7 @@ void CardsListModel::configureModel(const QSharedPointer<CardModel> &cardModel) 
     connect(cardModel.data(), &CardModel::sigRemoveRequest, this, &CardsListModel::sigRemoveRequest);
     connect(cardModel.data(), &CardModel::sigActivate, this, &CardsListModel::handleActivate);
     connect(cardModel.data(), &CardModel::sigShowStatistick, this, &CardsListModel::handleShowStatistic);
+    connect(cardModel.data(), &CardModel::resetCardModel, this, &CardsListModel::sigResetCardModel);
 
 }
 

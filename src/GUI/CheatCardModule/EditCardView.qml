@@ -9,8 +9,14 @@ import "Style"
 Page {
     id: root
     property var model: null
-    property string fontColor: (model)? model.fontColor : "#000000"
+    property string fontColor: ""
+    Binding {
+        target: root
+        property: "fontColor"
+        value: (root.model)? model.fontColor : "#777777"
+    }
     property bool editable: true
+    property bool customization: false
 
     property int purchasesNumber: (model)? model.purchasesNumber: 1
     property int freeIndexCount :(model)? model.freeIndex: 0
@@ -54,15 +60,24 @@ Page {
             Layout.fillWidth: true
             Layout.fillHeight: true
 
-            color: (root.model)? root.model.color : "#777777"
+            Binding {
+                target: cardRectangle
+                property: "color"
+                value: (root.model)? root.model.color : "#777777"
+            }
             radius: 10
             clip: false
 
             Image {
                 id: cardBackground
                 fillMode: Image.PreserveAspectCrop
-                source: "image://cards/background:" + ((root.model)? root.model.id  + ":" + root.model.cardVersion: "0")
                 anchors.fill: parent
+
+                Binding {
+                    target: cardBackground
+                    property: "source"
+                    value: "image://cards/background:" + ((root.model)? root.model.id  + ":" + root.model.cardVersion: "0")
+                }
 
                 layer.enabled: true
                 layer.effect: OpacityMask {
@@ -124,7 +139,7 @@ Page {
                                     root.sigHold();
                                     privateRoot.activityCard();
                                 }
-            }
+                 }
 
             GridLayout {
                 id: frontSide;
@@ -136,7 +151,12 @@ Page {
                 Image {
                     id: cardLogoIamge
                     fillMode: Image.PreserveAspectFit
-                    source: "image://cards/logo:" + ((root.model)? root.model.id  + ":" + root.model.cardVersion : "0")
+                    Binding {
+                        target: cardLogoIamge
+                        property: "source"
+                        value: "image://cards/logo:" + ((root.model)? root.model.id  + ":" + root.model.cardVersion : "0")
+
+                    }
                     Layout.alignment: Qt.AlignHCenter
 
                     Layout.rowSpan: 1
@@ -157,7 +177,7 @@ Page {
                 }
 
                 GridLayout {
-                    rows: 3 + (visibleItemsCount <= 3 ) + (editable || visibleItemsCount > 4 )
+                    rows: 3 + (visibleItemsCount <= 3 ) + (root.editable || visibleItemsCount > 4 )
                     columns: (visibleItemsCount <= 3 )? 1: 2
                     Layout.alignment: Qt.AlignRight | Qt.AlignTop
                     Layout.rightMargin: 10
@@ -187,7 +207,7 @@ Page {
 
                         placeholderText: qsTr("Enter card title");
                         placeholderTextColor: "#c12300"
-                        readOnly: !editable
+                        readOnly: !root.editable
                     }
 
                     TextFieldWithLogo {
@@ -198,7 +218,7 @@ Page {
 
                         textField.text: (root.model)? root.model.telegramm : ""
                         textField.placeholderText: qsTr("Your telegramm");
-                        textField.readOnly: !editable
+                        textField.readOnly: !root.editable
                         textField.onTextChanged: {
                             if (!root.model)
                                 return
@@ -224,7 +244,7 @@ Page {
 
                         textField.text: (root.model)? root.model.instagramm : ""
                         textField.placeholderText: qsTr("Your instagramm");
-                        textField.readOnly: !editable
+                        textField.readOnly: !root.editable
                         textField.onTextChanged: {
                             if (!root.model)
                                 return
@@ -248,7 +268,7 @@ Page {
 
                         textField.text: (root.model)? root.model.physicalAddress : ""
                         textField.placeholderText: qsTr("Your physical address");
-                        textField.readOnly: !editable
+                        textField.readOnly: !root.editable
                         textField.onTextChanged: {
                             if (!root.model)
                                 return
@@ -282,7 +302,7 @@ Page {
                                    }
 
                         textField.placeholderText: qsTr("Your web site");
-                        textField.readOnly: !editable
+                        textField.readOnly: !root.editable
 
                         image: "qrc:/images/private/resources/www.png"
 
@@ -308,7 +328,7 @@ Page {
                                    }
 
                         textField.placeholderText: qsTr("Your phone number");
-                        textField.readOnly: !editable
+                        textField.readOnly: !root.editable
 
                         image: "qrc:/images/private/resources/phone.png"
 
@@ -332,7 +352,7 @@ Page {
                         textField.placeholderText: qsTr("Enter bonus name");
                         textField.placeholderTextColor: "#c12300"
 
-                        textField.readOnly: !editable
+                        textField.readOnly: !root.editable
 
                         image: "qrc:/images/private/resources/freeItem.png"
 
@@ -383,17 +403,13 @@ Page {
                                     width: parent.width * 0.9
                                     height: parent.width * 0.9
 
-                                    layer.enabled: true
-                                    layer.effect: OpacityMask {
-                                        maskSource: Rectangle {
-                                            width: seelImage.width
-                                            height: seelImage.height
-                                            radius: Math.min(seelImage.width, seelImage.height)
-                                        }
-                                    }
+                                    Binding {
+                                        target: seelImage
+                                        property: "source"
+                                        value: "image://cards/seal:" +
+                                               ((root.model)? root.model.id  + ":" + root.model.cardVersion: "0")
 
-                                    source: "image://cards/seal:" +
-                                            ((root.model)? root.model.id  + ":" + root.model.cardVersion: "0")
+                                    }
 
                                     Connections {
                                         target: cardRectangle
@@ -502,7 +518,7 @@ Page {
 
             ToolButton {
                 id: editCardBtn
-                visible: isCurrentItem && !root.editable
+                visible: isCurrentItem && !(root.editable || root.customization)
                 icon.source: "qrc:/images/private/resources/Interface_icons/Right_topmenu.svg"
                 icon.color: (card)? card.fontColor: Material.foreground
                 font.bold: true
@@ -534,12 +550,13 @@ Page {
             }
         }
         RowLayout {
-            visible: editable
+            visible: customization || root.editable
             Layout.alignment: Qt.AlignHCenter
-
+            Layout.rightMargin: 10
 
             ToolButton {
                 id: menuButton
+                visible: customization || root.editable
                 icon.source:  "qrc:/images/private/resources/Interface_icons/Right_topmenu.svg"
                 font.bold: true
                 font.pointSize: 14
@@ -548,8 +565,13 @@ Page {
                            }
             }
 
+            Item {
+                Layout.fillWidth: true
+            }
+
             SpinBox {
                 id: freeIndex
+                visible: root.editable
                 value: (root.model)? root.model.freeIndex : privateRoot.rowSignCount
                 stepSize: Math.ceil((freeIndex.value + 1) / privateRoot.rowSignCount)
                 to: privateRoot.rowSignCount * privateRoot.maximumRowSignCount
@@ -564,7 +586,20 @@ Page {
             }
 
             Button {
+                text: qsTr("Default");
+                visible: !freeIndex.visible
+                enabled: cardTitle.text.length && cardfreeItem.textField.text.length
+                onClicked: () => {
+                               if (root.model) {
+                                   root.finished()
+                                   root.model.cardReset()
+                               }
+                           }
+            }
+
+            Button {
                 text: qsTr("Save");
+                visible: customization || root.editable
                 enabled: cardTitle.text.length && cardfreeItem.textField.text.length
                 onClicked: () => {
                                if (root.model) {
@@ -637,8 +672,10 @@ Page {
                                     return
                                 };
 
-                                cardBackground.source = sourceImages.currentSelectedItem
-                                root.model.setNewBackGround(sourceImages.currentSelectedItem);
+                                const selectdeItem = sourceImages.currentSelectedItem;
+
+                                cardBackground.source = selectdeItem
+                                root.model.setNewBackGround(selectdeItem);
                                 activityProcessor.popItem();
                             }
 
@@ -660,8 +697,9 @@ Page {
                                     return
                                 };
 
-                                cardLogoIamge.source = sourceLogos.currentSelectedItem
-                                root.model.setNewLogo(sourceLogos.currentSelectedItem);
+                                const selectdeItem = sourceLogos.currentSelectedItem;
+                                cardLogoIamge.source = selectdeItem
+                                root.model.setNewLogo(selectdeItem);
                                 activityProcessor.popItem();
 
                             }
@@ -684,8 +722,10 @@ Page {
                                     return
                                 };
 
-                                cardRectangle.seelTmpImage = sourceSeels.currentSelectedItem
-                                root.model.setNewSeel(sourceSeels.currentSelectedItem);
+                                const selectdeItem = sourceSeels.currentSelectedItem;
+
+                                cardRectangle.seelTmpImage = selectdeItem
+                                root.model.setNewSeel(selectdeItem);
                                 activityProcessor.popItem();
 
                             }
@@ -749,13 +789,15 @@ Page {
 
         MenuItem {
 
-            visible: (mainModel)? mainModel.mode: false
             height: (visible)? ganeralMenuItem.height: 0
 
             text: qsTr("Edit card")
             icon.source: "qrc:/images/private/resources/Interface_icons/edit_card.svg"
             onClicked:  () => {
-                            root.editable = true;
+                            if(mainModel.mode)
+                                hasEdit = cardView.editable = true;
+                            else
+                                hasEdit = cardView.customization = true;
                         }
         }
 

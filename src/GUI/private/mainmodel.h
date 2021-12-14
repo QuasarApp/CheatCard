@@ -142,6 +142,7 @@ private slots:
     void handleCardReceived(QSharedPointer<RC::API::Card> card);
 
     void handleCardEditFinished(const QSharedPointer<RC::API::Card> &card);
+    void handleResetCardModel(const QSharedPointer<RC::API::Card> &card);
 
     void handleRemoveRequest(const QSharedPointer<API::Card> &card);
     void handleCardSelectedForWork(const QSharedPointer<CardModel>& card);
@@ -155,6 +156,7 @@ private slots:
     void handleListenStop();
     void handleAppStateChanged(Qt::ApplicationState state);
     void handlePurchaseReceived(Purchase purchase);
+    void saveCard(const QSharedPointer<RC::API::Card> &card);
 
 private:
     void saveConfig();
@@ -183,8 +185,7 @@ private:
                                 int purchasesCount,
                                 bool sendOnly);
 
-    CardsListModel* getCurrentListModel() const;
-    void saveCard(const QSharedPointer<RC::API::Card> &card);
+    CardsListModel* getCurrentListModel() const;    
 
     QH::ISqlDBCache * _db = nullptr;
     QSharedPointer<UserModel> _currentUser;

@@ -298,6 +298,9 @@ void MainModel::initCardsListModels() {
     connect(_ownCardsListModel, &CardsListModel::sigEditFinished,
             this, &MainModel::handleCardEditFinished);
 
+    connect(_cardsListModel, &CardsListModel::sigEditFinished,
+            this, &MainModel::saveCard);
+
     connect(_ownCardsListModel, &CardsListModel::sigRemoveRequest,
             this, &MainModel::handleRemoveRequest);
 
@@ -306,6 +309,12 @@ void MainModel::initCardsListModels() {
 
     connect(_ownCardsListModel, &CardsListModel::sigCardSelectedForStatistic,
             this, &MainModel::handleCardSelectedForStatistic);
+
+    connect(_cardsListModel, &CardsListModel::sigResetCardModel,
+            this, &MainModel::handleResetCardModel);
+
+    connect(_ownCardsListModel, &CardsListModel::sigResetCardModel,
+            this, &MainModel::handleResetCardModel);
 }
 
 void MainModel::initImagesModels() {
@@ -543,7 +552,11 @@ void MainModel::handleCardReceived(QSharedPointer<RC::API::Card> card) {
 }
 
 void RC::MainModel::saveCard(const QSharedPointer<API::Card>& card) {
-    card->setCardVersion(card->getCardVersion() + 1);
+    if (getMode() == static_cast<int>(Mode::Client)) {
+        card->setCardVersion(VERSION_CARD_USER);
+    } else {
+        card->setCardVersion(card->getCardVersion() + 1);
+    }
 
     _db->insertIfExistsUpdateObject(card);
 }
@@ -593,8 +606,26 @@ void MainModel::handleCardEditFinished(const QSharedPointer<API::Card>& card) {
     saveCard(card);
 }
 
-void MainModel::handleRemoveRequest(const QSharedPointer<API::Card> &card) {
+void MainModel::handleResetCardModel(const QSharedPointer<RC::API::Card> &card) {
 
+    auto cardId = card->cardId();
+
+    card->setCardVersion(0);
+    _db->insertIfExistsUpdateObject(card);
+
+    auto service = QmlNotificationService::NotificationService::getService();
+
+    if (!_backEndModel->restoreOneCard(cardId)) {
+        service->setNotify(tr("We has a troubles"),
+                           tr("The card reset to default successful but load default card from server failed, so you receive your card when buy new purchase in caffe that has give out this card."),
+                           "", QmlNotificationService::NotificationData::Warning);
+
+        return;
+    }
+
+}
+
+void MainModel::handleRemoveRequest(const QSharedPointer<API::Card> &card) {
 
     auto service = QmlNotificationService::NotificationService::getService();
 

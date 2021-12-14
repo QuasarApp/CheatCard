@@ -114,6 +114,11 @@ void CardModel::setNewSeel(const QString &seelPath) {
     _card->setSeal(convert(seelPath));
 }
 
+void CardModel::cardReset() {
+    if (_card)
+        emit resetCardModel(_card);
+}
+
 QString CardModel::phone() const {
     if (!_card)
         return "";
@@ -286,6 +291,10 @@ void CardModel::setReceivedItems(int newReceivedItems) {
         return;
     _receivedItems = newReceivedItems;
     emit receivedItemsChanged();
+}
+
+void CardModel::refreshView() {
+    emit objChanged();
 }
 
 QString CardModel::getFreeItem() const {

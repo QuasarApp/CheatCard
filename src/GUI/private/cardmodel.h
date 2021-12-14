@@ -12,6 +12,8 @@
 #include <qqml.h>
 #include "CheatCard/api/api0/card.h"
 
+#define VERSION_CARD_USER 1000000
+
 namespace RC {
 
 /**
@@ -76,6 +78,7 @@ public:
     void setFreeIndex(int newFreeIndex);
 
     Q_INVOKABLE void save();
+    Q_INVOKABLE void cardReset();
     Q_INVOKABLE void remove();
     Q_INVOKABLE void activate();
     Q_INVOKABLE void showStatistick();
@@ -95,12 +98,14 @@ public:
     int receivedItems() const;
     void setReceivedItems(int newReceivedItems);
 
+    void refreshView();
 signals:
     void objChanged();
     void editFinished(const QSharedPointer<API::Card>& card);
     void sigRemoveRequest(const QSharedPointer<API::Card>& card);
     void sigActivate(const QSharedPointer<API::Card>& card);
     void sigShowStatistick(const QSharedPointer<API::Card>& card);
+    void resetCardModel(const QSharedPointer<API::Card>& card);
 
     void purchasesNumberChanged();
 
