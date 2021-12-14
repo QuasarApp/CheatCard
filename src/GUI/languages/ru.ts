@@ -50,10 +50,6 @@
         <translation>Информация</translation>
     </message>
     <message>
-        <source> (Seller mode)</source>
-        <translation> (Режим продавца)</translation>
-    </message>
-    <message>
         <source>Help</source>
         <translation>Помощь</translation>
     </message>
@@ -72,6 +68,10 @@
     <message>
         <source>Backup</source>
         <translation>Резервное копирование</translation>
+    </message>
+    <message>
+        <source> (work mode)</source>
+        <translation> (Рабочий режим)</translation>
     </message>
 </context>
 <context>
@@ -191,23 +191,23 @@
     </message>
     <message>
         <source>Edit card</source>
-        <translation type="unfinished">Редактировать</translation>
+        <translation>Редактировать</translation>
     </message>
     <message>
         <source>Remove card</source>
-        <translation type="unfinished">Удалить карту</translation>
+        <translation>Удалить карту</translation>
     </message>
     <message>
         <source>Activate card</source>
-        <translation type="unfinished">Активировать</translation>
+        <translation>Активировать</translation>
     </message>
     <message>
         <source>Statistics</source>
-        <translation type="unfinished">Статистика</translation>
+        <translation>Статистика</translation>
     </message>
     <message>
         <source>Hide statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Скрыть статистику</translation>
     </message>
 </context>
 <context>
@@ -221,28 +221,20 @@
         <translation>ID пользователя:</translation>
     </message>
     <message>
-        <source>Become a seller</source>
-        <translation>Стать продавцом</translation>
-    </message>
-    <message>
-        <source>Seller mode</source>
-        <translation>Режим продавца</translation>
-    </message>
-    <message>
         <source>Its my name:</source>
         <translation>Моё имя:</translation>
     </message>
     <message>
-        <source>Just a customer</source>
-        <translation>Просто посетитель</translation>
-    </message>
-    <message>
-        <source>Salesman!</source>
-        <translation>Продавец!</translation>
-    </message>
-    <message>
         <source>Profile</source>
         <translation>Профиль</translation>
+    </message>
+    <message>
+        <source>Work mode</source>
+        <translation>Рабочий режим</translation>
+    </message>
+    <message>
+        <source>Start integration with business</source>
+        <translation>Начать интеграцию с бизнесом</translation>
     </message>
 </context>
 <context>
@@ -287,10 +279,6 @@
         <translation>Далее</translation>
     </message>
     <message>
-        <source>I am seller</source>
-        <translation>Я продавец</translation>
-    </message>
-    <message>
         <source>What is your name?</source>
         <translation>Как вас зовут?</translation>
     </message>
@@ -311,12 +299,16 @@
         <translation>Назад</translation>
     </message>
     <message>
-        <source>Nobody, I just want to recover data</source>
-        <translation>Никто! я хочу восстановить данные</translation>
-    </message>
-    <message>
         <source>Done!</source>
         <translation>Готово!</translation>
+    </message>
+    <message>
+        <source>I just want to recover data</source>
+        <translation>Я просто хочу восстановить данные</translation>
+    </message>
+    <message>
+        <source>I am a business representative</source>
+        <translation>Я представитель бизнеса</translation>
     </message>
 </context>
 <context>
@@ -397,10 +389,6 @@
     <message>
         <source>### How to use?</source>
         <translation>### Как использовать?</translation>
-    </message>
-    <message>
-        <source>### Guide to using Cheat Cards for merchants</source>
-        <translation>### Руководсвто по исользованию Чит Карты для продавцов</translation>
     </message>
     <message>
         <source>&lt;img src=&quot;qrc:/private/resources/help/Help3.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
@@ -493,6 +481,10 @@
     <message>
         <source>* In order to issue the card to the client, press and hold on it.</source>
         <translation>* Для того что бы выдать карту клиенту необходимо нажать на неё и удерживать.</translation>
+    </message>
+    <message>
+        <source>### Guide to using Cheat Cards for business</source>
+        <translation>### Руководство по использованию чит-карт для бизнеса</translation>
     </message>
 </context>
 <context>
@@ -661,19 +653,19 @@
     </message>
     <message>
         <source>Operation not permitted</source>
-        <translation type="unfinished"></translation>
+        <translation>Операция не разрешена</translation>
     </message>
     <message>
         <source>This card have a active clients, so you can&apos;t to remove this card.</source>
-        <translation type="unfinished"></translation>
+        <translation>У этой карты есть активные клиенты, поэтому вы не можете удалить эту карту.</translation>
     </message>
     <message>
         <source>Remove Card</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалить карту</translation>
     </message>
     <message>
         <source>You trying to delete this card, do not worry a seller that has give out this card save all bonuses locally,  so after repeat visit you will be get all your removed bonuses again. Do you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы пытаетесь удалить эту карту, не беспокойтесь, продавец, который выдал эту карту, сохранит все бонусы локально, поэтому после повторного посещения вы снова получите все ваши удаленные бонусы. Вы хотите продолжить?</translation>
     </message>
 </context>
 <context>

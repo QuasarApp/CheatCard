@@ -126,17 +126,6 @@ Page {
                                 }
             }
 
-            ToolButton {
-                id: editCardBtn
-                visible: isCurrentItem && !root.editable
-                icon.source: "qrc:/images/private/resources/Interface_icons/Right_topmenu.svg"
-                icon.color: (card)? card.fontColor: Material.foreground
-                font.bold: true
-                font.pointSize: 14
-
-                onClicked: editMenu.popup(this, editCardBtn.x, editCardBtn.height)
-            }
-
             GridLayout {
                 id: frontSide;
 
@@ -153,6 +142,15 @@ Page {
                     Layout.rowSpan: 1
                     Layout.fillWidth: true
                     Layout.preferredHeight: parent.height / 2
+
+                    layer.enabled: true
+                    layer.effect: OpacityMask {
+                        maskSource: Rectangle {
+                            width: cardLogoIamge.width
+                            height: cardLogoIamge.height
+                            radius: 25
+                        }
+                    }
 
                     opacity: height > 50 && width > 50
 
@@ -385,6 +383,15 @@ Page {
                                     width: parent.width * 0.9
                                     height: parent.width * 0.9
 
+                                    layer.enabled: true
+                                    layer.effect: OpacityMask {
+                                        maskSource: Rectangle {
+                                            width: seelImage.width
+                                            height: seelImage.height
+                                            radius: Math.min(seelImage.width, seelImage.height)
+                                        }
+                                    }
+
                                     source: "image://cards/seal:" +
                                             ((root.model)? root.model.id  + ":" + root.model.cardVersion: "0")
 
@@ -493,6 +500,16 @@ Page {
                 }
             }
 
+            ToolButton {
+                id: editCardBtn
+                visible: isCurrentItem && !root.editable
+                icon.source: "qrc:/images/private/resources/Interface_icons/Right_topmenu.svg"
+                icon.color: (card)? card.fontColor: Material.foreground
+                font.bold: true
+                font.pointSize: 14
+
+                onClicked: editMenu.popup(this, editCardBtn.x, editCardBtn.height)
+            }
 
             transform: Rotation {
                 id: rotationObject
@@ -727,13 +744,13 @@ Page {
     }
 
 
-    Menu {
+    CMenu {
         id: editMenu
 
         MenuItem {
 
             visible: (mainModel)? mainModel.mode: false
-            height: (visible)? implicitHeight : 0
+            height: (visible)? ganeralMenuItem.height: 0
 
             text: qsTr("Edit card")
             icon.source: "qrc:/images/private/resources/Interface_icons/edit_card.svg"
@@ -756,7 +773,7 @@ Page {
         MenuItem {
 
             visible: (mainModel)? mainModel.mode: false
-            height: (visible)? implicitHeight : 0
+            height: (visible)? ganeralMenuItem.height: 0
 
             text: qsTr("Activate card")
             icon.source: "qrc:/images/private/resources/Interface_icons/Activate.svg"
@@ -766,6 +783,7 @@ Page {
         }
 
         MenuItem {
+            id: ganeralMenuItem
 
             text: (root.backSide)? qsTr("Hide statistics"): qsTr("Statistics")
             icon.source: "qrc:/images/private/resources/Interface_icons/statistic.svg"
@@ -776,7 +794,7 @@ Page {
 
     }
 
-    Menu {
+    CMenu {
         id: customisationMenu
 
         MenuItem {
