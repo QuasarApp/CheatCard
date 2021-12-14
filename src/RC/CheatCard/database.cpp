@@ -121,6 +121,7 @@ QH::DBPatchMap DataBase::beta1Patches() const {
                     }
 
                     card->setOwnerSignature(ptr->getKey());
+                    card->setCardVersion(card->getCardVersion() + 1);
                     cards.push_back(card);
                 }
 
