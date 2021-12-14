@@ -62,8 +62,13 @@ Page {
             Image {
                 id: cardBackground
                 fillMode: Image.PreserveAspectCrop
-                source: "image://cards/background:" + ((root.model)? root.model.id  + ":" + root.model.cardVersion: "0")
                 anchors.fill: parent
+
+                Binding {
+                    target: cardBackground
+                    property: "source"
+                    value: "image://cards/background:" + ((root.model)? root.model.id  + ":" + root.model.cardVersion: "0")
+                }
 
                 layer.enabled: true
                 layer.effect: OpacityMask {
@@ -129,7 +134,7 @@ Page {
 
             ToolButton {
                 id: editCardBtn
-                visible: isCurrentItem && !root.editable
+                visible: isCurrentItem && !(root.editable || root.customization)
                 icon.source: "qrc:/images/private/resources/Interface_icons/Right_topmenu.svg"
                 icon.color: (card)? card.fontColor: Material.foreground
                 font.bold: true
@@ -148,7 +153,12 @@ Page {
                 Image {
                     id: cardLogoIamge
                     fillMode: Image.PreserveAspectFit
-                    source: "image://cards/logo:" + ((root.model)? root.model.id  + ":" + root.model.cardVersion : "0")
+                    Binding {
+                        target: cardLogoIamge
+                        property: "source"
+                        value: "image://cards/logo:" + ((root.model)? root.model.id  + ":" + root.model.cardVersion : "0")
+
+                    }
                     Layout.alignment: Qt.AlignHCenter
 
                     Layout.rowSpan: 1
@@ -386,8 +396,13 @@ Page {
                                     width: parent.width * 0.9
                                     height: parent.width * 0.9
 
-                                    source: "image://cards/seal:" +
-                                            ((root.model)? root.model.id  + ":" + root.model.cardVersion: "0")
+                                    Binding {
+                                        target: seelImage
+                                        property: "source"
+                                        value: "image://cards/seal:" +
+                                               ((root.model)? root.model.id  + ":" + root.model.cardVersion: "0")
+
+                                    }
 
                                     Connections {
                                         target: cardRectangle
@@ -640,8 +655,10 @@ Page {
                                     return
                                 };
 
-                                cardBackground.source = sourceImages.currentSelectedItem
-                                root.model.setNewBackGround(sourceImages.currentSelectedItem);
+                                const selectdeItem = sourceImages.currentSelectedItem;
+
+                                cardBackground.source = selectdeItem
+                                root.model.setNewBackGround(selectdeItem);
                                 activityProcessor.popItem();
                             }
 
@@ -663,8 +680,9 @@ Page {
                                     return
                                 };
 
-                                cardLogoIamge.source = sourceLogos.currentSelectedItem
-                                root.model.setNewLogo(sourceLogos.currentSelectedItem);
+                                const selectdeItem = sourceLogos.currentSelectedItem;
+                                cardLogoIamge.source = selectdeItem
+                                root.model.setNewLogo(selectdeItem);
                                 activityProcessor.popItem();
 
                             }
@@ -687,8 +705,10 @@ Page {
                                     return
                                 };
 
-                                cardRectangle.seelTmpImage = sourceSeels.currentSelectedItem
-                                root.model.setNewSeel(sourceSeels.currentSelectedItem);
+                                const selectdeItem = sourceSeels.currentSelectedItem;
+
+                                cardRectangle.seelTmpImage = selectdeItem
+                                root.model.setNewSeel(selectdeItem);
                                 activityProcessor.popItem();
 
                             }

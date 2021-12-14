@@ -252,6 +252,24 @@ bool BaseNode::restoreOldData(const QByteArray &curentUserKey,
                    QH::NodeCoonectionStatus::Confirmed);
 }
 
+bool BaseNode::restoreOneCard(unsigned int cardId, const QString &domain, int port) {
+    auto action = [this, cardId](QH::AbstractNodeInfo *node) {
+
+        API::CardDataRequest request;
+        request.push(cardId);
+
+        sendData(&request, node);
+    };
+
+    if (domain.isEmpty()) {
+        return addNode(getServerHost(), port, action,
+                       QH::NodeCoonectionStatus::Confirmed);
+    }
+
+    return addNode(domain, port, action,
+                   QH::NodeCoonectionStatus::Confirmed);
+}
+
 QByteArray BaseNode::getUserSecret(unsigned int userId) const {
     QH::PKG::GetSingleValue reqest({"Users", userId}, "secret");
 

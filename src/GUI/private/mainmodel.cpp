@@ -607,12 +607,13 @@ void MainModel::handleCardEditFinished(const QSharedPointer<API::Card>& card) {
 }
 
 void MainModel::handleResetCardModel(const QSharedPointer<RC::API::Card> &card) {
+
     card->setCardVersion(0);
     _db->insertIfExistsUpdateObject(card);
 
     auto service = QmlNotificationService::NotificationService::getService();
 
-    if (!_backEndModel->restoreOldData(getCurrentUser()->user()->getKey())) {
+    if (!_backEndModel->restoreOneCard(card->cardId())) {
         service->setNotify(tr("We has a troubles"),
                            tr("The card reset to default successful but load default card from server failed, so you receive your card when buy new purchase in caffe that has give out this card."),
                            "", QmlNotificationService::NotificationData::Warning);
