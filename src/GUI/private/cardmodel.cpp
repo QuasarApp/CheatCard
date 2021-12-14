@@ -293,6 +293,10 @@ void CardModel::setReceivedItems(int newReceivedItems) {
     emit receivedItemsChanged();
 }
 
+void CardModel::refreshView() {
+    emit objChanged();
+}
+
 QString CardModel::getFreeItem() const {
     if (!_card)
         return "";

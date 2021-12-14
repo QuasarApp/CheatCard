@@ -671,6 +671,14 @@
         <source>You trying to delete this card, do not worry a seller that has give out this card save all bonuses locally,  so after repeat visit you will be get all your removed bonuses again. Do you want to continue?</source>
         <translation>Вы пытаетесь удалить эту карту, не беспокойтесь, продавец, который выдал эту карту, сохранит все бонусы локально, поэтому после повторного посещения вы снова получите все ваши удаленные бонусы. Вы хотите продолжить?</translation>
     </message>
+    <message>
+        <source>We has a troubles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The card reset to default successful but load default card from server failed, so you receive your card when buy new purchase in caffe that has give out this card.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RC::SellerStatisticModel</name>
