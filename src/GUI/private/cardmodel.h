@@ -98,6 +98,7 @@ public:
     int receivedItems() const;
     void setReceivedItems(int newReceivedItems);
 
+    void refreshView();
 signals:
     void objChanged();
     void editFinished(const QSharedPointer<API::Card>& card);
