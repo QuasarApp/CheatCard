@@ -41,6 +41,7 @@
         <file>CheatCardModule/ExportUserKeyPage.qml</file>
         <file>CheatCardModule/ImportUserKeyPage.qml</file>
         <file>CheatCardModule/Style/CMenu.qml</file>
+        <file>CheatCardModule/NetIndModel.qml</file>
     </qresource>
     <qresource prefix="/CheatCardTr">
         <file>languages/en.qm</file>

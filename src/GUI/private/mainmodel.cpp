@@ -131,6 +131,13 @@ QObject *MainModel::getAboutModel()
     return _aboutModel;
 }
 
+QObject *MainModel::getNetIndicatorModel() {
+    if(!_netIdicatorModel) {
+        _netIdicatorModel = new NetIndicatorModel();
+    }
+    return _netIdicatorModel;
+}
+
 QObject *MainModel::currentUser() const {
     return _currentUser.data();
 }
