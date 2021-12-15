@@ -5,21 +5,20 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#ifndef INETIDICATORMODEL_H
-#define INETIDICATORMODEL_H
+#ifndef NETIDICATORMODEL_H
+#define NETIDICATORMODEL_H
 
 #include <QObject>
 
-class QObject;
-
 namespace RC {
 
-class InetIdicatorModel: public QObject
+class NetIdicatorModel: public QObject
 {
+    Q_OBJECT
     Q_PROPERTY(bool enableNetwork READ getEnableNetwork WRITE setEnableNetwork NOTIFY EnableNetworkChanged)
 
 public:
-    InetIdicatorModel();
+    NetIdicatorModel();
 
     bool getEnableNetwork() const;
     void setEnableNetwork(bool enable);
@@ -33,4 +32,4 @@ private:
 };
 }
 
-#endif // INETIDICATORMODEL_H
+#endif // NETIDICATORMODEL_H

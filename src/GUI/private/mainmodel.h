@@ -25,7 +25,7 @@ class UserHeader;
 }
 
 class SoundPlayback;
-class InetIdicatorModel;
+class NetIdicatorModel;
 class CardModel;
 class AboutModel;
 class CardsListModel;
@@ -202,7 +202,7 @@ private:
     SellerStatisticModel *_statisticModel = nullptr;
     ItemsModel *_defaultLogosModel = nullptr;
     ItemsModel *_defaultBackgroundsModel = nullptr;
-    InetIdicatorModel *_inetIdicatorModel = nullptr;
+    NetIdicatorModel *_netIdicatorModel = nullptr;
 
     ImportExportUserModel *_importExportModel = nullptr;
     IBilling *_billing = nullptr;

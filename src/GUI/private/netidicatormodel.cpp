@@ -5,19 +5,19 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#include "inetidicatormodel.h"
+#include "netidicatormodel.h"
 
 namespace RC {
 
-InetIdicatorModel::InetIdicatorModel() {
+NetIdicatorModel::NetIdicatorModel() {
 
 }
 
-bool InetIdicatorModel::getEnableNetwork() const {
+bool NetIdicatorModel::getEnableNetwork() const {
     return enableNetwork;
 }
 
-void InetIdicatorModel::setEnableNetwork(bool enable) {
+void NetIdicatorModel::setEnableNetwork(bool enable) {
     if (enableNetwork == enable)
         return;
     enableNetwork = enable;
