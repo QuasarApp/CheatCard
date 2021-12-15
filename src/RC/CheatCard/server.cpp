@@ -33,25 +33,8 @@ Server::Server(QH::ISqlDBCache *db): BaseNode(db) {
 
 }
 
-bool Server::cardValidation(const QSharedPointer<API::Card> &cardFromDB,
-                            const QByteArray &ownerSecret) const {
-
-    if (!cardFromDB)
-        return true;
-
-    auto signature = cardFromDB->ownerSignature();
-
-    if (signature.isEmpty()) {
-        return true;
-    }
-
-    auto ownerSignature =  API::User::makeKey(ownerSecret);
-
-    return signature == ownerSignature;
-}
-
-void Server::getSignData(QByteArray &) const {
-
+NodeType Server::nodeType() const {
+    return NodeType::Server;
 }
 
 void Server::nodeConnected(QH::AbstractNodeInfo *node) {

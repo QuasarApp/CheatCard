@@ -13,4 +13,9 @@ namespace RC {
 VisitorSSL::VisitorSSL(QH::ISqlDBCache *db): Visitor(db) {
     useSystemSslConfiguration();
 }
+
+NodeType VisitorSSL::nodeType() const {
+    return Visitor::nodeType() | NodeType::SSL;
+
+}
 }

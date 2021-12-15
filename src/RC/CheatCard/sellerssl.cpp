@@ -12,4 +12,8 @@ SellerSSL::SellerSSL(QH::ISqlDBCache *db): Seller(db) {
     useSystemSslConfiguration();
 
 }
+
+NodeType SellerSSL::nodeType() const {
+    return Seller::nodeType() | NodeType::SSL;
+}
 }

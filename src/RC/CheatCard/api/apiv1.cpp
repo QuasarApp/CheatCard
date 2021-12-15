@@ -100,7 +100,7 @@ bool ApiV1::processCardStatus(const QSharedPointer<QH::PKG::DataPack<APIv1::User
     for (const auto& cardStatus : cardStatuses->packData()) {
         auto dbCard = objectFactoryInstance()->getCard(cardStatus->getCard());
 
-        if (!node()->cardValidation(dbCard, cardStatuses->customData())) {
+        if (!cardValidation(dbCard, cardStatuses->customData())) {
 
             QuasarAppUtils::Params::log("Receive not signed cards seal");
             break;
@@ -143,7 +143,6 @@ bool ApiV1::processCardRequest(const QSharedPointer<API::CardDataRequest> &cardr
     QH::PKG::DataPack<APIv1::Card> cards{};
 
     for (unsigned int cardId : cardrequest->getCardIds()) {
-        // bug
         auto card = objectFactoryInstance()->getCard(cardId).staticCast<APIv1::Card>();
 
         if (!card) {
@@ -162,7 +161,7 @@ bool ApiV1::processCardRequest(const QSharedPointer<API::CardDataRequest> &cardr
     }
 
     QByteArray secret;
-    node()->getSignData(secret);
+    getSignData(secret);
     cards.setCustomData(secret);
 
     if (!node()->sendData(&cards, sender)) {
@@ -189,7 +188,7 @@ bool ApiV1::processCardData(const QSharedPointer<QH::PKG::DataPack<APIv1::Card>>
             continue;
         }
 
-        if (!node()->cardValidation(db()->getObject(*card), cards->customData())) {
+        if (!cardValidation(db()->getObject(*card), cards->customData())) {
 
             QuasarAppUtils::Params::log("Receive not signed card",
                                         QuasarAppUtils::Error);
@@ -244,6 +243,46 @@ bool ApiV1::processRestoreDataRequest(const QSharedPointer<APIv1::RestoreDataReq
     return true;
 }
 
+bool ApiV1::cardValidation(const QSharedPointer<API::Card> &cardFromDB,
+                           const QByteArray &ownerSecret) const {
+
+    switch (NodeTypeHelper::getBaseType(node()->nodeType())) {
+    case NodeType::Server: {
+        if (!cardFromDB)
+            return true;
+
+        auto signature = cardFromDB->ownerSignature();
+
+        if (signature.isEmpty()) {
+            return true;
+        }
+
+        auto ownerSignature =  API::User::makeKey(ownerSecret);
+
+        return signature == ownerSignature;
+    }
+
+    default: {};
+    }
+
+    return true;
+}
+
+void ApiV1::getSignData(QByteArray &data) const {
+
+    switch (NodeTypeHelper::getBaseType(node()->nodeType())) {
+    case NodeType::Seller: {
+        auto nodePtr = node()->currentUser();
+        if (nodePtr)
+            data = nodePtr->secret();
+
+        break;
+    }
+
+    default: {};
+    }
+}
+
 bool ApiV1::processCardStatusRequest(const QSharedPointer<API::CardStatusRequest> &cardStatus,
                                      const QH::AbstractNodeInfo *sender, const QH::Header &) {
 
@@ -269,12 +308,14 @@ bool ApiV1::processCardStatusRequest(const QSharedPointer<API::CardStatusRequest
     }
 
     QByteArray secret;
-    node()->getSignData(secret);
+    getSignData(secret);
     responce.setCustomData(secret);
 
     if (!node()->sendData(&responce, sender)) {
         return false;
     }
+
+    sessionProcessed(sessionId);
 
     return true;
 }

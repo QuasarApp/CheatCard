@@ -59,7 +59,19 @@ protected:
     virtual bool processRestoreDataRequest(const QSharedPointer<APIv1::RestoreDataRequest> &cardrequest,
                                            const QH::AbstractNodeInfo *sender, const QH::Header &);
 
+private:
+    /**
+     * @brief cardValidation This method must check card data only on server. This implementation do nothing.
+     * @return true if card is pass validation.
+     */
+    bool cardValidation(const QSharedPointer<API::Card>& card,
+                        const QByteArray &ownerSecret) const;
 
+    /**
+     * @brief getSignData This method sets to @a data secret key of this node. This method should be works only for sellers.
+     * @param data result value.
+     */
+    void getSignData(QByteArray& data) const;
 
 };
 }

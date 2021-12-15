@@ -6,23 +6,15 @@
 //#
 
 
-#ifndef VISITORSSL_H
-#define VISITORSSL_H
-
-#include "visitor.h"
+#include "nodetype.h"
 
 namespace RC {
 
-
-class CHEATCARD_CORE_EXPORT VisitorSSL: public Visitor
-{
-    Q_OBJECT
-public:
-    VisitorSSL(QH::ISqlDBCache *db);
-
-    NodeType nodeType() const override;
-
-};
-
+NodeType NodeTypeHelper::getBaseType(NodeType type) {
+    return type & NodeType::BaseTypeMask;
 }
-#endif // VISITORSSL_H
+
+NodeType NodeTypeHelper::getSSLType(NodeType type) {
+    return type & NodeType::CryptTypeMask;
+}
+}

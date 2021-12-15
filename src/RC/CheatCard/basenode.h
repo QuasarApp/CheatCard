@@ -15,7 +15,7 @@
 #include <isqldbcache.h>
 #include <QSslError>
 #include <CheatCard/api/apiobjectsfactoryv1.h>
-
+#include "nodetype.h"
 
 #define USERREQUEST_TIMEOUT 3
 namespace RC {
@@ -71,18 +71,13 @@ public:
     }
 
     QString getServerHost() const;
-    /**
-     * @brief cardValidation This method must check card data only on server. This implementation do nothing.
-     * @return true if card is pass validation.
-     */
-    virtual bool cardValidation(const QSharedPointer<API::Card>& card,
-                                const QByteArray &ownerSecret) const = 0;
+
 
     /**
-     * @brief getSignData This method sets to @a data seecret key of this node. This method should be works only for sellers.
-     * @param data result value.
+     * @brief nodeType This method should be return node type. The node type can be used in api for separete logics.
+     * @return
      */
-    virtual void getSignData(QByteArray& data) const = 0;
+    virtual NodeType nodeType() const = 0;
 
     QH::ISqlDBCache *db() const;
 
