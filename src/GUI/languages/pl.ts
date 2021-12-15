@@ -673,11 +673,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>We has a troubles</source>
+        <source>The card reset to default successful but load default card from server failed, so you receive your card after new purchase in institution that has give out this card.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The card reset to default successful but load default card from server failed, so you receive your card when buy new purchase in caffe that has give out this card.</source>
+        <source>We seem to have a problems</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

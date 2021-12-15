@@ -616,8 +616,9 @@ void MainModel::handleResetCardModel(const QSharedPointer<RC::API::Card> &card) 
     auto service = QmlNotificationService::NotificationService::getService();
 
     if (!_backEndModel->restoreOneCard(cardId)) {
-        service->setNotify(tr("We has a troubles"),
-                           tr("The card reset to default successful but load default card from server failed, so you receive your card when buy new purchase in caffe that has give out this card."),
+        service->setNotify(tr("We seem to have a problems"),
+                           tr("The card reset to default successful but load default card from server failed, "
+                              "so you receive your card after new purchase in institution that has give out this card."),
                            "", QmlNotificationService::NotificationData::Warning);
 
         return;
