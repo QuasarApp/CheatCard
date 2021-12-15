@@ -368,8 +368,10 @@ Page {
                     Layout.columnSpan: 2
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
-                    columns: freeIndex.value / rows
+                    columns: signCount / rows
                     rows: Math.ceil(freeIndex.value / privateRoot.rowSignCount)
+
+                    property int signCount: freeIndex.value + Number(freeRound.visible)
 
                     Repeater {
                         id: reppit
@@ -384,13 +386,6 @@ Page {
                                 Layout.maximumHeight: cardTitle.height
                                 Layout.preferredWidth: height
                                 radius: Math.min(width, height) / 2
-
-                                Label {
-                                    visible: Boolean(index === (freeIndex.value - 1))
-                                    text: "Free"
-                                    font.bold: true
-                                    anchors.centerIn: parent
-                                }
 
                                 Image {
                                     id: seelImage
@@ -420,6 +415,24 @@ Page {
                                     }
                                 }
                             }
+                        }
+                    }
+
+                    Rectangle {
+                        id: freeRound
+                        Layout.alignment: Qt.AlignHCenter
+
+                        Layout.fillHeight: true
+                        Layout.maximumHeight: cardTitle.height
+                        Layout.preferredWidth: height
+                        radius: Math.min(width, height) / 2
+
+                        visible: freeIndex.value > privateRoot.rowSignCount && freeIndex.value % 2
+
+                        Label {
+                            text: "Free"
+                            font.bold: true
+                            anchors.centerIn: parent
                         }
                     }
                 }
@@ -573,13 +586,13 @@ Page {
                 id: freeIndex
                 visible: root.editable
                 value: (root.model)? root.model.freeIndex : privateRoot.rowSignCount
-                stepSize: Math.ceil((freeIndex.value + 1) / privateRoot.rowSignCount)
+                stepSize: 1
                 to: privateRoot.rowSignCount * privateRoot.maximumRowSignCount
                 from: 2
 
                 onValueChanged: () => {
                                     if (!root.model)
-                                    return
+                                        return
 
                                     root.model.freeIndex = freeIndex.value
                                 }
@@ -613,8 +626,8 @@ Page {
         Item {
             id: privateRoot
 
-            property int rowSignCount: 6
-            property int maximumRowSignCount: 3
+            property int rowSignCount: 7
+            property int maximumRowSignCount: 2
 
             function showStatistickAction() {
                 if (mainModel && mainModel.mode) {
