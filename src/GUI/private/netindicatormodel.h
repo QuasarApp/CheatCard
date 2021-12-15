@@ -5,26 +5,26 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#ifndef NETIDICATORMODEL_H
-#define NETIDICATORMODEL_H
+#ifndef NETINDICATORMODEL_H
+#define NETINDICATORMODEL_H
 
 #include <QObject>
 
 namespace RC {
 
-class NetIdicatorModel: public QObject
+class NetIndicatorModel: public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(bool enableNetwork READ getEnableNetwork WRITE setEnableNetwork NOTIFY EnableNetworkChanged)
+    Q_PROPERTY(bool enableNetwork READ getEnableNetwork WRITE setEnableNetwork NOTIFY enableNetworkChanged)
 
 public:
-    NetIdicatorModel();
+    NetIndicatorModel();
 
     bool getEnableNetwork() const;
     void setEnableNetwork(bool enable);
 
 signals:
-    void EnableNetworkChanged();
+    void enableNetworkChanged();
 
 private:
     bool enableNetwork = false;
@@ -32,4 +32,4 @@ private:
 };
 }
 
-#endif // NETIDICATORMODEL_H
+#endif // NETINDICATORMODEL_H

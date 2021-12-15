@@ -5,23 +5,23 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#include "netidicatormodel.h"
+#include "netindicatormodel.h"
 
 namespace RC {
 
-NetIdicatorModel::NetIdicatorModel() {
+NetIndicatorModel::NetIndicatorModel() {
 
 }
 
-bool NetIdicatorModel::getEnableNetwork() const {
+bool NetIndicatorModel::getEnableNetwork() const {
     return enableNetwork;
 }
 
-void NetIdicatorModel::setEnableNetwork(bool enable) {
+void NetIndicatorModel::setEnableNetwork(bool enable) {
     if (enableNetwork == enable)
         return;
     enableNetwork = enable;
-    emit EnableNetworkChanged();
+    emit enableNetworkChanged();
 }
 
 }

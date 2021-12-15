@@ -6,6 +6,7 @@
 //#
 
 #include "cardmodel.h"
+#include "netindicatormodel.h"
 #include "aboutmodel.h"
 #include "itemsmodel.h"
 #include "mainmodel.h"
@@ -97,6 +98,7 @@ MainModel::~MainModel() {
     }
 
     delete  _statisticModel;
+    delete _netIdicatorModel;
 
     delete _defaultLogosModel;
     delete _defaultBackgroundsModel;
@@ -343,6 +345,13 @@ void MainModel::initImagesModels() {
     _defaultBackgroundsModel->setStringList(tmpList);
 
 
+}
+
+void MainModel::initNetIndicateModels() {
+    _netIdicatorModel = new NetIndicatorModel();
+
+    connect(_cardsListModel, &CardsListModel::sigRemoveRequest,
+            this, &MainModel::handleRemoveRequest);
 }
 
 void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
@@ -802,6 +811,9 @@ void MainModel::handleNetworkError(QAbstractSocket::SocketError code,
                           "Don't worry, all cards and your bonuses are saved on the merchant's host and will be "
                           "available the next time you visit. Even if you will don't have internet connection."),
                        "", QmlNotificationService::NotificationData::Warning);
+
+    _netIdicatorModel->setEnableNetwork(false);
+
 }
 
 void MainModel::handleFirstDataSendet() {
