@@ -112,6 +112,8 @@ ApplicationWindow {
                 Layout.fillWidth: true
             }
 
+            NetIndicatorModel {}
+
             ToolButton {
                 id: menuButton
                 icon.source: "qrc:/images/private/resources/Interface_icons/Right_topmenu.svg"

@@ -27,9 +27,10 @@ signals:
     void enableNetworkChanged();
 
 private:
-    bool enableNetwork = false;
+    bool enableNetwork = true;
 
 };
+
 }
 
 #endif // NETINDICATORMODEL_H

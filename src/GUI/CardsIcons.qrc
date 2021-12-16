@@ -90,6 +90,8 @@
         <file>private/resources/Interface_icons/key_pull.svg</file>
         <file>private/resources/Interface_icons/Activate.svg</file>
         <file>private/resources/Interface_icons/edit_card.svg</file>
-        <file>private/resources/Interface_icons/delete_card.svg</file>
+        <file>private/resources/Interface_icons/delete_card.svg</file>        
+        <file>private/resources/Interface_icons/offline_icon.svg</file>
+        <file>private/resources/Interface_icons/online_icon.svg</file>
     </qresource>
 </RCC>

@@ -58,6 +58,7 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
                 QuasarAppUtils::Settings::ISettings::instance());
 
     initCardsListModels();
+    initNetIndicateModels();
     initImagesModels();
     initWaitConnectionModel();
     initSellerStatisticModel();
@@ -131,10 +132,7 @@ QObject *MainModel::getAboutModel()
     return _aboutModel;
 }
 
-QObject *MainModel::getNetIndicatorModel() {
-    if(!_netIdicatorModel) {
-        _netIdicatorModel = new NetIndicatorModel();
-    }
+QObject *MainModel::getNetIndicatorModel() const {
     return _netIdicatorModel;
 }
 
@@ -356,9 +354,6 @@ void MainModel::initImagesModels() {
 
 void MainModel::initNetIndicateModels() {
     _netIdicatorModel = new NetIndicatorModel();
-
-    connect(_cardsListModel, &CardsListModel::sigRemoveRequest,
-            this, &MainModel::handleRemoveRequest);
 }
 
 void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {

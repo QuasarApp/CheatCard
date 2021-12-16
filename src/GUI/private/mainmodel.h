@@ -70,7 +70,7 @@ public:
     bool fFirst() const;
     Q_INVOKABLE void configureFinished();
     Q_INVOKABLE QObject *getAboutModel();
-    Q_INVOKABLE QObject *getNetIndicatorModel();
+    Q_INVOKABLE QObject *getNetIndicatorModel() const;
     QObject *currentUser() const;
 
     const QSharedPointer<UserModel>& getCurrentUser() const;

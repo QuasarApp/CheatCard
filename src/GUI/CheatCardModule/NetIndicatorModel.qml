@@ -11,14 +11,10 @@ import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
 
-Page {
-    property var networkInd: mainModel.getNetIndicatorModel()
 
-    ToolButton {
+ToolButton {
+    property var networkStatus: (mainModel)? mainModel.getNetIndicatorModel: null
 
-        id: networkind
-        icon.color: (card)? card.fontColor: Material.foreground
-        icon.source: ''
-
-    }
+    id: networkind
+    icon.source: (networkStatus.enableNetwork)? "qrc:/images/private/resources/Interface_icons/online_icon.svg": "qrc:/images/private/resources/Interface_icons/offline_icon.svg"
 }
