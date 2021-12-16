@@ -250,6 +250,20 @@ QH::ISqlDBCache *ApiV0::db() const {
     return nullptr;
 }
 
+void ApiV0::sessionProcessed(unsigned long long sessionId) {
+    switch (NodeTypeHelper::getBaseType(node()->nodeType())) {
+    case NodeType::Server: {
+        auto request = QSharedPointer<API::Session>::create();
+        request->setSessionId(sessionId);
+
+        db()->deleteObject(request);
+        break;
+    }
+
+    default: {};
+    }
+}
+
 IAPIObjectsFactory *ApiV0::objectFactoryInstance() {
 
     if (_objectFactory)
@@ -300,6 +314,8 @@ bool ApiV0::processCardStatusRequest(const QSharedPointer<API::CardStatusRequest
     if (!node()->sendData(&responce, sender)) {
         return false;
     }
+
+    sessionProcessed(sessionId);
 
     return true;
 }

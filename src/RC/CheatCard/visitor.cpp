@@ -29,6 +29,22 @@ Visitor::Visitor(QH::ISqlDBCache *db): BaseNode(db) {
 
 }
 
+bool Visitor::sendRequestPrivate() {
+    auto action = [this](QH::AbstractNodeInfo *node) {
+        auto parser = getSelectedApiParser(node).dynamicCast<ApiV0>();
+
+        if (!parser)
+            return;
+
+        parser->sendCardStatusRequest(_lastRequested, node);
+        _lastRequest = time(0);
+
+    };
+
+    return addNode(_domain, _port,
+                   action, QH::NodeCoonectionStatus::Confirmed);
+}
+
 bool Visitor::checkCardData(long long session,
                             const QString &domain, int port) {
     if (!session)
@@ -49,35 +65,14 @@ bool Visitor::checkCardData(long long session,
     if (_lastRequest + _requestInterval > currentTime) {
 
         _timer->start((_lastRequest + _requestInterval - currentTime) * 1000);
-
         return true;
     }
 
-    auto action = [this](QH::AbstractNodeInfo *node) {
-        auto parser = getSelectedApiParser(node).dynamicCast<ApiV0>();
-
-        if (!parser)
-            return;
-
-        parser->sendCardStatusRequest(_lastRequested, node);
-        _lastRequest = time(0);
-
-    };
-
-    return addNode(_domain, _port,
-                   action, QH::NodeCoonectionStatus::Confirmed);
+    return sendRequestPrivate();
 }
 
-bool Visitor::cardValidation(const QSharedPointer<API::Card> &cardFromDB,
-                             const QByteArray &ownerSecret) const {
-    Q_UNUSED(cardFromDB);
-    Q_UNUSED(ownerSecret);
-
-    return true;
-}
-
-void Visitor::getSignData(QByteArray &) const {
-
+NodeType Visitor::nodeType() const {
+    return NodeType::Visitor;
 }
 
 void Visitor::nodeConnected(QH::AbstractNodeInfo *node) {
@@ -90,7 +85,7 @@ void Visitor::nodeConfirmend(QH::AbstractNodeInfo *node) {
 
 void Visitor::handleTick() {
     _timer->stop();
-    addNode(_domain, _port);
+    sendRequestPrivate();
 }
 
 int Visitor::getRequestInterval() const {

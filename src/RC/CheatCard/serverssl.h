@@ -22,6 +22,7 @@ class CHEATCARD_CORE_EXPORT ServerSSL: public Server
 public:
     ServerSSL(QH::ISqlDBCache *db);
 
+    NodeType nodeType() const;
 };
 }
 #endif // SERVERSSL_H

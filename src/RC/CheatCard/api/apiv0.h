@@ -74,6 +74,11 @@ protected:
     QSharedPointer<API::UsersCards>
     userHeaderReceived(const QSharedPointer<API::UserHeader> &userHeaderData,
                        unsigned int cardId);
+
+    /**
+     * @brief sessionProcessed invoke when session has been processed
+     */
+    virtual void sessionProcessed(unsigned long long sessionId);
 private:
 
     BaseNode* _node = nullptr;

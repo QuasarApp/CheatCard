@@ -211,7 +211,7 @@
     </message>
     <message>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation>По умолчанию</translation>
     </message>
 </context>
 <context>
@@ -672,12 +672,12 @@
         <translation>Вы пытаетесь удалить эту карту, не беспокойтесь, продавец, который выдал эту карту, сохранит все бонусы локально, поэтому после повторного посещения вы снова получите все ваши удаленные бонусы. Вы хотите продолжить?</translation>
     </message>
     <message>
-        <source>We has a troubles</source>
-        <translation type="unfinished"></translation>
+        <source>The card reset to default successful but load default card from server failed, so you receive your card after new purchase in institution that has give out this card.</source>
+        <translation>Сброс карты на значение по умолчанию выполнен успешно, но загрузить карту по умолчанию с сервера не удалось, поэтому вы получите карту после новой покупки в учреждении, выдавшем эту карту.</translation>
     </message>
     <message>
-        <source>The card reset to default successful but load default card from server failed, so you receive your card when buy new purchase in caffe that has give out this card.</source>
-        <translation type="unfinished"></translation>
+        <source>We seem to have a problems</source>
+        <translation>Кажется, у нас проблемы</translation>
     </message>
 </context>
 <context>

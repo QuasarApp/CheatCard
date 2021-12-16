@@ -23,10 +23,7 @@ public:
                        const QString& domain = "",
                        int port = DEFAULT_CHEAT_CARD_PORT_SSL);
 
-    bool cardValidation(const QSharedPointer<API::Card> &card,
-                        const QByteArray &ownerSecret) const override;
-    void getSignData(QByteArray &data) const override;
-
+    NodeType nodeType() const override;
 
 protected:
     void nodeConnected(QH::AbstractNodeInfo *node) override;
@@ -40,6 +37,7 @@ private slots:
 
     void handleTick();
 private:
+    bool sendRequestPrivate();
 
     int _requestInterval = USERREQUEST_TIMEOUT;
     QString _domain;

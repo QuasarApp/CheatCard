@@ -21,6 +21,7 @@ class CHEATCARD_CORE_EXPORT SellerSSL: public Seller
     Q_OBJECT
 public:
     SellerSSL(QH::ISqlDBCache *db);
+    NodeType nodeType() const;
 
 };
 }

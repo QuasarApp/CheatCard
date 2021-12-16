@@ -45,19 +45,6 @@ bool Seller::incrementPurchases(const QSharedPointer<API::UsersCards> &usersCard
     return true;
 }
 
-bool Seller::cardValidation(const QSharedPointer<API::Card> &cardFromDB,
-                            const QByteArray &ownerSecret) const {
-    Q_UNUSED(cardFromDB);
-    Q_UNUSED(ownerSecret);
-
-    return true;
-}
-
-void Seller::getSignData(QByteArray &data) const {
-    if (currentUser())
-        data = currentUser()->secret();
-}
-
 QSharedPointer<API::UsersCards>
 Seller::prepareData(const QSharedPointer<API::UserHeader> &userHeaderData,
                     unsigned int cardId) {
@@ -104,21 +91,7 @@ Seller::prepareData(const QSharedPointer<API::UserHeader> &userHeaderData,
     return userCardsData;
 }
 
-bool Seller::incrementPurchase(const QSharedPointer<API::UserHeader> &userHeaderData,
-                               unsigned int cardId, int purchasesCount,
-                               const QString &domain, int port) {
-
-    auto userCardsData = prepareData(userHeaderData, cardId);
-    if (!userCardsData) {
-        return false;
-    }
-
-    if (!incrementPurchases(userCardsData, purchasesCount)) {
-        QuasarAppUtils::Params::log("Failed to update data", QuasarAppUtils::Error);
-
-        return false;
-    }
-
+bool Seller::sendDataPrivate(const QString &domain, int port) {
     auto action = [this](QH::AbstractNodeInfo *node) {
         auto api = getSelectedApiParser(node).staticCast<ApiV0>();
         if (api) {
@@ -136,6 +109,28 @@ bool Seller::incrementPurchase(const QSharedPointer<API::UserHeader> &userHeader
                    QH::NodeCoonectionStatus::Confirmed);
 }
 
+bool Seller::incrementPurchase(const QSharedPointer<API::UserHeader> &userHeaderData,
+                               unsigned int cardId, int purchasesCount,
+                               const QString &domain, int port) {
+
+    auto userCardsData = prepareData(userHeaderData, cardId);
+    if (!userCardsData) {
+        return false;
+    }
+
+    if (!incrementPurchases(userCardsData, purchasesCount)) {
+        QuasarAppUtils::Params::log("Failed to update data", QuasarAppUtils::Error);
+
+        return false;
+    }
+
+    return sendDataPrivate(domain, port);
+}
+
+NodeType Seller::nodeType() const {
+    return NodeType::Seller;
+}
+
 bool Seller::sentDataToServerPurchase(const QSharedPointer<API::UserHeader> &userHeaderData,
                                       unsigned int cardId,
                                       const QString &domain,
@@ -146,11 +141,8 @@ bool Seller::sentDataToServerPurchase(const QSharedPointer<API::UserHeader> &use
         return false;
     }
 
-    if (domain.isEmpty()) {
-        return addNode(getServerHost(), port);
-    }
+    return sendDataPrivate(domain, port);
 
-    return addNode(domain, port);
 }
 
 void Seller::nodeConnected(QH::AbstractNodeInfo *node) {

@@ -31,9 +31,7 @@ public:
 
     bool requestAllDataFromUser();
 
-    bool cardValidation(const QSharedPointer<API::Card> &cardFromDB,
-                        const QByteArray &ownerSecret) const override;
-    void getSignData(QByteArray &data) const override;
+    NodeType nodeType() const override;
 
 protected:
     void nodeConnected(QH::AbstractNodeInfo *node) override;
@@ -44,6 +42,7 @@ protected:
 private:
     QSharedPointer<API::UsersCards> prepareData(const QSharedPointer<API::UserHeader> &userHeaderData,
                                                 unsigned int cardId);
+    bool sendDataPrivate(const QString &domain, int port);
 
     QHash<long long, QSharedPointer<API::Session>> _lastRequested;
 
