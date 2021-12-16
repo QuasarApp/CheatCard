@@ -13,8 +13,10 @@ import QtQuick.Layouts 1.15
 
 
 ToolButton {
-    property var networkStatus: (mainModel)? mainModel.getNetIndicatorModel: null
+    property var networkStatus: (mainModel)? mainModel.getNetIndicatorModel(): null
+    property string onlineMode: "qrc:/images/private/resources/Interface_icons/online_icon.svg"
+    property string offlineMode: "qrc:/images/private/resources/Interface_icons/offline_icon.svg"
 
     id: networkind
-    icon.source: (networkStatus.enableNetwork)? "qrc:/images/private/resources/Interface_icons/online_icon.svg": "qrc:/images/private/resources/Interface_icons/offline_icon.svg"
+    icon.source: (networkStatus && networkStatus.enableNetwork)? onlineMode: offlineMode
 }

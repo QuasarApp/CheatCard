@@ -58,11 +58,11 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
                 QuasarAppUtils::Settings::ISettings::instance());
 
     initCardsListModels();
-    initNetIndicateModels();
     initImagesModels();
     initWaitConnectionModel();
     initSellerStatisticModel();
     initImportExportModel();
+    initNetIndicateModels();
 
     configureCardsList();
 
