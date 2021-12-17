@@ -6,6 +6,8 @@
 //#
 
 #include "netindicatormodel.h"
+#include "qmlnotifyservice.h"
+
 
 namespace RC {
 
@@ -24,4 +26,18 @@ void NetIndicatorModel::setEnableNetwork(bool enable) {
     emit enableNetworkChanged();
 }
 
+void NetIndicatorModel::handleEndaleNetworkChanged(QAbstractSocket::SocketError code,
+                                                   QSslError::SslError sslErrorcode) {
+
+    auto service = QmlNotificationService::NotificationService::getService();
+
+    service->setNotify(tr("Oops. Error code: ") + QString("%0-%1").arg(code, sslErrorcode),
+                       tr(""),
+                       "", QmlNotificationService::NotificationData::Warning);
+
+//        _netIdicatorModel->setEnableNetwork(false);
+
 }
+
+}
+

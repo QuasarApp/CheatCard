@@ -9,6 +9,8 @@
 #define NETINDICATORMODEL_H
 
 #include <QObject>
+#include <QAbstractSocket>
+#include <QSslError>
 
 namespace RC {
 
@@ -25,6 +27,10 @@ public:
 
 signals:
     void enableNetworkChanged();
+
+public slots:
+    void handleEndaleNetworkChanged(QAbstractSocket::SocketError code,
+                                    QSslError::SslError sslErrorcode);
 
 private:
     bool enableNetwork = true;

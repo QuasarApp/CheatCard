@@ -354,6 +354,9 @@ void MainModel::initImagesModels() {
 
 void MainModel::initNetIndicateModels() {
     _netIdicatorModel = new NetIndicatorModel();
+
+    connect(_cardsListModel, &CardsListModel::sigRemoveRequest,
+            this, &MainModel::handleRemoveRequest);
 }
 
 void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
@@ -801,21 +804,6 @@ void MainModel::handlePurchaseReceived(Purchase purchase) {
                                                         QByteArray::Base64UrlEncoding));
 
     initMode(_currentUser);
-
-}
-
-void MainModel::handleNetworkError(QAbstractSocket::SocketError code,
-                                   QSslError::SslError sslErrorcode) {
-
-    auto service = QmlNotificationService::NotificationService::getService();
-
-    service->setNotify(tr("Oops. Error code: ") + QString("%0-%1").arg(code, sslErrorcode),
-                       tr("You have network problems. "
-                          "Don't worry, all cards and your bonuses are saved on the merchant's host and will be "
-                          "available the next time you visit. Even if you will don't have internet connection."),
-                       "", QmlNotificationService::NotificationData::Warning);
-
-    _netIdicatorModel->setEnableNetwork(false);
 
 }
 

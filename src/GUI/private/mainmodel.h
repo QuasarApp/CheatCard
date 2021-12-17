@@ -108,7 +108,6 @@ public:
 public slots:
     void handleFirstDataSendet();
     void handleBonusGivOut(int userId, int cardId, int givOutcount);
-    void handleNetworkError(QAbstractSocket::SocketError, QSslError::SslError sslErrorcode);
 
 signals:
 
