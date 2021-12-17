@@ -147,6 +147,14 @@ BaseNode::selectParser(const ApplicationVersion &distVersion) const {
     return nullptr;
 }
 
+void BaseNode::addNodeFailed(QH::AddNodeError) {
+    setFNetAvailable(false);
+}
+
+void BaseNode::nodeAddedSucessful(QH::AbstractNodeInfo *) {
+    setFNetAvailable(true);
+}
+
 void BaseNode::nodeErrorOccured(QH::AbstractNodeInfo *nodeInfo,
                                 QAbstractSocket::SocketError errorCode,
                                 QString errorString) {
@@ -165,6 +173,20 @@ void BaseNode::handleSslErrorOcurred(QH::SslSocket *scket, const QSslError &erro
     QH::AbstractNode::handleSslErrorOcurred(scket, error);
     emit sigNetworkError(QAbstractSocket::SocketError::SslInternalError,
                          error.error());
+}
+
+bool BaseNode::fNetAvailable() const {
+    return _fNetAvailable;
+}
+
+void BaseNode::setFNetAvailable(bool newFNetAvailable) {
+    if (_fNetAvailable == newFNetAvailable) {
+        return;
+    }
+
+    _fNetAvailable = newFNetAvailable;
+
+    emit sigAvailableNetworkChanged(_fNetAvailable);
 }
 
 const QSharedPointer<API::User>& BaseNode::currentUser() const {
