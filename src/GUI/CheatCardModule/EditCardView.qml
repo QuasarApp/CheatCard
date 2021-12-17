@@ -406,6 +406,15 @@ Page {
 
                                     }
 
+                                    layer.enabled: true
+                                    layer.effect: OpacityMask {
+                                        maskSource: Rectangle {
+                                            width: seelImage.width
+                                            height: seelImage.height
+                                            radius: Math.min(seelImage.height, seelImage.width)
+                                        }
+                                    }
+
                                     Connections {
                                         target: cardRectangle
 

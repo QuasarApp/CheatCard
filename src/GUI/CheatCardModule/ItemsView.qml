@@ -46,7 +46,7 @@ Page {
 
                     Image {
                         Layout.fillWidth: true
-
+                        opacity: (current)? 0.75 : 1
                         anchors.fill: parent
 
                         fillMode: Image.PreserveAspectFit
