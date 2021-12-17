@@ -168,11 +168,11 @@ private:
 
     void initCardsListModels();
     void initImagesModels();
-    void initNetIndicateModels();
     void setBackEndModel(const QSharedPointer<BaseNode> &newModel);
     void initWaitConnectionModel();
     void initSellerStatisticModel();
     void initImportExportModel();
+    void initNetIndicateModels();
 
     void configureCardsList();
 

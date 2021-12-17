@@ -26,16 +26,17 @@ void NetIndicatorModel::setEnableNetwork(bool enable) {
     emit enableNetworkChanged();
 }
 
-void NetIndicatorModel::handleEndaleNetworkChanged(QAbstractSocket::SocketError code,
-                                                   QSslError::SslError sslErrorcode) {
+void NetIndicatorModel::handleEndaleNetworkChanged(bool modeNetwork) {
 
     auto service = QmlNotificationService::NotificationService::getService();
 
-    service->setNotify(tr("Oops. Error code: ") + QString("%0-%1").arg(code, sslErrorcode),
-                       tr(""),
+    service->setNotify(tr("Oops. Error code: "),
+                       tr("No internet connection."),
                        "", QmlNotificationService::NotificationData::Warning);
 
-//        _netIdicatorModel->setEnableNetwork(false);
+    if (!modeNetwork) {
+        setEnableNetwork(false);
+    }
 
 }
 

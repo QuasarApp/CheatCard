@@ -349,14 +349,10 @@ void MainModel::initImagesModels() {
 
     _defaultBackgroundsModel->setStringList(tmpList);
 
-
 }
 
 void MainModel::initNetIndicateModels() {
     _netIdicatorModel = new NetIndicatorModel();
-
-    connect(_cardsListModel, &CardsListModel::sigRemoveRequest,
-            this, &MainModel::handleRemoveRequest);
 }
 
 void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
@@ -485,10 +481,10 @@ QSharedPointer<BaseNode> initBackEndModel(const QSharedPointer<UserModel>& user,
         result->setCurrentUser(user->user());
     }
 
-    thiz->connect(result.data(),
-                  &BaseNode::sigNetworkError,
-                  thiz,
-                  &MainModel::handleNetworkError);
+     thiz->connect(result.data(),
+                  &BaseNode::sigAvailableNetworkChanged,
+                  static_cast<NetIndicatorModel*>(thiz->getNetIndicatorModel()),
+                  &NetIndicatorModel::handleEndaleNetworkChanged);
 
     return result;
 };
