@@ -48,7 +48,7 @@ Frame {
                 maskSource: Rectangle {
                     width: cardLogoIamge.width
                     height: cardLogoIamge.height
-                    radius: 25
+                    radius: Math.min(cardLogoIamge.height, cardLogoIamge.width)
                 }
             }
 
