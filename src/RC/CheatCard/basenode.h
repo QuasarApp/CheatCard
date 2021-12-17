@@ -84,11 +84,14 @@ public:
     const QSharedPointer<API::User> &currentUser() const;
     void setCurrentUser(QSharedPointer<API::User> newCurrentUser);
 
+    bool fNetAvailable() const;
+
 signals:
     void sigPurchaseWasSuccessful(QSharedPointer<RC::API::UsersCards> data);
     void sigCardReceived(QSharedPointer<RC::API::Card> err);
     void sigNetworkError(QAbstractSocket::SocketError errorCode,
                          QSslError::SslError sslError);
+    void sigAvailableNetworkChanged(bool);
 
 protected:
 
@@ -113,6 +116,8 @@ protected:
     QSharedPointer<QH::iParser>
     selectParser(const ApplicationVersion& distVersion) const;
 
+    void addNodeFailed(QH::AddNodeError error) override;
+    void nodeAddedSucessful(QH::AbstractNodeInfo *node) override;
 
     // AbstractNode interface
 protected slots:
@@ -123,12 +128,16 @@ protected slots:
     void handleSslErrorOcurred(QH::SslSocket *scket, const QSslError &error) override;
 
 private:
+    void setFNetAvailable(bool newFNetAvailable);
+
+
     QH::ISqlDBCache *_db = nullptr;
 
     QMap<int, QSharedPointer<QH::iParser>> _apiParsers;
 
     QSharedPointer<API::User> _currentUser;
 
+    bool _fNetAvailable = false;
 };
 }
 #endif // BASENODE_H
