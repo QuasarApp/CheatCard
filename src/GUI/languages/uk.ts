@@ -678,6 +678,10 @@
         <source>Oops. Error code: </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>No internet connection.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RC::SellerStatisticModel</name>

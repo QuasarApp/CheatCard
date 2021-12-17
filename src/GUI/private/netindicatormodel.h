@@ -30,7 +30,7 @@ public slots:
     void handleEndaleNetworkChanged(bool modeNetwork);
 
 private:
-    bool enableNetwork = true;
+    bool enableNetwork = false;
 
 };
 
