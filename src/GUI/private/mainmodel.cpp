@@ -6,6 +6,7 @@
 //#
 
 #include "cardmodel.h"
+#include "netindicatormodel.h"
 #include "aboutmodel.h"
 #include "itemsmodel.h"
 #include "mainmodel.h"
@@ -61,6 +62,7 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
     initWaitConnectionModel();
     initSellerStatisticModel();
     initImportExportModel();
+    initNetIndicateModels();
 
     configureCardsList();
 
@@ -97,6 +99,7 @@ MainModel::~MainModel() {
     }
 
     delete  _statisticModel;
+    delete _netIdicatorModel;
 
     delete _defaultLogosModel;
     delete _defaultBackgroundsModel;
@@ -127,6 +130,10 @@ QObject *MainModel::getAboutModel()
         _aboutModel = new AboutModel();
     }
     return _aboutModel;
+}
+
+QObject *MainModel::getNetIndicatorModel() const {
+    return _netIdicatorModel;
 }
 
 QObject *MainModel::currentUser() const {
@@ -343,6 +350,10 @@ void MainModel::initImagesModels() {
     _defaultBackgroundsModel->setStringList(tmpList);
 
 
+}
+
+void MainModel::initNetIndicateModels() {
+    _netIdicatorModel = new NetIndicatorModel();
 }
 
 void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
@@ -803,6 +814,9 @@ void MainModel::handleNetworkError(QAbstractSocket::SocketError code,
                           "Don't worry, all cards and your bonuses are saved on the merchant's host and will be "
                           "available the next time you visit. Even if you will don't have internet connection."),
                        "", QmlNotificationService::NotificationData::Warning);
+
+    _netIdicatorModel->setEnableNetwork(false);
+
 }
 
 void MainModel::handleFirstDataSendet() {

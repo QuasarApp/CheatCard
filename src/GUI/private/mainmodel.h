@@ -25,6 +25,7 @@ class UserHeader;
 }
 
 class SoundPlayback;
+class NetIndicatorModel;
 class CardModel;
 class AboutModel;
 class CardsListModel;
@@ -69,6 +70,7 @@ public:
     bool fFirst() const;
     Q_INVOKABLE void configureFinished();
     Q_INVOKABLE QObject *getAboutModel();
+    Q_INVOKABLE QObject *getNetIndicatorModel() const;
     QObject *currentUser() const;
 
     const QSharedPointer<UserModel>& getCurrentUser() const;
@@ -167,6 +169,7 @@ private:
 
     void initCardsListModels();
     void initImagesModels();
+    void initNetIndicateModels();
     void setBackEndModel(const QSharedPointer<BaseNode> &newModel);
     void initWaitConnectionModel();
     void initSellerStatisticModel();
@@ -201,6 +204,7 @@ private:
     SellerStatisticModel *_statisticModel = nullptr;
     ItemsModel *_defaultLogosModel = nullptr;
     ItemsModel *_defaultBackgroundsModel = nullptr;
+    NetIndicatorModel *_netIdicatorModel = nullptr;
 
     ImportExportUserModel *_importExportModel = nullptr;
     IBilling *_billing = nullptr;
