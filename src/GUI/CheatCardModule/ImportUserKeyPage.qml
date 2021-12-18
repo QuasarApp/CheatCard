@@ -64,7 +64,12 @@ CPage {
         QrScanner {
             id:qrScaner
             onCaptured: (data) => {
+
+                            if (root.model)
+                                root.model.handleDecodeFinished(data);
+
                             privateRoot.importDataFinished(data)
+
                         }
 
             onVisibleChanged: {

@@ -19,11 +19,12 @@ public:
     ImportExportUserModel();
     Q_INVOKABLE void processQrCode(QString path);
 
+public slots:
+    void handleDecodeFinished(const QString &data);
+
 signals:
     void decodeFinished(QString data);
 
-private slots:
-    void handleDecodeFinished(const QString &data);
 private:
     SBarcodeDecoder _decoder;
 };
