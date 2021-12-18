@@ -30,7 +30,7 @@ void NetIndicatorModel::handleEndaleNetworkChanged(bool modeNetwork) {
 
     if (!modeNetwork) {
         auto service = QmlNotificationService::NotificationService::getService();
-        service->setNotify(tr("Oops. Error code: "),
+        service->setNotify(tr("Oops"),
                            tr("No internet connection."),
                            "", QmlNotificationService::NotificationData::Warning);
     }

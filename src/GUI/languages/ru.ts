@@ -675,12 +675,12 @@
 <context>
     <name>RC::NetIndicatorModel</name>
     <message>
-        <source>Oops. Error code: </source>
-        <translation type="unfinished">Ойёй. Код ошибки: </translation>
+        <source>No internet connection.</source>
+        <translation>Нет соединения с интернетом.</translation>
     </message>
     <message>
-        <source>No internet connection.</source>
-        <translation type="unfinished"></translation>
+        <source>Oops</source>
+        <translation>Упс</translation>
     </message>
 </context>
 <context>
