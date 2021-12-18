@@ -25,6 +25,7 @@ class UserHeader;
 }
 
 class SoundPlayback;
+class NetIndicatorModel;
 class CardModel;
 class AboutModel;
 class CardsListModel;
@@ -69,6 +70,7 @@ public:
     bool fFirst() const;
     Q_INVOKABLE void configureFinished();
     Q_INVOKABLE QObject *getAboutModel();
+    Q_INVOKABLE QObject *getNetIndicatorModel() const;
     QObject *currentUser() const;
 
     const QSharedPointer<UserModel>& getCurrentUser() const;
@@ -106,7 +108,6 @@ public:
 public slots:
     void handleFirstDataSendet();
     void handleBonusGivOut(int userId, int cardId, int givOutcount);
-    void handleNetworkError(QAbstractSocket::SocketError, QSslError::SslError sslErrorcode);
 
 signals:
 
@@ -171,6 +172,7 @@ private:
     void initWaitConnectionModel();
     void initSellerStatisticModel();
     void initImportExportModel();
+    void initNetIndicateModels();
 
     void configureCardsList();
 
@@ -201,6 +203,7 @@ private:
     SellerStatisticModel *_statisticModel = nullptr;
     ItemsModel *_defaultLogosModel = nullptr;
     ItemsModel *_defaultBackgroundsModel = nullptr;
+    NetIndicatorModel *_netIdicatorModel = nullptr;
 
     ImportExportUserModel *_importExportModel = nullptr;
     IBilling *_billing = nullptr;

@@ -644,14 +644,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You have network problems. Don&apos;t worry, all cards and your bonuses are saved on the merchant&apos;s host and will be available the next time you visit. Even if you will don&apos;t have internet connection.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Oops. Error code: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Yor secret key and public key is not pair May be you scan not valid qr code ...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -677,6 +669,17 @@
     </message>
     <message>
         <source>We seem to have a problems</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>RC::NetIndicatorModel</name>
+    <message>
+        <source>No internet connection.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Oops</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

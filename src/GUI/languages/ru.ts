@@ -644,14 +644,6 @@
         <translation>Ваш секретный ключ успешно импортирован, но загрузить данные резервной копии с сервера не удалось. Проверьте подключение к Интернету и попробуйте восстановить данные еще раз</translation>
     </message>
     <message>
-        <source>You have network problems. Don&apos;t worry, all cards and your bonuses are saved on the merchant&apos;s host and will be available the next time you visit. Even if you will don&apos;t have internet connection.</source>
-        <translation>У вас проблемы с сетью. Не волнуйтесь, все карты и ваши бонусы сохраняются на хосте продавца и будут доступны при следующем посещении. Даже если у вас не будет подключения к Интернету.</translation>
-    </message>
-    <message>
-        <source>Oops. Error code: </source>
-        <translation>Ойёй. Код ошибки: </translation>
-    </message>
-    <message>
         <source>Yor secret key and public key is not pair May be you scan not valid qr code ...</source>
         <translation>Ваш секретный ключ и открытый ключ не совпадают. Возможно, вы отсканировали неверный qr-код ...</translation>
     </message>
@@ -678,6 +670,17 @@
     <message>
         <source>We seem to have a problems</source>
         <translation>Кажется, у нас проблемы</translation>
+    </message>
+</context>
+<context>
+    <name>RC::NetIndicatorModel</name>
+    <message>
+        <source>No internet connection.</source>
+        <translation>Нет соединения с интернетом.</translation>
+    </message>
+    <message>
+        <source>Oops</source>
+        <translation>Упс</translation>
     </message>
 </context>
 <context>

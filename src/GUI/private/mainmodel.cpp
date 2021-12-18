@@ -6,6 +6,7 @@
 //#
 
 #include "cardmodel.h"
+#include "netindicatormodel.h"
 #include "aboutmodel.h"
 #include "itemsmodel.h"
 #include "mainmodel.h"
@@ -61,6 +62,7 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
     initWaitConnectionModel();
     initSellerStatisticModel();
     initImportExportModel();
+    initNetIndicateModels();
 
     configureCardsList();
 
@@ -97,6 +99,7 @@ MainModel::~MainModel() {
     }
 
     delete  _statisticModel;
+    delete _netIdicatorModel;
 
     delete _defaultLogosModel;
     delete _defaultBackgroundsModel;
@@ -127,6 +130,10 @@ QObject *MainModel::getAboutModel()
         _aboutModel = new AboutModel();
     }
     return _aboutModel;
+}
+
+QObject *MainModel::getNetIndicatorModel() const {
+    return _netIdicatorModel;
 }
 
 QObject *MainModel::currentUser() const {
@@ -342,7 +349,10 @@ void MainModel::initImagesModels() {
 
     _defaultBackgroundsModel->setStringList(tmpList);
 
+}
 
+void MainModel::initNetIndicateModels() {
+    _netIdicatorModel = new NetIndicatorModel();
 }
 
 void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
@@ -471,10 +481,10 @@ QSharedPointer<BaseNode> initBackEndModel(const QSharedPointer<UserModel>& user,
         result->setCurrentUser(user->user());
     }
 
-    thiz->connect(result.data(),
-                  &BaseNode::sigNetworkError,
-                  thiz,
-                  &MainModel::handleNetworkError);
+     thiz->connect(result.data(),
+                  &BaseNode::sigAvailableNetworkChanged,
+                  static_cast<NetIndicatorModel*>(thiz->getNetIndicatorModel()),
+                  &NetIndicatorModel::handleEndaleNetworkChanged);
 
     return result;
 };
@@ -791,18 +801,6 @@ void MainModel::handlePurchaseReceived(Purchase purchase) {
 
     initMode(_currentUser);
 
-}
-
-void MainModel::handleNetworkError(QAbstractSocket::SocketError code,
-                                   QSslError::SslError sslErrorcode) {
-
-    auto service = QmlNotificationService::NotificationService::getService();
-
-    service->setNotify(tr("Oops. Error code: ") + QString("%0-%1").arg(code, sslErrorcode),
-                       tr("You have network problems. "
-                          "Don't worry, all cards and your bonuses are saved on the merchant's host and will be "
-                          "available the next time you visit. Even if you will don't have internet connection."),
-                       "", QmlNotificationService::NotificationData::Warning);
 }
 
 void MainModel::handleFirstDataSendet() {
