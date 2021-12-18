@@ -166,6 +166,8 @@ void BaseNode::nodeErrorOccured(QH::AbstractNodeInfo *nodeInfo,
         return;
     }
 
+    setFNetAvailable(false);
+
     emit sigNetworkError(errorCode, QSslError::NoError);
 }
 
