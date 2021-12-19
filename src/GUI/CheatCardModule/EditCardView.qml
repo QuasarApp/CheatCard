@@ -763,7 +763,7 @@ Page {
 
         ColorPicker {
             id: colorPick
-            currentlyColor: root.model.color
+            currentlyColor: (root.model)? root.model.color: "#000000"
             implicitHeight: 0x0
             title: qsTr("Please choose a color")
 
@@ -775,7 +775,6 @@ Page {
                                     root.model.color = colorPick.color
                                 }
                                 activityProcessor.popItem();
-
                             }
 
                 standardButtons: Dialog.Open
@@ -788,7 +787,7 @@ Page {
 
         ColorPicker {
             id: colorPickFont
-            currentlyColor: root.model.color
+            currentlyColor: (root.model)? root.model.fontColor: "#000000"
 
             title: qsTr("Please choose a color")
 
