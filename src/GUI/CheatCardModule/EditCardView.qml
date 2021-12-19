@@ -763,6 +763,7 @@ Page {
 
         ColorPicker {
             id: colorPick
+            currentlyColor: root.model.color
             implicitHeight: 0x0
             title: qsTr("Please choose a color")
 
@@ -787,6 +788,7 @@ Page {
 
         ColorPicker {
             id: colorPickFont
+            currentlyColor: root.model.color
 
             title: qsTr("Please choose a color")
 

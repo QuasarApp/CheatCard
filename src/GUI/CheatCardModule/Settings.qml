@@ -83,6 +83,7 @@ Page {
 
                         ColorPicker {
                             id: colorPick
+                            currentlyColor: config.getStrValue("colorTheme", colorPick.color)
                             implicitHeight: 0x0
                             title: qsTr("Please choose a color")
 
@@ -92,7 +93,6 @@ Page {
                                                 config.setStrValue("colorTheme", colorPick.color)
 
                                                 activityProcessor.popItem();
-
                                             }
 
                                 standardButtons: Dialog.Open
