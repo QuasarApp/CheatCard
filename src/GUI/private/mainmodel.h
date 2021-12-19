@@ -152,7 +152,7 @@ private slots:
     void handleConnectWasBegin();
     void handleConnectWasFinished();
 
-    void handlePurchaseWasSuccessful(QSharedPointer<API::UsersCards>);
+    void handlePurchaseWasSuccessful(QSharedPointer<API::UsersCards>, bool alert);
     void handleListenStart(int purchasesCount, QSharedPointer<CardModel> model, const QString &extraData);
     void handleListenStop();
     void handleAppStateChanged(Qt::ApplicationState state);

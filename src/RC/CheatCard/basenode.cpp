@@ -23,6 +23,8 @@
 #include <cmath>
 #include <dbobjectsrequest.h>
 
+#include <CheatCard/api/apiv1.h>
+
 namespace RC {
 
 BaseNode::BaseNode(QH::ISqlDBCache *db): APIObjectsFactoryV1(db) {
@@ -181,6 +183,21 @@ bool BaseNode::fNetAvailable() const {
     return _fNetAvailable;
 }
 
+void BaseNode::checkNetworkConnection(const QString &domain, int port) {
+    auto action = [this](QH::AbstractNodeInfo *node) {
+        removeNode(node);
+    };
+
+    if (domain.isEmpty()) {
+        addNode(getServerHost(), port, action,
+                QH::NodeCoonectionStatus::Confirmed);
+        return;
+    }
+
+    addNode(domain, port, action,
+            QH::NodeCoonectionStatus::Confirmed);
+}
+
 void BaseNode::setFNetAvailable(bool newFNetAvailable) {
     if (_fNetAvailable == newFNetAvailable) {
         return;
@@ -261,10 +278,12 @@ bool BaseNode::restoreOldData(const QByteArray &curentUserKey,
 
     auto action = [this, curentUserKey](QH::AbstractNodeInfo *node) {
 
-        APIv1::RestoreDataRequest request;
-        request.setUserKey(curentUserKey);
+        auto dist = static_cast<NodeInfo*>(node);
 
-        sendData(&request, node);
+        auto api = selectParser(dist->version()).dynamicCast<ApiV1>();
+        if (api) {
+            api->restoreOldDateRequest(curentUserKey, node);
+        }
     };
 
     if (domain.isEmpty()) {
@@ -279,10 +298,12 @@ bool BaseNode::restoreOldData(const QByteArray &curentUserKey,
 bool BaseNode::restoreOneCard(unsigned int cardId, const QString &domain, int port) {
     auto action = [this, cardId](QH::AbstractNodeInfo *node) {
 
-        API::CardDataRequest request;
-        request.push(cardId);
+        auto dist = static_cast<NodeInfo*>(node);
 
-        sendData(&request, node);
+        auto api = selectParser(dist->version()).dynamicCast<ApiV1>();
+        if (api) {
+            api->restoreOneCardRequest(cardId, node);
+        }
     };
 
     if (domain.isEmpty()) {
