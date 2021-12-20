@@ -30,6 +30,9 @@ CPage {
 
                 Slider {
                     id: red
+                    from: 0
+                    to: 1
+                    stepSize: 0.001
                     value: currentlyColor.r
                     Material.accent : Material.Red
                     Layout.fillWidth: true
@@ -52,6 +55,9 @@ CPage {
 
                 Slider {
                     id: green
+                    from: 0
+                    to: 1
+                    stepSize: 0.001
                     value: currentlyColor.g
                     Material.accent : Material.Green
                     Layout.fillWidth: true
@@ -73,6 +79,9 @@ CPage {
 
                 Slider {
                     id: blue
+                    from: 0
+                    to: 1
+                    stepSize: 0.001
                     value: currentlyColor.b
                     Material.accent : Material.Blue
                     Layout.fillWidth: true
