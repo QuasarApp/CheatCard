@@ -83,7 +83,6 @@ Page {
 
                         ColorPicker {
                             id: colorPick
-                            currentlyColor: config.getStrValue("colorTheme", colorPick.color)
                             implicitHeight: 0x0
                             title: qsTr("Please choose a color")
 
