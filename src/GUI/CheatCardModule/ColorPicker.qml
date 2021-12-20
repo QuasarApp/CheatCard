@@ -7,7 +7,7 @@ import "Style"
 
 CPage {
     property alias color: preview.color
-    property color currentlyColor: "#000000"
+    property color currentlyColor: Material.primary
     implicitHeight: 0x0
 
     ColumnLayout {
