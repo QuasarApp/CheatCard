@@ -83,6 +83,7 @@ Page {
 
                         ColorPicker {
                             id: colorPick
+                            currentlyColor: Material.primary
                             implicitHeight: 0x0
                             title: qsTr("Please choose a color")
 
