@@ -7,6 +7,7 @@ import "Style"
 
 CPage {
     property alias color: preview.color
+    property color currentlyColor: Material.primary
     implicitHeight: 0x0
 
     ColumnLayout {
@@ -29,10 +30,10 @@ CPage {
 
                 Slider {
                     id: red
-                    from: 0;
-                    to: 1;
-                    value: 0
+                    from: 0
+                    to: 1
                     stepSize: 0.001
+                    value: currentlyColor.r
                     Material.accent : Material.Red
                     Layout.fillWidth: true
 
@@ -54,10 +55,10 @@ CPage {
 
                 Slider {
                     id: green
-                    from: 0;
-                    to: 1;
-                    value: 0
+                    from: 0
+                    to: 1
                     stepSize: 0.001
+                    value: currentlyColor.g
                     Material.accent : Material.Green
                     Layout.fillWidth: true
 
@@ -78,10 +79,10 @@ CPage {
 
                 Slider {
                     id: blue
-                    from: 0;
-                    to: 1;
-                    value: 0
+                    from: 0
+                    to: 1
                     stepSize: 0.001
+                    value: currentlyColor.b
                     Material.accent : Material.Blue
                     Layout.fillWidth: true
 
@@ -101,12 +102,6 @@ CPage {
                 Layout.alignment: Qt.AlignHCenter
 
                 text: qsTr("Random collor")
-
-                Component.onCompleted: () => {
-                                           blue.value = Math.random()
-                                           red.value = Math.random()
-                                           green.value = Math.random()
-                                       }
 
                 onClicked: () => {
                                blue.value = Math.random()
