@@ -85,9 +85,11 @@ public:
     void setCurrentUser(QSharedPointer<API::User> newCurrentUser);
 
     bool fNetAvailable() const;
+    void checkNetworkConnection(const QString& domain = "",
+                                int port = DEFAULT_CHEAT_CARD_PORT_SSL);
 
 signals:
-    void sigPurchaseWasSuccessful(QSharedPointer<RC::API::UsersCards> data);
+    void sigPurchaseWasSuccessful(QSharedPointer<RC::API::UsersCards> data, bool alert);
     void sigCardReceived(QSharedPointer<RC::API::Card> err);
     void sigNetworkError(QAbstractSocket::SocketError errorCode,
                          QSslError::SslError sslError);
@@ -103,7 +105,7 @@ protected:
                            const QH::AbstractNodeInfo *sender, const QH::Header&);
 
     bool versionDeliveredSuccessful(const QSharedPointer<VersionIsReceived> &message,
-                           const QH::AbstractNodeInfo *sender, const QH::Header&);
+                                    const QH::AbstractNodeInfo *sender, const QH::Header&);
 
     QH::AbstractNodeInfo *createNodeInfo(QAbstractSocket *socket,
                                          const QH::HostAddress *clientAddress) const override;

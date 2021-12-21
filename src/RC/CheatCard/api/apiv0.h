@@ -64,7 +64,7 @@ protected:
     bool processCardStatus(const QSharedPointer<QH::PKG::DataPack<API::UsersCards>> &cardStatuses,
                            const QH::AbstractNodeInfo *sender, const QH::Header&);
     bool applayPurchases(const QSharedPointer<API::UsersCards> &dbCard,
-                         const QH::AbstractNodeInfo *sender);
+                         const QH::AbstractNodeInfo *sender, bool alert = true);
     bool processCardRequest(const QSharedPointer<API::CardDataRequest> &cardStatus,
                             const QH::AbstractNodeInfo *sender, const QH::Header&);
     bool processCardData(const QSharedPointer<QH::PKG::DataPack<API::Card> > &cardrequest,

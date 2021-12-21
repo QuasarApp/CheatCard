@@ -40,6 +40,9 @@ public:
 
     void sendCardStatusRequest(long long userSession, QH::AbstractNodeInfo *dist) override;
 
+    virtual void restoreOldDateRequest(const QByteArray &curentUserKey, QH::AbstractNodeInfo *dist);
+    virtual void restoreOneCardRequest(unsigned int cardId, QH::AbstractNodeInfo *dist);
+
 protected:
     IAPIObjectsFactory *initObjectFactory() const override;
     bool processCardStatusRequest(const QSharedPointer<API::CardStatusRequest> &message,
@@ -48,9 +51,7 @@ protected:
     bool processSession(const QSharedPointer<API::Session> &message,
                         const QH::AbstractNodeInfo *sender, const QH::Header&);
     bool processCardStatus(const QSharedPointer<QH::PKG::DataPack<APIv1::UsersCards>> &cardStatuses,
-                           const QH::AbstractNodeInfo *sender, const QH::Header&);
-    bool applayPurchases(const QSharedPointer<APIv1::UsersCards> &dbCard,
-                         const QH::AbstractNodeInfo *sender) ;
+                           const QH::AbstractNodeInfo *sender, const QH::Header&pkg);
     bool processCardRequest(const QSharedPointer<API::CardDataRequest> &cardStatus,
                             const QH::AbstractNodeInfo *sender, const QH::Header&) ;
     bool processCardData(const QSharedPointer<QH::PKG::DataPack<APIv1::Card> > &cardrequest,
@@ -73,6 +74,8 @@ private:
      */
     void getSignData(QByteArray& data) const;
 
+    unsigned int _restoreDataPacakgeHash = 0;
 };
+
 }
 #endif // APIV1_H

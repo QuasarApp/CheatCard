@@ -356,13 +356,38 @@ void MainModel::initNetIndicateModels() {
 }
 
 void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
+
+    if (_backEndModel) {
+        disconnect(_backEndModel.data(),
+                   &BaseNode::sigAvailableNetworkChanged,
+                   static_cast<NetIndicatorModel*>(getNetIndicatorModel()),
+                   &NetIndicatorModel::handleEndaleNetworkChanged);
+
+        disconnect(_backEndModel.data(), &BaseNode::sigPurchaseWasSuccessful,
+                   this, &MainModel::handlePurchaseWasSuccessful);
+
+        disconnect(_backEndModel.data(), &BaseNode::sigCardReceived,
+                   this, &MainModel::handleCardReceived);
+    }
+
     _backEndModel = newModel;
 
-    connect(_backEndModel.data(), &BaseNode::sigPurchaseWasSuccessful,
-            this, &MainModel::handlePurchaseWasSuccessful);
+    if (_backEndModel) {
 
-    connect(_backEndModel.data(), &BaseNode::sigCardReceived,
-            this, &MainModel::handleCardReceived);
+        connect(_backEndModel.data(),
+                &BaseNode::sigAvailableNetworkChanged,
+                static_cast<NetIndicatorModel*>(getNetIndicatorModel()),
+                &NetIndicatorModel::handleEndaleNetworkChanged);
+
+        connect(_backEndModel.data(), &BaseNode::sigPurchaseWasSuccessful,
+                this, &MainModel::handlePurchaseWasSuccessful);
+
+        connect(_backEndModel.data(), &BaseNode::sigCardReceived,
+                this, &MainModel::handleCardReceived);
+
+        _backEndModel->checkNetworkConnection();
+
+    }
 }
 
 void MainModel::initWaitConnectionModel() {
@@ -471,8 +496,7 @@ int MainModel::getMode() const {
 // template method for initialize back end model. using in configureCardsList method
 template <class BackEndType>
 QSharedPointer<BaseNode> initBackEndModel(const QSharedPointer<UserModel>& user,
-                                          QH::ISqlDBCache *db,
-                                          MainModel* thiz) {
+                                          QH::ISqlDBCache *db) {
     QSharedPointer<BaseNode> result;
     result = QSharedPointer<BaseNode>(new BackEndType(db), softRemove);
     result->addApiParser<ApiV1>();
@@ -480,11 +504,6 @@ QSharedPointer<BaseNode> initBackEndModel(const QSharedPointer<UserModel>& user,
     if (user) {
         result->setCurrentUser(user->user());
     }
-
-     thiz->connect(result.data(),
-                  &BaseNode::sigAvailableNetworkChanged,
-                  static_cast<NetIndicatorModel*>(thiz->getNetIndicatorModel()),
-                  &NetIndicatorModel::handleEndaleNetworkChanged);
 
     return result;
 };
@@ -494,8 +513,7 @@ void RC::MainModel::configureCardsList() {
         setCardListModel(_cardsListModel);
         if (!_visitorbackEndModel) {
             _visitorbackEndModel = initBackEndModel<VisitorSSL>(_currentUser,
-                                                                _db,
-                                                                this);
+                                                                _db);
         }
 
         setBackEndModel(_visitorbackEndModel);
@@ -503,8 +521,7 @@ void RC::MainModel::configureCardsList() {
         setCardListModel(_ownCardsListModel);
         if (!_sellerbackEndModel) {
             _sellerbackEndModel = initBackEndModel<SellerSSL>(_currentUser,
-                                                              _db,
-                                                              this);
+                                                              _db);
         }
 
         setBackEndModel(_sellerbackEndModel);
@@ -695,7 +712,7 @@ void MainModel::handleConnectWasFinished() {
     emit connectionWasEnd();
 }
 
-void MainModel::handlePurchaseWasSuccessful(QSharedPointer<RC::API::UsersCards> card){
+void MainModel::handlePurchaseWasSuccessful(QSharedPointer<RC::API::UsersCards> card, bool alert){
 
     soundEffectPlayback("Seal");
     auto cardModel = getCurrentListModel()->cache().value(card->getCard());
@@ -709,8 +726,11 @@ void MainModel::handlePurchaseWasSuccessful(QSharedPointer<RC::API::UsersCards> 
     _db->insertIfExistsUpdateObject(card);
 
     if (freeItems > 0) {
-        emit freeItem(cardModel.data(), card->getUser(), freeItems);
-        soundEffectPlayback("Bonus");
+        if (alert) {
+            emit freeItem(cardModel.data(), card->getUser(), freeItems);
+            soundEffectPlayback("Bonus");
+        }
+
     } else {
         if (_mode == Mode::Seller && _fShowEmptyBonuspackaMessage) {
             _fShowEmptyBonuspackaMessage = false;

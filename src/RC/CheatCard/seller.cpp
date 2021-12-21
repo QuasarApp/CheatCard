@@ -40,7 +40,7 @@ bool Seller::incrementPurchases(const QSharedPointer<API::UsersCards> &usersCard
         return false;
     }
 
-    emit sigPurchaseWasSuccessful(usersCardsData);
+    emit sigPurchaseWasSuccessful(usersCardsData, true);
 
     return true;
 }
