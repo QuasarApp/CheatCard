@@ -19,8 +19,6 @@
         <file>private/resources/Icons/Cup_icon_14.png</file>
         <file>private/resources/Icons/Cup_icon_13.png</file>
         <file>private/resources/Icons/Cup_icon_12.png</file>
-        <file>private/resources/Icons/Cup_icon_11.png</file>
-        <file>private/resources/Icons/Cup_icon_10.png</file>
         <file>private/resources/Icons/Cup_icon_9.png</file>
         <file>private/resources/Icons/Cup_icon_8.png</file>
         <file>private/resources/Icons/Cup_icon_7.png</file>
@@ -90,7 +88,7 @@
         <file>private/resources/Interface_icons/key_pull.svg</file>
         <file>private/resources/Interface_icons/Activate.svg</file>
         <file>private/resources/Interface_icons/edit_card.svg</file>
-        <file>private/resources/Interface_icons/delete_card.svg</file>        
+        <file>private/resources/Interface_icons/delete_card.svg</file>
         <file>private/resources/Interface_icons/offline_icon.svg</file>
         <file>private/resources/Interface_icons/online_icon.svg</file>
     </qresource>
