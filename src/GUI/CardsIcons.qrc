@@ -91,5 +91,6 @@
         <file>private/resources/Interface_icons/delete_card.svg</file>
         <file>private/resources/Interface_icons/offline_icon.svg</file>
         <file>private/resources/Interface_icons/online_icon.svg</file>
+        <file>private/resources/Icons/Cup_icon_10.png</file>
     </qresource>
 </RCC>
