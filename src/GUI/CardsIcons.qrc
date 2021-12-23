@@ -92,5 +92,7 @@
         <file>private/resources/Interface_icons/offline_icon.svg</file>
         <file>private/resources/Interface_icons/online_icon.svg</file>
         <file>private/resources/Icons/Cup_icon_10.png</file>
+        <file>private/resources/Icons/Cup_icon_11.png</file>
+        <file>private/resources/Icons/Cup_icon_21.png</file>
     </qresource>
 </RCC>
