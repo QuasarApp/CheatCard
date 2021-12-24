@@ -94,5 +94,8 @@
         <file>private/resources/Icons/Cup_icon_10.png</file>
         <file>private/resources/Icons/Cup_icon_11.png</file>
         <file>private/resources/Icons/Cup_icon_21.png</file>
+        <file>private/resources/Icons/Cup_icon_22.png</file>
+        <file>private/resources/Icons/Cup_icon_23.png</file>
+        <file>private/resources/Icons/Cup_icon_24.png</file>
     </qresource>
 </RCC>
