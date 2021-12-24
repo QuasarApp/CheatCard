@@ -57,6 +57,8 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
     _config = dynamic_cast<SettingsModel*>(
                 QuasarAppUtils::Settings::ISettings::instance());
 
+    _config->setCurrUser(_settings.value(CURRENT_USER).toUInt());
+
     initCardsListModels();
     initImagesModels();
     initWaitConnectionModel();
@@ -122,6 +124,7 @@ void MainModel::configureFinished() {
     _config->setValue("fFirst", false);
 
     saveConfig();
+    _currentUser->regenerateSessionKey();
 }
 
 QObject *MainModel::getAboutModel()
