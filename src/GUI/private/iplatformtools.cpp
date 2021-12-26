@@ -29,6 +29,14 @@ IPlatformTools *IPlatformTools::instance() {
     static IPlatformTools * instance = new WindowsDesktopPlatformTool();
 #endif
 
+#ifdef Q_OS_MACOS
+    static IPlatformTools * instance = new OSXPlatformTools();
+#endif
+
+#ifdef Q_OS_IOS
+    static IPlatformTools * instance = new IOSPlatformTools();
+#endif
+
     return instance;
 }
 
