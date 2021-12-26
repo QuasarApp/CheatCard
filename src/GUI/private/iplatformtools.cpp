@@ -11,6 +11,8 @@
 #include <platforms/androidplatformtools.h>
 #include <platforms/linuxdesktopplatfomtools.h>
 #include <platforms/windowsdesktopplatformtool.h>
+#include <platforms/osxplatformtools.h>
+#include <platforms/iosplatformtools.h>
 
 
 namespace RC {
