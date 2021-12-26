@@ -43,3 +43,7 @@ void DesktopBilling::becomeSeller() {
                          tr("This functions unlocked only on test mode."
                             " Do you realy want to become a seller?"));
 }
+
+bool DesktopBilling::isSupported() const {
+    return true;
+}

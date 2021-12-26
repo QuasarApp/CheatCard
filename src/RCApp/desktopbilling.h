@@ -17,6 +17,7 @@ public:
 
 public slots:
     void becomeSeller() override;
+    bool isSupported() const override;
 
 private:
     QSettings _settings;

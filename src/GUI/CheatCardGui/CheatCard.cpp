@@ -60,11 +60,12 @@ bool CheatCard::init(QQmlApplicationEngine *engine, IBilling *billingObject) {
     qmlRegisterType<SBarcodeGenerator>("com.scythestudio.scodes", 1, 0, "SBarcodeGenerator");
     qmlRegisterType<SBarcodeFilter>("com.scythestudio.scodes", 1, 0, "SBarcodeFilter");
 
+    _model->initBilling(billingObject);
+
     engine->load("qrc:/CheatCardModule/CheatCard.qml");
     if (engine->rootObjects().isEmpty())
         return false;
 
-    _model->initBilling(billingObject);
 
     return true;
 }

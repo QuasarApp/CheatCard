@@ -28,6 +28,7 @@ public:
 
 public slots:
     virtual void becomeSeller() = 0;
+    virtual bool isSupported() const = 0;
 
 signals:
     void sigPurchaseReceived(RC::Purchase);
