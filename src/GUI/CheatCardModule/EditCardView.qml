@@ -17,6 +17,7 @@ Page {
     }
     property bool editable: true
     property bool customization: false
+    property bool cardInteractive: true
 
     property int purchasesNumber: (model)? model.purchasesNumber: 1
     property int freeIndexCount :(model)? model.freeIndex: 0
@@ -649,7 +650,7 @@ Page {
             function activityCard() {
 
                 const fAvailable = mainModel.mode && isCurrentItem;
-                if (!fAvailable) {
+                if (!fAvailable && !cardInteractive) {
                     return;
                 }
 
@@ -666,6 +667,10 @@ Page {
 
                     if (root.model) {
                         root.model.showStatistick()
+                    }
+
+                    if (!cardInteractive) {
+                        return;
                     }
 
                     const activity = "qrc:/CheatCardModule/SellerStatistic.qml";
