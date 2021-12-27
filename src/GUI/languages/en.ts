@@ -325,6 +325,10 @@
         <source>Wooooh seems like someone available %0 %1 !!!</source>
         <translation>Wooooh seems like someone available %0 %1 !!!</translation>
     </message>
+    <message>
+        <source>Don`t give out</source>
+        <translation>Don`t give out</translation>
+    </message>
 </context>
 <context>
     <name>ImportUserKeyPage</name>
