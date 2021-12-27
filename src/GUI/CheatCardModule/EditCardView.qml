@@ -649,7 +649,7 @@ Page {
 
             function activityCard() {
 
-                const fAvailable = mainModel.mode && isCurrentItem && !cardInteractive;
+                const fAvailable = mainModel.mode && isCurrentItem && cardInteractive;
                 if (!fAvailable) {
                     return;
                 }
