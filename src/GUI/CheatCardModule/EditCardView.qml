@@ -649,8 +649,8 @@ Page {
 
             function activityCard() {
 
-                const fAvailable = mainModel.mode && isCurrentItem;
-                if (!fAvailable && !cardInteractive) {
+                const fAvailable = mainModel.mode && isCurrentItem && !cardInteractive;
+                if (!fAvailable) {
                     return;
                 }
 
@@ -663,15 +663,15 @@ Page {
             }
 
             function showStatisticsCard() {
+                if (!cardInteractive) {
+                    return;
+                }
+
                 if (!root.editable) {
 
                     if (root.model) {
                         root.model.showStatistick()
-                    }
-
-                    if (!cardInteractive) {
-                        return;
-                    }
+                    }                    
 
                     const activity = "qrc:/CheatCardModule/SellerStatistic.qml";
                     activityProcessor.newActivity(activity,
@@ -681,6 +681,9 @@ Page {
             }
 
             function turnOverCard(s) {
+                if (!cardInteractive) {
+                    return;
+                }
                 root.turnOverCard(true);
             }
         }
