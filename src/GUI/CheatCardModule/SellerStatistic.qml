@@ -24,6 +24,7 @@ Page {
             Layout.preferredHeight: width * 0.7
             model: (root.model)? root.model.currentCard: null
             editable: false
+            cardInteractive: false
         }
 
         Page {

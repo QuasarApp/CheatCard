@@ -17,6 +17,7 @@ Page {
     }
     property bool editable: true
     property bool customization: false
+    property bool cardInteractive: true
 
     property int purchasesNumber: (model)? model.purchasesNumber: 1
     property int freeIndexCount :(model)? model.freeIndex: 0
@@ -648,7 +649,7 @@ Page {
 
             function activityCard() {
 
-                const fAvailable = mainModel.mode && isCurrentItem;
+                const fAvailable = mainModel.mode && isCurrentItem && cardInteractive;
                 if (!fAvailable) {
                     return;
                 }
@@ -662,11 +663,15 @@ Page {
             }
 
             function showStatisticsCard() {
+                if (!cardInteractive) {
+                    return;
+                }
+
                 if (!root.editable) {
 
                     if (root.model) {
                         root.model.showStatistick()
-                    }
+                    }                    
 
                     const activity = "qrc:/CheatCardModule/SellerStatistic.qml";
                     activityProcessor.newActivity(activity,
@@ -676,6 +681,9 @@ Page {
             }
 
             function turnOverCard(s) {
+                if (!cardInteractive) {
+                    return;
+                }
                 root.turnOverCard(true);
             }
         }
