@@ -131,9 +131,7 @@ Frame {
                 text: qsTr("Don`t give out")
 
                 onClicked: ()=> {
-                               if (mainModel && model) {
-                                    activityProcessor.popItem();
-                               }
+                               activityProcessor.popItem();
                            }
             }
 
