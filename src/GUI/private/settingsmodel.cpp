@@ -35,6 +35,8 @@ void SettingsModel::setCurrUser(unsigned int id) {
     if (!result || result->value().toUInt() != id) {
         _db->doQuery(QString("INSERT INTO Config(user) VALUES(%0)").arg(id));
     }
+
+    clearCache();
 }
 
 void SettingsModel::syncImplementation() {
