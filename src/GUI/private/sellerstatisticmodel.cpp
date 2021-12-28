@@ -112,4 +112,10 @@ void SellerStatisticModel::setUsers(const QHash<unsigned int, QSharedPointer<RC:
     _users = newUsers;
 }
 
+void SellerStatisticModel::chouseRow(int row) {
+    if (_card) {
+        _card->setUserData(_data.value(row, nullptr));
+    }
+}
+
 }

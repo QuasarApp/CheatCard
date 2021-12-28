@@ -16,6 +16,9 @@
 
 namespace RC {
 
+namespace API {
+class UsersCards;
+}
 /**
  * @brief The CardModel class
  */
@@ -25,8 +28,8 @@ class CardModel: public QObject
     Q_PROPERTY(unsigned int id READ id NOTIFY objChanged)
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY objChanged)
 
-    Q_PROPERTY(int purchasesNumber READ purchasesNumber NOTIFY purchasesNumberChanged)
-    Q_PROPERTY(int receivedItems READ receivedItems NOTIFY receivedItemsChanged)
+    Q_PROPERTY(int purchasesNumber READ purchasesNumber NOTIFY sigUserDataChanged)
+    Q_PROPERTY(int receivedItems READ receivedItems NOTIFY sigUserDataChanged)
 
     Q_PROPERTY(int freeIndex READ freeIndex WRITE setFreeIndex NOTIFY objChanged)
     Q_PROPERTY(int cardVersion READ cardVersion NOTIFY objChanged)
@@ -73,8 +76,6 @@ public:
     QString getFontColor() const;
     void setFontColor(const QString &newColor);
 
-    void setPurchasesNumber(int newPurchasesNumber);
-
     void setFreeIndex(int newFreeIndex);
 
     Q_INVOKABLE void save();
@@ -96,9 +97,11 @@ public:
     int cardVersion() const;
 
     int receivedItems() const;
-    void setReceivedItems(int newReceivedItems);
 
     void refreshView();
+    const QSharedPointer<API::UsersCards>& userData() const;
+    void setUserData(const QSharedPointer<API::UsersCards>& newUserData);
+
 signals:
     void objChanged();
     void editFinished(const QSharedPointer<API::Card>& card);
@@ -107,9 +110,7 @@ signals:
     void sigShowStatistick(const QSharedPointer<API::Card>& card);
     void resetCardModel(const QSharedPointer<API::Card>& card);
 
-    void purchasesNumberChanged();
-
-    void receivedItemsChanged();
+    void sigUserDataChanged();
 
     void fEditingChanged();
 
@@ -118,8 +119,7 @@ private:
     QByteArray convert(const QString& imagePath);
 
     QSharedPointer<API::Card> _card = nullptr;
-    int _purchasesNumber = 1;
-    int _receivedItems = 0;
+    QSharedPointer<API::UsersCards> _userData = nullptr;
 
 };
 

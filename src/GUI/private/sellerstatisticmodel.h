@@ -50,6 +50,7 @@ public:
     const QHash<unsigned int, QSharedPointer<RC::API::User> > &users() const;
     void setUsers(const QHash<unsigned int, QSharedPointer<RC::API::User> > &newUsers);
 
+    Q_INVOKABLE void chouseRow(int row);
 signals:
     void currentCardChanged();
 

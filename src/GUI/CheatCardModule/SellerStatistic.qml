@@ -3,6 +3,8 @@ import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
 
+import "Style"
+
 Page {
     id: root;
 
@@ -60,6 +62,8 @@ Page {
                 ScrollBar.vertical: ScrollBar { }
 
                 property var columnWidths: [-80, 80, 90, 90, 200]
+                property int selectedRow: 0
+
                 columnWidthProvider: function (column) {
 
                     const width = columnWidths[column];
@@ -78,19 +82,34 @@ Page {
 
 
                 delegate: Rectangle {
-                    color: "#00000000"
-                    implicitWidth: root.width * 0.3
-                    implicitHeight: 50
 
-                    TextField {
+                    property bool fSelect: row === tableView.selectedRow
+
+                    onFSelectChanged: {
+                        if (root.model && fSelect)
+                            root.model.chouseRow(row);
+                    }
+
+                    color: (fSelect)? Material.accent:
+                                      (row % 2 === 0) ? "#ffffff":
+                                                        "#eeeeee"
+
+
+                    Label {
                         text: display
-                        horizontalAlignment:  Text.AlignHCenter
-                        verticalAlignment:  Text.AlignVCenter
                         wrapMode: Text.WordWrap
-                        readOnly: true;
+                        anchors.fill: parent
+                        horizontalAlignment: Label.AlignHCenter
+                        verticalAlignment: Label.AlignVCenter
+                    }
+
+                    MouseArea {
+                        onClicked: tableView.selectedRow = row
                         anchors.fill: parent
                     }
+
                 }
+
             }
         }
 

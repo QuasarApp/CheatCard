@@ -7,7 +7,7 @@
 
 #include "cardmodel.h"
 #include "CheatCard/api/api0/card.h"
-
+#include "CheatCard/api/api0/userscards.h"
 #include <QBuffer>
 #include <QPixmap>
 
@@ -29,7 +29,10 @@ unsigned int CardModel::id() const {
 }
 
 int CardModel::purchasesNumber() const {
-    return _purchasesNumber;
+    if (_userData)
+        return _userData->getPurchasesNumber();
+
+    return 1;
 }
 
 int CardModel::freeIndex() const {
@@ -49,16 +52,6 @@ void CardModel::setCard(const QSharedPointer<API::Card> &newCard) {
     _card = newCard;
 
     emit objChanged();
-}
-
-void CardModel::setPurchasesNumber(int newPurchasesNumber) {
-    if (_purchasesNumber == newPurchasesNumber) {
-        return;
-    }
-
-    _purchasesNumber = newPurchasesNumber;
-
-    emit purchasesNumberChanged();
 }
 
 void CardModel::setFreeIndex(int newFreeIndex) {
@@ -282,15 +275,23 @@ QByteArray CardModel::convert(const QString& imagePath) {
     return result;;
 }
 
-int CardModel::receivedItems() const {
-    return _receivedItems;
+const QSharedPointer<API::UsersCards> &CardModel::userData() const {
+    return _userData;
 }
 
-void CardModel::setReceivedItems(int newReceivedItems) {
-    if (_receivedItems == newReceivedItems)
-        return;
-    _receivedItems = newReceivedItems;
-    emit receivedItemsChanged();
+void CardModel::setUserData(const QSharedPointer<API::UsersCards> &newUserData) {
+    if (_userData != newUserData) {
+        _userData = newUserData;
+
+        emit sigUserDataChanged();
+    }
+}
+
+int CardModel::receivedItems() const {
+    if (_userData)
+        return _userData->getReceived();
+
+    return 0;
 }
 
 void CardModel::refreshView() {
