@@ -94,8 +94,8 @@
         <file>private/resources/Icons/Cup_icon_21.png</file>
         <file>private/resources/Icons/Cup_icon_23.png</file>
         <file>private/resources/Icons/Cup_icon_24.png</file>
-        <file>private/resources/Backgrounds/Back_13.png</file>
-        <file>private/resources/Backgrounds/Back_16.png</file>
         <file>private/resources/Backgrounds/Layer_35.png</file>
+        <file>private/resources/Backgrounds/Layer_13.png</file>
+        <file>private/resources/Backgrounds/Layer_16.png</file>
     </qresource>
 </RCC>
