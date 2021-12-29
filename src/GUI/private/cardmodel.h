@@ -30,6 +30,7 @@ class CardModel: public QObject
 
     Q_PROPERTY(int purchasesNumber READ purchasesNumber NOTIFY sigUserDataChanged)
     Q_PROPERTY(int receivedItems READ receivedItems NOTIFY sigUserDataChanged)
+    Q_PROPERTY(int available READ available NOTIFY sigUserDataChanged)
 
     Q_PROPERTY(int freeIndex READ freeIndex WRITE setFreeIndex NOTIFY objChanged)
     Q_PROPERTY(int cardVersion READ cardVersion NOTIFY objChanged)
@@ -102,6 +103,10 @@ public:
     const QSharedPointer<API::UsersCards>& userData() const;
     void setUserData(const QSharedPointer<API::UsersCards>& newUserData);
 
+    int available() const;
+    static int availableItems(const QSharedPointer<API::UsersCards>& data,
+                              const QSharedPointer<API::Card>& card);
+
 signals:
     void objChanged();
     void editFinished(const QSharedPointer<API::Card>& card);
@@ -120,7 +125,6 @@ private:
 
     QSharedPointer<API::Card> _card = nullptr;
     QSharedPointer<API::UsersCards> _userData = nullptr;
-
 };
 
 }

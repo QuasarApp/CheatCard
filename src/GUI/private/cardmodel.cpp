@@ -10,6 +10,7 @@
 #include "CheatCard/api/api0/userscards.h"
 #include <QBuffer>
 #include <QPixmap>
+#include <cmath>
 
 #define MAXIMUM_IMAGE_SIZE 300.0f
 
@@ -318,6 +319,26 @@ int CardModel::cardVersion() const {
     if (!_card)
         return 0;
     return _card->getCardVersion();
+}
+
+int CardModel::available() const {
+    return availableItems(_userData, _card);
+}
+
+int CardModel::availableItems(const QSharedPointer<API::UsersCards> &data,
+                              const QSharedPointer<API::Card> &card) {
+
+    if (!(card && data))
+        return 0;
+
+    int freeIndexVal = card->getFreeIndex();
+    if (freeIndexVal <= 0) {
+        return 0;
+    }
+
+    return std::floor( data->getPurchasesNumber() / freeIndexVal)
+            - data->getReceived();
+
 }
 
 

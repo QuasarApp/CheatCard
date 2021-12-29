@@ -6,12 +6,21 @@
 //#
 
 #include "statisticklistproxymodel.h"
+#include "sellerstatisticmodel.h"
 
 namespace RC {
 
 StatistickListProxyModel::StatistickListProxyModel(QObject *parent):
     QSortFilterProxyModel(parent) {
+    setSortRole(SellerStatisticModel::SortRole);
+    sort(5, Qt::SortOrder::DescendingOrder);
 
+}
+
+bool StatistickListProxyModel::lessThan(const QModelIndex &source_left,
+                                        const QModelIndex &source_right) const {
+
+    return QSortFilterProxyModel::lessThan(source_left, source_right);
 }
 
 }

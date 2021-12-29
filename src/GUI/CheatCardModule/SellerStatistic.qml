@@ -44,7 +44,8 @@ Page {
                     ToolButton {
                         text: dataText
                         anchors.fill: parent
-
+                        implicitHeight: 0x0
+                        implicitWidth: 0x0
                         onReleased: {
                             if (root.model) {
                                 root.model.sortView(column)
@@ -61,7 +62,7 @@ Page {
 
                 ScrollBar.vertical: ScrollBar { }
 
-                property var columnWidths: [-80, 80, 90, 90, 200]
+                property var columnWidths: [-80, 80, 90, 100, 90, 200]
                 property int selectedRow: 0
 
                 columnWidthProvider: function (column) {
@@ -110,6 +111,22 @@ Page {
 
                 }
 
+            }
+
+            footer: HorizontalHeaderView {
+                syncView: tableView
+                clip: true
+
+                delegate: Item {
+                    property real dataText: (root.model)? root.model.totalValue(column): ""
+                    ToolButton {
+                        text: (dataText)? dataText: ""
+                        anchors.fill: parent
+                        implicitHeight: 0x0
+                        implicitWidth: 0x0
+
+                    }
+                }
             }
         }
 
