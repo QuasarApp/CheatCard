@@ -49,10 +49,9 @@ QObject *AbstrcattableModelWithHeaders::proxy() {
     return _proxy;
 }
 
-void AbstrcattableModelWithHeaders::sortView(int column, int role) {
+void AbstrcattableModelWithHeaders::sortView(int column) {
     if (_proxy) {
         _proxy->setFilterKeyColumn(column);
-        _proxy->setSortRole(role);
         _proxy->sort(column, static_cast<Qt::SortOrder>((_proxy->sortOrder() + 1) % 2));
     }
 }

@@ -30,10 +30,15 @@ class SellerStatisticModel: public AbstrcattableModelWithHeaders
     Q_PROPERTY(QObject* currentCard READ currentCard NOTIFY currentCardChanged)
 
 public:
+
+    enum Roles {
+        SortRole = Qt::UserRole
+    };
+
     SellerStatisticModel(QObject* parent = nullptr);
 
-    int rowCount(const QModelIndex &parent) const override;
-    int columnCount(const QModelIndex &parent) const override;
+    int rowCount(const QModelIndex &parent = {}) const override;
+    int columnCount(const QModelIndex &parent = {}) const override;
 
     QVariant data(const QModelIndex &index, int role) const override;
     QSortFilterProxyModel *proxyModel() const override;
@@ -50,13 +55,21 @@ public:
     const QHash<unsigned int, QSharedPointer<RC::API::User> > &users() const;
     void setUsers(const QHash<unsigned int, QSharedPointer<RC::API::User> > &newUsers);
 
+    Q_INVOKABLE void chouseRow(int row);
+    Q_INVOKABLE double totalValue(int col) const;
 signals:
     void currentCardChanged();
 
 private:
+
+    void recalcTotalValues();
+
     QList<QSharedPointer<RC::API::UsersCards>> _data;
     QSharedPointer<RC::CardModel> _card;
     QHash<unsigned int, QSharedPointer<RC::API::User>> _users;
+
+    // where an index of item is column number
+    QVector<double> _total;
 
 };
 
