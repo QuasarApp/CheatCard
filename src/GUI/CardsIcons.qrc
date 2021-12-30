@@ -99,5 +99,6 @@
         <file>private/resources/Icons/Cup_icon_25.png</file>
         <file>private/resources/Icons/Cup_icon_26.png</file>
         <file>private/resources/Icons/Cup_icon_27.png</file>
+        <file>private/resources/Backgrounds/Layer_35.png</file>
     </qresource>
 </RCC>
