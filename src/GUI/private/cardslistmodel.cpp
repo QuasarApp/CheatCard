@@ -109,8 +109,7 @@ CardsListModel::updateCard(const QSharedPointer<API::Card> &card) {
 void CardsListModel::updateMetaData(const QList<QSharedPointer<API::UsersCards>> &purchasesNumbers) {
     for (const auto &sp:  purchasesNumbers) {
         if (auto model = _cache.value(sp->getCard())) {
-            model->setPurchasesNumber(sp->getPurchasesNumber());
-            model->setReceivedItems(sp->getReceived());
+            model->setUserData(sp);
         }
     }
 }

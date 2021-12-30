@@ -36,7 +36,7 @@ public:
 
     Q_INVOKABLE QObject* proxy();
 
-    Q_INVOKABLE void sortView(int column, int role = Qt::DisplayRole);
+    Q_INVOKABLE void sortView(int column);
 
 private:
 

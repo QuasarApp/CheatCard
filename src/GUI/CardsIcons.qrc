@@ -39,8 +39,10 @@
         <file>private/resources/Backgrounds/Layer_19.png</file>
         <file>private/resources/Backgrounds/Layer_18.png</file>
         <file>private/resources/Backgrounds/Layer_17.png</file>
+        <file>private/resources/Backgrounds/Layer_16.png</file>
         <file>private/resources/Backgrounds/Layer_15.png</file>
         <file>private/resources/Backgrounds/Layer_14.png</file>
+        <file>private/resources/Backgrounds/Layer_13.png</file>
         <file>private/resources/Backgrounds/Layer_12.png</file>
         <file>private/resources/Backgrounds/Layer_11.png</file>
         <file>private/resources/Backgrounds/Layer_10.png</file>
@@ -94,8 +96,8 @@
         <file>private/resources/Icons/Cup_icon_21.png</file>
         <file>private/resources/Icons/Cup_icon_23.png</file>
         <file>private/resources/Icons/Cup_icon_24.png</file>
-        <file>private/resources/Backgrounds/Layer_35.png</file>
-        <file>private/resources/Backgrounds/Layer_13.png</file>
-        <file>private/resources/Backgrounds/Layer_16.png</file>
+        <file>private/resources/Icons/Cup_icon_25.png</file>
+        <file>private/resources/Icons/Cup_icon_26.png</file>
+        <file>private/resources/Icons/Cup_icon_27.png</file>
     </qresource>
 </RCC>

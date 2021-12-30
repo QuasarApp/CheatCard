@@ -22,6 +22,7 @@ Page {
     property int purchasesNumber: (model)? model.purchasesNumber: 1
     property int freeIndexCount :(model)? model.freeIndex: 0
     property int receivedItems: (model)? model.receivedItems: 0
+    property int available: (model)? model.available: 0
 
     property bool backSide: false
     property bool isCurrentItem: false
@@ -513,7 +514,7 @@ Page {
                 }
 
                 CTextField {
-                    text: Math.floor(purchasesNumber / freeIndexCount) - receivedItems
+                    text: available
                     horizontalAlignment:  Text.AlignHCenter
                     fontColor: root.fontColor
                     readOnly: true
