@@ -7,9 +7,10 @@
 
 #include "cardmodel.h"
 #include "CheatCard/api/api0/card.h"
-
+#include "CheatCard/api/api0/userscards.h"
 #include <QBuffer>
 #include <QPixmap>
+#include <cmath>
 
 #define MAXIMUM_IMAGE_SIZE 300.0f
 
@@ -29,7 +30,10 @@ unsigned int CardModel::id() const {
 }
 
 int CardModel::purchasesNumber() const {
-    return _purchasesNumber;
+    if (_userData)
+        return _userData->getPurchasesNumber();
+
+    return 1;
 }
 
 int CardModel::freeIndex() const {
@@ -49,16 +53,6 @@ void CardModel::setCard(const QSharedPointer<API::Card> &newCard) {
     _card = newCard;
 
     emit objChanged();
-}
-
-void CardModel::setPurchasesNumber(int newPurchasesNumber) {
-    if (_purchasesNumber == newPurchasesNumber) {
-        return;
-    }
-
-    _purchasesNumber = newPurchasesNumber;
-
-    emit purchasesNumberChanged();
 }
 
 void CardModel::setFreeIndex(int newFreeIndex) {
@@ -282,15 +276,23 @@ QByteArray CardModel::convert(const QString& imagePath) {
     return result;;
 }
 
-int CardModel::receivedItems() const {
-    return _receivedItems;
+const QSharedPointer<API::UsersCards> &CardModel::userData() const {
+    return _userData;
 }
 
-void CardModel::setReceivedItems(int newReceivedItems) {
-    if (_receivedItems == newReceivedItems)
-        return;
-    _receivedItems = newReceivedItems;
-    emit receivedItemsChanged();
+void CardModel::setUserData(const QSharedPointer<API::UsersCards> &newUserData) {
+    if (_userData != newUserData) {
+        _userData = newUserData;
+
+        emit sigUserDataChanged();
+    }
+}
+
+int CardModel::receivedItems() const {
+    if (_userData)
+        return _userData->getReceived();
+
+    return 0;
 }
 
 void CardModel::refreshView() {
@@ -317,6 +319,26 @@ int CardModel::cardVersion() const {
     if (!_card)
         return 0;
     return _card->getCardVersion();
+}
+
+int CardModel::available() const {
+    return availableItems(_userData, _card);
+}
+
+int CardModel::availableItems(const QSharedPointer<API::UsersCards> &data,
+                              const QSharedPointer<API::Card> &card) {
+
+    if (!(card && data))
+        return 0;
+
+    int freeIndexVal = card->getFreeIndex();
+    if (freeIndexVal <= 0) {
+        return 0;
+    }
+
+    return std::floor( data->getPurchasesNumber() / freeIndexVal)
+            - data->getReceived();
+
 }
 
 

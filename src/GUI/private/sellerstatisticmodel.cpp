@@ -14,6 +14,7 @@ SellerStatisticModel::SellerStatisticModel(QObject *parent):
                tr("Name") <<
                tr("Id") <<
                tr("Purchases") <<
+               tr("Available") <<
                tr("Issued") <<
                tr("Last visit")
                );
@@ -28,15 +29,16 @@ int SellerStatisticModel::columnCount(const QModelIndex &) const {
 }
 
 QVariant SellerStatisticModel::data(const QModelIndex &index, int role) const {
-    if (role == Qt::DisplayRole) {
 
-        if (index.row() >= _data.size()) {
-            return unknownValue();
-        }
+    if (index.row() >= _data.size()) {
+        return unknownValue();
+    }
 
-        const QSharedPointer<RC::API::UsersCards> &item = _data.at(index.row());
-        const QSharedPointer<RC::API::User> &user = _users.value(item->getUser());
+    const QSharedPointer<RC::API::UsersCards> &item = _data.at(index.row());
+    const QSharedPointer<RC::API::User> &user = _users.value(item->getUser());
 
+
+    if (role == Qt::DisplayRole || role == SortRole) {
         switch (index.column()) {
         case 0 : {
             if (!user)
@@ -46,7 +48,7 @@ QVariant SellerStatisticModel::data(const QModelIndex &index, int role) const {
         }
 
         case 1 : {
-            return item->getUser();
+            return QString("id:%0").arg(item->getUser());
         }
 
         case 2 : {
@@ -54,11 +56,18 @@ QVariant SellerStatisticModel::data(const QModelIndex &index, int role) const {
         }
 
         case 3 : {
+            return CardModel::availableItems(item, _card->card());
+        }
+
+        case 4 : {
             return item->getReceived();
         }
 
-        case 4 : {            
-            return  item->getTime().toString();
+        case 5 : {
+            if (role == SortRole) {
+                return item->getTime().toTime_t();
+            }
+            return item->getTime().toString();
         }
 
         default:
@@ -85,6 +94,7 @@ void SellerStatisticModel::setDataList(const QSharedPointer<CardModel> &cardData
         _users[user->userId()] = user;
     }
 
+    recalcTotalValues();
     endResetModel();
 }
 
@@ -110,6 +120,36 @@ const QHash<unsigned int, QSharedPointer<RC::API::User> > &SellerStatisticModel:
 
 void SellerStatisticModel::setUsers(const QHash<unsigned int, QSharedPointer<RC::API::User> > &newUsers) {
     _users = newUsers;
+}
+
+void SellerStatisticModel::chouseRow(int row) {
+    if (_card) {
+        _card->setUserData(_data.value(row, nullptr));
+    }
+}
+
+double SellerStatisticModel::totalValue(int col) const {
+    return _total.value(col, 0);
+}
+
+void SellerStatisticModel::recalcTotalValues() {
+    _total.clear();
+    _total.resize(columnCount());
+
+    for (int col = 0; col < columnCount(); ++col) {
+        for (int row = 0; row < rowCount(); ++row) {
+            QVariant val = data(index(row, col), Qt::DisplayRole);
+            bool ok = false;
+            double dval = val.toDouble(&ok);
+
+            if (!ok) {
+                break;
+            }
+
+            _total[col] += dval;
+        }
+    }
+
 }
 
 }
