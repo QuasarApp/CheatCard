@@ -709,6 +709,10 @@
         <source>Issued</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Available</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RegistrationFinishedPage</name>
