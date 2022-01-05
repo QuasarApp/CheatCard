@@ -112,6 +112,8 @@ if (ANDROID)
         SOURCES ${java_files}
         )
 
+elseif(IOS)
+    set_xcode_property(MyAwesomeTarget PRODUCT_BUNDLE_IDENTIFIER "com.leetal.myawesomeproject" All)
 else()
 
 
