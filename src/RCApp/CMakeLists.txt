@@ -113,7 +113,7 @@ if (ANDROID)
         )
 
 elseif(IOS)
-    set_xcode_property(MyAwesomeTarget PRODUCT_BUNDLE_IDENTIFIER "com.leetal.myawesomeproject" All)
+    set_xcode_property(${CURRENT_PROJECT} PRODUCT_BUNDLE_IDENTIFIER "quasarapp.core.cheatcard" All)
 else()
 
 
