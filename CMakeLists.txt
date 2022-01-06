@@ -51,7 +51,7 @@ if (NOT DEFINED CHEATCARD_TESTS)
         endif()
     endif()
 
-    if (ANDROID)
+    if (ANDROID OR IOS)
         set(CHEATCARD_TESTS OFF)
     endif()
 
@@ -74,7 +74,7 @@ if (NOT DEFINED CHEATCARD_SERVER)
         endif()
     endif()
 
-    if (ANDROID)
+    if (ANDROID OR APPLE)
         set(CHEATCARD_SERVER OFF)
     endif()
 

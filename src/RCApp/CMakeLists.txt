@@ -113,7 +113,15 @@ if (ANDROID)
         )
 
 elseif(IOS)
-    set_xcode_property(${CURRENT_PROJECT} PRODUCT_BUNDLE_IDENTIFIER "quasarapp.core.cheatcard" All)
+#    set_xcode_property(${CURRENT_PROJECT} PRODUCT_BUNDLE_IDENTIFIER "quasarapp.core.cheatcard" All)
+#    set_xcode_property(${CURRENT_PROJECT} PRODUCT_BUNDLE_IDENTIFIER "quasarapp.core.cheatcard" All)
+#    set_xcode_property(${CURRENT_PROJECT} PRODUCT_BUNDLE_IDENTIFIER "quasarapp.core.cheatcard" All)
+
+    set_target_properties(${CURRENT_PROJECT} PROPERTIES
+        MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
+        MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
+        MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
+    )
 else()
 
 
