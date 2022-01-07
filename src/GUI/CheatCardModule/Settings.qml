@@ -78,6 +78,29 @@ Page {
 
                     }
 
+                    SwitchDelegate {
+                        id: darkTheme
+                        text: qsTr("Dark Theme")
+                        checked: config.getValue("darkTheme", false)
+                        padding: 0
+
+                        onCheckedChanged: () => {
+                                              config.setValue("darkTheme", darkTheme.checked)
+                                          }
+
+                        Layout.fillWidth: true
+
+                        contentItem: Text {
+                            rightPadding: darkTheme.indicator.width + darkTheme.spacing
+                            text: darkTheme.text
+                            opacity: enabled ? 1.0 : 0.3
+                            elide: Text.ElideRight
+                            verticalAlignment: Text.AlignVCenter
+                            wrapMode: Text.WordWrap
+                        }
+
+                    }
+
                     Component {
                         id: settingdColor
 
