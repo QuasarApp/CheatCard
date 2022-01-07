@@ -794,6 +794,10 @@
         <source>Default settings</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Dark Theme</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>WaitConnectView</name>

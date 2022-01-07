@@ -50,7 +50,7 @@ Page {
 
                     RowLayout {
 
-                        Text {
+                        Label {
                             text: qsTr("Select application color")
                             horizontalAlignment: Text.AlignVCenter
                             opacity: enabled ? 1.0 : 0.3
@@ -90,7 +90,7 @@ Page {
 
                         Layout.fillWidth: true
 
-                        contentItem: Text {
+                        contentItem: Label {
                             rightPadding: darkTheme.indicator.width + darkTheme.spacing
                             text: darkTheme.text
                             opacity: enabled ? 1.0 : 0.3
@@ -173,7 +173,7 @@ Page {
 
                         Layout.fillWidth: true
 
-                        contentItem: Text {
+                        contentItem: Label {
                             rightPadding: privacy.indicator.width + privacy.spacing
                             text: privacy.text
                             opacity: enabled ? 1.0 : 0.3
@@ -237,7 +237,7 @@ Page {
                     }
 
                     RowLayout {
-                        Text {
+                        Label {
                             id: name
                             text: qsTr("Select work camera")
                             opacity: enabled ? 1.0 : 0.3
@@ -315,7 +315,7 @@ Page {
 
                         Layout.fillWidth: true
 
-                        contentItem: Text {
+                        contentItem: Label {
                             text: unlock.text
                             opacity: enabled ? 1.0 : 0.3
                             verticalAlignment: Text.AlignVCenter

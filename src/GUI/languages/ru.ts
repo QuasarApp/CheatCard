@@ -794,6 +794,10 @@
         <source>Default settings</source>
         <translation>Настройки по умолчанию</translation>
     </message>
+    <message>
+        <source>Dark Theme</source>
+        <translation>Темная тема</translation>
+    </message>
 </context>
 <context>
     <name>WaitConnectView</name>
