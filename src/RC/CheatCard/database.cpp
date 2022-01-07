@@ -181,16 +181,16 @@ QH::DBPatchMap DataBase::beta1Patches() const {
         return true;
     };
 
+    // See task #380 https://quasarapp.ddns.net:3000/QuasarApp/CheatCard/issues/380
+    result += [](const QH::iObjectProvider* database) -> bool {
+        return database->doSql(":/DataBase/private/sql/SQLPatch_4.sql");
+    };
+
     return result;
 }
 
 QH::DBPatchMap DataBase::beta2Patches() const {
     QH::DBPatchMap result;
-
-    // See task #380 https://quasarapp.ddns.net:3000/QuasarApp/CheatCard/issues/380
-    result += [](const QH::iObjectProvider* database) -> bool {
-        return database->doSql(":/DataBase/private/sql/SQLPatch_4.sql");
-    };
 
     return result;
 }
