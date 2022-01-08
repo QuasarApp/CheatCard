@@ -718,15 +718,15 @@
     </message>
     <message>
         <source>Failed to export database</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось экспортировать базу данных</translation>
     </message>
     <message>
         <source>From %0 to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Из %0 в %1</translation>
     </message>
     <message>
         <source>Export the database finished successful</source>
-        <translation type="unfinished"></translation>
+        <translation>Экспорт базы данных завершен успешно</translation>
     </message>
 </context>
 <context>
