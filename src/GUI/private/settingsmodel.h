@@ -16,13 +16,16 @@ namespace RC {
 
 
 class SettingsModel: public QuasarAppUtils::ISettings {
-
+    Q_OBJECT
 public:
     SettingsModel(QH::ISqlDBCache* db);
     ~SettingsModel();
 
     unsigned int getCurrUser();
     void setCurrUser(unsigned int id);
+
+    Q_INVOKABLE void showDataBaseLocation();
+    Q_INVOKABLE void exportDataBase();
 
 signals:
     void colorThemeChanged();

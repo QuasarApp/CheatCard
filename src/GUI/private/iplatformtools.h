@@ -28,6 +28,16 @@ public:
      */
     virtual void setScreanDim(bool enable) const = 0;
 
+    /**
+     * @brief getAccessToWriteInStorage This method try allow access to external storage for write.
+     */
+    virtual bool getAccessToWriteInStorage() = 0;
+
+    /**
+     * @brief getAccessToWriteInStorage This method try allow access to external storage for read.
+     */
+    virtual bool getAccessToReadInStorage() = 0;
+
 protected:
     IPlatformTools() = default;
 

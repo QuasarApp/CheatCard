@@ -92,8 +92,8 @@ Page {
                     }
 
                     color: (fSelect)? Material.accent:
-                                      (row % 2 === 0) ? "#ffffff":
-                                                        "#eeeeee"
+                                      (row % 2 === 0) ? "#55888888":
+                                                        "#11888888"
 
 
                     Label {

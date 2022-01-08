@@ -15,7 +15,7 @@ Page {
         horizontalAlignment: Label.AlignHCenter
         text: title
         font.pointSize: 20
-        color: "#424242"
+        color: (Material.theme === Material.Light)? "#424242" : "#aaaaaa"
         wrapMode: Label.WordWrap
 
     }
