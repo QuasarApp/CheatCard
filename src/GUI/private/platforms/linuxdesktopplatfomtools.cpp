@@ -18,4 +18,15 @@ LinuxDesktopPlatfomTools::LinuxDesktopPlatfomTools()
 void LinuxDesktopPlatfomTools::setScreanDim(bool ) const {
     // TO-DO
 }
+
+bool LinuxDesktopPlatfomTools::getAccessToWriteInStorage() {
+    // do nothing
+    return true;
+}
+
+bool LinuxDesktopPlatfomTools::getAccessToReadInStorage() {
+    // do nothing
+    return true;
+
+}
 }

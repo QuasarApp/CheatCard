@@ -589,10 +589,6 @@
         <translation>Оу чёрт</translation>
     </message>
     <message>
-        <source>Permission denied to selected file.</source>
-        <translation>Доступ к выбранному файлу запрещен.</translation>
-    </message>
-    <message>
         <source>It looks like the file you selected does not contain a recovery code</source>
         <translation>Похоже что выбранный вами файл не содержит кода восстановления</translation>
     </message>
@@ -715,6 +711,25 @@
     </message>
 </context>
 <context>
+    <name>RC::SettingsModel</name>
+    <message>
+        <source>Database location</source>
+        <translation>Расположение базы данных</translation>
+    </message>
+    <message>
+        <source>Failed to export database</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From %0 to %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export the database finished successful</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>RegistrationFinishedPage</name>
     <message>
         <source>Go to use</source>
@@ -797,6 +812,14 @@
     <message>
         <source>Dark Theme</source>
         <translation>Темная тема</translation>
+    </message>
+    <message>
+        <source>Check database location</source>
+        <translation>Узнать расположение базы данных</translation>
+    </message>
+    <message>
+        <source>Export a database</source>
+        <translation>Экспорт базы данных</translation>
     </message>
 </context>
 <context>

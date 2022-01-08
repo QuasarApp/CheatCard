@@ -589,10 +589,6 @@
         <translation>Oh shit</translation>
     </message>
     <message>
-        <source>Permission denied to selected file.</source>
-        <translation>Permission denied to selected file.</translation>
-    </message>
-    <message>
         <source>It looks like the file you selected does not contain a recovery code</source>
         <translation>It looks like the file you selected does not contain a recovery code</translation>
     </message>
@@ -715,6 +711,25 @@
     </message>
 </context>
 <context>
+    <name>RC::SettingsModel</name>
+    <message>
+        <source>Database location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to export database</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From %0 to %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export the database finished successful</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>RegistrationFinishedPage</name>
     <message>
         <source>Go to use</source>
@@ -796,6 +811,14 @@
     </message>
     <message>
         <source>Dark Theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check database location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export a database</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

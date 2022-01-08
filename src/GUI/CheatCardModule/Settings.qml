@@ -303,6 +303,24 @@ Page {
                         Layout.fillWidth: true
                     }
 
+                    Button {
+                        text: qsTr("Check database location")
+                        Layout.fillWidth: true
+
+                        onClicked: {
+                            config.showDataBaseLocation();
+                        }
+                    }
+
+                    Button {
+                        text: qsTr("Export a database")
+                        Layout.fillWidth: true
+
+                        onClicked: {
+                            config.exportDataBase();
+                        }
+                    }
+
                     SwitchDelegate {
                         id: unlock
                         text: qsTr("Use custom server")
