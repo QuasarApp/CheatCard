@@ -31,6 +31,11 @@ void ImportExportUserModel::processQrCode(QString path) {
 
     auto platformsTools = IPlatformTools::instance();
     if (!platformsTools->getAccessToReadInStorage()){
+
+        service->setNotify(tr("Oh shit"),
+                           tr("Permission denied to selected file."),
+                           "",
+                           QmlNotificationService::NotificationData::Error);
         return;
     }
 
