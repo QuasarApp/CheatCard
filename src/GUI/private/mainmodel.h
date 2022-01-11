@@ -101,7 +101,7 @@ public:
      */
     Q_INVOKABLE int getReceivedItemsCount(int cardId) const;
 
-    QObject * statisticModel() const;
+    QObject *statisticModel() const;
 
     QObject *exportImportModel() const;
 

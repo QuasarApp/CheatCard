@@ -592,6 +592,10 @@
         <source>It looks like the file you selected does not contain a recovery code</source>
         <translation>Похоже что выбранный вами файл не содержит кода восстановления</translation>
     </message>
+    <message>
+        <source>Permission denied to selected file.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RC::MainModel</name>
