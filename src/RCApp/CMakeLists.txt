@@ -115,6 +115,7 @@ if (ANDROID)
 elseif(IOS)
 #    set_xcode_property(${CURRENT_PROJECT} PRODUCT_BUNDLE_IDENTIFIER ${CHEATCARD_PACKAGE_ID} All)
 
+    set(STORYBOUARD_LAUNCHER "${CMAKE_CURRENT_SOURCE_DIR}/apple/LaunchScreen.storyboard")
     set(aple_file "${CMAKE_CURRENT_SOURCE_DIR}/apple/Info.plist")
     configure_file("${aple_file}.in" ${aple_file} @ONLY)
 
