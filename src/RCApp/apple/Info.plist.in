@@ -9,7 +9,7 @@
 	<key>CFBundleIconFile</key>
 	<string>@ICON_FULL_PATH@</string>
 	<key>CFBundleIdentifier</key>
-	<string>${PRODUCT_BUNDLE_IDENTIFIER}</string>
+        <string>@CHEATCARD_PACKAGE_ID@</string>
 	<key>CFBundleName</key>
 	<string>${PRODUCT_NAME}</string>
 	<key>CFBundlePackageType</key>
