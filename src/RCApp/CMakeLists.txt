@@ -115,7 +115,12 @@ if (ANDROID)
 elseif(IOS)
 #    set_xcode_property(${CURRENT_PROJECT} PRODUCT_BUNDLE_IDENTIFIER ${CHEATCARD_PACKAGE_ID} All)
 
+    set(aple_file "${CMAKE_CURRENT_SOURCE_DIR}/apple/Info.plist")
+    configure_file("${aple_file}.in" ${aple_file} @ONLY)
+
     set_target_properties(${CURRENT_PROJECT} PROPERTIES
+        MACOSX_BUNDLE TRUE
+        MACOSX_BUNDLE_INFO_PLIST ${aple_file}
         MACOSX_BUNDLE_GUI_IDENTIFIER ${CHEATCARD_PACKAGE_ID}
         MACOSX_BUNDLE_BUNDLE_VERSION ${CHEAT_CARD_SHORT_VERSION}
         MACOSX_BUNDLE_SHORT_VERSION_STRING ${CHEAT_CARD_SHORT_VERSION}
