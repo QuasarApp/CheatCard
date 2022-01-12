@@ -4,8 +4,6 @@
 <dict>
 	<key>CFBundleDisplayName</key>
 	<string>CheatCard</string>
-        <key>CFBundleIconName</key>
-        <string>AppIcon1024x1024</string>
 	<key>CFBundleExecutable</key>
 	<string>CheatCard</string>
 	<key>CFBundleIconFile</key>
