@@ -118,6 +118,7 @@ elseif(IOS)
     set(aple_file "${CMAKE_CURRENT_SOURCE_DIR}/apple/Info.plist")
     configure_file("${aple_file}.in" ${aple_file} @ONLY)
 
+    set(QT_IOS_EXPORT_ARCHIVE_XCODEBUILD_FLAGS "-allowProvisioningUpdates")
     addDeployIPA(${CURRENT_PROJECT} ${aple_file} "${TARGET_DIR}")
 
 #    set_target_properties(${CURRENT_PROJECT} PROPERTIES
