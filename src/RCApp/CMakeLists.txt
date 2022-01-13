@@ -116,7 +116,11 @@ elseif(IOS)
 #    set_xcode_property(${CURRENT_PROJECT} PRODUCT_BUNDLE_IDENTIFIER ${CHEATCARD_PACKAGE_ID} All)
 
     set(QT_IOS_EXPORT_ARCHIVE_XCODEBUILD_FLAGS "-allowProvisioningUpdates")
-    addDeployIPA(${CURRENT_PROJECT} "${TARGET_DIR}" "${CHEAT_CARD_SHORT_VERSION}" "${CMAKE_CURRENT_SOURCE_DIR}/apple")
+    addDeployIPA(${CURRENT_PROJECT}
+        ${CHEATCARD_PACKAGE_ID}
+        "${TARGET_DIR}"
+        "${CHEAT_CARD_SHORT_VERSION}"
+        "${CMAKE_CURRENT_SOURCE_DIR}/apple")
 
 #    set_target_properties(${CURRENT_PROJECT} PROPERTIES
 #        MACOSX_BUNDLE TRUE
