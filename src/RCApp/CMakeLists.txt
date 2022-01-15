@@ -115,6 +115,9 @@ if (ANDROID)
 elseif(IOS)
 #    set_xcode_property(${CURRENT_PROJECT} PRODUCT_BUNDLE_IDENTIFIER ${CHEATCARD_PACKAGE_ID} All)
 
+    set(gradle_file "${CMAKE_CURRENT_SOURCE_DIR}/apple/info.plist")
+    configure_file("${gradle_file}.in" ${gradle_file} @ONLY)
+
     set(QT_IOS_EXPORT_ARCHIVE_XCODEBUILD_FLAGS "-allowProvisioningUpdates")
     addDeployIPA(${CURRENT_PROJECT}
         "${CHEATCARD_PACKAGE_ID}"
