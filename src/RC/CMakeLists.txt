@@ -19,6 +19,11 @@ file(GLOB SOURCE_CPP
      "CheatCard/api/api0/*.cpp"
      "CheatCard/api/api1/*.cpp"
 
+     "*CheatCard/*.h"
+      "private/*.h"
+      "CheatCard/api/*.h"
+      "CheatCard/api/api0/*.h"
+      "CheatCard/api/api1/*.h"
 )
 
 if (${QT_VERSION_MAJOR})

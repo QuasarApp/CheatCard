@@ -16,6 +16,9 @@ file(GLOB SOURCE_CPP
      "private/*.cpp"
      "private/platforms/*.cpp"
 
+     "*CheatCardGui/*.h"
+      "private/*.h"
+      "private/platforms/*.h"
 )
 
 if (${QT_VERSION_MAJOR})

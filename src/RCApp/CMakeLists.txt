@@ -13,6 +13,8 @@ option(SIGN_APP "This option enable od disabled sign apk and aab files" ON)
 file(GLOB SOURCE_CPP
     "*.cpp"
     "Private/*.cpp"
+    "*.h"
+    "Private/*.h"
     "*.qrc"
     "Private/*.qrc"
     )
