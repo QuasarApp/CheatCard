@@ -554,6 +554,17 @@
     </message>
 </context>
 <context>
+    <name>QObject</name>
+    <message>
+        <source>Invalid ids of cards</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You database have cards that saved with invalid id. </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>QrCodeView</name>
     <message>
         <source>It looks like this code should be shown to the seller!</source>
@@ -823,6 +834,10 @@
     </message>
     <message>
         <source>Export a database</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Diagnostic the application</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

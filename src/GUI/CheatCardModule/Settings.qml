@@ -321,6 +321,16 @@ Page {
                         }
                     }
 
+                    Button {
+                        text: qsTr("Diagnostic the application")
+                        Layout.fillWidth: true;
+
+                        onClicked: {
+                            activityProcessor.newActivity("qrc:/CheatCardModule/DiagnoticPage.qml",
+                                                           mainModel.doctorModel);
+                        }
+                    }
+
                     SwitchDelegate {
                         id: unlock
                         text: qsTr("Use custom server")
