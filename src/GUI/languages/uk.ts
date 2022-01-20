@@ -560,7 +560,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You database have cards that saved with invalid id. </source>
+        <source>You database have cards that saved with invalid id. See https://quasarapp.ddns.net:3000/QuasarApp/CheatCard/issues/386 </source>
         <translation type="unfinished"></translation>
     </message>
 </context>

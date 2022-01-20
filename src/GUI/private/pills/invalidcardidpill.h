@@ -16,6 +16,10 @@ class ISqlDBCache;
 
 namespace RC {
 
+/**
+ * @brief The InvalidCardIdPill class
+ * see the https://quasarapp.ddns.net:3000/QuasarApp/CheatCard/issues/386
+ */
 class InvalidCardIdPill: public DP::iPill
 {
 

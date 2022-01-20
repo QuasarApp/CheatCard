@@ -24,7 +24,7 @@ QString InvalidCardIdPill::name() const {
 
 QString InvalidCardIdPill::description() const {
     return QObject::tr("You database have cards that saved with invalid id."
-                       " ");
+                       " See https://quasarapp.ddns.net:3000/QuasarApp/CheatCard/issues/386 ");
 }
 
 bool InvalidCardIdPill::diagnostic() const {

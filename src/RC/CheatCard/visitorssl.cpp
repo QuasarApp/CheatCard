@@ -6,7 +6,7 @@
 //#
 
 #include "visitorssl.h"
-
+#include <qaglobalutils.h>
 
 namespace RC {
 

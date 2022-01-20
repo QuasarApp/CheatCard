@@ -13,7 +13,10 @@
 #include "testutils.h"
 
 
-
+/**
+ * @brief The FixDBIdsPillTest class
+ * This is test for the https://quasarapp.ddns.net:3000/QuasarApp/CheatCard/issues/386 issue
+ */
 class FixDBIdsPillTest: public Test, protected TestUtils
 {
 public:

@@ -7,6 +7,7 @@
 
 
 #include "nodetype.h"
+#include <qaglobalutils.h>
 
 namespace RC {
 
