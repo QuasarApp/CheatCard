@@ -7,6 +7,7 @@
 
 
 #include "serverssl.h"
+#include <qaglobalutils.h>
 
 #include <QCoreApplication>
 

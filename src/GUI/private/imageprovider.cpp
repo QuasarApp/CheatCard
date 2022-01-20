@@ -11,6 +11,7 @@
 #include "quasarapp.h"
 #include <CheatCard/database.h>
 #include "getsinglevalue.h"
+#include <qaglobalutils.h>
 
 namespace RC {
 
