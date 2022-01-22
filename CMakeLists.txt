@@ -19,9 +19,9 @@ set(CMAKE_AUTOUIC ON)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(BUILD_SHARED_LIBS ON)
+option (BUILD_SHARED_LIBS "build shared libs" ON)
 if (IOS)
-    set(BUILD_SHARED_LIBS OFF)
+    option (BUILD_SHARED_LIBS "build shared libs" OFF)
 endif()
 
 if (NOT DEFINED QT_VERSION_MAJOR)
