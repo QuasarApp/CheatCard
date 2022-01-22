@@ -115,7 +115,7 @@ if (ANDROID)
 elseif(IOS)
 #    set_xcode_property(${CURRENT_PROJECT} PRODUCT_BUNDLE_IDENTIFIER ${CHEATCARD_PACKAGE_ID} All)
 
-    set(CMAKE_OSX_DEPLOYMENT_TARGET "11.0" CACHE STRING "Minimum OS X deployment version")
+    set(CMAKE_OSX_DEPLOYMENT_TARGET "12.0" CACHE STRING "Minimum OS X deployment version")
 
     set(plist_file "${CMAKE_CURRENT_SOURCE_DIR}/apple/Info.plist")
     configure_file("${plist_file}.in" ${plist_file} @ONLY)
