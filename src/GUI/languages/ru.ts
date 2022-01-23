@@ -592,6 +592,10 @@
         <source>It looks like the file you selected does not contain a recovery code</source>
         <translation>Похоже что выбранный вами файл не содержит кода восстановления</translation>
     </message>
+    <message>
+        <source>Permission denied to selected file.</source>
+        <translation>Отказано в доступе к выбранному файлу.</translation>
+    </message>
 </context>
 <context>
     <name>RC::MainModel</name>
@@ -820,6 +824,10 @@
     <message>
         <source>Export a database</source>
         <translation>Экспорт базы данных</translation>
+    </message>
+    <message>
+        <source>Diagnostic the application</source>
+        <translation>Диагностика приложения</translation>
     </message>
 </context>
 <context>

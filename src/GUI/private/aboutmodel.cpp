@@ -9,6 +9,7 @@
 #include "heart.h"
 #include "qmlnotifyservice.h"
 #include "CheatCard/basenode.h"
+#include <doctorpill.h>
 
 namespace RC {
 
@@ -38,6 +39,10 @@ QString AboutModel::getQtLibVr() const {
 
 QString AboutModel::getSimpleQmlNotifyLibVr() const {
     return QmlNotificationService::NotificationService::libVersion();
+}
+
+QString AboutModel::getDoctorPillLibVr() const {
+    return DP::version();
 }
 
 }

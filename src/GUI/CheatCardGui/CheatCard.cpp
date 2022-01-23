@@ -16,6 +16,7 @@
 #include "quasarapp.h"
 #include "mainmodel.h"
 #include "credits.h"
+#include <doctorpillgui.h>
 
 namespace RC {
 
@@ -41,6 +42,10 @@ bool CheatCard::init(QQmlApplicationEngine *engine, IBilling *billingObject) {
     if (!QH::init()) {
         return false;
     }
+
+    if (!DP::init(engine)) {
+        return false;
+    };
 
     if (!_db->initSqlDb()) {
         QuasarAppUtils::Params::log("Failed to load database", QuasarAppUtils::Error);

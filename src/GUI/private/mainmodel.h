@@ -14,7 +14,13 @@
 #include <CheatCard/database.h>
 #include <CheatCardGui/ibilling.h>
 
+
+namespace DP {
+class DoctorModel;
+}
+
 namespace RC {
+
 
 namespace API {
 class Card;
@@ -56,6 +62,7 @@ class MainModel : public QObject, public QuasarAppUtils::SettingsListner
     Q_PROPERTY(QObject * waitModel READ waitModel NOTIFY waitModelChanged)
     Q_PROPERTY(QObject * statisticModel READ statisticModel NOTIFY statisticModelChanged)
     Q_PROPERTY(QObject * exportImportModel READ exportImportModel NOTIFY exportImportModelChanged)
+    Q_PROPERTY(QObject * doctorModel READ doctorModel NOTIFY doctorModelChanged)
 
 
 public:
@@ -101,9 +108,11 @@ public:
      */
     Q_INVOKABLE int getReceivedItemsCount(int cardId) const;
 
-    QObject * statisticModel() const;
+    QObject *statisticModel() const;
 
     QObject *exportImportModel() const;
+
+    QObject *doctorModel() const;
 
 public slots:
     void handleFirstDataSendet();
@@ -133,6 +142,8 @@ signals:
 
     void exportImportModelChanged();
 
+    void doctorModelChanged();
+
     // SettingsListner interface
 protected:
     void handleSettingsChanged(const QString &key, const QVariant &value) override;
@@ -146,17 +157,17 @@ private slots:
     void handleResetCardModel(const QSharedPointer<RC::API::Card> &card);
 
     void handleRemoveRequest(const QSharedPointer<API::Card> &card);
-    void handleCardSelectedForWork(const QSharedPointer<CardModel>& card);
-    void handleCardSelectedForStatistic(const QSharedPointer<CardModel>& card);
+    void handleCardSelectedForWork(const QSharedPointer<RC::CardModel>& card);
+    void handleCardSelectedForStatistic(const QSharedPointer<RC::CardModel>& card);
 
     void handleConnectWasBegin();
     void handleConnectWasFinished();
 
     void handlePurchaseWasSuccessful(QSharedPointer<API::UsersCards>, bool alert);
-    void handleListenStart(int purchasesCount, QSharedPointer<CardModel> model, const QString &extraData);
+    void handleListenStart(int purchasesCount, QSharedPointer<RC::CardModel> model, const QString &extraData);
     void handleListenStop();
     void handleAppStateChanged(Qt::ApplicationState state);
-    void handlePurchaseReceived(Purchase purchase);
+    void handlePurchaseReceived(RC::Purchase purchase);
     void saveCard(const QSharedPointer<RC::API::Card> &card);
 
 private:
@@ -173,6 +184,7 @@ private:
     void initSellerStatisticModel();
     void initImportExportModel();
     void initNetIndicateModels();
+    void initDoctorModel();
 
     void configureCardsList();
 
@@ -204,6 +216,7 @@ private:
     ItemsModel *_defaultLogosModel = nullptr;
     ItemsModel *_defaultBackgroundsModel = nullptr;
     NetIndicatorModel *_netIdicatorModel = nullptr;
+    DP::DoctorModel *_doctorModel = nullptr;
 
     ImportExportUserModel *_importExportModel = nullptr;
     IBilling *_billing = nullptr;

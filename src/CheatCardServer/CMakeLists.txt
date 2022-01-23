@@ -12,6 +12,8 @@ set(CURRENT_PROJECT "${PROJECT_NAME}Server")
 file(GLOB SOURCE_CPP
     "*.cpp"
      "Private/*.cpp"
+     "*.h"
+      "Private/*.h"
      "*.qrc"
      "Private/*.qrc"
 )

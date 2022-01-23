@@ -6,6 +6,8 @@
 //#
 
 #include "sellerssl.h"
+#include <qaglobalutils.h>
+
 namespace RC {
 
 SellerSSL::SellerSSL(QH::ISqlDBCache *db): Seller(db) {

@@ -72,7 +72,6 @@ void Card::setFreeIndex(int newFreeIndex) {
 
 bool Card::fromSqlRecord(const QSqlRecord &q) {
 
-
     setId(q.value("id").toUInt());
     setTitle(q.value("title").toString());
     setLogo(q.value("logo").toByteArray());

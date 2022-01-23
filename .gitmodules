@@ -13,3 +13,6 @@
 [submodule "submodules/Credits"]
 	path = submodules/Credits
 	url = https://github.com/QuasarApp/Credits.git
+[submodule "submodules/DoctorPill"]
+	path = submodules/DoctorPill
+	url = https://github.com/QuasarApp/DoctorPill.git
