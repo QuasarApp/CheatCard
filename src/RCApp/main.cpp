@@ -23,7 +23,8 @@ void initLang() {
     if(!QuasarAppUtils::Locales::init(locale, {":/CheatCardTr/languages/",
                                       ":/credits_languages/",
                                       ":/qmlNotify_languages/",
-                                      ":/lv_languages/"})){
+                                      ":/lv_languages/",
+                                      ":/DoctorPillTr/languages"})){
         QuasarAppUtils::Params::log("Error load language : ", QuasarAppUtils::Error);
     }
 }

@@ -557,11 +557,11 @@
     <name>QObject</name>
     <message>
         <source>Invalid ids of cards</source>
-        <translation type="unfinished"></translation>
+        <translation>Неверные id карточек</translation>
     </message>
     <message>
         <source>You database have cards that saved with invalid id. See https://quasarapp.ddns.net:3000/QuasarApp/CheatCard/issues/386 </source>
-        <translation type="unfinished"></translation>
+        <translation>В вашей базе данных есть карты, сохраненные с неверным идентификатором. См. https://quasarapp.ddns.net:3000/QuasarApp/CheatCard/issues/386 </translation>
     </message>
 </context>
 <context>
@@ -605,7 +605,7 @@
     </message>
     <message>
         <source>Permission denied to selected file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Отказано в доступе к выбранному файлу.</translation>
     </message>
 </context>
 <context>
@@ -838,7 +838,7 @@
     </message>
     <message>
         <source>Diagnostic the application</source>
-        <translation type="unfinished"></translation>
+        <translation>Диагностика приложения</translation>
     </message>
 </context>
 <context>
