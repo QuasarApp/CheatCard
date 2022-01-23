@@ -554,17 +554,6 @@
     </message>
 </context>
 <context>
-    <name>QObject</name>
-    <message>
-        <source>Invalid ids of cards</source>
-        <translation>Неверные id карточек</translation>
-    </message>
-    <message>
-        <source>You database have cards that saved with invalid id. See https://quasarapp.ddns.net:3000/QuasarApp/CheatCard/issues/386 </source>
-        <translation>В вашей базе данных есть карты, сохраненные с неверным идентификатором. См. https://quasarapp.ddns.net:3000/QuasarApp/CheatCard/issues/386 </translation>
-    </message>
-</context>
-<context>
     <name>QrCodeView</name>
     <message>
         <source>It looks like this code should be shown to the seller!</source>

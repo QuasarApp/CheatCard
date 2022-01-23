@@ -44,9 +44,9 @@
 #include "settingsmodel.h"
 #include <CheatCard/api/apiv1.h>
 
-#include <doctorpill.h>
+#include <doctorpillgui.h>
 
-#include <pills/invalidcardidpill.h>
+#include "CheatCard/pills/invalidcardidpill.h"
 
 
 namespace RC {

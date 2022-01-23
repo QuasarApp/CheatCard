@@ -16,7 +16,7 @@
 #include "quasarapp.h"
 #include "mainmodel.h"
 #include "credits.h"
-#include <doctorpill.h>
+#include <doctorpillgui.h>
 
 namespace RC {
 
