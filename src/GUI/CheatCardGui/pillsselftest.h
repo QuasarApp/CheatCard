@@ -17,7 +17,7 @@ class PillsSelfTest
 {
 public:
     PillsSelfTest();
-    bool testBadCatrdId(QH::ISqlDBCache *db) const;
+    static bool testBadCatrdId(QH::ISqlDBCache *db);
 };
 
 

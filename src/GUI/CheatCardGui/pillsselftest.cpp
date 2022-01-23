@@ -16,7 +16,7 @@ namespace RC {
 PillsSelfTest::PillsSelfTest() {
 }
 
-bool PillsSelfTest::testBadCatrdId(QH::ISqlDBCache *db) const {
+bool PillsSelfTest::testBadCatrdId(QH::ISqlDBCache *db) {
     DP::DoctorTest test;
 
     if (!db)
