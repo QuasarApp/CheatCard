@@ -31,8 +31,9 @@ android:installLocation="auto">
         android:label="-- %%INSERT_APP_NAME%% --"
         android:screenOrientation="unspecified"
         android:launchMode="singleTop"
-        android:theme="@style/splashScreenTheme">
         android:exported="true"
+
+        android:theme="@style/splashScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
