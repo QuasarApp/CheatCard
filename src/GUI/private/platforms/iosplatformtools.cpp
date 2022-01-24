@@ -17,4 +17,11 @@ void IOSPlatformTools::setScreanDim(bool ) const {
     // TO-DO
 }
 
+bool IOSPlatformTools::getAccessToWriteInStorage() {
+    return true;
+}
+
+bool IOSPlatformTools::getAccessToReadInStorage() {
+    return true;
+}
 }
