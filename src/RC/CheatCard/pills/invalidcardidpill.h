@@ -9,6 +9,7 @@
 #define INVALIDCARDIDPILL_H
 
 #include "doctorpill.h"
+#include "CheatCard/core_global.h"
 
 namespace QH {
 class ISqlDBCache;
@@ -20,7 +21,7 @@ namespace RC {
  * @brief The InvalidCardIdPill class
  * see the https://quasarapp.ddns.net:3000/QuasarApp/CheatCard/issues/386
  */
-class InvalidCardIdPill: public DP::iPill
+class CHEATCARD_CORE_EXPORT InvalidCardIdPill: public DP::iPill
 {
 
 public:
