@@ -42,6 +42,12 @@ private:
     */
     QH::DBPatchMap beta1Patches() const;
 
+    /**
+    * @brief beta1Patches This method return lsit of patches to beta2 from beta1
+    * @return
+    */
+    QH::DBPatchMap beta2Patches() const;
+
 };
 
 }

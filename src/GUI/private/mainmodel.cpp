@@ -44,6 +44,10 @@
 #include "settingsmodel.h"
 #include <CheatCard/api/apiv1.h>
 
+#include <doctorpillgui.h>
+
+#include "CheatCard/pills/invalidcardidpill.h"
+
 
 namespace RC {
 
@@ -57,12 +61,15 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
     _config = dynamic_cast<SettingsModel*>(
                 QuasarAppUtils::Settings::ISettings::instance());
 
+    _config->setCurrUser(_settings.value(CURRENT_USER).toUInt());
+
     initCardsListModels();
     initImagesModels();
     initWaitConnectionModel();
     initSellerStatisticModel();
     initImportExportModel();
     initNetIndicateModels();
+    initDoctorModel();
 
     configureCardsList();
 
@@ -122,6 +129,7 @@ void MainModel::configureFinished() {
     _config->setValue("fFirst", false);
 
     saveConfig();
+    _currentUser->regenerateSessionKey();
 }
 
 QObject *MainModel::getAboutModel()
@@ -353,6 +361,13 @@ void MainModel::initImagesModels() {
 
 void MainModel::initNetIndicateModels() {
     _netIdicatorModel = new NetIndicatorModel();
+}
+
+void MainModel::initDoctorModel() {
+    QList<QSharedPointer<DP::iPill>> pills;
+    pills << QSharedPointer<InvalidCardIdPill>::create(_db);
+
+    _doctorModel = new DP::DoctorModel(pills);
 }
 
 void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
@@ -803,6 +818,10 @@ bool MainModel::sendSellerDataToServer(const QSharedPointer<API::UserHeader>& he
 
 CardsListModel *MainModel::getCurrentListModel() const {
     return static_cast<CardsListModel*>(_currentCardsListModel->sourceModel());
+}
+
+QObject *MainModel::doctorModel() const {
+    return _doctorModel;
 }
 
 void MainModel::handleListenStop() {

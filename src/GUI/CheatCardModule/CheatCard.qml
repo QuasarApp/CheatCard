@@ -36,10 +36,12 @@ ApplicationWindow {
     }
 
     readonly property string defaultpPimaryColor: "#ff6b01"
+
     property var model: mainModel
     property var user: (mainModel)? mainModel.currentUser: null
     Material.primary: config.getStrValue("colorTheme", defaultpPimaryColor)
     Material.accent: Material.Orange
+    Material.theme: (config.getValue("darkTheme", false))? Material.Dark : Material.Light
 
 
     Connections {
@@ -60,6 +62,12 @@ ApplicationWindow {
                 if (!value)
                     value = defaultpPimaryColor
                 mainWindow.Material.primary = value;
+            }
+        }
+
+        function onValueChanged(key, value) {
+            if (key === "darkTheme") {
+                mainWindow.Material.theme = (value)? Material.Dark : Material.Light
             }
         }
     }

@@ -15,9 +15,17 @@ updateGitVars()
 file(GLOB SOURCE_CPP
     "*CheatCard/*.cpp"
      "private/*.cpp"
+     "CheatCard/pills/*.cpp"
      "CheatCard/api/*.cpp"
      "CheatCard/api/api0/*.cpp"
      "CheatCard/api/api1/*.cpp"
+
+     "*CheatCard/*.h"
+      "private/*.h"
+      "CheatCard/pills/*.h"
+      "CheatCard/api/*.h"
+      "CheatCard/api/api0/*.h"
+      "CheatCard/api/api1/*.h"
 
 )
 
@@ -37,7 +45,7 @@ set(PRIVATE_INCUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/private")
 
 add_library(${CURRENT_PROJECT} ${SOURCE_CPP} ${SOURCE_QRC})
 
-target_link_libraries(${CURRENT_PROJECT} PUBLIC Heart)
+target_link_libraries(${CURRENT_PROJECT} PUBLIC Heart DoctorPill)
 
 target_include_directories(${CURRENT_PROJECT} PUBLIC ${PUBLIC_INCUDE_DIR})
 target_include_directories(${CURRENT_PROJECT} PRIVATE ${PRIVATE_INCUDE_DIR})

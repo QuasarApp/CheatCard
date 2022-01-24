@@ -15,6 +15,12 @@ file(GLOB SOURCE_CPP
     "*CheatCardGui/*.cpp"
      "private/*.cpp"
      "private/platforms/*.cpp"
+     "private/pills/*.cpp"
+
+     "*CheatCardGui/*.h"
+      "private/*.h"
+      "private/platforms/*.h"
+      "private/pills/*.h"
 
 )
 
@@ -35,7 +41,7 @@ add_library(${CURRENT_PROJECT} ${SOURCE_CPP} ${SOURCE_QRC})
 
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Quick Svg REQUIRED)
 
-target_link_libraries(${CURRENT_PROJECT} PUBLIC ${PROJECT_NAME}Core QmlNotyfyService SCodes Credits Qt${QT_VERSION_MAJOR}::Svg)
+target_link_libraries(${CURRENT_PROJECT} PUBLIC ${PROJECT_NAME}Core QmlNotyfyService SCodes Credits DoctorPillGUI Qt${QT_VERSION_MAJOR}::Svg)
 
 target_include_directories(${CURRENT_PROJECT} PUBLIC ${PUBLIC_INCUDE_DIR})
 target_include_directories(${CURRENT_PROJECT} PRIVATE ${PRIVATE_INCUDE_DIR})

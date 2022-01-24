@@ -33,5 +33,30 @@ void AndroidPlatformTools::setScreanDim(bool enable) const {
         }
     }
 }
+
+bool AndroidPlatformTools::getAccessToWriteInStorage() {
+    if (QtAndroid::checkPermission(QString("android.permission.WRITE_EXTERNAL_STORAGE")) == QtAndroid::PermissionResult::Denied){
+        QtAndroid::PermissionResultMap resultHash = QtAndroid::requestPermissionsSync(QStringList({"android.permission.WRITE_EXTERNAL_STORAGE"}));
+        if (resultHash["android.permission.WRITE_EXTERNAL_STORAGE"] == QtAndroid::PermissionResult::Denied) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+bool AndroidPlatformTools::getAccessToReadInStorage() {
+    if (QtAndroid::checkPermission(QString("android.permission.READ_EXTERNAL_STORAGE")) == QtAndroid::PermissionResult::Denied){
+        QtAndroid::PermissionResultMap resultHash = QtAndroid::requestPermissionsSync(
+                    QStringList({"android.permission.READ_EXTERNAL_STORAGE"}));
+
+        if (resultHash["android.permission.READ_EXTERNAL_STORAGE"] == QtAndroid::PermissionResult::Denied) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 }
 #endif

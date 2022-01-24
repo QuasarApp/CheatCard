@@ -325,6 +325,10 @@
         <source>Wooooh seems like someone available %0 %1 !!!</source>
         <translation>Wooooh seems like someone available %0 %1 !!!</translation>
     </message>
+    <message>
+        <source>Don`t give out</source>
+        <translation>Don`t give out</translation>
+    </message>
 </context>
 <context>
     <name>ImportUserKeyPage</name>
@@ -585,12 +589,12 @@
         <translation>Oh shit</translation>
     </message>
     <message>
-        <source>Permission denied to selected file.</source>
-        <translation>Permission denied to selected file.</translation>
-    </message>
-    <message>
         <source>It looks like the file you selected does not contain a recovery code</source>
         <translation>It looks like the file you selected does not contain a recovery code</translation>
+    </message>
+    <message>
+        <source>Permission denied to selected file.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -705,6 +709,29 @@
         <source>Issued</source>
         <translation>Issued</translation>
     </message>
+    <message>
+        <source>Available</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>RC::SettingsModel</name>
+    <message>
+        <source>Database location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to export database</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From %0 to %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export the database finished successful</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RegistrationFinishedPage</name>
@@ -785,6 +812,22 @@
     <message>
         <source>Default settings</source>
         <translation>Default settings</translation>
+    </message>
+    <message>
+        <source>Dark Theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check database location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export a database</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Diagnostic the application</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

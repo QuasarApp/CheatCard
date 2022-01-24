@@ -7,6 +7,7 @@
 
 
 #include "importexportusermodel.h"
+#include "iplatformtools.h"
 
 #include <QPixmap>
 #include <QUrl>
@@ -28,22 +29,17 @@ void ImportExportUserModel::processQrCode(QString path) {
     QUrl url(path);
     auto service = QmlNotificationService::NotificationService::getService();
 
-#ifdef Q_OS_ANDROID
-    if (QtAndroid::checkPermission(QString("android.permission.READ_EXTERNAL_STORAGE")) == QtAndroid::PermissionResult::Denied){
-        QtAndroid::PermissionResultMap resultHash = QtAndroid::requestPermissionsSync(
-                    QStringList({"android.permission.READ_EXTERNAL_STORAGE"}));
+    auto platformsTools = IPlatformTools::instance();
+    if (!platformsTools->getAccessToReadInStorage()){
 
-        if (resultHash["android.permission.READ_EXTERNAL_STORAGE"] == QtAndroid::PermissionResult::Denied) {
-
-            service->setNotify(tr("Oh shit"),
-                               tr("Permission denied to selected file."),
-                               "",
-                               QmlNotificationService::NotificationData::Error);
-
-            return;
-        }
+        service->setNotify(tr("Oh shit"),
+                           tr("Permission denied to selected file."),
+                           "",
+                           QmlNotificationService::NotificationData::Error);
+        return;
     }
 
+#ifdef Q_OS_ANDROID
     QPixmap tmpImage((url.scheme() == "qrc")? ":" + QUrl(path).path(): path);
 #else
     QPixmap tmpImage((url.scheme() == "qrc")? ":" + QUrl(path).path(): QUrl(path).path());

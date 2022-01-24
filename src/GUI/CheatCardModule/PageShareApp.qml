@@ -32,7 +32,7 @@ Page {
                 source: "qrc:/images/private/resources/Interface_icons/Google_play_logo.png"
             }
 
-            Text {
+            Label {
                 text: qsTr("To get a cheat card, scan the QR code and follow the link.")
                 horizontalAlignment: Qt.AlignHCenter
                 verticalAlignment: Qt.AlignTop

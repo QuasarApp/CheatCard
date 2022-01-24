@@ -18,6 +18,8 @@ class AndroidPlatformTools: public IPlatformTools
     // IPlatformTools interface
 public:
     void setScreanDim(bool enable) const override;
+    bool getAccessToWriteInStorage() override;
+    bool getAccessToReadInStorage() override;
 
 protected:
     AndroidPlatformTools();

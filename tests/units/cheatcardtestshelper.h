@@ -23,7 +23,7 @@ public:
     CheatCardTestsHelper();
 
     template <class NodeType>
-    static QSharedPointer<NodeType> makeNode() {
+    static QSharedPointer<NodeType> makeNode(const QString database = ":/sql/units/sql/TestSallerDb.sql") {
         srand(time(0) + rand());
         QString randomNodeName = QByteArray::number(rand()).toHex() + typeid(NodeType).name();
 
@@ -31,7 +31,7 @@ public:
         if (std::is_base_of<RC::Seller,NodeType>::value ) {
 
             source = new TestDataBaseWrapper(randomNodeName,
-                                             ":/sql/units/sql/TestSallerDb.sql");
+                                             database);
         } else {
             source = new TestDataBaseWrapper(randomNodeName);
         }

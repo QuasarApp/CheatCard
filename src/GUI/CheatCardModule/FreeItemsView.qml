@@ -121,18 +121,37 @@ Frame {
             }
         }
 
-        Button {
-            visible: fSeller
+        RowLayout {
+            Layout.fillWidth: true
             Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
-            text: qsTr("Give out")
 
-            onClicked: ()=> {
-                           if (mainModel && model) {
-                                mainModel.handleBonusGivOut(userId, model.id, giveFreeItems.value);
-                                enabled = false
-                                activityProcessor.popItem();
+            Button {
+                id: doNotGive
+                visible: fSeller
+                text: qsTr("Don`t give out")
+
+                onClicked: ()=> {
+                               activityProcessor.popItem();
                            }
-                       }
+            }
+
+            Item {
+                Layout.fillWidth: true
+            }
+
+            Button {
+                id: doGive
+                visible: fSeller
+                text: qsTr("Give out")
+
+                onClicked: ()=> {
+                               if (mainModel && model) {
+                                    mainModel.handleBonusGivOut(userId, model.id, giveFreeItems.value);
+                                    enabled = false
+                                    activityProcessor.popItem();
+                               }
+                           }
+            }
         }
     }
 }

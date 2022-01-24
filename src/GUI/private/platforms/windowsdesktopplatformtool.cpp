@@ -20,5 +20,17 @@ void RC::WindowsDesktopPlatformTool::setScreanDim(bool ) const {
     // to-do
 }
 
+bool WindowsDesktopPlatformTool::getAccessToWriteInStorage() {
+    // do nothing
+    return true;
+
+}
+
+bool WindowsDesktopPlatformTool::getAccessToReadInStorage() {
+    // do nothing
+    return true;
+
+}
+
 }
 #endif

@@ -8,6 +8,7 @@
 #include <QtTest>
 #include "connectiontest.h"
 #include "restoredatatest.h"
+#include "fixdbidspilltest.h"
 
 // Use This macros for initialize your own test classes.
 // Check exampletests
@@ -33,6 +34,7 @@ private slots:
 
 
     // BEGIN TESTS CASES
+    TestCase(fixDBIdsPillTest, FixDBIdsPillTest)
     TestCase(restoreDataTest, RestoreDataTest)
     TestCase(connectionTest, ConnectionTest)
     // END TEST CASES

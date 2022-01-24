@@ -22,6 +22,8 @@ public:
     // IPlatformTools interface
 public:
     void setScreanDim(bool enable) const override;
+    bool getAccessToWriteInStorage() override;
+    bool getAccessToReadInStorage() override;
 };
 }
 #endif

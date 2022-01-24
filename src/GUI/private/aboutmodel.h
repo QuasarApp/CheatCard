@@ -26,6 +26,7 @@ public:
     Q_INVOKABLE QString getSCodesLibVr() const;
     Q_INVOKABLE QString getQtLibVr() const;
     Q_INVOKABLE QString getSimpleQmlNotifyLibVr() const;
+    Q_INVOKABLE QString getDoctorPillLibVr() const;
 
 };
 

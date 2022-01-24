@@ -21,18 +21,12 @@ GridLayout {
 
     property string model: ""
 
-    Image {
-        id: imgQr
+    QrCodeControl {
         fillMode: Image.PreserveAspectFit
         Layout.preferredHeight: Math.min(parent.width * 0.8, parent.height * 0.8)
         Layout.preferredWidth:  Math.min(parent.width * 0.8, parent.height * 0.8)
         Layout.alignment: Qt.AlignHCenter
         source: "file:/" + model
-        layer.enabled: true
-        layer.effect: ShaderColorOverlay {
-            color: Material.primary
-            fragSh: "qrc:/private/resources/shaders/shaderColorQrCode.fsh"
-        }
     }
 
     ColumnLayout {

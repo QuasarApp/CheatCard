@@ -55,11 +55,11 @@
     </message>
     <message>
         <source>Settings</source>
-        <translation>Нстройки</translation>
+        <translation>Настройки</translation>
     </message>
     <message>
         <source>Share application</source>
-        <translation>Поделится</translation>
+        <translation>Поделиться</translation>
     </message>
     <message>
         <source>Recovery</source>
@@ -325,6 +325,10 @@
         <source>Wooooh seems like someone available %0 %1 !!!</source>
         <translation>Ооо кажется у кого то доступно %0 %1 !!!</translation>
     </message>
+    <message>
+        <source>Don`t give out</source>
+        <translation>Не выдавать</translation>
+    </message>
 </context>
 <context>
     <name>ImportUserKeyPage</name>
@@ -388,7 +392,7 @@
     </message>
     <message>
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**IMPORTANT:** After you put at least one seal on the customer, the card cannot be edited. Instead, you can create a new map based on the old one. all customer data and their statistics will be automatically transferred to the corrected card. Instead, you can create a new map based on the old one. all customer data and their statistics will be automatically transferred to the corrected card.</source>
-        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**ВАЖНО:** После того как вы поставите хотя бы одну печать покупателю, карту нельзя будет редактировать. В место этого вы сможите создать новую карту на основе старой. все данные покупателей и их статистика будет автоматически перенесена на исправленную карту. В место этого вы сможите создать новую карту на основе старой. все данные покупателей и их статистика будет автоматически перенесена на исправленную карту.</translation>
+        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**ВАЖНО:** После того как вы поставите хотя бы одну печать покупателю, карту нельзя будет редактировать. В место этого вы сможите создать новую карту на основе старой. Все данные покупателей и их статистика будет автоматически перенесена на исправленную карту. В место этого вы сможите создать новую карту на основе старой. все данные покупателей и их статистика будет автоматически перенесена на исправленную карту.</translation>
     </message>
     <message>
         <source>### How to use?</source>
@@ -408,7 +412,7 @@
     </message>
     <message>
         <source>* In order to create a map, click the &quot;Add Map&quot; button at the bottom of the screen.</source>
-        <translation>* Для того что бы создать карту нажмите кнопку &quot;Добавить карту&quot; в нижней части экрана.</translation>
+        <translation>* Для того чтобы создать карту нажмите кнопку &quot;Добавить карту&quot; в нижней части экрана.</translation>
     </message>
     <message>
         <source>* An empty card will be created.</source>
@@ -416,7 +420,7 @@
     </message>
     <message>
         <source>* In order to fill it out, click the &quot;Edit&quot; button on the card.</source>
-        <translation>* Для того что бы её заполнить нажмите кнопку &quot;Редактировать&quot; на карточке.</translation>
+        <translation>* Для того чтобы её заполнить нажмите кнопку &quot;Редактировать&quot; на карточке.</translation>
     </message>
     <message>
         <source>* Indicate how many purchases the client must make to receive the bonus you previously specified.</source>
@@ -452,7 +456,7 @@
     </message>
     <message>
         <source>* Repeat this algorithm in order to put in the future seals to the client when purchasing a product.</source>
-        <translation>* Повторите этот алгоритм для того что бы поставить в дальнейшем печати клиенту при покупке товара.</translation>
+        <translation>* Повторите этот алгоритм для того чтобы поставить в дальнейшем печати клиенту при покупке товара.</translation>
     </message>
     <message>
         <source>### Issue a card to a client:</source>
@@ -484,7 +488,7 @@
     </message>
     <message>
         <source>* In order to issue the card to the client, press and hold on it.</source>
-        <translation>* Для того что бы выдать карту клиенту необходимо нажать на неё и удерживать.</translation>
+        <translation>* Для того чтобы выдать карту клиенту необходимо нажать на неё и удерживать.</translation>
     </message>
     <message>
         <source>### Guide to using Cheat Cards for business</source>
@@ -523,7 +527,7 @@
     </message>
     <message>
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;In order to open the QR code, click on the item in the upper left corner of the screen. </source>
-        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Для того что бы открыть QR код нажмите на элемент в верхнем левом углу экрана. </translation>
+        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Для того чтобы открыть QR код нажмите на элемент в верхнем левом углу экрана. </translation>
     </message>
     <message>
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;A sidebar will open at the bottom of which there will be a QR code, you can click on it to enlarge it.</source>
@@ -585,12 +589,12 @@
         <translation>Оу чёрт</translation>
     </message>
     <message>
-        <source>Permission denied to selected file.</source>
-        <translation>Доступ к выбранному файлу запрещен.</translation>
-    </message>
-    <message>
         <source>It looks like the file you selected does not contain a recovery code</source>
         <translation>Похоже что выбранный вами файл не содержит кода восстановления</translation>
+    </message>
+    <message>
+        <source>Permission denied to selected file.</source>
+        <translation>Отказано в доступе к выбранному файлу.</translation>
     </message>
 </context>
 <context>
@@ -705,6 +709,29 @@
         <source>Issued</source>
         <translation>Выдано</translation>
     </message>
+    <message>
+        <source>Available</source>
+        <translation>Доступно</translation>
+    </message>
+</context>
+<context>
+    <name>RC::SettingsModel</name>
+    <message>
+        <source>Database location</source>
+        <translation>Расположение базы данных</translation>
+    </message>
+    <message>
+        <source>Failed to export database</source>
+        <translation>Не удалось экспортировать базу данных</translation>
+    </message>
+    <message>
+        <source>From %0 to %1</source>
+        <translation>Из %0 в %1</translation>
+    </message>
+    <message>
+        <source>Export the database finished successful</source>
+        <translation>Экспорт базы данных завершен успешно</translation>
+    </message>
 </context>
 <context>
     <name>RegistrationFinishedPage</name>
@@ -785,6 +812,22 @@
     <message>
         <source>Default settings</source>
         <translation>Настройки по умолчанию</translation>
+    </message>
+    <message>
+        <source>Dark Theme</source>
+        <translation>Темная тема</translation>
+    </message>
+    <message>
+        <source>Check database location</source>
+        <translation>Узнать расположение базы данных</translation>
+    </message>
+    <message>
+        <source>Export a database</source>
+        <translation>Экспорт базы данных</translation>
+    </message>
+    <message>
+        <source>Diagnostic the application</source>
+        <translation>Диагностика приложения</translation>
     </message>
 </context>
 <context>
