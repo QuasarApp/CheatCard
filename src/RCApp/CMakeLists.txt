@@ -67,6 +67,8 @@ if (ANDROID)
         QmlNotyfyService
         SCodes
         ZXing
+        DoctorPill
+        DoctorPillGUI
         ${OPENSSL_ROOT_PATH}/lib/libcrypto_1_1.so
         ${OPENSSL_ROOT_PATH}/lib/libssl_1_1.so
         )
