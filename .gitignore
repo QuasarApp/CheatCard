@@ -75,6 +75,7 @@ src/CheatCardServer/Deploy/CheatCardServer.json
 src/RC/CheatCard/core_global.h
 src/RCApp/android/AndroidManifest.xml
 src/RCApp/android/build.gradle
+src/RCApp/apple/Info.plist
 
 # Freeze Databases
 src/RC/private/sql/DataBase.sql

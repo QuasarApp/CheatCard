@@ -35,7 +35,12 @@ RC::IBilling * getBillingInstance() {
     return new AndroidBilling;
 #endif
 #endif
+
+#ifdef Q_OS_LINUX
     return new DesktopBilling;
+#endif
+
+    return nullptr;
 }
 
 int main(int argc, char *argv[]) {

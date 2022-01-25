@@ -19,7 +19,11 @@ set(CMAKE_AUTOUIC ON)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(BUILD_SHARED_LIBS ON)
+if (IOS)
+    option (BUILD_SHARED_LIBS "build shared libs" OFF)
+else ()
+    option (BUILD_SHARED_LIBS "build shared libs" ON)
+endif()
 
 if (NOT DEFINED QT_VERSION_MAJOR)
     find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Test QUIET)
@@ -39,7 +43,8 @@ if (${QT_VERSION} VERSION_GREATER_EQUAL 6.0)
 endif()
 
 updateGitVars()
-set(CHEAT_CARD_VERSION "1.${GIT_COMMIT_COUNT}.${GIT_COMMIT_HASH}")
+set(CHEAT_CARD_SHORT_VERSION "1.${GIT_COMMIT_COUNT}")
+set(CHEAT_CARD_VERSION "${CHEAT_CARD_SHORT_VERSION}.${GIT_COMMIT_HASH}")
 
 if (NOT DEFINED CHEATCARD_TESTS)
     set(CHEATCARD_TESTS ON)
@@ -51,7 +56,7 @@ if (NOT DEFINED CHEATCARD_TESTS)
         endif()
     endif()
 
-    if (ANDROID)
+    if (ANDROID OR IOS)
         set(CHEATCARD_TESTS OFF)
     endif()
 
@@ -74,7 +79,7 @@ if (NOT DEFINED CHEATCARD_SERVER)
         endif()
     endif()
 
-    if (ANDROID)
+    if (ANDROID OR APPLE)
         set(CHEATCARD_SERVER OFF)
     endif()
 
@@ -100,7 +105,6 @@ if (NOT DEFINED CHEATCARD_APP)
 endif()
 
 set(HEART_BUILD_LVL 1)
-set(HEART_SSL ON)
 
 add_subdirectory(submodules/Heart)
 add_subdirectory(src/RC)
@@ -119,6 +123,8 @@ else()
 endif()
 
 if (CHEATCARD_APP)
+    set(CHEATCARD_PACKAGE_ID "quasarapp.core.cheatcard")
+
     add_subdirectory(submodules/SimpleQmlNotify)
     add_subdirectory(submodules/QrCodes/src)
     set(CREDITS_EXAMPLES OFF)

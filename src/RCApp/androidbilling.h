@@ -30,6 +30,7 @@ public:
 
 public slots:
     void becomeSeller() override;
+    bool isSupported() const override;
 
 private slots:
     void handlePurchaseReceived(QString id, QString token);

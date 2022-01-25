@@ -11,6 +11,8 @@
 #include <platforms/androidplatformtools.h>
 #include <platforms/linuxdesktopplatfomtools.h>
 #include <platforms/windowsdesktopplatformtool.h>
+#include <platforms/osxplatformtools.h>
+#include <platforms/iosplatformtools.h>
 
 
 namespace RC {
@@ -27,6 +29,14 @@ IPlatformTools *IPlatformTools::instance() {
 
 #ifdef Q_OS_WINDOWS
     static IPlatformTools * instance = new WindowsDesktopPlatformTool();
+#endif
+
+#ifdef Q_OS_MACOS
+    static IPlatformTools * instance = new OSXPlatformTools();
+#endif
+
+#ifdef Q_OS_IOS
+    static IPlatformTools * instance = new IOSPlatformTools();
 #endif
 
     return instance;

@@ -43,7 +43,8 @@ BaseNode::BaseNode(QH::ISqlDBCache *db): APIObjectsFactoryV1(db) {
 
     setIgnoreSslErrors(QList<QSslError>() << QSslError::SelfSignedCertificate
                        << QSslError::SelfSignedCertificateInChain
-                       << QSslError::HostNameMismatch);
+                       << QSslError::HostNameMismatch
+                       << QSslError::CertificateUntrusted);
 }
 
 QH::ParserResult BaseNode::parsePackage(const QSharedPointer<QH::PKG::AbstractData> &pkg,

@@ -8,6 +8,7 @@
 #include "visitorssl.h"
 #include <qaglobalutils.h>
 
+
 namespace RC {
 
 VisitorSSL::VisitorSSL(QH::ISqlDBCache *db): Visitor(db) {

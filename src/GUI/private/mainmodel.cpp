@@ -500,6 +500,10 @@ int MainModel::getReceivedItemsCount(int cardId) const {
                 cardId);
 }
 
+bool MainModel::fBillingAwailable() const {
+    return _billing && _billing->isSupported();
+}
+
 QObject *MainModel::statisticModel() const {
     return _statisticModel;
 }
@@ -544,6 +548,8 @@ void RC::MainModel::configureCardsList() {
 }
 
 void MainModel::setMode(int newMode) {
+    newMode = newMode && fBillingAwailable();
+
     if (static_cast<int>(_mode) == newMode)
         return;
 

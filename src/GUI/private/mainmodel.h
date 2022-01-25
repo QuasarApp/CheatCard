@@ -107,6 +107,7 @@ public:
      * @return count of of all purches of @a cardId nad current user. Else return 0
      */
     Q_INVOKABLE int getReceivedItemsCount(int cardId) const;
+    Q_INVOKABLE bool fBillingAwailable() const;
 
     QObject *statisticModel() const;
 

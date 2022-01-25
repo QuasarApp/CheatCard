@@ -116,6 +116,22 @@ if (ANDROID)
         SOURCES ${java_files}
         )
 
+elseif(IOS)
+#    set_xcode_property(${CURRENT_PROJECT} PRODUCT_BUNDLE_IDENTIFIER ${CHEATCARD_PACKAGE_ID} All)
+
+
+    set(plist_file "${CMAKE_CURRENT_SOURCE_DIR}/apple/Info.plist")
+    configure_file("${plist_file}.in" ${plist_file} @ONLY)
+
+    set(QT_IOS_EXPORT_ARCHIVE_XCODEBUILD_FLAGS "-allowProvisioningUpdates")
+    addDeployIPA(${CURRENT_PROJECT}
+        "${CHEATCARD_PACKAGE_ID}"
+        "${TARGET_DIR}"
+        "${CHEAT_CARD_SHORT_VERSION}"
+        "${CMAKE_CURRENT_SOURCE_DIR}/apple")
+
+    message("MACOSX_BUNDLE_GUI_IDENTIFIER = ${MACOSX_BUNDLE_GUI_IDENTIFIER}")
+
 else()
 
 

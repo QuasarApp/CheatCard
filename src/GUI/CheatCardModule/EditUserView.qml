@@ -9,7 +9,7 @@ Frame {
     id: root
     property var model: null
     property var userModel: (model)? model.currentUser : null
-
+    property bool  fBillingAwailable: mainModel && mainModel.fBillingAwailable()
     property bool editable: true
 
 
@@ -66,7 +66,7 @@ Frame {
             text: qsTr("Start integration with business");
             Layout.alignment: Qt.AlignHCenter
             Layout.columnSpan: 2
-            visible: Boolean(root.userModel && !root.userModel.fSaller)
+            visible: Boolean(root.userModel && !root.userModel.fSaller) && fBillingAwailable
 
             onClicked: {
                 if (root.userModel) {
@@ -88,7 +88,7 @@ Frame {
                                    }
                                }
 
-            visible: !becomeaseller.visible
+            visible: !becomeaseller.visible && fBillingAwailable
 
         }
 
