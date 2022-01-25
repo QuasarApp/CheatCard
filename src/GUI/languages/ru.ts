@@ -713,6 +713,18 @@
         <source>Available</source>
         <translation>Доступно</translation>
     </message>
+    <message>
+        <source>Status</source>
+        <translation>Статус</translation>
+    </message>
+    <message>
+        <source>Active</source>
+        <translation>Активный</translation>
+    </message>
+    <message>
+        <source>Passive</source>
+        <translation>Пассивный</translation>
+    </message>
 </context>
 <context>
     <name>RC::SettingsModel</name>

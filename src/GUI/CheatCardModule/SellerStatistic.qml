@@ -62,7 +62,7 @@ Page {
 
                 ScrollBar.vertical: ScrollBar { }
 
-                property var columnWidths: [-80, 80, 90, 100, 90, 200]
+                property var columnWidths: [-120, 80, 90, 100, 90, 200, 100]
                 property int selectedRow: 0
 
                 columnWidthProvider: function (column) {

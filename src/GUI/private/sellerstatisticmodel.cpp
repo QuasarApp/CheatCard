@@ -16,7 +16,8 @@ SellerStatisticModel::SellerStatisticModel(QObject *parent):
                tr("Purchases") <<
                tr("Available") <<
                tr("Issued") <<
-               tr("Last visit")
+               tr("Last visit") <<
+               tr("Status")
                );
 }
 
@@ -68,6 +69,13 @@ QVariant SellerStatisticModel::data(const QModelIndex &index, int role) const {
                 return item->getTime().toTime_t();
             }
             return item->getTime().toString();
+        }
+
+        case 6 : {
+            if (item->isActive()) {
+                return tr("Active");
+            }
+            return tr("Passive");
         }
 
         default:

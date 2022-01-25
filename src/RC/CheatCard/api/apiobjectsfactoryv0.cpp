@@ -42,6 +42,19 @@ APIObjectsFactoryV0::getAllUserFromCard(unsigned int cardId) const {
 
 }
 
+QList<QSharedPointer<API::UsersCards> >
+APIObjectsFactoryV0::getAllPassiveUserFromCard(unsigned int cardId,
+                                               int unixTimeRange) const {
+    return getAllPassiveUserFromCardImpl<API_PREFIX::UsersCards>(cardId, unixTimeRange);
+
+}
+
+QList<QSharedPointer<API::UsersCards> >
+APIObjectsFactoryV0::getAllActiveUserFromCard(unsigned int cardId,
+                                              int unixTimeRange) const {
+    return getAllActiveUserFromCardImpl<API_PREFIX::UsersCards>(cardId, unixTimeRange);
+}
+
 QList<QSharedPointer<API::User> >
 APIObjectsFactoryV0::getAllUserDataFromCard(unsigned int cardId) const {
     return getAllUserDataFromCardImpl<API_PREFIX::User>(cardId);
