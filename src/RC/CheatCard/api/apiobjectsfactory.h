@@ -87,6 +87,50 @@ protected:
         return {result->data().begin(), result->data().end()};
     };
 
+    template<class UsersCards>
+    QList<QSharedPointer<API::UsersCards> > getAllActiveUserFromCardImpl(unsigned int cardId,
+                                                                         int unixTimeRange = ACTIVE_USER_TIME_LIMIT) const {
+
+        check_type(UsersCards);
+
+        int timePoint = time(0) - unixTimeRange;
+
+        QString where = QString("card=%0 AND time>%1").
+                arg(cardId).arg(timePoint);
+
+        QH::PKG::DBObjectsRequest<UsersCards> request("UsersCards",
+                                                      where);
+
+        auto result = _db->getObject(request);
+
+        if (!result)
+            return {};
+
+        return {result->data().begin(), result->data().end()};
+    };
+
+    template<class UsersCards>
+    QList<QSharedPointer<API::UsersCards> > getAllPassiveUserFromCardImpl(unsigned int cardId,
+                                                                          int unixTimeRange = ACTIVE_USER_TIME_LIMIT) const {
+
+        check_type(UsersCards);
+
+        int timePoint = time(0) - unixTimeRange;
+
+        QString where = QString("card=%0 AND time<%1").
+                arg(cardId).arg(timePoint);
+
+        QH::PKG::DBObjectsRequest<UsersCards> request("UsersCards",
+                                                      where);
+
+        auto result = _db->getObject(request);
+
+        if (!result)
+            return {};
+
+        return {result->data().begin(), result->data().end()};
+    };
+
     template<class User>
     QList<QSharedPointer<API::User> > getAllUserDataFromCardImpl(unsigned int cardId) const {
 

@@ -15,6 +15,8 @@ class CardDataRequest;
 class CardStatusRequest;
 }
 
+const int ACTIVE_USER_TIME_LIMIT = 60 * 60 * 24 * 30;// 1 mounth
+
 /**
  * @brief The IAPIObjectsFactory class Contains functions for gettings objects from database.
  * Each methods contains own template implementation (method with the **impl** sufix). The IAPIObjectsFactory class has implementation for each api versions.
@@ -26,14 +28,17 @@ public:
     virtual ~IAPIObjectsFactory() = default;
 
     virtual QSharedPointer<API::User> getUser(unsigned int userId) const = 0;
-    virtual QList<QSharedPointer<API::UsersCards> >getAllUserData(unsigned int userId) const = 0;
+    virtual QList<QSharedPointer<API::UsersCards>> getAllUserData(unsigned int userId) const = 0;
 
     virtual QSharedPointer<API::UsersCards> getUserCardData(unsigned int userId,
                                                             unsigned int cardId) const = 0;
 
-    virtual QList<QSharedPointer<API::UsersCards> > getAllUserFromCard(unsigned int cardId) const = 0;
+    virtual QList<QSharedPointer<API::UsersCards>> getAllUserFromCard(unsigned int cardId) const = 0;
+    virtual QList<QSharedPointer<API::UsersCards>> getAllActiveUserFromCard(unsigned int cardId, int unixTimeRange) const = 0;
+    virtual QList<QSharedPointer<API::UsersCards>> getAllPassiveUserFromCard(unsigned int cardId, int unixTimeRange) const = 0;
 
-    virtual QList<QSharedPointer<API::User> > getAllUserDataFromCard(unsigned int cardId) const = 0;
+    virtual QList<QSharedPointer<API::User>> getAllUserDataFromCard(unsigned int cardId) const = 0;
+
     virtual QSharedPointer<API::Card> getCard(unsigned int cardId) = 0;
 
     /**

@@ -55,6 +55,7 @@ public:
     void setCardVersion(unsigned int newCardVersion);
 
     const QDateTime& getTime() const;
+    bool isActive() const;
 
 protected:
     QString primaryKey() const override;

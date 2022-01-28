@@ -671,7 +671,6 @@ void MainModel::handleResetCardModel(const QSharedPointer<RC::API::Card> &card) 
 
         return;
     }
-
 }
 
 void MainModel::handleRemoveRequest(const QSharedPointer<API::Card> &card) {
@@ -690,7 +689,7 @@ void MainModel::handleRemoveRequest(const QSharedPointer<API::Card> &card) {
         };
 
         if (getMode()) {
-            auto listOfUsers = _backEndModel->getAllUserFromCard(card->cardId());
+            auto listOfUsers = _backEndModel->getAllActiveUserFromCard(card->cardId());
 
             if (listOfUsers.size()) {
                 service->setNotify(tr("Operation not permitted"),

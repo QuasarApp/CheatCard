@@ -8,6 +8,7 @@
 
 
 #include "userscards.h"
+#include <CheatCard/api/iapiobjectsfactory.h>
 
 namespace RC {
 namespace API {
@@ -76,6 +77,11 @@ QDataStream &UsersCards::toStream(QDataStream &stream) const {
 
 const QDateTime& UsersCards::getTime() const {
     return _time;
+}
+
+bool UsersCards::isActive() const {
+    return QDateTime::currentDateTime() <
+            getTime().addSecs(ACTIVE_USER_TIME_LIMIT);
 }
 
 unsigned int UsersCards::getCardVersion() const {
