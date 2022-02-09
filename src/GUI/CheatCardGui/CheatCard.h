@@ -16,7 +16,6 @@
 
 inline void initCheatCardResources() {
     Q_INIT_RESOURCE(CheatCardGui);
-    Q_INIT_RESOURCE(CheatCard);
     Q_INIT_RESOURCE(CardsIcons);
 }
 

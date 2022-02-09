@@ -34,6 +34,7 @@ CheatCard::~CheatCard() {
 bool CheatCard::init(QQmlApplicationEngine *engine, IBilling *billingObject) {
 
     initCheatCardResources();
+    initCheatCardBaseResources();
 
     if (!QuasarAppCredits::init(engine)) {
         return 2;
