@@ -17,6 +17,7 @@
 #include "mainmodel.h"
 #include "credits.h"
 #include <doctorpillgui.h>
+#include <CheatCard/basenode.h>
 
 namespace RC {
 
@@ -34,7 +35,7 @@ CheatCard::~CheatCard() {
 bool CheatCard::init(QQmlApplicationEngine *engine, IBilling *billingObject) {
 
     initCheatCardResources();
-    initCheatCardBaseResources();
+    BaseNode::init();
 
     if (!QuasarAppCredits::init(engine)) {
         return 2;

@@ -15,10 +15,6 @@
 
 #define CURRENT_USER "CURRENT_USER"
 
-inline void initCheatCardBaseResources() {
-    Q_INIT_RESOURCE(CheatCard);
-}
-
 namespace RC {
 
 /**
