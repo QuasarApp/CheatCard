@@ -18,6 +18,11 @@
 #include "nodetype.h"
 
 #define USERREQUEST_TIMEOUT 3
+
+inline void initCheatCardBaseResources() {
+    Q_INIT_RESOURCE(CheatCard);
+}
+
 namespace RC {
 
 namespace API {
@@ -48,6 +53,7 @@ public:
     unsigned int getCardVersion(unsigned int cardId) const;
 
     static QString libVersion();
+    static void init();
 
     bool restoreOldData(const QByteArray &curentUserKey,
                         const QString& domain = "",

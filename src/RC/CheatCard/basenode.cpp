@@ -349,6 +349,10 @@ QH::ISqlDBCache *BaseNode::db() const {
     return _db;
 }
 
+void BaseNode::init() {
+    initCheatCardBaseResources();
+}
+
 const QMap<int, QSharedPointer<QH::iParser> > &BaseNode::apiParsers() const {
     return _apiParsers;
 }
