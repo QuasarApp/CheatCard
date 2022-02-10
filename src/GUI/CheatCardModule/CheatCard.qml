@@ -40,7 +40,7 @@ ApplicationWindow {
     property var model: mainModel
     property var user: (mainModel)? mainModel.currentUser: null
     Material.primary: config.getStrValue("colorTheme", defaultpPimaryColor)
-    Material.accent: Material.Orange
+    Material.accent: Material.primary
     Material.theme: (config.getValue("darkTheme", false))? Material.Dark : Material.Light
 
 
