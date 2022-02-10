@@ -61,6 +61,7 @@ CPage {
                             RadioButton {
                                 id: fSaller
                                 text: qsTr("I am a business representative")
+                                visible: model && model.fBillingAwailable()
                             }
 
                             RadioButton {
