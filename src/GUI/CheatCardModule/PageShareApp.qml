@@ -20,55 +20,165 @@ Page {
     contentItem: GridLayout {
         id: rootGrid
 
-        flow: (alignroot.fHorisontal)? GridLayout.LeftToRight : GridLayout.TopToBottom
+        flow: (alignroot1.fHorisontal || alignroot2.fHorisontal)? GridLayout.LeftToRight : GridLayout.TopToBottom
 
         ColumnLayout {
-            Image {
-                id: imgLogo
-                fillMode: Image.PreserveAspectFit
-                Layout.preferredWidth:  Math.min(root.width * 0.4, root.height * 0.4)
-                Layout.preferredHeight: width * 0.4
-                Layout.alignment: Qt.AlignHCenter
-                source: "qrc:/images/private/resources/Interface_icons/Google_play_logo.png"
+            anchors.fill: parent
+
+            SwipeView {
+                id: view
+
+                currentIndex: 0
+                anchors.fill: parent
+
+                Page {
+                    id: firstPage
+
+                    contentItem:
+                    ColumnLayout {
+                        Image {
+                            id: imgLogo1
+                            fillMode: Image.PreserveAspectFit
+                            Layout.preferredWidth:  Math.min(root.width * 0.4, root.height * 0.4)
+                            Layout.preferredHeight: width * 0.4
+                            Layout.alignment: Qt.AlignHCenter
+                            source: "qrc:/images/private/resources/Interface_icons/Google_play_logo.png"
+                        }
+
+                        Label {
+                            text: qsTr("To get a cheat card, scan the QR code and follow the link.")
+                            horizontalAlignment: Qt.AlignHCenter
+                            verticalAlignment: Qt.AlignTop
+                            wrapMode: Text.WordWrap
+                            font.pointSize: 14
+
+                            Layout.fillWidth: true
+                        }
+                    }
+
+                    Item {
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                    }
+
+                    Image {
+                        id: imgQr1
+                        fillMode: Image.PreserveAspectFit
+                        Layout.preferredHeight: Math.min(root.width * 0.8, root.height * 0.8)
+                        Layout.preferredWidth:  Math.min(root.width * 0.8, root.height * 0.8)
+                        Layout.alignment: Qt.AlignHCenter
+                        source: "qrc:/images/private/resources/Interface_icons/qr-code_android_link.png"
+                        layer.enabled: true
+                        layer.effect: ShaderColorOverlay {
+                            color: Material.primary
+                            fragSh: "qrc:/private/resources/shaders/shaderColorQrCode.fsh"
+                        }
+                    }
+
+                    Item {
+                        id: alignroot1
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+
+                        property bool fHorisontal: rootGrid.height < rootGrid.width
+                    }
+
+                }
+
+                Page {
+                    id: secondPage
+
+                    contentItem:
+                    ColumnLayout {
+                        Image {
+                            id: imgLogo2
+                            fillMode: Image.PreserveAspectFit
+                            Layout.preferredWidth:  Math.min(root.width * 0.4, root.height * 0.4)
+                            Layout.preferredHeight: width * 0.4
+                            Layout.alignment: Qt.AlignHCenter
+                            source: "qrc:/images/private/resources/Interface_icons/apple_app_store.png"
+                        }
+
+                        Label {
+                            text: qsTr("To get a cheat card, scan the QR code and follow the link.")
+                            horizontalAlignment: Qt.AlignHCenter
+                            verticalAlignment: Qt.AlignTop
+                            wrapMode: Text.WordWrap
+                            font.pointSize: 14
+
+                            Layout.fillWidth: true
+                        }
+                    }
+
+                    Item {
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                    }
+
+                    Image {
+                        id: imgQr2
+                        fillMode: Image.PreserveAspectFit
+                        Layout.preferredHeight: Math.min(root.width * 0.8, root.height * 0.8)
+                        Layout.preferredWidth:  Math.min(root.width * 0.8, root.height * 0.8)
+                        Layout.alignment: Qt.AlignHCenter
+                        source: "qrc:/images/private/resources/Interface_icons/qr-code_apple_link.png"
+                        layer.enabled: true
+                        layer.effect: ShaderColorOverlay {
+                            color: Material.primary
+                            fragSh: "qrc:/private/resources/shaders/shaderColorQrCode.fsh"
+                        }
+                    }
+
+                    Item {
+                        id: alignroot2
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+
+                        property bool fHorisontal: rootGrid.height < rootGrid.width
+                    }
+                }
+
             }
 
-            Label {
-                text: qsTr("To get a cheat card, scan the QR code and follow the link.")
-                horizontalAlignment: Qt.AlignHCenter
-                verticalAlignment: Qt.AlignTop
-                wrapMode: Text.WordWrap
-                font.pointSize: 14
+            PageIndicator {
+                id: indicator
 
-                Layout.fillWidth: true
+                count: view.count
+                currentIndex: view.currentIndex
+
+                anchors.bottom: view.bottom
+                anchors.horizontalCenter: parent.horizontalCenter
             }
+
         }
 
-        Item {
-            Layout.fillHeight: true
-            Layout.fillWidth: true
+    }
+
+    footer: RowLayout {
+        Layout.alignment: Qt.AlignHCenter
+        ToolButton {
+            icon.source: "qrc:/images/private/resources/Interface_icons/android_icon_btn.svg"
+            icon.height: 30
+            icon.width: 30
+            icon.color: "transparent"
+            Layout.alignment: Qt.AlignRight
+            enabled: view.currentIndex
+            onClicked: () => {
+                           view.currentIndex--;
+                       }
         }
 
-        Image {
-            id: imgQr
-            fillMode: Image.PreserveAspectFit
-            Layout.preferredHeight: Math.min(root.width * 0.8, root.height * 0.8)
-            Layout.preferredWidth:  Math.min(root.width * 0.8, root.height * 0.8)
-            Layout.alignment: Qt.AlignHCenter
-            source: "qrc:/images/private/resources/Interface_icons/share_url_qrcode.png"
-            layer.enabled: true
-            layer.effect: ShaderColorOverlay {
-                color: Material.primary
-                fragSh: "qrc:/private/resources/shaders/shaderColorQrCode.fsh"
-            }
+        ToolButton {
+            id: nextButton
+            icon.source: "qrc:/images/private/resources/Interface_icons/apple_icon_btn.svg"
+            icon.height: 30
+            icon.width: 30
+            icon.color: "transparent"
+            Layout.alignment: Qt.AlignLeft
+            enabled: view.currentIndex != 1
+            onClicked: () => {
+                           view.currentIndex++;
+                       }
         }
-
-        Item {
-            id: alignroot
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-
-            property bool fHorisontal: rootGrid.height < rootGrid.width
-        }
-
     }
 }

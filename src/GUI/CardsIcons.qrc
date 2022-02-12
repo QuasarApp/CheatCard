@@ -80,9 +80,13 @@
         <file>private/resources/Interface_icons/main_color.svg</file>
         <file>private/resources/Interface_icons/logo.svg</file>
         <file>private/resources/Interface_icons/seal.svg</file>
-        <file>private/resources/Interface_icons/sharing_icon.svg</file>
-        <file>private/resources/Interface_icons/share_url_qrcode.png</file>
+        <file>private/resources/Interface_icons/sharing_icon.svg</file>                        
         <file>private/resources/Interface_icons/Google_play_logo.png</file>
+        <file>private/resources/Interface_icons/apple_app_store.png</file>
+        <file>private/resources/Interface_icons/qr-code_android_link.png</file>
+        <file>private/resources/Interface_icons/qr-code_apple_link.png</file>
+        <file>private/resources/Interface_icons/android_icon_btn.svg</file>
+        <file>private/resources/Interface_icons/apple_icon_btn.svg</file>
         <file>private/resources/Interface_icons/statistic.svg</file>
         <file>private/resources/Interface_icons/key_push.svg</file>
         <file>private/resources/Interface_icons/key_pull.svg</file>
