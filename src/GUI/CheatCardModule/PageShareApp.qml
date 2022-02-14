@@ -23,13 +23,15 @@ Page {
         flow: (alignroot1.fHorisontal || alignroot2.fHorisontal)? GridLayout.LeftToRight : GridLayout.TopToBottom
 
         ColumnLayout {
-            anchors.fill: parent
+            Layout.fillWidth: true
+            Layout.fillHeight: true
 
             SwipeView {
                 id: view
 
                 currentIndex: 0
-                anchors.fill: parent
+                Layout.fillWidth: true
+                Layout.fillHeight: true
 
                 Page {
                     id: firstPage
@@ -146,8 +148,8 @@ Page {
                 count: view.count
                 currentIndex: view.currentIndex
 
-                anchors.bottom: view.bottom
-                anchors.horizontalCenter: parent.horizontalCenter
+                Layout.alignment: Qt.AlignHCenter
+
             }
 
         }
