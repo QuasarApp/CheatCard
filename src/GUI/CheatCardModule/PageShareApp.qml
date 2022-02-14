@@ -20,7 +20,7 @@ Page {
     contentItem: GridLayout {
         id: rootGrid
 
-        flow: (alignroot1.fHorisontal || alignroot2.fHorisontal)? GridLayout.LeftToRight : GridLayout.TopToBottom
+        flow: (alignroot1.fHorisontal | alignroot2.fHorisontal)? GridLayout.LeftToRight : GridLayout.TopToBottom
 
         ColumnLayout {
             Layout.fillWidth: true
@@ -38,6 +38,7 @@ Page {
 
                     contentItem:
                     ColumnLayout {
+
                         Image {
                             id: imgLogo1
                             fillMode: Image.PreserveAspectFit
@@ -98,7 +99,7 @@ Page {
                             Layout.preferredWidth:  Math.min(root.width * 0.4, root.height * 0.4)
                             Layout.preferredHeight: width * 0.4
                             Layout.alignment: Qt.AlignHCenter
-                            source: "qrc:/images/private/resources/Interface_icons/apple_app_store.png"
+                            source: "qrc:/images/private/resources/Interface_icons/AppStore.png"
                         }
 
                         Label {
@@ -152,35 +153,36 @@ Page {
 
             }
 
+            RowLayout {
+                Layout.alignment: Qt.AlignHCenter
+                ToolButton {
+                    icon.source: "qrc:/images/private/resources/Interface_icons/android_icon_btn.svg"
+                    icon.height: 30
+                    icon.width: 30
+                    icon.color: "transparent"
+                    Layout.alignment: Qt.AlignRight
+                    enabled: view.currentIndex
+                    onClicked: () => {
+                                   view.currentIndex--;
+                               }
+                }
+
+                ToolButton {
+                    id: nextButton
+                    icon.source: "qrc:/images/private/resources/Interface_icons/apple_icon_btn.svg"
+                    icon.height: 30
+                    icon.width: 30
+                    icon.color: "transparent"
+                    Layout.alignment: Qt.AlignLeft
+                    enabled: view.currentIndex != 1
+                    onClicked: () => {
+                                   view.currentIndex++;
+                               }
+                }
+            }
+
         }
 
     }
 
-    footer: RowLayout {
-        Layout.alignment: Qt.AlignHCenter
-        ToolButton {
-            icon.source: "qrc:/images/private/resources/Interface_icons/android_icon_btn.svg"
-            icon.height: 30
-            icon.width: 30
-            icon.color: "transparent"
-            Layout.alignment: Qt.AlignRight
-            enabled: view.currentIndex
-            onClicked: () => {
-                           view.currentIndex--;
-                       }
-        }
-
-        ToolButton {
-            id: nextButton
-            icon.source: "qrc:/images/private/resources/Interface_icons/apple_icon_btn.svg"
-            icon.height: 30
-            icon.width: 30
-            icon.color: "transparent"
-            Layout.alignment: Qt.AlignLeft
-            enabled: view.currentIndex != 1
-            onClicked: () => {
-                           view.currentIndex++;
-                       }
-        }
-    }
 }
