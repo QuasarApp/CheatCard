@@ -17,28 +17,22 @@ Page {
 
     implicitHeight: 0x0
 
-    contentItem: GridLayout {
+    contentItem: ColumnLayout {
         id: rootGrid
 
-        flow: (alignroot1.fHorisontal | alignroot2.fHorisontal)? GridLayout.LeftToRight : GridLayout.TopToBottom
+        SwipeView {
+            id: view
 
-        ColumnLayout {
+            currentIndex: 0
             Layout.fillWidth: true
             Layout.fillHeight: true
 
-            SwipeView {
-                id: view
+            Page {
+                id: firstPage
 
-                currentIndex: 0
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-
-                Page {
-                    id: firstPage
-
-                    contentItem:
+                contentItem: GridLayout {
+                    flow: (alignroot1.fHorisontal)? GridLayout.LeftToRight : GridLayout.TopToBottom
                     ColumnLayout {
-
                         Image {
                             id: imgLogo1
                             fillMode: Image.PreserveAspectFit
@@ -85,13 +79,15 @@ Page {
 
                         property bool fHorisontal: rootGrid.height < rootGrid.width
                     }
-
                 }
+            }
 
-                Page {
-                    id: secondPage
+            Page {
+                id: secondPage
 
-                    contentItem:
+                contentItem: GridLayout {
+                    flow: (alignroot2.fHorisontal)? GridLayout.LeftToRight : GridLayout.TopToBottom
+
                     ColumnLayout {
                         Image {
                             id: imgLogo2
@@ -140,47 +136,45 @@ Page {
                         property bool fHorisontal: rootGrid.height < rootGrid.width
                     }
                 }
+            }
+        }
 
+        PageIndicator {
+            id: indicator
+
+            count: view.count
+            currentIndex: view.currentIndex
+
+            Layout.alignment: Qt.AlignHCenter
+
+        }
+
+        RowLayout {
+            Layout.alignment: Qt.AlignHCenter
+            ToolButton {
+                icon.source: "qrc:/images/private/resources/Interface_icons/android_icon_btn.svg"
+                icon.height: 30
+                icon.width: 30
+                icon.color: "transparent"
+                Layout.alignment: Qt.AlignRight
+                enabled: view.currentIndex
+                onClicked: () => {
+                               view.currentIndex--;
+                           }
             }
 
-            PageIndicator {
-                id: indicator
-
-                count: view.count
-                currentIndex: view.currentIndex
-
-                Layout.alignment: Qt.AlignHCenter
-
+            ToolButton {
+                id: nextButton
+                icon.source: "qrc:/images/private/resources/Interface_icons/apple_icon_btn.svg"
+                icon.height: 30
+                icon.width: 30
+                icon.color: "transparent"
+                Layout.alignment: Qt.AlignLeft
+                enabled: view.currentIndex != 1
+                onClicked: () => {
+                               view.currentIndex++;
+                           }
             }
-
-            RowLayout {
-                Layout.alignment: Qt.AlignHCenter
-                ToolButton {
-                    icon.source: "qrc:/images/private/resources/Interface_icons/android_icon_btn.svg"
-                    icon.height: 30
-                    icon.width: 30
-                    icon.color: "transparent"
-                    Layout.alignment: Qt.AlignRight
-                    enabled: view.currentIndex
-                    onClicked: () => {
-                                   view.currentIndex--;
-                               }
-                }
-
-                ToolButton {
-                    id: nextButton
-                    icon.source: "qrc:/images/private/resources/Interface_icons/apple_icon_btn.svg"
-                    icon.height: 30
-                    icon.width: 30
-                    icon.color: "transparent"
-                    Layout.alignment: Qt.AlignLeft
-                    enabled: view.currentIndex != 1
-                    onClicked: () => {
-                                   view.currentIndex++;
-                               }
-                }
-            }
-
         }
 
     }
