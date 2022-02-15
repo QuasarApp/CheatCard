@@ -32,8 +32,8 @@ Page {
                 ColumnLayout {
                     Image {
                         fillMode: Image.PreserveAspectFit
-                        Layout.preferredWidth:  Math.min(root.width * 0.4, root.height * 0.4)
-                        Layout.preferredHeight: width * 0.4
+                        Layout.preferredWidth:  Math.min(root.width * 0.5, root.height * 0.5)
+                        Layout.preferredHeight: width * 0.5
                         Layout.alignment: Qt.AlignHCenter
                         source: "qrc:/images/private/resources/Interface_icons/Google_play_logo.png"
                     }
@@ -74,8 +74,8 @@ Page {
                 ColumnLayout {
                     Image {
                         fillMode: Image.PreserveAspectFit
-                        Layout.preferredWidth:  Math.min(root.width * 0.4, root.height * 0.4)
-                        Layout.preferredHeight: width * 0.4
+                        Layout.preferredWidth:  Math.min(root.width * 0.5, root.height * 0.5)
+                        Layout.preferredHeight: width * 0.5
                         Layout.alignment: Qt.AlignHCenter
                         source: "qrc:/images/private/resources/Interface_icons/AppStore.png"
                     }
