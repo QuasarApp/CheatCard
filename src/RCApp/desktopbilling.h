@@ -4,6 +4,8 @@
 #include <CheatCardGui/ibilling.h>
 #include "QSettings"
 
+#define TEST_SELLER_ID "TestSeller"
+#define TEST_SELLER_TOKEN "testbase64tokenofseller"
 
 class DesktopBilling: public RC::IBilling
 {
@@ -17,11 +19,11 @@ public:
 
 public slots:
     void becomeSeller() override;
-    bool isSupported() const override;
+    bool isSupported() override;
 
-private:
-    QSettings _settings;
+protected:
     void sendPurchase(const QString &token);
+    QSettings _settings;
 };
 
 #endif // DESKTOPBILLING_H

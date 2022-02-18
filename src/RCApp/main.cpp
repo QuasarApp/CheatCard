@@ -9,6 +9,7 @@
 #include <quasarapp.h>
 #include "CheatCardGui/CheatCard.h"
 #include <QSslSocket>
+#include <novalidationbilling.h>
 #include <qmlnotifyservice.h>
 #include "androidbilling.h"
 #include "desktopbilling.h"
@@ -34,6 +35,10 @@ RC::IBilling * getBillingInstance() {
 #ifdef USE_SIGN_APP
     return new AndroidBilling;
 #endif
+#endif
+
+#ifdef ALLOW_BILLING_APP
+    return new NoValidationBilling;
 #endif
 
 #ifdef Q_OS_LINUX

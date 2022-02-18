@@ -44,7 +44,7 @@ const char *AndroidBilling::getPublicKey() {
     return publick_key;
 }
 
-bool AndroidBilling::isSupported() const {
+bool AndroidBilling::isSupported() {
     return true;
 }
 
