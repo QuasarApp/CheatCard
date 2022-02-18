@@ -3,9 +3,6 @@
 
 #include <qmlnotifyservice.h>
 
-#define TEST_SELLER_ID "TestSeller"
-#define TEST_SELLER_TOKEN "testbase64tokenofseller"
-
 DesktopBilling::DesktopBilling() {
 
 }
@@ -44,6 +41,6 @@ void DesktopBilling::becomeSeller() {
                             " Do you realy want to become a seller?"));
 }
 
-bool DesktopBilling::isSupported() const {
+bool DesktopBilling::isSupported() {
     return true;
 }

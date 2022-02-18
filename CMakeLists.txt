@@ -104,6 +104,8 @@ if (NOT DEFINED CHEATCARD_APP)
 
 endif()
 
+option(ALLOW_BILLING "This option force to add seller funtions" OFF)
+
 set(HEART_BUILD_LVL 1)
 
 add_subdirectory(submodules/Heart)
