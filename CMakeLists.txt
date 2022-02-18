@@ -104,7 +104,7 @@ if (NOT DEFINED CHEATCARD_APP)
 
 endif()
 
-option(ALLOW_BILLING "This option force to add seller funtions" OFF)
+option(ALLOW_BILLING "This option force to add seller functions" OFF)
 
 set(HEART_BUILD_LVL 1)
 
