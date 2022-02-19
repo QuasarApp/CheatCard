@@ -314,6 +314,29 @@
         <source>I am a business representative</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Select application color</source>
+        <translatorcomment>Select application color</translatorcomment>
+        <translation>Select application color</translation>
+    </message>
+    <message>
+        <source>Select</source>
+        <translatorcomment>Select</translatorcomment>
+        <translation>Select</translation>
+    </message>
+    <message>
+        <source>Dark Theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please choose a color</source>
+        <translation>Please choose a color</translation>
+    </message>
+    <message>
+        <source>Appearance settings!</source>
+        <translatorcomment>Appearance settings!</translatorcomment>
+        <translation>Appearance settings!</translation>
+    </message>
 </context>
 <context>
     <name>FreeItemsView</name>

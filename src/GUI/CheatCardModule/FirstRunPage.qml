@@ -136,6 +136,114 @@ CPage {
                 }
             }
 
+            CPage {
+                id: customUiPage
+
+                title: qsTr("Appearance settings!")
+
+                contentItem: Item {
+
+                    ColumnLayout {
+                        anchors.fill: parent
+                        spacing: 20
+                        Item {
+                            Layout.fillHeight: true
+                        }
+
+                        Pane {
+                            id: externality
+
+                            Layout.margins: 10
+                            Layout.alignment: Qt.AlignHCenter
+                            Layout.fillWidth: true
+
+                            contentItem: ColumnLayout {
+                                implicitWidth: 0x0
+
+                                RowLayout {
+
+                                    Label {
+                                        text: qsTr("Select application color")
+                                        horizontalAlignment: Text.AlignVCenter
+                                        opacity: enabled ? 1.0 : 0.3
+                                        wrapMode: Text.WordWrap
+
+                                        Layout.fillWidth: true
+                                    }
+
+                                    Rectangle {
+                                        id: colorView
+                                        width: 25
+                                        height: 25
+                                        radius: 5
+                                        color: Material.primary
+                                    }
+
+                                    Button {
+                                        id: btnSelectColor
+                                        text: qsTr("Select")
+
+                                        onClicked: () => {
+                                                       activityProcessor.newActivityFromComponent(settingdColor);
+                                                   }
+                                    }
+
+                                }
+
+                                SwitchDelegate {
+                                    id: darkTheme
+                                    text: qsTr("Dark Theme")
+                                    checked: config.getValue("darkTheme", false)
+                                    padding: 0
+
+                                    onCheckedChanged: () => {
+                                                          config.setValue("darkTheme", darkTheme.checked)
+                                                      }
+
+                                    Layout.fillWidth: true
+
+                                    contentItem: Label {
+                                        rightPadding: darkTheme.indicator.width + darkTheme.spacing
+                                        text: darkTheme.text
+                                        opacity: enabled ? 1.0 : 0.3
+                                        elide: Text.ElideRight
+                                        verticalAlignment: Text.AlignVCenter
+                                        wrapMode: Text.WordWrap
+                                    }
+
+                                }
+
+                                Component {
+                                    id: settingdColor
+
+                                    ColorPicker {
+                                        id: colorPick
+                                        currentlyColor: Material.primary
+                                        implicitHeight: 0x0
+                                        title: qsTr("Please choose a color")
+
+                                        footer: DialogButtonBox {
+                                            onAccepted: () => {
+                                                            colorView.color = colorPick.color
+                                                            config.setStrValue("colorTheme", colorPick.color)
+
+                                                            activityProcessor.popItem();
+                                                        }
+
+                                            standardButtons: Dialog.Open
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        Item {
+                            Layout.fillHeight: true
+                        }
+                    }
+                }
+            }
+
             RegistrationFinishedPage {
                 implicitWidth: 0x0
                 onFinished: (backUp) => {
@@ -175,7 +283,7 @@ CPage {
 
     footer: RowLayout {
         Layout.alignment: Qt.AlignHCenter
-        visible: view.currentIndex < 2
+        visible: view.currentIndex < 3
         Button {
             text: qsTr("Back")
             Layout.alignment: Qt.AlignHCenter
@@ -192,7 +300,7 @@ CPage {
             id: nextButton
             Layout.alignment: Qt.AlignHCenter
             enabled: confugurePage.done || view.currentIndex != 1
-            text: (view.currentIndex < 1)? qsTr("Next"): qsTr("Done!")
+            text: (view.currentIndex < 3)? qsTr("Next"): qsTr("Done!")
             onClicked: () => {
                            view.currentIndex++;
                        }
