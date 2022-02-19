@@ -136,6 +136,8 @@ CPage {
                 }
             }
 
+            AppearanceCustomPage {}
+
             RegistrationFinishedPage {
                 implicitWidth: 0x0
                 onFinished: (backUp) => {
@@ -175,7 +177,7 @@ CPage {
 
     footer: RowLayout {
         Layout.alignment: Qt.AlignHCenter
-        visible: view.currentIndex < 2
+        visible: view.currentIndex < 3
         Button {
             text: qsTr("Back")
             Layout.alignment: Qt.AlignHCenter
@@ -192,7 +194,7 @@ CPage {
             id: nextButton
             Layout.alignment: Qt.AlignHCenter
             enabled: confugurePage.done || view.currentIndex != 1
-            text: (view.currentIndex < 1)? qsTr("Next"): qsTr("Done!")
+            text: (view.currentIndex < 3)? qsTr("Next"): qsTr("Done!")
             onClicked: () => {
                            view.currentIndex++;
                        }

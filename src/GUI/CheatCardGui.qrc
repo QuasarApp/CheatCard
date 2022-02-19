@@ -44,6 +44,7 @@
         <file>CheatCardModule/NetIndicatorModel.qml</file>
         <file>CheatCardModule/QrCodeControl.qml</file>
         <file>CheatCardModule/DiagnoticPage.qml</file>
+        <file>CheatCardModule/AppearanceCustomPage.qml</file>
     </qresource>
     <qresource prefix="/CheatCardTr">
         <file>languages/en.qm</file>

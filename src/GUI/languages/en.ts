@@ -17,6 +17,29 @@
     </message>
 </context>
 <context>
+    <name>AppearanceCustomPage</name>
+    <message>
+        <source>Appearance settings!</source>
+        <translation>Appearance settings!</translation>
+    </message>
+    <message>
+        <source>Select application color</source>
+        <translation>Select application color</translation>
+    </message>
+    <message>
+        <source>Select</source>
+        <translation>Select</translation>
+    </message>
+    <message>
+        <source>Dark Theme</source>
+        <translation>Dark Theme</translation>
+    </message>
+    <message>
+        <source>Please choose a color</source>
+        <translation>Please choose a color</translation>
+    </message>
+</context>
+<context>
     <name>CardsListView</name>
     <message>
         <source>Add card</source>
