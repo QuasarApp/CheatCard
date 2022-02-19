@@ -17,6 +17,29 @@
     </message>
 </context>
 <context>
+    <name>AppearanceCustomPage</name>
+    <message>
+        <source>Appearance settings!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select application color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dark Theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please choose a color</source>
+        <translation type="unfinished">Виберіть колір</translation>
+    </message>
+</context>
+<context>
     <name>CardsListView</name>
     <message>
         <source>Add card</source>
@@ -312,26 +335,6 @@
     </message>
     <message>
         <source>I am a business representative</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Select application color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Select</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Dark Theme</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please choose a color</source>
-        <translation type="unfinished">Виберіть колір</translation>
-    </message>
-    <message>
-        <source>Appearance settings!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

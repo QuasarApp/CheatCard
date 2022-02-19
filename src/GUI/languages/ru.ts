@@ -17,6 +17,29 @@
     </message>
 </context>
 <context>
+    <name>AppearanceCustomPage</name>
+    <message>
+        <source>Appearance settings!</source>
+        <translation>Настроить внешний вид!</translation>
+    </message>
+    <message>
+        <source>Select application color</source>
+        <translation>Выбрать цвет приложения</translation>
+    </message>
+    <message>
+        <source>Select</source>
+        <translation>Выбрать</translation>
+    </message>
+    <message>
+        <source>Dark Theme</source>
+        <translation>Темная тема</translation>
+    </message>
+    <message>
+        <source>Please choose a color</source>
+        <translation>Пожалуйста, выберите цвет</translation>
+    </message>
+</context>
+<context>
     <name>CardsListView</name>
     <message>
         <source>Add card</source>
@@ -313,26 +336,6 @@
     <message>
         <source>I am a business representative</source>
         <translation>Я представитель бизнеса</translation>
-    </message>
-    <message>
-        <source>Select application color</source>
-        <translation>Выбрать цвет приложения</translation>
-    </message>
-    <message>
-        <source>Select</source>
-        <translation>Выбрать</translation>
-    </message>
-    <message>
-        <source>Dark Theme</source>
-        <translation>Темная тема</translation>
-    </message>
-    <message>
-        <source>Please choose a color</source>
-        <translation>Пожалуйста, выберите цвет</translation>
-    </message>
-    <message>
-        <source>Appearance settings!</source>
-        <translation>Настроить внешний вид!</translation>
     </message>
 </context>
 <context>
