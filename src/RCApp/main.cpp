@@ -31,14 +31,14 @@ void initLang() {
 }
 
 RC::IBilling * getBillingInstance() {
+#ifdef ALLOW_BILLING_APP
+    return new NoValidationBilling;
+#endif
+
 #ifdef Q_OS_ANDROID
 #ifdef USE_SIGN_APP
     return new AndroidBilling;
 #endif
-#endif
-
-#ifdef ALLOW_BILLING_APP
-    return new NoValidationBilling;
 #endif
 
 #ifdef Q_OS_LINUX
