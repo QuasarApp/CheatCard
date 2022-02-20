@@ -19,10 +19,6 @@
 <context>
     <name>AppearanceCustomPage</name>
     <message>
-        <source>Appearance settings!</source>
-        <translation>Настроить внешний вид!</translation>
-    </message>
-    <message>
         <source>Select application color</source>
         <translation>Выбрать цвет приложения</translation>
     </message>
@@ -294,10 +290,6 @@
 <context>
     <name>FirstRunPage</name>
     <message>
-        <source>Registration</source>
-        <translation>Регистрация</translation>
-    </message>
-    <message>
         <source>I am client</source>
         <translation>Я клиент</translation>
     </message>
@@ -336,6 +328,10 @@
     <message>
         <source>I am a business representative</source>
         <translation>Я представитель бизнеса</translation>
+    </message>
+    <message>
+        <source>Customize the appearance of your application.</source>
+        <translation>Настройте внешний вид вашего приложения.</translation>
     </message>
 </context>
 <context>

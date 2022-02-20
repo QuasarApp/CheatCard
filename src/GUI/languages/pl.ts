@@ -19,10 +19,6 @@
 <context>
     <name>AppearanceCustomPage</name>
     <message>
-        <source>Appearance settings!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Select application color</source>
         <translation type="unfinished"></translation>
     </message>
@@ -295,10 +291,6 @@
 <context>
     <name>FirstRunPage</name>
     <message>
-        <source>Registration</source>
-        <translation>Rejestracja</translation>
-    </message>
-    <message>
         <source>Who are you?</source>
         <translation>Kim jesteś?</translation>
     </message>
@@ -336,6 +328,10 @@
     </message>
     <message>
         <source>I am a business representative</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Customize the appearance of your application.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
