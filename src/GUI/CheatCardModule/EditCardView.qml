@@ -399,6 +399,7 @@ Page {
                                     anchors.centerIn: parent
                                     width: parent.width * 0.9
                                     height: parent.width * 0.9
+                                    fillMode: Image.PreserveAspectFit
 
                                     Binding {
                                         target: seelImage
