@@ -19,10 +19,6 @@
 <context>
     <name>AppearanceCustomPage</name>
     <message>
-        <source>Appearance settings!</source>
-        <translation>Appearance settings!</translation>
-    </message>
-    <message>
         <source>Select application color</source>
         <translation>Select application color</translation>
     </message>
@@ -94,7 +90,7 @@
     </message>
     <message>
         <source> (work mode)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -214,27 +210,27 @@
     </message>
     <message>
         <source>Edit card</source>
-        <translation type="unfinished">Edit card</translation>
+        <translation>Edit card</translation>
     </message>
     <message>
         <source>Remove card</source>
-        <translation type="unfinished">Remove card</translation>
+        <translation>Remove card</translation>
     </message>
     <message>
         <source>Activate card</source>
-        <translation type="unfinished">Activate card</translation>
+        <translation>Activate card</translation>
     </message>
     <message>
         <source>Statistics</source>
-        <translation type="unfinished">Statistics</translation>
+        <translation>Statistics</translation>
     </message>
     <message>
         <source>Hide statistics</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -257,11 +253,11 @@
     </message>
     <message>
         <source>Work mode</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Start integration with business</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -293,10 +289,6 @@
 </context>
 <context>
     <name>FirstRunPage</name>
-    <message>
-        <source>Registration</source>
-        <translation>Registration</translation>
-    </message>
     <message>
         <source>I am client</source>
         <translation>I am client</translation>
@@ -331,11 +323,15 @@
     </message>
     <message>
         <source>I just want to recover data</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>I am a business representative</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Customize the appearance of your application.</source>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -515,7 +511,7 @@
     </message>
     <message>
         <source>### Guide to using Cheat Cards for business</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -617,7 +613,7 @@
     </message>
     <message>
         <source>Permission denied to selected file.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -676,38 +672,38 @@
     </message>
     <message>
         <source>Operation not permitted</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>This card have a active clients, so you can&apos;t to remove this card.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Remove Card</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>You trying to delete this card, do not worry a seller that has give out this card save all bonuses locally,  so after repeat visit you will be get all your removed bonuses again. Do you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>The card reset to default successful but load default card from server failed, so you receive your card after new purchase in institution that has give out this card.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>We seem to have a problems</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
     <name>RC::NetIndicatorModel</name>
     <message>
         <source>No internet connection.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Oops</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -734,38 +730,38 @@
     </message>
     <message>
         <source>Available</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Status</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Active</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Passive</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
     <name>RC::SettingsModel</name>
     <message>
         <source>Database location</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Failed to export database</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>From %0 to %1</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Export the database finished successful</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -850,19 +846,19 @@
     </message>
     <message>
         <source>Dark Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Dark Theme</translation>
     </message>
     <message>
         <source>Check database location</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Export a database</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Diagnostic the application</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>

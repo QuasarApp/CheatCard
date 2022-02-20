@@ -15,7 +15,6 @@ import "Style"
 
 CPage {
     id: root
-    title: qsTr("Registration");
 
     property var model: null
 
@@ -77,7 +76,7 @@ CPage {
                 id: confugurePage
                 implicitWidth: 0x0
 
-                property bool done: !visible
+                property bool done: name.text.length
 
                 Keys.onReleased: {
                     if ((event.key === Qt.Key_Back ||
@@ -89,23 +88,15 @@ CPage {
 
                 focus: true
 
+                title: (!fSaller.checked)? qsTr("What is your name?") :
+                                           qsTr("What is the name of your company?");
+
                 contentItem: Item {
 
                     ColumnLayout {
                         anchors.fill: parent
                         visible: fClient.checked || fSaller.checked
 
-                        Label {
-                            horizontalAlignment: Label.AlignHCenter
-                            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                            Layout.fillWidth: true
-                            font.pointSize: 20
-                            color: "#424242"
-                            wrapMode: Label.WordWrap
-
-                            text: (!fSaller.checked)? qsTr("What is your name?") :
-                                                      qsTr("What is the name of your company?");
-                        }
 
                         TextField {
                             id: name
@@ -113,10 +104,6 @@ CPage {
                             Layout.fillWidth: true
                             placeholderText: qsTr("Please enter your name here")
                             horizontalAlignment: TextInput.AlignHCenter
-
-                            onTextChanged: {
-                                confugurePage.done = text.length
-                            }
 
                         }
                     }
@@ -136,7 +123,9 @@ CPage {
                 }
             }
 
-            AppearanceCustomPage {}
+            AppearanceCustomPage {
+                title: qsTr("Customize the appearance of your application.")
+            }
 
             RegistrationFinishedPage {
                 implicitWidth: 0x0

@@ -6,9 +6,6 @@ import "Style"
 
 CPage {
     id: customUiPage
-
-    title: qsTr("Appearance settings!")
-
     contentItem: Item {
 
         ColumnLayout {
