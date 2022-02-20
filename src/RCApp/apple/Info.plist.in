@@ -36,6 +36,9 @@
     <key>CFBundleInfoDictionaryVersion</key>
     <string>6.0</string>
 
+    <key>CFBundleAllowMixedLocalizations</key>
+    <true/>
+
     <!-- Long version that include build number or git commit -->
     <key>CFBundleLongVersionString</key>
     <string>${MACOSX_BUNDLE_LONG_VERSION_STRING}</string>
