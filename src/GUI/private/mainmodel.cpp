@@ -16,6 +16,7 @@
 #include "cardproxymodel.h"
 #include "sellerstatisticmodel.h"
 #include "importexportusermodel.h"
+#include "languagesmodel.h"
 
 #include <CheatCard/database.h>
 
@@ -70,6 +71,7 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
     initImportExportModel();
     initNetIndicateModels();
     initDoctorModel();
+    initLanguageModel();
 
     configureCardsList();
 
@@ -113,6 +115,7 @@ MainModel::~MainModel() {
 
     delete _waitModel;
     delete _soundEffect;
+    delete _langModel;
 }
 
 bool MainModel::fFirst() const {
@@ -368,6 +371,11 @@ void MainModel::initDoctorModel() {
     pills << QSharedPointer<InvalidCardIdPill>::create(_db);
 
     _doctorModel = new DP::DoctorModel(pills);
+}
+
+void MainModel::initLanguageModel() {
+    _langModel = new LanguagesModel();
+
 }
 
 void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
@@ -821,6 +829,10 @@ CardsListModel *MainModel::getCurrentListModel() const {
 
 QObject *MainModel::doctorModel() const {
     return _doctorModel;
+}
+
+QObject *MainModel::langModel() const {
+    return _langModel;
 }
 
 void MainModel::handleListenStop() {

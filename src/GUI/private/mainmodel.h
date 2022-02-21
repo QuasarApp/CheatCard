@@ -44,6 +44,7 @@ class CardProxyModel;
 class SellerStatisticModel;
 class SettingsModel;
 class ImportExportUserModel;
+class LanguagesModel;
 
 /**
  * @brief The MainModel class is main model of the application.
@@ -63,6 +64,7 @@ class MainModel : public QObject, public QuasarAppUtils::SettingsListner
     Q_PROPERTY(QObject * statisticModel READ statisticModel NOTIFY statisticModelChanged)
     Q_PROPERTY(QObject * exportImportModel READ exportImportModel NOTIFY exportImportModelChanged)
     Q_PROPERTY(QObject * doctorModel READ doctorModel NOTIFY doctorModelChanged)
+    Q_PROPERTY(QObject * langModel READ langModel NOTIFY langModelChanged)
 
 
 public:
@@ -114,6 +116,7 @@ public:
     QObject *exportImportModel() const;
 
     QObject *doctorModel() const;
+    QObject *langModel() const;
 
 public slots:
     void handleFirstDataSendet();
@@ -144,6 +147,7 @@ signals:
     void exportImportModelChanged();
 
     void doctorModelChanged();
+    void langModelChanged();
 
     // SettingsListner interface
 protected:
@@ -186,6 +190,7 @@ private:
     void initImportExportModel();
     void initNetIndicateModels();
     void initDoctorModel();
+    void initLanguageModel();
 
     void configureCardsList();
 
@@ -218,6 +223,7 @@ private:
     ItemsModel *_defaultBackgroundsModel = nullptr;
     NetIndicatorModel *_netIdicatorModel = nullptr;
     DP::DoctorModel *_doctorModel = nullptr;
+    LanguagesModel *_langModel = nullptr;
 
     ImportExportUserModel *_importExportModel = nullptr;
     IBilling *_billing = nullptr;

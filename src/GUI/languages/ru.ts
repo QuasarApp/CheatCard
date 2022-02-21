@@ -860,6 +860,10 @@
         <source>Diagnostic the application</source>
         <translation>Диагностика приложения</translation>
     </message>
+    <message>
+        <source>Language</source>
+        <translation>Язык</translation>
+    </message>
 </context>
 <context>
     <name>WaitConnectView</name>
