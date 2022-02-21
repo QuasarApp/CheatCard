@@ -101,6 +101,29 @@ Page {
 
                     }
 
+                    RowLayout {
+
+                        Label {
+                            text: qsTr("Language")
+                            horizontalAlignment: Text.AlignVCenter
+                            opacity: enabled ? 1.0 : 0.3
+                            wrapMode: Text.WordWrap
+
+                            Layout.fillWidth: true
+                        }
+
+                        ComboBox {
+                            id: langSelector
+                            model: (mainModel)? mainModel.langModel: null
+                            displayText: (model)? model.getCurrentLanguage(): "";
+                            onActivated: {
+                                if (model) {
+                                    model.selectLanguagge(currentText, this)
+                                }
+                            }
+                        }
+                    }
+
                     Component {
                         id: settingdColor
 

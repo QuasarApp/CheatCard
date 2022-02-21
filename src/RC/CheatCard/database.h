@@ -12,8 +12,7 @@
 #include "heart.h"
 #include "isqldbcache.h"
 #include "core_global.h"
-
-#define CURRENT_USER "CURRENT_USER"
+#include "settingskeys.h"
 
 namespace RC {
 

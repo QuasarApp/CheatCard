@@ -32,6 +32,7 @@ CheatCard::~CheatCard() {
     _db->softDelete();
 }
 
+
 bool CheatCard::init(QQmlApplicationEngine *engine, IBilling *billingObject) {
 
     initCheatCardResources();

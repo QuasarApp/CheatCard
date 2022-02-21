@@ -13,9 +13,17 @@
 #include <qmlnotifyservice.h>
 #include "androidbilling.h"
 #include "desktopbilling.h"
+#include "CheatCard/settingskeys.h"
 
 void initLang() {
     QLocale locale = QLocale::system();
+    QSettings setting;
+    QString userLang = setting.value(CURRENT_LANG).toString();
+
+    if (!userLang.isEmpty()) {
+        locale = QLocale(userLang);
+    }
+
     QString customLanguage = QuasarAppUtils::Params::getArg("lang");
     if(customLanguage.size()) {
         locale = QLocale(customLanguage);
@@ -62,6 +70,7 @@ int main(int argc, char *argv[]) {
 
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
+
 
     if (!QmlNotificationService::init(&engine)) {
         return 0;
