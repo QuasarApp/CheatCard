@@ -136,6 +136,17 @@ void CardsListModel::removeCard(int cardId) {
     emit sigCardRemoved(cardId);
 }
 
+void CardsListModel::activateCard(int cardId) {
+    auto card = _cache.value(cardId);
+    if (card) {
+        handleActivate(card->card());
+    }
+}
+
+void CardsListModel::activateCardByIndex(int index) {
+    activateCard(_cards.value(index));
+}
+
 const QHash<int, QSharedPointer<CardModel> > &CardsListModel::cache() const {
     return _cache;
 }

@@ -45,6 +45,7 @@ class SellerStatisticModel;
 class SettingsModel;
 class ImportExportUserModel;
 class LanguagesModel;
+class ActivityProcessorModel;
 
 /**
  * @brief The MainModel class is main model of the application.
@@ -65,6 +66,7 @@ class MainModel : public QObject, public QuasarAppUtils::SettingsListner
     Q_PROPERTY(QObject * exportImportModel READ exportImportModel NOTIFY exportImportModelChanged)
     Q_PROPERTY(QObject * doctorModel READ doctorModel NOTIFY doctorModelChanged)
     Q_PROPERTY(QObject * langModel READ langModel NOTIFY langModelChanged)
+    Q_PROPERTY(QObject * activityProcessorModel READ activityProcessorModel NOTIFY activityProcessorModelChanged)
 
 
 public:
@@ -117,6 +119,8 @@ public:
 
     QObject *doctorModel() const;
     QObject *langModel() const;
+    QObject *activityProcessorModel() const;
+
 
 public slots:
     void handleFirstDataSendet();
@@ -133,12 +137,6 @@ signals:
 
     void defaultBackgroundsModelChanged();
 
-    void connectionWasBegin();
-    void connectionWasEnd();
-    void freeItem(QObject *cardId, int userId,
-                  int freeItemsCount);
-
-
     void modeChanged();
 
     void waitModelChanged();
@@ -148,6 +146,7 @@ signals:
 
     void doctorModelChanged();
     void langModelChanged();
+    void activityProcessorModelChanged();
 
     // SettingsListner interface
 protected:
@@ -164,9 +163,6 @@ private slots:
     void handleRemoveRequest(const QSharedPointer<API::Card> &card);
     void handleCardSelectedForWork(const QSharedPointer<RC::CardModel>& card);
     void handleCardSelectedForStatistic(const QSharedPointer<RC::CardModel>& card);
-
-    void handleConnectWasBegin();
-    void handleConnectWasFinished();
 
     void handlePurchaseWasSuccessful(QSharedPointer<API::UsersCards>, bool alert);
     void handleListenStart(int purchasesCount, QSharedPointer<RC::CardModel> model, const QString &extraData);
@@ -191,6 +187,7 @@ private:
     void initNetIndicateModels();
     void initDoctorModel();
     void initLanguageModel();
+    void initActivityProcessorModel();
 
     void configureCardsList();
 
@@ -224,6 +221,7 @@ private:
     NetIndicatorModel *_netIdicatorModel = nullptr;
     DP::DoctorModel *_doctorModel = nullptr;
     LanguagesModel *_langModel = nullptr;
+    ActivityProcessorModel *_activityProcessorModel = nullptr;
 
     ImportExportUserModel *_importExportModel = nullptr;
     IBilling *_billing = nullptr;

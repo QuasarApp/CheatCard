@@ -17,6 +17,7 @@
 #include "sellerstatisticmodel.h"
 #include "importexportusermodel.h"
 #include "languagesmodel.h"
+#include "activityprocessormodel.h"
 
 #include <CheatCard/database.h>
 
@@ -72,6 +73,7 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
     initNetIndicateModels();
     initDoctorModel();
     initLanguageModel();
+    initActivityProcessorModel();
 
     configureCardsList();
 
@@ -116,6 +118,8 @@ MainModel::~MainModel() {
     delete _waitModel;
     delete _soundEffect;
     delete _langModel;
+    delete _activityProcessorModel;
+
 }
 
 bool MainModel::fFirst() const {
@@ -376,6 +380,10 @@ void MainModel::initDoctorModel() {
 void MainModel::initLanguageModel() {
     _langModel = new LanguagesModel();
 
+}
+
+void MainModel::initActivityProcessorModel() {
+    _activityProcessorModel = new ActivityProcessorModel();
 }
 
 void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
@@ -723,6 +731,8 @@ void MainModel::handleRemoveRequest(const QSharedPointer<API::Card> &card) {
 
 void MainModel::handleCardSelectedForWork(const QSharedPointer<CardModel> &card) {
     _waitModel->setCard(card);
+    _activityProcessorModel->newActivity("qrc:/CheatCardModule/WaitConnectView.qml",
+                                         _waitModel);
 }
 
 void MainModel::handleCardSelectedForStatistic(const QSharedPointer<CardModel> &card) {
@@ -730,14 +740,9 @@ void MainModel::handleCardSelectedForStatistic(const QSharedPointer<CardModel> &
     auto usersDataList = _backEndModel->getAllUserDataFromCard(card->card()->cardId());
 
     _statisticModel->setDataList(card, usersList, usersDataList);
-}
 
-void MainModel::handleConnectWasBegin() {
-    emit connectionWasBegin();
-}
-
-void MainModel::handleConnectWasFinished() {
-    emit connectionWasEnd();
+    _activityProcessorModel->newActivity("qrc:/CheatCardModule/SellerStatistic.qml",
+                                         _statisticModel);
 }
 
 void MainModel::handlePurchaseWasSuccessful(QSharedPointer<RC::API::UsersCards> card, bool alert){
@@ -755,7 +760,10 @@ void MainModel::handlePurchaseWasSuccessful(QSharedPointer<RC::API::UsersCards> 
 
     if (freeItems > 0) {
         if (alert) {
-            emit freeItem(cardModel.data(), card->getUser(), freeItems);
+            if (!_activityProcessorModel->freeItem(cardModel.data(), card->getUser(), freeItems)) {
+                QuasarAppUtils::Params::log("Fail to show bonus page.",
+                                            QuasarAppUtils::Error);
+            }
             soundEffectPlayback("Bonus");
         }
 
@@ -825,6 +833,10 @@ bool MainModel::sendSellerDataToServer(const QSharedPointer<API::UserHeader>& he
 
 CardsListModel *MainModel::getCurrentListModel() const {
     return static_cast<CardsListModel*>(_currentCardsListModel->sourceModel());
+}
+
+QObject *MainModel::activityProcessorModel() const {
+    return _activityProcessorModel;
 }
 
 QObject *MainModel::doctorModel() const {

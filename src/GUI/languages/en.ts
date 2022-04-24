@@ -53,6 +53,10 @@
         <source>Let&apos;s go create the first card! Press &quot;Add Card &quot; button</source>
         <translation>Let&apos;s go create the first card! Press &quot;Add Card &quot; button</translation>
     </message>
+    <message>
+        <source>Activate card</source>
+        <translation type="unfinished">Activate card</translation>
+    </message>
 </context>
 <context>
     <name>CheatCard</name>
@@ -91,6 +95,10 @@
     <message>
         <source> (work mode)</source>
         <translation></translation>
+    </message>
+    <message>
+        <source>Create a card</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

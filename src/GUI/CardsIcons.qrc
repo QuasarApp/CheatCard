@@ -80,7 +80,7 @@
         <file>private/resources/Interface_icons/main_color.svg</file>
         <file>private/resources/Interface_icons/logo.svg</file>
         <file>private/resources/Interface_icons/seal.svg</file>
-        <file>private/resources/Interface_icons/sharing_icon.svg</file>                        
+        <file>private/resources/Interface_icons/sharing_icon.svg</file>
         <file>private/resources/Interface_icons/Google_play_logo.png</file>
         <file>private/resources/Interface_icons/AppStore.png</file>
         <file>private/resources/Interface_icons/qr-code_android_link.png</file>
@@ -104,5 +104,6 @@
         <file>private/resources/Icons/Cup_icon_26.png</file>
         <file>private/resources/Icons/Cup_icon_27.png</file>
         <file>private/resources/Backgrounds/Layer_35.png</file>
+        <file>private/resources/Interface_icons/CreateCard.svg</file>
     </qresource>
 </RCC>

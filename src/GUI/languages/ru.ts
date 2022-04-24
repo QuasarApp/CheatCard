@@ -53,6 +53,10 @@
         <source>Let&apos;s go create the first card! Press &quot;Add Card &quot; button</source>
         <translation>Вперёд, создадим первую карту! Нажми кнопку &quot;Добавить карту&quot;</translation>
     </message>
+    <message>
+        <source>Activate card</source>
+        <translation>Активировать карту</translation>
+    </message>
 </context>
 <context>
     <name>CheatCard</name>
@@ -91,6 +95,10 @@
     <message>
         <source> (work mode)</source>
         <translation> (Рабочий режим)</translation>
+    </message>
+    <message>
+        <source>Create a card</source>
+        <translation>Создать карту</translation>
     </message>
 </context>
 <context>

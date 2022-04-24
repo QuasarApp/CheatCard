@@ -43,18 +43,6 @@ ApplicationWindow {
     Material.accent: Material.primary
     Material.theme: (config.getValue("darkTheme", false))? Material.Dark : Material.Light
 
-
-    Connections {
-        target: model
-        function onFreeItem(card, userId, freeItemsCount) {
-
-            var activity = activityProcessor.newActivity("qrc:/CheatCardModule/FreeItemsView.qml",
-                                                         card);
-            activity.freeItems = freeItemsCount
-            activity.userId = userId
-        }
-    }
-
     Connections {
         target: config
         function onValueStrChanged(key, value) {
@@ -137,6 +125,16 @@ ApplicationWindow {
     CMenu {
         id: mainMenu
 
+        MenuItem {
+            visible: (mainModel)? mainModel.mode: false
+            height: (visible)? ganeralMenuItem.height: 0
+            enabled: !mainActivity.mainList.hasEdit
+            text: qsTr("Create a card")
+            icon.source: "qrc:/images/private/resources/Interface_icons/CreateCard.svg"
+            onClicked:  () => {
+                            mainActivity.mainList.createCard()
+                        }
+        }
 
         MenuItem {
             visible: (mainModel)? mainModel.mode: false
@@ -212,75 +210,15 @@ ApplicationWindow {
         }
     }
 
-    StackView {
+    ActivityProcessor {
         id: activityProcessor
+        model: (mainWindow.model)? mainWindow.model.activityProcessorModel: null
         anchors.fill: parent
 
-        onDepthChanged: {
-            if (depth <= 1 && mainModel) {
-                mainModel.handleFirstDataSendet();
-            }
+        initialItem: MainActivity {
+            id: mainActivity
+            model: mainModel
         }
-
-        function newActivityFromComponent(component, activityModel) {
-            var activity = component.createObject(activityProcessor);
-            if (activity === null) {
-                // Error Handling
-                console.error("Error creating Activity object. " + component.errorString());
-                return;
-            }
-
-            if (activityModel) {
-                activity.model = activityModel;
-            }
-
-            push(activity);
-
-            return activity;
-        }
-
-        function newActivity(viewFile, activityModel) {
-
-            if (!viewFile || !viewFile.length) {
-                console.error("Failed to create activity. view object is invalid");
-                return;
-            }
-
-            var component = Qt.createComponent(viewFile);
-
-            if (component.status === Component.Ready) {
-                var activity = component.createObject(activityProcessor);
-                if (activity === null) {
-                    // Error Handling
-                    console.error("Error creating Activity object");
-                    return;
-                }
-
-                if (activityModel) {
-                    activity.model = activityModel;
-                }
-
-                push(activity);
-
-                return activity;
-
-            } else if (component.status === Component.Error) {
-                // Error Handling
-                console.log("Error loading component:", component.errorString());
-            }
-
-
-        }
-
-        function popItem() {
-            pop();
-        }
-
-
-        Component.onCompleted: () => {
-                                   newActivity("qrc:/CheatCardModule/MainActivity.qml",
-                                               mainModel);
-                               }
     }
 
     Component {

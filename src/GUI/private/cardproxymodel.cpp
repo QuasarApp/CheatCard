@@ -26,6 +26,18 @@ void CardProxyModel::removeCard(int cardId) {
     }
 }
 
+void CardProxyModel::activateCard(int cardId) {
+    if (auto source = dynamic_cast<iCardListModel*>(sourceModel())) {
+        source->activateCard(cardId);
+    }
+}
+
+void CardProxyModel::activateCardByIndex(int index) {
+    if (auto source = dynamic_cast<iCardListModel*>(sourceModel())) {
+        source->activateCardByIndex(index);
+    }
+}
+
 bool CardProxyModel::lessThan(const QModelIndex &source_left,
                               const QModelIndex &source_right) const {
 

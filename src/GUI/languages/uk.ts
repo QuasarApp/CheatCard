@@ -53,6 +53,10 @@
         <source>Let&apos;s go create the first card! Press &quot;Add Card &quot; button</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Activate card</source>
+        <translation type="unfinished">Активувати картку</translation>
+    </message>
 </context>
 <context>
     <name>CheatCard</name>
@@ -92,6 +96,10 @@
         <source> (work mode)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Create a card</source>
+        <translation>Створіть картку</translation>
+    </message>
 </context>
 <context>
     <name>ColorPicker</name>
@@ -104,7 +112,7 @@
     <name>ConnectionStatus</name>
     <message>
         <source>Hachiko mode activated!  </source>
-        <translation type="unfinished"></translation>
+        <translation>Режим Хатіко активовано!  </translation>
     </message>
 </context>
 <context>
@@ -214,23 +222,23 @@
     </message>
     <message>
         <source>Remove card</source>
-        <translation type="unfinished"></translation>
+        <translation>Видаліть картку</translation>
     </message>
     <message>
         <source>Activate card</source>
-        <translation type="unfinished"></translation>
+        <translation>Активувати картку</translation>
     </message>
     <message>
         <source>Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Статистика</translation>
     </message>
     <message>
         <source>Hide statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Приховати статистику</translation>
     </message>
     <message>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation>За замовчуванням</translation>
     </message>
 </context>
 <context>
@@ -245,19 +253,19 @@
     </message>
     <message>
         <source>Profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Профіль</translation>
     </message>
     <message>
         <source>Its my name:</source>
-        <translation type="unfinished"></translation>
+        <translation>моє ім&apos;я:</translation>
     </message>
     <message>
         <source>Work mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Режим роботи</translation>
     </message>
     <message>
         <source>Start integration with business</source>
-        <translation type="unfinished"></translation>
+        <translation>Почніть інтеграцію з бізнесом</translation>
     </message>
 </context>
 <context>

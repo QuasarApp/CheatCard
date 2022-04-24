@@ -651,17 +651,12 @@ Page {
 
             function activityCard() {
 
-                const fAvailable = mainModel.mode && isCurrentItem && cardInteractive;
+                const fAvailable = mainModel.mode && isCurrentItem && cardInteractive && root.model;
                 if (!fAvailable) {
                     return;
                 }
 
-                if (root.model) {
-                    root.model.activate()
-                }
-
-                activityProcessor.newActivity("qrc:/CheatCardModule/WaitConnectView.qml",
-                                              mainModel.waitModel)
+                root.model.activate()
             }
 
             function showStatisticsCard() {
@@ -673,11 +668,7 @@ Page {
 
                     if (root.model) {
                         root.model.showStatistick()
-                    }                    
-
-                    const activity = "qrc:/CheatCardModule/SellerStatistic.qml";
-                    activityProcessor.newActivity(activity,
-                                                  mainModel.statisticModel)
+                    }
                     return;
                 }
             }

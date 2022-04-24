@@ -19,10 +19,19 @@ Page {
 
     signal finished()
 
+    function createCard() {
+        if (!root.model)
+            return;
+
+        root.model.addCard()
+        hasEdit = true;
+    }
+
     ColumnLayout {
         anchors.fill: parent
 
         ListView {
+
             id: list
             model: root.model
             currentIndex: count - 1;
@@ -68,7 +77,8 @@ Page {
 
             property int itemHeight: (itemWidth * 0.75)
             property int itemWidth: (root.editable)?
-                                        Math.min(list.width, Math.min(buttonAddCard.y, ) / 0.75) : Math.min(list.width, list.height / 0.75)
+                                        Math.min(list.width, bottomButton.y / 0.75) :
+                                        Math.min(list.width, list.height / 0.75)
 
             Component {
                 id: delegateItem
@@ -127,16 +137,19 @@ Page {
         }
 
         Button {
-            id: buttonAddCard
-            text: qsTr("Add card")
+            id: bottomButton
+            text: (cardCount)?  qsTr("Activate card") : qsTr("Add card")
             Layout.alignment: Qt.AlignHCenter
             visible: root.editable
             enabled: !hasEdit
             onClicked: () => {
-                           root.model.addCard()
-                           hasEdit = true;
-
+                           if (cardCount) {
+                               root.model.activateCardByIndex(list.currentIndex)
+                           } else {
+                               createCard()
+                           }
                        }
+
         }
     }
 
