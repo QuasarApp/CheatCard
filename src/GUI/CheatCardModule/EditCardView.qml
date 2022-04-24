@@ -552,6 +552,22 @@ Page {
                 onClicked: editMenu.popup(this, editCardBtn.x, editCardBtn.height)
             }
 
+            ToolButton {
+                id: cancelCardBtn
+                visible: (root.editable || root.customization)
+                icon.source: "qrc:/images/private/resources/Interface_icons/delete_card.svg"
+                icon.color: (card)? card.fontColor: Material.foreground
+                font.bold: true
+                font.pointSize: 14
+
+                onClicked: () => {
+                               if (root.model) {
+                                   root.finished()
+                                   root.model.remove();
+                               }
+                           }
+            }
+
             transform: Rotation {
                 id: rotationObject
 
