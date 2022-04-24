@@ -14,12 +14,6 @@ CardProxyModel::CardProxyModel()
 
 }
 
-void CardProxyModel::addCard() {
-    if (auto source = dynamic_cast<iCardListModel*>(sourceModel())) {
-        source->addCard();
-    }
-}
-
 void CardProxyModel::removeCard(int cardId) {
     if (auto source = dynamic_cast<iCardListModel*>(sourceModel())) {
         source->removeCard(cardId);

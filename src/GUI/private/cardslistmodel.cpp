@@ -114,11 +114,6 @@ void CardsListModel::updateMetaData(const QList<QSharedPointer<API::UsersCards>>
     }
 }
 
-void CardsListModel::addCard() {
-    auto card = QSharedPointer<API::Card>::create();
-    importCard(card);
-}
-
 void CardsListModel::removeCard(int cardId) {
 
     int index = _cards.indexOf(cardId);

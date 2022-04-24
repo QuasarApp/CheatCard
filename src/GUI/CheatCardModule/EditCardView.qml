@@ -13,9 +13,11 @@ Page {
     Binding {
         target: root
         property: "fontColor"
-        value: (root.model)? model.fontColor : "#777777"
+        value: (root.model)? model.fontColor : "#333333"
     }
     property bool editable: true
+    property bool creating: false
+
     property bool customization: false
     property bool cardInteractive: true
 
@@ -315,8 +317,8 @@ Page {
                     TextFieldWithLogo {
                         id: cardphone
 
-                        textField.color: fontColor
-                        lineColor: fontColor
+                        textField.color: root.fontColor
+                        lineColor: root.fontColor
                         textField.text: (root.model)? root.model.phone : ""
 
                         textField.onTextChanged: {
@@ -341,8 +343,8 @@ Page {
                     TextFieldWithLogo {
                         id: cardfreeItem
 
-                        textField.color: fontColor
-                        lineColor: fontColor
+                        textField.color: root.fontColor
+                        lineColor: root.fontColor
                         textField.text: (root.model)? root.model.freeItem : ""
 
                         textField.onTextChanged: {
@@ -545,7 +547,7 @@ Page {
                 id: editCardBtn
                 visible: isCurrentItem && !(root.editable || root.customization)
                 icon.source: "qrc:/images/private/resources/Interface_icons/Right_topmenu.svg"
-                icon.color: (card)? card.fontColor: Material.foreground
+                icon.color: (root.model)? root.model.fontColor: Material.foreground
                 font.bold: true
                 font.pointSize: 14
 
@@ -554,17 +556,14 @@ Page {
 
             ToolButton {
                 id: cancelCardBtn
-                visible: (root.editable || root.customization)
+                visible: (root.editable || root.customization) && !root.creating
                 icon.source: "qrc:/images/private/resources/Interface_icons/delete_card.svg"
-                icon.color: (card)? card.fontColor: Material.foreground
+                icon.color: (root.model)? root.model.fontColor: Material.foreground
                 font.bold: true
                 font.pointSize: 14
 
                 onClicked: () => {
-                               if (root.model) {
-                                   root.finished()
-                                   root.model.remove();
-                               }
+                               root.finished()
                            }
             }
 

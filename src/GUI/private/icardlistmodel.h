@@ -15,7 +15,6 @@ class iCardListModel
 public:
     iCardListModel();
 
-    virtual void addCard() = 0;
     virtual void removeCard(int cardId) = 0;
     virtual void activateCard(int cardId) = 0;
     virtual void activateCardByIndex(int index) = 0;

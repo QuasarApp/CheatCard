@@ -18,6 +18,7 @@
 #include "importexportusermodel.h"
 #include "languagesmodel.h"
 #include "activityprocessormodel.h"
+#include "createcardmodel.h"
 
 #include <CheatCard/database.h>
 
@@ -74,6 +75,7 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
     initDoctorModel();
     initLanguageModel();
     initActivityProcessorModel();
+    initCreateCardModel();
 
     configureCardsList();
 
@@ -119,6 +121,7 @@ MainModel::~MainModel() {
     delete _soundEffect;
     delete _langModel;
     delete _activityProcessorModel;
+    delete _createCardModel;
 
 }
 
@@ -209,6 +212,12 @@ bool MainModel::handleImportUser(const QString &base64UserData) {
 
 
     return true;
+}
+
+void MainModel::handleCardCreated(const QSharedPointer<API::Card>& card) {
+    auto list = getCurrentListModel();
+    list->importCard(card);
+    handleCardEditFinished(card);
 }
 
 const QSharedPointer<UserModel>& MainModel::getCurrentUser() const {
@@ -384,6 +393,13 @@ void MainModel::initLanguageModel() {
 
 void MainModel::initActivityProcessorModel() {
     _activityProcessorModel = new ActivityProcessorModel();
+}
+
+void MainModel::initCreateCardModel() {
+    _createCardModel = new CreateCardModel();
+
+    connect(_createCardModel, &CreateCardModel::sigCardCreated,
+            this, &MainModel::handleCardCreated);
 }
 
 void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
@@ -913,6 +929,10 @@ QObject *MainModel::defaultBackgroundsModel() const {
 
 QObject *MainModel::exportImportModel() const {
     return _importExportModel;
+}
+
+QObject *MainModel::createCardModel() const {
+    return _createCardModel;
 }
 
 }

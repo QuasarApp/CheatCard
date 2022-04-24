@@ -20,11 +20,8 @@ Page {
     signal finished()
 
     function createCard() {
-        if (!root.model)
-            return;
-
-        root.model.addCard()
-        hasEdit = true;
+        activityProcessor.newActivity("qrc:/CheatCardModule/CreateCardView.qml",
+                                      mainModel.createCardModel);
     }
 
     ColumnLayout {
@@ -149,9 +146,6 @@ Page {
                                createCard()
                            }
                        }
-
-                       }
         }
     }
-
 }

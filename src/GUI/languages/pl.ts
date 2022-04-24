@@ -38,24 +38,24 @@
 <context>
     <name>CardsListView</name>
     <message>
-        <source>Add card</source>
-        <translation>Dodaj kartę</translation>
-    </message>
-    <message>
         <source>Don&apos;t have any cards yet? </source>
-        <translation type="unfinished"></translation>
+        <translation>Nie masz jeszcze żadnych kart? </translation>
     </message>
     <message>
         <source>Visit any coffee and start receiving bonuses now!</source>
-        <translation type="unfinished"></translation>
+        <translation>Odwiedź dowolną kawę i zacznij otrzymywać bonusy już teraz!</translation>
     </message>
     <message>
         <source>Let&apos;s go create the first card! Press &quot;Add Card &quot; button</source>
-        <translation type="unfinished"></translation>
+        <translation>Chodźmy stworzyć pierwszą kartę! Naciśnij przycisk „Dodaj kartę”</translation>
     </message>
     <message>
         <source>Activate card</source>
-        <translation type="unfinished">Aktywuj kartę</translation>
+        <translation>Aktywuj kartę</translation>
+    </message>
+    <message>
+        <source>Add card</source>
+        <translation>Dodaj kartę</translation>
     </message>
 </context>
 <context>
