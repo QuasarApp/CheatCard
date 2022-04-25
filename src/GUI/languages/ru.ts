@@ -38,20 +38,24 @@
 <context>
     <name>CardsListView</name>
     <message>
-        <source>Add card</source>
-        <translation>Добавить карту</translation>
-    </message>
-    <message>
         <source>Don&apos;t have any cards yet? </source>
-        <translation>Всё ещё нет карт? </translation>
+        <translation>У вас еще нет карт? </translation>
     </message>
     <message>
         <source>Visit any coffee and start receiving bonuses now!</source>
-        <translation>Посети любое кафе и начни получать бонусы сейчас!</translation>
+        <translation>Посетите любую кофейню и начните получать бонусы прямо сейчас!</translation>
     </message>
     <message>
         <source>Let&apos;s go create the first card! Press &quot;Add Card &quot; button</source>
-        <translation>Вперёд, создадим первую карту! Нажми кнопку &quot;Добавить карту&quot;</translation>
+        <translation>Давайте создадим первую карту! Нажмите кнопку «Добавить карту»</translation>
+    </message>
+    <message>
+        <source>Activate card</source>
+        <translation>Активировать карту</translation>
+    </message>
+    <message>
+        <source>Add card</source>
+        <translation>Добавить карту</translation>
     </message>
 </context>
 <context>
@@ -91,6 +95,10 @@
     <message>
         <source> (work mode)</source>
         <translation> (Рабочий режим)</translation>
+    </message>
+    <message>
+        <source>Create a card</source>
+        <translation>Создать карту</translation>
     </message>
 </context>
 <context>

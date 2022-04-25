@@ -14,9 +14,10 @@ ColumnLayout {
     id: root
 
     property var model: null
+    property alias mainList: mainListView
 
     CardsListView {
-
+        id: mainListView
         Layout.fillHeight: true
         Layout.fillWidth: true
         model: (root.model) ? root.model.cardsList: null

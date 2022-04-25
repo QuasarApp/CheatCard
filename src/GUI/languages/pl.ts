@@ -38,20 +38,24 @@
 <context>
     <name>CardsListView</name>
     <message>
-        <source>Add card</source>
-        <translation>Dodaj kartę</translation>
-    </message>
-    <message>
         <source>Don&apos;t have any cards yet? </source>
-        <translation type="unfinished"></translation>
+        <translation>Nie masz jeszcze żadnych kart? </translation>
     </message>
     <message>
         <source>Visit any coffee and start receiving bonuses now!</source>
-        <translation type="unfinished"></translation>
+        <translation>Odwiedź dowolną kawę i zacznij otrzymywać bonusy już teraz!</translation>
     </message>
     <message>
         <source>Let&apos;s go create the first card! Press &quot;Add Card &quot; button</source>
-        <translation type="unfinished"></translation>
+        <translation>Chodźmy stworzyć pierwszą kartę! Naciśnij przycisk „Dodaj kartę”</translation>
+    </message>
+    <message>
+        <source>Activate card</source>
+        <translation>Aktywuj kartę</translation>
+    </message>
+    <message>
+        <source>Add card</source>
+        <translation>Dodaj kartę</translation>
     </message>
 </context>
 <context>
@@ -71,27 +75,31 @@
     </message>
     <message>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Pomoc</translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Ustawienia</translation>
     </message>
     <message>
         <source>Share application</source>
-        <translation type="unfinished"></translation>
+        <translation>Udostępnij aplikację</translation>
     </message>
     <message>
         <source>Recovery</source>
-        <translation type="unfinished"></translation>
+        <translation>Powrót do zdrowia</translation>
     </message>
     <message>
         <source>Backup</source>
-        <translation type="unfinished"></translation>
+        <translation>Utworzyć kopię zapasową</translation>
     </message>
     <message>
         <source> (work mode)</source>
-        <translation type="unfinished"></translation>
+        <translation> (tryb pracy)</translation>
+    </message>
+    <message>
+        <source>Create a card</source>
+        <translation>Utwórz kartę</translation>
     </message>
 </context>
 <context>
@@ -211,27 +219,27 @@
     </message>
     <message>
         <source>Edit card</source>
-        <translation type="unfinished"></translation>
+        <translation>Edytuj kartę</translation>
     </message>
     <message>
         <source>Remove card</source>
-        <translation type="unfinished"></translation>
+        <translation>Usuń kartę</translation>
     </message>
     <message>
         <source>Activate card</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktywuj kartę</translation>
     </message>
     <message>
         <source>Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Statystyka</translation>
     </message>
     <message>
         <source>Hide statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukryj statystyki</translation>
     </message>
     <message>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation>Domyślna</translation>
     </message>
 </context>
 <context>
@@ -246,19 +254,19 @@
     </message>
     <message>
         <source>Profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Profil</translation>
     </message>
     <message>
         <source>Its my name:</source>
-        <translation type="unfinished"></translation>
+        <translation>To moje imię:</translation>
     </message>
     <message>
         <source>Work mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Tryb pracy</translation>
     </message>
     <message>
         <source>Start integration with business</source>
-        <translation type="unfinished"></translation>
+        <translation>Rozpocznij integrację z biznesem</translation>
     </message>
 </context>
 <context>

@@ -141,7 +141,6 @@ Frame {
             }
         }
 
-
         Item {
             Layout.fillHeight: true
         }

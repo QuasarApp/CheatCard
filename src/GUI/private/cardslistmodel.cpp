@@ -114,11 +114,6 @@ void CardsListModel::updateMetaData(const QList<QSharedPointer<API::UsersCards>>
     }
 }
 
-void CardsListModel::addCard() {
-    auto card = QSharedPointer<API::Card>::create();
-    importCard(card);
-}
-
 void CardsListModel::removeCard(int cardId) {
 
     int index = _cards.indexOf(cardId);
@@ -134,6 +129,17 @@ void CardsListModel::removeCard(int cardId) {
     endRemoveRows();
 
     emit sigCardRemoved(cardId);
+}
+
+void CardsListModel::activateCard(int cardId) {
+    auto card = _cache.value(cardId);
+    if (card) {
+        handleActivate(card->card());
+    }
+}
+
+void CardsListModel::activateCardByIndex(int index) {
+    activateCard(_cards.value(index));
 }
 
 const QHash<int, QSharedPointer<CardModel> > &CardsListModel::cache() const {

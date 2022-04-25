@@ -45,6 +45,8 @@
         <file>CheatCardModule/QrCodeControl.qml</file>
         <file>CheatCardModule/DiagnoticPage.qml</file>
         <file>CheatCardModule/AppearanceCustomPage.qml</file>
+        <file>CheatCardModule/ActivityProcessor.qml</file>
+        <file>CheatCardModule/CreateCardView.qml</file>
     </qresource>
     <qresource prefix="/CheatCardTr">
         <file>languages/en.qm</file>
