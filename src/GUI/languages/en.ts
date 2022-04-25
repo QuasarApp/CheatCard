@@ -874,6 +874,21 @@
     </message>
 </context>
 <context>
+    <name>UpdateRequestPage</name>
+    <message>
+        <source>Outdated!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sorry but your application version no longer support. Please upgrade your application!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Upgrade</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>WaitConnectView</name>
     <message>
         <source>Seal</source>

@@ -5,34 +5,34 @@
     <name>About</name>
     <message>
         <source> </source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>**Third party libraries**</source>
-        <translation type="unfinished"></translation>
+        <translation>**Бібліотеки третіх сторін**</translation>
     </message>
     <message>
         <source>Developed by Quasar App Core team</source>
-        <translation type="unfinished"></translation>
+        <translation>Розроблено командою Quasar App Core</translation>
     </message>
 </context>
 <context>
     <name>AppearanceCustomPage</name>
     <message>
         <source>Select application color</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть колір програми</translation>
     </message>
     <message>
         <source>Select</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть</translation>
     </message>
     <message>
         <source>Dark Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Темна тема</translation>
     </message>
     <message>
         <source>Please choose a color</source>
-        <translation type="unfinished">Виберіть колір</translation>
+        <translation>Будь ласка, виберіть колір</translation>
     </message>
 </context>
 <context>
@@ -319,27 +319,27 @@
     </message>
     <message>
         <source>Please enter your name here</source>
-        <translation type="unfinished"></translation>
+        <translation>Будь ласка, введіть тут своє ім&apos;я</translation>
     </message>
     <message>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Назад</translation>
     </message>
     <message>
         <source>Done!</source>
-        <translation type="unfinished"></translation>
+        <translation>Готово!</translation>
     </message>
     <message>
         <source>I just want to recover data</source>
-        <translation type="unfinished"></translation>
+        <translation>Я просто хочу відновити дані</translation>
     </message>
     <message>
         <source>I am a business representative</source>
-        <translation type="unfinished"></translation>
+        <translation>Я представник бізнесу</translation>
     </message>
     <message>
         <source>Customize the appearance of your application.</source>
-        <translation type="unfinished"></translation>
+        <translation>Налаштуйте зовнішній вигляд вашої програми.</translation>
     </message>
 </context>
 <context>
@@ -780,7 +780,7 @@
     </message>
     <message>
         <source>Done!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Готово!</translation>
     </message>
     <message>
         <source>All Done! &lt;b&gt;But If you drop your application data then all your cards will be removed&lt;/b&gt;. For save it self of this situations we recommends create a back up your master key.</source>
@@ -826,7 +826,7 @@
     </message>
     <message>
         <source>Select application color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Виберіть колір програми</translation>
     </message>
     <message>
         <source>Please choose a color</source>
@@ -834,7 +834,7 @@
     </message>
     <message>
         <source>Select</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Виберіть</translation>
     </message>
     <message>
         <source>Appearance</source>
@@ -854,7 +854,7 @@
     </message>
     <message>
         <source>Dark Theme</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Темна тема</translation>
     </message>
     <message>
         <source>Check database location</source>
@@ -874,6 +874,21 @@
     </message>
 </context>
 <context>
+    <name>UpdateRequestPage</name>
+    <message>
+        <source>Outdated!</source>
+        <translation>Застаріло!</translation>
+    </message>
+    <message>
+        <source>Sorry but your application version no longer support. Please upgrade your application!</source>
+        <translation>Вибачте, але версія вашої програми більше не підтримується. Будь ласка, оновіть свою програму!</translation>
+    </message>
+    <message>
+        <source>Upgrade</source>
+        <translation>Оновлення</translation>
+    </message>
+</context>
+<context>
     <name>WaitConnectView</name>
     <message>
         <source>Seal</source>
@@ -881,7 +896,7 @@
     </message>
     <message>
         <source>Check</source>
-        <translation type="unfinished"></translation>
+        <translation>Перевірте</translation>
     </message>
 </context>
 </TS>
