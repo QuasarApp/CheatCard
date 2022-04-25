@@ -114,6 +114,7 @@ public:
      */
     Q_INVOKABLE int getReceivedItemsCount(int cardId) const;
     Q_INVOKABLE bool fBillingAwailable() const;
+    Q_INVOKABLE QString storeLink() const;
 
     QObject *statisticModel() const;
 
@@ -174,6 +175,7 @@ private slots:
     void handlePurchaseReceived(RC::Purchase purchase);
     void saveCard(const QSharedPointer<RC::API::Card> &card);
     void handleCardCreated(const QSharedPointer<API::Card> &card);
+    void handleAppOutdated(int minimumRequiredVersion);
 
 private:
     void saveConfig();

@@ -92,7 +92,31 @@ bool BaseNode::processAppVersion(const QSharedPointer<ApplicationVersion> &messa
                                  const QH::Header &) {
 
     auto nodeInfo = dynamic_cast<NodeInfo*>(getInfoPtr(sender->networkAddress()));
-    nodeInfo->setVersion(*message.data());
+
+    auto distVersion = *message.data();
+
+    nodeInfo->setVersion(distVersion);
+    auto parser = selectParser(distVersion);
+
+    if (!parser) {
+        QuasarAppUtils::Params::log(QString("Can't found requeried parser for versions: %0-%1").
+                                    arg(distVersion.minimum()).
+                                    arg(distVersion.maximum()),
+                                    QuasarAppUtils::Error);
+
+        int localMaximumVersion = 0;
+        if (_apiParsers.size()) {
+            localMaximumVersion = _apiParsers.lastKey();
+        }
+
+        if (nodeInfo->version().minimum() > localMaximumVersion) {
+            emit sigVersionNoLongerSupport(nodeInfo->version().minimum());
+        }
+
+        removeNode(sender->networkAddress());
+
+        return false;
+    }
 
     VersionIsReceived result;
     return sendData(&result, sender);

@@ -105,5 +105,6 @@
         <file>private/resources/Icons/Cup_icon_27.png</file>
         <file>private/resources/Backgrounds/Layer_35.png</file>
         <file>private/resources/Interface_icons/CreateCard.svg</file>
+        <file>private/resources/Interface_icons/outdated.svg</file>
     </qresource>
 </RCC>

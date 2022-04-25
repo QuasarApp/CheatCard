@@ -47,6 +47,7 @@
         <file>CheatCardModule/AppearanceCustomPage.qml</file>
         <file>CheatCardModule/ActivityProcessor.qml</file>
         <file>CheatCardModule/CreateCardView.qml</file>
+        <file>CheatCardModule/UpdateRequestPage.qml</file>
     </qresource>
     <qresource prefix="/CheatCardTr">
         <file>languages/en.qm</file>

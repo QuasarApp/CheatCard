@@ -6,6 +6,8 @@
 //#
 
 #include "iosplatformtools.h"
+#include <QString>
+
 namespace RC {
 
 IOSPlatformTools::IOSPlatformTools()
@@ -23,5 +25,9 @@ bool IOSPlatformTools::getAccessToWriteInStorage() {
 
 bool IOSPlatformTools::getAccessToReadInStorage() {
     return true;
+}
+
+QString IOSPlatformTools::storeLink() const {
+    return "https://apps.apple.com/app/id1603813109";
 }
 }

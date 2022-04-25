@@ -38,6 +38,11 @@ public:
      */
     virtual bool getAccessToReadInStorage() = 0;
 
+    /**
+     * @brief storeLink This method return link to application in dependet of platfom application store.
+     */
+    virtual QString storeLink() const = 0;
+
 protected:
     IPlatformTools() = default;
 

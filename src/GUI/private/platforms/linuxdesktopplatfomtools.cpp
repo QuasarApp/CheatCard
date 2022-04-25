@@ -7,6 +7,7 @@
 
 
 #include "linuxdesktopplatfomtools.h"
+#include <QString>
 
 namespace RC {
 
@@ -28,5 +29,9 @@ bool LinuxDesktopPlatfomTools::getAccessToReadInStorage() {
     // do nothing
     return true;
 
+}
+
+QString LinuxDesktopPlatfomTools::storeLink() const {
+    return "https://www.cheatcard.net/";
 }
 }

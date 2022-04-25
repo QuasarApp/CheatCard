@@ -6,6 +6,7 @@
 //#
 
 #include "windowsdesktopplatformtool.h"
+#include <QString>
 
 #ifdef Q_OS_WINDOWS
 
@@ -30,6 +31,10 @@ bool WindowsDesktopPlatformTool::getAccessToReadInStorage() {
     // do nothing
     return true;
 
+}
+
+QString WindowsDesktopPlatformTool::storeLink() const {
+    return "https://www.cheatcard.net/";
 }
 
 }

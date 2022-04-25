@@ -19,6 +19,7 @@
 #include "languagesmodel.h"
 #include "activityprocessormodel.h"
 #include "createcardmodel.h"
+#include "iplatformtools.h"
 
 #include <CheatCard/database.h>
 
@@ -220,6 +221,10 @@ void MainModel::handleCardCreated(const QSharedPointer<API::Card>& card) {
     handleCardEditFinished(card);
 }
 
+void MainModel::handleAppOutdated(int) {
+    _activityProcessorModel->newActivity("qrc:/CheatCardModule/UpdateRequestPage.qml");
+}
+
 const QSharedPointer<UserModel>& MainModel::getCurrentUser() const {
     return _currentUser;
 }
@@ -415,6 +420,9 @@ void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
 
         disconnect(_backEndModel.data(), &BaseNode::sigCardReceived,
                    this, &MainModel::handleCardReceived);
+
+        disconnect(_backEndModel.data(), &BaseNode::sigVersionNoLongerSupport,
+                   this, &MainModel::handleAppOutdated);
     }
 
     _backEndModel = newModel;
@@ -431,6 +439,9 @@ void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
 
         connect(_backEndModel.data(), &BaseNode::sigCardReceived,
                 this, &MainModel::handleCardReceived);
+
+        connect(_backEndModel.data(), &BaseNode::sigVersionNoLongerSupport,
+                this, &MainModel::handleAppOutdated);
 
         _backEndModel->checkNetworkConnection();
 
@@ -534,6 +545,15 @@ int MainModel::getReceivedItemsCount(int cardId) const {
 
 bool MainModel::fBillingAwailable() const {
     return _billing && _billing->isSupported();
+}
+
+QString MainModel::storeLink() const {
+    auto platformsTools = IPlatformTools::instance();
+    if (platformsTools) {
+        return platformsTools->storeLink();
+    }
+
+    return "";
 }
 
 QObject *MainModel::statisticModel() const {
@@ -725,9 +745,9 @@ void MainModel::handleRemoveRequest(const QSharedPointer<API::Card> &card) {
 
             if (listOfUsers.size()) {
                 service->setNotify(tr("Operation not permitted"),
-                                tr("This card have a active clients, so you can't to remove this card."),
-                                "",
-                                QmlNotificationService::NotificationData::Error);
+                                   tr("This card have a active clients, so you can't to remove this card."),
+                                   "",
+                                   QmlNotificationService::NotificationData::Error);
                 return;
             }
 
