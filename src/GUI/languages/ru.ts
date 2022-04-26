@@ -109,25 +109,18 @@
     </message>
 </context>
 <context>
-    <name>ConnectionStatus</name>
-    <message>
-        <source>Hachiko mode activated!  </source>
-        <translation>Режим Хатико активирован!  </translation>
-    </message>
-</context>
-<context>
     <name>Contacts</name>
-    <message>
-        <source>Join to our telegram channel for get support and see the last changes.</source>
-        <translation>Присоединяйтесь к нашему каналу Telegram, чтобы получить поддержку и увидеть последние изменения.</translation>
-    </message>
-    <message>
-        <source>Join to our Instagram channel for get support and see the last changes.</source>
-        <translation>Присоединяйтесь к нашему каналу Instagram, чтобы получить поддержку и увидеть последние изменения.</translation>
-    </message>
     <message>
         <source>Go to our site. There you will get extended information about the CheatCard application and will be able to contact the developers.</source>
         <translation>Переходите на наш сайт. Там вы получите расширенную информацию о приложении CheatCard и сможете связаться с разработчиками.</translation>
+    </message>
+    <message>
+        <source>Join to our telegram channel to get support and see the last changes.</source>
+        <translation>Присоединяйтесь к нашему каналу Telegram, чтобы получить поддержку и увидеть последние изменения.</translation>
+    </message>
+    <message>
+        <source>Join to our Instagram channel to get support and see the last changes.</source>
+        <translation>Присоединяйтесь к нашему каналу Instagram, чтобы получить поддержку и увидеть последние изменения.</translation>
     </message>
 </context>
 <context>
@@ -291,8 +284,8 @@
         <translation>Готово</translation>
     </message>
     <message>
-        <source>Backup code exported successful. The BackUp Code Available in your documnets folder. See &lt;b&gt;%0&lt;/b&gt; path</source>
-        <translation>Резервный код успешно экспортирован. Код резервной копии Доступен в папке с документами. Сохранён в &lt;b&gt;%0&lt;/b&gt;</translation>
+        <source>Backup code exported successful. The Backup Code Available in your documents&apos; folder. See &lt;b&gt;%0&lt;/b&gt; path</source>
+        <translation>Резервный код успешно экспортирован. Резервный код доступен в папке ваших документов. См. путь &lt;b&gt;%0&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -372,16 +365,16 @@
         <translation>Импорт из файла qr кода</translation>
     </message>
     <message>
-        <source>Import your cadrs data</source>
-        <translation>Импорт данных ваших карт</translation>
-    </message>
-    <message>
         <source>Select your backup qr code</source>
         <translation>Выберете ваш бэкап qr код</translation>
     </message>
     <message>
         <source>codes</source>
         <translation>коды</translation>
+    </message>
+    <message>
+        <source>Import your cards data</source>
+        <translation>Импорт данных ваших карт</translation>
     </message>
 </context>
 <context>
@@ -631,10 +624,6 @@
         <translation>Ваши клиенты уже используют эту карту!</translation>
     </message>
     <message>
-        <source> You trying to change the bonus rules. These changes will be saved as a new card. The old card continue work correctly and all customers data will be saved. Do you want to continue?</source>
-        <translation> Вы пытаетесь изменить правила бонуса. Эти изменения будут сохранены как новая карточка. Старая карта же продолжит работать корректно, и все данные о клиентах будут сохранены. Вы  точно хотите продолжить?</translation>
-    </message>
-    <message>
         <source>Oops</source>
         <translation>Упс</translation>
     </message>
@@ -645,10 +634,6 @@
     <message>
         <source>Sorry but not</source>
         <translation>Прости, но нет</translation>
-    </message>
-    <message>
-        <source>This client do not have any bonuses. Sorry... </source>
-        <translation>У этого клиента нет ни одного бонуса. Сорян ... </translation>
     </message>
     <message>
         <source>Wow shit</source>
@@ -667,24 +652,12 @@
         <translation>Ваш секретный ключ импортирован</translation>
     </message>
     <message>
-        <source>We Has a troubles</source>
-        <translation>У нас походу проблемы</translation>
-    </message>
-    <message>
-        <source>Yor secret key are imported successful but donwload backup data from server is failed. Please check your internet connection and try restore your data again</source>
-        <translation>Ваш секретный ключ успешно импортирован, но загрузить данные резервной копии с сервера не удалось. Проверьте подключение к Интернету и попробуйте восстановить данные еще раз</translation>
-    </message>
-    <message>
         <source>Yor secret key and public key is not pair May be you scan not valid qr code ...</source>
         <translation>Ваш секретный ключ и открытый ключ не совпадают. Возможно, вы отсканировали неверный qr-код ...</translation>
     </message>
     <message>
         <source>Operation not permitted</source>
         <translation>Операция не разрешена</translation>
-    </message>
-    <message>
-        <source>This card have a active clients, so you can&apos;t to remove this card.</source>
-        <translation>У этой карты есть активные клиенты, поэтому вы не можете удалить эту карту.</translation>
     </message>
     <message>
         <source>Remove Card</source>
@@ -699,8 +672,28 @@
         <translation>Сброс карты на значение по умолчанию выполнен успешно, но загрузить карту по умолчанию с сервера не удалось, поэтому вы получите карту после новой покупки в учреждении, выдавшем эту карту.</translation>
     </message>
     <message>
-        <source>We seem to have a problems</source>
-        <translation>Кажется, у нас проблемы</translation>
+        <source>We Have trouble</source>
+        <translation>У нас проблемы</translation>
+    </message>
+    <message>
+        <source>Your secret key was imported successfully, but download backup data from server is failed. Please check your internet connection and try to restore your data again</source>
+        <translation>Ваш секретный ключ был успешно импортирован, но не удалось загрузить данные резервной копии с сервера. Проверьте подключение к Интернету и попробуйте снова восстановить данные</translation>
+    </message>
+    <message>
+        <source> You&apos;re trying to change the bonus rules. These changes will be saved as a new card. The old card continues to work correctly and all customers data will be saved. Do you want to continue?</source>
+        <translation> Вы пытаетесь изменить правила бонусов . Эти изменения будут сохранены как новая карта. Старая карта продолжает работать корректно и все данные клиентов будут сохранены. Вы хотите продолжить?</translation>
+    </message>
+    <message>
+        <source>We seem to have problems</source>
+        <translation>У нас проблемы</translation>
+    </message>
+    <message>
+        <source>This card has active clients, so you can&apos;t to remove this card.</source>
+        <translation>У этой карты есть активные клиенты, поэтому вы не можете удалить эту карту.</translation>
+    </message>
+    <message>
+        <source>This client does not have any bonuses. Sorry... </source>
+        <translation>Этот клиент не имеет никаких бонусов. сорян... </translation>
     </message>
 </context>
 <context>
@@ -783,12 +776,12 @@
         <translation>Готово!</translation>
     </message>
     <message>
-        <source>All Done! &lt;b&gt;But If you drop your application data then all your cards will be removed&lt;/b&gt;. For save it self of this situations we recommends create a back up your master key.</source>
-        <translation>Все готово! &lt;b&gt;Но если вы сбросите данные приложения, все ваши карты будут удалены&lt;/b&gt;. Чтобы избежать подобных ситуаций, мы рекомендуем создать резервную копию вашего мастер-ключа.</translation>
+        <source>All Done! &lt;b&gt;But If you drop your application data, then all your cards will be removed&lt;/b&gt;. For save, itself of these situations, we recommend creating a back-up of your master key.</source>
+        <translation>Все сделано! &lt;b&gt;Но если вы удалите данные своего приложения, все ваши карты будут удалены&lt;/b&gt;. Для избежания таких ситуаций мы рекомендуем создать резервную копию вашего мастер-ключа.</translation>
     </message>
     <message>
-        <source>Create a back up of master key for save data of my account.</source>
-        <translation>Создайте резервную копию мастер-ключа для сохранения данных моей учетной записи.</translation>
+        <source>Create a backup of master key to save data of my account.</source>
+        <translation>Создайте резервную копию мастер-ключа, чтобы сохранить данные моей учетной записи.</translation>
     </message>
 </context>
 <context>
