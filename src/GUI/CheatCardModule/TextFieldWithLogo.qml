@@ -46,6 +46,14 @@ RowLayout {
     CTextField {
         id: source
 
+        onPressed: {
+            ToolTip.show(source.text)
+        }
+
+        onReleased: {
+            ToolTip.hide()
+        }
+
         fontColor: lineColor
     }
 }
