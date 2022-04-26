@@ -22,7 +22,7 @@ Page {
 
         ColumnLayout {
             id: listContacts
-            width: flickable.width
+            width: flickable.width            
 
             Frame {
 
@@ -39,15 +39,15 @@ Page {
                     implicitWidth: 0x0
 
                     ToolButton {
-                        icon.source: "qrc:/images/private/resources/platformsIcon/slack-logo.svg"
+                        icon.source: "qrc:/images/private/resources/Logo/CheatCard_Logo1.png"
                         icon.height: 80
                         icon.width: 80
                         icon.color: "transparent"
-                        onClicked: Qt.openUrlExternally("https://join.slack.com/t/slack-uvu5934/shared_invite/zt-xtxp3txy-z4E_8mFsabqSRIzy7AwJXg")
+                        onClicked: Qt.openUrlExternally("https://www.cheatcard.net/")
                     }
 
                     Text {
-                        text: qsTr("Join to our slack channel for get support and see the last changes.")
+                        text: qsTr("Go to our site. There you will get extended information about the CheatCard application and will be able to contact the developers.")
                         horizontalAlignment: Qt.AlignLeft
                         verticalAlignment: Qt.AlignVCenter
                         wrapMode: Text.WordWrap

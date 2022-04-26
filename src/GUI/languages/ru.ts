@@ -118,16 +118,16 @@
 <context>
     <name>Contacts</name>
     <message>
-        <source>Join to our slack channel for get support and see the last changes.</source>
-        <translation>Присоединяйтесь к нашему каналу Slack, чтобы получить поддержку и увидеть последние изменения.</translation>
-    </message>
-    <message>
         <source>Join to our telegram channel for get support and see the last changes.</source>
         <translation>Присоединяйтесь к нашему каналу Telegram, чтобы получить поддержку и увидеть последние изменения.</translation>
     </message>
     <message>
         <source>Join to our Instagram channel for get support and see the last changes.</source>
         <translation>Присоединяйтесь к нашему каналу Instagram, чтобы получить поддержку и увидеть последние изменения.</translation>
+    </message>
+    <message>
+        <source>Go to our site. There you will get extended information about the CheatCard application and will be able to contact the developers.</source>
+        <translation>Переходите на наш сайт. Там вы получите расширенную информацию о приложении CheatCard и сможете связаться с разработчиками.</translation>
     </message>
 </context>
 <context>

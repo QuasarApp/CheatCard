@@ -136,8 +136,7 @@ ApplicationWindow {
                         }
         }
 
-        MenuItem {
-            visible: (mainModel)? mainModel.mode: false
+        MenuItem {            
             height: (visible)? ganeralMenuItem.height: 0
 
             text: qsTr("Contact with developers")
