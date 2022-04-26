@@ -119,10 +119,6 @@
 <context>
     <name>Contacts</name>
     <message>
-        <source>Join to our slack channel for get support and see the last changes.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Join to our telegram channel for get support and see the last changes.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -132,7 +128,7 @@
     </message>
     <message>
         <source>Go to our site. There you will get extended information about the CheatCard application and will be able to contact the developers.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wejdź na naszą stronę. Tam otrzymasz rozszerzone informacje o aplikacji CheatCard i będziesz mógł skontaktować się z twórcami.</translation>
     </message>
 </context>
 <context>

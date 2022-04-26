@@ -118,10 +118,6 @@
 <context>
     <name>Contacts</name>
     <message>
-        <source>Join to our slack channel for get support and see the last changes.</source>
-        <translation>Присоединяйтесь к нашему каналу Slack, чтобы получить поддержку и увидеть последние изменения.</translation>
-    </message>
-    <message>
         <source>Join to our telegram channel for get support and see the last changes.</source>
         <translation>Присоединяйтесь к нашему каналу Telegram, чтобы получить поддержку и увидеть последние изменения.</translation>
     </message>

@@ -39,7 +39,7 @@ Page {
                     implicitWidth: 0x0
 
                     ToolButton {
-                        icon.source: "qrc:/images/private/resources/platformsIcon/CheatCardNet.png"
+                        icon.source: "qrc:/images/private/resources/Logo/CheatCard_Logo1.png"
                         icon.height: 80
                         icon.width: 80
                         icon.color: "transparent"
@@ -114,39 +114,6 @@ Page {
 
                     Text {
                         text: qsTr("Join to our Instagram channel for get support and see the last changes.")
-                        horizontalAlignment: Qt.AlignLeft
-                        verticalAlignment: Qt.AlignVCenter
-                        wrapMode: Text.WordWrap
-
-                        Layout.fillWidth: true
-                    }
-                }
-            }
-
-            Frame {
-
-                background: Rectangle{
-                    color: "#e6e6e6"
-                    radius: 10
-                }
-
-                Layout.margins: 8
-                Layout.alignment: Qt.AlignHCenter
-                Layout.fillWidth: true
-
-                contentItem: RowLayout {
-                    implicitWidth: 0x0
-
-                    ToolButton {
-                        icon.source: "qrc:/images/private/resources/platformsIcon/slack-logo.svg"
-                        icon.height: 80
-                        icon.width: 80
-                        icon.color: "transparent"
-                        onClicked: Qt.openUrlExternally("https://join.slack.com/t/slack-uvu5934/shared_invite/zt-xtxp3txy-z4E_8mFsabqSRIzy7AwJXg")
-                    }
-
-                    Text {
-                        text: qsTr("Join to our slack channel for get support and see the last changes.")
                         horizontalAlignment: Qt.AlignLeft
                         verticalAlignment: Qt.AlignVCenter
                         wrapMode: Text.WordWrap
