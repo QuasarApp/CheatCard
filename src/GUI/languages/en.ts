@@ -39,23 +39,23 @@
     <name>CardsListView</name>
     <message>
         <source>Don&apos;t have any cards yet? </source>
-        <translation type="unfinished"></translation>
+        <translation>Don&apos;t have any cards yet? </translation>
     </message>
     <message>
         <source>Visit any coffee and start receiving bonuses now!</source>
-        <translation type="unfinished"></translation>
+        <translation>Visit any coffee and start receiving bonuses now!</translation>
     </message>
     <message>
         <source>Let&apos;s go create the first card! Press &quot;Add Card &quot; button</source>
-        <translation type="unfinished"></translation>
+        <translation>Let&apos;s go create the first card! Press &quot;Add Card &quot; button</translation>
     </message>
     <message>
         <source>Activate card</source>
-        <translation type="unfinished">Activate card</translation>
+        <translation>Activate card</translation>
     </message>
     <message>
         <source>Add card</source>
-        <translation type="unfinished"></translation>
+        <translation>Add card</translation>
     </message>
 </context>
 <context>
@@ -98,7 +98,7 @@
     </message>
     <message>
         <source>Create a card</source>
-        <translation type="unfinished"></translation>
+        <translation>Create a card</translation>
     </message>
 </context>
 <context>
@@ -128,6 +128,10 @@
     <message>
         <source>Join to our Instagram channel for get support and see the last changes.</source>
         <translation>Join to our Instagram channel for get support and see the last changes.</translation>
+    </message>
+    <message>
+        <source>Go to our site. There you will get extended information about the CheatCard application and will be able to contact the developers.</source>
+        <translation>Go to our site. There you will get extended information about the CheatCard application and will be able to contact the developers.</translation>
     </message>
 </context>
 <context>
@@ -870,22 +874,22 @@
     </message>
     <message>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation>Language</translation>
     </message>
 </context>
 <context>
     <name>UpdateRequestPage</name>
     <message>
         <source>Outdated!</source>
-        <translation type="unfinished"></translation>
+        <translation>Outdated!</translation>
     </message>
     <message>
         <source>Sorry but your application version no longer support. Please upgrade your application!</source>
-        <translation type="unfinished"></translation>
+        <translation>Sorry but your application version no longer support. Please upgrade your application!</translation>
     </message>
     <message>
         <source>Upgrade</source>
-        <translation type="unfinished"></translation>
+        <translation>Upgrade</translation>
     </message>
 </context>
 <context>

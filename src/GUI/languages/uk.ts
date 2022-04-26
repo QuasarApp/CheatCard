@@ -129,6 +129,10 @@
         <source>Join to our Instagram channel for get support and see the last changes.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Go to our site. There you will get extended information about the CheatCard application and will be able to contact the developers.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditCardView</name>
