@@ -1,4 +1,5 @@
 #include "osxplatformtools.h"
+#include <QString>
 
 namespace RC {
 
@@ -16,5 +17,9 @@ bool OSXPlatformTools::getAccessToReadInStorage() {
 
 OSXPlatformTools::OSXPlatformTools() {
 
+}
+
+QString OSXPlatformTools::storeLink() const {
+    return "https://apps.apple.com/app/id1603813109";
 }
 }

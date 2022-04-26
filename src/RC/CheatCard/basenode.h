@@ -101,6 +101,7 @@ signals:
                          QSslError::SslError sslError);
     void sigAvailableNetworkChanged(bool);
 
+    void sigVersionNoLongerSupport(int minimumRequiredVersion);
 protected:
 
     QH::ParserResult parsePackage(const QSharedPointer<QH::PKG::AbstractData> &pkg,

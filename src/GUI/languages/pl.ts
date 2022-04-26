@@ -5,34 +5,34 @@
     <name>About</name>
     <message>
         <source> </source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>**Third party libraries**</source>
-        <translation type="unfinished"></translation>
+        <translation>**Biblioteki zewnętrzne**</translation>
     </message>
     <message>
         <source>Developed by Quasar App Core team</source>
-        <translation type="unfinished"></translation>
+        <translation>Opracowany przez zespół Quasar App Core</translation>
     </message>
 </context>
 <context>
     <name>AppearanceCustomPage</name>
     <message>
         <source>Select application color</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybierz kolor aplikacji</translation>
     </message>
     <message>
         <source>Select</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybierz</translation>
     </message>
     <message>
         <source>Dark Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Ciemny schemat</translation>
     </message>
     <message>
         <source>Please choose a color</source>
-        <translation type="unfinished">Proszę wybrać kolor</translation>
+        <translation>Proszę wybrać kolor</translation>
     </message>
 </context>
 <context>
@@ -320,27 +320,27 @@
     </message>
     <message>
         <source>Please enter your name here</source>
-        <translation type="unfinished"></translation>
+        <translation>Proszę wpisać swoje imię tutaj</translation>
     </message>
     <message>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>wrócić</translation>
     </message>
     <message>
         <source>Done!</source>
-        <translation type="unfinished"></translation>
+        <translation>Zrobione!</translation>
     </message>
     <message>
         <source>I just want to recover data</source>
-        <translation type="unfinished"></translation>
+        <translation>Chcę tylko odzyskać dane</translation>
     </message>
     <message>
         <source>I am a business representative</source>
-        <translation type="unfinished"></translation>
+        <translation>jestem przedstawicielem biznesowym</translation>
     </message>
     <message>
         <source>Customize the appearance of your application.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dostosuj wygląd swojej aplikacji.</translation>
     </message>
 </context>
 <context>
@@ -781,7 +781,7 @@
     </message>
     <message>
         <source>Done!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zrobione!</translation>
     </message>
     <message>
         <source>All Done! &lt;b&gt;But If you drop your application data then all your cards will be removed&lt;/b&gt;. For save it self of this situations we recommends create a back up your master key.</source>
@@ -827,7 +827,7 @@
     </message>
     <message>
         <source>Select application color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wybierz kolor aplikacji</translation>
     </message>
     <message>
         <source>Please choose a color</source>
@@ -835,7 +835,7 @@
     </message>
     <message>
         <source>Select</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wybierz</translation>
     </message>
     <message>
         <source>Appearance</source>
@@ -855,7 +855,7 @@
     </message>
     <message>
         <source>Dark Theme</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ciemny schemat</translation>
     </message>
     <message>
         <source>Check database location</source>
@@ -875,6 +875,21 @@
     </message>
 </context>
 <context>
+    <name>UpdateRequestPage</name>
+    <message>
+        <source>Outdated!</source>
+        <translation>Przestarzały!</translation>
+    </message>
+    <message>
+        <source>Sorry but your application version no longer support. Please upgrade your application!</source>
+        <translation>Przepraszamy, ale Twoja wersja aplikacji już nie obsługuje. Zaktualizuj swoją aplikację!</translation>
+    </message>
+    <message>
+        <source>Upgrade</source>
+        <translation>Uaktualnić</translation>
+    </message>
+</context>
+<context>
     <name>WaitConnectView</name>
     <message>
         <source>Seal</source>
@@ -882,7 +897,7 @@
     </message>
     <message>
         <source>Check</source>
-        <translation type="unfinished"></translation>
+        <translation>Sprawdzać</translation>
     </message>
 </context>
 </TS>

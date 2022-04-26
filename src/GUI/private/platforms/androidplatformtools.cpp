@@ -58,5 +58,10 @@ bool AndroidPlatformTools::getAccessToReadInStorage() {
     return true;
 }
 
+QString AndroidPlatformTools::storeLink() const {
+    return "https://play.google.com/store/apps/details?id=quasarapp.core.cheatcard";
+}
+
+
 }
 #endif

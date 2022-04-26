@@ -24,6 +24,8 @@ public:
     void setScreanDim(bool enable) const override;
     bool getAccessToWriteInStorage() override;
     bool getAccessToReadInStorage() override;
+    QString storeLink() const override;
+
 };
 }
 #endif
