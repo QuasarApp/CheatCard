@@ -43,6 +43,7 @@
 
 #include <QDir>
 #include <QGuiApplication>
+#include <QQmlEngine>
 
 #include <CheatCardGui/ibilling.h>
 #include "settingsmodel.h"
@@ -112,7 +113,7 @@ MainModel::~MainModel() {
         delete _aboutModel;
     }
 
-    delete  _statisticModel;
+    delete _statisticModel;
     delete _netIdicatorModel;
 
     delete _defaultLogosModel;
@@ -147,6 +148,8 @@ QObject *MainModel::getAboutModel()
 {
     if(!_aboutModel) {
         _aboutModel = new AboutModel();
+        QQmlEngine::setObjectOwnership(_aboutModel, QQmlEngine::CppOwnership);
+
     }
     return _aboutModel;
 }
@@ -325,6 +328,11 @@ void MainModel::initCardsListModels() {
 
     _currentCardsListModel = new CardProxyModel();
 
+    QQmlEngine::setObjectOwnership(_cardsListModel, QQmlEngine::CppOwnership);
+    QQmlEngine::setObjectOwnership(_ownCardsListModel, QQmlEngine::CppOwnership);
+    QQmlEngine::setObjectOwnership(_currentCardsListModel, QQmlEngine::CppOwnership);
+
+
     _currentCardsListModel->sort(0);
     _currentCardsListModel->setDynamicSortFilter(true);
 
@@ -357,6 +365,9 @@ void MainModel::initImagesModels() {
     _defaultLogosModel = new ItemsModel();
     _defaultBackgroundsModel = new ItemsModel();
 
+    QQmlEngine::setObjectOwnership(_defaultLogosModel, QQmlEngine::CppOwnership);
+    QQmlEngine::setObjectOwnership(_defaultBackgroundsModel, QQmlEngine::CppOwnership);
+
 #define r_prefix QString(":/images/private/resources/")
 
     QDir searcher(r_prefix + "/Icons");
@@ -382,6 +393,7 @@ void MainModel::initImagesModels() {
 
 void MainModel::initNetIndicateModels() {
     _netIdicatorModel = new NetIndicatorModel();
+    QQmlEngine::setObjectOwnership(_netIdicatorModel, QQmlEngine::CppOwnership);
 }
 
 void MainModel::initDoctorModel() {
@@ -389,19 +401,26 @@ void MainModel::initDoctorModel() {
     pills << QSharedPointer<InvalidCardIdPill>::create(_db);
 
     _doctorModel = new DP::DoctorModel(pills);
+    QQmlEngine::setObjectOwnership(_doctorModel, QQmlEngine::CppOwnership);
+
 }
 
 void MainModel::initLanguageModel() {
     _langModel = new LanguagesModel();
+    QQmlEngine::setObjectOwnership(_langModel, QQmlEngine::CppOwnership);
 
 }
 
 void MainModel::initActivityProcessorModel() {
     _activityProcessorModel = new ActivityProcessorModel();
+    QQmlEngine::setObjectOwnership(_activityProcessorModel, QQmlEngine::CppOwnership);
+
 }
 
 void MainModel::initCreateCardModel() {
     _createCardModel = new CreateCardModel();
+    QQmlEngine::setObjectOwnership(_createCardModel, QQmlEngine::CppOwnership);
+
 
     connect(_createCardModel, &CreateCardModel::sigCardCreated,
             this, &MainModel::handleCardCreated);
@@ -450,6 +469,7 @@ void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
 
 void MainModel::initWaitConnectionModel() {
     _waitModel = new WaitConnectionModel();
+    QQmlEngine::setObjectOwnership(_waitModel, QQmlEngine::CppOwnership);
 
     connect(_waitModel, &WaitConnectionModel::purchaseTaskCompleted,
             this, &MainModel::handleListenStart, Qt::QueuedConnection);
@@ -457,11 +477,15 @@ void MainModel::initWaitConnectionModel() {
 
 void MainModel::initSellerStatisticModel() {
     _statisticModel = new SellerStatisticModel;
+    QQmlEngine::setObjectOwnership(_statisticModel, QQmlEngine::CppOwnership);
+
 }
 
 void MainModel::initImportExportModel() {
     if (!_importExportModel) {
         _importExportModel = new ImportExportUserModel();
+        QQmlEngine::setObjectOwnership(_importExportModel, QQmlEngine::CppOwnership);
+
         emit exportImportModelChanged();
 
         connect(_importExportModel, &ImportExportUserModel::decodeFinished,
@@ -570,6 +594,7 @@ QSharedPointer<BaseNode> initBackEndModel(const QSharedPointer<UserModel>& user,
                                           QH::ISqlDBCache *db) {
     QSharedPointer<BaseNode> result;
     result = QSharedPointer<BaseNode>(new BackEndType(db), softRemove);
+
     result->addApiParser<ApiV1>();
 
     if (user) {

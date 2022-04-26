@@ -69,6 +69,7 @@ int main(int argc, char *argv[]) {
     QCoreApplication::setApplicationName("CheatCard");
 
     QGuiApplication app(argc, argv);
+    RC::CheatCard rc;
     QQmlApplicationEngine engine;
 
 
@@ -76,7 +77,6 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
-    RC::CheatCard rc;
     initLang();
 
     if (!rc.init(&engine, getBillingInstance())) {
