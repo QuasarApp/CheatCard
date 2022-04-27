@@ -885,7 +885,7 @@
     <name>WaitConnectView</name>
     <message>
         <source>Seal</source>
-        <translation>Ущільнення</translation>
+        <translation>Печатка</translation>
     </message>
     <message>
         <source>Check</source>
