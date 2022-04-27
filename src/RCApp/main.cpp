@@ -14,6 +14,7 @@
 #include "androidbilling.h"
 #include "desktopbilling.h"
 #include "CheatCard/settingskeys.h"
+#include <QtNativeTr.h>
 
 void initLang() {
     QLocale locale = QLocale::system();
@@ -76,6 +77,8 @@ int main(int argc, char *argv[]) {
     if (!QmlNotificationService::init(&engine)) {
         return 0;
     }
+
+    QtNativeTr::init();
 
     initLang();
 
