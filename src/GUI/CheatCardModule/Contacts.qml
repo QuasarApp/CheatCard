@@ -80,7 +80,7 @@ Page {
                     }
 
                     Text {
-                        text: qsTr("Join to our telegram channel for get support and see the last changes.")
+                        text: qsTr("Join to our telegram channel to get support and see the last changes.")
                         horizontalAlignment: Qt.AlignLeft
                         verticalAlignment: Qt.AlignVCenter
                         wrapMode: Text.WordWrap
@@ -113,7 +113,7 @@ Page {
                     }
 
                     Text {
-                        text: qsTr("Join to our Instagram channel for get support and see the last changes.")
+                        text: qsTr("Join to our Instagram channel to get support and see the last changes.")
                         horizontalAlignment: Qt.AlignLeft
                         verticalAlignment: Qt.AlignVCenter
                         wrapMode: Text.WordWrap

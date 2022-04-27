@@ -16,7 +16,6 @@
         <file>CheatCardModule/WaitConnectView.qml</file>
         <file>CheatCardModule/FreeItemsView.qml</file>
         <file>CheatCardModule/MainActivity.qml</file>
-        <file>CheatCardModule/ConnectionStatus.qml</file>
         <file>CheatCardModule/QrScanner.qml</file>
         <file>CheatCardModule/ScannerOverlay.qml</file>
         <file>CheatCardModule/About.qml</file>

@@ -109,25 +109,18 @@
     </message>
 </context>
 <context>
-    <name>ConnectionStatus</name>
-    <message>
-        <source>Hachiko mode activated!  </source>
-        <translation>Режим Хатіко активовано!  </translation>
-    </message>
-</context>
-<context>
     <name>Contacts</name>
-    <message>
-        <source>Join to our telegram channel for get support and see the last changes.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Join to our Instagram channel for get support and see the last changes.</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Go to our site. There you will get extended information about the CheatCard application and will be able to contact the developers.</source>
         <translation>Перейдіть на наш веб-сайт. Там ви отримаєте розширену інформацію про програму CheatCard і зможете зв&apos;язатися з розробниками.</translation>
+    </message>
+    <message>
+        <source>Join to our telegram channel to get support and see the last changes.</source>
+        <translation>Приєднуйтесь до нашого телеграм-каналу, щоб отримати підтримку та побачити останні зміни.</translation>
+    </message>
+    <message>
+        <source>Join to our Instagram channel to get support and see the last changes.</source>
+        <translation>Приєднуйтесь до нашого Instagram-каналу, щоб отримати підтримку та побачити останні зміни.</translation>
     </message>
 </context>
 <context>
@@ -182,43 +175,43 @@
     </message>
     <message>
         <source>Detail of </source>
-        <translation type="unfinished"></translation>
+        <translation>детально про </translation>
     </message>
     <message>
         <source>Purchases count: </source>
-        <translation type="unfinished"></translation>
+        <translation>Кількість покупок: </translation>
     </message>
     <message>
         <source>Available %0: </source>
-        <translation type="unfinished"></translation>
+        <translation>Доступний %0: </translation>
     </message>
     <message>
         <source>Received %0: </source>
-        <translation type="unfinished"></translation>
+        <translation>Отримано %0: </translation>
     </message>
     <message>
         <source>Background color</source>
-        <translation type="unfinished"></translation>
+        <translation>Колір фону</translation>
     </message>
     <message>
         <source>Foreground color</source>
-        <translation type="unfinished"></translation>
+        <translation>Колір переднього плану</translation>
     </message>
     <message>
         <source>Background image</source>
-        <translation type="unfinished"></translation>
+        <translation>Фонове зображення</translation>
     </message>
     <message>
         <source>Card logo</source>
-        <translation type="unfinished"></translation>
+        <translation>Логотип картки</translation>
     </message>
     <message>
         <source>Card seal</source>
-        <translation type="unfinished"></translation>
+        <translation>Картка печатка</translation>
     </message>
     <message>
         <source>Edit card</source>
-        <translation type="unfinished"></translation>
+        <translation>Редагувати картку</translation>
     </message>
     <message>
         <source>Remove card</source>
@@ -272,27 +265,27 @@
     <name>ExportUserKeyPage</name>
     <message>
         <source>Export user key</source>
-        <translation type="unfinished"></translation>
+        <translation>Експортувати ключ користувача</translation>
     </message>
     <message>
         <source>**For what this use**</source>
-        <translation type="unfinished"></translation>
+        <translation>**Для чого це використовувати**</translation>
     </message>
     <message>
         <source>Some times you can drop your application data or your device. Therefore you can create a backup qr code that can recovery your application data after dropping</source>
-        <translation type="unfinished"></translation>
+        <translation>Іноді ви можете скинути дані програми чи пристрою. Тому ви можете створити резервний qr-код, який може відновити дані вашої програми після видалення</translation>
     </message>
     <message>
         <source>Save and open in files</source>
-        <translation type="unfinished"></translation>
+        <translation>Зберегти та відкрити у файлах</translation>
     </message>
     <message>
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation>Готово</translation>
     </message>
     <message>
-        <source>Backup code exported successful. The BackUp Code Available in your documnets folder. See &lt;b&gt;%0&lt;/b&gt; path</source>
-        <translation type="unfinished"></translation>
+        <source>Backup code exported successful. The Backup Code Available in your documents&apos; folder. See &lt;b&gt;%0&lt;/b&gt; path</source>
+        <translation>Резервний код експортовано успішно. Резервний код доступний у папці ваших документів. Див. шлях &lt;b&gt;%0&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -346,64 +339,64 @@
     <name>FreeItemsView</name>
     <message>
         <source>Give out</source>
-        <translation type="unfinished"></translation>
+        <translation>Роздавати</translation>
     </message>
     <message>
         <source>Wooooh seems like someone available %0 %1 !!!</source>
-        <translation type="unfinished"></translation>
+        <translation>Wooooh, здається, хтось доступний %0 %1 !!!</translation>
     </message>
     <message>
         <source>Don`t give out</source>
-        <translation type="unfinished"></translation>
+        <translation>Не видавати</translation>
     </message>
 </context>
 <context>
     <name>ImportUserKeyPage</name>
     <message>
-        <source>Import your cadrs data</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>**Attention** : This operation redefine your current application data (Cards, seals, users data). All current data will be removed.</source>
-        <translation type="unfinished"></translation>
+        <translation>**Увага** : Ця операція перевизначає ваші поточні дані програми (картки, печатки, дані користувачів). Усі поточні дані буде видалено.</translation>
     </message>
     <message>
         <source>Import from qr code scanner</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпорт зі сканера qr-коду</translation>
     </message>
     <message>
         <source>Import from file with qr code</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпорт із файлу за допомогою qr-коду</translation>
     </message>
     <message>
         <source>Select your backup qr code</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть резервний qr-код</translation>
     </message>
     <message>
         <source>codes</source>
-        <translation type="unfinished"></translation>
+        <translation>коди</translation>
+    </message>
+    <message>
+        <source>Import your cards data</source>
+        <translation>Імпортуйте дані своїх карток</translation>
     </message>
 </context>
 <context>
     <name>ItemsView</name>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation>Додати</translation>
     </message>
     <message>
         <source>Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Зображення</translation>
     </message>
     <message>
         <source>Do you want to put your picture? You can choose but the picture must be in png format!</source>
-        <translation type="unfinished"></translation>
+        <translation>Хочеш поставити свою картинку? Ви можете вибрати, але зображення має бути у форматі png!</translation>
     </message>
 </context>
 <context>
     <name>PageHelpSeller</name>
     <message>
         <source> </source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source></source>
@@ -411,365 +404,365 @@
     </message>
     <message>
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;In this section, you can find information about using the Cheat card.</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;У цьому розділі ви можете знайти інформацію про використання чит-картки.</translation>
     </message>
     <message>
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;To implement the loyalty program of your institution using a cheat card, you need to do the following:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Щоб реалізувати програму лояльності вашого закладу за допомогою чіт-картки, потрібно зробити наступне:</translation>
     </message>
     <message>
         <source>### How to use?</source>
-        <translation type="unfinished"></translation>
+        <translation>### Як використовувати?</translation>
     </message>
     <message>
         <source>&lt;img src=&quot;qrc:/private/resources/help/Help3.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>&lt;img src=&quot;qrc:/private/resources/help/Help2.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>### Create a card for your establishment</source>
-        <translation type="unfinished"></translation>
+        <translation>### Створіть картку для свого закладу</translation>
     </message>
     <message>
         <source>* In order to create a map, click the &quot;Add Map&quot; button at the bottom of the screen.</source>
-        <translation type="unfinished"></translation>
+        <translation>* Щоб створити карту, натисніть кнопку «Додати карту» внизу екрана.</translation>
     </message>
     <message>
         <source>* An empty card will be created.</source>
-        <translation type="unfinished"></translation>
+        <translation>* Буде створена порожня картка.</translation>
     </message>
     <message>
         <source>* In order to fill it out, click the &quot;Edit&quot; button on the card.</source>
-        <translation type="unfinished"></translation>
+        <translation>* Щоб його заповнити, натисніть кнопку «Редагувати» на картці.</translation>
     </message>
     <message>
         <source>* Indicate how many purchases the client must make to receive the bonus you previously specified.</source>
-        <translation type="unfinished"></translation>
+        <translation>* Вкажіть, скільки покупок повинен зробити клієнт, щоб отримати бонус, який ви вказали раніше.</translation>
     </message>
     <message>
         <source>* Customize the design of the card by clicking on this element at the bottom left of the card.</source>
-        <translation type="unfinished"></translation>
+        <translation>* Налаштуйте дизайн картки, натиснувши цей елемент у нижньому лівому куті картки.</translation>
     </message>
     <message>
         <source>* A menu with design settings (background and text colors, logo, as well as printing) will open</source>
-        <translation type="unfinished"></translation>
+        <translation>* Відкриється меню з налаштуваннями дизайну (колір фону і тексту, логотип, а також друк)</translation>
     </message>
     <message>
         <source>* After completing all the settings, click the &quot;Save&quot; button which is located at the bottom of the map.</source>
-        <translation type="unfinished"></translation>
+        <translation>* Після завершення всіх налаштувань натисніть кнопку «Зберегти», яка розташована внизу карти.</translation>
     </message>
     <message>
         <source>* The created map will be displayed on the main screen of the application.</source>
-        <translation type="unfinished"></translation>
+        <translation>* Створена карта буде відображена на головному екрані програми.</translation>
     </message>
     <message>
         <source>* A screen will open where you can specify how many stamps to put to the client, then click &quot;print&quot;.</source>
-        <translation type="unfinished"></translation>
+        <translation>* Відкриється екран, де ви можете вказати, скільки марок поставити клієнту, потім натисніть «друк».</translation>
     </message>
     <message>
         <source>* Scan the visitor&apos;s QR code.</source>
-        <translation type="unfinished"></translation>
+        <translation>* Скануйте QR-код відвідувача.</translation>
     </message>
     <message>
         <source>* The client will have a card with the number of stamps that you specified.</source>
-        <translation type="unfinished"></translation>
+        <translation>* Клієнт отримає картку з вказаною вами кількістю марок.</translation>
     </message>
     <message>
         <source>* Repeat this algorithm in order to put in the future seals to the client when purchasing a product.</source>
-        <translation type="unfinished"></translation>
+        <translation>* Повторіть цей алгоритм, щоб у майбутньому поставити пломби клієнту при покупці товару.</translation>
     </message>
     <message>
         <source>### Issue a card to a client:</source>
-        <translation type="unfinished"></translation>
+        <translation>### Видати картку клієнту:</translation>
     </message>
     <message>
         <source>### Issue bonus:</source>
-        <translation type="unfinished"></translation>
+        <translation>### Бонус за проблему:</translation>
     </message>
     <message>
         <source>* Enter the contact and other details of your establishment. In the item &quot;Bonus name&quot; it is necessary to indicate what the client will receive in the form of a bonus (product / service / discount / etc.).</source>
-        <translation type="unfinished"></translation>
+        <translation>* Введіть контактні та інші дані вашого закладу. У пункті «Назва бонусу» необхідно вказати, що отримає клієнт у вигляді бонусу (товар / послуга / знижка / тощо).</translation>
     </message>
     <message>
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**IMPORTANT:** After you put at least one seal on the customer, the card cannot be edited. Instead, you can create a new map based on the old one. all customer data and their statistics will be automatically transferred to the corrected card. Instead, you can create a new map based on the old one. all customer data and their statistics will be automatically transferred to the corrected card.</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**ВАЖЛИВО:** Після того, як ви поставили хоча б одну печатку на клієнта, картку не можна буде редагувати. Замість цього ви можете створити нову карту на основі старої. всі дані клієнтів і їхня статистика будуть автоматично перенесені на виправлену картку. Замість цього ви можете створити нову карту на основі старої. всі дані клієнтів і їхня статистика будуть автоматично перенесені на виправлену картку.</translation>
     </message>
     <message>
         <source>* When the client has collected a sufficient number of stamps, you can give him a bonus, the application itself will notify you that the client has made a sufficient number of purchases.</source>
-        <translation type="unfinished"></translation>
+        <translation>* Коли клієнт зібрав достатню кількість марок, ви можете дати йому бонус, програма сама повідомить вас про те, що клієнт зробив достатню кількість покупок.</translation>
     </message>
     <message>
         <source>* On the bonus screen, you can click the &quot;Issue&quot; button, or if the client can ask to save this bonus, then just click the back button.</source>
-        <translation type="unfinished"></translation>
+        <translation>* На екрані бонусів ви можете натиснути кнопку «Проблема», або, якщо клієнт може попросити зберегти цей бонус, просто натисніть кнопку «Назад».</translation>
     </message>
     <message>
         <source>* Bonuses can be accumulated by the client, if the client has accumulated several bonuses, then on the issuance screen you can choose how many bonuses to issue, after which they will be written off from the category of available ones and will be transferred to the category received on the client&apos;s card.</source>
-        <translation type="unfinished"></translation>
+        <translation>* Бонуси можуть накопичуватися клієнтом, якщо клієнт накопичив кілька бонусів, то на екрані видачі ви можете вибрати, скільки бонусів видати, після чого вони будуть списані з категорії доступних і перенесені в категорія, отримана на картку клієнта.</translation>
     </message>
     <message>
         <source>* Optionally upload your logo or card print background design by clicking the add button in the appropriate sections, the image must be in png format.</source>
-        <translation type="unfinished"></translation>
+        <translation>* Додатково завантажте свій логотип або дизайн фону для друку картки, натиснувши кнопку «Додати» у відповідних розділах, зображення має бути у форматі png.</translation>
     </message>
     <message>
         <source>* In order to issue the card to the client, press and hold on it.</source>
-        <translation type="unfinished"></translation>
+        <translation>* Optionally upload your logo or card print background design by clicking the add button in the appropriate sections, the image must be in png format.</translation>
     </message>
     <message>
         <source>### Guide to using Cheat Cards for business</source>
-        <translation type="unfinished"></translation>
+        <translation>### Посібник із використання чит-карт для бізнесу</translation>
     </message>
 </context>
 <context>
     <name>PageHelpVisitor</name>
     <message>
         <source> </source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;The algorithm of actions for the buyer works according to the system:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Алгоритм дій для покупця працює за системою:</translation>
     </message>
     <message>
         <source>* Came to the establishment.</source>
-        <translation type="unfinished"></translation>
+        <translation>* Прийшов до закладу.</translation>
     </message>
     <message>
         <source>* Made an order.</source>
-        <translation type="unfinished"></translation>
+        <translation>* Зробив замовлення.</translation>
     </message>
     <message>
         <source>* Showed the QR code in the application at the checkout.</source>
-        <translation type="unfinished"></translation>
+        <translation>* Показав QR-код у додатку на касі.</translation>
     </message>
     <message>
         <source>* Received print to card.</source>
-        <translation type="unfinished"></translation>
+        <translation>* Отримано друк на картку.</translation>
     </message>
     <message>
         <source>* Repeated this procedure several times and received the bonus set by the seller.</source>
-        <translation type="unfinished"></translation>
+        <translation>* Повторив цю процедуру кілька разів і отримав встановлений продавцем бонус.</translation>
     </message>
     <message>
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;In order to open the QR code, click on the item in the upper left corner of the screen. </source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Щоб відкрити QR-код, натисніть на елемент у верхньому лівому куті екрана. </translation>
     </message>
     <message>
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;A sidebar will open at the bottom of which there will be a QR code, you can click on it to enlarge it.</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Відкриється бічна панель, внизу якої буде QR-код, ви можете натиснути на нього, щоб збільшити його.</translation>
     </message>
     <message>
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;After receiving the card, you can view additional information about the card by clicking on it.</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Після отримання картки ви можете переглянути додаткову інформацію про картку, натиснувши на неї.</translation>
     </message>
     <message>
         <source>### How to use?</source>
-        <translation type="unfinished"></translation>
+        <translation>### Як використовувати?</translation>
     </message>
     <message>
         <source>&lt;img src=&quot;qrc:/private/resources/help/Help1.jpg&quot; alt=&quot;tt&quot; width=&quot;100&quot;/&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
     <name>PageShareApp</name>
     <message>
         <source>To get a cheat card, scan the QR code and follow the link.</source>
-        <translation type="unfinished"></translation>
+        <translation>Щоб отримати чит-карту, відскануйте QR-код і перейдіть за посиланням.</translation>
     </message>
 </context>
 <context>
     <name>QrCodeView</name>
     <message>
         <source>It looks like this code should be shown to the seller!</source>
-        <translation type="unfinished"></translation>
+        <translation>Схоже, цей код потрібно показати продавцю!</translation>
     </message>
     <message>
         <source>When all passed is successful, the Seller&apos;s device will complete the scan, and you will receive your bonuses as soon as you hide the Qr code.</source>
-        <translation type="unfinished"></translation>
+        <translation>Коли все пройдено успішно, пристрій Продавця завершить сканування, і ви отримаєте свої бонуси, як тільки приховаєте Qr-код.</translation>
     </message>
     <message>
         <source>Show your phone to the seller, so that the drawn QR code gets into the scanning area.</source>
-        <translation type="unfinished"></translation>
+        <translation>Покажіть свій телефон продавцю, щоб намальований QR-код потрапив у область сканування.</translation>
     </message>
 </context>
 <context>
     <name>QrScanner</name>
     <message>
         <source>switch camera</source>
-        <translation type="unfinished"></translation>
+        <translation>перемикати камеру</translation>
     </message>
 </context>
 <context>
     <name>RC::AbstrcattableModelWithHeaders</name>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Невідомо</translation>
     </message>
 </context>
 <context>
     <name>RC::ImportExportUserModel</name>
     <message>
         <source>Oh shit</source>
-        <translation type="unfinished"></translation>
+        <translation>о чорт</translation>
     </message>
     <message>
         <source>It looks like the file you selected does not contain a recovery code</source>
-        <translation type="unfinished"></translation>
+        <translation>Схоже, вибраний файл не містить коду відновлення</translation>
     </message>
     <message>
         <source>Permission denied to selected file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Відмовлено у дозволі на вибраний файл.</translation>
     </message>
 </context>
 <context>
     <name>RC::MainModel</name>
     <message>
         <source>Your customers already using this card!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> You trying to change the bonus rules. These changes will be saved as a new card. The old card continue work correctly and all customers data will be saved. Do you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ваші клієнти вже використовують цю картку!</translation>
     </message>
     <message>
         <source>Oops</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Some kind of garbage happened when reading the qr code. Try again</source>
-        <translation type="unfinished"></translation>
+        <translation>При читанні qr-коду сталося якесь сміття. Спробуйте ще раз</translation>
     </message>
     <message>
         <source>Sorry but not</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This client do not have any bonuses. Sorry... </source>
-        <translation type="unfinished"></translation>
+        <translation>Вибачте, але ні</translation>
     </message>
     <message>
         <source>Wow shit</source>
-        <translation type="unfinished"></translation>
+        <translation>Вау лайно</translation>
     </message>
     <message>
         <source>This qr code is invalid. Sorry... </source>
-        <translation type="unfinished"></translation>
+        <translation>Цей qr-код недійсний. вибачте... </translation>
     </message>
     <message>
         <source>I managed to do it !</source>
-        <translation type="unfinished"></translation>
+        <translation>Мені це вдалося !</translation>
     </message>
     <message>
         <source>Yor secret key are imported</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>We Has a troubles</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Yor secret key are imported successful but donwload backup data from server is failed. Please check your internet connection and try restore your data again</source>
-        <translation type="unfinished"></translation>
+        <translation>Ваш секретний ключ імпортовано</translation>
     </message>
     <message>
         <source>Yor secret key and public key is not pair May be you scan not valid qr code ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Ваш секретний ключ і відкритий ключ не є пари Можливо, ви скануєте недійсний qr-код ...</translation>
     </message>
     <message>
         <source>Operation not permitted</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This card have a active clients, so you can&apos;t to remove this card.</source>
-        <translation type="unfinished"></translation>
+        <translation>Експлуатація не дозволена</translation>
     </message>
     <message>
         <source>Remove Card</source>
-        <translation type="unfinished"></translation>
+        <translation>Видалити картку</translation>
     </message>
     <message>
         <source>You trying to delete this card, do not worry a seller that has give out this card save all bonuses locally,  so after repeat visit you will be get all your removed bonuses again. Do you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви намагаєтеся видалити цю картку, не хвилюйтеся, що продавець, який видав цю картку, збереже всі бонуси локально, тому після повторного відвідування ви знову отримаєте всі вилучені бонуси. Ви хочете продовжити?</translation>
     </message>
     <message>
         <source>The card reset to default successful but load default card from server failed, so you receive your card after new purchase in institution that has give out this card.</source>
-        <translation type="unfinished"></translation>
+        <translation>Скидання картки за замовчуванням успішне, але завантажити картку за замовчуванням із сервера не вдалося, тому ви отримаєте картку після нової покупки в установі, яка видала цю картку.</translation>
     </message>
     <message>
-        <source>We seem to have a problems</source>
-        <translation type="unfinished"></translation>
+        <source>We Have trouble</source>
+        <translation>У нас проблеми</translation>
+    </message>
+    <message>
+        <source>Your secret key was imported successfully, but download backup data from server is failed. Please check your internet connection and try to restore your data again</source>
+        <translation>Ваш секретний ключ успішно імпортовано, але завантажити резервну копію даних із сервера не вдалося. Перевірте підключення до Інтернету та спробуйте відновити дані ще раз</translation>
+    </message>
+    <message>
+        <source> You&apos;re trying to change the bonus rules. These changes will be saved as a new card. The old card continues to work correctly and all customers data will be saved. Do you want to continue?</source>
+        <translation> Ви намагаєтеся змінити правила бонусів. Ці зміни будуть збережені як нова картка. Стара картка продовжує працювати правильно, і всі дані клієнтів будуть збережені. Ви хочете продовжити?</translation>
+    </message>
+    <message>
+        <source>We seem to have problems</source>
+        <translation>У нас, здається, проблеми</translation>
+    </message>
+    <message>
+        <source>This card has active clients, so you can&apos;t to remove this card.</source>
+        <translation>Ця картка має активних клієнтів, тому ви не можете видалити цю картку.</translation>
+    </message>
+    <message>
+        <source>This client does not have any bonuses. Sorry... </source>
+        <translation>У цього клієнта немає бонусів. вибачте... </translation>
     </message>
 </context>
 <context>
     <name>RC::NetIndicatorModel</name>
     <message>
         <source>No internet connection.</source>
-        <translation type="unfinished"></translation>
+        <translation>Немає підключення до Інтернету.</translation>
     </message>
     <message>
         <source>Oops</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
     <name>RC::SellerStatisticModel</name>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Ім&apos;я</translation>
     </message>
     <message>
         <source>Last visit</source>
-        <translation type="unfinished"></translation>
+        <translation>Останній візит</translation>
     </message>
     <message>
         <source>Id</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Purchases</source>
-        <translation type="unfinished"></translation>
+        <translation>Покупки</translation>
     </message>
     <message>
         <source>Issued</source>
-        <translation type="unfinished"></translation>
+        <translation>Виданий</translation>
     </message>
     <message>
         <source>Available</source>
-        <translation type="unfinished"></translation>
+        <translation>Доступний</translation>
     </message>
     <message>
         <source>Status</source>
-        <translation type="unfinished"></translation>
+        <translation>Статус</translation>
     </message>
     <message>
         <source>Active</source>
-        <translation type="unfinished"></translation>
+        <translation>Активний</translation>
     </message>
     <message>
         <source>Passive</source>
-        <translation type="unfinished"></translation>
+        <translation>Пасивний</translation>
     </message>
 </context>
 <context>
     <name>RC::SettingsModel</name>
     <message>
         <source>Database location</source>
-        <translation type="unfinished"></translation>
+        <translation>Розташування бази даних</translation>
     </message>
     <message>
         <source>Failed to export database</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося експортувати базу даних</translation>
     </message>
     <message>
         <source>From %0 to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Від %0 до %1</translation>
     </message>
     <message>
         <source>Export the database finished successful</source>
-        <translation type="unfinished"></translation>
+        <translation>Експорт бази даних завершився успішно</translation>
     </message>
 </context>
 <context>
@@ -780,97 +773,97 @@
     </message>
     <message>
         <source>Done!</source>
-        <translation type="unfinished">Готово!</translation>
+        <translation>Готово!</translation>
     </message>
     <message>
-        <source>All Done! &lt;b&gt;But If you drop your application data then all your cards will be removed&lt;/b&gt;. For save it self of this situations we recommends create a back up your master key.</source>
-        <translation type="unfinished"></translation>
+        <source>All Done! &lt;b&gt;But If you drop your application data, then all your cards will be removed&lt;/b&gt;. For save, itself of these situations, we recommend creating a back-up of your master key.</source>
+        <translation>Готово! &lt;b&gt;Але якщо ви скинете дані програми, усі ваші картки буде видалено&lt;/b&gt;. Щоб уникнути самих цих ситуацій, ми рекомендуємо створити резервну копію свого головного ключа.</translation>
     </message>
     <message>
-        <source>Create a back up of master key for save data of my account.</source>
-        <translation type="unfinished"></translation>
+        <source>Create a backup of master key to save data of my account.</source>
+        <translation>Створити резервну копію головного ключа, щоб зберегти дані мого облікового запису.</translation>
     </message>
 </context>
 <context>
     <name>ScannerOverlay</name>
     <message>
         <source>Scan QR code</source>
-        <translation type="unfinished"></translation>
+        <translation>Скануйте QR-код</translation>
     </message>
 </context>
 <context>
     <name>Settings</name>
     <message>
         <source>Privacy</source>
-        <translation type="unfinished"></translation>
+        <translation>Конфіденційність</translation>
     </message>
     <message>
         <source>Share name with seller</source>
-        <translation type="unfinished"></translation>
+        <translation>Поділіться ім&apos;ям з продавцем</translation>
     </message>
     <message>
         <source>Developer settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Налаштування розробника</translation>
     </message>
     <message>
         <source>Host</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Camera</source>
-        <translation type="unfinished"></translation>
+        <translation>Камера</translation>
     </message>
     <message>
         <source>Select work camera</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть робочу камеру</translation>
     </message>
     <message>
         <source>Select application color</source>
-        <translation type="unfinished">Виберіть колір програми</translation>
+        <translation>Виберіть колір програми</translation>
     </message>
     <message>
         <source>Please choose a color</source>
-        <translation type="unfinished">Виберіть колір</translation>
+        <translation>Виберіть колір</translation>
     </message>
     <message>
         <source>Select</source>
-        <translation type="unfinished">Виберіть</translation>
+        <translation>Виберіть</translation>
     </message>
     <message>
         <source>Appearance</source>
-        <translation type="unfinished"></translation>
+        <translation>Зовнішній вигляд</translation>
     </message>
     <message>
         <source>Use custom server</source>
-        <translation type="unfinished"></translation>
+        <translation>Використовуйте власний сервер</translation>
     </message>
     <message>
         <source>Reset all settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Скиньте всі налаштування</translation>
     </message>
     <message>
         <source>Default settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Налаштування за замовчуванням</translation>
     </message>
     <message>
         <source>Dark Theme</source>
-        <translation type="unfinished">Темна тема</translation>
+        <translation>Темна тема</translation>
     </message>
     <message>
         <source>Check database location</source>
-        <translation type="unfinished"></translation>
+        <translation>Перевірте розташування бази даних</translation>
     </message>
     <message>
         <source>Export a database</source>
-        <translation type="unfinished"></translation>
+        <translation>Експортувати базу даних</translation>
     </message>
     <message>
         <source>Diagnostic the application</source>
-        <translation type="unfinished"></translation>
+        <translation>Діагностика програми</translation>
     </message>
     <message>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation>Мова</translation>
     </message>
 </context>
 <context>

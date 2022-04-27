@@ -15,7 +15,7 @@ import "Style"
 
 CPage {
     id: root;
-    title: qsTr("Import your cadrs data")
+    title: qsTr("Import your cards data")
 
     property var model: null
     signal importFinished()

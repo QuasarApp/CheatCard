@@ -175,7 +175,7 @@ bool MainModel::handleImportUser(const QString &base64UserData) {
     auto secret = userData->secret();
     if (userKey != API::User::makeKey(secret)) {
 
-        service->setNotify(tr("We Has a troubles"),
+        service->setNotify(tr("We Have trouble"),
                            tr("Yor secret key and public key is not pair"
                               " May be you scan not valid qr code ..."),
                            "", QmlNotificationService::NotificationData::Error);
@@ -202,9 +202,9 @@ bool MainModel::handleImportUser(const QString &base64UserData) {
     _config->setValue("fFirst", false);
 
     if (!_backEndModel->restoreOldData(userData->getKey())) {
-        service->setNotify(tr("We Has a troubles"),
-                           tr("Yor secret key are imported successful but donwload backup data from server is failed."
-                              " Please check your internet connection and try restore your data again"),
+        service->setNotify(tr("We Have trouble"),
+                           tr("Your secret key was imported successfully, but download backup data from server is failed."
+                              " Please check your internet connection and try to restore your data again"),
                            "", QmlNotificationService::NotificationData::Warning);
 
         return false;
@@ -717,9 +717,9 @@ void MainModel::handleCardEditFinished(const QSharedPointer<API::Card>& card) {
             };
 
             service->setQuestion(listner, tr("Your customers already using this card!"),
-                                 tr(" You trying to change the bonus rules."
+                                 tr(" You're trying to change the bonus rules."
                                     " These changes will be saved as a new card."
-                                    " The old card continue work correctly and all customers data will be saved."
+                                    " The old card continues to work correctly and all customers data will be saved."
                                     " Do you want to continue?"));
 
 
@@ -741,7 +741,7 @@ void MainModel::handleResetCardModel(const QSharedPointer<RC::API::Card> &card) 
     auto service = QmlNotificationService::NotificationService::getService();
 
     if (!_backEndModel->restoreOneCard(cardId)) {
-        service->setNotify(tr("We seem to have a problems"),
+        service->setNotify(tr("We seem to have problems"),
                            tr("The card reset to default successful but load default card from server failed, "
                               "so you receive your card after new purchase in institution that has give out this card."),
                            "", QmlNotificationService::NotificationData::Warning);
@@ -770,7 +770,7 @@ void MainModel::handleRemoveRequest(const QSharedPointer<API::Card> &card) {
 
             if (listOfUsers.size()) {
                 service->setNotify(tr("Operation not permitted"),
-                                   tr("This card have a active clients, so you can't to remove this card."),
+                                   tr("This card has active clients, so you can't to remove this card."),
                                    "",
                                    QmlNotificationService::NotificationData::Error);
                 return;
@@ -835,7 +835,7 @@ void MainModel::handlePurchaseWasSuccessful(QSharedPointer<RC::API::UsersCards> 
             auto service = QmlNotificationService::NotificationService::getService();
 
             service->setNotify(tr("Sorry but not"),
-                               tr("This client do not have any bonuses. Sorry... "),
+                               tr("This client does not have any bonuses. Sorry... "),
                                "", QmlNotificationService::NotificationData::Normal);
 
         }

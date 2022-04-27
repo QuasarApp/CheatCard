@@ -23,7 +23,7 @@ CPage {
             Label {
                 Layout.alignment: Qt.AlignHCenter
                 Layout.fillWidth: true
-                text: qsTr("All Done! <b>But If you drop your application data then all your cards will be removed</b>. For save it self of this situations we recommends create a back up your master key.")
+                text: qsTr("All Done! <b>But If you drop your application data, then all your cards will be removed</b>. For save, itself of these situations, we recommend creating a back-up of your master key.")
                 wrapMode: Label.WordWrap
                 horizontalAlignment: TextInput.AlignHCenter
             }
@@ -40,7 +40,7 @@ CPage {
                     Layout.fillWidth: true
                     wrapMode: Label.WordWrap
                     horizontalAlignment: TextInput.AlignLeft
-                    text: qsTr("Create a back up of master key for save data of my account.")
+                    text: qsTr("Create a backup of master key to save data of my account.")
                 }
             }
 

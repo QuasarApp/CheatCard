@@ -109,25 +109,18 @@
     </message>
 </context>
 <context>
-    <name>ConnectionStatus</name>
-    <message>
-        <source>Hachiko mode activated!  </source>
-        <translation>Hachiko mode activated!  </translation>
-    </message>
-</context>
-<context>
     <name>Contacts</name>
-    <message>
-        <source>Join to our telegram channel for get support and see the last changes.</source>
-        <translation>Join to our telegram channel for get support and see the last changes.</translation>
-    </message>
-    <message>
-        <source>Join to our Instagram channel for get support and see the last changes.</source>
-        <translation>Join to our Instagram channel for get support and see the last changes.</translation>
-    </message>
     <message>
         <source>Go to our site. There you will get extended information about the CheatCard application and will be able to contact the developers.</source>
         <translation>Go to our site. There you will get extended information about the CheatCard application and will be able to contact the developers.</translation>
+    </message>
+    <message>
+        <source>Join to our telegram channel to get support and see the last changes.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Join to our Instagram channel to get support and see the last changes.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -291,8 +284,8 @@
         <translation>Done</translation>
     </message>
     <message>
-        <source>Backup code exported successful. The BackUp Code Available in your documnets folder. See &lt;b&gt;%0&lt;/b&gt; path</source>
-        <translation>Backup code exported successful. The BackUp Code Available in your documnets folder. See &lt;b&gt;%0&lt;/b&gt; path</translation>
+        <source>Backup code exported successful. The Backup Code Available in your documents&apos; folder. See &lt;b&gt;%0&lt;/b&gt; path</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -372,16 +365,16 @@
         <translation>Import from file with qr code</translation>
     </message>
     <message>
-        <source>Import your cadrs data</source>
-        <translation>Import your cadrs data</translation>
-    </message>
-    <message>
         <source>Select your backup qr code</source>
         <translation>Select your backup qr code</translation>
     </message>
     <message>
         <source>codes</source>
         <translation>codes</translation>
+    </message>
+    <message>
+        <source>Import your cards data</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -631,10 +624,6 @@
         <translation>Your customers already using this card!</translation>
     </message>
     <message>
-        <source> You trying to change the bonus rules. These changes will be saved as a new card. The old card continue work correctly and all customers data will be saved. Do you want to continue?</source>
-        <translation> You trying to change the bonus rules. These changes will be saved as a new card. The old card continue work correctly and all customers data will be saved. Do you want to continue?</translation>
-    </message>
-    <message>
         <source>Oops</source>
         <translation></translation>
     </message>
@@ -645,10 +634,6 @@
     <message>
         <source>Sorry but not</source>
         <translation></translation>
-    </message>
-    <message>
-        <source>This client do not have any bonuses. Sorry... </source>
-        <translation>This client do not have any bonuses. Sorry... </translation>
     </message>
     <message>
         <source>Wow shit</source>
@@ -667,23 +652,11 @@
         <translation>Yor secret key are imported</translation>
     </message>
     <message>
-        <source>We Has a troubles</source>
-        <translation>We Has a troubles</translation>
-    </message>
-    <message>
-        <source>Yor secret key are imported successful but donwload backup data from server is failed. Please check your internet connection and try restore your data again</source>
-        <translation>Yor secret key are imported successful but donwload backup data from server is failed. Please check your internet connection and try restore your data again</translation>
-    </message>
-    <message>
         <source>Yor secret key and public key is not pair May be you scan not valid qr code ...</source>
         <translation>Yor secret key and public key is not pair May be you scan not valid qr code ...</translation>
     </message>
     <message>
         <source>Operation not permitted</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>This card have a active clients, so you can&apos;t to remove this card.</source>
         <translation></translation>
     </message>
     <message>
@@ -699,8 +672,28 @@
         <translation></translation>
     </message>
     <message>
-        <source>We seem to have a problems</source>
-        <translation></translation>
+        <source>We Have trouble</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your secret key was imported successfully, but download backup data from server is failed. Please check your internet connection and try to restore your data again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> You&apos;re trying to change the bonus rules. These changes will be saved as a new card. The old card continues to work correctly and all customers data will be saved. Do you want to continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>We seem to have problems</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This card has active clients, so you can&apos;t to remove this card.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This client does not have any bonuses. Sorry... </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -783,12 +776,12 @@
         <translation>Done!</translation>
     </message>
     <message>
-        <source>All Done! &lt;b&gt;But If you drop your application data then all your cards will be removed&lt;/b&gt;. For save it self of this situations we recommends create a back up your master key.</source>
-        <translation>All Done! &lt;b&gt;But If you drop your application data then all your cards will be removed&lt;/b&gt;. For save it self of this situations we recommends create a back up your master key.</translation>
+        <source>All Done! &lt;b&gt;But If you drop your application data, then all your cards will be removed&lt;/b&gt;. For save, itself of these situations, we recommend creating a back-up of your master key.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Create a back up of master key for save data of my account.</source>
-        <translation>Create a back up of master key for save data of my account.</translation>
+        <source>Create a backup of master key to save data of my account.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -881,7 +874,7 @@
     </message>
     <message>
         <source>Sorry but your application version no longer support. Please upgrade your application!</source>
-        <translation>Sorry but your application version no longer support. Please upgrade your application!</translation>
+        <translation>Sorry, but your application version no longer support. Please upgrade your application!</translation>
     </message>
     <message>
         <source>Upgrade</source>
