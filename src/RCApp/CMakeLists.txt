@@ -61,7 +61,7 @@ if (ANDROID)
     set(ENV{ANDROID_API_VERSION} 31)
 
     if (ALLOW_BILLING)
-        set(ANDROID_NATIVE_API_LEVEL 21)
+        set(ANDROID_NATIVE_API_LEVEL 23)
     else()
         set(ANDROID_NATIVE_API_LEVEL 27)
     endif()
