@@ -16,3 +16,6 @@
 [submodule "submodules/DoctorPill"]
 	path = submodules/DoctorPill
 	url = https://github.com/QuasarApp/DoctorPill.git
+[submodule "submodules/QtNativeTr"]
+	path = submodules/QtNativeTr
+	url = git@github.com:QuasarApp/QtNativeTr.git

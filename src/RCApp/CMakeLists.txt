@@ -68,6 +68,7 @@ if (ANDROID)
 
     set(ANDROID_API_VERSION $ENV{ANDROID_API_VERSION})
     set(OPENSSL_ROOT_PATH "$ENV{OPENSSL_ROOT_DIR}")
+    target_link_libraries(${CURRENT_PROJECT} PUBLIC QtNativeTr)
 
     set(SNAKE_EXTRA_LIBS
         ${PROJECT_NAME}Core
@@ -80,6 +81,7 @@ if (ANDROID)
         ZXing
         DoctorPill
         DoctorPillGUI
+        QtNativeTr
         ${OPENSSL_ROOT_PATH}/lib/libcrypto_1_1.so
         ${OPENSSL_ROOT_PATH}/lib/libssl_1_1.so
         )
@@ -130,6 +132,7 @@ if (ANDROID)
 elseif(IOS)
 #    set_xcode_property(${CURRENT_PROJECT} PRODUCT_BUNDLE_IDENTIFIER ${CHEATCARD_PACKAGE_ID} All)
 
+    target_link_libraries(${CURRENT_PROJECT} PUBLIC QtNativeTr)
 
     set(plist_file "${CMAKE_CURRENT_SOURCE_DIR}/apple/Info.plist")
     configure_file("${plist_file}.in" ${plist_file} @ONLY)
