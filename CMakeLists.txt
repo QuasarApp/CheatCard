@@ -125,7 +125,7 @@ else()
 endif()
 
 if (CHEATCARD_APP)
-    set(CHEATCARD_PACKAGE_ID "quasarapp.core.cheatcard")
+    set(CHEATCARD_PACKAGE_ID "quasarapp.dev.cheatcard")
 
     add_subdirectory(submodules/SimpleQmlNotify)
     add_subdirectory(submodules/QrCodes/src)
