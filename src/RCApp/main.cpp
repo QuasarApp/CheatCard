@@ -15,6 +15,10 @@
 #include "desktopbilling.h"
 #include "CheatCard/settingskeys.h"
 
+#if defined Q_OS_ANDROID || defined Q_OS_IOS
+#include <QtNativeTr.h>
+#endif
+
 void initLang() {
     QLocale locale = QLocale::system();
     QSettings setting;
@@ -29,11 +33,15 @@ void initLang() {
         locale = QLocale(customLanguage);
     }
 
-    if(!QuasarAppUtils::Locales::init(locale, {":/CheatCardTr/languages/",
+    if(!QuasarAppUtils::Locales::init(locale, {
+                                      ":/QtNativeTr/languages/",
+                                      ":/CheatCardTr/languages/",
                                       ":/credits_languages/",
                                       ":/qmlNotify_languages/",
                                       ":/lv_languages/",
-                                      ":/DoctorPillTr/languages"})){
+                                      ":/DoctorPillTr/languages/"
+                                      }
+                                      )){
         QuasarAppUtils::Params::log("Error load language : ", QuasarAppUtils::Error);
     }
 }
@@ -76,6 +84,10 @@ int main(int argc, char *argv[]) {
     if (!QmlNotificationService::init(&engine)) {
         return 0;
     }
+
+#if defined Q_OS_ANDROID || defined Q_OS_IOS
+    QtNativeTr::init();
+#endif
 
     initLang();
 

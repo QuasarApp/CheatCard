@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <manifest
-package="quasarapp.core.cheatcard"
+package="@CHEATCARD_PACKAGE_ID@"
 xmlns:android="http://schemas.android.com/apk/res/android"
 android:versionName="@CHEAT_CARD_VERSION@"
 android:versionCode="@GIT_COMMIT_COUNT@"
