@@ -446,6 +446,7 @@ Page {
                         Label {
                             text: "Free"
                             font.bold: true
+                            color: "#000000"
                             anchors.centerIn: parent
                         }
                     }

@@ -19,8 +19,8 @@ Page {
     contentItem: ColumnLayout {
         anchors.fill: parent
         EditCardView {
-            Layout.preferredWidth: Math.min(root.width, root.height / 0.7)
-            Layout.preferredHeight: width * 0.7
+            Layout.preferredWidth: Math.min(root.width, root.height / 0.85)
+            Layout.preferredHeight: width * 0.85
             Layout.alignment: Qt.AlignCenter
 
             model: (root.model)? root.model.currentCard: null
