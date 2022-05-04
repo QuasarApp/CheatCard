@@ -28,7 +28,7 @@ void CardProxyModel::activateCard(int cardId) {
 
 void CardProxyModel::activateCardByIndex(int index) {
     if (auto source = dynamic_cast<iCardListModel*>(sourceModel())) {
-        source->activateCardByIndex(index);
+        source->activateCardByIndex(mapToSource(this->index(index, 0)).row());
     }
 }
 
