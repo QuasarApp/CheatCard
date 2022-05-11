@@ -334,6 +334,10 @@
         <source>Customize the appearance of your application.</source>
         <translation>Налаштуйте зовнішній вигляд вашої програми.</translation>
     </message>
+    <message>
+        <source>Сhoose a language:</source>
+        <translation>Виберіть мову:</translation>
+    </message>
 </context>
 <context>
     <name>FreeItemsView</name>
