@@ -335,6 +335,10 @@
         <source>Customize the appearance of your application.</source>
         <translation>Dostosuj wygląd swojej aplikacji.</translation>
     </message>
+    <message>
+        <source>Сhoose a language:</source>
+        <translation>Wybierz język:</translation>
+    </message>
 </context>
 <context>
     <name>FreeItemsView</name>

@@ -116,11 +116,11 @@
     </message>
     <message>
         <source>Join to our telegram channel to get support and see the last changes.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Join to our Instagram channel to get support and see the last changes.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -285,7 +285,7 @@
     </message>
     <message>
         <source>Backup code exported successful. The Backup Code Available in your documents&apos; folder. See &lt;b&gt;%0&lt;/b&gt; path</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -334,6 +334,10 @@
         <source>Customize the appearance of your application.</source>
         <translation></translation>
     </message>
+    <message>
+        <source>Сhoose a language:</source>
+        <translation></translation>
+    </message>
 </context>
 <context>
     <name>FreeItemsView</name>
@@ -374,7 +378,7 @@
     </message>
     <message>
         <source>Import your cards data</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -673,27 +677,27 @@
     </message>
     <message>
         <source>We Have trouble</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Your secret key was imported successfully, but download backup data from server is failed. Please check your internet connection and try to restore your data again</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source> You&apos;re trying to change the bonus rules. These changes will be saved as a new card. The old card continues to work correctly and all customers data will be saved. Do you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>We seem to have problems</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>This card has active clients, so you can&apos;t to remove this card.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>This client does not have any bonuses. Sorry... </source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -777,11 +781,11 @@
     </message>
     <message>
         <source>All Done! &lt;b&gt;But If you drop your application data, then all your cards will be removed&lt;/b&gt;. For save, itself of these situations, we recommend creating a back-up of your master key.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Create a backup of master key to save data of my account.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
