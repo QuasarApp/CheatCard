@@ -511,9 +511,9 @@ Page {
 
                 }
 
-                Label {
+                CLabel {
+                    Layout.fillWidth: true
                     color: root.fontColor
-
                     text: qsTr("Available %0: ").arg((model)? model.freeItem: "");
                 }
 
@@ -525,8 +525,9 @@ Page {
 
                 }
 
-                Label {
+                CLabel {
                     color: root.fontColor
+                    Layout.fillWidth: true
 
                     text: qsTr("Received %0: ").arg((model)? model.freeItem: "");
                 }
