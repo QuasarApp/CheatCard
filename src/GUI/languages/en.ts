@@ -895,5 +895,9 @@
         <source>Check</source>
         <translation>Check</translation>
     </message>
+    <message>
+        <source>Select the number of purchases that the customer has made.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>
