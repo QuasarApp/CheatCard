@@ -895,5 +895,9 @@
         <source>Check</source>
         <translation>Перевірте</translation>
     </message>
+    <message>
+        <source>Select the number of purchases that the customer has made.</source>
+        <translation>Виберіть кількість покупок, які зробив клієнт.</translation>
+    </message>
 </context>
 </TS>

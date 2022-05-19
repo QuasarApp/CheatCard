@@ -11,6 +11,8 @@ import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
 
+import "Style"
+
 Page {
     id: root
     property var model: null
@@ -38,6 +40,21 @@ Page {
             Layout.fillHeight: true
         }
 
+        Label {
+            text: qsTr("Select the number of purchases that the customer has made.")
+
+            font.pointSize: 16
+            padding: 10
+            Layout.fillWidth: true
+            wrapMode: Label.WordWrap
+            horizontalAlignment: Text.AlignHCenter
+
+        }
+
+        Item {
+            Layout.fillHeight: true
+        }
+
         EditCardView {
 
             Layout.alignment: Qt.AlignHCenter
@@ -58,7 +75,7 @@ Page {
 
                 from: 0
                 to: 10
-                value: 1
+                value: 0
                 stepSize: 1
 
                 onValueChanged: () => {
