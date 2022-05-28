@@ -55,15 +55,15 @@
     </message>
     <message>
         <source>* At the time of purchase, tell the seller that you have a cheat card</source>
-        <translation type="unfinished"></translation>
+        <translation>* Під час покупки повідомте продавцю, що у вас є чит-карта</translation>
     </message>
     <message>
         <source>* And get your bonuses!!!</source>
-        <translation type="unfinished"></translation>
+        <translation>* І отримуйте свої бонуси!!!</translation>
     </message>
     <message>
         <source>* Visit any cafe that support CheatCard Application</source>
-        <translation type="unfinished"></translation>
+        <translation>* Відвідайте будь-яке кафе, яке підтримує додаток CheatCard</translation>
     </message>
 </context>
 <context>
