@@ -42,10 +42,6 @@
         <translation>Don&apos;t have any cards yet? </translation>
     </message>
     <message>
-        <source>Visit any coffee and start receiving bonuses now!</source>
-        <translation>Visit any coffee and start receiving bonuses now!</translation>
-    </message>
-    <message>
         <source>Let&apos;s go create the first card! Press &quot;Add Card &quot; button</source>
         <translation>Let&apos;s go create the first card! Press &quot;Add Card &quot; button</translation>
     </message>
@@ -56,6 +52,18 @@
     <message>
         <source>Add card</source>
         <translation>Add card</translation>
+    </message>
+    <message>
+        <source>* At the time of purchase, tell the seller that you have a cheat card</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* And get your bonuses!!!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* Visit any cafe that support CheatCard Application</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -42,10 +42,6 @@
         <translation>У вас ще немає карток? </translation>
     </message>
     <message>
-        <source>Visit any coffee and start receiving bonuses now!</source>
-        <translation>Відвідайте будь-яку каву та почніть отримувати бонуси вже зараз!</translation>
-    </message>
-    <message>
         <source>Let&apos;s go create the first card! Press &quot;Add Card &quot; button</source>
         <translation>Давайте створимо першу картку! Натисніть кнопку «Додати картку»</translation>
     </message>
@@ -56,6 +52,18 @@
     <message>
         <source>Add card</source>
         <translation>Додати картку</translation>
+    </message>
+    <message>
+        <source>* At the time of purchase, tell the seller that you have a cheat card</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* And get your bonuses!!!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* Visit any cafe that support CheatCard Application</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
