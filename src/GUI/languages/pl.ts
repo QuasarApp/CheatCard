@@ -35,15 +35,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>* You can additionals seller resources:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Get CheatCard Banners</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>* Or You can contact with developers here:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* You can get additionals seller resources:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

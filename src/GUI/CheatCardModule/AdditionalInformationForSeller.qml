@@ -54,7 +54,7 @@ Control {
             }
 
             Label {
-                text: qsTr("* You can additionals seller resources:");
+                text: qsTr("* You can get additionals seller resources:");
                 Layout.fillWidth: true
                 wrapMode: Label.WordWrap
 
