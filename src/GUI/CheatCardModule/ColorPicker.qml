@@ -41,7 +41,7 @@ CPage {
 
                 TextField {
                     text: red.value.toFixed(4)
-                    horizontalAlignment: Text.AlignHCenter
+                    horizontalAlignment: Label.AlignHCenter
 
                     onEditingFinished: {
                         red.value = Number(text)
@@ -66,7 +66,7 @@ CPage {
 
                 TextField {
                     text: green.value.toFixed(4)
-                    horizontalAlignment: Text.AlignHCenter
+                    horizontalAlignment: Label.AlignHCenter
 
                     onEditingFinished: {
                         green.value = Number(text)
@@ -90,7 +90,7 @@ CPage {
 
                 TextField {
                     text: blue.value.toFixed(4)
-                    horizontalAlignment: Text.AlignHCenter
+                    horizontalAlignment: Label.AlignHCenter
 
                     onEditingFinished: {
                         blue.value = Number(text)

@@ -42,7 +42,7 @@ Page {
                         text: qsTr("Appearance")
                         horizontalAlignment: Qt.AlignLeft
                         verticalAlignment: Qt.AlignVCenter
-                        wrapMode: Text.WordWrap
+                        wrapMode: Label.WordWrap
                         font.bold: true
 
                         Layout.fillWidth: true
@@ -52,9 +52,9 @@ Page {
 
                         Label {
                             text: qsTr("Select application color")
-                            horizontalAlignment: Text.AlignVCenter
+                            horizontalAlignment: Label.AlignVCenter
                             opacity: enabled ? 1.0 : 0.3
-                            wrapMode: Text.WordWrap
+                            wrapMode: Label.WordWrap
 
                             Layout.fillWidth: true
                         }
@@ -94,9 +94,9 @@ Page {
                             rightPadding: darkTheme.indicator.width + darkTheme.spacing
                             text: darkTheme.text
                             opacity: enabled ? 1.0 : 0.3
-                            elide: Text.ElideRight
-                            verticalAlignment: Text.AlignVCenter
-                            wrapMode: Text.WordWrap
+                            elide: Label.ElideRight
+                            verticalAlignment: Label.AlignVCenter
+                            wrapMode: Label.WordWrap
                         }
 
                     }
@@ -105,9 +105,9 @@ Page {
 
                         Label {
                             text: qsTr("Language")
-                            horizontalAlignment: Text.AlignVCenter
+                            horizontalAlignment: Label.AlignVCenter
                             opacity: enabled ? 1.0 : 0.3
-                            wrapMode: Text.WordWrap
+                            wrapMode: Label.WordWrap
 
                             Layout.fillWidth: true
                         }
@@ -178,7 +178,7 @@ Page {
                         text: qsTr("Privacy")
                         horizontalAlignment: Qt.AlignLeft
                         verticalAlignment: Qt.AlignVCenter
-                        wrapMode: Text.WordWrap
+                        wrapMode: Label.WordWrap
                         font.bold: true
 
                         Layout.fillWidth: true
@@ -200,9 +200,9 @@ Page {
                             rightPadding: privacy.indicator.width + privacy.spacing
                             text: privacy.text
                             opacity: enabled ? 1.0 : 0.3
-                            elide: Text.ElideRight
-                            verticalAlignment: Text.AlignVCenter
-                            wrapMode: Text.WordWrap
+                            elide: Label.ElideRight
+                            verticalAlignment: Label.AlignVCenter
+                            wrapMode: Label.WordWrap
                         }
 
                     }
@@ -254,7 +254,7 @@ Page {
                         horizontalAlignment: Qt.AlignLeft
                         verticalAlignment: Qt.AlignVCenter
                         font.bold: true
-                        wrapMode: Text.WordWrap
+                        wrapMode: Label.WordWrap
 
                         Layout.fillWidth: true
                     }
@@ -264,8 +264,8 @@ Page {
                             id: name
                             text: qsTr("Select work camera")
                             opacity: enabled ? 1.0 : 0.3
-                            verticalAlignment: Text.AlignVCenter
-                            wrapMode: Text.WordWrap
+                            verticalAlignment: Label.AlignVCenter
+                            wrapMode: Label.WordWrap
                             Layout.fillWidth: true
                         }
 
@@ -320,7 +320,7 @@ Page {
                         text: qsTr("Developer settings")
                         horizontalAlignment: Qt.AlignLeft
                         verticalAlignment: Qt.AlignVCenter
-                        wrapMode: Text.WordWrap
+                        wrapMode: Label.WordWrap
                         font.bold: true
 
                         Layout.fillWidth: true
@@ -369,8 +369,8 @@ Page {
                         contentItem: Label {
                             text: unlock.text
                             opacity: enabled ? 1.0 : 0.3
-                            verticalAlignment: Text.AlignVCenter
-                            wrapMode: Text.WordWrap
+                            verticalAlignment: Label.AlignVCenter
+                            wrapMode: Label.WordWrap
                         }
                     }
 
@@ -428,7 +428,7 @@ Page {
                         text: qsTr("Default settings")
                         horizontalAlignment: Qt.AlignLeft
                         verticalAlignment: Qt.AlignVCenter
-                        wrapMode: Text.WordWrap
+                        wrapMode: Label.WordWrap
                         font.bold: true
 
                         Layout.fillWidth: true

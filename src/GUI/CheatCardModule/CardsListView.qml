@@ -65,8 +65,8 @@ Page {
                 font.pointSize: 20
                 color: "#999999"
                 wrapMode: Label.WordWrap
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Label.AlignHCenter
+                verticalAlignment: Label.AlignVCenter
 
                 visible: !list.count
                 anchors.fill: parent

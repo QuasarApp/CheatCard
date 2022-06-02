@@ -42,7 +42,7 @@ Page {
                         text: qsTr("To get a cheat card, scan the QR code and follow the link.")
                         horizontalAlignment: Qt.AlignHCenter
                         verticalAlignment: Qt.AlignTop
-                        wrapMode: Text.WordWrap
+                        wrapMode: Label.WordWrap
                         font.pointSize: 14
 
                         Layout.fillWidth: true
@@ -84,7 +84,7 @@ Page {
                         text: qsTr("To get a cheat card, scan the QR code and follow the link.")
                         horizontalAlignment: Qt.AlignHCenter
                         verticalAlignment: Qt.AlignTop
-                        wrapMode: Text.WordWrap
+                        wrapMode: Label.WordWrap
                         font.pointSize: 14
 
                         Layout.fillWidth: true

@@ -14,6 +14,10 @@ import QtQuick.Layouts 1.15
 Page {
     id: rootContacts
 
+    property int imageSize: 80
+
+    implicitHeight: listContacts.height
+
     contentItem: Flickable {
         id: flickable
         ScrollBar.vertical: ScrollBar {}
@@ -40,17 +44,17 @@ Page {
 
                     ToolButton {
                         icon.source: "qrc:/images/private/resources/Logo/CheatCard_Logo1.png"
-                        icon.height: 80
-                        icon.width: 80
+                        icon.height: imageSize
+                        icon.width: imageSize
                         icon.color: "transparent"
                         onClicked: Qt.openUrlExternally("https://www.cheatcard.net/")
                     }
 
-                    Text {
+                    Label {
                         text: qsTr("Go to our site. There you will get extended information about the CheatCard application and will be able to contact the developers.")
                         horizontalAlignment: Qt.AlignLeft
                         verticalAlignment: Qt.AlignVCenter
-                        wrapMode: Text.WordWrap
+                        wrapMode: Label.WordWrap
 
                         Layout.fillWidth: true
                     }
@@ -72,18 +76,18 @@ Page {
                     implicitWidth: 0x0
 
                     ToolButton {
-                        icon.height: 80
-                        icon.width: 80
+                        icon.height: imageSize
+                        icon.width: imageSize
                         icon.color: "transparent"
                         icon.source: "qrc:/images/private/resources/platformsIcon/telegram.svg"
                         onClicked: Qt.openUrlExternally("https://t.me/cheatcardru")
                     }
 
-                    Text {
+                    Label {
                         text: qsTr("Join to our telegram channel to get support and see the last changes.")
                         horizontalAlignment: Qt.AlignLeft
                         verticalAlignment: Qt.AlignVCenter
-                        wrapMode: Text.WordWrap
+                        wrapMode: Label.WordWrap
 
                         Layout.fillWidth: true
                     }
@@ -105,18 +109,18 @@ Page {
                     implicitWidth: 0x0
 
                     ToolButton {
-                        icon.height: 80
-                        icon.width: 80
+                        icon.height: imageSize
+                        icon.width: imageSize
                         icon.color: "transparent"
                         icon.source: "qrc:/images/private/resources/platformsIcon/Instagram.svg"
                         onClicked: Qt.openUrlExternally("https://www.instagram.com/QuasarApp.CheatCard/")
                     }
 
-                    Text {
+                    Label {
                         text: qsTr("Join to our Instagram channel to get support and see the last changes.")
                         horizontalAlignment: Qt.AlignLeft
                         verticalAlignment: Qt.AlignVCenter
-                        wrapMode: Text.WordWrap
+                        wrapMode: Label.WordWrap
 
                         Layout.fillWidth: true
                     }

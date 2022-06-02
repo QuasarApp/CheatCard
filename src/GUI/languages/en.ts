@@ -17,6 +17,37 @@
     </message>
 </context>
 <context>
+    <name>AdditionalInformationForSeller</name>
+    <message>
+        <source>Have any questions?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* You can lern more about using cheatcard in the help page or introduction video:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open the help page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>See the help video</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* You can additionals seller resources:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Get CheatCard Banners</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* Or You can contact with developers here:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AppearanceCustomPage</name>
     <message>
         <source>Select application color</source>
@@ -249,16 +280,20 @@
         <translation>Its my name:</translation>
     </message>
     <message>
-        <source>Profile</source>
-        <translation>Profile</translation>
-    </message>
-    <message>
         <source>Work mode</source>
         <translation></translation>
     </message>
     <message>
         <source>Start integration with business</source>
         <translation></translation>
+    </message>
+    <message>
+        <source>About your profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To receive a card or a seal, as well as to receive an already accumulated bonus, show this Qr code to the seller.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

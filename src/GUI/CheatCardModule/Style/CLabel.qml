@@ -14,7 +14,7 @@ import QtQuick.Layouts 1.15
 
 Label {
 
-    elide: Text.ElideMiddle
+    elide: Label.ElideMiddle
     Layout.fillWidth: true
     ToolTip.text: text
     ToolTip.visible: privateRoot.hold

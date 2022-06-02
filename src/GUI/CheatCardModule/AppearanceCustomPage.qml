@@ -29,9 +29,9 @@ CPage {
 
                         Label {
                             text: qsTr("Select application color")
-                            horizontalAlignment: Text.AlignVCenter
+                            horizontalAlignment: Label.AlignVCenter
                             opacity: enabled ? 1.0 : 0.3
-                            wrapMode: Text.WordWrap
+                            wrapMode: Label.WordWrap
 
                             Layout.fillWidth: true
                         }
@@ -71,9 +71,9 @@ CPage {
                             rightPadding: darkTheme.indicator.width + darkTheme.spacing
                             text: darkTheme.text
                             opacity: enabled ? 1.0 : 0.3
-                            elide: Text.ElideRight
-                            verticalAlignment: Text.AlignVCenter
-                            wrapMode: Text.WordWrap
+                            elide: Label.ElideRight
+                            verticalAlignment: Label.AlignVCenter
+                            wrapMode: Label.WordWrap
                         }
 
                     }

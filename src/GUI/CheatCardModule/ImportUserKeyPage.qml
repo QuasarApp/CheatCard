@@ -32,7 +32,7 @@ CPage {
             wrapMode: Label.WordWrap
             horizontalAlignment: TextInput.AlignHCenter
             Layout.alignment: Qt.AlignHCenter
-            textFormat: Text.MarkdownText
+            textFormat: Label.MarkdownText
         }
 
 

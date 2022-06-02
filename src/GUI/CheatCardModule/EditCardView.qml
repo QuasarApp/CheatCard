@@ -200,7 +200,7 @@ Page {
                         color: root.fontColor
                         fontColor: root.fontColor
                         Layout.columnSpan: parent.columns
-                        horizontalAlignment:  Text.AlignHCenter
+                        horizontalAlignment:  Label.AlignHCenter
                         Layout.fillWidth: true
                         text: (root.model)? root.model.title : ""
                         onTextChanged: {
@@ -485,7 +485,7 @@ Page {
                     fontColor: root.fontColor
                     Layout.columnSpan: 2
 
-                    horizontalAlignment:  Text.AlignHCenter
+                    horizontalAlignment:  Label.AlignHCenter
                     Layout.fillWidth: true
                     text: (root.model)? qsTr("Detail of ") + root.model.title : ""
 
@@ -505,7 +505,7 @@ Page {
 
                 CTextField {
                     text: purchasesNumber
-                    horizontalAlignment:  Text.AlignHCenter
+                    horizontalAlignment:  Label.AlignHCenter
                     fontColor: root.fontColor
                     readOnly: true
 
@@ -519,7 +519,7 @@ Page {
 
                 CTextField {
                     text: available
-                    horizontalAlignment:  Text.AlignHCenter
+                    horizontalAlignment:  Label.AlignHCenter
                     fontColor: root.fontColor
                     readOnly: true
 
@@ -534,7 +534,7 @@ Page {
 
                 CTextField {
                     text:  receivedItems
-                    horizontalAlignment:  Text.AlignHCenter
+                    horizontalAlignment:  Label.AlignHCenter
                     fontColor: root.fontColor
                     readOnly: true
 
