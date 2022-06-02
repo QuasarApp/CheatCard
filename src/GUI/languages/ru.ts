@@ -20,31 +20,31 @@
     <name>AdditionalInformationForSeller</name>
     <message>
         <source>Have any questions?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>* You can lern more about using cheatcard in the help page or introduction video:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Open the help page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>See the help video</source>
-        <translation type="unfinished"></translation>
+        <translation>Есть вопросы?</translation>
     </message>
     <message>
         <source>Get CheatCard Banners</source>
-        <translation type="unfinished"></translation>
+        <translation>Получить баннеры CheatCard</translation>
     </message>
     <message>
         <source>* Or You can contact with developers here:</source>
-        <translation type="unfinished"></translation>
+        <translation>* Или Вы можете связаться с разработчиками здесь:</translation>
     </message>
     <message>
-        <source>* You can get additionals seller resources:</source>
-        <translation type="unfinished"></translation>
+        <source>* You can learn more about using CheatCard in the help page or introduction video:</source>
+        <translation>* Вы можете узнать больше об использовании CheatCard на странице справки или ознакомительном видео:</translation>
+    </message>
+    <message>
+        <source>* You can get additional seller resources:</source>
+        <translation>* Вы можете получить дополнительные ресурсы продавца:</translation>
+    </message>
+    <message>
+        <source>Open help page</source>
+        <translation>Открыть страницу справки</translation>
+    </message>
+    <message>
+        <source>Watch help video</source>
+        <translation>Посмотреть справочное видео</translation>
     </message>
 </context>
 <context>
@@ -289,11 +289,11 @@
     </message>
     <message>
         <source>About your profile</source>
-        <translation type="unfinished"></translation>
+        <translation>О вашем профиле</translation>
     </message>
     <message>
         <source>To receive a card or a seal, as well as to receive an already accumulated bonus, show this Qr code to the seller.</source>
-        <translation type="unfinished"></translation>
+        <translation>Чтобы получить карту или печать, а также получить уже накопленный бонус, покажите этот Qr-код продавцу.</translation>
     </message>
 </context>
 <context>

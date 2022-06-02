@@ -20,31 +20,31 @@
     <name>AdditionalInformationForSeller</name>
     <message>
         <source>Have any questions?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>* You can lern more about using cheatcard in the help page or introduction video:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Open the help page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>See the help video</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Get CheatCard Banners</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>* Or You can contact with developers here:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <source>* You can get additionals seller resources:</source>
-        <translation type="unfinished"></translation>
+        <source>* You can learn more about using CheatCard in the help page or introduction video:</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>* You can get additional seller resources:</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Open help page</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Watch help video</source>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -289,11 +289,11 @@
     </message>
     <message>
         <source>About your profile</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>To receive a card or a seal, as well as to receive an already accumulated bonus, show this Qr code to the seller.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -932,7 +932,7 @@
     </message>
     <message>
         <source>Select the number of purchases that the customer has made.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 </TS>

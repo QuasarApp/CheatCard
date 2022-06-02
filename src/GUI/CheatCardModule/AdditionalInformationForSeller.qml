@@ -24,7 +24,7 @@ Control {
             }
 
             Label {
-                text: qsTr("* You can lern more about using cheatcard in the help page or introduction video:");
+                text: qsTr("* You can learn more about using CheatCard in the help page or introduction video:");
 
                 Layout.fillWidth: true
                 wrapMode: Label.WordWrap
@@ -32,7 +32,7 @@ Control {
             }
 
             Button {
-                text: qsTr("Open the help page")
+                text: qsTr("Open help page")
                 Layout.fillWidth: true
 
                 onClicked:  {
@@ -45,7 +45,7 @@ Control {
             }
 
             Button {
-                text: qsTr("See the help video")
+                text: qsTr("Watch help video")
                 Layout.fillWidth: true
                 onClicked:  {
                     onClicked: Qt.openUrlExternally(
@@ -54,7 +54,7 @@ Control {
             }
 
             Label {
-                text: qsTr("* You can get additionals seller resources:");
+                text: qsTr("* You can get additional seller resources:");
                 Layout.fillWidth: true
                 wrapMode: Label.WordWrap
 
