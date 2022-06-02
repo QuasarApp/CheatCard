@@ -35,12 +35,22 @@ Control {
                 text: qsTr("Open the help page")
                 Layout.fillWidth: true
 
+                onClicked:  {
+                    backButton.clicked()
+
+                    activityProcessor.newActivity(
+                                "qrc:/CheatCardModule/PageHelpSeller.qml");
+                }
+
             }
 
             Button {
                 text: qsTr("See the help video")
                 Layout.fillWidth: true
-
+                onClicked:  {
+                    onClicked: Qt.openUrlExternally(
+                                   "https://www.youtube.com/watch?v=JWdokWEAGEg&list=PLK83dOS43ZMukJ8308eBVw8qcYgpguiW_")
+                }
             }
 
             Label {
@@ -54,6 +64,11 @@ Control {
                 text: qsTr("Get CheatCard Banners")
                 Layout.fillWidth: true
 
+                onClicked:  {
+                    onClicked: Qt.openUrlExternally(
+                                   "https://quasarapp.ddns.net:444/index.php/s/yyQfWNCcz874KcP?path=%2FBanners")
+
+                }
             }
 
             Label {

@@ -30,8 +30,9 @@ Page {
 
             Frame {
 
-                background: Rectangle{
-                    color: "#e6e6e6"
+                background: Rectangle {
+                    color: "transparent"
+                    border.color: rootContacts.palette.mid
                     radius: 10
                 }
 
@@ -63,8 +64,9 @@ Page {
 
             Frame {
 
-                background: Rectangle{
-                    color: "#e6e6e6"
+                background: Rectangle {
+                    color: "transparent"
+                    border.color: rootContacts.palette.mid
                     radius: 10
                 }
 
@@ -96,8 +98,9 @@ Page {
 
             Frame {
 
-                background: Rectangle{
-                    color: "#e6e6e6"
+                background: Rectangle {
+                    color: "transparent"
+                    border.color: rootContacts.palette.mid
                     radius: 10
                 }
 

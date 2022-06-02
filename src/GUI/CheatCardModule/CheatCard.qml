@@ -17,15 +17,15 @@ ApplicationWindow {
     id: mainWindow
     visible: true
 
-    font.pointSize: 11
+//    font.pointSize: 12
 
     //  Vertical mode
-//    height: 640
-//    width: 350
+    height: 640
+    width: 350
 
     // Horisontal mode
-    height: 350
-    width: 640
+//    height: 350
+//    width: 640
 
 
     onClosing: {
