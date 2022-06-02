@@ -57,19 +57,86 @@ Page {
 
             orientation: (root.width < root.height)? ListView.Vertical : ListView.Horizontal
 
-            Label {
-                text: qsTr("Don't have any cards yet? ") +
-                      ((!root.editable)? qsTr("Visit any coffee and start receiving bonuses now!"):
-                                         qsTr("Let's go create the first card! Press \"Add Card \" button"))
-
-                font.pointSize: 20
-                color: "#999999"
-                wrapMode: Label.WordWrap
-                horizontalAlignment: Label.AlignHCenter
-                verticalAlignment: Label.AlignVCenter
-
-                visible: !list.count
+            Pane {
+                padding: 20
                 anchors.fill: parent
+                visible: !list.count
+
+                contentItem: ColumnLayout {
+
+                    spacing: 20
+
+                    Item {
+                        Layout.fillHeight: true
+                    }
+
+                    Label {
+
+                        Layout.alignment: Qt.AlignVCenter
+                        Layout.fillWidth: true
+
+                        text: qsTr("Don't have any cards yet? ")
+                        font.pointSize: 20
+                        font.bold: true
+                        color: "#999999"
+                        wrapMode: Label.WordWrap
+                        horizontalAlignment: Text.AlignJustify
+                        verticalAlignment: Text.AlignVCenter
+
+                    }
+
+                    Label {
+                        Layout.alignment: Qt.AlignHCenter |  Qt.AlignVCenter
+                        Layout.fillWidth: true
+
+                        text: ((!root.editable)? qsTr("* Visit any cafe that support CheatCard Application"):
+                                                 qsTr("Let's go create the first card! Press \"Add Card \" button"))
+
+
+                        font.pointSize: 17
+                        color: "#999999"
+                        wrapMode: Label.WordWrap
+                        horizontalAlignment: Text.AlignJustify
+                        verticalAlignment: Text.AlignVCenter
+
+                    }
+
+                    Label {
+                        Layout.alignment: Qt.AlignVCenter
+                        Layout.fillWidth: true
+
+                        text: qsTr("* At the time of purchase, tell the seller that you have a cheat card")
+
+                        font.pointSize: 17
+                        color: "#999999"
+                        wrapMode: Label.WordWrap
+                        horizontalAlignment: Text.AlignJustify
+                        verticalAlignment: Text.AlignVCenter
+
+                        visible: !root.editable
+                    }
+
+                    Label {
+                        Layout.alignment: Qt.AlignVCenter
+                        Layout.fillWidth: true
+
+                        text: qsTr("* And get your bonuses!!!")
+
+                        font.pointSize: 17
+                        color: "#999999"
+                        wrapMode: Label.WordWrap
+                        horizontalAlignment: Text.AlignJustify
+                        verticalAlignment: Text.AlignVCenter
+
+
+                        visible: !root.editable
+                    }
+
+                    Item {
+                        Layout.fillHeight: true
+                    }
+                }
+
             }
 
             property int itemHeight: (itemWidth * 0.75)

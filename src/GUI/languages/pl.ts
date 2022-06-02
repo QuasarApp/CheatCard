@@ -73,10 +73,6 @@
         <translation>Nie masz jeszcze żadnych kart? </translation>
     </message>
     <message>
-        <source>Visit any coffee and start receiving bonuses now!</source>
-        <translation>Odwiedź dowolną kawę i zacznij otrzymywać bonusy już teraz!</translation>
-    </message>
-    <message>
         <source>Let&apos;s go create the first card! Press &quot;Add Card &quot; button</source>
         <translation>Chodźmy stworzyć pierwszą kartę! Naciśnij przycisk „Dodaj kartę”</translation>
     </message>
@@ -87,6 +83,18 @@
     <message>
         <source>Add card</source>
         <translation>Dodaj kartę</translation>
+    </message>
+    <message>
+        <source>* At the time of purchase, tell the seller that you have a cheat card</source>
+        <translation>* W momencie zakupu poinformuj sprzedawcę, że masz oszukaną kartę</translation>
+    </message>
+    <message>
+        <source>* And get your bonuses!!!</source>
+        <translation>* I zdobądź swoje bonusy !!!</translation>
+    </message>
+    <message>
+        <source>* Visit any cafe that support CheatCard Application</source>
+        <translation>* Odwiedź dowolną kawiarnię, która obsługuje aplikację CheatCard</translation>
     </message>
 </context>
 <context>

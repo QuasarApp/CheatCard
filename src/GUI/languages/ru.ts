@@ -73,10 +73,6 @@
         <translation>У вас еще нет карт? </translation>
     </message>
     <message>
-        <source>Visit any coffee and start receiving bonuses now!</source>
-        <translation>Посетите любую кофейню и начните получать бонусы прямо сейчас!</translation>
-    </message>
-    <message>
         <source>Let&apos;s go create the first card! Press &quot;Add Card &quot; button</source>
         <translation>Давайте создадим первую карту! Нажмите кнопку «Добавить карту»</translation>
     </message>
@@ -87,6 +83,18 @@
     <message>
         <source>Add card</source>
         <translation>Добавить карту</translation>
+    </message>
+    <message>
+        <source>* At the time of purchase, tell the seller that you have a cheat card</source>
+        <translation>* При покупке сообщите продавцу, что у вас есть чит-карта</translation>
+    </message>
+    <message>
+        <source>* And get your bonuses!!!</source>
+        <translation>* И получайте свои бонусы!!!</translation>
+    </message>
+    <message>
+        <source>* Visit any cafe that support CheatCard Application</source>
+        <translation>* Посетите любое кафе, поддерживающее приложение CheatCard</translation>
     </message>
 </context>
 <context>
