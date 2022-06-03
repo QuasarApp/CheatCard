@@ -102,6 +102,30 @@ Frame {
             }
 
             Item {
+                id: helpMsgWrap
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                Layout.maximumHeight: implicitHeight
+
+                Layout.minimumHeight:0
+
+                implicitWidth: 0x0
+                implicitHeight: helpMsg.implicitHeight
+
+                visible: !Boolean(root.model && root.model.mode)
+
+                clip: true
+                Label {
+                    id: helpMsg
+                    text: qsTr("To receive a card or a seal, as well as to receive an already accumulated bonus, show this Qr code to the seller.");
+                    wrapMode: Label.WordWrap
+                    elide: Text.ElideRight
+                    width: parent.width
+                    height: parent.height
+                }
+            }
+
+            Item {
                 id: qrBox
                 implicitWidth: 0x0
                 implicitHeight: 0x0
@@ -151,28 +175,6 @@ Frame {
                                                       generator.filePath);
                         userPanel.close()
                     }
-                }
-            }
-
-            Item {
-                id: helpMsgWrap
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-
-                Layout.minimumHeight:0
-
-                implicitWidth: 0x0
-                implicitHeight: helpMsg.implicitHeight
-
-                visible: !Boolean(root.model && root.model.mode)
-
-                clip: true
-                Label {
-                    id: helpMsg
-                    text: qsTr("To receive a card or a seal, as well as to receive an already accumulated bonus, show this Qr code to the seller.");
-                    wrapMode: Label.WordWrap
-                    elide: Text.ElideRight
-                    width: parent.width
                 }
             }
 
