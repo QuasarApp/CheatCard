@@ -17,7 +17,7 @@ ApplicationWindow {
     id: mainWindow
     visible: true
 
-//    font.pointSize: 12
+    font.pointSize: 13
 
     //  Vertical mode
     height: 640
