@@ -17,6 +17,37 @@
     </message>
 </context>
 <context>
+    <name>AdditionalInformationForSeller</name>
+    <message>
+        <source>Have any questions?</source>
+        <translation>Есть вопросы?</translation>
+    </message>
+    <message>
+        <source>Get CheatCard Banners</source>
+        <translation>Получить баннеры CheatCard</translation>
+    </message>
+    <message>
+        <source>* Or You can contact with developers here:</source>
+        <translation>* Или Вы можете связаться с разработчиками здесь:</translation>
+    </message>
+    <message>
+        <source>* You can learn more about using CheatCard in the help page or introduction video:</source>
+        <translation>* Вы можете узнать больше об использовании CheatCard на странице справки или ознакомительном видео:</translation>
+    </message>
+    <message>
+        <source>* You can get additional seller resources:</source>
+        <translation>* Вы можете получить дополнительные ресурсы продавца:</translation>
+    </message>
+    <message>
+        <source>Open help page</source>
+        <translation>Открыть страницу справки</translation>
+    </message>
+    <message>
+        <source>Watch help video</source>
+        <translation>Посмотреть справочное видео</translation>
+    </message>
+</context>
+<context>
     <name>AppearanceCustomPage</name>
     <message>
         <source>Select application color</source>
@@ -257,16 +288,20 @@
         <translation>Моё имя:</translation>
     </message>
     <message>
-        <source>Profile</source>
-        <translation>Профиль</translation>
-    </message>
-    <message>
         <source>Work mode</source>
         <translation>Рабочий режим</translation>
     </message>
     <message>
         <source>Start integration with business</source>
         <translation>Начать интеграцию с бизнесом</translation>
+    </message>
+    <message>
+        <source>About your profile</source>
+        <translation>О вашем профиле</translation>
+    </message>
+    <message>
+        <source>To receive a card or a seal, as well as to receive an already accumulated bonus, show this Qr code to the seller.</source>
+        <translation>Чтобы получить карту или печать, а также получить уже накопленный бонус, покажите этот Qr-код продавцу.</translation>
     </message>
 </context>
 <context>

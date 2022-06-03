@@ -157,6 +157,7 @@ CPage {
 
                                 if (fSaller.checked) {
                                     object.becomeSellerRequest();
+                                    root.model.mode = 1;
                                 }
 
                                 root.model.configureFinished();

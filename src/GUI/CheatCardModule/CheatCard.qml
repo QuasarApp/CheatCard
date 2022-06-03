@@ -17,6 +17,8 @@ ApplicationWindow {
     id: mainWindow
     visible: true
 
+    font.pointSize: 13
+
     //  Vertical mode
     height: 640
     width: 350
@@ -253,8 +255,7 @@ ApplicationWindow {
     Drawer {
         id: userPanel
         y: header.height
-        height: mainWindow.height
-
+        height: mainWindow.height - toolBar.height
         property int isOpen: position
 
         onIsOpenChanged: {
@@ -265,6 +266,7 @@ ApplicationWindow {
 
         contentItem: EditUserView {
             model: mainModel
+            maximuWidth:  mainWindow.width
         }
     }
 

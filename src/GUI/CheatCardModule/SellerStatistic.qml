@@ -98,7 +98,7 @@ Page {
 
                     Label {
                         text: display
-                        wrapMode: Text.WordWrap
+                        wrapMode: Label.WordWrap
                         anchors.fill: parent
                         horizontalAlignment: Label.AlignHCenter
                         verticalAlignment: Label.AlignVCenter

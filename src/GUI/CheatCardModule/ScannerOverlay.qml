@@ -167,7 +167,7 @@ Item {
         }
     }
 
-    Text {
+    Label {
         id: scanCapsuleText
 
         anchors {

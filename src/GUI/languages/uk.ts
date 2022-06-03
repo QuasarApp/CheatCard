@@ -17,6 +17,37 @@
     </message>
 </context>
 <context>
+    <name>AdditionalInformationForSeller</name>
+    <message>
+        <source>Have any questions?</source>
+        <translation>Є запитання?</translation>
+    </message>
+    <message>
+        <source>Get CheatCard Banners</source>
+        <translation>Отримайте банери CheatCard</translation>
+    </message>
+    <message>
+        <source>* Or You can contact with developers here:</source>
+        <translation>* Або Ви можете зв&apos;язатися з розробниками тут:</translation>
+    </message>
+    <message>
+        <source>* You can learn more about using CheatCard in the help page or introduction video:</source>
+        <translation>* Ви можете дізнатися більше про використання CheatCard на сторінці довідки або вступному відео:</translation>
+    </message>
+    <message>
+        <source>* You can get additional seller resources:</source>
+        <translation>* Ви можете отримати додаткові ресурси продавця:</translation>
+    </message>
+    <message>
+        <source>Open help page</source>
+        <translation>Відкрийте сторінку довідки</translation>
+    </message>
+    <message>
+        <source>Watch help video</source>
+        <translation>Перегляньте довідкове відео</translation>
+    </message>
+</context>
+<context>
     <name>AppearanceCustomPage</name>
     <message>
         <source>Select application color</source>
@@ -253,10 +284,6 @@
         <translation>Ідентифікатор користувача:</translation>
     </message>
     <message>
-        <source>Profile</source>
-        <translation>Профіль</translation>
-    </message>
-    <message>
         <source>Its my name:</source>
         <translation>моє ім&apos;я:</translation>
     </message>
@@ -267,6 +294,14 @@
     <message>
         <source>Start integration with business</source>
         <translation>Почніть інтеграцію з бізнесом</translation>
+    </message>
+    <message>
+        <source>About your profile</source>
+        <translation>Про ваш профіль</translation>
+    </message>
+    <message>
+        <source>To receive a card or a seal, as well as to receive an already accumulated bonus, show this Qr code to the seller.</source>
+        <translation>Щоб отримати картку або печатку, а також отримати вже накопичений бонус, покажіть цей Qr-код продавцеві.</translation>
     </message>
 </context>
 <context>

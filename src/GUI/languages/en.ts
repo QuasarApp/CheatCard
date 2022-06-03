@@ -17,6 +17,37 @@
     </message>
 </context>
 <context>
+    <name>AdditionalInformationForSeller</name>
+    <message>
+        <source>Have any questions?</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Get CheatCard Banners</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>* Or You can contact with developers here:</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>* You can learn more about using CheatCard in the help page or introduction video:</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>* You can get additional seller resources:</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Open help page</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Watch help video</source>
+        <translation></translation>
+    </message>
+</context>
+<context>
     <name>AppearanceCustomPage</name>
     <message>
         <source>Select application color</source>
@@ -257,15 +288,19 @@
         <translation>Its my name:</translation>
     </message>
     <message>
-        <source>Profile</source>
-        <translation>Profile</translation>
-    </message>
-    <message>
         <source>Work mode</source>
         <translation></translation>
     </message>
     <message>
         <source>Start integration with business</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>About your profile</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>To receive a card or a seal, as well as to receive an already accumulated bonus, show this Qr code to the seller.</source>
         <translation></translation>
     </message>
 </context>
@@ -905,7 +940,7 @@
     </message>
     <message>
         <source>Select the number of purchases that the customer has made.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 </TS>

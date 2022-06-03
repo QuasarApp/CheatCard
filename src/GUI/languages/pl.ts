@@ -17,6 +17,37 @@
     </message>
 </context>
 <context>
+    <name>AdditionalInformationForSeller</name>
+    <message>
+        <source>Have any questions?</source>
+        <translation>Jakieś pytania?</translation>
+    </message>
+    <message>
+        <source>Get CheatCard Banners</source>
+        <translation>Zdobądź banery CheatCard</translation>
+    </message>
+    <message>
+        <source>* Or You can contact with developers here:</source>
+        <translation>* Lub możesz skontaktować się z programistami tutaj:</translation>
+    </message>
+    <message>
+        <source>* You can learn more about using CheatCard in the help page or introduction video:</source>
+        <translation>* Więcej informacji o korzystaniu z CheatCard znajdziesz na stronie pomocy lub w filmie wprowadzającym:</translation>
+    </message>
+    <message>
+        <source>* You can get additional seller resources:</source>
+        <translation>* Możesz uzyskać dodatkowe zasoby sprzedawcy:</translation>
+    </message>
+    <message>
+        <source>Open help page</source>
+        <translation>Otwórz stronę pomocy</translation>
+    </message>
+    <message>
+        <source>Watch help video</source>
+        <translation>Obejrzyj wideo pomocy</translation>
+    </message>
+</context>
+<context>
     <name>AppearanceCustomPage</name>
     <message>
         <source>Select application color</source>
@@ -254,10 +285,6 @@
         <translation>Identyfikator użytkownika:</translation>
     </message>
     <message>
-        <source>Profile</source>
-        <translation>Profil</translation>
-    </message>
-    <message>
         <source>Its my name:</source>
         <translation>To moje imię:</translation>
     </message>
@@ -268,6 +295,14 @@
     <message>
         <source>Start integration with business</source>
         <translation>Rozpocznij integrację z biznesem</translation>
+    </message>
+    <message>
+        <source>About your profile</source>
+        <translation>O Twoim profilu</translation>
+    </message>
+    <message>
+        <source>To receive a card or a seal, as well as to receive an already accumulated bonus, show this Qr code to the seller.</source>
+        <translation>Aby otrzymać kartę lub pieczęć, a także otrzymać już zgromadzony bonus, pokaż sprzedawcy ten kod QR.</translation>
     </message>
 </context>
 <context>

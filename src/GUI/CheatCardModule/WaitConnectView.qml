@@ -47,7 +47,7 @@ Page {
             padding: 10
             Layout.fillWidth: true
             wrapMode: Label.WordWrap
-            horizontalAlignment: Text.AlignHCenter
+            horizontalAlignment: Label.AlignHCenter
 
         }
 
