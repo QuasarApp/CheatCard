@@ -743,6 +743,10 @@
         <source>This client does not have any bonuses. Sorry... </source>
         <translation>Ten klient nie ma żadnych bonusów. Przepraszam... </translation>
     </message>
+    <message>
+        <source>Failed to sync data with server. Please check your internet connection and try to restore your data again</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RC::NetIndicatorModel</name>

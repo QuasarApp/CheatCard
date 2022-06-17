@@ -640,12 +640,14 @@ void MainModel::setMode(int newMode) {
     if (_mode == Mode::Seller) {
         // test secret keys
 
-        auto userKey = _currentUser->user()->getKey();
-        auto secret = _currentUser->user()->secret();
-        if (userKey != API::User::makeKey(secret)) {
-            _currentUser->user()->regenerateKeys();
-            saveUser();
-            _settings.setValue(CURRENT_USER, _currentUser->user()->userId());
+        auto service = QmlNotificationService::NotificationService::getService();
+
+        if (!_backEndModel->restoreOldData(_currentUser->user()->getKey())) {
+            service->setNotify(tr("We Have trouble"),
+                               tr("Failed to sync data with server."
+                                  " Please check your internet connection and try to restore your data again"),
+                               "", QmlNotificationService::NotificationData::Warning);
+
         }
     }
 
