@@ -66,6 +66,8 @@ void UserModel::setUser(const QSharedPointer<API::User>& newUser) {
         return;
 
     _user = newUser;
+
+
     emit objChanged();
 
 }
@@ -128,5 +130,12 @@ QString UserModel::userBackUpPath() const {
 QString UserModel::userBackUpData() const {
     return _user->toBytes().toBase64(QByteArray::Base64UrlEncoding);
 }
+
+int UserModel::userId() const {
+    if (!_user)
+        return 0;
+    return _user->userId();
+}
+
 
 }

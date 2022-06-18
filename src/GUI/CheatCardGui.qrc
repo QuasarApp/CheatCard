@@ -49,6 +49,8 @@
         <file>CheatCardModule/UpdateRequestPage.qml</file>
         <file>CheatCardModule/Style/CLabel.qml</file>
         <file>CheatCardModule/AdditionalInformationForSeller.qml</file>
+        <file>CheatCardModule/UsersListView.qml</file>
+        <file>CheatCardModule/UserView.qml</file>
     </qresource>
     <qresource prefix="/CheatCardTr">
         <file>languages/en.qm</file>

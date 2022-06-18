@@ -47,6 +47,8 @@ class ImportExportUserModel;
 class LanguagesModel;
 class ActivityProcessorModel;
 class CreateCardModel;
+class UsersListModel;
+class ImagesStorageModel;
 
 /**
  * @brief The MainModel class is main model of the application.
@@ -69,6 +71,7 @@ class MainModel : public QObject, public QuasarAppUtils::SettingsListner
     Q_PROPERTY(QObject * langModel READ langModel NOTIFY langModelChanged)
     Q_PROPERTY(QObject * activityProcessorModel READ activityProcessorModel NOTIFY activityProcessorModelChanged)
     Q_PROPERTY(QObject * createCardModel READ createCardModel NOTIFY createCardModelChanged)
+    Q_PROPERTY(QObject * usersListModel READ usersListModel NOTIFY usersListModelChanged)
 
 
 public:
@@ -87,9 +90,6 @@ public:
     QObject *currentUser() const;
 
     const QSharedPointer<UserModel>& getCurrentUser() const;
-
-    void setCurrentUser(UserModel *newCurrentUser);
-    void setCurrentUser(QSharedPointer<UserModel> newCurrentUser);
 
     QObject *cardsList() const;
     QObject *defaultLogosModel() const;
@@ -125,7 +125,11 @@ public:
     QObject *activityProcessorModel() const;
     QObject *createCardModel() const;
 
+    QObject *usersListModel() const;
+
 public slots:
+    void setCurrentUser(const QSharedPointer<RC::UserModel> &newCurrentUser);
+
     void handleFirstDataSendet();
     void handleBonusGivOut(int userId, int cardId, int givOutcount);
 
@@ -153,6 +157,8 @@ signals:
 
     // SettingsListner interface
     void createCardModelChanged();
+
+    void usersListModelChanged();
 
 protected:
     void handleSettingsChanged(const QString &key, const QVariant &value) override;
@@ -195,6 +201,9 @@ private:
     void initLanguageModel();
     void initActivityProcessorModel();
     void initCreateCardModel();
+    void initUsersListModel();
+    void initBackgroundsModel();
+    void initIconsModel();
 
     void configureCardsList();
 
@@ -219,6 +228,10 @@ private:
     CardsListModel *_ownCardsListModel = nullptr;
 
     CardProxyModel *_currentCardsListModel = nullptr;
+    UsersListModel *_usersListModel = nullptr;
+    ImagesStorageModel *_backgrounds = nullptr;
+    ImagesStorageModel *_icons = nullptr;
+
 
     AboutModel *_aboutModel = nullptr;
     SoundPlayback *_soundEffect = nullptr;

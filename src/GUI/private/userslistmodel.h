@@ -14,33 +14,51 @@
 namespace RC {
 
 class UserModel;
+class ImagesStorageModel;
+namespace API {
+    class User;
+};
 
 /**
  * @brief The UsersListModel class is list mode l of all availabele on device users.
  */
 class UsersListModel: public QAbstractListModel
 {
+    Q_OBJECT
 public:
-    UsersListModel();
+    UsersListModel(ImagesStorageModel * imageStorage);
 
 
     enum Roles {
-        UserObjectRole = Qt::UserRole
+        UserObjectRole = Qt::UserRole,
+        UserId
+
     };
 
 
     int rowCount(const QModelIndex &parent = {}) const override;
     QVariant data(const QModelIndex &index, int role) const override;
 
+    Q_INVOKABLE QString userDefaultAvatar(int userId);
+
     QHash<int, QByteArray> roleNames() const override;
 
     Q_INVOKABLE void activate(int userId);
-    void addUser(const QSharedPointer<UserModel>& user);
-    void setUsers(const QList<QSharedPointer<UserModel>>& list);
+    void setUsers(const QList<QSharedPointer<API::User>>& list);
+
+    QSharedPointer<UserModel>
+    importUser(const QSharedPointer<API::User>& user);
+
+signals:
+    void sigUserChanged(const QSharedPointer<RC::UserModel>& newUser);
 
 private:
+    QSharedPointer<UserModel>
+    updateUser(const QSharedPointer<API::User>& user);
+
     QHash<unsigned int, QSharedPointer<UserModel>> _cache;
     QList<unsigned int> _users;
+    ImagesStorageModel * _defaultAvatars = nullptr;
 };
 
 }

@@ -98,12 +98,24 @@ ApplicationWindow {
 
             }
 
+            ToolButton {
+                id: switchUserButton
+                icon.source: "qrc:/images/private/resources/www.png"
+                font.bold: true
+                font.pointSize: 14
+
+                onClicked: {
+                    activityProcessor.newActivityFromComponent(pageUsers);
+                }
+            }
+
             Label {
                 text: (user)?
                           qsTr("Hello ") + user.name +
                           ((mainModel && mainModel.mode)? qsTr(" (work mode)"):"")
                         : ""
 
+                font.pointSize: 14
                 elide: Label.ElideRight
                 horizontalAlignment: Qt.AlignHCenter
                 verticalAlignment: Qt.AlignVCenter
@@ -220,6 +232,11 @@ ApplicationWindow {
             id: mainActivity
             model: mainModel
         }
+    }
+
+    Component {
+        id: pageUsers
+        UsersListView {}
     }
 
     Component {

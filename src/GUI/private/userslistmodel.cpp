@@ -2,11 +2,15 @@
 #include "usermodel.h"
 
 #include <CheatCard/api/api0/user.h>
-#include
+#include <qaglobalutils.h>
+#include "imagesstoragemodel.h"
 
 namespace RC {
-UsersListModel::UsersListModel() {
 
+
+UsersListModel::UsersListModel(ImagesStorageModel *imageStorage) {
+    _defaultAvatars = imageStorage;
+    debug_assert(_defaultAvatars, "avatars object should be initialized!");
 }
 
 int RC::UsersListModel::rowCount(const QModelIndex &) const {
@@ -14,15 +18,15 @@ int RC::UsersListModel::rowCount(const QModelIndex &) const {
 }
 
 QVariant RC::UsersListModel::data(const QModelIndex &index, int role) const {
-    if (role != UserObjectRole) {
-        return {};
-    }
 
     if (index.row() >= rowCount()) {
         return {};
     }
 
     unsigned int userId = _users[index.row()];
+
+    if (role == UserId)
+        return userId;
 
     auto cacheData = _cache.value(userId, {});
 
@@ -33,34 +37,81 @@ QVariant RC::UsersListModel::data(const QModelIndex &index, int role) const {
     return {};
 }
 
+QString UsersListModel::userDefaultAvatar(int userId) {
+    return _defaultAvatars->getImageByHash(userId);
+}
+
 QHash<int, QByteArray> RC::UsersListModel::roleNames() const {
     QHash<int, QByteArray> roles;
 
     roles[UserObjectRole] = "userObject";
+    roles[UserId] = "userID";
 
     return roles;
 
 }
 
 void UsersListModel::activate(int userId) {
-// to do
+
+    auto user = _cache.value(userId);
+    if (!user)
+        return;
+
+    emit sigUserChanged(user);
 }
 
-void UsersListModel::addUser(const QSharedPointer<UserModel> &user) {
+void UsersListModel::setUsers(const QList<QSharedPointer<API::User> >
+                              &newUsers) {
+    beginResetModel();
+
+    _cache.clear();
+
+    for (const QSharedPointer<API::User>& user : newUsers) {
+        unsigned int id = user->getId().toUInt();
+
+        auto userModel =  QSharedPointer<UserModel>::create(user);
+        _cache.insert(id,
+                      userModel
+                      );
+        _users.push_back(id);
+
+    }
+
+    endResetModel();
+
+}
+
+QSharedPointer<UserModel>
+UsersListModel::importUser(const QSharedPointer<API::User> &user) {
+    unsigned int id = user->getId().toUInt();
+
+    if (_users.contains(id)) {
+        return updateUser(user);
+    }
+
+    auto userModel = QSharedPointer<UserModel>::create(user);
+
     beginInsertRows({}, _users.size(), _users.size());
 
-    unsigned int id = user->user()->getId().toUInt();
-    _cache.insert(id, user);
+    _cache.insert(id, userModel);
     _users.push_back(id);
 
     endInsertRows();
 
+    return userModel;
 }
 
-void UsersListModel::setUsers(const QList<QSharedPointer<UserModel> > &list) {
-    beginResetModel();
-    _cache.clear();
-    endResetModel();
+QSharedPointer<UserModel>
+UsersListModel::updateUser(const QSharedPointer<API::User> &user) {
 
+    unsigned int id = user->getId().toUInt();
+
+    auto userModel =  _cache.value(id);
+    if (!userModel)
+        return userModel;
+
+    userModel->setUser(user);
+
+    return userModel;
 }
 }

@@ -31,6 +31,7 @@ class UserModel: public QObject, public QuasarAppUtils::SettingsListner
     Q_OBJECT
 
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY objChanged)
+    Q_PROPERTY(int userId READ userId NOTIFY objChanged)
 
     Q_PROPERTY(bool fSaller READ fSaller NOTIFY objChanged)
     Q_PROPERTY(long long sessinon READ getSessinon NOTIFY sessinonChanged)
@@ -61,6 +62,8 @@ public:
     void regenerateSessionKey();
 
     Q_INVOKABLE QString userBackUpData() const;
+
+    int userId() const;
 
 signals:
     void objChanged();

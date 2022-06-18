@@ -20,6 +20,8 @@
 #include "activityprocessormodel.h"
 #include "createcardmodel.h"
 #include "iplatformtools.h"
+#include "imagebackgroundsmodel.h"
+#include "imagelogomodel.h"
 
 #include <CheatCard/database.h>
 
@@ -44,6 +46,7 @@
 #include <QDir>
 #include <QGuiApplication>
 #include <QQmlEngine>
+#include "userslistmodel.h"
 
 #include <CheatCardGui/ibilling.h>
 #include "settingsmodel.h"
@@ -78,6 +81,9 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
     initLanguageModel();
     initActivityProcessorModel();
     initCreateCardModel();
+    initBackgroundsModel();
+    initIconsModel();
+    initUsersListModel();
 
     configureCardsList();
 
@@ -124,7 +130,9 @@ MainModel::~MainModel() {
     delete _langModel;
     delete _activityProcessorModel;
     delete _createCardModel;
-
+    delete _usersListModel;
+    delete _backgrounds;
+    delete _icons;
 }
 
 bool MainModel::fFirst() const {
@@ -144,8 +152,7 @@ void MainModel::configureFinished() {
     _currentUser->regenerateSessionKey();
 }
 
-QObject *MainModel::getAboutModel()
-{
+QObject *MainModel::getAboutModel() {
     if(!_aboutModel) {
         _aboutModel = new AboutModel();
         QQmlEngine::setObjectOwnership(_aboutModel, QQmlEngine::CppOwnership);
@@ -232,11 +239,7 @@ const QSharedPointer<UserModel>& MainModel::getCurrentUser() const {
     return _currentUser;
 }
 
-void MainModel::setCurrentUser(UserModel *newCurrentUser) {
-    setCurrentUser(QSharedPointer<UserModel>(newCurrentUser));
-}
-
-void MainModel::setCurrentUser(QSharedPointer<UserModel> value) {
+void MainModel::setCurrentUser(const QSharedPointer<RC::UserModel>& value) {
 
     if (_currentUser == value)
         return;
@@ -424,6 +427,27 @@ void MainModel::initCreateCardModel() {
 
     connect(_createCardModel, &CreateCardModel::sigCardCreated,
             this, &MainModel::handleCardCreated);
+}
+
+void MainModel::initUsersListModel() {
+    _usersListModel = new UsersListModel(_icons);
+    QQmlEngine::setObjectOwnership(_usersListModel, QQmlEngine::CppOwnership);
+
+    auto request = QH::PKG::DBObjectsRequest<API::User>("Users");
+    auto result = _db->getObject(request);
+
+    _usersListModel->setUsers(result->data());
+
+    connect(_usersListModel, &UsersListModel::sigUserChanged,
+            this, &MainModel::setCurrentUser);
+}
+
+void MainModel::initBackgroundsModel() {
+    _backgrounds = new ImageBackgroundsModel();
+}
+
+void MainModel::initIconsModel() {
+    _icons = new ImageLogoModel();
 }
 
 void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
@@ -980,6 +1004,10 @@ QObject *MainModel::exportImportModel() const {
 
 QObject *MainModel::createCardModel() const {
     return _createCardModel;
+}
+
+QObject *MainModel::usersListModel() const {
+    return _usersListModel;
 }
 
 }

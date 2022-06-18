@@ -933,6 +933,17 @@
     </message>
 </context>
 <context>
+    <name>UserView</name>
+    <message>
+        <source>Id:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>WaitConnectView</name>
     <message>
         <source>Seal</source>
