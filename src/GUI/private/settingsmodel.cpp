@@ -39,7 +39,7 @@ void SettingsModel::setCurrUser(unsigned int id) {
         _db->doQuery(QString("INSERT INTO Config(user) VALUES(%0)").arg(id));
     }
 
-    clearCache();
+    forceReloadCache();
 }
 
 void SettingsModel::showDataBaseLocation() {

@@ -51,15 +51,6 @@ QHash<int, QByteArray> RC::UsersListModel::roleNames() const {
 
 }
 
-void UsersListModel::activate(int userId) {
-
-    auto user = _cache.value(userId);
-    if (!user)
-        return;
-
-    emit sigUserChanged(user);
-}
-
 void UsersListModel::setUsers(const QList<QSharedPointer<API::User> >
                               &newUsers) {
     beginResetModel();
@@ -114,4 +105,33 @@ UsersListModel::updateUser(const QSharedPointer<API::User> &user) {
 
     return userModel;
 }
+
+void UsersListModel::setCurrentUser(unsigned int newCurrentUser) {
+
+    if (newCurrentUser == _currentUser) {
+        return;
+    }
+
+    if (_cache.contains(newCurrentUser)) {
+        _currentUser = newCurrentUser;
+    } else {
+        _currentUser = _cache.begin().key();
+    }
+    emit sigUserChanged(currentUser());
+    emit currentUserIdChanged();
+}
+
+const QHash<unsigned int, QSharedPointer<UserModel> > &
+UsersListModel::cache() const {
+    return _cache;
+}
+
+QSharedPointer<UserModel> UsersListModel::currentUser() const {
+    return _cache.value(_currentUser, nullptr);
+}
+
+int UsersListModel::currentUserId() const {
+    return _currentUser;
+}
+
 }

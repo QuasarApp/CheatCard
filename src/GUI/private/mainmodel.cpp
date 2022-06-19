@@ -68,9 +68,11 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
     _soundEffect = new SoundPlayback;
     _config = dynamic_cast<SettingsModel*>(
                 QuasarAppUtils::Settings::ISettings::instance());
+//    _config->setCurrUser(_settings.value(CURRENT_USER).toUInt());
 
-    _config->setCurrUser(_settings.value(CURRENT_USER).toUInt());
 
+    initBackgroundsModel();
+    initIconsModel();
     initCardsListModels();
     initImagesModels();
     initWaitConnectionModel();
@@ -81,8 +83,6 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
     initLanguageModel();
     initActivityProcessorModel();
     initCreateCardModel();
-    initBackgroundsModel();
-    initIconsModel();
     initUsersListModel();
 
     configureCardsList();
@@ -202,9 +202,8 @@ bool MainModel::handleImportUser(const QString &base64UserData) {
         return false;
     }
 
-    auto newUser = QSharedPointer<UserModel>::create(userData);
-
-    setCurrentUser(newUser);
+    auto newUser = _usersListModel->importUser(userData);
+    _usersListModel->setCurrentUser(newUser->userId());
     saveUser();
     _config->setValue("fFirst", false);
 
@@ -281,6 +280,7 @@ void MainModel::setCurrentUser(const QSharedPointer<RC::UserModel>& value) {
         }
 
         _settings.setValue(CURRENT_USER, userId);
+        _config->setCurrUser(userId);
 
         if (_billing) {
             connect(_currentUser.data(), &UserModel::sigBecomeSeller,
@@ -305,24 +305,13 @@ QSharedPointer<UserModel> MainModel::initUser() {
         return _currentUser;
     }
 
-    API::User requestLstUser;
-    requestLstUser.setId(_settings.value(CURRENT_USER).toUInt());
+    auto result = _usersListModel->currentUser();
 
-    auto lastUser = _db->getObject(requestLstUser);
-
-    if (lastUser && lastUser->isValid()) {
-        return QSharedPointer<UserModel>::create(lastUser);
+    if (!result) {
+        return _usersListModel->importUser(QSharedPointer<API::User>::create());
     }
 
-    QH::PKG::DBObjectsRequest<API::User> request("Users");
-
-    auto result = _db->getObject(request);
-
-    if (result && result->data().size()) {
-        return QSharedPointer<UserModel>::create(result->data().first());
-    }
-
-    return QSharedPointer<UserModel>::create(QSharedPointer<API::User>::create());
+    return result;
 }
 
 void MainModel::initCardsListModels() {
@@ -371,27 +360,8 @@ void MainModel::initImagesModels() {
     QQmlEngine::setObjectOwnership(_defaultLogosModel, QQmlEngine::CppOwnership);
     QQmlEngine::setObjectOwnership(_defaultBackgroundsModel, QQmlEngine::CppOwnership);
 
-#define r_prefix QString(":/images/private/resources/")
-
-    QDir searcher(r_prefix + "/Icons");
-    auto list = searcher.entryInfoList( QDir::Files, QDir::SortFlag::Name);
-
-    QStringList tmpList;
-    for (const auto &item : qAsConst(list)) {
-        tmpList.push_back("qrc" + item.absoluteFilePath());
-    }
-
-    _defaultLogosModel->setStringList(tmpList);
-
-    searcher.setPath(r_prefix + "/Backgrounds");
-    list = searcher.entryInfoList(QDir::Files, QDir::SortFlag::Name);
-    tmpList.clear();
-    for (const auto &item : qAsConst(list)) {
-        tmpList.push_back("qrc" + item.absoluteFilePath());
-    }
-
-    _defaultBackgroundsModel->setStringList(tmpList);
-
+    _defaultLogosModel->setStringList(_icons->getImages());
+    _defaultBackgroundsModel->setStringList(_backgrounds->getImages());
 }
 
 void MainModel::initNetIndicateModels() {
@@ -437,6 +407,7 @@ void MainModel::initUsersListModel() {
     auto result = _db->getObject(request);
 
     _usersListModel->setUsers(result->data());
+    _usersListModel->setCurrentUser(_settings.value(CURRENT_USER).toUInt());
 
     connect(_usersListModel, &UsersListModel::sigUserChanged,
             this, &MainModel::setCurrentUser);

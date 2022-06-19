@@ -25,7 +25,10 @@ namespace API {
 class UsersListModel: public QAbstractListModel
 {
     Q_OBJECT
+    Q_PROPERTY(int currentUserId READ currentUserId WRITE setCurrentUser NOTIFY currentUserIdChanged)
+
 public:
+
     UsersListModel(ImagesStorageModel * imageStorage);
 
 
@@ -43,22 +46,33 @@ public:
 
     QHash<int, QByteArray> roleNames() const override;
 
-    Q_INVOKABLE void activate(int userId);
     void setUsers(const QList<QSharedPointer<API::User>>& list);
 
     QSharedPointer<UserModel>
     importUser(const QSharedPointer<API::User>& user);
 
+    const QHash<unsigned int, QSharedPointer<UserModel> > &
+    cache() const;
+    QSharedPointer<UserModel> currentUser() const;
+
+    void setCurrentUser(unsigned int newCurrentUser);
+
+    int currentUserId() const;
+
 signals:
     void sigUserChanged(const QSharedPointer<RC::UserModel>& newUser);
+
+    void currentUserIdChanged();
 
 private:
     QSharedPointer<UserModel>
     updateUser(const QSharedPointer<API::User>& user);
 
+    unsigned int _currentUser = 0;
     QHash<unsigned int, QSharedPointer<UserModel>> _cache;
     QList<unsigned int> _users;
     ImagesStorageModel * _defaultAvatars = nullptr;
+    int m_currentUserId;
 };
 
 }

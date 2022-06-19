@@ -25,12 +25,19 @@ Page {
             id: delegateItem
 
             UserView {
+                id: userView
                 width: list.width
                 height: implicitHeight
                 model: userObject
                 userDefaultAvatar: (root.model)?
                                        root.model.userDefaultAvatar(userID):
                                        ""
+                fCurrent: list.model && userID === list.model.currentUserId
+                onClick: {
+                    if (list.model) {
+                        list.model.currentUserId = userID
+                    }
+                }
             }
 
         }

@@ -16,6 +16,19 @@ Page {
     id: root
     property var model: null
     property string userDefaultAvatar: ""
+    property bool fCurrent: false;
+
+    signal click(var mouse);
+
+    background: Rectangle {
+        color: (fCurrent)? Material.accent : Material.background
+        MouseArea {
+            anchors.fill: parent;
+            onClicked: {
+                root.click(mouse)
+            }
+        }
+    }
 
     contentItem: RowLayout {
 
