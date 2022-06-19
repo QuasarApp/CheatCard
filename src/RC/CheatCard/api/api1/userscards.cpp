@@ -27,6 +27,16 @@ QH::PKG::DBObject *UsersCards::createDBObject() const {
     return new UsersCards(0, 0);
 }
 
+QH::PKG::DBVariantMap UsersCards::variantMap() const {
+    return {{"user",           {user,                           QH::PKG::MemberType::Insert}},
+            {"card",           {card,                           QH::PKG::MemberType::Insert}},
+            {"id",             {id,                             QH::PKG::MemberType::PrimaryKey}},
+            {"purchasesNumber",{purchasesNumber,                QH::PKG::MemberType::InsertUpdate}},
+            {"received",       {received,                       QH::PKG::MemberType::InsertUpdate}},
+            {"time",           {_time.toSecsSinceEpoch(),       QH::PKG::MemberType::InsertUpdate}},
+    };
+}
+
 QDataStream &UsersCards::fromStream(QDataStream &stream) {
 
     DBObject::fromStream(stream); // clazy:exclude=skipped-base-method
@@ -37,6 +47,7 @@ QDataStream &UsersCards::fromStream(QDataStream &stream) {
     stream >> purchasesNumber;
     stream >> received;
     stream >> cardVersion;
+    stream >> _time;
 
     return stream;
 }
@@ -50,6 +61,7 @@ QDataStream &UsersCards::toStream(QDataStream &stream) const {
     stream << purchasesNumber;
     stream << received;
     stream << cardVersion;
+    stream << _time;
 
     return stream;
 }

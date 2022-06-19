@@ -99,6 +99,14 @@ bool ApiV1::processCardStatus(const QSharedPointer<QH::PKG::DataPack<APIv1::User
 
     for (const auto& cardStatus : cardStatuses->packData()) {
         auto dbCard = objectFactoryInstance()->getCard(cardStatus->getCard());
+        auto dbUsersCards = objectFactoryInstance()->getUserCardData(
+                    cardStatus->getUser(),
+                    cardStatus->getCard());
+
+        // ignore seels statuses that has a depricated time.
+        if (dbUsersCards && dbUsersCards->getTime() > cardStatus->getTime()) {
+            continue;
+        }
 
         if (!cardValidation(dbCard, cardStatuses->customData())) {
 
