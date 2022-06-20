@@ -16,6 +16,7 @@
 #include <CheatCard/api/api0/session.h>
 #include <CheatCard/api/api0/user.h>
 #include <CheatCard/api/api0/userscards.h>
+#include <CheatCard/api/api1/changeuserscards.h>
 #include <CheatCard/api/apiv0.h>
 
 namespace RC {
@@ -23,6 +24,8 @@ namespace RC {
 Seller::Seller(QH::ISqlDBCache *db): BaseNode(db) {
     registerPackageType<API::CardStatusRequest>();
     registerPackageType<API::CardDataRequest>();
+    registerPackageType<APIv1::ChangeUsersCards>();
+
 }
 
 bool Seller::incrementPurchases(const QSharedPointer<API::UsersCards> &usersCardsData,
@@ -113,36 +116,37 @@ bool Seller::incrementPurchase(const QSharedPointer<API::UserHeader> &userHeader
                                unsigned int cardId, int purchasesCount,
                                const QString &domain, int port) {
 
-    auto userCardsData = prepareData(userHeaderData, cardId);
-    if (!userCardsData) {
-        return false;
-    }
+    auto changes = QSharedPointer<APIv1::ChangeUsersCards>::create();
 
-    if (!incrementPurchases(userCardsData, purchasesCount)) {
-        QuasarAppUtils::Params::log("Failed to update data", QuasarAppUtils::Error);
 
-        return false;
-    }
+    changes->setUsercardId(API::UsersCards::genId(userHeaderData->getUserId(), cardId));
+    changes->setSessionId(userHeaderData->getSessionId());
+    changes->setPurchase(purchasesCount);
+    changes->setSecret(currentUser()->getKey());
+    _lastRequested[changes->getSessionId()] = changes;
+
+    return sendDataPrivate(domain, port);
+}
+
+bool Seller::sentDataToServerReceive(const QSharedPointer<API::UserHeader> &userHeaderData,
+                                     unsigned int cardId,
+                                     int receiveCount,
+                                     const QString &domain,
+                                     int port) {
+
+    auto changes = QSharedPointer<APIv1::ChangeUsersCards>::create();
+
+    changes->setUsercardId(API::UsersCards::genId(userHeaderData->getUserId(), cardId));
+    changes->setSessionId(userHeaderData->getSessionId());
+    changes->setReceive(receiveCount);
+    changes->setSecret(currentUser()->getKey());
+    _lastRequested[changes->getSessionId()] = changes;
 
     return sendDataPrivate(domain, port);
 }
 
 NodeType Seller::nodeType() const {
     return NodeType::Seller;
-}
-
-bool Seller::sentDataToServerPurchase(const QSharedPointer<API::UserHeader> &userHeaderData,
-                                      unsigned int cardId,
-                                      const QString &domain,
-                                      int port) {
-
-    auto userCardsData = prepareData(userHeaderData, cardId);
-    if (!userCardsData) {
-        return false;
-    }
-
-    return sendDataPrivate(domain, port);
-
 }
 
 void Seller::nodeConnected(QH::AbstractNodeInfo *node) {

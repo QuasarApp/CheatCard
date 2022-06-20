@@ -216,7 +216,7 @@ private:
     bool sendSellerDataToServer(const QSharedPointer<API::UserHeader> &header,
                                 unsigned int cardId,
                                 int purchasesCount,
-                                bool sendOnly);
+                                bool receive);
 
     CardsListModel* getCurrentListModel() const;    
 

@@ -56,6 +56,7 @@
 
 #include "CheatCard/pills/invalidcardidpill.h"
 
+#include <qaglobalutils.h>
 
 namespace RC {
 
@@ -853,7 +854,7 @@ void MainModel::handleListenStart(int purchasesCount,
 bool MainModel::sendSellerDataToServer(const QSharedPointer<API::UserHeader>& header,
                                        unsigned int cardId,
                                        int purchasesCount,
-                                       bool sendOnly) {
+                                       bool receive) {
 
     auto seller = _backEndModel.dynamicCast<Seller>();
 
@@ -861,8 +862,8 @@ bool MainModel::sendSellerDataToServer(const QSharedPointer<API::UserHeader>& he
         return false;
 
     bool sendResult = false;
-    if (sendOnly) {
-        sendResult = seller->sentDataToServerPurchase(header, cardId);
+    if (receive) {
+        sendResult = seller->sentDataToServerReceive(header, cardId, purchasesCount);
     } else {
 
         // show message about users bonuses. see handlePurchaseWasSuccessful function.
@@ -944,15 +945,11 @@ void MainModel::handleFirstDataSendet() {
 }
 
 void MainModel::handleBonusGivOut(int userId, int cardId, int count) {
-    auto card = _backEndModel->getUserCardData(userId, cardId);
 
-    if (card) {
-        card->receive(count);
+    debug_assert(userId == _lastUserHeader->getUserId(), "handleBonusGivOut function should be works with one user!");
 
-        _db->insertIfExistsUpdateObject(card);
+    sendSellerDataToServer(_lastUserHeader, cardId, count, true);
 
-        sendSellerDataToServer(_lastUserHeader, cardId, 0, true);
-    }
 }
 
 void MainModel::handleSettingsChanged(const QString &key, const QVariant &) {

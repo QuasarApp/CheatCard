@@ -19,6 +19,7 @@ namespace APIv1 {
 class RestoreDataRequest;
 class UsersCards;
 class Card;
+class ChangeUsersCards;
 }
 
 
@@ -47,6 +48,9 @@ protected:
     IAPIObjectsFactory *initObjectFactory() const override;
     bool processCardStatusRequest(const QSharedPointer<API::CardStatusRequest> &message,
                                   const QH::AbstractNodeInfo *sender, const QH::Header&) ;
+
+    bool processChanges(const QSharedPointer<APIv1::ChangeUsersCards> &message,
+                        const QH::AbstractNodeInfo *sender, const QH::Header&) ;
 
     bool processSession(const QSharedPointer<API::Session> &message,
                         const QH::AbstractNodeInfo *sender, const QH::Header&);

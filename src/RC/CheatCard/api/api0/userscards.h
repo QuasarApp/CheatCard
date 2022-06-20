@@ -48,6 +48,8 @@ public:
     void receive(unsigned int receiveFreItemsCount);
 
     static long long genId(unsigned int user, unsigned int card);
+    static unsigned int getUserId(long long userCardId);
+    static unsigned int getCardId(long long userCardId);
 
     long long getId() const;
 

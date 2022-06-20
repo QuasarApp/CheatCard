@@ -13,10 +13,10 @@ namespace RC {
 namespace APIv1 {
 
 UsersCards::UsersCards(): API::UsersCards() {
-
+    _time.fromSecsSinceEpoch(static_cast<int>(time(0)));
 }
 
-UsersCards::UsersCards(unsigned int user, unsigned int card): API::UsersCards(user, card) {
+UsersCards::UsersCards(unsigned int user, unsigned int card): APIv1::UsersCards() {
     this->user = user;
     this->card = card;
     id = genId(user, card);

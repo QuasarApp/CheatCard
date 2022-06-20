@@ -25,8 +25,9 @@ public:
                             const QString& domain = "",
                             int port = DEFAULT_CHEAT_CARD_PORT_SSL);
 
-    bool sentDataToServerPurchase (const QSharedPointer<API::UserHeader> &userHeaderData,
-                                   unsigned int cardId, const QString& domain = "",
+    bool sentDataToServerReceive (const QSharedPointer<API::UserHeader> &userHeaderData,
+                                   unsigned int cardId, int receiveCount = 1,
+                                  const QString& domain = "",
                                    int port = DEFAULT_CHEAT_CARD_PORT_SSL);
 
     bool requestAllDataFromUser();

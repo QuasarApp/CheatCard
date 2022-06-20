@@ -40,7 +40,6 @@ BaseNode::BaseNode(QH::ISqlDBCache *db): APIObjectsFactoryV1(db) {
     registerPackageType<QH::PKG::DataPack<API::Card>>();
     registerPackageType<QH::PKG::DataPack<APIv1::Card>>();
 
-
     setIgnoreSslErrors(QList<QSslError>() << QSslError::SelfSignedCertificate
                        << QSslError::SelfSignedCertificateInChain
                        << QSslError::HostNameMismatch

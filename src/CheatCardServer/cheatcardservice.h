@@ -28,7 +28,6 @@ public:
     void onPause() override;
 private:
     RC::Server *_serverSSL = nullptr;
-    RC::Server *_server = nullptr;
 
     RC::DataBase * _db = nullptr;
 

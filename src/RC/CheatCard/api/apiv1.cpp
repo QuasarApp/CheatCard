@@ -15,6 +15,7 @@
 #include <CheatCard/api/api1/restoredatarequest.h>
 #include <CheatCard/api/api1/userscards.h>
 #include <CheatCard/api/api1/card.h>
+#include <CheatCard/api/api1/changeuserscards.h>
 
 #include "CheatCard/nodeinfo.h"
 
@@ -78,6 +79,13 @@ QH::ParserResult ApiV1::parsePackage(const QSharedPointer<QH::PKG::AbstractData>
         return result;
     }
 
+    result = commandHandler<APIv1::ChangeUsersCards>(this,
+                                                       &ApiV1::processChanges,
+                                                       pkg, sender, pkgHeader);
+
+    if (result != QH::ParserResult::NotProcessed) {
+        return result;
+    }
 
     return QH::ParserResult::NotProcessed;
 }
@@ -311,6 +319,43 @@ bool ApiV1::processCardStatusRequest(const QSharedPointer<API::CardStatusRequest
     sessionProcessed(sessionId);
 
     return true;
+}
+
+bool ApiV1::processChanges(const QSharedPointer<APIv1::ChangeUsersCards> &message,
+                           const QH::AbstractNodeInfo *sender, const QH::Header &hdr) {
+
+    auto dbUsersCards = objectFactoryInstance()->getUserCardData(
+                message->getUser(),
+                message->getCard());
+
+    if (!dbUsersCards) {
+        dbUsersCards =  QSharedPointer<API::UsersCards>::create(message->getUser(), message->getCard());
+    }
+
+    dbUsersCards->setPurchasesNumber(dbUsersCards->getPurchasesNumber() + message->purchase());
+    dbUsersCards->receive(message->receive());
+
+    auto dbCard = objectFactoryInstance()->getCard(message->getCard());
+
+    if (!cardValidation(dbCard, message->secret())) {
+
+        QuasarAppUtils::Params::log("Receive not signed cards seal");
+        return false;
+    }
+
+    // insert session into database
+    message->setPrintError(false);
+    db()->insertObject(message);
+
+    if (!db()->insertIfExistsUpdateObject(dbUsersCards)) {
+        return false;
+    }
+
+    auto request = QSharedPointer<APIv1::RestoreDataRequest>::create();
+    request->setUserKey(message->secret());
+
+    return processRestoreDataRequest(request, sender, hdr);
+
 }
 
 bool ApiV1::processSession(const QSharedPointer<API::Session> &session,
