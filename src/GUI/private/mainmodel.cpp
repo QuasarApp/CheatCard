@@ -80,7 +80,7 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
     _db = db;
     _soundEffect = new SoundPlayback;
     _config = dynamic_cast<SettingsModel*>(
-                QuasarAppUtils::Settings::ISettingsService::instance());
+                QuasarAppUtils::Settings::ISettings::instance());
 
 
     initBackgroundsModel();

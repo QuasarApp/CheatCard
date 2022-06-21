@@ -362,7 +362,7 @@ void RC::BaseNode::addApiParser(const QSharedPointer<iParser>& api) {
 }
 
 QString BaseNode::getServerHost() const {
-    auto settings = QuasarAppUtils::ISettingsService::instance();
+    auto settings = QuasarAppUtils::ISettings::instance();
 
     if (!settings)
         return DEFAULT_CHEAT_CARD_HOST;
