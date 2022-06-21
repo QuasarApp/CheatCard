@@ -56,6 +56,7 @@ protected:
                         const QH::AbstractNodeInfo *sender, const QH::Header&);
     bool processCardStatus(const QSharedPointer<QH::PKG::DataPack<APIv1::UsersCards>> &cardStatuses,
                            const QH::AbstractNodeInfo *sender, const QH::Header&pkg);
+
     bool processCardRequest(const QSharedPointer<API::CardDataRequest> &cardStatus,
                             const QH::AbstractNodeInfo *sender, const QH::Header&) ;
     bool processCardData(const QSharedPointer<QH::PKG::DataPack<APIv1::Card> > &cardrequest,
@@ -65,6 +66,10 @@ protected:
                                            const QH::AbstractNodeInfo *sender, const QH::Header &);
 
 private:
+    unsigned int processCardStatusBase(const QSharedPointer<APIv1::UsersCards> &cardStatus,
+                                       const QByteArray &userSecreet,
+                                       const QH::AbstractNodeInfo *sender,
+                                       const QH::Header &pkg);
     /**
      * @brief cardValidation This method must check card data only on server. This implementation do nothing.
      * @return true if card is pass validation.
@@ -79,6 +84,7 @@ private:
     void getSignData(QByteArray& data) const;
 
     unsigned int _restoreDataPacakgeHash = 0;
+
 };
 
 }

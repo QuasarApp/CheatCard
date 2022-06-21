@@ -64,12 +64,23 @@ void softRemove(BaseNode * obj) {
     obj->softDelete();
 };
 
+void RC::MainModel::lastStatusRequest() {
+    auto service = QmlNotificationService::NotificationService::getService();
+
+    if (!_backEndModel->restoreOldData(_currentUser->user()->getKey())) {
+        service->setNotify(tr("We Have trouble"),
+                           tr("Failed to sync data with server."
+                              " Please check your internet connection and try to restore your data again"),
+                           "", QmlNotificationService::NotificationData::Warning);
+
+    }
+}
+
 MainModel::MainModel(QH::ISqlDBCache *db) {
     _db = db;
     _soundEffect = new SoundPlayback;
     _config = dynamic_cast<SettingsModel*>(
                 QuasarAppUtils::Settings::ISettings::instance());
-//    _config->setCurrUser(_settings.value(CURRENT_USER).toUInt());
 
 
     initBackgroundsModel();
@@ -108,6 +119,8 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
                          Qt::DirectConnection);
 
     }
+
+    lastStatusRequest();
 }
 
 MainModel::~MainModel() {
@@ -208,19 +221,11 @@ bool MainModel::handleImportUser(const QString &base64UserData) {
     saveUser();
     _config->setValue("fFirst", false);
 
-    if (!_backEndModel->restoreOldData(userData->getKey())) {
-        service->setNotify(tr("We Have trouble"),
-                           tr("Your secret key was imported successfully, but download backup data from server is failed."
-                              " Please check your internet connection and try to restore your data again"),
-                           "", QmlNotificationService::NotificationData::Warning);
-
-        return false;
-    }
-
     service->setNotify(tr("I managed to do it !"),
                        tr("Yor secret key are imported"),
                        "", QmlNotificationService::NotificationData::Normal);
 
+    lastStatusRequest();
 
     return true;
 }
@@ -633,20 +638,6 @@ void MainModel::setMode(int newMode) {
 
     _config->setValue("fSellerMode", static_cast<bool>(newMode));
 
-    if (_mode == Mode::Seller) {
-        // test secret keys
-
-        auto service = QmlNotificationService::NotificationService::getService();
-
-        if (!_backEndModel->restoreOldData(_currentUser->user()->getKey())) {
-            service->setNotify(tr("We Have trouble"),
-                               tr("Failed to sync data with server."
-                                  " Please check your internet connection and try to restore your data again"),
-                               "", QmlNotificationService::NotificationData::Warning);
-
-        }
-    }
-
     saveConfig();
 }
 
@@ -946,7 +937,8 @@ void MainModel::handleFirstDataSendet() {
 
 void MainModel::handleBonusGivOut(int userId, int cardId, int count) {
 
-    debug_assert(userId == _lastUserHeader->getUserId(), "handleBonusGivOut function should be works with one user!");
+    debug_assert(static_cast<unsigned int>(userId) == _lastUserHeader->getUserId(),
+                 "handleBonusGivOut function should be works with one user!");
 
     sendSellerDataToServer(_lastUserHeader, cardId, count, true);
 

@@ -186,6 +186,8 @@ private slots:
 private:
     void saveConfig();
     void saveUser();
+    void lastStatusRequest();
+
     QH::ISqlDBCache *db() const;
 
     QSharedPointer<UserModel> initUser();

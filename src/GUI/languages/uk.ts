@@ -723,10 +723,6 @@
         <translation>У нас проблеми</translation>
     </message>
     <message>
-        <source>Your secret key was imported successfully, but download backup data from server is failed. Please check your internet connection and try to restore your data again</source>
-        <translation>Ваш секретний ключ успішно імпортовано, але завантажити резервну копію даних із сервера не вдалося. Перевірте підключення до Інтернету та спробуйте відновити дані ще раз</translation>
-    </message>
-    <message>
         <source> You&apos;re trying to change the bonus rules. These changes will be saved as a new card. The old card continues to work correctly and all customers data will be saved. Do you want to continue?</source>
         <translation> Ви намагаєтеся змінити правила бонусів. Ці зміни будуть збережені як нова картка. Стара картка продовжує працювати правильно, і всі дані клієнтів будуть збережені. Ви хочете продовжити?</translation>
     </message>

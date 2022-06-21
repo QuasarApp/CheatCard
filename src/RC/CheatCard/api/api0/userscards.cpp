@@ -15,8 +15,8 @@ namespace API {
 
 #pragma pack(push, 1)
 struct UserCardId {
-    unsigned int userId;
     unsigned int cardId;
+    unsigned int userId;
 };
 #pragma pack(pop)
 

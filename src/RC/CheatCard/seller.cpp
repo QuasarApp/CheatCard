@@ -122,7 +122,7 @@ bool Seller::incrementPurchase(const QSharedPointer<API::UserHeader> &userHeader
     changes->setUsercardId(API::UsersCards::genId(userHeaderData->getUserId(), cardId));
     changes->setSessionId(userHeaderData->getSessionId());
     changes->setPurchase(purchasesCount);
-    changes->setSecret(currentUser()->getKey());
+    changes->setSecret(currentUser()->secret());
     _lastRequested[changes->getSessionId()] = changes;
 
     return sendDataPrivate(domain, port);
@@ -139,7 +139,7 @@ bool Seller::sentDataToServerReceive(const QSharedPointer<API::UserHeader> &user
     changes->setUsercardId(API::UsersCards::genId(userHeaderData->getUserId(), cardId));
     changes->setSessionId(userHeaderData->getSessionId());
     changes->setReceive(receiveCount);
-    changes->setSecret(currentUser()->getKey());
+    changes->setSecret(currentUser()->secret());
     _lastRequested[changes->getSessionId()] = changes;
 
     return sendDataPrivate(domain, port);

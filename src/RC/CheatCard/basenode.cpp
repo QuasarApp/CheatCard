@@ -246,6 +246,9 @@ int BaseNode::getFreeItemsCount(unsigned int userId,
 }
 
 int BaseNode::getFreeItemsCount(const QSharedPointer<API::UsersCards> &inputData) const {
+    if (!inputData)
+        return 0;
+
     unsigned int freeIndex = getCardFreeIndex(inputData->getCard());
     return getFreeItemsCount(inputData, freeIndex);
 }
@@ -253,6 +256,9 @@ int BaseNode::getFreeItemsCount(const QSharedPointer<API::UsersCards> &inputData
 int BaseNode::getFreeItemsCount(const QSharedPointer<API::UsersCards> &inputData,
                                 unsigned int freeIndex) const {
     if (freeIndex <= 0)
+        return 0;
+
+    if (!inputData)
         return 0;
 
     int freeItems = std::floor(inputData->getPurchasesNumber() /
