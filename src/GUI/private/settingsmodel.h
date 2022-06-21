@@ -15,7 +15,7 @@
 namespace RC {
 
 
-class SettingsModel: public QuasarAppUtils::ISettings {
+class SettingsModel: public QuasarAppUtils::ISettingsService {
     Q_OBJECT
 public:
     SettingsModel(QH::ISqlDBCache* db);
