@@ -100,7 +100,7 @@ ApplicationWindow {
 
             ToolButton {
                 id: switchUserButton
-                icon.source: "qrc:/images/private/resources/www.png"
+                icon.source: "qrc:/images/private/resources/Interface_icons/user.svg"
                 font.bold: true
                 font.pointSize: 14
 

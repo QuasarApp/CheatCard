@@ -5,17 +5,17 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#ifndef APIV1_H
-#define APIV1_H
+#ifndef APIV1_5_H
+#define APIV1_5_H
 #include "abstractnode.h"
 #include "CheatCard/core_global.h"
-#include "apiv0.h"
+#include "apiv1.h"
 #include "datapack.h"
 #include <isqldbcache.h>
 
 namespace RC {
 
-namespace APIv1 {
+namespace APIv1_5 {
 class RestoreDataRequest;
 class UsersCards;
 class Card;
@@ -24,15 +24,15 @@ class ChangeUsersCards;
 
 
 /**
- * @brief The ApiV1 class
+ * @brief The ApiV1_5 class
  * General changes betwin BaseNode and BaseNodev1
  *
  * The BaseNodeV1 dropped all tokens validation. now validation works only on server (used seller secret)
  */
-class CHEATCARD_CORE_EXPORT ApiV1: public ApiV0
+class CHEATCARD_CORE_EXPORT ApiV1_5: public ApiV1
 {
 public:
-    ApiV1(BaseNode* node);
+    ApiV1_5(BaseNode* node);
 
     int version() const override;
     QH::ParserResult parsePackage(const QSharedPointer<QH::PKG::AbstractData> &pkg,
@@ -41,13 +41,16 @@ public:
 
     void sendCardStatusRequest(long long userSession, QH::AbstractNodeInfo *dist) override;
 
-    virtual void restoreOldDateRequest(const QByteArray &curentUserKey, QH::AbstractNodeInfo *dist);
-    virtual void restoreOneCardRequest(unsigned int cardId, QH::AbstractNodeInfo *dist);
+    void restoreOldDateRequest(const QByteArray &curentUserKey, QH::AbstractNodeInfo *dist) override;
+    void restoreOneCardRequest(unsigned int cardId, QH::AbstractNodeInfo *dist) override;
 
 protected:
     IAPIObjectsFactory *initObjectFactory() const override;
     bool processCardStatusRequest(const QSharedPointer<API::CardStatusRequest> &message,
                                   const QH::AbstractNodeInfo *sender, const QH::Header&) ;
+
+    bool processChanges(const QSharedPointer<APIv1::ChangeUsersCards> &message,
+                        const QH::AbstractNodeInfo *sender, const QH::Header&) ;
 
     bool processSession(const QSharedPointer<API::Session> &message,
                         const QH::AbstractNodeInfo *sender, const QH::Header&);
@@ -59,22 +62,14 @@ protected:
     bool processCardData(const QSharedPointer<QH::PKG::DataPack<APIv1::Card> > &cardrequest,
                          const QH::AbstractNodeInfo *sender, const QH::Header &) ;
 
-    virtual bool processRestoreDataRequest(const QSharedPointer<APIv1::RestoreDataRequest> &cardrequest,
-                                           const QH::AbstractNodeInfo *sender, const QH::Header &);
+    bool processRestoreDataRequest(const QSharedPointer<APIv1::RestoreDataRequest> &cardrequest,
+                                   const QH::AbstractNodeInfo *sender, const QH::Header &) override;
 
-    /**
-     * @brief cardValidation This method must check card data only on server. This implementation do nothing.
-     * @return true if card is pass validation.
-     */
-    bool cardValidation(const QSharedPointer<API::Card>& card,
-                        const QByteArray &ownerSecret) const;
 private:
-
-    /**
-     * @brief getSignData This method sets to @a data secret key of this node. This method should be works only for sellers.
-     * @param data result value.
-     */
-    void getSignData(QByteArray& data) const;
+    unsigned int processCardStatusBase(const QSharedPointer<APIv1::UsersCards> &cardStatus,
+                                       const QByteArray &userSecreet,
+                                       const QH::AbstractNodeInfo *sender,
+                                       const QH::Header &pkg);
 
     unsigned int _restoreDataPacakgeHash = 0;
 

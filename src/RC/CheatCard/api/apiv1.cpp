@@ -79,14 +79,6 @@ QH::ParserResult ApiV1::parsePackage(const QSharedPointer<QH::PKG::AbstractData>
         return result;
     }
 
-    result = commandHandler<APIv1::ChangeUsersCards>(this,
-                                                     &ApiV1::processChanges,
-                                                     pkg, sender, pkgHeader);
-
-    if (result != QH::ParserResult::NotProcessed) {
-        return result;
-    }
-
     return QH::ParserResult::NotProcessed;
 }
 
@@ -146,41 +138,6 @@ bool ApiV1::processCardStatus(const QSharedPointer<QH::PKG::DataPack<APIv1::User
     }
 
     return node()->removeNode(sender->networkAddress());
-}
-
-unsigned int ApiV1::processCardStatusBase(const QSharedPointer<APIv1::UsersCards> &cardStatus,
-                                          const QByteArray& userSecreet,
-                                          const QH::AbstractNodeInfo *sender, const QH::Header &pkg) {
-    auto dbCard = objectFactoryInstance()->getCard(cardStatus->getCard());
-    auto dbUsersCards = objectFactoryInstance()->getUserCardData(
-                cardStatus->getUser(),
-                cardStatus->getCard());
-
-    // ignore seels statuses that has a depricated time.
-    if (dbUsersCards && dbUsersCards->getTime() > cardStatus->getTime()) {
-        return 0;
-    }
-
-
-    if (!cardValidation(dbCard, userSecreet)) {
-
-        QuasarAppUtils::Params::log("Receive not signed cards seal");
-        return 0;
-    }
-
-    // Disable alert if this packge is ansver to restore request
-    if (!applayPurchases(cardStatus, sender, pkg.triggerHash != _restoreDataPacakgeHash)) {
-        return 0;
-    }
-
-    bool hasUpdate = dbCard && dbCard->getCardVersion() < cardStatus->getCardVersion();
-
-    if (!dbCard || hasUpdate) {
-        return cardStatus->getCard();
-    }
-
-    return 0;
-
 }
 
 bool ApiV1::processCardRequest(const QSharedPointer<API::CardDataRequest> &cardrequest,
@@ -354,44 +311,6 @@ bool ApiV1::processCardStatusRequest(const QSharedPointer<API::CardStatusRequest
     sessionProcessed(sessionId);
 
     return true;
-}
-
-bool ApiV1::processChanges(const QSharedPointer<APIv1::ChangeUsersCards> &message,
-                           const QH::AbstractNodeInfo *sender, const QH::Header &hdr) {
-
-    if (!message->isValid()) {
-        return false;
-    }
-
-    message->setPrintError(false);
-    db()->insertObject(message);
-
-    auto dbUsersCards = objectFactoryInstance()->getUserCardData(
-                message->getUser(),
-                message->getCard());
-
-    if (!dbUsersCards) {
-        dbUsersCards =  QSharedPointer<API::UsersCards>::create(message->getUser(), message->getCard());
-    }
-
-    dbUsersCards->setPurchasesNumber(dbUsersCards->getPurchasesNumber() + message->purchase());
-    dbUsersCards->receive(message->receive());
-
-
-    unsigned int requiredCard = processCardStatusBase(dbUsersCards.staticCast<APIv1::UsersCards>(),
-                                              message->secret(), sender, hdr);
-
-    if (requiredCard) {
-        API::CardDataRequest request;
-        request.setCardIds({requiredCard});
-        return node()->sendData(&request, sender, &hdr);
-    }
-
-    auto request = QSharedPointer<APIv1::RestoreDataRequest>::create();
-    request->setUserKey(API::User::makeKey(message->secret()));
-
-    return processRestoreDataRequest(request, sender, hdr);
-
 }
 
 bool ApiV1::processSession(const QSharedPointer<API::Session> &session,
