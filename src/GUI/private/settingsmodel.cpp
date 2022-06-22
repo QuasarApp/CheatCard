@@ -17,12 +17,16 @@
 namespace RC {
 
 
-SettingsModel::SettingsModel(QH::ISqlDBCache *db) {
+SettingsModel::SettingsModel(const QH::ISqlDBCache *db) {
     _db = db;
 }
 
 SettingsModel::~SettingsModel() {
 
+}
+
+QuasarAppUtils::ISettings *SettingsModel::init(const QH::ISqlDBCache *db) {
+    return QuasarAppUtils::ISettings::init<SettingsModel>(db);
 }
 
 unsigned int SettingsModel::getCurrUser() {
@@ -31,14 +35,6 @@ unsigned int SettingsModel::getCurrUser() {
 
 void SettingsModel::setCurrUser(unsigned int id) {
     _currUser = id;
-
-    QH::PKG::GetSingleValue req({"Config", id}, "user", "user");
-    auto result = _db->getObject(req);
-
-    if (!result || result->value().toUInt() != id) {
-        _db->doQuery(QString("INSERT INTO Config(user) VALUES(%0)").arg(id));
-    }
-
     forceReloadCache();
 }
 
@@ -99,30 +95,40 @@ void SettingsModel::exportDataBase() {
 }
 
 void SettingsModel::syncImplementation() {
-
+    QuasarAppUtils::Settings::syncImplementation();
 }
 
 QVariant SettingsModel::getValueImplementation(const QString &key, const QVariant &def) {
-
-    QH::PKG::GetSingleValue request({"Config", _currUser}, key, "user");
-    auto result = _db->getObject(request);
-
-    if (!result || result->value().isNull()) {
-        return def;
-    }
-
-    return result->value();
+    return QuasarAppUtils::Settings::getValueImplementation(
+                QString("%0-%1").arg(_currUser).arg(key), def);
 
 }
 
 void SettingsModel::setValueImplementation(const QString key, const QVariant &value) {
-
-    auto updateRequest = QSharedPointer<QH::PKG::SetSingleValue>::create(
-                QH::DbAddress{"Config", _currUser}, key, value, "user");
-
-    _db->updateObject(updateRequest);
-
+    QuasarAppUtils::Settings::setValueImplementation(
+                QString("%0-%1").arg(_currUser).arg(key), value);
+    _originalKeys += key;
 }
 
+QHash<QString, QVariant> SettingsModel::defaultSettings() {
+    QHash<QString, QVariant> settings;
+
+    settings["colorTheme"] = "#ff6b01";
+    settings["shareName"] = true;
+    settings["cameraDevice"] = {};
+    settings["devSettingEnable"] = false;
+    settings["host"] = "";
+    settings["APIVersion"] = 2;
+
+    return settings;
+}
+
+void SettingsModel::forceReloadCache() {
+    for (auto it = _originalKeys.begin(); it != _originalKeys.end(); ++it) {
+        auto val = getValueImplementation(*it, {});
+        if (!val.isNull())
+            setValue(*it, val);
+    }
+}
 
 }

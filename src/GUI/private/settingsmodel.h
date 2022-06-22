@@ -15,11 +15,17 @@
 namespace RC {
 
 
-class SettingsModel: public QuasarAppUtils::ISettings {
+class SettingsModel: public QuasarAppUtils::Settings {
     Q_OBJECT
 public:
-    SettingsModel(QH::ISqlDBCache* db);
+    SettingsModel(const QH::ISqlDBCache* db);
     ~SettingsModel();
+
+    /**
+    * @brief init This is simple wrapper of the Settings::init method for convenient access to initialisation.
+    * @return instance of the setting.
+    */
+    static ISettings* init(const QH::ISqlDBCache *db);
 
     unsigned int getCurrUser();
     void setCurrUser(unsigned int id);
@@ -27,17 +33,20 @@ public:
     Q_INVOKABLE void showDataBaseLocation();
     Q_INVOKABLE void exportDataBase();
 
-signals:
-    void colorThemeChanged();
-
 protected:
-    void syncImplementation();
-    QVariant getValueImplementation(const QString &key, const QVariant &def);
-    void setValueImplementation(const QString key, const QVariant &value);
+    void syncImplementation() override;
+    QVariant getValueImplementation(const QString &key, const QVariant &def) override;
+    void setValueImplementation(const QString key, const QVariant &value) override;
+    QHash<QString, QVariant> defaultSettings() override;
 
 private:
-    QH::ISqlDBCache * _db = nullptr;
+
+    void forceReloadCache();
+
+    const QH::ISqlDBCache * _db = nullptr;
     unsigned int _currUser = 0;
+    QSet<QString> _originalKeys;
+    // ISettings interface
 };
 
 }

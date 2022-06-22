@@ -250,7 +250,7 @@ Page {
                     implicitWidth: 0x0
 
                     Label {
-                        text: qsTr("Camera")
+                        text: qsTr("Work rules")
                         horizontalAlignment: Qt.AlignLeft
                         verticalAlignment: Qt.AlignVCenter
                         font.bold: true
@@ -280,6 +280,32 @@ Page {
                             onActivated: (index) => {
                                 const newId = model[index];
                                 config.setStrValue("cameraDevice", newId)
+                                displayText = newId;
+                            }
+
+                            Layout.fillWidth: true
+                        }
+
+                    }
+
+                    RowLayout {
+                        Label {
+                            text: qsTr("Select API version")
+                            opacity: enabled ? 1.0 : 0.3
+                            verticalAlignment: Label.AlignVCenter
+                            wrapMode: Label.WordWrap
+                            Layout.fillWidth: true
+                        }
+
+                        ComboBox {
+                            enabled: model.length
+                            model: [1,2]
+                            displayText: config.getStrValue("APIVersion", 2)
+
+
+                            onActivated: (index) => {
+                                const newId = model[index];
+                                config.setStrValue("APIVersion", newId)
                                 displayText = newId;
                             }
 
@@ -446,6 +472,8 @@ Page {
                                        config.setValue("devSettingEnable", null)
                                        config.setValue("host", null)
                                        config.setValue("port", null)
+                                       config.setValue("APIVersion", 2)
+
                                    }
                     }
 

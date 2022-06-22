@@ -57,7 +57,7 @@ bool CheatCard::init(QQmlApplicationEngine *engine, IBilling *billingObject) {
     engine->addImageProvider(QLatin1String("cards"), new ImageProvider(_db));
 
     auto root = engine->rootContext();
-    auto settingsInstance = SettingsModel::init<SettingsModel>(_db->db());
+    auto settingsInstance = SettingsModel::init(_db->db());
 
     _model = new MainModel(_db->db());
 
