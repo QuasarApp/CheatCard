@@ -58,7 +58,7 @@ CPage {
                     SwitchDelegate {
                         id: darkTheme
                         text: qsTr("Dark Theme")
-                        checked: config.getValue("darkTheme", false)
+                        checked: false
                         padding: 0
 
                         onCheckedChanged: () => {

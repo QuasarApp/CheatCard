@@ -857,10 +857,6 @@
         <translation>Host</translation>
     </message>
     <message>
-        <source>Camera</source>
-        <translation>Camera</translation>
-    </message>
-    <message>
         <source>Select work camera</source>
         <translation>Select work camera</translation>
     </message>
@@ -911,6 +907,14 @@
     <message>
         <source>Language</source>
         <translation>Language</translation>
+    </message>
+    <message>
+        <source>Work rules</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select API version</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

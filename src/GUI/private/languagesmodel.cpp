@@ -5,7 +5,6 @@
 #include <quasarapp.h>
 #include <QQmlEngine>
 #include <QLocale>
-#include <QSettings>
 #include <CheatCard/settingskeys.h>
 
 namespace RC {
@@ -80,8 +79,8 @@ void LanguagesModel::selectLanguagge(const QString &lang, QObject* gui) {
 
     emit currentLanguageChanged();
 
-    QSettings setting;
-    setting.setValue(CURRENT_LANG, code);
+    auto settings = QuasarAppUtils::ISettings::instance();
+    settings->setValue(P_CURRENT_LANG, code);
 }
 
 QString LanguagesModel::getCurrentLanguage() {

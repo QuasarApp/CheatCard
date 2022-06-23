@@ -857,10 +857,6 @@
         <translation></translation>
     </message>
     <message>
-        <source>Camera</source>
-        <translation>Камера</translation>
-    </message>
-    <message>
         <source>Select work camera</source>
         <translation>Виберіть робочу камеру</translation>
     </message>
@@ -911,6 +907,14 @@
     <message>
         <source>Language</source>
         <translation>Мова</translation>
+    </message>
+    <message>
+        <source>Work rules</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select API version</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

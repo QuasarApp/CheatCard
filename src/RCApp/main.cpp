@@ -21,8 +21,9 @@
 
 void initLang() {
     QLocale locale = QLocale::system();
-    QSettings setting;
-    QString userLang = setting.value(CURRENT_LANG).toString();
+    auto settings = QuasarAppUtils::ISettings::instance();
+
+    QString userLang = settings->getValue(P_CURRENT_LANG).toString();
 
     if (!userLang.isEmpty()) {
         locale = QLocale(userLang);
@@ -89,10 +90,12 @@ int main(int argc, char *argv[]) {
     QtNativeTr::init();
 #endif
 
-    initLang();
 
     if (!rc.init(&engine, getBillingInstance())) {
         return 0;
     }
+
+    initLang();
+
     return app.exec();
 }

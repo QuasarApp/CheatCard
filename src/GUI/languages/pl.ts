@@ -858,10 +858,6 @@
         <translation></translation>
     </message>
     <message>
-        <source>Camera</source>
-        <translation>Kamera</translation>
-    </message>
-    <message>
         <source>Select work camera</source>
         <translation>Wybierz kamerę roboczą</translation>
     </message>
@@ -912,6 +908,14 @@
     <message>
         <source>Language</source>
         <translation>Język</translation>
+    </message>
+    <message>
+        <source>Work rules</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select API version</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

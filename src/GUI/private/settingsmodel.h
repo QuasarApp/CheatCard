@@ -41,12 +41,8 @@ protected:
 
 private:
 
-    void forceReloadCache();
-
     const QH::ISqlDBCache * _db = nullptr;
     unsigned int _currUser = 0;
-    QSet<QString> _originalKeys;
-    // ISettings interface
 };
 
 }

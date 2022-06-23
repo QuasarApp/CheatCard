@@ -224,7 +224,6 @@ private:
 
     QH::ISqlDBCache * _db = nullptr;
     QSharedPointer<UserModel> _currentUser;
-    SettingsModel* _config = nullptr;
 
     CardsListModel *_cardsListModel = nullptr;
     CardsListModel *_ownCardsListModel = nullptr;
@@ -254,7 +253,6 @@ private:
     QSharedPointer<BaseNode> _visitorbackEndModel = nullptr;
 
     WaitConnectionModel *_waitModel = nullptr;
-    QSettings _settings;
 
     QSharedPointer<API::UserHeader> _lastUserHeader;
 

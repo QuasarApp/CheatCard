@@ -13,6 +13,7 @@
 #include "iplatformtools.h"
 #include <sqldbwriter.h>
 #include <qmlnotifyservice.h>
+#include <CheatCard/settingskeys.h>
 
 namespace RC {
 
@@ -34,6 +35,9 @@ unsigned int SettingsModel::getCurrUser() {
 }
 
 void SettingsModel::setCurrUser(unsigned int id) {
+    if (_currUser == id)
+        return;
+
     _currUser = id;
     forceReloadCache();
 }
@@ -107,28 +111,20 @@ QVariant SettingsModel::getValueImplementation(const QString &key, const QVarian
 void SettingsModel::setValueImplementation(const QString key, const QVariant &value) {
     QuasarAppUtils::Settings::setValueImplementation(
                 QString("%0-%1").arg(_currUser).arg(key), value);
-    _originalKeys += key;
 }
 
 QHash<QString, QVariant> SettingsModel::defaultSettings() {
     QHash<QString, QVariant> settings;
 
-    settings["colorTheme"] = "#ff6b01";
-    settings["shareName"] = true;
-    settings["cameraDevice"] = {};
-    settings["devSettingEnable"] = false;
-    settings["host"] = "";
-    settings["APIVersion"] = 2;
+    settings[P_COLOR_THEME] = "#ff6b01";
+    settings[P_DARK_THEME] = false;
+    settings[P_SHARE_NAME] = true;
+    settings[P_CAMERA_DEVICE] = {};
+    settings[P_DEV_SETTINGS_ENABLE] = false;
+    settings[P_HOST] = "";
+    settings[P_API_VERSION] = 2;
 
     return settings;
-}
-
-void SettingsModel::forceReloadCache() {
-    for (auto it = _originalKeys.begin(); it != _originalKeys.end(); ++it) {
-        auto val = getValueImplementation(*it, {});
-        if (!val.isNull())
-            setValue(*it, val);
-    }
 }
 
 }

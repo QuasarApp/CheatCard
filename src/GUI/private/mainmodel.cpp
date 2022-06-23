@@ -79,9 +79,6 @@ void RC::MainModel::lastStatusRequest() {
 MainModel::MainModel(QH::ISqlDBCache *db) {
     _db = db;
     _soundEffect = new SoundPlayback;
-    _config = dynamic_cast<SettingsModel*>(
-                QuasarAppUtils::Settings::ISettings::instance());
-
 
     initBackgroundsModel();
     initIconsModel();
@@ -285,7 +282,8 @@ void MainModel::setCurrentUser(const QSharedPointer<RC::UserModel>& value) {
             _cardsListModel->updateMetaData(result->data());
         }
 
-        _settings.setValue(CURRENT_USER, userId);
+        auto settings = QuasarAppUtils::ISettings::instance();
+        settings->setValue(P_CURRENT_USER, userId);
         _config->setCurrUser(userId);
 
         if (_billing) {
@@ -299,7 +297,9 @@ void MainModel::setCurrentUser(const QSharedPointer<RC::UserModel>& value) {
 
 void MainModel::saveUser() {
     _db->insertIfExistsUpdateObject(_currentUser->user());
-    _settings.setValue(CURRENT_USER, _currentUser->user()->userId());
+    auto settings = QuasarAppUtils::ISettings::instance();
+
+    settings->setValue(P_CURRENT_USER, _currentUser->user()->userId());
 }
 
 void MainModel::saveConfig() {
@@ -413,7 +413,9 @@ void MainModel::initUsersListModel() {
     auto result = _db->getObject(request);
 
     _usersListModel->setUsers(result->data());
-    _usersListModel->setCurrentUser(_settings.value(CURRENT_USER).toUInt());
+    auto settings = QuasarAppUtils::ISettings::instance();
+
+    _usersListModel->setCurrentUser(settings->getValue(P_CURRENT_USER).toUInt());
 
     connect(_usersListModel, &UsersListModel::sigUserChanged,
             this, &MainModel::setCurrentUser);
@@ -945,7 +947,7 @@ void MainModel::handleBonusGivOut(int userId, int cardId, int count) {
 }
 
 void MainModel::handleSettingsChanged(const QString &key, const QVariant &) {
-    if ("fFirst" == key) {
+    if (P_FIRST == key) {
         emit fFirstChanged();
     }
 }

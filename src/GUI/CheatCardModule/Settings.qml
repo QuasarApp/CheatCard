@@ -466,13 +466,8 @@ Page {
                         Layout.alignment: Qt.AlignHCenter
 
                         onClicked: () => {
-                                       config.setValue("colorTheme", null)
-                                       config.setValue("shareName", null)
-                                       config.setValue("cameraDevice", null)
-                                       config.setValue("devSettingEnable", null)
-                                       config.setValue("host", null)
-                                       config.setValue("port", null)
-                                       config.setValue("APIVersion", 2)
+                                       config.resetToDefault()
+                                       activityProcessor.popItem();
 
                                    }
                     }
