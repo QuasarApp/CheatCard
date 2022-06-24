@@ -141,6 +141,18 @@ QHash<QString, QVariant> SettingsModel::defaultSettings() {
     return settings;
 }
 
+bool SettingsModel::isBool(const QString &key) const {
+
+    return key.contains(P_DARK_THEME) ||
+           key.contains(P_FIRST) ||
+           key.contains(P_SHARE_NAME) ||
+           key.contains(P_DEV_SETTINGS_ENABLE);
+}
+
+bool SettingsModel::ignoreToRest(const QString &key) const {
+    return key.contains(P_FIRST);
+}
+
 QString SettingsKeys::CURRENT_USER()  {return P_CURRENT_USER; }
 
 QString SettingsKeys::CURRENT_LANG()  {return P_CURRENT_LANG; }

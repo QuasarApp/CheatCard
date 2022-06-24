@@ -19,34 +19,6 @@
 #include <QtNativeTr.h>
 #endif
 
-void initLang() {
-    QLocale locale = QLocale::system();
-    auto settings = QuasarAppUtils::ISettings::instance();
-
-    QString userLang = settings->getValue(P_CURRENT_LANG).toString();
-
-    if (!userLang.isEmpty()) {
-        locale = QLocale(userLang);
-    }
-
-    QString customLanguage = QuasarAppUtils::Params::getArg("lang");
-    if(customLanguage.size()) {
-        locale = QLocale(customLanguage);
-    }
-
-    if(!QuasarAppUtils::Locales::init(locale, {
-                                      ":/QtNativeTr/languages/",
-                                      ":/CheatCardTr/languages/",
-                                      ":/credits_languages/",
-                                      ":/qmlNotify_languages/",
-                                      ":/lv_languages/",
-                                      ":/DoctorPillTr/languages/"
-                                      }
-                                      )){
-        QuasarAppUtils::Params::log("Error load language : ", QuasarAppUtils::Error);
-    }
-}
-
 RC::IBilling * getBillingInstance() {
 #ifdef ALLOW_BILLING_APP
     return new NoValidationBilling;
@@ -94,8 +66,6 @@ int main(int argc, char *argv[]) {
     if (!rc.init(&engine, getBillingInstance())) {
         return 0;
     }
-
-    initLang();
 
     return app.exec();
 }

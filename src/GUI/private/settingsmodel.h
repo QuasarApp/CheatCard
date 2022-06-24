@@ -71,7 +71,8 @@ protected:
     QVariant getValueImplementation(const QString &key, const QVariant &def) override;
     void setValueImplementation(const QString key, const QVariant &value) override;
     QHash<QString, QVariant> defaultSettings() override;
-
+    bool isBool(const QString& key) const override;
+    bool ignoreToRest(const QString& key) const override;
 private:
 
     const QH::ISqlDBCache * _db = nullptr;
