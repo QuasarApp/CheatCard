@@ -14,6 +14,39 @@
 
 namespace RC {
 
+// QML
+class SettingsKeys: public QObject {
+    Q_OBJECT
+
+    Q_PROPERTY(QString CURRENT_USER READ CURRENT_USER CONSTANT)
+    Q_PROPERTY(QString CURRENT_LANG READ CURRENT_LANG CONSTANT)
+    Q_PROPERTY(QString COLOR_THEME READ COLOR_THEME CONSTANT)
+    Q_PROPERTY(QString DARK_THEME READ DARK_THEME CONSTANT)
+    Q_PROPERTY(QString SHARE_NAME READ SHARE_NAME CONSTANT)
+    Q_PROPERTY(QString CAMERA_DEVICE READ CAMERA_DEVICE CONSTANT)
+    Q_PROPERTY(QString DEV_SETTINGS_ENABLE READ DEV_SETTINGS_ENABLE CONSTANT)
+    Q_PROPERTY(QString HOST READ HOST CONSTANT)
+    Q_PROPERTY(QString API_VERSION READ API_VERSION CONSTANT)
+    Q_PROPERTY(QString FIRST READ FIRST CONSTANT)
+    Q_PROPERTY(QString FSELLER READ FSELLER CONSTANT)
+
+    QML_NAMED_ELEMENT(SettingsKeys)
+
+public:
+    QString CURRENT_USER();
+    QString CURRENT_LANG();
+    QString COLOR_THEME();
+    QString DARK_THEME();
+    QString SHARE_NAME();
+    QString CAMERA_DEVICE();
+    QString DEV_SETTINGS_ENABLE();
+    QString HOST();
+    QString API_VERSION();
+    QString FIRST();
+    QString FSELLER();
+
+
+};
 
 class SettingsModel: public QuasarAppUtils::Settings {
     Q_OBJECT
@@ -42,9 +75,10 @@ protected:
 private:
 
     const QH::ISqlDBCache * _db = nullptr;
-    unsigned int _currUser = 0;
 };
 
 }
+
+QML_DECLARE_TYPE(RC::SettingsKeys)
 
 #endif // SETTINGSMODEL_H

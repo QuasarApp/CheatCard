@@ -10,6 +10,7 @@ import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
 import NotifyModule 1.0
+import SettingsKeys 1.0
 
 import "Style"
 
@@ -23,10 +24,13 @@ ApplicationWindow {
     height: 640
     width: 350
 
+    SettingsKeys {
+        id: settingsKeys
+    }
+
     // Horisontal mode
 //    height: 350
 //    width: 640
-
 
     onClosing: {
         // this is bad solution. but it is works fine.
@@ -37,26 +41,22 @@ ApplicationWindow {
         }
     }
 
-    readonly property string defaultpPimaryColor: "#ff6b01"
-
     property var model: mainModel
     property var user: (mainModel)? mainModel.currentUser: null
-    Material.primary: config.getStrValue("colorTheme", defaultpPimaryColor)
+    Material.primary: config.getStrValue(settingsKeys.COLOR_THEME)
     Material.accent: Material.primary
-    Material.theme: (config.getValue("darkTheme", false))? Material.Dark : Material.Light
+    Material.theme: (config.getValue(settingsKeys.DARK_THEME))? Material.Dark : Material.Light
 
     Connections {
         target: config
         function onValueStrChanged(key, value) {
-            if (key === "colorTheme") {
-                if (!value)
-                    value = defaultpPimaryColor
+            if (key === settingsKeys.COLOR_THEME) {
                 mainWindow.Material.primary = value;
             }
         }
 
         function onValueChanged(key, value) {
-            if (key === "darkTheme") {
+            if (key === settingsKeys.DARK_THEME) {
                 mainWindow.Material.theme = (value)? Material.Dark : Material.Light
             }
         }

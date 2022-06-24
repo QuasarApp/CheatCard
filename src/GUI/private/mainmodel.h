@@ -184,7 +184,6 @@ private slots:
     void handleAppOutdated(int minimumRequiredVersion);
 
 private:
-    void saveConfig();
     void saveUser();
     void lastStatusRequest();
 
@@ -224,6 +223,7 @@ private:
 
     QH::ISqlDBCache * _db = nullptr;
     QSharedPointer<UserModel> _currentUser;
+    SettingsModel* _config = nullptr;
 
     CardsListModel *_cardsListModel = nullptr;
     CardsListModel *_ownCardsListModel = nullptr;

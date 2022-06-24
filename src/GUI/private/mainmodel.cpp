@@ -79,6 +79,7 @@ void RC::MainModel::lastStatusRequest() {
 MainModel::MainModel(QH::ISqlDBCache *db) {
     _db = db;
     _soundEffect = new SoundPlayback;
+    _config = dynamic_cast<SettingsModel*>(QuasarAppUtils::ISettings::instance());
 
     initBackgroundsModel();
     initIconsModel();
@@ -150,16 +151,14 @@ bool MainModel::fFirst() const {
     if (!_config)
         return true;
 
-    return _config->getValue("fFirst", true).toBool();
+    return _config->getValue(P_FIRST).toBool();
 }
 
 void MainModel::configureFinished() {
     // First run setiing id.
     saveUser();
-    _config->setCurrUser(getCurrentUser()->user()->userId());
-    _config->setValue("fFirst", false);
+    _config->setValue(P_FIRST, false);
 
-    saveConfig();
     _currentUser->regenerateSessionKey();
 }
 
@@ -216,7 +215,7 @@ bool MainModel::handleImportUser(const QString &base64UserData) {
     auto newUser = _usersListModel->importUser(userData);
     _usersListModel->setCurrentUser(newUser->userId());
     saveUser();
-    _config->setValue("fFirst", false);
+    _config->setValue(P_FIRST, false);
 
     service->setNotify(tr("I managed to do it !"),
                        tr("Yor secret key are imported"),
@@ -282,10 +281,6 @@ void MainModel::setCurrentUser(const QSharedPointer<RC::UserModel>& value) {
             _cardsListModel->updateMetaData(result->data());
         }
 
-        auto settings = QuasarAppUtils::ISettings::instance();
-        settings->setValue(P_CURRENT_USER, userId);
-        _config->setCurrUser(userId);
-
         if (_billing) {
             connect(_currentUser.data(), &UserModel::sigBecomeSeller,
                     _billing, &IBilling::becomeSeller);
@@ -297,13 +292,7 @@ void MainModel::setCurrentUser(const QSharedPointer<RC::UserModel>& value) {
 
 void MainModel::saveUser() {
     _db->insertIfExistsUpdateObject(_currentUser->user());
-    auto settings = QuasarAppUtils::ISettings::instance();
-
-    settings->setValue(P_CURRENT_USER, _currentUser->user()->userId());
-}
-
-void MainModel::saveConfig() {
-    _config->sync();
+    _config->setCurrUser(_currentUser->user()->userId());
 }
 
 QSharedPointer<UserModel> MainModel::initUser() {
@@ -413,9 +402,8 @@ void MainModel::initUsersListModel() {
     auto result = _db->getObject(request);
 
     _usersListModel->setUsers(result->data());
-    auto settings = QuasarAppUtils::ISettings::instance();
 
-    _usersListModel->setCurrentUser(settings->getValue(P_CURRENT_USER).toUInt());
+    _usersListModel->setCurrentUser(_config->getCurrUser());
 
     connect(_usersListModel, &UsersListModel::sigUserChanged,
             this, &MainModel::setCurrentUser);
@@ -504,7 +492,7 @@ void MainModel::setCardListModel(CardsListModel *model) {
 }
 
 void MainModel::initMode(const QSharedPointer<UserModel> &user) {
-    bool fSallerEnabled = _config && _config->getValue("fSellerMode", false).toBool();
+    bool fSallerEnabled = _config && _config->getValue(P_FSELLER, false).toBool();
     setMode(user && user->fSaller() && fSallerEnabled);
 }
 
@@ -553,7 +541,6 @@ void MainModel::initBilling(IBilling *billingObject) {
 }
 
 void MainModel::flush() {
-    saveConfig();
     saveUser();
 }
 
@@ -638,9 +625,7 @@ void MainModel::setMode(int newMode) {
 
     configureCardsList();
 
-    _config->setValue("fSellerMode", static_cast<bool>(newMode));
-
-    saveConfig();
+    _config->setValue(P_FSELLER, static_cast<bool>(newMode));
 }
 
 QObject *MainModel::cardsList() const {

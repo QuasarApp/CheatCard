@@ -4,6 +4,7 @@ import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
 import "Style"
 
+
 CPage {
     id: customUiPage
     contentItem: Item {
@@ -62,7 +63,7 @@ CPage {
                         padding: 0
 
                         onCheckedChanged: () => {
-                                              config.setValue("darkTheme", darkTheme.checked)
+                                              config.setValue(settingsKeys.DARK_THEME, darkTheme.checked)
                                           }
 
                         Layout.fillWidth: true
@@ -90,7 +91,7 @@ CPage {
                             footer: DialogButtonBox {
                                 onAccepted: () => {
                                                 colorView.color = colorPick.color
-                                                config.setStrValue("colorTheme", colorPick.color)
+                                                config.setStrValue(COLOR_THEME, colorPick.color)
 
                                                 activityProcessor.popItem();
                                             }
