@@ -134,4 +134,8 @@ int UsersListModel::currentUserId() const {
     return _currentUser;
 }
 
+QObject *UsersListModel::currentUserModel() const {
+    return currentUser().data();
+}
+
 }

@@ -17,16 +17,15 @@ GridLayout {
     implicitHeight: 0x0
     implicitWidth: 0x0
 
-    flow: (privateRoot.fHorisontal)? GridLayout.LeftToRight : GridLayout.TopToBottom
+    flow: (flowChecker.fHorisontal)? GridLayout.LeftToRight : GridLayout.TopToBottom
 
     property string model: ""
 
     QrCodeControl {
-        fillMode: Image.PreserveAspectFit
         Layout.preferredHeight: Math.min(parent.width * 0.8, parent.height * 0.8)
         Layout.preferredWidth:  Math.min(parent.width * 0.8, parent.height * 0.8)
         Layout.alignment: Qt.AlignHCenter
-        source: "file:/" + model
+        customSource: "file:/" + model
     }
 
     ColumnLayout {
@@ -60,11 +59,5 @@ GridLayout {
 
             Layout.fillWidth: true
         }
-    }
-
-    Item {
-        id: privateRoot
-
-        property bool fHorisontal: root.height < root.width
     }
 }

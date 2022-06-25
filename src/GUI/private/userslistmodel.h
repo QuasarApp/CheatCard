@@ -26,6 +26,7 @@ class UsersListModel: public QAbstractListModel
 {
     Q_OBJECT
     Q_PROPERTY(int currentUserId READ currentUserId WRITE setCurrentUser NOTIFY currentUserIdChanged)
+    Q_PROPERTY(QObject* currentUserModel READ currentUserModel NOTIFY currentUserIdChanged)
 
 public:
 
@@ -58,6 +59,8 @@ public:
     void setCurrentUser(unsigned int newCurrentUser);
 
     int currentUserId() const;
+
+    QObject *currentUserModel() const;
 
 signals:
     void sigUserChanged(const QSharedPointer<RC::UserModel>& newUser);

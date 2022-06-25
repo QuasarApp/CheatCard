@@ -125,7 +125,9 @@ Frame {
                 }
             }
 
-            Item {
+
+            QrCodeControl {
+
                 id: qrBox
                 implicitWidth: 0x0
                 implicitHeight: 0x0
@@ -136,48 +138,20 @@ Frame {
 
                 visible: !Boolean(root.model && root.model.mode)
 
-                Image {
+                fileName: "currentuserqrcode";
+                inputText: (userModel)? (userModel.sessionCode): ""
 
-                    id: imgQr
-                    anchors.centerIn: parent
-                    height: Math.min(parent.height, parent.width)
-                    width: Math.min(parent.height, parent.width)
-                    fillMode: Image.PreserveAspectFit
-                    SBarcodeGenerator {
-                        id: generator
-                        fileName: "currentuserqrcode";
-                        inputText: (userModel)? (userModel.sessionCode): ""
-                        height: parent.height
-                        width:  parent.width
-                        margin: 0
-                        onInputTextChanged: {
-                            if (inputText.length)
-                                process(inputText);
-
-                            imgQr.qrIndex++
-                        }
-                    }
-                    source: "image://cards/file:" + generator.filePath + ":" + qrIndex
-                    layer.enabled: true
-                    layer.effect: ShaderColorOverlay {
-                        color: Material.primary
-                        fragSh: "qrc:/private/resources/shaders/shaderColorQrCode.fsh"
-                    }
-
-                    property int qrIndex: 0
-                }
 
                 MouseArea {
                     anchors.fill: parent
 
                     onReleased: {
                         activityProcessor.newActivity("qrc:/CheatCardModule/QrCodeView.qml",
-                                                      generator.filePath);
+                                                      qrBox.qrCodeFilePath);
                         userPanel.close()
                     }
                 }
             }
-
             AdditionalInformationForSeller {
                 implicitWidth: 0x0
                 id: sellerBox

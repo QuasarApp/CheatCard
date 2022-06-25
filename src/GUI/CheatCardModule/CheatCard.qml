@@ -204,7 +204,7 @@ ApplicationWindow {
         }
 
         MenuItem {
-            text: qsTr("Recovery")
+            text: qsTr("Import Account")
             icon.source: "qrc:/images/private/resources/Interface_icons/key_pull.svg"
 
             onClicked:  () => {
@@ -214,7 +214,7 @@ ApplicationWindow {
         }
 
         MenuItem {
-            text: qsTr("Backup")
+            text: qsTr("Export Account")
             icon.source: "qrc:/images/private/resources/Interface_icons/key_push.svg"
             onClicked:  () => {
                             activityProcessor.newActivity("qrc:/CheatCardModule/ExportUserKeyPage.qml",
@@ -283,11 +283,17 @@ ApplicationWindow {
 
         contentItem: EditUserView {
             model: mainModel
-            maximuWidth:  mainWindow.width
+            maximuWidth:  mainWindow.width - leftPadding - rightPadding
         }
     }
 
     NotificationServiceView {
         anchors.fill: parent;
+    }
+
+    Item {
+        id: flowChecker
+
+        property bool fHorisontal: mainWindow.height < mainWindow.width
     }
 }
