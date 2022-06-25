@@ -132,10 +132,8 @@ QHash<QString, QVariant> SettingsModel::defaultSettings() {
     settings[P_CAMERA_DEVICE] = {};
     settings[P_DEV_SETTINGS_ENABLE] = false;
     settings[P_HOST] = "";
-    settings[P_API_VERSION] = 2;
     settings[P_CURRENT_USER] = "";
     settings[P_CURRENT_LANG] = "Auto";
-    settings[P_API_VERSION] = 2;
 
 
     return settings;
@@ -168,8 +166,6 @@ QString SettingsKeys::CAMERA_DEVICE()  {return P_CAMERA_DEVICE; }
 QString SettingsKeys::DEV_SETTINGS_ENABLE()  {return P_DEV_SETTINGS_ENABLE; }
 
 QString SettingsKeys::HOST()  {return P_HOST; }
-
-QString SettingsKeys::API_VERSION()  {return P_API_VERSION; }
 
 QString SettingsKeys::FIRST()  {return P_FIRST; }
 

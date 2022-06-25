@@ -221,6 +221,7 @@ private:
 
     CardsListModel* getCurrentListModel() const;    
 
+
     QH::ISqlDBCache * _db = nullptr;
     QSharedPointer<UserModel> _currentUser;
     SettingsModel* _config = nullptr;

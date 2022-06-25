@@ -23,6 +23,7 @@
 #include <testvisitor.h>
 #include <type_traits>
 #include <CheatCard/api/apiv1.h>
+#include <CheatCard/api/apiv1-5.h>
 
 #define TEST_CHEAT_PORT 15001
 #define TEST_CHEAT_HOST "localhost"
@@ -59,6 +60,50 @@ void ConnectionTest::firstContact() {
     seller->addApiParser<RC::ApiV1>();
     client->addApiParser<RC::ApiV1>();
     server->addApiParser<RC::ApiV1>();
+    server->addApiParser<RC::ApiV1_5>();
+
+    apiTest(seller, client, server);
+
+    qDebug() << "TEST API V1(seller)";
+
+    seller = CheatCardTestsHelper::makeNode<TestSeller>();
+    client = CheatCardTestsHelper::makeNode<TestVisitor>();
+    server = CheatCardTestsHelper::makeNode<TestServer>();
+    seller->setCurrentUser(seller->getUser(CheatCardTestsHelper::testUserId()));
+
+    seller->addApiParser<RC::ApiV1>();
+    client->addApiParser<RC::ApiV1_5>();
+    server->addApiParser<RC::ApiV1>();
+    server->addApiParser<RC::ApiV1_5>();
+
+    apiTest(seller, client, server);
+
+    qDebug() << "TEST API V1(client)";
+
+    seller = CheatCardTestsHelper::makeNode<TestSeller>();
+    client = CheatCardTestsHelper::makeNode<TestVisitor>();
+    server = CheatCardTestsHelper::makeNode<TestServer>();
+    seller->setCurrentUser(seller->getUser(CheatCardTestsHelper::testUserId()));
+
+    seller->addApiParser<RC::ApiV1_5>();
+    client->addApiParser<RC::ApiV1>();
+    server->addApiParser<RC::ApiV1>();
+    server->addApiParser<RC::ApiV1_5>();
+
+    apiTest(seller, client, server);
+
+
+    qDebug() << "TEST API V1-5";
+
+    seller = CheatCardTestsHelper::makeNode<TestSeller>();
+    client = CheatCardTestsHelper::makeNode<TestVisitor>();
+    server = CheatCardTestsHelper::makeNode<TestServer>();
+    seller->setCurrentUser(seller->getUser(CheatCardTestsHelper::testUserId()));
+
+    seller->addApiParser<RC::ApiV1_5>();
+    client->addApiParser<RC::ApiV1_5>();
+    server->addApiParser<RC::ApiV1>();
+    server->addApiParser<RC::ApiV1_5>();
 
     apiTest(seller, client, server);
 

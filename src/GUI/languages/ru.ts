@@ -124,20 +124,20 @@
         <translation>Поделиться</translation>
     </message>
     <message>
-        <source>Recovery</source>
-        <translation>Восстановить</translation>
-    </message>
-    <message>
-        <source>Backup</source>
-        <translation>Резервное копирование</translation>
-    </message>
-    <message>
         <source> (work mode)</source>
         <translation> (Рабочий режим)</translation>
     </message>
     <message>
         <source>Create a card</source>
         <translation>Создать карту</translation>
+    </message>
+    <message>
+        <source>Import Account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export Account</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -307,10 +307,6 @@
 <context>
     <name>ExportUserKeyPage</name>
     <message>
-        <source>Export user key</source>
-        <translation>Экспорт ключа</translation>
-    </message>
-    <message>
         <source>**For what this use**</source>
         <translation>**Для чего это использовать**</translation>
     </message>
@@ -329,6 +325,18 @@
     <message>
         <source>Backup code exported successful. The Backup Code Available in your documents&apos; folder. See &lt;b&gt;%0&lt;/b&gt; path</source>
         <translation>Резервный код успешно экспортирован. Резервный код доступен в папке ваших документов. См. путь &lt;b&gt;%0&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <source>Export user account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>**Sharing access to your account**</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scan This Qr code using the &apos;import user option&apos; on left drop menu or in a user&apos;s list page on another device to export this user account to another device.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -940,6 +948,13 @@
     </message>
     <message>
         <source>Name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UsersListView</name>
+    <message>
+        <source>Import new user</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

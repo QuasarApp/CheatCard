@@ -16,7 +16,7 @@
 #include <CheatCard/api/api0/session.h>
 #include <CheatCard/api/api0/user.h>
 #include <CheatCard/api/api0/userscards.h>
-#include <CheatCard/api/api1/changeuserscards.h>
+#include <CheatCard/api/api1-5/changeuserscards.h>
 #include <CheatCard/api/apiv0.h>
 
 namespace RC {
@@ -24,7 +24,7 @@ namespace RC {
 Seller::Seller(QH::ISqlDBCache *db): BaseNode(db) {
     registerPackageType<API::CardStatusRequest>();
     registerPackageType<API::CardDataRequest>();
-    registerPackageType<APIv1::ChangeUsersCards>();
+    registerPackageType<APIv1_5::ChangeUsersCards>();
 
 }
 
@@ -116,14 +116,35 @@ bool Seller::incrementPurchase(const QSharedPointer<API::UserHeader> &userHeader
                                unsigned int cardId, int purchasesCount,
                                const QString &domain, int port) {
 
-    auto changes = QSharedPointer<APIv1::ChangeUsersCards>::create();
+    if (maximumApiVersion() > 1) {
+        // new api
+        auto changes = QSharedPointer<APIv1_5::ChangeUsersCards>::create();
 
 
-    changes->setUsercardId(API::UsersCards::genId(userHeaderData->getUserId(), cardId));
-    changes->setSessionId(userHeaderData->getSessionId());
-    changes->setPurchase(purchasesCount);
-    changes->setSecret(currentUser()->secret());
-    _lastRequested[changes->getSessionId()] = changes;
+        changes->setUsercardId(API::UsersCards::genId(userHeaderData->getUserId(), cardId));
+        changes->setSessionId(userHeaderData->getSessionId());
+        changes->setPurchase(purchasesCount);
+        changes->setSecret(currentUser()->secret());
+        _lastRequested[changes->getSessionId()] = changes;
+
+        return sendDataPrivate(domain, port);
+    }
+
+    // code for old api
+    auto usersCardsData = prepareData(userHeaderData, cardId);
+    if (!usersCardsData)
+        return false;
+
+    if (purchasesCount < 0)
+        return false;
+
+    usersCardsData->setPurchasesNumber(usersCardsData->getPurchasesNumber() + purchasesCount);
+
+    if (!db()->insertIfExistsUpdateObject(usersCardsData)) {
+        return false;
+    }
+
+    emit sigPurchaseWasSuccessful(usersCardsData, true);
 
     return sendDataPrivate(domain, port);
 }
@@ -134,13 +155,35 @@ bool Seller::sentDataToServerReceive(const QSharedPointer<API::UserHeader> &user
                                      const QString &domain,
                                      int port) {
 
-    auto changes = QSharedPointer<APIv1::ChangeUsersCards>::create();
+    if (maximumApiVersion() > 1) {
 
-    changes->setUsercardId(API::UsersCards::genId(userHeaderData->getUserId(), cardId));
-    changes->setSessionId(userHeaderData->getSessionId());
-    changes->setReceive(receiveCount);
-    changes->setSecret(currentUser()->secret());
-    _lastRequested[changes->getSessionId()] = changes;
+        auto changes = QSharedPointer<APIv1_5::ChangeUsersCards>::create();
+
+        changes->setUsercardId(API::UsersCards::genId(userHeaderData->getUserId(), cardId));
+        changes->setSessionId(userHeaderData->getSessionId());
+        changes->setReceive(receiveCount);
+        changes->setSecret(currentUser()->secret());
+        _lastRequested[changes->getSessionId()] = changes;
+
+        return sendDataPrivate(domain, port);
+    }
+
+
+    // code for old api
+    auto usersCardsData = prepareData(userHeaderData, cardId);
+    if (!usersCardsData)
+        return false;
+
+    if (receiveCount < 0)
+        return false;
+
+    usersCardsData->receive(receiveCount);
+
+    if (!db()->insertIfExistsUpdateObject(usersCardsData)) {
+        return false;
+    }
+
+    emit sigPurchaseWasSuccessful(usersCardsData, true);
 
     return sendDataPrivate(domain, port);
 }

@@ -58,23 +58,13 @@
 
 #include <qaglobalutils.h>
 
+#include <CheatCard/api/apiv1-5.h>
+
 namespace RC {
 
 void softRemove(BaseNode * obj) {
     obj->softDelete();
 };
-
-void RC::MainModel::lastStatusRequest() {
-    auto service = QmlNotificationService::NotificationService::getService();
-
-    if (!_backEndModel->restoreOldData(_currentUser->user()->getKey())) {
-        service->setNotify(tr("We Have trouble"),
-                           tr("Failed to sync data with server."
-                              " Please check your internet connection and try to restore your data again"),
-                           "", QmlNotificationService::NotificationData::Warning);
-
-    }
-}
 
 MainModel::MainModel(QH::ISqlDBCache *db) {
     _db = db;
@@ -117,8 +107,6 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
                          Qt::DirectConnection);
 
     }
-
-    lastStatusRequest();
 }
 
 MainModel::~MainModel() {
@@ -221,7 +209,13 @@ bool MainModel::handleImportUser(const QString &base64UserData) {
                        tr("Yor secret key are imported"),
                        "", QmlNotificationService::NotificationData::Normal);
 
-    lastStatusRequest();
+
+    if (!_backEndModel->restoreOldData(_currentUser->user()->getKey())) {
+        service->setNotify(tr("We Have trouble"),
+                           tr("Failed to sync data with server."
+                              " Please check your internet connection and try to restore your data again"),
+                           "", QmlNotificationService::NotificationData::Warning);
+    }
 
     return true;
 }
@@ -585,7 +579,7 @@ QSharedPointer<BaseNode> initBackEndModel(const QSharedPointer<UserModel>& user,
     QSharedPointer<BaseNode> result;
     result = QSharedPointer<BaseNode>(new BackEndType(db), softRemove);
 
-    result->addApiParser<ApiV1>();
+    result->addApiParser<ApiV1_5>();
 
     if (user) {
         result->setCurrentUser(user->user());

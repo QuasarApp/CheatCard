@@ -8,6 +8,7 @@
 #include "cheatcardservice.h"
 #include <QDateTime>
 #include <CheatCard/serverssl.h>
+#include <CheatCard/api/apiv1-5.h>
 #include <CheatCard/api/apiv1.h>
 
 CheatCardService::CheatCardService(int argc, char **argv):
@@ -42,6 +43,7 @@ bool CheatCardService::onStart() {
     if (!_serverSSL) {
         _serverSSL = new RC::ServerSSL(_db->db());
         _serverSSL->addApiParser<RC::ApiV1>();
+        _serverSSL->addApiParser<RC::ApiV1_5>();
     }
 
     if (!_serverSSL->run({}, DEFAULT_CHEAT_CARD_PORT_SSL)) {

@@ -15,7 +15,7 @@
 #include <CheatCard/api/api1/restoredatarequest.h>
 #include <CheatCard/api/api1/userscards.h>
 #include <CheatCard/api/api1/card.h>
-#include <CheatCard/api/api1/changeuserscards.h>
+#include <CheatCard/api/api1-5/changeuserscards.h>
 
 #include "CheatCard/nodeinfo.h"
 
@@ -79,7 +79,7 @@ QH::ParserResult ApiV1_5::parsePackage(const QSharedPointer<QH::PKG::AbstractDat
         return result;
     }
 
-    result = commandHandler<APIv1::ChangeUsersCards>(this,
+    result = commandHandler<APIv1_5::ChangeUsersCards>(this,
                                                      &ApiV1_5::processChanges,
                                                      pkg, sender, pkgHeader);
 
@@ -166,7 +166,7 @@ bool ApiV1_5::processCardStatusRequest(const QSharedPointer<API::CardStatusReque
 
 }
 
-bool ApiV1_5::processChanges(const QSharedPointer<APIv1::ChangeUsersCards> &message,
+bool ApiV1_5::processChanges(const QSharedPointer<APIv1_5::ChangeUsersCards> &message,
                              const QH::AbstractNodeInfo *sender, const QH::Header &hdr) {
 
     if (!message->isValid()) {

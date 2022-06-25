@@ -16,9 +16,6 @@
 namespace RC {
 
 namespace APIv1_5 {
-class RestoreDataRequest;
-class UsersCards;
-class Card;
 class ChangeUsersCards;
 }
 
@@ -49,7 +46,7 @@ protected:
     bool processCardStatusRequest(const QSharedPointer<API::CardStatusRequest> &message,
                                   const QH::AbstractNodeInfo *sender, const QH::Header&) ;
 
-    bool processChanges(const QSharedPointer<APIv1::ChangeUsersCards> &message,
+    bool processChanges(const QSharedPointer<APIv1_5::ChangeUsersCards> &message,
                         const QH::AbstractNodeInfo *sender, const QH::Header&) ;
 
     bool processSession(const QSharedPointer<API::Session> &message,

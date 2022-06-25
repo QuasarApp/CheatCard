@@ -15,7 +15,6 @@
 #include <CheatCard/api/api1/restoredatarequest.h>
 #include <CheatCard/api/api1/userscards.h>
 #include <CheatCard/api/api1/card.h>
-#include <CheatCard/api/api1/changeuserscards.h>
 
 #include "CheatCard/nodeinfo.h"
 

@@ -19,7 +19,6 @@ namespace APIv1 {
 class RestoreDataRequest;
 class UsersCards;
 class Card;
-class ChangeUsersCards;
 }
 
 
