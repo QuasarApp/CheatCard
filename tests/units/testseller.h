@@ -12,6 +12,7 @@ class TestSeller: public RC::Seller
 public:
     TestSeller(QSharedPointer<TestDataBaseWrapper> db);
     void dropDB();
+    int getPurchaseCount(unsigned int userId, unsigned int cardId);
 private:
     QSharedPointer<TestDataBaseWrapper> privateDb;
 };
