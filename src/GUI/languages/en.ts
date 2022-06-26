@@ -86,15 +86,15 @@
     </message>
     <message>
         <source>* At the time of purchase, tell the seller that you have a cheat card</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>* And get your bonuses!!!</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>* Visit any cafe that support CheatCard Application</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -133,11 +133,11 @@
     </message>
     <message>
         <source>Import Account</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Export Account</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -328,15 +328,15 @@
     </message>
     <message>
         <source>Export user account</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>**Sharing access to your account**</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Scan This Qr code using the &apos;import user option&apos; on left drop menu or in a user&apos;s list page on another device to export this user account to another device.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -748,7 +748,19 @@
     </message>
     <message>
         <source>Failed to sync data with server. Please check your internet connection and try to restore your data again</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Success</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>You issued a bonus or stamped the card successfully.</source>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -918,11 +930,7 @@
     </message>
     <message>
         <source>Work rules</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Select API version</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -944,18 +952,18 @@
     <name>UserView</name>
     <message>
         <source>Id:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Name:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
     <name>UsersListView</name>
     <message>
         <source>Import new user</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>

@@ -6,16 +6,13 @@
 //#
 
 
-
 #ifndef CHANGEUSERSCARDS_H
 #define CHANGEUSERSCARDS_H
-
 
 #include <CheatCard/api/api0/session.h>
 
 namespace RC {
 namespace APIv1_5 {
-
 
 /**
  * @brief The ChangeUsersCards class contains changes to server.

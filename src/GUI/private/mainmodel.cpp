@@ -28,6 +28,10 @@
 #include "CheatCard/api/api0/user.h"
 #include "CheatCard/api/api0/card.h"
 #include "CheatCard/api/api0/userscards.h"
+#include <CheatCard/api/api0/session.h>
+
+#include <CheatCard/api/apiv1.h>
+#include <CheatCard/api/apiv1-5.h>
 
 #include "dbobjectsrequest.h"
 #include "deleteobject.h"
@@ -50,7 +54,6 @@
 
 #include <CheatCardGui/ibilling.h>
 #include "settingsmodel.h"
-#include <CheatCard/api/apiv1.h>
 
 #include <doctorpillgui.h>
 
@@ -58,7 +61,7 @@
 
 #include <qaglobalutils.h>
 
-#include <CheatCard/api/apiv1-5.h>
+
 
 namespace RC {
 
@@ -228,6 +231,30 @@ void MainModel::handleCardCreated(const QSharedPointer<API::Card>& card) {
 
 void MainModel::handleAppOutdated(int) {
     _activityProcessorModel->newActivity("qrc:/CheatCardModule/UpdateRequestPage.qml");
+}
+
+void MainModel::handleResponceOFChangedReceived(QSharedPointer<API::Session> session,
+                                                bool succesed) {
+
+    auto service = QmlNotificationService::NotificationService::getService();
+
+    if (succesed) {
+
+        service->setNotify(tr("Success"),
+                           tr("You issued a bonus or stamped the card successfully."),
+                           "", QmlNotificationService::NotificationData::Normal);
+
+    } else {
+        db()->deleteObject(session);
+
+        service->setNotify(tr("We Have trouble"),
+                           tr("Failed to issue a bonus or stamp."
+                              " Maybe your local data is deprecated, "
+                              " we already update your local data. "
+                              " Please try again make issue a bonus or stamp."),
+                           "", QmlNotificationService::NotificationData::Error);
+
+    }
 }
 
 const QSharedPointer<UserModel>& MainModel::getCurrentUser() const {

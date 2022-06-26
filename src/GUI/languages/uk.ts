@@ -133,11 +133,11 @@
     </message>
     <message>
         <source>Import Account</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпорт облікового запису</translation>
     </message>
     <message>
         <source>Export Account</source>
-        <translation type="unfinished"></translation>
+        <translation>Експортувати обліковий запис</translation>
     </message>
 </context>
 <context>
@@ -328,15 +328,15 @@
     </message>
     <message>
         <source>Export user account</source>
-        <translation type="unfinished"></translation>
+        <translation>Експортувати обліковий запис користувача</translation>
     </message>
     <message>
         <source>**Sharing access to your account**</source>
-        <translation type="unfinished"></translation>
+        <translation>**Спільний доступ до вашого облікового запису**</translation>
     </message>
     <message>
         <source>Scan This Qr code using the &apos;import user option&apos; on left drop menu or in a user&apos;s list page on another device to export this user account to another device.</source>
-        <translation type="unfinished"></translation>
+        <translation>Відскануйте цей Qr-код за допомогою «опції імпорту користувача» у спадному меню ліворуч або на сторінці списку користувачів на іншому пристрої, щоб експортувати цей обліковий запис користувача на інший пристрій.</translation>
     </message>
 </context>
 <context>
@@ -748,7 +748,19 @@
     </message>
     <message>
         <source>Failed to sync data with server. Please check your internet connection and try to restore your data again</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося синхронізувати дані із сервером. Перевірте підключення до Інтернету та спробуйте відновити дані ще раз</translation>
+    </message>
+    <message>
+        <source>Success</source>
+        <translation>Успіх</translation>
+    </message>
+    <message>
+        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
+        <translation>Не вдалося надати бонус або штамп. Можливо, ваші локальні дані застаріли, ми вже оновлюємо ваші локальні дані. Будь ласка, спробуйте ще раз зробити видачу бонусом або печаткою.</translation>
+    </message>
+    <message>
+        <source>You issued a bonus or stamped the card successfully.</source>
+        <translation>Ви видали бонус або успішно проштампували картку.</translation>
     </message>
 </context>
 <context>
@@ -918,11 +930,7 @@
     </message>
     <message>
         <source>Work rules</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Select API version</source>
-        <translation type="unfinished"></translation>
+        <translation>Правила роботи</translation>
     </message>
 </context>
 <context>
@@ -944,18 +952,18 @@
     <name>UserView</name>
     <message>
         <source>Id:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>ім&apos;я користувача:</translation>
     </message>
 </context>
 <context>
     <name>UsersListView</name>
     <message>
         <source>Import new user</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпорт нового користувача</translation>
     </message>
 </context>
 <context>

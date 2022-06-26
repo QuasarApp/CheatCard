@@ -287,32 +287,6 @@ Page {
                         }
 
                     }
-
-                    RowLayout {
-                        Label {
-                            text: qsTr("Select API version")
-                            opacity: enabled ? 1.0 : 0.3
-                            verticalAlignment: Label.AlignVCenter
-                            wrapMode: Label.WordWrap
-                            Layout.fillWidth: true
-                        }
-
-                        ComboBox {
-                            enabled: model.length
-                            model: [1,2]
-                            displayText: config.getStrValue(settingsKeys.API_VERSION)
-
-
-                            onActivated: (index) => {
-                                const newId = model[index];
-                                config.setStrValue(settingsKeys.API_VERSION, newId)
-                                displayText = newId;
-                            }
-
-                            Layout.fillWidth: true
-                        }
-
-                    }
                 }
             }
 

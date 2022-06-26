@@ -17,6 +17,7 @@
 #include <CheatCard/api/api0/user.h>
 #include <CheatCard/api/api0/userscards.h>
 #include <CheatCard/api/api1-5/changeuserscards.h>
+#include "CheatCard/api/api1-5/statusafterchanges.h"
 #include <CheatCard/api/apiv0.h>
 
 namespace RC {
@@ -25,6 +26,7 @@ Seller::Seller(QH::ISqlDBCache *db): BaseNode(db) {
     registerPackageType<API::CardStatusRequest>();
     registerPackageType<API::CardDataRequest>();
     registerPackageType<APIv1_5::ChangeUsersCards>();
+    registerPackageType<APIv1_5::StatusAfterChanges>();
 
 }
 

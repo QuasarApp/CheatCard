@@ -133,11 +133,11 @@
     </message>
     <message>
         <source>Import Account</source>
-        <translation type="unfinished"></translation>
+        <translation>Импорт аккаунта</translation>
     </message>
     <message>
         <source>Export Account</source>
-        <translation type="unfinished"></translation>
+        <translation>Экспорт аккаунта</translation>
     </message>
 </context>
 <context>
@@ -328,15 +328,15 @@
     </message>
     <message>
         <source>Export user account</source>
-        <translation type="unfinished"></translation>
+        <translation>Экспорт аккаунта пользователя</translation>
     </message>
     <message>
         <source>**Sharing access to your account**</source>
-        <translation type="unfinished"></translation>
+        <translation>**Общий доступ к вашей учетной записи**</translation>
     </message>
     <message>
         <source>Scan This Qr code using the &apos;import user option&apos; on left drop menu or in a user&apos;s list page on another device to export this user account to another device.</source>
-        <translation type="unfinished"></translation>
+        <translation>Отсканируйте этот Qr-код, используя «параметр импорта пользователя» в левом раскрывающемся меню или на странице списка пользователей на другом устройстве, чтобы экспортировать эту учетную запись пользователя на другое устройство.</translation>
     </message>
 </context>
 <context>
@@ -748,7 +748,19 @@
     </message>
     <message>
         <source>Failed to sync data with server. Please check your internet connection and try to restore your data again</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось синхронизировать данные с сервером. Проверьте подключение к Интернету и попробуйте снова восстановить данные</translation>
+    </message>
+    <message>
+        <source>Success</source>
+        <translation>Успех</translation>
+    </message>
+    <message>
+        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
+        <translation>Не удалось выдать бонус или штамп. Возможно, ваши локальные данные устарели, мы уже обновляем ваши локальные данные. Пожалуйста, попробуйте еще раз оформить бонус или штамп.</translation>
+    </message>
+    <message>
+        <source>You issued a bonus or stamped the card successfully.</source>
+        <translation>Вы успешно выпустили бонус или проштамповали карту.</translation>
     </message>
 </context>
 <context>
@@ -918,11 +930,7 @@
     </message>
     <message>
         <source>Work rules</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Select API version</source>
-        <translation type="unfinished"></translation>
+        <translation>Правила работы</translation>
     </message>
 </context>
 <context>
@@ -944,18 +952,18 @@
     <name>UserView</name>
     <message>
         <source>Id:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Имя пользователя:</translation>
     </message>
 </context>
 <context>
     <name>UsersListView</name>
     <message>
         <source>Import new user</source>
-        <translation type="unfinished"></translation>
+        <translation>Импорт нового пользователя</translation>
     </message>
 </context>
 <context>

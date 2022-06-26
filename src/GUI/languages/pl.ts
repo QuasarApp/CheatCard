@@ -134,11 +134,11 @@
     </message>
     <message>
         <source>Import Account</source>
-        <translation type="unfinished"></translation>
+        <translation>Importuj konto</translation>
     </message>
     <message>
         <source>Export Account</source>
-        <translation type="unfinished"></translation>
+        <translation>Konto eksportu</translation>
     </message>
 </context>
 <context>
@@ -329,15 +329,15 @@
     </message>
     <message>
         <source>Export user account</source>
-        <translation type="unfinished"></translation>
+        <translation>Eksportuj konto użytkownika</translation>
     </message>
     <message>
         <source>**Sharing access to your account**</source>
-        <translation type="unfinished"></translation>
+        <translation>**Dzielenie dostępu do swojego konta**</translation>
     </message>
     <message>
         <source>Scan This Qr code using the &apos;import user option&apos; on left drop menu or in a user&apos;s list page on another device to export this user account to another device.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeskanuj ten kod QR za pomocą opcji „Importuj użytkownika” w menu rozwijanym po lewej stronie lub na stronie listy użytkownika na innym urządzeniu, aby wyeksportować to konto użytkownika na inne urządzenie.</translation>
     </message>
 </context>
 <context>
@@ -749,7 +749,19 @@
     </message>
     <message>
         <source>Failed to sync data with server. Please check your internet connection and try to restore your data again</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie udało się zsynchronizować danych z serwerem. Sprawdź połączenie internetowe i spróbuj ponownie przywrócić dane</translation>
+    </message>
+    <message>
+        <source>Success</source>
+        <translation>Powodzenie</translation>
+    </message>
+    <message>
+        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
+        <translation>Nie udało się wystawić premii lub pieczątki. Być może Twoje dane lokalne są przestarzałe, już zaktualizowaliśmy Twoje dane lokalne. Spróbuj ponownie, aby wystawić premię lub pieczątkę.</translation>
+    </message>
+    <message>
+        <source>You issued a bonus or stamped the card successfully.</source>
+        <translation>Wydałeś premię lub pomyślnie podstemplowałeś kartę.</translation>
     </message>
 </context>
 <context>
@@ -919,11 +931,7 @@
     </message>
     <message>
         <source>Work rules</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Select API version</source>
-        <translation type="unfinished"></translation>
+        <translation>Zasady pracy</translation>
     </message>
 </context>
 <context>
@@ -945,18 +953,18 @@
     <name>UserView</name>
     <message>
         <source>Id:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nazwa Użytkownika:</translation>
     </message>
 </context>
 <context>
     <name>UsersListView</name>
     <message>
         <source>Import new user</source>
-        <translation type="unfinished"></translation>
+        <translation>Importuj nowego użytkownika</translation>
     </message>
 </context>
 <context>

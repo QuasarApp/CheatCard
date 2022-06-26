@@ -18,6 +18,8 @@
 
 #include <badrequest.h>
 #include "CheatCard/api/api1-5/changeuserscards.h"
+#include "CheatCard/api/api1-5/statusafterchanges.h"
+
 #include "CheatCard/clearolddata.h"
 #include <QCoreApplication>
 
@@ -32,6 +34,8 @@ Server::Server(QH::ISqlDBCache *db): BaseNode(db) {
     registerPackageType<QH::PKG::DataPack<API::Card>>();
     registerPackageType<APIv1::RestoreDataRequest>();
     registerPackageType<APIv1_5::ChangeUsersCards>();
+    registerPackageType<APIv1_5::StatusAfterChanges>();
+
 
 }
 

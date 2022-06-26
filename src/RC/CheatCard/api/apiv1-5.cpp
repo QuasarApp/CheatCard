@@ -16,6 +16,7 @@
 #include <CheatCard/api/api1/userscards.h>
 #include <CheatCard/api/api1/card.h>
 #include <CheatCard/api/api1-5/changeuserscards.h>
+#include <CheatCard/api/api1-5/statusafterchanges.h>
 
 #include "CheatCard/nodeinfo.h"
 
@@ -81,6 +82,14 @@ QH::ParserResult ApiV1_5::parsePackage(const QSharedPointer<QH::PKG::AbstractDat
 
     result = commandHandler<APIv1_5::ChangeUsersCards>(this,
                                                      &ApiV1_5::processChanges,
+                                                     pkg, sender, pkgHeader);
+
+    if (result != QH::ParserResult::NotProcessed) {
+        return result;
+    }
+
+    result = commandHandler<APIv1_5::StatusAfterChanges>(this,
+                                                     &ApiV1_5::processStatusAfterChanged,
                                                      pkg, sender, pkgHeader);
 
     if (result != QH::ParserResult::NotProcessed) {
@@ -160,6 +169,33 @@ bool ApiV1_5::processRestoreDataRequest(const QSharedPointer<APIv1::RestoreDataR
     return ApiV1::processRestoreDataRequest(cardrequest, sender, pkg);
 }
 
+bool ApiV1_5::processStatusAfterChanged(const QSharedPointer<APIv1_5::StatusAfterChanges> &status,
+                                        const QH::AbstractNodeInfo *,
+                                        const QH::Header &) {
+
+    emit node()->sigSessionStatusResult(status.staticCast<API::Session>(), status->status());
+    return true;
+}
+
+bool ApiV1_5::sendLastUserStatus(unsigned int cardId,
+                                 const QH::AbstractNodeInfo *sender,
+                                 const QH::Header &pkg) {
+    QH::PKG::DataPack<APIv1::UsersCards> responce;
+
+    auto result = objectFactoryInstance()->getAllUserFromCard(cardId);
+
+    for (const auto &data : qAsConst(result)) {
+        data->setCardVersion(node()->getCardVersion(cardId));
+        responce.push(data.staticCast<APIv1::UsersCards>());
+    }
+
+    if (responce.isValid()) {
+        return node()->sendData(&responce, sender, &pkg);
+    }
+
+    return true;
+}
+
 bool ApiV1_5::processCardStatusRequest(const QSharedPointer<API::CardStatusRequest> &cardStatus,
                                        const QH::AbstractNodeInfo *sender, const QH::Header &pkg) {
     return ApiV1::processCardStatusRequest(cardStatus, sender, pkg);
@@ -173,16 +209,36 @@ bool ApiV1_5::processChanges(const QSharedPointer<APIv1_5::ChangeUsersCards> &me
         return false;
     }
 
-    message->setPrintError(false);
-    db()->insertObject(message);
-
     auto dbUsersCards = objectFactoryInstance()->getUserCardData(
                 message->getUser(),
                 message->getCard());
 
-    if (!dbUsersCards) {
+    APIv1_5::StatusAfterChanges status;
+    status.setSessionId(message->getSessionId());
+    status.setUsercardId(message->getUsercardId());
+
+    if (dbUsersCards) {
+        int availabelFreeItems = node()->getFreeItemsCount(dbUsersCards);
+        if (availabelFreeItems < message->receive()) {
+            // return status false and new users statuses of this seller
+            auto request = QSharedPointer<APIv1::RestoreDataRequest>::create();
+            request->setUserKey(API::User::makeKey(message->secret()));
+
+
+            if (!processRestoreDataRequest(request, sender, hdr)) {
+                return false;
+            }
+
+            status.setStatus(false);
+            return node()->sendData(&status, sender, &hdr);
+        }
+
+    } else {
         dbUsersCards =  QSharedPointer<API::UsersCards>::create(message->getUser(), message->getCard());
     }
+
+    message->setPrintError(false);
+    db()->insertObject(message);
 
     dbUsersCards->setPurchasesNumber(dbUsersCards->getPurchasesNumber() + message->purchase());
     dbUsersCards->receive(message->receive());
@@ -191,16 +247,22 @@ bool ApiV1_5::processChanges(const QSharedPointer<APIv1_5::ChangeUsersCards> &me
     unsigned int requiredCard = processCardStatusBase(dbUsersCards.staticCast<APIv1::UsersCards>(),
                                                       message->secret(), sender, hdr);
 
-    if (requiredCard) {
-        API::CardDataRequest request;
-        request.setCardIds({requiredCard});
-        return node()->sendData(&request, sender, &hdr);
+    if (!sendLastUserStatus(message->getCard(), sender, hdr)) {
+        return false;
     }
 
-    auto request = QSharedPointer<APIv1::RestoreDataRequest>::create();
-    request->setUserKey(API::User::makeKey(message->secret()));
+    status.setStatus(true);
+    if (!node()->sendData(&status, sender, &hdr)){
+        return false;
+    }
 
-    return processRestoreDataRequest(request, sender, hdr);
+    if (requiredCard) {
+        API::CardDataRequest requset;
+        requset.setCardIds({requiredCard});
+        return node()->sendData(&requset, sender, &hdr);
+    }
+
+    return node()->removeNode(sender->networkAddress());
 
 }
 

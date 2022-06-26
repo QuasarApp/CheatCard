@@ -17,6 +17,7 @@ namespace RC {
 
 namespace APIv1_5 {
 class ChangeUsersCards;
+class StatusAfterChanges;
 }
 
 
@@ -62,7 +63,13 @@ protected:
     bool processRestoreDataRequest(const QSharedPointer<APIv1::RestoreDataRequest> &cardrequest,
                                    const QH::AbstractNodeInfo *sender, const QH::Header &) override;
 
+    bool processStatusAfterChanged(const QSharedPointer<APIv1_5::StatusAfterChanges> &cardrequest,
+                                   const QH::AbstractNodeInfo *sender, const QH::Header &);
+
 private:
+
+    bool sendLastUserStatus(unsigned int cardId, const QH::AbstractNodeInfo *sender, const QH::Header &pkg);
+
     unsigned int processCardStatusBase(const QSharedPointer<APIv1::UsersCards> &cardStatus,
                                        const QByteArray &userSecreet,
                                        const QH::AbstractNodeInfo *sender,

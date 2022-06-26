@@ -27,7 +27,7 @@ class Card;
 class User;
 class UsersCards;
 class UserHeader;
-
+class Session;
 }
 
 class SoundPlayback;
@@ -182,6 +182,8 @@ private slots:
     void saveCard(const QSharedPointer<RC::API::Card> &card);
     void handleCardCreated(const QSharedPointer<API::Card> &card);
     void handleAppOutdated(int minimumRequiredVersion);
+
+    void handleResponceOFChangedReceived(QSharedPointer<API::Session> session, bool succesed);
 
 private:
     void saveUser();
