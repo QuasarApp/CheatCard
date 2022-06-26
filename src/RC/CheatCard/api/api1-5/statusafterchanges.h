@@ -11,7 +11,14 @@
 
 #include "CheatCard/api/api0/session.h"
 
+#include <datapack.h>
+
 namespace RC {
+
+namespace APIv1 {
+class UsersCards;
+}
+
 namespace APIv1_5 {
 
 /**
@@ -29,12 +36,23 @@ public:
     void setStatus(bool newStatus);
 
     // StreamBase interface
+    bool neededCard() const;
+    void setNeededCard(bool newNeededCard);
+
+    unsigned int getUser() const;
+    unsigned int getCard() const;
+
+    const QH::PKG::DataPack<APIv1::UsersCards> &getLastStatus() const;
+    void setLastStatus(const QH::PKG::DataPack<APIv1::UsersCards> &newLastStatus);
+
 protected:
     QDataStream &fromStream(QDataStream &stream) override;
     QDataStream &toStream(QDataStream &stream) const override;
 
 private:
     bool _status = false;
+    bool _neededCard = false;
+    QH::PKG::DataPack<APIv1::UsersCards> lastStatus;
 
 };
 }

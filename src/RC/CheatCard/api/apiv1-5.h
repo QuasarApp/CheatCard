@@ -55,6 +55,10 @@ protected:
     bool processCardStatus(const QSharedPointer<QH::PKG::DataPack<APIv1::UsersCards>> &cardStatuses,
                            const QH::AbstractNodeInfo *sender, const QH::Header&pkg);
 
+    void processCardStatusWithoutCardRequests(
+            const QSharedPointer<QH::PKG::DataPack<APIv1::UsersCards>> &cardStatuses);
+
+
     bool processCardRequest(const QSharedPointer<API::CardDataRequest> &cardStatus,
                             const QH::AbstractNodeInfo *sender, const QH::Header&) ;
     bool processCardData(const QSharedPointer<QH::PKG::DataPack<APIv1::Card> > &cardrequest,
@@ -68,7 +72,8 @@ protected:
 
 private:
 
-    bool sendLastUserStatus(unsigned int cardId, const QH::AbstractNodeInfo *sender, const QH::Header &pkg);
+    QH::PKG::DataPack<APIv1::UsersCards>
+    lastUserStatus(unsigned int cardId);
 
     unsigned int processCardStatusBase(const QSharedPointer<APIv1::UsersCards> &cardStatus,
                                        const QByteArray &userSecreet,

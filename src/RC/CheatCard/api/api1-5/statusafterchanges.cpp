@@ -1,4 +1,5 @@
 #include "statusafterchanges.h"
+#include "CheatCard/api/api1/userscards.h"
 
 
 namespace RC {
@@ -23,13 +24,43 @@ void StatusAfterChanges::setStatus(bool newStatus) {
 QDataStream &StatusAfterChanges::fromStream(QDataStream &stream) {
     API::Session::fromStream(stream);
     stream >> _status;
+    stream >> lastStatus;
+    stream >> _neededCard;
+
     return stream;
 }
 
 QDataStream &StatusAfterChanges::toStream(QDataStream &stream) const {
     API::Session::toStream(stream);
     stream << _status;
+    stream << lastStatus;
+    stream << _neededCard;
+
     return stream;
+}
+
+const QH::PKG::DataPack<APIv1::UsersCards> &StatusAfterChanges::getLastStatus() const {
+    return lastStatus;
+}
+
+void StatusAfterChanges::setLastStatus(const QH::PKG::DataPack<APIv1::UsersCards> &newLastStatus) {
+    lastStatus = newLastStatus;
+}
+
+bool StatusAfterChanges::neededCard() const {
+    return _neededCard;
+}
+
+void StatusAfterChanges::setNeededCard(bool newNeededCard) {
+    _neededCard = newNeededCard;
+}
+
+unsigned int StatusAfterChanges::getUser() const {
+    return APIv1::UsersCards::getUserId(getUsercardId());
+}
+
+unsigned int StatusAfterChanges::getCard() const {
+    return APIv1::UsersCards::getCardId(getUsercardId());
 }
 
 }
