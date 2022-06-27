@@ -18,6 +18,8 @@ CPage {
     title: qsTr("Import your cards data")
 
     property var model: null
+    property bool onlyScaner: false
+
     signal importFinished()
 
     contentItem: ColumnLayout {
@@ -25,16 +27,6 @@ CPage {
         Item {
             Layout.fillHeight: true
         }
-
-        Label {
-            text: qsTr("**Attention** : This operation redefine your current application data (Cards, seals, users data). All current data will be removed.")
-            Layout.fillWidth: true
-            wrapMode: Label.WordWrap
-            horizontalAlignment: TextInput.AlignHCenter
-            Layout.alignment: Qt.AlignHCenter
-            textFormat: Label.MarkdownText
-        }
-
 
         Button {
             text: qsTr("Import from qr code scanner");
@@ -48,7 +40,7 @@ CPage {
         Button {
             text: qsTr("Import from file with qr code");
             Layout.alignment: Qt.AlignHCenter
-
+            visible: !onlyScaner;
             onClicked: {
                 fromFile.open()
             }

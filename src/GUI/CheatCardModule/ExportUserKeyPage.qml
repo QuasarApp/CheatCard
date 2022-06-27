@@ -84,7 +84,7 @@ CPage {
             visible: !fExport;
 
             onClicked: {
-                generator.saveImage();
+                imgQr.saveImage();
                 notificationService.setNotify(qsTr("Done"), qsTr("Backup code exported successful. The Backup Code Available in your documents' folder. See <b>%0</b> path").arg(root.model.userBackUpPath()));
             }
 

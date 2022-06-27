@@ -13,6 +13,10 @@ Item {
     property alias qrCodeFilePath: generator.filePath
     property alias customSource: imgQr.source
 
+    function saveImage() {
+        generator.saveImage()
+    }
+
     Image {
         id: imgQr
         property int qrIndex: 0

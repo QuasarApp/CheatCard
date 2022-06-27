@@ -183,7 +183,7 @@ private slots:
     void handleCardCreated(const QSharedPointer<API::Card> &card);
     void handleAppOutdated(int minimumRequiredVersion);
 
-    void handleResponceOFChangedReceived(QSharedPointer<API::Session> session, bool succesed);
+    void handleResponceOFChangedReceived(QSharedPointer<RC::API::Session> session, bool succesed);
 
 private:
     void saveUser();

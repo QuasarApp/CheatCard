@@ -74,6 +74,15 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
     _soundEffect = new SoundPlayback;
     _config = dynamic_cast<SettingsModel*>(QuasarAppUtils::ISettings::instance());
 
+
+    qRegisterMetaType<RC::API::UsersCards>();
+    qRegisterMetaType<RC::API::Card>();
+    qRegisterMetaType<RC::API::Session>();
+
+    qRegisterMetaType<QSharedPointer<RC::API::UsersCards>>();
+    qRegisterMetaType<QSharedPointer<RC::API::Card>>();
+    qRegisterMetaType<QSharedPointer<RC::API::Session>>();
+
     initBackgroundsModel();
     initIconsModel();
     initCardsListModels();
@@ -91,12 +100,6 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
     configureCardsList();
 
     setCurrentUser(initUser());
-
-    qRegisterMetaType<RC::API::UsersCards>();
-    qRegisterMetaType<RC::API::Card>();
-
-    qRegisterMetaType<QSharedPointer<RC::API::UsersCards>>();
-    qRegisterMetaType<QSharedPointer<RC::API::Card>>();
 
     auto app = dynamic_cast<QGuiApplication*>(QGuiApplication::instance());
 
@@ -233,7 +236,7 @@ void MainModel::handleAppOutdated(int) {
     _activityProcessorModel->newActivity("qrc:/CheatCardModule/UpdateRequestPage.qml");
 }
 
-void MainModel::handleResponceOFChangedReceived(QSharedPointer<API::Session> session,
+void MainModel::handleResponceOFChangedReceived(QSharedPointer<RC::API::Session> session,
                                                 bool succesed) {
 
     auto service = QmlNotificationService::NotificationService::getService();
@@ -454,6 +457,9 @@ void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
 
         disconnect(_backEndModel.data(), &BaseNode::sigVersionNoLongerSupport,
                    this, &MainModel::handleAppOutdated);
+        disconnect(_backEndModel.data(), &BaseNode::sigSessionStatusResult,
+                   this, &MainModel::handleResponceOFChangedReceived);
+
     }
 
     _backEndModel = newModel;
@@ -473,6 +479,9 @@ void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
 
         connect(_backEndModel.data(), &BaseNode::sigVersionNoLongerSupport,
                 this, &MainModel::handleAppOutdated);
+
+        connect(_backEndModel.data(), &BaseNode::sigSessionStatusResult,
+                this, &MainModel::handleResponceOFChangedReceived);
 
         _backEndModel->checkNetworkConnection();
 

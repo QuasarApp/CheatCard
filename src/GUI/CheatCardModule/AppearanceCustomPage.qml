@@ -91,7 +91,7 @@ CPage {
                             footer: DialogButtonBox {
                                 onAccepted: () => {
                                                 colorView.color = colorPick.color
-                                                config.setStrValue(COLOR_THEME, colorPick.color)
+                                                config.setStrValue(settingsKeys.COLOR_THEME, colorPick.color)
 
                                                 activityProcessor.popItem();
                                             }

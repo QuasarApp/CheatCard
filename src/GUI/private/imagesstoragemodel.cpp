@@ -26,7 +26,7 @@ const QString &ImagesStorageModel::getImageByHash(const QString &anyString) {
 const QString& ImagesStorageModel::getImageByHash(int anyNumber) {
 
     auto &images = getImages();
-    int index = anyNumber % images.size();
+    int index = std::abs(anyNumber % images.size());
 
     return images[index];
 }

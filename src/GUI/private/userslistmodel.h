@@ -25,7 +25,7 @@ namespace API {
 class UsersListModel: public QAbstractListModel
 {
     Q_OBJECT
-    Q_PROPERTY(int currentUserId READ currentUserId WRITE setCurrentUser NOTIFY currentUserIdChanged)
+    Q_PROPERTY(unsigned int currentUserId READ currentUserId WRITE setCurrentUser NOTIFY currentUserIdChanged)
     Q_PROPERTY(QObject* currentUserModel READ currentUserModel NOTIFY currentUserIdChanged)
 
 public:

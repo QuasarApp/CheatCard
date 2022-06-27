@@ -62,6 +62,32 @@ Page {
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.bottom: parent.bottom
                 text: qsTr("Import new user")
+
+                Component {
+                    id: scanerCompanent
+                    QrScanner {
+                        id:qrScaner
+
+                        onCaptured: (data) => {
+                                        const model = mainModel.exportImportModel
+
+                                        if (model)
+                                            model.handleDecodeFinished(data);
+
+                                        activityProcessor.popItem();
+
+                                    }
+
+                        onVisibleChanged: {
+                            if(!visible)
+                                destroy()
+                        }
+                    }
+                }
+
+                onClicked: {
+                    activityProcessor.newActivityFromComponent(scanerCompanent);
+                }
             }
 
         }

@@ -11,6 +11,7 @@
 #define SESSION_H
 
 #include "dbobject.h"
+#include <QSharedPointer>
 
 namespace RC {
 namespace API {
@@ -51,4 +52,7 @@ private:
 
 }
 }
+Q_DECLARE_METATYPE(RC::API::Session)
+Q_DECLARE_METATYPE(QSharedPointer<RC::API::Session>)
+
 #endif // SESSION_H

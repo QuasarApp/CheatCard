@@ -102,7 +102,7 @@ signals:
     void sigAvailableNetworkChanged(bool);
 
     void sigVersionNoLongerSupport(int minimumRequiredVersion);
-    void sigSessionStatusResult(QSharedPointer<API::Session>, bool succesed);
+    void sigSessionStatusResult(QSharedPointer<RC::API::Session>, bool succesed);
 protected:
 
     QH::ParserResult parsePackage(const QSharedPointer<QH::PKG::AbstractData> &pkg,
