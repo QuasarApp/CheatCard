@@ -10,6 +10,7 @@
 #include "restoredatatest.h"
 #include "fixdbidspilltest.h"
 #include "userscardstest.h"
+#include "securitytest.h"
 
 // Use This macros for initialize your own test classes.
 // Check exampletests
@@ -37,6 +38,7 @@ private slots:
     // BEGIN TESTS CASES
     TestCase(usersCardsTest, UsersCardsTest)
     TestCase(connectionTest, ConnectionTest)
+    TestCase(securityTest, SecurityTest)
     TestCase(fixDBIdsPillTest, FixDBIdsPillTest)
     TestCase(restoreDataTest, RestoreDataTest)
 

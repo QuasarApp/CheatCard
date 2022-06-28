@@ -28,13 +28,15 @@ void SecurityTest::test() {
     qDebug() << "TEST API V1";
 
     seller = CheatCardTestsHelper::makeNode<TestSeller>();
+
     client = CheatCardTestsHelper::makeNode<TestVisitor>();
+
     server = CheatCardTestsHelper::makeNode<TestServer>();
     seller->setCurrentUser(seller->getUser(CheatCardTestsHelper::testUserId()));
 
-    seller->addApiParser<RC::ApiV1>();
-    client->addApiParser<RC::ApiV1>();
-    server->addApiParser<RC::ApiV1>();
+    seller->addApiParser<RC::ApiV1_5>();
+    client->addApiParser<RC::ApiV1_5>();
+    server->addApiParser<RC::ApiV1_5>();
     server->addApiParser<RC::ApiV1_5>();
 
     secureTest(seller, client, server);
@@ -60,13 +62,22 @@ void SecurityTest::secureTest(const QSharedPointer<TestSeller> &seller,
 
     // 3619648333 This is card id from test database.
     unsigned int cardId = CheatCardTestsHelper::testCardId();
-    unsigned int userId = user->userId();
+
+    addSeal(seller, client, server, user, cardId, 1, obj);
+
+    // make another sellre with some card.
+    auto seller2 = CheatCardTestsHelper::makeNode<TestSeller>();
+    auto newSellerUser = CheatCardTestsHelper::makeUser();
+    seller2->setCurrentUser(newSellerUser);
+    seller2->addApiParser<RC::ApiV1_5>();
 
 
-    int sellerFreeItems = seller->getFreeItemsCount(user->userId(), cardId);
-    int visitorFreeItems = client->getFreeItemsCount(user->userId(), cardId);
+    obj->setSessionId(rand() * rand());
+    QVERIFY(seller2->incrementPurchase(obj, cardId, 10, TEST_CHEAT_HOST, TEST_CHEAT_PORT));
 
-    QVERIFY(sellerFreeItems == visitorFreeItems);
-    QVERIFY(sellerFreeItems == 16);
+    QVERIFY(wait([seller2]() {
+        // 1 - worong command
+        return seller2->getLastErrrorCode() == 1;
+    }, WAIT_TIME));
 
 }

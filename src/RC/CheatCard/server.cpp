@@ -69,6 +69,12 @@ QH::ParserResult Server::parsePackage(const QSharedPointer<QH::PKG::AbstractData
     QH::ParserResult result = BaseNode::parsePackage(pkg, pkgHeader, sender);
 
     if (result == QH::ParserResult::Error) {
+
+        badRequest(sender->networkAddress(),
+                   pkgHeader,
+                   QH::PKG::ErrorData{1, "Wrong command"},
+                   0);
+
         removeNode(sender->networkAddress());
     }
 

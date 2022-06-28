@@ -75,10 +75,11 @@ private:
     QH::PKG::DataPack<APIv1::UsersCards>
     lastUserStatus(unsigned int cardId);
 
-    unsigned int processCardStatusBase(const QSharedPointer<APIv1::UsersCards> &cardStatus,
-                                       const QByteArray &userSecreet,
-                                       const QH::AbstractNodeInfo *sender,
-                                       const QH::Header &pkg);
+    bool processCardStatusBase(const QSharedPointer<APIv1::UsersCards> &cardStatus,
+                               const QByteArray &userSecreet,
+                               const QH::AbstractNodeInfo *sender,
+                               const QH::Header &pkg,
+                               unsigned int& neededCardId);
 
     unsigned int _restoreDataPacakgeHash = 0;
 

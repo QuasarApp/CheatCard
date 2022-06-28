@@ -144,9 +144,11 @@ void ApiV1_5::processCardStatusWithoutCardRequests(
     return;
 }
 
-unsigned int ApiV1_5::processCardStatusBase(const QSharedPointer<APIv1::UsersCards> &cardStatus,
-                                            const QByteArray& userSecreet,
-                                            const QH::AbstractNodeInfo *sender, const QH::Header &pkg) {
+bool ApiV1_5::processCardStatusBase(const QSharedPointer<APIv1::UsersCards> &cardStatus,
+                                    const QByteArray& userSecreet,
+                                    const QH::AbstractNodeInfo *sender,
+                                    const QH::Header &pkg,
+                                    unsigned int& neededCardId) {
 
     auto dbCard = objectFactoryInstance()->getCard(cardStatus->getCard());
     auto dbUsersCards = objectFactoryInstance()->getUserCardData(
@@ -155,27 +157,27 @@ unsigned int ApiV1_5::processCardStatusBase(const QSharedPointer<APIv1::UsersCar
 
     // ignore seels statuses that has a depricated time.
     if (dbUsersCards && dbUsersCards->getTime() > cardStatus->getTime()) {
-        return 0;
+        return true;
     }
 
     if (!cardValidation(dbCard, userSecreet)) {
 
         QuasarAppUtils::Params::log("Receive not signed cards seal");
-        return 0;
+        return false;
     }
 
     // Disable alert if this packge is ansver to restore request
     if (!applayPurchases(cardStatus, sender, pkg.triggerHash != _restoreDataPacakgeHash)) {
-        return 0;
+        return false;
     }
 
     bool hasUpdate = dbCard && dbCard->getCardVersion() < cardStatus->getCardVersion();
 
     if (!dbCard || hasUpdate) {
-        return cardStatus->getCard();
+        neededCardId = cardStatus->getCard();
     }
 
-    return 0;
+    return true;
 
 }
 
@@ -281,10 +283,13 @@ bool ApiV1_5::processChanges(const QSharedPointer<APIv1_5::ChangeUsersCards> &me
     dbUsersCards->setPurchasesNumber(dbUsersCards->getPurchasesNumber() + message->purchase());
     dbUsersCards->receive(message->receive());
 
-    if (processCardStatusBase(dbUsersCards.staticCast<APIv1::UsersCards>(),
-                              message->secret(), sender, hdr)) {
-        status.setNeededCard(true);
+    unsigned int neededCardId = 0;
+    if (!processCardStatusBase(dbUsersCards.staticCast<APIv1::UsersCards>(),
+                              message->secret(), sender, hdr, neededCardId)) {
+        return false;
     }
+
+    status.setNeededCard(neededCardId);
 
     auto lastStatus = lastUserStatus(message->getCard());
     status.setLastStatus(lastStatus);

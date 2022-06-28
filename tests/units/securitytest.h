@@ -1,20 +1,12 @@
 #ifndef SECURITYTEST_H
 #define SECURITYTEST_H
 
-#include "test.h"
-#include "testutils.h"
-
-#include <QtTest>
-
-
-class TestSeller;
-class TestVisitor;
-class TestServer;
+#include "connectiontest.h"
 
 /**
  * @brief The SecurityTest class  check security bugs and vulnerabilities
  */
-class SecurityTest: public Test, protected TestUtils
+class SecurityTest: public ConnectionTest
 {
 public:
     SecurityTest();
