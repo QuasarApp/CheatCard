@@ -16,13 +16,19 @@
 #include <CheatCard/basenode.h>
 
 namespace RC {
-    class User;
+    namespace API {
+        class User;
+        class UserHeader;
+    }
 }
 
 class TestSeller;
 class TestVisitor;
 class TestServer;
 
+/**
+ * @brief The ConnectionTest class check connections betwin nodes
+ */
 class ConnectionTest: public Test, protected TestUtils
 {
 public:
@@ -31,6 +37,14 @@ public:
 
     void test();
 
+protected:
+
+    void addSeal(const QSharedPointer<TestSeller> &seller,
+                 const QSharedPointer<TestVisitor> &client,
+                 const QSharedPointer<TestServer> &server,
+                 const QSharedPointer<RC::API::User> user,
+                 unsigned int cardId, int sealsCount,
+                 QSharedPointer<RC::API::UserHeader>&);
 private:
     void firstContact();
     void apiTest(const QSharedPointer<TestSeller> &seller,

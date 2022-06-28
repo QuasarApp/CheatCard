@@ -408,10 +408,6 @@
 <context>
     <name>ImportUserKeyPage</name>
     <message>
-        <source>**Attention** : This operation redefine your current application data (Cards, seals, users data). All current data will be removed.</source>
-        <translation>**Увага** : Ця операція перевизначає ваші поточні дані програми (картки, печатки, дані користувачів). Усі поточні дані буде видалено.</translation>
-    </message>
-    <message>
         <source>Import from qr code scanner</source>
         <translation>Імпорт зі сканера qr-коду</translation>
     </message>
