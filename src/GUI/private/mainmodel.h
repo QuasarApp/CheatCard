@@ -175,7 +175,9 @@ private slots:
     void handleCardSelectedForStatistic(const QSharedPointer<RC::CardModel>& card);
 
     void handlePurchaseWasSuccessful(QSharedPointer<API::UsersCards>, bool alert);
-    void handleListenStart(int purchasesCount, QSharedPointer<RC::CardModel> model, const QString &extraData);
+    void handleListenStart(int purchasesCount,
+                           QSharedPointer<RC::CardModel> model,
+                           const QString &extraData);
     void handleListenStop();
     void handleAppStateChanged(Qt::ApplicationState state);
     void handlePurchaseReceived(RC::Purchase purchase);

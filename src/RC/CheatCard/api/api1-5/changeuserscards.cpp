@@ -38,7 +38,7 @@ unsigned int ChangeUsersCards::getCard() const {
 }
 
 bool ChangeUsersCards::isValid() const {
-    return API::Session::isValid() && _secret.size() && (_purchase || _receive);
+    return API::Session::isValid() && _secret.size();
 }
 
 QDataStream &ChangeUsersCards::fromStream(QDataStream &stream) {
