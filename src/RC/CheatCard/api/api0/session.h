@@ -12,11 +12,12 @@
 
 #include "dbobject.h"
 #include <QSharedPointer>
+#include "CheatCard/core_global.h"
 
 namespace RC {
 namespace API {
 
-class Session : public QH::PKG::DBObject
+class CHEATCARD_CORE_EXPORT Session : public QH::PKG::DBObject
 {
     QH_PACKAGE(Session, "Session")
 
