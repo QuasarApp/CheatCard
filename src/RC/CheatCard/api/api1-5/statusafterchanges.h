@@ -44,6 +44,7 @@ public:
 
     const QH::PKG::DataPack<APIv1::UsersCards> &getLastStatus() const;
     void setLastStatus(const QH::PKG::DataPack<APIv1::UsersCards> &newLastStatus);
+    void addLastStatus(const QSharedPointer<RC::APIv1::UsersCards> &newLastStatus);
 
 protected:
     QDataStream &fromStream(QDataStream &stream) override;

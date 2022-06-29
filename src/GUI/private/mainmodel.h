@@ -262,6 +262,7 @@ private:
     Mode _mode = Mode::Client;
     bool _fShowEmptyBonuspackaMessage = false;
     friend class ImageProvider;
+    void syncWithServer();
 };
 
 }

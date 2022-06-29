@@ -217,13 +217,7 @@ bool MainModel::handleImportUser(const QString &base64UserData) {
                        "", QmlNotificationService::NotificationData::Normal);
 
 
-    if (!_backEndModel->restoreOldData(_currentUser->user()->getKey())) {
-        service->setNotify(tr("We Have trouble"),
-                           tr("Failed to sync data with server."
-                              " Please check your internet connection and try to restore your data again"),
-                           "", QmlNotificationService::NotificationData::Warning);
-    }
-
+    syncWithServer();
     return true;
 }
 
@@ -621,6 +615,17 @@ void RC::MainModel::configureCardsList() {
     }
 }
 
+void RC::MainModel::syncWithServer() {
+    auto service = QmlNotificationService::NotificationService::getService();
+
+    if (!_backEndModel->restoreAllData(_currentUser->user()->getKey())) {
+        service->setNotify(tr("We Have trouble"),
+                           tr("Failed to sync data with server."
+                              " Please check your internet connection and try to restore your data again"),
+                           "", QmlNotificationService::NotificationData::Warning);
+    }
+}
+
 void MainModel::setMode(int newMode) {
     newMode = newMode && fBillingAwailable();
 
@@ -633,6 +638,8 @@ void MainModel::setMode(int newMode) {
     configureCardsList();
 
     _config->setValue(P_FSELLER, static_cast<bool>(newMode));
+
+    syncWithServer();
 }
 
 QObject *MainModel::cardsList() const {
@@ -812,7 +819,7 @@ void MainModel::handlePurchaseWasSuccessful(QSharedPointer<RC::API::UsersCards> 
         }
 
     } else {
-        if (_mode == Mode::Seller && _fShowEmptyBonuspackaMessage) {
+        if (_mode == Mode::Seller && _fShowEmptyBonuspackaMessage && alert) {
             _fShowEmptyBonuspackaMessage = false;
 
             auto service = QmlNotificationService::NotificationService::getService();

@@ -111,7 +111,7 @@ void RestoreDataTest::restoreTest(const QSharedPointer<TestSeller> &seller,
         return !cardSeller;
     }, WAIT_TIME));
 
-    QVERIFY(seller->restoreOldData(user->getKey(), TEST_CHEAT_HOST, TEST_CHEAT_PORT));
+    QVERIFY(seller->restoreAllData(user->getKey(), TEST_CHEAT_HOST, TEST_CHEAT_PORT));
 
     // check card after restore. card should be exits
     QVERIFY(wait([seller, cardId](){

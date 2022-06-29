@@ -189,12 +189,18 @@ bool ApiV1::processCardData(const QSharedPointer<QH::PKG::DataPack<APIv1::Card>>
                                         QuasarAppUtils::Error);
             continue;
         }
-
-        if (!cardValidation(db()->getObject(*card), cards->customData())) {
+        auto dbCard = db()->getObject(*card);
+        if (!cardValidation(dbCard, cards->customData())) {
 
             QuasarAppUtils::Params::log("Receive not signed card",
                                         QuasarAppUtils::Error);
-            break;
+            return false;
+        }
+
+        if (dbCard && card->ownerSignature() != dbCard->ownerSignature()) {
+            QuasarAppUtils::Params::log("User try change the card owner signature!!!",
+                                        QuasarAppUtils::Error);
+            return false;
         }
 
         if (!db()->insertIfExistsUpdateObject(card)) {

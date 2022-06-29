@@ -264,10 +264,11 @@ bool ApiV1_5::processChanges(const QSharedPointer<APIv1_5::ChangeUsersCards> &me
         if (availabelFreeItems < message->receive()) {
             // return status false and new users statuses of this seller
 
-            auto lastStatus = lastUserStatus(message->getCard());
+            auto lastStatus = objectFactoryInstance()->
+                    getUserCardData(message->getUser(), message->getCard());
 
             status.setStatus(false);
-            status.setLastStatus(lastStatus);
+            status.addLastStatus(lastStatus.staticCast<APIv1::UsersCards>());
             if (!node()->sendData(&status, sender, &hdr)){
                 return false;
             }
@@ -291,8 +292,9 @@ bool ApiV1_5::processChanges(const QSharedPointer<APIv1_5::ChangeUsersCards> &me
 
     status.setNeededCard(neededCardId);
 
-    auto lastStatus = lastUserStatus(message->getCard());
-    status.setLastStatus(lastStatus);
+    auto lastStatus = objectFactoryInstance()->
+            getUserCardData(message->getUser(), message->getCard());
+    status.addLastStatus(lastStatus.staticCast<APIv1::UsersCards>());
     status.setStatus(true);
 
     return node()->sendData(&status, sender, &hdr);

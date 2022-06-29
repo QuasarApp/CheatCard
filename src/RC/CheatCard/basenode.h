@@ -55,7 +55,7 @@ public:
     static QString libVersion();
     static void init();
 
-    bool restoreOldData(const QByteArray &curentUserKey,
+    bool restoreAllData(const QByteArray &curentUserKey,
                         const QString& domain = "",
                         int port = DEFAULT_CHEAT_CARD_PORT_SSL);
 

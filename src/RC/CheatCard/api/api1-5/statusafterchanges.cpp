@@ -47,6 +47,10 @@ void StatusAfterChanges::setLastStatus(const QH::PKG::DataPack<APIv1::UsersCards
     lastStatus = newLastStatus;
 }
 
+void StatusAfterChanges::addLastStatus(const QSharedPointer<APIv1::UsersCards> &newLastStatus) {
+    lastStatus.push(newLastStatus);
+}
+
 bool StatusAfterChanges::neededCard() const {
     return _neededCard;
 }

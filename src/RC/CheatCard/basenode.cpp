@@ -303,7 +303,7 @@ QString BaseNode::libVersion() {
     return CHEAT_CARD_VERSION;
 }
 
-bool BaseNode::restoreOldData(const QByteArray &curentUserKey,
+bool BaseNode::restoreAllData(const QByteArray &curentUserKey,
                               const QString &domain, int port) {
 
     auto action = [this, curentUserKey](QH::AbstractNodeInfo *node) {
