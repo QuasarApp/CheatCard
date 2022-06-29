@@ -18,6 +18,7 @@ namespace RC {
 namespace APIv1_5 {
 class ChangeUsersCards;
 class StatusAfterChanges;
+class CardUpdated;
 }
 
 
@@ -42,6 +43,7 @@ public:
     void restoreOldDateRequest(const QByteArray &curentUserKey, QH::AbstractNodeInfo *dist) override;
     void restoreOneCardRequest(unsigned int cardId, QH::AbstractNodeInfo *dist) override;
 
+    bool sendUpdateCard(unsigned int cardId, unsigned int version, QH::AbstractNodeInfo *dist);
 protected:
     IAPIObjectsFactory *initObjectFactory() const override;
     bool processCardStatusRequest(const QSharedPointer<API::CardStatusRequest> &message,
@@ -62,6 +64,9 @@ protected:
     bool processCardRequest(const QSharedPointer<API::CardDataRequest> &cardStatus,
                             const QH::AbstractNodeInfo *sender, const QH::Header&) ;
     bool processCardData(const QSharedPointer<QH::PKG::DataPack<APIv1::Card> > &cardrequest,
+                         const QH::AbstractNodeInfo *sender, const QH::Header &) ;
+
+    bool processCardUpdate(const QSharedPointer<APIv1_5::CardUpdated> &cardrequest,
                          const QH::AbstractNodeInfo *sender, const QH::Header &) ;
 
     bool processRestoreDataRequest(const QSharedPointer<APIv1::RestoreDataRequest> &cardrequest,

@@ -746,18 +746,6 @@
         <source>Failed to sync data with server. Please check your internet connection and try to restore your data again</source>
         <translation></translation>
     </message>
-    <message>
-        <source>Success</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>You issued a bonus or stamped the card successfully.</source>
-        <translation></translation>
-    </message>
 </context>
 <context>
     <name>RC::NetIndicatorModel</name>
@@ -826,6 +814,25 @@
     <message>
         <source>Export the database finished successful</source>
         <translation></translation>
+    </message>
+</context>
+<context>
+    <name>RC::WaitConnectionModel</name>
+    <message>
+        <source>Server not responced</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hmm, maybe you have a super slow internet connection... Try again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>We Have trouble</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -975,6 +982,10 @@
     <message>
         <source>Select the number of purchases that the customer has made.</source>
         <translation></translation>
+    </message>
+    <message>
+        <source>Please wait for responce from server</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

@@ -31,6 +31,9 @@ public:
                                    int port = DEFAULT_CHEAT_CARD_PORT_SSL);
 
     bool requestAllDataFromUser();
+    bool cardUpdated(unsigned int cardId, unsigned int version,
+                     const QString& domain = "",
+                      int port = DEFAULT_CHEAT_CARD_PORT_SSL);
 
     NodeType nodeType() const override;
 

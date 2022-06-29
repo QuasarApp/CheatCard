@@ -12,13 +12,16 @@
 #include "basenode.h"
 #include "usersnames.h"
 #include "seller.h"
+#include "nodeinfo.h"
 #include "CheatCard/api/api0/userheader.h"
 #include <CheatCard/api/api0/session.h>
 #include <CheatCard/api/api0/user.h>
 #include <CheatCard/api/api0/userscards.h>
+#include <CheatCard/api/api1-5/cardupdated.h>
 #include <CheatCard/api/api1-5/changeuserscards.h>
 #include "CheatCard/api/api1-5/statusafterchanges.h"
 #include <CheatCard/api/apiv0.h>
+#include <CheatCard/api/apiv1-5.h>
 
 namespace RC {
 
@@ -27,6 +30,7 @@ Seller::Seller(QH::ISqlDBCache *db): BaseNode(db) {
     registerPackageType<API::CardDataRequest>();
     registerPackageType<APIv1_5::ChangeUsersCards>();
     registerPackageType<APIv1_5::StatusAfterChanges>();
+    registerPackageType<APIv1_5::CardUpdated>();
 
 }
 
@@ -188,6 +192,28 @@ bool Seller::sentDataToServerReceive(const QSharedPointer<API::UserHeader> &user
     emit sigPurchaseWasSuccessful(usersCardsData, true);
 
     return sendDataPrivate(domain, port);
+}
+
+bool Seller::cardUpdated(unsigned int cardId, unsigned int version,
+                         const QString &domain,
+                         int port) {
+    auto action = [this, cardId, version](QH::AbstractNodeInfo *node) {
+
+        auto dist = static_cast<NodeInfo*>(node);
+
+        auto api = selectParser(dist->version()).dynamicCast<ApiV1_5>();
+        if (api) {
+            api->sendUpdateCard(cardId, version, dist);
+        }
+    };
+
+    if (domain.isEmpty()) {
+        return addNode(getServerHost(), port, action,
+                       QH::NodeCoonectionStatus::Confirmed);
+    }
+
+    return addNode(domain, port, action,
+                   QH::NodeCoonectionStatus::Confirmed);
 }
 
 NodeType Seller::nodeType() const {

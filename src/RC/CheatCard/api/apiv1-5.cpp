@@ -15,6 +15,7 @@
 #include <CheatCard/api/api1/restoredatarequest.h>
 #include <CheatCard/api/api1/userscards.h>
 #include <CheatCard/api/api1/card.h>
+#include <CheatCard/api/api1-5/cardupdated.h>
 #include <CheatCard/api/api1-5/changeuserscards.h>
 #include <CheatCard/api/api1-5/statusafterchanges.h>
 
@@ -91,6 +92,14 @@ QH::ParserResult ApiV1_5::parsePackage(const QSharedPointer<QH::PKG::AbstractDat
     result = commandHandler<APIv1_5::StatusAfterChanges>(this,
                                                          &ApiV1_5::processStatusAfterChanged,
                                                          pkg, sender, pkgHeader);
+
+    if (result != QH::ParserResult::NotProcessed) {
+        return result;
+    }
+
+    result = commandHandler<APIv1_5::CardUpdated>(this,
+                                                  &ApiV1_5::processCardUpdate,
+                                                  pkg, sender, pkgHeader);
 
     if (result != QH::ParserResult::NotProcessed) {
         return result;
@@ -195,6 +204,24 @@ bool ApiV1_5::processCardData(const QSharedPointer<QH::PKG::DataPack<APIv1::Card
 
 }
 
+bool ApiV1_5::processCardUpdate(const QSharedPointer<APIv1_5::CardUpdated> &cardrequest,
+                                const QH::AbstractNodeInfo *sender,
+                                const QH::Header &hdr) {
+
+    auto dbCard = objectFactoryInstance()->getCard(cardrequest->cardId());
+    API::CardDataRequest request;
+
+    if (!dbCard || dbCard->getCardVersion() < cardrequest->cardVersion()) {
+        request.push(cardrequest->cardId());
+    }
+
+    if (request.getCardIds().size()) {
+        return node()->sendData(&request, sender, &hdr);
+    }
+
+    return node()->removeNode(sender->networkAddress());
+}
+
 bool ApiV1_5::processRestoreDataRequest(const QSharedPointer<APIv1::RestoreDataRequest> &cardrequest,
                                         const QH::AbstractNodeInfo *sender, const QH::Header &pkg) {
     return ApiV1::processRestoreDataRequest(cardrequest, sender, pkg);
@@ -286,7 +313,7 @@ bool ApiV1_5::processChanges(const QSharedPointer<APIv1_5::ChangeUsersCards> &me
 
     unsigned int neededCardId = 0;
     if (!processCardStatusBase(dbUsersCards.staticCast<APIv1::UsersCards>(),
-                              message->secret(), sender, hdr, neededCardId)) {
+                               message->secret(), sender, hdr, neededCardId)) {
         return false;
     }
 
@@ -314,6 +341,17 @@ void ApiV1_5::restoreOldDateRequest(const QByteArray &curentUserKey,
 
 void ApiV1_5::restoreOneCardRequest(unsigned int cardId, QH::AbstractNodeInfo *dist) {
     ApiV1::restoreOneCardRequest(cardId, dist);
+
+}
+
+bool ApiV1_5::sendUpdateCard(unsigned int cardId,
+                             unsigned int version,
+                             QH::AbstractNodeInfo *dist) {
+    APIv1_5::CardUpdated request;
+    request.setCardVersion(version);
+    request.setCardId(cardId);
+
+    return node()->sendData(&request, dist, nullptr);
 
 }
 

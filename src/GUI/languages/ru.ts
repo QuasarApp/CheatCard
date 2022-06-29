@@ -746,18 +746,6 @@
         <source>Failed to sync data with server. Please check your internet connection and try to restore your data again</source>
         <translation>Не удалось синхронизировать данные с сервером. Проверьте подключение к Интернету и попробуйте снова восстановить данные</translation>
     </message>
-    <message>
-        <source>Success</source>
-        <translation>Успех</translation>
-    </message>
-    <message>
-        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
-        <translation>Не удалось выдать бонус или штамп. Возможно, ваши локальные данные устарели, мы уже обновляем ваши локальные данные. Пожалуйста, попробуйте еще раз оформить бонус или штамп.</translation>
-    </message>
-    <message>
-        <source>You issued a bonus or stamped the card successfully.</source>
-        <translation>Вы успешно выпустили бонус или проштамповали карту.</translation>
-    </message>
 </context>
 <context>
     <name>RC::NetIndicatorModel</name>
@@ -826,6 +814,25 @@
     <message>
         <source>Export the database finished successful</source>
         <translation>Экспорт базы данных завершен успешно</translation>
+    </message>
+</context>
+<context>
+    <name>RC::WaitConnectionModel</name>
+    <message>
+        <source>Server not responced</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hmm, maybe you have a super slow internet connection... Try again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>We Have trouble</source>
+        <translation type="unfinished">У нас проблемы</translation>
+    </message>
+    <message>
+        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
+        <translation type="unfinished">Не удалось выдать бонус или штамп. Возможно, ваши локальные данные устарели, мы уже обновляем ваши локальные данные. Пожалуйста, попробуйте еще раз оформить бонус или штамп.</translation>
     </message>
 </context>
 <context>
@@ -975,6 +982,10 @@
     <message>
         <source>Select the number of purchases that the customer has made.</source>
         <translation>Выберите количество покупок, которые совершил клиент.</translation>
+    </message>
+    <message>
+        <source>Please wait for responce from server</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

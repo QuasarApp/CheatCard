@@ -667,13 +667,21 @@ void MainModel::handleCardReceived(QSharedPointer<RC::API::Card> card) {
 }
 
 void RC::MainModel::saveCard(const QSharedPointer<API::Card>& card) {
-    if (getMode() == static_cast<int>(Mode::Client)) {
+    bool fClient = getMode() == static_cast<int>(Mode::Client);
+    if (fClient) {
         card->setCardVersion(VERSION_CARD_USER);
     } else {
         card->setCardVersion(card->getCardVersion() + 1);
+
     }
 
     _db->insertIfExistsUpdateObject(card);
+
+    // send notification about updates to server
+    if (!fClient) {
+        auto seller = _backEndModel.staticCast<Seller>();
+        seller->cardUpdated(card->cardId(), card->getCardVersion());
+    }
 }
 
 void MainModel::handleCardEditFinished(const QSharedPointer<API::Card>& card) {
