@@ -10,6 +10,7 @@
 
 #include <abstractdata.h>
 #include "CheatCard/core_global.h"
+#include <QSharedPointer>
 
 namespace RC {
 namespace API {
@@ -47,4 +48,7 @@ private:
 };
 }
 }
+
+Q_DECLARE_METATYPE(RC::API::UserHeader)
+Q_DECLARE_METATYPE(QSharedPointer<RC::API::UserHeader>)
 #endif // USERHEADER_H

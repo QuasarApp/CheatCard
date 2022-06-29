@@ -177,15 +177,13 @@ private slots:
     void handlePurchaseWasSuccessful(QSharedPointer<API::UsersCards>, bool alert);
     void handleListenStart(int purchasesCount,
                            QSharedPointer<RC::CardModel> model,
-                           const QString &extraData);
+                           QSharedPointer<RC::API::UserHeader>);
     void handleListenStop();
     void handleAppStateChanged(Qt::ApplicationState state);
     void handlePurchaseReceived(RC::Purchase purchase);
     void saveCard(const QSharedPointer<RC::API::Card> &card);
     void handleCardCreated(const QSharedPointer<API::Card> &card);
     void handleAppOutdated(int minimumRequiredVersion);
-
-    void handleResponceOFChangedReceived(QSharedPointer<RC::API::Session> session, bool succesed);
 
 private:
     void saveUser();

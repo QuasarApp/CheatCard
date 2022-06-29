@@ -82,6 +82,7 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
     qRegisterMetaType<QSharedPointer<RC::API::UsersCards>>();
     qRegisterMetaType<QSharedPointer<RC::API::Card>>();
     qRegisterMetaType<QSharedPointer<RC::API::Session>>();
+    qRegisterMetaType<QSharedPointer<RC::API::UserHeader>>();
 
     initBackgroundsModel();
     initIconsModel();
@@ -234,30 +235,6 @@ void MainModel::handleCardCreated(const QSharedPointer<API::Card>& card) {
 
 void MainModel::handleAppOutdated(int) {
     _activityProcessorModel->newActivity("qrc:/CheatCardModule/UpdateRequestPage.qml");
-}
-
-void MainModel::handleResponceOFChangedReceived(QSharedPointer<RC::API::Session> session,
-                                                bool succesed) {
-
-    auto service = QmlNotificationService::NotificationService::getService();
-
-    if (succesed) {
-
-        service->setNotify(tr("Success"),
-                           tr("You issued a bonus or stamped the card successfully."),
-                           "", QmlNotificationService::NotificationData::Normal);
-
-    } else {
-        db()->deleteObject(session);
-
-        service->setNotify(tr("We Have trouble"),
-                           tr("Failed to issue a bonus or stamp."
-                              " Maybe your local data is deprecated, "
-                              " we already update your local data. "
-                              " Please try again make issue a bonus or stamp."),
-                           "", QmlNotificationService::NotificationData::Error);
-
-    }
 }
 
 const QSharedPointer<UserModel>& MainModel::getCurrentUser() const {
@@ -458,7 +435,7 @@ void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
         disconnect(_backEndModel.data(), &BaseNode::sigVersionNoLongerSupport,
                    this, &MainModel::handleAppOutdated);
         disconnect(_backEndModel.data(), &BaseNode::sigSessionStatusResult,
-                   this, &MainModel::handleResponceOFChangedReceived);
+                   _waitModel, &WaitConnectionModel::handleSessionServerResult);
 
     }
 
@@ -481,7 +458,7 @@ void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
                 this, &MainModel::handleAppOutdated);
 
         connect(_backEndModel.data(), &BaseNode::sigSessionStatusResult,
-                this, &MainModel::handleResponceOFChangedReceived);
+                _waitModel, &WaitConnectionModel::handleSessionServerResult);
 
         _backEndModel->checkNetworkConnection();
 
@@ -849,11 +826,9 @@ void MainModel::handlePurchaseWasSuccessful(QSharedPointer<RC::API::UsersCards> 
 }
 
 void MainModel::handleListenStart(int purchasesCount,
-                                  QSharedPointer<CardModel> model,
-                                  const QString& extraData) {
+                                  QSharedPointer<RC::CardModel> model,
+                                  QSharedPointer<API::UserHeader> header) {
 
-    auto header = QSharedPointer<API::UserHeader>::create();
-    header->fromBytes(QByteArray::fromHex(extraData.toLatin1()));
     _lastUserHeader = header;
 
     sendSellerDataToServer(header, model->card()->cardId(), purchasesCount, false);
