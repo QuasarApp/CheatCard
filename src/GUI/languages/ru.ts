@@ -124,20 +124,20 @@
         <translation>Поделиться</translation>
     </message>
     <message>
-        <source>Recovery</source>
-        <translation>Восстановить</translation>
-    </message>
-    <message>
-        <source>Backup</source>
-        <translation>Резервное копирование</translation>
-    </message>
-    <message>
         <source> (work mode)</source>
         <translation> (Рабочий режим)</translation>
     </message>
     <message>
         <source>Create a card</source>
         <translation>Создать карту</translation>
+    </message>
+    <message>
+        <source>Import Account</source>
+        <translation>Импорт аккаунта</translation>
+    </message>
+    <message>
+        <source>Export Account</source>
+        <translation>Экспорт аккаунта</translation>
     </message>
 </context>
 <context>
@@ -307,10 +307,6 @@
 <context>
     <name>ExportUserKeyPage</name>
     <message>
-        <source>Export user key</source>
-        <translation>Экспорт ключа</translation>
-    </message>
-    <message>
         <source>**For what this use**</source>
         <translation>**Для чего это использовать**</translation>
     </message>
@@ -329,6 +325,18 @@
     <message>
         <source>Backup code exported successful. The Backup Code Available in your documents&apos; folder. See &lt;b&gt;%0&lt;/b&gt; path</source>
         <translation>Резервный код успешно экспортирован. Резервный код доступен в папке ваших документов. См. путь &lt;b&gt;%0&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <source>Export user account</source>
+        <translation>Экспорт аккаунта пользователя</translation>
+    </message>
+    <message>
+        <source>**Sharing access to your account**</source>
+        <translation>**Общий доступ к вашей учетной записи**</translation>
+    </message>
+    <message>
+        <source>Scan This Qr code using the &apos;import user option&apos; on left drop menu or in a user&apos;s list page on another device to export this user account to another device.</source>
+        <translation>Отсканируйте этот Qr-код, используя «параметр импорта пользователя» в левом раскрывающемся меню или на странице списка пользователей на другом устройстве, чтобы экспортировать эту учетную запись пользователя на другое устройство.</translation>
     </message>
 </context>
 <context>
@@ -399,10 +407,6 @@
 </context>
 <context>
     <name>ImportUserKeyPage</name>
-    <message>
-        <source>**Attention** : This operation redefine your current application data (Cards, seals, users data). All current data will be removed.</source>
-        <translation>**Внимание** : Эта операция заменит ваши текущие данные приложения (карты, печати, данные пользователей). Все текущие данные будут удалены.</translation>
-    </message>
     <message>
         <source>Import from qr code scanner</source>
         <translation>Импорт с помощью сканера qr-кода</translation>
@@ -723,10 +727,6 @@
         <translation>У нас проблемы</translation>
     </message>
     <message>
-        <source>Your secret key was imported successfully, but download backup data from server is failed. Please check your internet connection and try to restore your data again</source>
-        <translation>Ваш секретный ключ был успешно импортирован, но не удалось загрузить данные резервной копии с сервера. Проверьте подключение к Интернету и попробуйте снова восстановить данные</translation>
-    </message>
-    <message>
         <source> You&apos;re trying to change the bonus rules. These changes will be saved as a new card. The old card continues to work correctly and all customers data will be saved. Do you want to continue?</source>
         <translation> Вы пытаетесь изменить правила бонусов . Эти изменения будут сохранены как новая карта. Старая карта продолжает работать корректно и все данные клиентов будут сохранены. Вы хотите продолжить?</translation>
     </message>
@@ -741,6 +741,10 @@
     <message>
         <source>This client does not have any bonuses. Sorry... </source>
         <translation>Этот клиент не имеет никаких бонусов. сорян... </translation>
+    </message>
+    <message>
+        <source>Failed to sync data with server. Please check your internet connection and try to restore your data again</source>
+        <translation>Не удалось синхронизировать данные с сервером. Проверьте подключение к Интернету и попробуйте снова восстановить данные</translation>
     </message>
 </context>
 <context>
@@ -813,6 +817,25 @@
     </message>
 </context>
 <context>
+    <name>RC::WaitConnectionModel</name>
+    <message>
+        <source>Server not responced</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hmm, maybe you have a super slow internet connection... Try again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>We Have trouble</source>
+        <translation type="unfinished">У нас проблемы</translation>
+    </message>
+    <message>
+        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
+        <translation type="unfinished">Не удалось выдать бонус или штамп. Возможно, ваши локальные данные устарели, мы уже обновляем ваши локальные данные. Пожалуйста, попробуйте еще раз оформить бонус или штамп.</translation>
+    </message>
+</context>
+<context>
     <name>RegistrationFinishedPage</name>
     <message>
         <source>Go to use</source>
@@ -855,10 +878,6 @@
     <message>
         <source>Host</source>
         <translation>Хост</translation>
-    </message>
-    <message>
-        <source>Camera</source>
-        <translation>Камера</translation>
     </message>
     <message>
         <source>Select work camera</source>
@@ -912,6 +931,10 @@
         <source>Language</source>
         <translation>Язык</translation>
     </message>
+    <message>
+        <source>Work rules</source>
+        <translation>Правила работы</translation>
+    </message>
 </context>
 <context>
     <name>UpdateRequestPage</name>
@@ -929,6 +952,24 @@
     </message>
 </context>
 <context>
+    <name>UserView</name>
+    <message>
+        <source>Id:</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Имя пользователя:</translation>
+    </message>
+</context>
+<context>
+    <name>UsersListView</name>
+    <message>
+        <source>Import new user</source>
+        <translation>Импорт нового пользователя</translation>
+    </message>
+</context>
+<context>
     <name>WaitConnectView</name>
     <message>
         <source>Seal</source>
@@ -941,6 +982,10 @@
     <message>
         <source>Select the number of purchases that the customer has made.</source>
         <translation>Выберите количество покупок, которые совершил клиент.</translation>
+    </message>
+    <message>
+        <source>Please wait for responce from server</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

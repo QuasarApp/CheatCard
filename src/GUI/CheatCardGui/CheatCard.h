@@ -41,6 +41,10 @@ public:
     bool init(QQmlApplicationEngine *engine, RC::IBilling* billingObject);
 
 private:
+    /**
+     * @brief initLang initialize languages
+     */
+    void initLang();
 
     DataBase * _db = nullptr;
     MainModel* _model = nullptr;

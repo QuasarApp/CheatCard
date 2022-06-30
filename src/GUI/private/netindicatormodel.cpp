@@ -16,13 +16,13 @@ NetIndicatorModel::NetIndicatorModel() {
 }
 
 bool NetIndicatorModel::getEnableNetwork() const {
-    return enableNetwork;
+    return _enableNetwork;
 }
 
 void NetIndicatorModel::setEnableNetwork(bool enable) {
-    if (enableNetwork == enable)
+    if (_enableNetwork == enable)
         return;
-    enableNetwork = enable;
+    _enableNetwork = enable;
     emit enableNetworkChanged();
 }
 
@@ -37,6 +37,18 @@ void NetIndicatorModel::handleEndaleNetworkChanged(bool modeNetwork) {
 
     setEnableNetwork(modeNetwork);
 
+}
+
+bool NetIndicatorModel::dataExchanging() const {
+    return _dataExchanging;
+}
+
+void NetIndicatorModel::setDataExchanging(bool newDataExchanging) {
+    if (_dataExchanging == newDataExchanging)
+        return;
+    _dataExchanging = newDataExchanging;
+
+    emit dataExchangingChanged();
 }
 
 }

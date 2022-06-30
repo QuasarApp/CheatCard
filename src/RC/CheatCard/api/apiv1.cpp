@@ -41,31 +41,31 @@ QH::ParserResult ApiV1::parsePackage(const QSharedPointer<QH::PKG::AbstractData>
                                      const QH::AbstractNodeInfo *sender) {
 
     auto result = commandHandler<API::Session>(this, &ApiV1::processSession,
-                                          pkg, sender, pkgHeader);
-    if (result != QH::ParserResult::NotProcessed) {
-        return result;
-    }
-
-    result = commandHandler<API::CardStatusRequest>(this, &ApiV1::processCardStatusRequest,
                                                pkg, sender, pkgHeader);
     if (result != QH::ParserResult::NotProcessed) {
         return result;
     }
 
+    result = commandHandler<API::CardStatusRequest>(this, &ApiV1::processCardStatusRequest,
+                                                    pkg, sender, pkgHeader);
+    if (result != QH::ParserResult::NotProcessed) {
+        return result;
+    }
+
     result = commandHandler<QH::PKG::DataPack<APIv1::UsersCards>>(this, &ApiV1::processCardStatus,
-                                        pkg, sender, pkgHeader);
+                                                                  pkg, sender, pkgHeader);
     if (result != QH::ParserResult::NotProcessed) {
         return result;
     }
 
     result = commandHandler<API::CardDataRequest>(this, &ApiV1::processCardRequest,
-                                             pkg, sender, pkgHeader);
+                                                  pkg, sender, pkgHeader);
     if (result != QH::ParserResult::NotProcessed) {
         return result;
     }
 
     result = commandHandler<QH::PKG::DataPack<APIv1::Card>>(this, &ApiV1::processCardData,
-                                  pkg, sender, pkgHeader);
+                                                            pkg, sender, pkgHeader);
     if (result != QH::ParserResult::NotProcessed) {
         return result;
     }
@@ -77,7 +77,6 @@ QH::ParserResult ApiV1::parsePackage(const QSharedPointer<QH::PKG::AbstractData>
     if (result != QH::ParserResult::NotProcessed) {
         return result;
     }
-
 
     return QH::ParserResult::NotProcessed;
 }
@@ -94,11 +93,19 @@ IAPIObjectsFactory *ApiV1::initObjectFactory() const {
 }
 
 bool ApiV1::processCardStatus(const QSharedPointer<QH::PKG::DataPack<APIv1::UsersCards> > &cardStatuses,
-                                const QH::AbstractNodeInfo *sender, const QH::Header &pkg) {
+                              const QH::AbstractNodeInfo *sender, const QH::Header &pkg) {
     API::CardDataRequest request;
 
     for (const auto& cardStatus : cardStatuses->packData()) {
         auto dbCard = objectFactoryInstance()->getCard(cardStatus->getCard());
+        auto dbUsersCards = objectFactoryInstance()->getUserCardData(
+                    cardStatus->getUser(),
+                    cardStatus->getCard());
+
+        // ignore seels statuses that has a depricated time.
+        if (dbUsersCards && dbUsersCards->getTime() > cardStatus->getTime()) {
+            continue;
+        }
 
         if (!cardValidation(dbCard, cardStatuses->customData())) {
 
@@ -182,12 +189,18 @@ bool ApiV1::processCardData(const QSharedPointer<QH::PKG::DataPack<APIv1::Card>>
                                         QuasarAppUtils::Error);
             continue;
         }
-
-        if (!cardValidation(db()->getObject(*card), cards->customData())) {
+        auto dbCard = db()->getObject(*card);
+        if (!cardValidation(dbCard, cards->customData())) {
 
             QuasarAppUtils::Params::log("Receive not signed card",
                                         QuasarAppUtils::Error);
-            break;
+            return false;
+        }
+
+        if (dbCard && card->ownerSignature() != dbCard->ownerSignature()) {
+            QuasarAppUtils::Params::log("User try change the card owner signature!!!",
+                                        QuasarAppUtils::Error);
+            return false;
         }
 
         if (!db()->insertIfExistsUpdateObject(card)) {
@@ -221,11 +234,11 @@ bool ApiV1::processRestoreDataRequest(const QSharedPointer<APIv1::RestoreDataReq
         responce.push(item.staticCast<APIv1::UsersCards>());
     }
 
-    if (responce.isValid() && !node()->sendData(&responce, sender, &pkg)) {
-        return false;
+    if (responce.isValid()) {
+        return node()->sendData(&responce, sender, &pkg);
     }
 
-    return true;
+    return node()->removeNode(sender->networkAddress());
 }
 
 bool ApiV1::cardValidation(const QSharedPointer<API::Card> &cardFromDB,

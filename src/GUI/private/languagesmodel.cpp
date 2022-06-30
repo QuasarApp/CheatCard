@@ -5,7 +5,6 @@
 #include <quasarapp.h>
 #include <QQmlEngine>
 #include <QLocale>
-#include <QSettings>
 #include <CheatCard/settingskeys.h>
 
 namespace RC {
@@ -68,11 +67,13 @@ void LanguagesModel::selectLanguagge(const QString &lang, QObject* gui) {
     if (_languagesMap.contains(lang))
         code = lang;
 
+    QLocale locale = QLocale(code);
     if (code.isEmpty() || lang == "Auto") {
-        QuasarAppUtils::Locales::setLocale(QLocale::system());
-    } else {
-        QuasarAppUtils::Locales::setLocale(QLocale(code));
+        code = QLocale::system().bcp47Name();
+        locale = QLocale::system();
     }
+
+    QuasarAppUtils::Locales::setLocale(locale);
 
     if (auto engine = qmlEngine(gui)) {
         engine->retranslate();
@@ -80,8 +81,8 @@ void LanguagesModel::selectLanguagge(const QString &lang, QObject* gui) {
 
     emit currentLanguageChanged();
 
-    QSettings setting;
-    setting.setValue(CURRENT_LANG, code);
+    auto settings = QuasarAppUtils::ISettings::instance();
+    settings->setValue(P_CURRENT_LANG, code);
 }
 
 QString LanguagesModel::getCurrentLanguage() {

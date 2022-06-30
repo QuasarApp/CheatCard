@@ -11,11 +11,13 @@
 #define SESSION_H
 
 #include "dbobject.h"
+#include <QSharedPointer>
+#include "CheatCard/core_global.h"
 
 namespace RC {
 namespace API {
 
-class Session : public QH::PKG::DBObject
+class CHEATCARD_CORE_EXPORT Session : public QH::PKG::DBObject
 {
     QH_PACKAGE(Session, "Session")
 
@@ -51,4 +53,7 @@ private:
 
 }
 }
+Q_DECLARE_METATYPE(RC::API::Session)
+Q_DECLARE_METATYPE(QSharedPointer<RC::API::Session>)
+
 #endif // SESSION_H

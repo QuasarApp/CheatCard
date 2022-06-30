@@ -81,11 +81,11 @@ Page {
                     SwitchDelegate {
                         id: darkTheme
                         text: qsTr("Dark Theme")
-                        checked: config.getValue("darkTheme", false)
+                        checked: config.getValue(settingsKeys.DARK_THEME)
                         padding: 0
 
                         onCheckedChanged: () => {
-                                              config.setValue("darkTheme", darkTheme.checked)
+                                              config.setValue(settingsKeys.DARK_THEME, darkTheme.checked)
                                           }
 
                         Layout.fillWidth: true
@@ -136,7 +136,7 @@ Page {
                             footer: DialogButtonBox {
                                 onAccepted: () => {
                                                 colorView.color = colorPick.color
-                                                config.setStrValue("colorTheme", colorPick.color)
+                                                config.setStrValue(settingsKeys.COLOR_THEME, colorPick.color)
 
                                                 activityProcessor.popItem();
                                             }
@@ -187,11 +187,11 @@ Page {
                     SwitchDelegate {
                         id: privacy
                         text: qsTr("Share name with seller")
-                        checked: config.getValue("shareName", true)
+                        checked: config.getValue(settingsKeys.SHARE_NAME)
                         padding: 0
 
                         onCheckedChanged: () => {
-                                              config.setValue("shareName", privacy.checked)
+                                              config.setValue(settingsKeys.SHARE_NAME, privacy.checked)
                                           }
 
                         Layout.fillWidth: true
@@ -250,7 +250,7 @@ Page {
                     implicitWidth: 0x0
 
                     Label {
-                        text: qsTr("Camera")
+                        text: qsTr("Work rules")
                         horizontalAlignment: Qt.AlignLeft
                         verticalAlignment: Qt.AlignVCenter
                         font.bold: true
@@ -273,13 +273,13 @@ Page {
                             id: selectCamera
                             enabled: model.length
 
-                            displayText: config.getStrValue("cameraDevice",
+                            displayText: config.getStrValue(settingsKeys.CAMERA_DEVICE,
                                                             (model.length? model[0]: ""))
 
 
                             onActivated: (index) => {
                                 const newId = model[index];
-                                config.setStrValue("cameraDevice", newId)
+                                config.setStrValue(settingsKeys.CAMERA_DEVICE, newId)
                                 displayText = newId;
                             }
 
@@ -357,11 +357,11 @@ Page {
                     SwitchDelegate {
                         id: unlock
                         text: qsTr("Use custom server")
-                        checked: config.getValue("devSettingEnable", false)
+                        checked: config.getValue(settingsKeys.DEV_SETTINGS_ENABLE)
                         padding: 0
 
                         onCheckedChanged: () => {
-                                              config.setValue("devSettingEnable", unlock.checked)
+                                              config.setValue(settingsKeys.DEV_SETTINGS_ENABLE, unlock.checked)
                                           }
 
                         Layout.fillWidth: true
@@ -381,10 +381,10 @@ Page {
                             visible: Boolean(opacity)
                             Layout.fillWidth: true
                             placeholderText: qsTr("Host")
-                            text: config.getStrValue("host", "")
+                            text: config.getStrValue(settingsKeys.HOST, "")
 
                             onEditingFinished: () => {
-                                                   config.setStrValue("host", host.displayText)
+                                                   config.setStrValue(settingsKeys.HOST, host.displayText)
                                                }
 
                             Behavior on opacity {
@@ -440,12 +440,9 @@ Page {
                         Layout.alignment: Qt.AlignHCenter
 
                         onClicked: () => {
-                                       config.setValue("colorTheme", null)
-                                       config.setValue("shareName", null)
-                                       config.setValue("cameraDevice", null)
-                                       config.setValue("devSettingEnable", null)
-                                       config.setValue("host", null)
-                                       config.setValue("port", null)
+                                       config.resetToDefault()
+                                       activityProcessor.popItem();
+
                                    }
                     }
 

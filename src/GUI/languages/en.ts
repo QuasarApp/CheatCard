@@ -86,15 +86,15 @@
     </message>
     <message>
         <source>* At the time of purchase, tell the seller that you have a cheat card</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>* And get your bonuses!!!</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>* Visit any cafe that support CheatCard Application</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -124,20 +124,20 @@
         <translation>Share application</translation>
     </message>
     <message>
-        <source>Recovery</source>
-        <translation>Recovery</translation>
-    </message>
-    <message>
-        <source>Backup</source>
-        <translation>Backup</translation>
-    </message>
-    <message>
         <source> (work mode)</source>
         <translation></translation>
     </message>
     <message>
         <source>Create a card</source>
         <translation>Create a card</translation>
+    </message>
+    <message>
+        <source>Import Account</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Export Account</source>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -307,10 +307,6 @@
 <context>
     <name>ExportUserKeyPage</name>
     <message>
-        <source>Export user key</source>
-        <translation>Export user key</translation>
-    </message>
-    <message>
         <source>**For what this use**</source>
         <translation>**For what this use**</translation>
     </message>
@@ -328,6 +324,18 @@
     </message>
     <message>
         <source>Backup code exported successful. The Backup Code Available in your documents&apos; folder. See &lt;b&gt;%0&lt;/b&gt; path</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Export user account</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>**Sharing access to your account**</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Scan This Qr code using the &apos;import user option&apos; on left drop menu or in a user&apos;s list page on another device to export this user account to another device.</source>
         <translation></translation>
     </message>
 </context>
@@ -399,10 +407,6 @@
 </context>
 <context>
     <name>ImportUserKeyPage</name>
-    <message>
-        <source>**Attention** : This operation redefine your current application data (Cards, seals, users data). All current data will be removed.</source>
-        <translation>**Attention** : This operation redefine your current application data (Cards, seals, users data). All current data will be removed.</translation>
-    </message>
     <message>
         <source>Import from qr code scanner</source>
         <translation>Import from qr code scanner</translation>
@@ -723,10 +727,6 @@
         <translation></translation>
     </message>
     <message>
-        <source>Your secret key was imported successfully, but download backup data from server is failed. Please check your internet connection and try to restore your data again</source>
-        <translation></translation>
-    </message>
-    <message>
         <source> You&apos;re trying to change the bonus rules. These changes will be saved as a new card. The old card continues to work correctly and all customers data will be saved. Do you want to continue?</source>
         <translation></translation>
     </message>
@@ -740,6 +740,10 @@
     </message>
     <message>
         <source>This client does not have any bonuses. Sorry... </source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Failed to sync data with server. Please check your internet connection and try to restore your data again</source>
         <translation></translation>
     </message>
 </context>
@@ -813,6 +817,25 @@
     </message>
 </context>
 <context>
+    <name>RC::WaitConnectionModel</name>
+    <message>
+        <source>Server not responced</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hmm, maybe you have a super slow internet connection... Try again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>We Have trouble</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>RegistrationFinishedPage</name>
     <message>
         <source>Go to use</source>
@@ -855,10 +878,6 @@
     <message>
         <source>Host</source>
         <translation>Host</translation>
-    </message>
-    <message>
-        <source>Camera</source>
-        <translation>Camera</translation>
     </message>
     <message>
         <source>Select work camera</source>
@@ -912,6 +931,10 @@
         <source>Language</source>
         <translation>Language</translation>
     </message>
+    <message>
+        <source>Work rules</source>
+        <translation></translation>
+    </message>
 </context>
 <context>
     <name>UpdateRequestPage</name>
@@ -929,6 +952,24 @@
     </message>
 </context>
 <context>
+    <name>UserView</name>
+    <message>
+        <source>Id:</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation></translation>
+    </message>
+</context>
+<context>
+    <name>UsersListView</name>
+    <message>
+        <source>Import new user</source>
+        <translation></translation>
+    </message>
+</context>
+<context>
     <name>WaitConnectView</name>
     <message>
         <source>Seal</source>
@@ -941,6 +982,10 @@
     <message>
         <source>Select the number of purchases that the customer has made.</source>
         <translation></translation>
+    </message>
+    <message>
+        <source>Please wait for responce from server</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

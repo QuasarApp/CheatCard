@@ -55,7 +55,7 @@ public:
     static QString libVersion();
     static void init();
 
-    bool restoreOldData(const QByteArray &curentUserKey,
+    bool restoreAllData(const QByteArray &curentUserKey,
                         const QString& domain = "",
                         int port = DEFAULT_CHEAT_CARD_PORT_SSL);
 
@@ -100,8 +100,10 @@ signals:
     void sigNetworkError(QAbstractSocket::SocketError errorCode,
                          QSslError::SslError sslError);
     void sigAvailableNetworkChanged(bool);
+    void sigDataExchangingChanged(bool);
 
     void sigVersionNoLongerSupport(int minimumRequiredVersion);
+    void sigSessionStatusResult(QSharedPointer<RC::API::Session>, bool succesed);
 protected:
 
     QH::ParserResult parsePackage(const QSharedPointer<QH::PKG::AbstractData> &pkg,
@@ -118,6 +120,7 @@ protected:
                                          const QH::HostAddress *clientAddress) const override;
 
     void nodeConnected(QH::AbstractNodeInfo *node) override;
+    void nodeDisconnected(QH::AbstractNodeInfo *node) override;
 
     int maximumApiVersion() const;
     int minimumApiVersion() const;

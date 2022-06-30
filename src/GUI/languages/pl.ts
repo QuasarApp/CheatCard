@@ -125,20 +125,20 @@
         <translation>Udostępnij aplikację</translation>
     </message>
     <message>
-        <source>Recovery</source>
-        <translation>Powrót do zdrowia</translation>
-    </message>
-    <message>
-        <source>Backup</source>
-        <translation>Utworzyć kopię zapasową</translation>
-    </message>
-    <message>
         <source> (work mode)</source>
         <translation> (tryb pracy)</translation>
     </message>
     <message>
         <source>Create a card</source>
         <translation>Utwórz kartę</translation>
+    </message>
+    <message>
+        <source>Import Account</source>
+        <translation>Importuj konto</translation>
+    </message>
+    <message>
+        <source>Export Account</source>
+        <translation>Konto eksportu</translation>
     </message>
 </context>
 <context>
@@ -308,10 +308,6 @@
 <context>
     <name>ExportUserKeyPage</name>
     <message>
-        <source>Export user key</source>
-        <translation>Eksportuj klucz użytkownika</translation>
-    </message>
-    <message>
         <source>**For what this use**</source>
         <translation>**Do czego to służy**</translation>
     </message>
@@ -330,6 +326,18 @@
     <message>
         <source>Backup code exported successful. The Backup Code Available in your documents&apos; folder. See &lt;b&gt;%0&lt;/b&gt; path</source>
         <translation>Pomyślnie wyeksportowano kod zapasowy. Kod zapasowy Dostępny w folderze dokumentów. Zobacz ścieżkę &lt;b&gt;%0&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <source>Export user account</source>
+        <translation>Eksportuj konto użytkownika</translation>
+    </message>
+    <message>
+        <source>**Sharing access to your account**</source>
+        <translation>**Dzielenie dostępu do swojego konta**</translation>
+    </message>
+    <message>
+        <source>Scan This Qr code using the &apos;import user option&apos; on left drop menu or in a user&apos;s list page on another device to export this user account to another device.</source>
+        <translation>Zeskanuj ten kod QR za pomocą opcji „Importuj użytkownika” w menu rozwijanym po lewej stronie lub na stronie listy użytkownika na innym urządzeniu, aby wyeksportować to konto użytkownika na inne urządzenie.</translation>
     </message>
 </context>
 <context>
@@ -400,10 +408,6 @@
 </context>
 <context>
     <name>ImportUserKeyPage</name>
-    <message>
-        <source>**Attention** : This operation redefine your current application data (Cards, seals, users data). All current data will be removed.</source>
-        <translation>**Uwaga** : Ta operacja redefiniuje aktualne dane aplikacji (karty, pieczęcie, dane użytkowników). Wszystkie aktualne dane zostaną usunięte.</translation>
-    </message>
     <message>
         <source>Import from qr code scanner</source>
         <translation>Importuj ze skanera kodów qr</translation>
@@ -724,10 +728,6 @@
         <translation>Mamy kłopoty</translation>
     </message>
     <message>
-        <source>Your secret key was imported successfully, but download backup data from server is failed. Please check your internet connection and try to restore your data again</source>
-        <translation>Twój tajny klucz został pomyślnie zaimportowany, ale pobieranie danych kopii zapasowej z serwera nie powiodło się. Sprawdź połączenie internetowe i spróbuj ponownie przywrócić dane</translation>
-    </message>
-    <message>
         <source> You&apos;re trying to change the bonus rules. These changes will be saved as a new card. The old card continues to work correctly and all customers data will be saved. Do you want to continue?</source>
         <translation> Próbujesz zmienić zasady bonusów. Te zmiany zostaną zapisane jako nowa karta. Stara karta będzie nadal działać poprawnie, a wszystkie dane klientów zostaną zapisane. Czy chcesz kontynuować?</translation>
     </message>
@@ -742,6 +742,10 @@
     <message>
         <source>This client does not have any bonuses. Sorry... </source>
         <translation>Ten klient nie ma żadnych bonusów. Przepraszam... </translation>
+    </message>
+    <message>
+        <source>Failed to sync data with server. Please check your internet connection and try to restore your data again</source>
+        <translation>Nie udało się zsynchronizować danych z serwerem. Sprawdź połączenie internetowe i spróbuj ponownie przywrócić dane</translation>
     </message>
 </context>
 <context>
@@ -814,6 +818,25 @@
     </message>
 </context>
 <context>
+    <name>RC::WaitConnectionModel</name>
+    <message>
+        <source>Server not responced</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hmm, maybe you have a super slow internet connection... Try again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>We Have trouble</source>
+        <translation type="unfinished">Mamy kłopoty</translation>
+    </message>
+    <message>
+        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
+        <translation type="unfinished">Nie udało się wystawić premii lub pieczątki. Być może Twoje dane lokalne są przestarzałe, już zaktualizowaliśmy Twoje dane lokalne. Spróbuj ponownie, aby wystawić premię lub pieczątkę.</translation>
+    </message>
+</context>
+<context>
     <name>RegistrationFinishedPage</name>
     <message>
         <source>Go to use</source>
@@ -856,10 +879,6 @@
     <message>
         <source>Host</source>
         <translation></translation>
-    </message>
-    <message>
-        <source>Camera</source>
-        <translation>Kamera</translation>
     </message>
     <message>
         <source>Select work camera</source>
@@ -913,6 +932,10 @@
         <source>Language</source>
         <translation>Język</translation>
     </message>
+    <message>
+        <source>Work rules</source>
+        <translation>Zasady pracy</translation>
+    </message>
 </context>
 <context>
     <name>UpdateRequestPage</name>
@@ -930,6 +953,24 @@
     </message>
 </context>
 <context>
+    <name>UserView</name>
+    <message>
+        <source>Id:</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Nazwa Użytkownika:</translation>
+    </message>
+</context>
+<context>
+    <name>UsersListView</name>
+    <message>
+        <source>Import new user</source>
+        <translation>Importuj nowego użytkownika</translation>
+    </message>
+</context>
+<context>
     <name>WaitConnectView</name>
     <message>
         <source>Seal</source>
@@ -942,6 +983,10 @@
     <message>
         <source>Select the number of purchases that the customer has made.</source>
         <translation>Wybierz liczbę zakupów dokonanych przez klienta.</translation>
+    </message>
+    <message>
+        <source>Please wait for responce from server</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

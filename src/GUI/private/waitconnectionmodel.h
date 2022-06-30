@@ -10,11 +10,17 @@
 
 
 #include <QObject>
+#include <QTimer>
 #include "cardmodel.h"
 
 class QTimer;
 
 namespace RC {
+
+namespace API {
+class UserHeader;
+class Session;
+}
 
 class WaitConnectionModel: public QObject
 {
@@ -24,6 +30,7 @@ class WaitConnectionModel: public QObject
     Q_PROPERTY(int purchaseCount READ purchaseCount WRITE setPurchaseCount NOTIFY purchaseCountChanged)
     Q_PROPERTY(QString extraData READ extraData WRITE setExtraData NOTIFY extraDataChanged)
     Q_PROPERTY(bool allowScreenDim READ allowScreenDim WRITE setAllowScreenDim NOTIFY allowScreenDimChanged)
+    Q_PROPERTY(bool waitConfirm READ waitConfirm NOTIFY waitConfirmChanged)
 
 public:
     WaitConnectionModel();
@@ -43,13 +50,19 @@ public:
     bool allowScreenDim() const;
     void setAllowScreenDim(bool newAllowScreenDim);
 
+    bool waitConfirm() const;
+    void setWaitConfirm(bool wait);
+
+public slots:
+    void handleSessionServerResult(QSharedPointer<RC::API::Session> session, bool succesed);
+
 signals:
     void cardChanged();
     void purchaseCountChanged();
     void timeOutChanged();
     void purchaseTaskCompleted(int purchasesCount,
-                               QSharedPointer<CardModel> card,
-                               const QString& extraData);
+                               QSharedPointer<RC::CardModel> card,
+                               QSharedPointer<RC::API::UserHeader>);
 
     void extraDataChanged();
 
@@ -57,8 +70,17 @@ signals:
 
     void allowScreenDimChanged();
 
-private:
+    void waitConfirmChanged();
 
+private slots:
+    void handleTimeOut();
+
+private:
+    void disbaleWaiting();
+
+    long long _notConfirmedSessions = 0;
+    bool _waitConfirm = false;
+    QTimer _timer;
 
     QSharedPointer<CardModel> _card = nullptr;
     int _purchaseCount = 1;

@@ -24,6 +24,7 @@ public:
     UsersCards();
     UsersCards(unsigned int user, unsigned int card);
     QH::PKG::DBObject *createDBObject() const override;
+    QH::PKG::DBVariantMap variantMap() const override;
 
 
 protected:

@@ -52,6 +52,7 @@ protected:
                         const QH::AbstractNodeInfo *sender, const QH::Header&);
     bool processCardStatus(const QSharedPointer<QH::PKG::DataPack<APIv1::UsersCards>> &cardStatuses,
                            const QH::AbstractNodeInfo *sender, const QH::Header&pkg);
+
     bool processCardRequest(const QSharedPointer<API::CardDataRequest> &cardStatus,
                             const QH::AbstractNodeInfo *sender, const QH::Header&) ;
     bool processCardData(const QSharedPointer<QH::PKG::DataPack<APIv1::Card> > &cardrequest,
@@ -60,13 +61,13 @@ protected:
     virtual bool processRestoreDataRequest(const QSharedPointer<APIv1::RestoreDataRequest> &cardrequest,
                                            const QH::AbstractNodeInfo *sender, const QH::Header &);
 
-private:
     /**
      * @brief cardValidation This method must check card data only on server. This implementation do nothing.
      * @return true if card is pass validation.
      */
     bool cardValidation(const QSharedPointer<API::Card>& card,
                         const QByteArray &ownerSecret) const;
+private:
 
     /**
      * @brief getSignData This method sets to @a data secret key of this node. This method should be works only for sellers.
@@ -75,6 +76,7 @@ private:
     void getSignData(QByteArray& data) const;
 
     unsigned int _restoreDataPacakgeHash = 0;
+
 };
 
 }

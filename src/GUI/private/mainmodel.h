@@ -27,7 +27,7 @@ class Card;
 class User;
 class UsersCards;
 class UserHeader;
-
+class Session;
 }
 
 class SoundPlayback;
@@ -47,6 +47,8 @@ class ImportExportUserModel;
 class LanguagesModel;
 class ActivityProcessorModel;
 class CreateCardModel;
+class UsersListModel;
+class ImagesStorageModel;
 
 /**
  * @brief The MainModel class is main model of the application.
@@ -54,7 +56,7 @@ class CreateCardModel;
 class MainModel : public QObject, public QuasarAppUtils::SettingsListner
 {
     Q_OBJECT
-    Q_PROPERTY(bool fFirst READ fFirst  NOTIFY fFirstChanged)
+    Q_PROPERTY(bool fFirst READ fFirst CONSTANT)
 
     Q_PROPERTY(QObject * currentUser READ currentUser NOTIFY currentUserChanged)
     Q_PROPERTY(QObject * cardsList READ cardsList NOTIFY cardsListChanged)
@@ -69,6 +71,7 @@ class MainModel : public QObject, public QuasarAppUtils::SettingsListner
     Q_PROPERTY(QObject * langModel READ langModel NOTIFY langModelChanged)
     Q_PROPERTY(QObject * activityProcessorModel READ activityProcessorModel NOTIFY activityProcessorModelChanged)
     Q_PROPERTY(QObject * createCardModel READ createCardModel NOTIFY createCardModelChanged)
+    Q_PROPERTY(QObject * usersListModel READ usersListModel NOTIFY usersListModelChanged)
 
 
 public:
@@ -87,9 +90,6 @@ public:
     QObject *currentUser() const;
 
     const QSharedPointer<UserModel>& getCurrentUser() const;
-
-    void setCurrentUser(UserModel *newCurrentUser);
-    void setCurrentUser(QSharedPointer<UserModel> newCurrentUser);
 
     QObject *cardsList() const;
     QObject *defaultLogosModel() const;
@@ -115,6 +115,7 @@ public:
     Q_INVOKABLE int getReceivedItemsCount(int cardId) const;
     Q_INVOKABLE bool fBillingAwailable() const;
     Q_INVOKABLE QString storeLink() const;
+    Q_INVOKABLE void reload() const;
 
     QObject *statisticModel() const;
 
@@ -125,13 +126,16 @@ public:
     QObject *activityProcessorModel() const;
     QObject *createCardModel() const;
 
+    QObject *usersListModel() const;
+
 public slots:
+    void setCurrentUser(const QSharedPointer<RC::UserModel> &newCurrentUser);
+
     void handleFirstDataSendet();
     void handleBonusGivOut(int userId, int cardId, int givOutcount);
 
 signals:
 
-    void fFirstChanged();
     void currentUserChanged();
 
     void cardsListChanged();
@@ -154,6 +158,8 @@ signals:
     // SettingsListner interface
     void createCardModelChanged();
 
+    void usersListModelChanged();
+
 protected:
     void handleSettingsChanged(const QString &key, const QVariant &value) override;
 
@@ -169,7 +175,9 @@ private slots:
     void handleCardSelectedForStatistic(const QSharedPointer<RC::CardModel>& card);
 
     void handlePurchaseWasSuccessful(QSharedPointer<API::UsersCards>, bool alert);
-    void handleListenStart(int purchasesCount, QSharedPointer<RC::CardModel> model, const QString &extraData);
+    void handleListenStart(int purchasesCount,
+                           QSharedPointer<RC::CardModel> model,
+                           QSharedPointer<RC::API::UserHeader>);
     void handleListenStop();
     void handleAppStateChanged(Qt::ApplicationState state);
     void handlePurchaseReceived(RC::Purchase purchase);
@@ -178,8 +186,9 @@ private slots:
     void handleAppOutdated(int minimumRequiredVersion);
 
 private:
-    void saveConfig();
     void saveUser();
+    void lastStatusRequest();
+
     QH::ISqlDBCache *db() const;
 
     QSharedPointer<UserModel> initUser();
@@ -195,6 +204,9 @@ private:
     void initLanguageModel();
     void initActivityProcessorModel();
     void initCreateCardModel();
+    void initUsersListModel();
+    void initBackgroundsModel();
+    void initIconsModel();
 
     void configureCardsList();
 
@@ -207,9 +219,11 @@ private:
     bool sendSellerDataToServer(const QSharedPointer<API::UserHeader> &header,
                                 unsigned int cardId,
                                 int purchasesCount,
-                                bool sendOnly);
+                                bool receive);
 
     CardsListModel* getCurrentListModel() const;    
+    void syncWithServer() const;
+    bool _firstRun = true;
 
     QH::ISqlDBCache * _db = nullptr;
     QSharedPointer<UserModel> _currentUser;
@@ -219,6 +233,10 @@ private:
     CardsListModel *_ownCardsListModel = nullptr;
 
     CardProxyModel *_currentCardsListModel = nullptr;
+    UsersListModel *_usersListModel = nullptr;
+    ImagesStorageModel *_backgrounds = nullptr;
+    ImagesStorageModel *_icons = nullptr;
+
 
     AboutModel *_aboutModel = nullptr;
     SoundPlayback *_soundEffect = nullptr;
@@ -239,7 +257,6 @@ private:
     QSharedPointer<BaseNode> _visitorbackEndModel = nullptr;
 
     WaitConnectionModel *_waitModel = nullptr;
-    QSettings _settings;
 
     QSharedPointer<API::UserHeader> _lastUserHeader;
 

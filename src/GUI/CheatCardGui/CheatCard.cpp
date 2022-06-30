@@ -32,6 +32,33 @@ CheatCard::~CheatCard() {
     _db->softDelete();
 }
 
+void CheatCard::initLang() {
+    QLocale locale = QLocale::system();
+    auto settings = QuasarAppUtils::ISettings::instance();
+
+    QString userLang = settings->getValue(P_CURRENT_LANG).toString();
+
+    if (!userLang.isEmpty()) {
+        locale = QLocale(userLang);
+    }
+
+    QString customLanguage = QuasarAppUtils::Params::getArg("lang");
+    if(customLanguage.size()) {
+        locale = QLocale(customLanguage);
+    }
+
+    if(!QuasarAppUtils::Locales::init(locale, {
+                                      ":/QtNativeTr/languages/",
+                                      ":/CheatCardTr/languages/",
+                                      ":/credits_languages/",
+                                      ":/qmlNotify_languages/",
+                                      ":/lv_languages/",
+                                      ":/DoctorPillTr/languages/"
+                                      }
+                                      )){
+        QuasarAppUtils::Params::log("Error load language : ", QuasarAppUtils::Error);
+    }
+}
 
 bool CheatCard::init(QQmlApplicationEngine *engine, IBilling *billingObject) {
 
@@ -54,10 +81,12 @@ bool CheatCard::init(QQmlApplicationEngine *engine, IBilling *billingObject) {
         QuasarAppUtils::Params::log("Failed to load database", QuasarAppUtils::Error);
     }
 
+    auto settingsInstance = SettingsModel::init(_db->db());
+    initLang();
+
     engine->addImageProvider(QLatin1String("cards"), new ImageProvider(_db));
 
     auto root = engine->rootContext();
-    auto settingsInstance = SettingsModel::init<SettingsModel>(_db->db());
 
     _model = new MainModel(_db->db());
 
@@ -67,6 +96,7 @@ bool CheatCard::init(QQmlApplicationEngine *engine, IBilling *billingObject) {
 
     qmlRegisterType<SBarcodeGenerator>("com.scythestudio.scodes", 1, 0, "SBarcodeGenerator");
     qmlRegisterType<SBarcodeFilter>("com.scythestudio.scodes", 1, 0, "SBarcodeFilter");
+    qmlRegisterType<SettingsKeys>("SettingsKeys", 1, 0, "SettingsKeys");
 
     _model->initBilling(billingObject);
 

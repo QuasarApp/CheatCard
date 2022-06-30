@@ -19,6 +19,7 @@ file(GLOB SOURCE_CPP
      "CheatCard/api/*.cpp"
      "CheatCard/api/api0/*.cpp"
      "CheatCard/api/api1/*.cpp"
+     "CheatCard/api/api1-5/*.cpp"
 
      "*CheatCard/*.h"
       "private/*.h"
@@ -26,6 +27,7 @@ file(GLOB SOURCE_CPP
       "CheatCard/api/*.h"
       "CheatCard/api/api0/*.h"
       "CheatCard/api/api1/*.h"
+      "CheatCard/api/api1-5/*.h"
 
 )
 

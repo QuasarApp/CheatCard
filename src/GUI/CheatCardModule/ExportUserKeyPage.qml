@@ -18,26 +18,28 @@ import "Style"
 CPage {
 
     id : root
-    title: qsTr("Export user key")
+    title: qsTr("Export user account")
     implicitHeight: 0x0
     implicitWidth: 0x0
 
     property var model: null
+    property bool fExport: false
 
     contentItem: ColumnLayout {
 
-        Item {
-            Layout.fillHeight: true
-        }
+        //        Item {
+        //            Layout.fillHeight: true
+        //        }
 
         Label {
-            text: qsTr("**For what this use**")
+            text: (fExport)? qsTr("**For what this use**"):
+                             qsTr("**Sharing access to your account**")
             Layout.fillWidth: true
             wrapMode: Label.WordWrap
             horizontalAlignment: TextInput.AlignHCenter
             Layout.alignment: Qt.AlignHCenter
             textFormat: Label.MarkdownText
-
+            visible: !fExport;
         }
 
         Label {
@@ -47,60 +49,49 @@ CPage {
             horizontalAlignment: TextInput.AlignHCenter
             Layout.alignment: Qt.AlignHCenter
             textFormat: Label.MarkdownText
+            visible: !fExport;
 
         }
 
-        Image {
-            id: imgQr
-            Layout.preferredHeight: Math.min(root.height * 0.7, root.width * 0.7)
-            Layout.preferredWidth: height
+        Label {
+            text: qsTr("Scan This Qr code using the 'import user option' on left drop menu or in a user's list page on another device to export this user account to another device.")
+            Layout.fillWidth: true
+            wrapMode: Label.WordWrap
+            horizontalAlignment: TextInput.AlignHCenter
             Layout.alignment: Qt.AlignHCenter
-
-            fillMode: Image.PreserveAspectFit
-            SBarcodeGenerator {
-                id: generator
-                fileName: "CheatCard-" + ((root.model)? root.model.name: "") + ".qrrc";
-                inputText: (root.model)? root.model.userBackUpData(): "Sorry"
-                height: parent.height
-                width:  parent.width
-                margin: 0
-                onInputTextChanged: {
-                    if (inputText.length)
-                        process(inputText);
-                    imgQr.qrIndex++
-
-                }
-
-                onWidthChanged: {
-                    if (inputText.length)
-                        process(inputText);
-                    imgQr.qrIndex++
-                }
-
-            }
-            property int qrIndex: 0
-
-            source: "image://cards/file:" + generator.filePath + ":" + qrIndex
-            layer.enabled: true
-            layer.effect: ShaderColorOverlay {
-                color: Material.primary
-                fragSh: "qrc:/private/resources/shaders/shaderColorQrCode.fsh"
-            }
+            textFormat: Label.MarkdownText
+            visible: fExport;
 
         }
+
+        QrCodeControl {
+            id: imgQr
+
+
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+            Layout.maximumWidth: Math.min(root.height * 0.7, root.width * 0.7)
+            Layout.maximumHeight: Math.min(root.height * 0.7, root.width * 0.7)
+
+            Layout.alignment: Qt.AlignHCenter
+            fileName: "CheatCard-" + ((root.model)? root.model.name: "") + ".qrrc";
+            inputText: (root.model)? root.model.userBackUpData(): "Sorry"
+        }
+
         Button {
             text: qsTr("Save and open in files");
             Layout.alignment: Qt.AlignHCenter
+            visible: !fExport;
 
             onClicked: {
-                generator.saveImage();
+                imgQr.saveImage();
                 notificationService.setNotify(qsTr("Done"), qsTr("Backup code exported successful. The Backup Code Available in your documents' folder. See <b>%0</b> path").arg(root.model.userBackUpPath()));
             }
 
         }
 
-        Item {
-            Layout.fillHeight: true
-        }
+        //        Item {
+        //            Layout.fillHeight: true
+        //        }
     }
 }

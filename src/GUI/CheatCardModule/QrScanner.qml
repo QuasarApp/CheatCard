@@ -44,7 +44,7 @@ Page {
 
         onSourceRectChanged: {
           barcodeFilter.captureRect = videoOutput.mapRectToSource(
-                videoOutput.mapNormalizedRectToItem(Qt.rect(0.25, 0.25, 0.5, 0.5)))
+                videoOutput.mapNormalizedRectToItem(Qt.rect(0.1, 0.1, 0.8, 0.8)))
         }
 
         ScannerOverlay {
@@ -72,8 +72,8 @@ Page {
 
         // you can adjust capture rect (scan area) ne changing these Qt.rect() parameters
         captureRect: videoOutput.mapRectToSource(
-                       videoOutput.mapNormalizedRectToItem(Qt.rect(0.25, 0.25,
-                                                                   0.5, 0.5)))
+                       videoOutput.mapNormalizedRectToItem(Qt.rect(0.1, 0.1,
+                                                                   0.8, 0.8)))
 
         onCapturedChanged: (captured) => {
             root.captured(captured)
@@ -92,3 +92,9 @@ Page {
         }
     }
 }
+
+/*##^##
+Designer {
+    D{i:0;autoSize:true;height:480;width:640}
+}
+##^##*/

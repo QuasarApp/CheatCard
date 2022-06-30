@@ -58,7 +58,7 @@ void CardsListModel::setCards(const QList<QSharedPointer<API::Card> > &newCards)
     beginResetModel();
 
     _cache.clear();
-
+    _cards.clear();
     for (const QSharedPointer<API::Card>& card : newCards) {
         auto cardModel =  QSharedPointer<CardModel>::create(card);
         _cache.insert(card->cardId(),

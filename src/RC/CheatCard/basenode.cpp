@@ -40,7 +40,6 @@ BaseNode::BaseNode(QH::ISqlDBCache *db): APIObjectsFactoryV1(db) {
     registerPackageType<QH::PKG::DataPack<API::Card>>();
     registerPackageType<QH::PKG::DataPack<APIv1::Card>>();
 
-
     setIgnoreSslErrors(QList<QSslError>() << QSslError::SelfSignedCertificate
                        << QSslError::SelfSignedCertificateInChain
                        << QSslError::HostNameMismatch
@@ -145,6 +144,14 @@ void BaseNode::nodeConnected(QH::AbstractNodeInfo *node) {
     appVersion.setMinimum(minimumApiVersion());
 
     sendData(&appVersion, node);
+
+    emit sigDataExchangingChanged(connectionsCount());
+}
+
+void BaseNode::nodeDisconnected(QH::AbstractNodeInfo * node) {
+    QH::AbstractNode::nodeDisconnected(node);
+
+    emit sigDataExchangingChanged(connectionsCount());
 }
 
 int BaseNode::maximumApiVersion() const {
@@ -247,6 +254,9 @@ int BaseNode::getFreeItemsCount(unsigned int userId,
 }
 
 int BaseNode::getFreeItemsCount(const QSharedPointer<API::UsersCards> &inputData) const {
+    if (!inputData)
+        return 0;
+
     unsigned int freeIndex = getCardFreeIndex(inputData->getCard());
     return getFreeItemsCount(inputData, freeIndex);
 }
@@ -254,6 +264,9 @@ int BaseNode::getFreeItemsCount(const QSharedPointer<API::UsersCards> &inputData
 int BaseNode::getFreeItemsCount(const QSharedPointer<API::UsersCards> &inputData,
                                 unsigned int freeIndex) const {
     if (freeIndex <= 0)
+        return 0;
+
+    if (!inputData)
         return 0;
 
     int freeItems = std::floor(inputData->getPurchasesNumber() /
@@ -298,7 +311,7 @@ QString BaseNode::libVersion() {
     return CHEAT_CARD_VERSION;
 }
 
-bool BaseNode::restoreOldData(const QByteArray &curentUserKey,
+bool BaseNode::restoreAllData(const QByteArray &curentUserKey,
                               const QString &domain, int port) {
 
     auto action = [this, curentUserKey](QH::AbstractNodeInfo *node) {

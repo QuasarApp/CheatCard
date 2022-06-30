@@ -16,13 +16,10 @@
 
 #include <thread>
 #include <chrono>
-#include <CheatCard/visitor.h>
-#include <CheatCard/seller.h>
-#include <CheatCard/server.h>
 #include <testseller.h>
 #include <testvisitor.h>
 #include <type_traits>
-#include <CheatCard/api/apiv1.h>
+#include <CheatCard/api/apiv1-5.h>
 
 #define TEST_CHEAT_PORT 15001
 #define TEST_CHEAT_HOST "localhost"
@@ -41,113 +38,36 @@ void ConnectionTest::test() {
     firstContact();
 }
 
-void ConnectionTest::firstContact() {
-
-    qDebug() << "TEST API V0";
-
-    auto seller = CheatCardTestsHelper::makeNode<TestSeller>();
-    auto client = CheatCardTestsHelper::makeNode<TestVisitor>();
-    auto server = CheatCardTestsHelper::makeNode<TestServer>();
-
-    seller->addApiParser<RC::ApiV0>();
-    client->addApiParser<RC::ApiV0>();
-    server->addApiParser<RC::ApiV0>();
-
-    apiTest(seller, client, server);
-
-
-    qDebug() << "TEST API V1";
-
-    seller = CheatCardTestsHelper::makeNode<TestSeller>();
-    client = CheatCardTestsHelper::makeNode<TestVisitor>();
-    server = CheatCardTestsHelper::makeNode<TestServer>();
-    seller->setCurrentUser(seller->getUser(CheatCardTestsHelper::testUserId()));
-
-    seller->addApiParser<RC::ApiV1>();
-    client->addApiParser<RC::ApiV1>();
-    server->addApiParser<RC::ApiV1>();
-
-    apiTest(seller, client, server);
-
-
-    qDebug() << "TEST MULTI API V1 (SELLER: V1, CLIENT: V0)";
-
-    seller = CheatCardTestsHelper::makeNode<TestSeller>();
-    client = CheatCardTestsHelper::makeNode<TestVisitor>();
-    server = CheatCardTestsHelper::makeNode<TestServer>();
-    seller->setCurrentUser(seller->getUser(CheatCardTestsHelper::testUserId()));
-
-    seller->addApiParser<RC::ApiV1>();
-    client->addApiParser<RC::ApiV0>();
-    server->addApiParser<RC::ApiV1>();
-    server->addApiParser<RC::ApiV0>();
-
-    apiTest(seller, client, server);
-
-
-    qDebug() << "TEST MULTI API V1 (SELLER: V0, CLIENT: V1)";
-
-    seller = CheatCardTestsHelper::makeNode<TestSeller>();
-    client = CheatCardTestsHelper::makeNode<TestVisitor>();
-    server = CheatCardTestsHelper::makeNode<TestServer>();
-    seller->setCurrentUser(seller->getUser(CheatCardTestsHelper::testUserId()));
-
-    seller->addApiParser<RC::ApiV0>();
-    client->addApiParser<RC::ApiV1>();
-    server->addApiParser<RC::ApiV1>();
-    server->addApiParser<RC::ApiV0>();
-
-    apiTest(seller, client, server);
-
-
-    qDebug() << "TEST MULTI API V1 (SELLER: V0, CLIENT: V0)";
-
-    seller = CheatCardTestsHelper::makeNode<TestSeller>();
-    client = CheatCardTestsHelper::makeNode<TestVisitor>();
-    server = CheatCardTestsHelper::makeNode<TestServer>();
-    seller->setCurrentUser(seller->getUser(CheatCardTestsHelper::testUserId()));
-
-    seller->addApiParser<RC::ApiV0>();
-    client->addApiParser<RC::ApiV0>();
-    server->addApiParser<RC::ApiV1>();
-    server->addApiParser<RC::ApiV0>();
-
-    apiTest(seller, client, server);
-}
-
-void ConnectionTest::apiTest(const QSharedPointer<TestSeller> &seller,
+void ConnectionTest::addSeal(const QSharedPointer<TestSeller> &seller,
                              const QSharedPointer<TestVisitor> &client,
-                             const QSharedPointer<TestServer> &server) {
+                             const QSharedPointer<TestServer> &server,
+                             const QSharedPointer<RC::API::User> user,
+                             unsigned int cardId,
+                             int sealsCount,
+                             QSharedPointer<RC::API::UserHeader>& resultUserHeader) {
 
     // random session
     long long session = rand() * rand();
 
-    // run server
-    QVERIFY(server->run(TEST_CHEAT_HOST, TEST_CHEAT_PORT));
+    unsigned int userId = user->userId();
 
-    auto user = CheatCardTestsHelper::makeUser();
-    auto obj = QSharedPointer<RC::API::UserHeader>::create();
+    resultUserHeader->setSessionId(session);
+    resultUserHeader->setToken(user->getKey());
+    resultUserHeader->setUserId(userId);
 
-    obj->setSessionId(session);
-    obj->setToken(user->getKey());
-    obj->setUserId(user->userId());
+    for (int i = 0; i < sealsCount; i++) {
 
-    // 3619648333 This is card id from test database.
-    unsigned int cardId = CheatCardTestsHelper::testCardId();
-    for (int i = 0; i < 100; i++) {
+        qDebug () << "Add seal " << i << "/" << sealsCount;
 
-        qDebug () << "test case " << i << "/" << 100;
-
-        QVERIFY(seller->incrementPurchase(obj, cardId, 1, TEST_CHEAT_HOST, TEST_CHEAT_PORT));
+        QVERIFY(seller->incrementPurchase(resultUserHeader, cardId, 1, TEST_CHEAT_HOST, TEST_CHEAT_PORT));
 
         QVERIFY(wait([server, cardId](){
             auto card = server->getCard(cardId);
             return card && card->isValid();
         }, WAIT_TIME));
 
-
-        QVERIFY(wait([server, user, cardId, i](){
-            return server->getPurchaseCount(user->userId(), cardId) == (i + 1);
+        QVERIFY(wait([server, userId, cardId, i](){
+            return server->getPurchaseCount(userId, cardId) == (i + 1);
         }, WAIT_TIME));
 
         QVERIFY(wait([server](){
@@ -162,21 +82,126 @@ void ConnectionTest::apiTest(const QSharedPointer<TestSeller> &seller,
         }, WAIT_TIME));
 
 
-        QVERIFY(wait([client, user, cardId, i](){
-            return client->getPurchaseCount(user->userId(), cardId) == (i + 1);
+        QVERIFY(wait([client, userId, cardId, i](){
+            return client->getPurchaseCount(userId, cardId) == (i + 1);
         }, WAIT_TIME));
 
         QVERIFY(wait([server](){
             return server->connectionsCount() == 0;
         }, WAIT_TIME));
 
+
+        QVERIFY(seller->getPurchaseCount(userId, cardId) == (i + 1));
+
     }
+}
+
+void ConnectionTest::firstContact() {
+
+
+    QSharedPointer<TestSeller> seller;
+    QSharedPointer<TestVisitor> client;
+    QSharedPointer<TestServer> server;
+
+    qDebug() << "TEST API V1";
+
+    seller = CheatCardTestsHelper::makeNode<TestSeller>();
+    client = CheatCardTestsHelper::makeNode<TestVisitor>();
+    server = CheatCardTestsHelper::makeNode<TestServer>();
+    seller->setCurrentUser(seller->getUser(CheatCardTestsHelper::testUserId()));
+
+    seller->addApiParser<RC::ApiV1>();
+    client->addApiParser<RC::ApiV1>();
+    server->addApiParser<RC::ApiV1>();
+    server->addApiParser<RC::ApiV1_5>();
+
+    apiTest(seller, client, server);
+
+    qDebug() << "TEST API V1(seller)";
+
+    seller = CheatCardTestsHelper::makeNode<TestSeller>();
+    client = CheatCardTestsHelper::makeNode<TestVisitor>();
+    server = CheatCardTestsHelper::makeNode<TestServer>();
+    seller->setCurrentUser(seller->getUser(CheatCardTestsHelper::testUserId()));
+
+    seller->addApiParser<RC::ApiV1>();
+    client->addApiParser<RC::ApiV1_5>();
+    server->addApiParser<RC::ApiV1>();
+    server->addApiParser<RC::ApiV1_5>();
+
+    apiTest(seller, client, server);
+
+    qDebug() << "TEST API V1(client)";
+
+    seller = CheatCardTestsHelper::makeNode<TestSeller>();
+    client = CheatCardTestsHelper::makeNode<TestVisitor>();
+    server = CheatCardTestsHelper::makeNode<TestServer>();
+    seller->setCurrentUser(seller->getUser(CheatCardTestsHelper::testUserId()));
+
+    seller->addApiParser<RC::ApiV1_5>();
+    client->addApiParser<RC::ApiV1>();
+    server->addApiParser<RC::ApiV1>();
+    server->addApiParser<RC::ApiV1_5>();
+
+    apiTest(seller, client, server);
+
+
+    qDebug() << "TEST API V1-5";
+
+    seller = CheatCardTestsHelper::makeNode<TestSeller>();
+    client = CheatCardTestsHelper::makeNode<TestVisitor>();
+    server = CheatCardTestsHelper::makeNode<TestServer>();
+    seller->setCurrentUser(seller->getUser(CheatCardTestsHelper::testUserId()));
+
+    seller->addApiParser<RC::ApiV1_5>();
+    client->addApiParser<RC::ApiV1_5>();
+    server->addApiParser<RC::ApiV1>();
+    server->addApiParser<RC::ApiV1_5>();
+
+    apiTest(seller, client, server);
+
+}
+
+void ConnectionTest::apiTest(const QSharedPointer<TestSeller> &seller,
+                             const QSharedPointer<TestVisitor> &client,
+                             const QSharedPointer<TestServer> &server) {
+
+    // run server
+    QVERIFY(server->run(TEST_CHEAT_HOST, TEST_CHEAT_PORT));
+
+    auto user = CheatCardTestsHelper::makeUser();
+    auto obj = QSharedPointer<RC::API::UserHeader>::create();
+
+
+
+    // 3619648333 This is card id from test database.
+    unsigned int cardId = CheatCardTestsHelper::testCardId();
+    unsigned int userId = user->userId();
+
+    addSeal(seller, client, server, user, cardId, 100, obj);
 
     int sellerFreeItems = seller->getFreeItemsCount(user->userId(), cardId);
     int visitorFreeItems = client->getFreeItemsCount(user->userId(), cardId);
 
     QVERIFY(sellerFreeItems == visitorFreeItems);
     QVERIFY(sellerFreeItems == 16);
+
+    // 3619648333 This is card id from test database.
+
+    QVERIFY(seller->sentDataToServerReceive(obj, cardId, 16, TEST_CHEAT_HOST, TEST_CHEAT_PORT));
+
+    QVERIFY(wait([server, cardId, userId]() {
+        return server->getFreeItemsCount(userId, cardId) == 0;
+    }, WAIT_TIME));
+
+    QVERIFY(client->checkCardData(obj->getSessionId(), TEST_CHEAT_HOST, TEST_CHEAT_PORT));
+
+    QVERIFY(wait([client, cardId, userId]() {
+        return client->getFreeItemsCount(userId, cardId) == 0;
+    }, WAIT_TIME));
+
+
+    QVERIFY(seller->getFreeItemsCount(user->userId(), cardId) == 0);
 
 
     // check rad on serve before clear

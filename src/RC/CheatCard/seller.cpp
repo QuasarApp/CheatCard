@@ -12,17 +12,26 @@
 #include "basenode.h"
 #include "usersnames.h"
 #include "seller.h"
+#include "nodeinfo.h"
 #include "CheatCard/api/api0/userheader.h"
 #include <CheatCard/api/api0/session.h>
 #include <CheatCard/api/api0/user.h>
 #include <CheatCard/api/api0/userscards.h>
+#include <CheatCard/api/api1-5/cardupdated.h>
+#include <CheatCard/api/api1-5/changeuserscards.h>
+#include "CheatCard/api/api1-5/statusafterchanges.h"
 #include <CheatCard/api/apiv0.h>
+#include <CheatCard/api/apiv1-5.h>
 
 namespace RC {
 
 Seller::Seller(QH::ISqlDBCache *db): BaseNode(db) {
     registerPackageType<API::CardStatusRequest>();
     registerPackageType<API::CardDataRequest>();
+    registerPackageType<APIv1_5::ChangeUsersCards>();
+    registerPackageType<APIv1_5::StatusAfterChanges>();
+    registerPackageType<APIv1_5::CardUpdated>();
+
 }
 
 bool Seller::incrementPurchases(const QSharedPointer<API::UsersCards> &usersCardsData,
@@ -113,36 +122,102 @@ bool Seller::incrementPurchase(const QSharedPointer<API::UserHeader> &userHeader
                                unsigned int cardId, int purchasesCount,
                                const QString &domain, int port) {
 
-    auto userCardsData = prepareData(userHeaderData, cardId);
-    if (!userCardsData) {
+    if (maximumApiVersion() > 1) {
+        // new api
+        auto changes = QSharedPointer<APIv1_5::ChangeUsersCards>::create();
+
+
+        changes->setUsercardId(API::UsersCards::genId(userHeaderData->getUserId(), cardId));
+        changes->setSessionId(userHeaderData->getSessionId());
+        changes->setPurchase(purchasesCount);
+        changes->setSecret(currentUser()->secret());
+        _lastRequested[changes->getSessionId()] = changes;
+
+        return sendDataPrivate(domain, port);
+    }
+
+    // code for old api
+    auto usersCardsData = prepareData(userHeaderData, cardId);
+    if (!usersCardsData)
+        return false;
+
+    if (purchasesCount < 0)
+        return false;
+
+    usersCardsData->setPurchasesNumber(usersCardsData->getPurchasesNumber() + purchasesCount);
+
+    if (!db()->insertIfExistsUpdateObject(usersCardsData)) {
         return false;
     }
 
-    if (!incrementPurchases(userCardsData, purchasesCount)) {
-        QuasarAppUtils::Params::log("Failed to update data", QuasarAppUtils::Error);
-
-        return false;
-    }
+    emit sigPurchaseWasSuccessful(usersCardsData, true);
 
     return sendDataPrivate(domain, port);
+}
+
+bool Seller::sentDataToServerReceive(const QSharedPointer<API::UserHeader> &userHeaderData,
+                                     unsigned int cardId,
+                                     int receiveCount,
+                                     const QString &domain,
+                                     int port) {
+
+    if (maximumApiVersion() > 1) {
+
+        auto changes = QSharedPointer<APIv1_5::ChangeUsersCards>::create();
+
+        changes->setUsercardId(API::UsersCards::genId(userHeaderData->getUserId(), cardId));
+        changes->setSessionId(userHeaderData->getSessionId());
+        changes->setReceive(receiveCount);
+        changes->setSecret(currentUser()->secret());
+        _lastRequested[changes->getSessionId()] = changes;
+
+        return sendDataPrivate(domain, port);
+    }
+
+
+    // code for old api
+    auto usersCardsData = prepareData(userHeaderData, cardId);
+    if (!usersCardsData)
+        return false;
+
+    if (receiveCount < 0)
+        return false;
+
+    usersCardsData->receive(receiveCount);
+
+    if (!db()->insertIfExistsUpdateObject(usersCardsData)) {
+        return false;
+    }
+
+    emit sigPurchaseWasSuccessful(usersCardsData, true);
+
+    return sendDataPrivate(domain, port);
+}
+
+bool Seller::cardUpdated(unsigned int cardId, unsigned int version,
+                         const QString &domain,
+                         int port) {
+    auto action = [this, cardId, version](QH::AbstractNodeInfo *node) {
+
+        auto dist = static_cast<NodeInfo*>(node);
+
+        auto api = selectParser(dist->version()).dynamicCast<ApiV1_5>();
+        if (api) {
+            api->sendUpdateCard(cardId, version, dist);
+        }
+    };
+
+    if (domain.isEmpty()) {
+        return addNode(getServerHost(), port, action,
+                       QH::NodeCoonectionStatus::Confirmed);
+    }
+
+    return addNode(domain, port, action,
+                   QH::NodeCoonectionStatus::Confirmed);
 }
 
 NodeType Seller::nodeType() const {
     return NodeType::Seller;
-}
-
-bool Seller::sentDataToServerPurchase(const QSharedPointer<API::UserHeader> &userHeaderData,
-                                      unsigned int cardId,
-                                      const QString &domain,
-                                      int port) {
-
-    auto userCardsData = prepareData(userHeaderData, cardId);
-    if (!userCardsData) {
-        return false;
-    }
-
-    return sendDataPrivate(domain, port);
-
 }
 
 void Seller::nodeConnected(QH::AbstractNodeInfo *node) {

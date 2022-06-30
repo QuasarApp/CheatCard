@@ -9,7 +9,6 @@
 #include "dbobjectsrequest.h"
 #include "CheatCard/api/api0/user.h"
 
-#include <QSettings>
 #include <customdbrequest.h>
 #include <getsinglevalue.h>
 
@@ -111,7 +110,10 @@ QH::DBPatchMap DataBase::beta1Patches() const {
                 unsigned int oldUserId = ptr->userId();
 
                 ptr->regenerateKeys();
-                QSettings().setValue(CURRENT_USER, ptr->userId());
+
+                auto settings = QuasarAppUtils::ISettings::instance();
+                settings->setValue(P_CURRENT_USER, ptr->userId());
+
                 remapConfig.insert(ptr->userId(), oldUserId);
 
                 // sets new own signature for each seller card.

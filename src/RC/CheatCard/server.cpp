@@ -17,8 +17,13 @@
 #include <CheatCard/api/api1/restoredatarequest.h>
 
 #include <badrequest.h>
+#include "CheatCard/api/api1-5/changeuserscards.h"
+#include "CheatCard/api/api1-5/statusafterchanges.h"
+#include <CheatCard/api/api1-5/cardupdated.h>
+
 #include "CheatCard/clearolddata.h"
 #include <QCoreApplication>
+
 
 namespace RC {
 
@@ -30,6 +35,10 @@ Server::Server(QH::ISqlDBCache *db): BaseNode(db) {
     registerPackageType<API::CardDataRequest>();
     registerPackageType<QH::PKG::DataPack<API::Card>>();
     registerPackageType<APIv1::RestoreDataRequest>();
+    registerPackageType<APIv1_5::ChangeUsersCards>();
+    registerPackageType<APIv1_5::StatusAfterChanges>();
+    registerPackageType<APIv1_5::CardUpdated>();
+
 
 }
 
@@ -63,6 +72,12 @@ QH::ParserResult Server::parsePackage(const QSharedPointer<QH::PKG::AbstractData
     QH::ParserResult result = BaseNode::parsePackage(pkg, pkgHeader, sender);
 
     if (result == QH::ParserResult::Error) {
+
+        badRequest(sender->networkAddress(),
+                   pkgHeader,
+                   QH::PKG::ErrorData{1, "Wrong command"},
+                   0);
+
         removeNode(sender->networkAddress());
     }
 

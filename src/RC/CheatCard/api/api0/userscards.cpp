@@ -13,6 +13,13 @@
 namespace RC {
 namespace API {
 
+#pragma pack(push, 1)
+struct UserCardId {
+    unsigned int cardId;
+    unsigned int userId;
+};
+#pragma pack(pop)
+
 UsersCards::UsersCards():QH::PKG::DBObject("UsersCards") {
 
 }
@@ -102,6 +109,14 @@ long long UsersCards::genId(unsigned int user, unsigned int card) {
     id = id | card ;
 
     return id;
+}
+
+unsigned int UsersCards::getUserId(long long userCardId) {
+    return reinterpret_cast<UserCardId*>(&userCardId)->userId;
+}
+
+unsigned int UsersCards::getCardId(long long userCardId) {
+    return reinterpret_cast<UserCardId*>(&userCardId)->cardId;
 }
 
 unsigned int UsersCards::getReceived() const {

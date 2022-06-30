@@ -124,20 +124,20 @@
         <translation>Поділіться програмою</translation>
     </message>
     <message>
-        <source>Recovery</source>
-        <translation>Відновлення</translation>
-    </message>
-    <message>
-        <source>Backup</source>
-        <translation>Резервне копіювання</translation>
-    </message>
-    <message>
         <source> (work mode)</source>
         <translation> (режим роботи)</translation>
     </message>
     <message>
         <source>Create a card</source>
         <translation>Створіть картку</translation>
+    </message>
+    <message>
+        <source>Import Account</source>
+        <translation>Імпорт облікового запису</translation>
+    </message>
+    <message>
+        <source>Export Account</source>
+        <translation>Експортувати обліковий запис</translation>
     </message>
 </context>
 <context>
@@ -307,10 +307,6 @@
 <context>
     <name>ExportUserKeyPage</name>
     <message>
-        <source>Export user key</source>
-        <translation>Експортувати ключ користувача</translation>
-    </message>
-    <message>
         <source>**For what this use**</source>
         <translation>**Для чого це використовувати**</translation>
     </message>
@@ -329,6 +325,18 @@
     <message>
         <source>Backup code exported successful. The Backup Code Available in your documents&apos; folder. See &lt;b&gt;%0&lt;/b&gt; path</source>
         <translation>Резервний код експортовано успішно. Резервний код доступний у папці ваших документів. Див. шлях &lt;b&gt;%0&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <source>Export user account</source>
+        <translation>Експортувати обліковий запис користувача</translation>
+    </message>
+    <message>
+        <source>**Sharing access to your account**</source>
+        <translation>**Спільний доступ до вашого облікового запису**</translation>
+    </message>
+    <message>
+        <source>Scan This Qr code using the &apos;import user option&apos; on left drop menu or in a user&apos;s list page on another device to export this user account to another device.</source>
+        <translation>Відскануйте цей Qr-код за допомогою «опції імпорту користувача» у спадному меню ліворуч або на сторінці списку користувачів на іншому пристрої, щоб експортувати цей обліковий запис користувача на інший пристрій.</translation>
     </message>
 </context>
 <context>
@@ -399,10 +407,6 @@
 </context>
 <context>
     <name>ImportUserKeyPage</name>
-    <message>
-        <source>**Attention** : This operation redefine your current application data (Cards, seals, users data). All current data will be removed.</source>
-        <translation>**Увага** : Ця операція перевизначає ваші поточні дані програми (картки, печатки, дані користувачів). Усі поточні дані буде видалено.</translation>
-    </message>
     <message>
         <source>Import from qr code scanner</source>
         <translation>Імпорт зі сканера qr-коду</translation>
@@ -723,10 +727,6 @@
         <translation>У нас проблеми</translation>
     </message>
     <message>
-        <source>Your secret key was imported successfully, but download backup data from server is failed. Please check your internet connection and try to restore your data again</source>
-        <translation>Ваш секретний ключ успішно імпортовано, але завантажити резервну копію даних із сервера не вдалося. Перевірте підключення до Інтернету та спробуйте відновити дані ще раз</translation>
-    </message>
-    <message>
         <source> You&apos;re trying to change the bonus rules. These changes will be saved as a new card. The old card continues to work correctly and all customers data will be saved. Do you want to continue?</source>
         <translation> Ви намагаєтеся змінити правила бонусів. Ці зміни будуть збережені як нова картка. Стара картка продовжує працювати правильно, і всі дані клієнтів будуть збережені. Ви хочете продовжити?</translation>
     </message>
@@ -741,6 +741,10 @@
     <message>
         <source>This client does not have any bonuses. Sorry... </source>
         <translation>У цього клієнта немає бонусів. вибачте... </translation>
+    </message>
+    <message>
+        <source>Failed to sync data with server. Please check your internet connection and try to restore your data again</source>
+        <translation>Не вдалося синхронізувати дані із сервером. Перевірте підключення до Інтернету та спробуйте відновити дані ще раз</translation>
     </message>
 </context>
 <context>
@@ -813,6 +817,25 @@
     </message>
 </context>
 <context>
+    <name>RC::WaitConnectionModel</name>
+    <message>
+        <source>Server not responced</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hmm, maybe you have a super slow internet connection... Try again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>We Have trouble</source>
+        <translation type="unfinished">У нас проблеми</translation>
+    </message>
+    <message>
+        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
+        <translation type="unfinished">Не вдалося надати бонус або штамп. Можливо, ваші локальні дані застаріли, ми вже оновлюємо ваші локальні дані. Будь ласка, спробуйте ще раз зробити видачу бонусом або печаткою.</translation>
+    </message>
+</context>
+<context>
     <name>RegistrationFinishedPage</name>
     <message>
         <source>Go to use</source>
@@ -855,10 +878,6 @@
     <message>
         <source>Host</source>
         <translation></translation>
-    </message>
-    <message>
-        <source>Camera</source>
-        <translation>Камера</translation>
     </message>
     <message>
         <source>Select work camera</source>
@@ -912,6 +931,10 @@
         <source>Language</source>
         <translation>Мова</translation>
     </message>
+    <message>
+        <source>Work rules</source>
+        <translation>Правила роботи</translation>
+    </message>
 </context>
 <context>
     <name>UpdateRequestPage</name>
@@ -929,6 +952,24 @@
     </message>
 </context>
 <context>
+    <name>UserView</name>
+    <message>
+        <source>Id:</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>ім&apos;я користувача:</translation>
+    </message>
+</context>
+<context>
+    <name>UsersListView</name>
+    <message>
+        <source>Import new user</source>
+        <translation>Імпорт нового користувача</translation>
+    </message>
+</context>
+<context>
     <name>WaitConnectView</name>
     <message>
         <source>Seal</source>
@@ -941,6 +982,10 @@
     <message>
         <source>Select the number of purchases that the customer has made.</source>
         <translation>Виберіть кількість покупок, які зробив клієнт.</translation>
+    </message>
+    <message>
+        <source>Please wait for responce from server</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

@@ -106,5 +106,6 @@
         <file>private/resources/Backgrounds/Layer_35.png</file>
         <file>private/resources/Interface_icons/CreateCard.svg</file>
         <file>private/resources/Interface_icons/outdated.svg</file>
+        <file>private/resources/Interface_icons/user.svg</file>
     </qresource>
 </RCC>
