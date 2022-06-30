@@ -67,11 +67,13 @@ void LanguagesModel::selectLanguagge(const QString &lang, QObject* gui) {
     if (_languagesMap.contains(lang))
         code = lang;
 
+    QLocale locale = QLocale(code);
     if (code.isEmpty() || lang == "Auto") {
-        QuasarAppUtils::Locales::setLocale(QLocale::system());
-    } else {
-        QuasarAppUtils::Locales::setLocale(QLocale(code));
+        code = QLocale::system().bcp47Name();
+        locale = QLocale::system();
     }
+
+    QuasarAppUtils::Locales::setLocale(locale);
 
     if (auto engine = qmlEngine(gui)) {
         engine->retranslate();
