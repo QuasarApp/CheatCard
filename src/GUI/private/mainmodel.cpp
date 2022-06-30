@@ -143,16 +143,12 @@ MainModel::~MainModel() {
 }
 
 bool MainModel::fFirst() const {
-    if (!_config)
-        return true;
-
-    return _config->getValue(P_FIRST).toBool();
+    return _firstRun;
 }
 
 void MainModel::configureFinished() {
     // First run setiing id.
     saveUser();
-    _config->setValue(P_FIRST, false);
 
     _currentUser->regenerateSessionKey();
 }
@@ -210,7 +206,6 @@ bool MainModel::handleImportUser(const QString &base64UserData) {
     auto newUser = _usersListModel->importUser(userData);
     _usersListModel->setCurrentUser(newUser->userId());
     saveUser();
-    _config->setValue(P_FIRST, false);
 
     service->setNotify(tr("I managed to do it !"),
                        tr("Yor secret key are imported"),
@@ -397,6 +392,7 @@ void MainModel::initUsersListModel() {
     auto result = _db->getObject(request);
 
     _usersListModel->setUsers(result->data());
+    _firstRun = !result->data().size();
 
     _usersListModel->setCurrentUser(_config->getCurrUser());
 
@@ -969,10 +965,7 @@ void MainModel::handleBonusGivOut(int userId, int cardId, int count) {
 
 }
 
-void MainModel::handleSettingsChanged(const QString &key, const QVariant &) {
-    if (P_FIRST == key) {
-        emit fFirstChanged();
-    }
+void MainModel::handleSettingsChanged(const QString &, const QVariant &) {
 }
 
 QObject *MainModel::defaultLogosModel() const {

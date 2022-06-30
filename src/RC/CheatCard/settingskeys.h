@@ -14,7 +14,6 @@
 #define P_CAMERA_DEVICE "cameraDevice"
 #define P_DEV_SETTINGS_ENABLE "devSettingEnable"
 #define P_HOST "host"
-#define P_FIRST "fFirst"
 #define P_FSELLER "fSellerMode"
 
 #endif // SETTINGSKEYS_H

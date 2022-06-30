@@ -127,7 +127,6 @@ QHash<QString, QVariant> SettingsModel::defaultSettings() {
 
     settings[P_COLOR_THEME] = "#ff6b01";
     settings[P_DARK_THEME] = false;
-    settings[P_FIRST] = true;
     settings[P_SHARE_NAME] = true;
     settings[P_CAMERA_DEVICE] = {};
     settings[P_DEV_SETTINGS_ENABLE] = false;
@@ -142,13 +141,12 @@ QHash<QString, QVariant> SettingsModel::defaultSettings() {
 bool SettingsModel::isBool(const QString &key) const {
 
     return key.contains(P_DARK_THEME) ||
-           key.contains(P_FIRST) ||
            key.contains(P_SHARE_NAME) ||
            key.contains(P_DEV_SETTINGS_ENABLE);
 }
 
 bool SettingsModel::ignoreToRest(const QString &key) const {
-    return key.contains(P_FIRST);
+    return QuasarAppUtils::Settings::ignoreToRest(key);
 }
 
 QString SettingsKeys::CURRENT_USER()  {return P_CURRENT_USER; }
@@ -167,7 +165,6 @@ QString SettingsKeys::DEV_SETTINGS_ENABLE()  {return P_DEV_SETTINGS_ENABLE; }
 
 QString SettingsKeys::HOST()  {return P_HOST; }
 
-QString SettingsKeys::FIRST()  {return P_FIRST; }
 
 QString SettingsKeys::FSELLER()  {return P_FSELLER; }
 
