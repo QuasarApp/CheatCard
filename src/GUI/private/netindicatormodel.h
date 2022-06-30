@@ -16,6 +16,7 @@ class NetIndicatorModel: public QObject
 {
     Q_OBJECT
     Q_PROPERTY(bool enableNetwork READ getEnableNetwork WRITE setEnableNetwork NOTIFY enableNetworkChanged)
+    Q_PROPERTY(bool dataExchanging READ dataExchanging WRITE setDataExchanging NOTIFY dataExchangingChanged)
 
 public:
     NetIndicatorModel();
@@ -23,15 +24,21 @@ public:
     bool getEnableNetwork() const;
     void setEnableNetwork(bool enable);
 
+    bool dataExchanging() const;
+
 signals:
     void enableNetworkChanged();
 
+    void dataExchangingChanged();
+
 public slots:
     void handleEndaleNetworkChanged(bool modeNetwork);
+    void setDataExchanging(bool newDataExchanging);
 
 private:
-    bool enableNetwork = false;
+    bool _enableNetwork = false;
 
+    bool _dataExchanging = false;
 };
 
 }

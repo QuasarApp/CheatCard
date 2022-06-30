@@ -144,6 +144,14 @@ void BaseNode::nodeConnected(QH::AbstractNodeInfo *node) {
     appVersion.setMinimum(minimumApiVersion());
 
     sendData(&appVersion, node);
+
+    emit sigDataExchangingChanged(connectionsCount());
+}
+
+void BaseNode::nodeDisconnected(QH::AbstractNodeInfo * node) {
+    QH::AbstractNode::nodeDisconnected(node);
+
+    emit sigDataExchangingChanged(connectionsCount());
 }
 
 int BaseNode::maximumApiVersion() const {

@@ -417,8 +417,13 @@ void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
     if (_backEndModel) {
         disconnect(_backEndModel.data(),
                    &BaseNode::sigAvailableNetworkChanged,
-                   static_cast<NetIndicatorModel*>(getNetIndicatorModel()),
+                   _netIdicatorModel,
                    &NetIndicatorModel::handleEndaleNetworkChanged);
+
+        disconnect(_backEndModel.data(),
+                   &BaseNode::sigDataExchangingChanged,
+                   _netIdicatorModel,
+                   &NetIndicatorModel::setDataExchanging);
 
         disconnect(_backEndModel.data(), &BaseNode::sigPurchaseWasSuccessful,
                    this, &MainModel::handlePurchaseWasSuccessful);
@@ -439,8 +444,13 @@ void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
 
         connect(_backEndModel.data(),
                 &BaseNode::sigAvailableNetworkChanged,
-                static_cast<NetIndicatorModel*>(getNetIndicatorModel()),
+                _netIdicatorModel,
                 &NetIndicatorModel::handleEndaleNetworkChanged);
+
+        connect(_backEndModel.data(),
+                &BaseNode::sigDataExchangingChanged,
+                _netIdicatorModel,
+                &NetIndicatorModel::setDataExchanging);
 
         connect(_backEndModel.data(), &BaseNode::sigPurchaseWasSuccessful,
                 this, &MainModel::handlePurchaseWasSuccessful);
@@ -571,6 +581,14 @@ QString MainModel::storeLink() const {
     return "";
 }
 
+void MainModel::reload() const {
+    if (_netIdicatorModel->dataExchanging()) {
+        return;
+    }
+
+    syncWithServer();
+}
+
 QObject *MainModel::statisticModel() const {
     return _statisticModel;
 }
@@ -615,7 +633,7 @@ void RC::MainModel::configureCardsList() {
     }
 }
 
-void RC::MainModel::syncWithServer() {
+void RC::MainModel::syncWithServer() const{
     auto service = QmlNotificationService::NotificationService::getService();
 
     if (!_backEndModel->restoreAllData(_currentUser->user()->getKey())) {

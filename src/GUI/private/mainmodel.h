@@ -115,6 +115,7 @@ public:
     Q_INVOKABLE int getReceivedItemsCount(int cardId) const;
     Q_INVOKABLE bool fBillingAwailable() const;
     Q_INVOKABLE QString storeLink() const;
+    Q_INVOKABLE void reload() const;
 
     QObject *statisticModel() const;
 
@@ -222,6 +223,7 @@ private:
                                 bool receive);
 
     CardsListModel* getCurrentListModel() const;    
+    void syncWithServer() const;
 
 
     QH::ISqlDBCache * _db = nullptr;
@@ -262,7 +264,6 @@ private:
     Mode _mode = Mode::Client;
     bool _fShowEmptyBonuspackaMessage = false;
     friend class ImageProvider;
-    void syncWithServer();
 };
 
 }
