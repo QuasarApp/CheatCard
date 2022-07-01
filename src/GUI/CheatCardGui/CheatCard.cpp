@@ -36,7 +36,7 @@ void CheatCard::initLang() {
     QLocale locale = QLocale::system();
     auto settings = QuasarAppUtils::ISettings::instance();
 
-    QString userLang = settings->getValue(P_CURRENT_LANG).toString();
+    QString userLang = settings->getValue(P_CURRENT_LANG, "").toString();
 
     if (!userLang.isEmpty()) {
         locale = QLocale(userLang);
