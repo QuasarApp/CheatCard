@@ -149,7 +149,7 @@ CPage {
                 implicitWidth: 0x0
                 onFinished: (backUp) => {
                                 if (!root.model)
-                                return;
+                                    return;
 
                                 const object = root.model.currentUser;
 

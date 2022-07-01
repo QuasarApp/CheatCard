@@ -56,7 +56,7 @@ class ImagesStorageModel;
 class MainModel : public QObject, public QuasarAppUtils::SettingsListner
 {
     Q_OBJECT
-    Q_PROPERTY(bool fFirst READ fFirst CONSTANT)
+    Q_PROPERTY(bool fFirst READ fFirst NOTIFY fFirstChanged)
 
     Q_PROPERTY(QObject * currentUser READ currentUser NOTIFY currentUserChanged)
     Q_PROPERTY(QObject * cardsList READ cardsList NOTIFY cardsListChanged)
@@ -159,6 +159,7 @@ signals:
     void createCardModelChanged();
 
     void usersListModelChanged();
+    void fFirstChanged();
 
 protected:
     void handleSettingsChanged(const QString &key, const QVariant &value) override;
@@ -223,6 +224,7 @@ private:
 
     CardsListModel* getCurrentListModel() const;    
     void syncWithServer() const;
+    void setFirst(bool ffirst);
     bool _firstRun = true;
 
     QH::ISqlDBCache * _db = nullptr;

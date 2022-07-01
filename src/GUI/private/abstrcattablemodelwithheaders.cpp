@@ -1,4 +1,5 @@
 #include "abstrcattablemodelwithheaders.h"
+#include <QQmlEngine>
 
 #include <qsortfilterproxymodel.h>
 namespace RC {
@@ -44,6 +45,8 @@ QObject *AbstrcattableModelWithHeaders::proxy() {
         _proxy->setDynamicSortFilter(true);
         _proxy->setSourceModel(this);
         _proxy->setFilterKeyColumn(0);
+        QQmlEngine::setObjectOwnership(_proxy, QQmlEngine::CppOwnership);
+
     }
 
     return _proxy;

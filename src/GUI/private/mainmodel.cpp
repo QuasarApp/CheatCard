@@ -149,6 +149,7 @@ bool MainModel::fFirst() const {
 void MainModel::configureFinished() {
     // First run setiing id.
     saveUser();
+    setFirst(false);
 
     _currentUser->regenerateSessionKey();
 }
@@ -392,7 +393,7 @@ void MainModel::initUsersListModel() {
     auto result = _db->getObject(request);
 
     _usersListModel->setUsers(result->data());
-    _firstRun = !result->data().size();
+    setFirst(!result->data().size());
 
     _usersListModel->setCurrentUser(_config->getCurrUser());
 
@@ -638,6 +639,15 @@ void RC::MainModel::syncWithServer() const{
                               " Please check your internet connection and try to restore your data again"),
                            "", QmlNotificationService::NotificationData::Warning);
     }
+}
+
+void MainModel::setFirst(bool ffirst) {
+    if (_firstRun == ffirst) {
+        return;
+    }
+
+    _firstRun = ffirst;
+    emit fFirstChanged();
 }
 
 void MainModel::setMode(int newMode) {
