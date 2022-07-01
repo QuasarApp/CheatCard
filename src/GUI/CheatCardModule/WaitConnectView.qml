@@ -41,7 +41,7 @@ Page {
 
             contentItem: ColumnLayout {
                 Label {
-                    text: qsTr("Please wait for responce from server");
+                    text: qsTr("Please wait for response from server");
                     Layout.alignment: Qt.AlignHCenter || Qt.AlignVCenter
                 }
 

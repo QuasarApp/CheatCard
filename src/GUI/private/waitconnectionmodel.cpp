@@ -101,7 +101,7 @@ void WaitConnectionModel::handleTimeOut() {
         disbaleWaiting();
         auto service = QmlNotificationService::NotificationService::getService();
 
-        service->setNotify(tr("Server not responced"),
+        service->setNotify(tr("Server not responds"),
                            tr("Hmm, maybe you have a super slow internet connection... Try again"),
                            "", QmlNotificationService::NotificationData::Error);
     }

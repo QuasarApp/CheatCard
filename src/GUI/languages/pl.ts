@@ -820,20 +820,20 @@
 <context>
     <name>RC::WaitConnectionModel</name>
     <message>
-        <source>Server not responced</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Hmm, maybe you have a super slow internet connection... Try again</source>
-        <translation type="unfinished"></translation>
+        <translation>Hmm, może masz bardzo wolne połączenie internetowe... Spróbuj ponownie</translation>
     </message>
     <message>
         <source>We Have trouble</source>
-        <translation type="unfinished">Mamy kłopoty</translation>
+        <translation>Mamy kłopoty</translation>
     </message>
     <message>
         <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
-        <translation type="unfinished">Nie udało się wystawić premii lub pieczątki. Być może Twoje dane lokalne są przestarzałe, już zaktualizowaliśmy Twoje dane lokalne. Spróbuj ponownie, aby wystawić premię lub pieczątkę.</translation>
+        <translation>Nie udało się wystawić premii lub pieczątki. Być może Twoje dane lokalne są przestarzałe, już zaktualizowaliśmy Twoje dane lokalne. Spróbuj ponownie, aby wystawić premię lub pieczątkę.</translation>
+    </message>
+    <message>
+        <source>Server not responds</source>
+        <translation>Serwer nie odpowiada</translation>
     </message>
 </context>
 <context>
@@ -985,8 +985,8 @@
         <translation>Wybierz liczbę zakupów dokonanych przez klienta.</translation>
     </message>
     <message>
-        <source>Please wait for responce from server</source>
-        <translation type="unfinished"></translation>
+        <source>Please wait for response from server</source>
+        <translation>Proszę czekać na odpowiedź z serwera</translation>
     </message>
 </context>
 </TS>

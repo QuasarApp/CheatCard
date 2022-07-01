@@ -819,20 +819,20 @@
 <context>
     <name>RC::WaitConnectionModel</name>
     <message>
-        <source>Server not responced</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Hmm, maybe you have a super slow internet connection... Try again</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>We Have trouble</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Server not responds</source>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -984,8 +984,8 @@
         <translation></translation>
     </message>
     <message>
-        <source>Please wait for responce from server</source>
-        <translation type="unfinished"></translation>
+        <source>Please wait for response from server</source>
+        <translation></translation>
     </message>
 </context>
 </TS>
