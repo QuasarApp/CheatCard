@@ -67,7 +67,7 @@ void UserModel::setUser(const QSharedPointer<API::User>& newUser) {
 
     _user = newUser;
 
-
+    setSessionCode(getHelloPackage().toBytes().toHex());
     emit objChanged();
 
 }
@@ -88,8 +88,17 @@ API::UserHeader UserModel::getHelloPackage() const {
 
 void UserModel::handleSettingsChanged(const QString &key, const QVariant &) {
     if (key == "shareName") {
-        regenerateSessionKey();
+        setSessionCode(getHelloPackage().toBytes().toHex());
     }
+}
+
+void UserModel::setSessionCode(const QString &code) {
+    if (code == _sessionCode)
+        return;
+
+    _sessionCode = code;
+
+    emit sessinonCodeChanged();
 }
 
 const QByteArray &UserModel::sellerToken() const {
@@ -109,7 +118,7 @@ void UserModel::setSessinon(long long newSessinon) {
     if (sessinon == newSessinon)
         return;
     sessinon = newSessinon;
-    _sessionCode = getHelloPackage().toBytes().toHex();
+    setSessionCode(getHelloPackage().toBytes().toHex());
 
     emit sessinonChanged();
 }
@@ -118,7 +127,7 @@ const QString &UserModel::sessionCode() const {
     return _sessionCode;
 }
 
-void UserModel::becomeSellerRequest() const {
+void UserModel::becomeSellerRequest() {
     emit sigBecomeSeller();
 }
 

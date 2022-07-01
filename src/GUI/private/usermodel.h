@@ -35,7 +35,7 @@ class UserModel: public QObject, public QuasarAppUtils::SettingsListner
 
     Q_PROPERTY(bool fSaller READ fSaller NOTIFY objChanged)
     Q_PROPERTY(long long sessinon READ getSessinon NOTIFY sessinonChanged)
-    Q_PROPERTY(QString sessionCode READ sessionCode NOTIFY sessinonChanged)
+    Q_PROPERTY(QString sessionCode READ sessionCode NOTIFY sessinonCodeChanged)
 
     QML_ELEMENT
 
@@ -53,7 +53,7 @@ public:
     long long getSessinon() const;
     const QString &sessionCode() const;
 
-    Q_INVOKABLE void becomeSellerRequest() const;
+    Q_INVOKABLE void becomeSellerRequest();
     Q_INVOKABLE QString userBackUpPath() const;
 
     const QByteArray &sellerToken() const;
@@ -67,8 +67,10 @@ public:
 
 signals:
     void objChanged();
-    void sigBecomeSeller() const;
+    void sigBecomeSeller();
     void sessinonChanged();
+
+    void sessinonCodeChanged();
 
 protected:
     void setSessinon(long long newSessinon);
@@ -76,6 +78,7 @@ protected:
     void handleSettingsChanged(const QString& key, const QVariant& value) override;
 
 private:
+    void setSessionCode(const QString& code);
 
     QSharedPointer<API::User> _user;
     long long sessinon;
