@@ -5,7 +5,6 @@
 BEGIN TRANSACTION;
 
 DROP TABLE Contacts;
-DROP INDEX ContactsIndex;
 
 CREATE TABLE IF NOT EXISTS "Contacts" (
        "user" INTEGER NOT NULL,
@@ -19,6 +18,6 @@ CREATE TABLE IF NOT EXISTS "Contacts" (
                ON DELETE CASCADE
 );
 
-CREATE UNIQUE INDEX IF NOT EXISTS ContactsIndex ON Contacts(user, genesisKey);
+CREATE UNIQUE INDEX ContactsIndex ON Contacts(user, genesisKey);
 
 COMMIT;
