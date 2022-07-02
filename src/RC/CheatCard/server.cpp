@@ -24,6 +24,9 @@
 #include "CheatCard/clearolddata.h"
 #include <QCoreApplication>
 
+#include <CheatCard/api/api1-5/getconntactsrequest.h>
+#include <CheatCard/api/api1-5/updatecontactdata.h>
+
 
 namespace RC {
 
@@ -38,6 +41,8 @@ Server::Server(QH::ISqlDBCache *db): BaseNode(db) {
     registerPackageType<APIv1_5::ChangeUsersCards>();
     registerPackageType<APIv1_5::StatusAfterChanges>();
     registerPackageType<APIv1_5::CardUpdated>();
+    registerPackageType<APIv1_5::GetConntactsRequest>();
+    registerPackageType<APIv1_5::UpdateContactData>();
 
 
 }

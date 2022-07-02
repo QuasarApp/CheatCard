@@ -458,8 +458,8 @@ bool ApiV1_5::cardValidation(const QSharedPointer<API::Card> &cardFromDB,
 }
 
 bool ApiV1_5::processContacts(const QSharedPointer<APIv1_5::UpdateContactData> &message,
-                              const QH::AbstractNodeInfo *,
-                              const QH::Header &) {
+                              const QH::AbstractNodeInfo * sender,
+                              const QH::Header &hdr) {
 
     auto userKey = API::User::makeKey(message->userSecreet());
     auto userId = API::User::makeId(userKey);
@@ -485,16 +485,19 @@ bool ApiV1_5::processContacts(const QSharedPointer<APIv1_5::UpdateContactData> &
         }
     }
 
-    return true;
+    APIv1_5::UpdateContactDataResponce responce;
+    responce.setSuccessful(true);
+
+    return node()->sendData(&responce, sender, &hdr);
 }
 
 bool ApiV1_5::processContactsResponce(
         const QSharedPointer<APIv1_5::UpdateContactDataResponce> &message,
-        const QH::AbstractNodeInfo *,
+        const QH::AbstractNodeInfo *sender,
         const QH::Header & hdr) {
 
     processContactsResponcePrivate(hdr.triggerHash, message->getSuccessful());
-    return true;
+    return node()->removeNode(sender->networkAddress());
 }
 
 void ApiV1_5::restoreOldDateRequest(const QByteArray &curentUserKey,

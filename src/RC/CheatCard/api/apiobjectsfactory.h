@@ -209,7 +209,7 @@ protected:
 
         auto result = _db->getObject(request);
 
-        if (!result)
+        if (!result || result->data().isEmpty())
             return {};
 
         return *result->data().begin();
@@ -225,7 +225,7 @@ protected:
 
         auto result = _db->getObject(request);
 
-        if (!result)
+        if (!result || result->data().isEmpty())
             return {};
 
         return *result->data().begin();

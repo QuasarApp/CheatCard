@@ -39,7 +39,7 @@ void ContactsTest::test() {
     auto sellerUser = seller->getUser(CheatCardTestsHelper::testUserId());
     auto clientUser = CheatCardTestsHelper::makeUser();
     unsigned int cardId = CheatCardTestsHelper::testCardId();
-    unsigned int userId = clientUser->userId();
+    unsigned int userId = sellerUser->userId();
 
     seller->setCurrentUser(sellerUser);
 
@@ -72,7 +72,7 @@ void ContactsTest::test() {
     }, WAIT_TIME));
 
     // try add seals from child account
-    addSeal(seller, client, server, clientUser, cardId, 6, obj);
+    addSeal(seller, client, server, clientUser, cardId, 6, obj, TEST_CHEAT_HOST,  TEST_CHEAT_PORT);
 
     QVERIFY(wait([client, cardId, userId]() {
         return client->getFreeItemsCount(userId, cardId) == 1;
