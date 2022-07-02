@@ -188,6 +188,11 @@ QH::DBPatchMap DataBase::beta1Patches() const {
         return database->doSql(":/DataBase/private/sql/SQLPatch_4.sql");
     };
 
+    // See task #512 https://quasarapp.ddns.net:3000/QuasarApp/CheatCard/issues/512
+    result += [](const QH::iObjectProvider* database) -> bool {
+        return database->doSql(":/DataBase/private/sql/SQLPatch_5.sql");
+    };
+
     return result;
 }
 

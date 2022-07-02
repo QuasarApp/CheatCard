@@ -12,6 +12,7 @@ public:
     TestServer(QSharedPointer<TestDataBaseWrapper>);
     QSharedPointer<RC::API::Card> getCard(unsigned int cardId) const;
     int getPurchaseCount(unsigned int userId,unsigned int cardId);
+    bool containsContact(unsigned int userId, unsigned int childId);
 
 private:
     QSharedPointer<TestDataBaseWrapper> privateDb;

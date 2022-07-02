@@ -23,7 +23,11 @@
 #include <cmath>
 #include <dbobjectsrequest.h>
 
+#include <CheatCard/api/apiv1-5.h>
 #include <CheatCard/api/apiv1.h>
+
+#include <CheatCard/api/api1-5/updatecontactdata.h>
+#include <QCryptographicHash>
 
 namespace RC {
 
@@ -333,6 +337,50 @@ bool BaseNode::restoreAllData(const QByteArray &curentUserKey,
                    QH::NodeCoonectionStatus::Confirmed);
 }
 
+bool BaseNode::getContactsList(const unsigned int userId,
+                               const QString &domain, int port) {
+
+    auto action = [this, userId](QH::AbstractNodeInfo *node) {
+
+        auto dist = static_cast<NodeInfo*>(node);
+
+        auto api = selectParser(dist->version()).dynamicCast<ApiV1_5>();
+        if (api) {
+            api->requestContacts(userId, node);
+        }
+    };
+
+    if (domain.isEmpty()) {
+        return addNode(getServerHost(), port, action,
+                       QH::NodeCoonectionStatus::Confirmed);
+    }
+
+    return addNode(domain, port, action,
+                   QH::NodeCoonectionStatus::Confirmed);
+}
+
+bool BaseNode::updateContactData(const QSharedPointer<APIv1_5::UpdateContactData> &update,
+                                 const QString &domain, int port) {
+
+    auto action = [this, update](QH::AbstractNodeInfo *node) {
+
+        auto dist = static_cast<NodeInfo*>(node);
+
+        auto api = selectParser(dist->version()).dynamicCast<ApiV1_5>();
+        if (api) {
+            api->sendContacts(update, node);
+        }
+    };
+
+    if (domain.isEmpty()) {
+        return addNode(getServerHost(), port, action,
+                       QH::NodeCoonectionStatus::Confirmed);
+    }
+
+    return addNode(domain, port, action,
+                   QH::NodeCoonectionStatus::Confirmed);
+}
+
 bool BaseNode::restoreOneCard(unsigned int cardId, const QString &domain, int port) {
     auto action = [this, cardId](QH::AbstractNodeInfo *node) {
 
@@ -388,6 +436,35 @@ QH::ISqlDBCache *BaseNode::db() const {
 
 void BaseNode::init() {
     initCheatCardBaseResources();
+}
+
+bool BaseNode::createChilduser(const QString &description,
+                                QSharedPointer<API::User> &resultChilduserAccount,
+                                QSharedPointer<API::Contacts> &resultContact) {
+
+    if (!_currentUser->isValid())
+        return false;
+
+    // generate new genesis number
+    int genesis = rand();
+
+    auto inputData = _currentUser->secret();
+    inputData.insert(inputData.size(), reinterpret_cast<char*>(&genesis), sizeof (genesis));
+
+    resultChilduserAccount->setSecret(QCryptographicHash::hash(inputData,
+                                                               QCryptographicHash::Sha256));
+    resultChilduserAccount->regenerateKeys();
+    resultChilduserAccount->setName(description);
+
+    if (!resultChilduserAccount->isValid())
+        return false;
+
+    resultContact->setUser(_currentUser->userId());
+    resultContact->setGenesisKey(genesis);
+    resultContact->setInfo(description);
+    resultContact->setChildUserId(resultChilduserAccount->userId());
+
+    return resultContact->isValid();
 }
 
 const QMap<int, QSharedPointer<QH::iParser> > &BaseNode::apiParsers() const {

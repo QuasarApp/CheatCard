@@ -199,6 +199,38 @@ protected:
         return {result->data().begin(), result->data().end()};
     };
 
+    template<class Contacts>
+    QSharedPointer<Contacts> getContactFromChildIdImpl(unsigned int userId, unsigned int childUserId) {
+        check_type(Contacts);
+
+        QString whereBlock = QString("user='%0' AND childuserId='%1'").arg(userId).arg(childUserId);
+        QH::PKG::DBObjectsRequest<Contacts>
+                request("Contacts", whereBlock);
+
+        auto result = _db->getObject(request);
+
+        if (!result)
+            return {};
+
+        return *result->data().begin();
+    }
+
+    template<class Contacts>
+    QSharedPointer<Contacts> getContactFromGenesisIdImpl(unsigned int userId, unsigned int genesis) {
+        check_type(Contacts);
+
+        QString whereBlock = QString("user='%0' AND genesisKey='%1'").arg(userId).arg(genesis);
+        QH::PKG::DBObjectsRequest<Contacts>
+                request("Contacts", whereBlock);
+
+        auto result = _db->getObject(request);
+
+        if (!result)
+            return {};
+
+        return *result->data().begin();
+    }
+
 private:
     QH::ISqlDBCache *_db = nullptr;
 };

@@ -28,6 +28,7 @@ class User;
 class UsersCards;
 class UserHeader;
 class Session;
+class Contacts;
 }
 
 class SoundPlayback;
@@ -49,6 +50,7 @@ class ActivityProcessorModel;
 class CreateCardModel;
 class UsersListModel;
 class ImagesStorageModel;
+class PermisionsModel;
 
 /**
  * @brief The MainModel class is main model of the application.
@@ -127,6 +129,7 @@ public:
     QObject *createCardModel() const;
 
     QObject *usersListModel() const;
+    QObject *permisionsModel() const;
 
 public slots:
     void setCurrentUser(const QSharedPointer<RC::UserModel> &newCurrentUser);
@@ -185,6 +188,8 @@ private slots:
     void saveCard(const QSharedPointer<RC::API::Card> &card);
     void handleCardCreated(const QSharedPointer<API::Card> &card);
     void handleAppOutdated(int minimumRequiredVersion);
+    void handlePermissionChanged(const QSharedPointer<RC::API::Contacts>& permision);
+    void handlePermissionRemoved(QSharedPointer<RC::API::Contacts> permision);
 
 private:
     void saveUser();
@@ -208,6 +213,7 @@ private:
     void initUsersListModel();
     void initBackgroundsModel();
     void initIconsModel();
+    void initPermisionsModel();
 
     void configureCardsList();
 
@@ -250,6 +256,7 @@ private:
     LanguagesModel *_langModel = nullptr;
     ActivityProcessorModel *_activityProcessorModel = nullptr;
     CreateCardModel *_createCardModel = nullptr;
+    PermisionsModel *_permisionsModel = nullptr;
 
     ImportExportUserModel *_importExportModel = nullptr;
     IBilling *_billing = nullptr;

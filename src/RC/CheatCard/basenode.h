@@ -33,6 +33,11 @@ class User;
 class CardStatus;
 class CardDataRequest;
 class CardStatusRequest;
+class Contacts;
+}
+
+namespace APIv1_5{
+class UpdateContactData;
 }
 
 class ApplicationVersion;
@@ -55,7 +60,27 @@ public:
     static QString libVersion();
     static void init();
 
+    /**
+     * @brief createNewContact This method create a new contact and new child user account of current user.
+     * The child account's seccret key it is sha256 of the secreet key of the current user + random genesis number.;
+     * @param description This is name of the child user.
+     * @param resultChilduserAccount This is result child account
+     * @param resultContact this is result contact object.
+     * @return true if function crate all items successfull else false.
+     */
+    bool createChilduser(const QString& description,
+                     QSharedPointer<API::User>& resultChilduserAccount,
+                     QSharedPointer<API::Contacts>& resultContact);
+
     bool restoreAllData(const QByteArray &curentUserKey,
+                        const QString& domain = "",
+                        int port = DEFAULT_CHEAT_CARD_PORT_SSL);
+
+    bool getContactsList(const unsigned int userId,
+                        const QString& domain = "",
+                        int port = DEFAULT_CHEAT_CARD_PORT_SSL);
+
+    bool updateContactData(const QSharedPointer<RC::APIv1_5::UpdateContactData> &update,
                         const QString& domain = "",
                         int port = DEFAULT_CHEAT_CARD_PORT_SSL);
 
@@ -104,6 +129,8 @@ signals:
 
     void sigVersionNoLongerSupport(int minimumRequiredVersion);
     void sigSessionStatusResult(QSharedPointer<RC::API::Session>, bool succesed);
+    void sigContactsStatusResult(bool succesed);
+
 protected:
 
     QH::ParserResult parsePackage(const QSharedPointer<QH::PKG::AbstractData> &pkg,

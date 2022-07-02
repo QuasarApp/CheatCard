@@ -216,11 +216,9 @@ bool ApiV1::processCardData(const QSharedPointer<QH::PKG::DataPack<APIv1::Card>>
 bool ApiV1::processRestoreDataRequest(const QSharedPointer<APIv1::RestoreDataRequest> &cardrequest,
                                       const QH::AbstractNodeInfo *sender, const QH::Header &pkg) {
 
-
     QH::PKG::DataPack<APIv1::UsersCards> responce;
 
     unsigned int userID = API::User::makeId(cardrequest->userKey());
-
     auto result = objectFactoryInstance()->getAllUserData(userID);
 
     for (const auto &data : qAsConst(result)) {

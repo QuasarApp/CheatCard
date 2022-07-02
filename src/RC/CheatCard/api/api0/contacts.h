@@ -15,20 +15,41 @@ namespace API {
 
 class Contacts: public QH::PKG::DBObject
 {
+    QH_PACKAGE_AUTO(RC::API::Contacts)
+
 public:
-    Contacts(unsigned int user, unsigned int contactUser);
+    Contacts();
     // DBObject interface
-public:
     QH::PKG::DBObject *createDBObject() const override;
     QH::PKG::DBVariantMap variantMap() const override;
+    bool isValid() const override;
 
     bool fromSqlRecord(const QSqlRecord &q) override;
+    const QString &getInfo() const;
+    void setInfo(const QString &newInfo);
+
+    unsigned int getUser() const;
+    void setUser(unsigned int newUser);
+
+    unsigned int getChildUserId() const;
+    void setChildUserId(unsigned int newPermisionKey);
+
+    int getGenesisKey() const;
+    void setGenesisKey(int newGenesisKey);
+
 protected:
     QString primaryKey() const override;
+    QDataStream &fromStream(QDataStream &stream) override;
+    QDataStream &toStream(QDataStream &stream) const override;
+    QString condition() const override;
 
 private:
-    unsigned int contactUser = 0;
+    unsigned int childUserId = 0;
     unsigned int user = 0;
+    int genesisKey = 0;
+
+    QString info;
+
 };
 
 }

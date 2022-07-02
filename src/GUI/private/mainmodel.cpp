@@ -22,6 +22,7 @@
 #include "iplatformtools.h"
 #include "imagebackgroundsmodel.h"
 #include "imagelogomodel.h"
+#include "permisionsmodel.h"
 
 #include <CheatCard/database.h>
 
@@ -97,6 +98,7 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
     initActivityProcessorModel();
     initCreateCardModel();
     initUsersListModel();
+    initPermisionsModel();
 
     configureCardsList();
 
@@ -227,6 +229,15 @@ void MainModel::handleAppOutdated(int) {
     _activityProcessorModel->newActivity("qrc:/CheatCardModule/UpdateRequestPage.qml");
 }
 
+void MainModel::handlePermissionChanged(const QSharedPointer<API::Contacts> &permision) {
+    // send to server insery/update request
+}
+
+void MainModel::handlePermissionRemoved(QSharedPointer<API::Contacts> permision) {
+    // send to server remove request
+
+}
+
 const QSharedPointer<UserModel>& MainModel::getCurrentUser() const {
     return _currentUser;
 }
@@ -270,6 +281,11 @@ void MainModel::setCurrentUser(const QSharedPointer<RC::UserModel>& value) {
         QH::PKG::DBObjectsRequest<API::UsersCards> requestPurchase("UsersCards", where);
         if (auto result =_db->getObject(requestPurchase)) {
             _cardsListModel->updateMetaData(result->data());
+        }
+
+        QH::PKG::DBObjectsRequest<API::Contacts> permisionsRequest("Contacts", where);
+        if (auto result =_db->getObject(permisionsRequest)) {
+            _permisionsModel->setPermissions(result->data());
         }
 
         if (_billing) {
@@ -407,6 +423,18 @@ void MainModel::initBackgroundsModel() {
 
 void MainModel::initIconsModel() {
     _icons = new ImageLogoModel();
+}
+
+void MainModel::initPermisionsModel() {
+    _permisionsModel = new PermisionsModel();
+
+    QQmlEngine::setObjectOwnership(_permisionsModel, QQmlEngine::CppOwnership);
+
+    connect(_permisionsModel, &PermisionsModel::sigPermision,
+            this, &MainModel::handlePermissionChanged);
+
+    connect(_permisionsModel, &PermisionsModel::sigPermisionRemoved,
+            this, &MainModel::handlePermissionRemoved);
 }
 
 void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
@@ -996,6 +1024,10 @@ QObject *MainModel::createCardModel() const {
 
 QObject *MainModel::usersListModel() const {
     return _usersListModel;
+}
+
+QObject *MainModel::permisionsModel() const {
+    return _permisionsModel;
 }
 
 }

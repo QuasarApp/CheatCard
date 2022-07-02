@@ -17,7 +17,10 @@
 #include <CheatCard/api/api1/card.h>
 #include <CheatCard/api/api1-5/cardupdated.h>
 #include <CheatCard/api/api1-5/changeuserscards.h>
+#include <CheatCard/api/api1-5/getconntactsrequest.h>
 #include <CheatCard/api/api1-5/statusafterchanges.h>
+#include <CheatCard/api/api1-5/updatecontactdata.h>
+#include <CheatCard/api/api1-5/updatecontactdataresponce.h>
 
 #include "CheatCard/nodeinfo.h"
 
@@ -99,6 +102,40 @@ QH::ParserResult ApiV1_5::parsePackage(const QSharedPointer<QH::PKG::AbstractDat
 
     result = commandHandler<APIv1_5::CardUpdated>(this,
                                                   &ApiV1_5::processCardUpdate,
+                                                  pkg, sender, pkgHeader);
+
+    if (result != QH::ParserResult::NotProcessed) {
+        return result;
+    }
+
+    result = commandHandler<APIv1_5::GetConntactsRequest>(this,
+                                                  &ApiV1_5::processGetConntactsRequest,
+                                                  pkg, sender, pkgHeader);
+
+    if (result != QH::ParserResult::NotProcessed) {
+        return result;
+    }
+
+    result = commandHandler<QH::PKG::DataPack<API::Contacts>>(this,
+                                                  &ApiV1_5::processContactsPack,
+                                                  pkg, sender, pkgHeader);
+
+    if (result != QH::ParserResult::NotProcessed) {
+        return result;
+    }
+
+
+    result = commandHandler<APIv1_5::UpdateContactData>(this,
+                                                  &ApiV1_5::processContacts,
+                                                  pkg, sender, pkgHeader);
+
+    if (result != QH::ParserResult::NotProcessed) {
+        return result;
+    }
+
+
+    result = commandHandler<APIv1_5::UpdateContactDataResponce>(this,
+                                                  &ApiV1_5::processContactsResponce,
                                                   pkg, sender, pkgHeader);
 
     if (result != QH::ParserResult::NotProcessed) {
@@ -251,6 +288,49 @@ bool ApiV1_5::processStatusAfterChanged(const QSharedPointer<APIv1_5::StatusAfte
     return true;
 }
 
+bool ApiV1_5::processGetConntactsRequest(
+        const QSharedPointer<APIv1_5::GetConntactsRequest> &cardrequest,
+        const QH::AbstractNodeInfo *sender,
+        const QH::Header &hdr) {
+
+    QH::PKG::DBObjectsRequest<API::Contacts>
+            request("Contacts",
+                    QString("user = %0").arg(cardrequest->getUserId()));
+
+    auto result = db()->getObject(request);
+
+    if (result) {
+        QH::PKG::DataPack<API::Contacts> responce;
+        responce.setPackData(result->data());
+
+        return node()->sendData(&responce, sender,&hdr);
+    }
+
+    return true;
+}
+
+void RC::ApiV1_5::applayUpdateContactData(
+        const QSharedPointer<RC::APIv1_5::UpdateContactData> &data,
+                                          bool success) {
+    if (success) {
+        if (data->getRemove()) {
+            db()->deleteObject(data);
+        } else {
+            db()->insertIfExistsUpdateObject(data);
+        }
+    }
+
+    emit node()->sigContactsStatusResult(success);
+}
+
+void ApiV1_5::processContactsResponcePrivate(unsigned int requestId, bool result) {
+
+    if (auto object = _waitResponce.value(requestId)) {
+        applayUpdateContactData(object, result);
+        _waitResponce.remove(requestId);
+    }
+}
+
 QH::PKG::DataPack<APIv1::UsersCards>
 ApiV1_5::lastUserStatus(unsigned int cardId) {
     QH::PKG::DataPack<APIv1::UsersCards> responce;
@@ -334,6 +414,89 @@ bool ApiV1_5::processSession(const QSharedPointer<API::Session> &session,
     return ApiV1::processSession(session, sender, pkg);
 }
 
+bool ApiV1_5::processContactsPack(const QSharedPointer<QH::PKG::DataPack<API::Contacts> > &message,
+                                  const QH::AbstractNodeInfo *,
+                                  const QH::Header &) {
+
+    for (const auto& contact: message->packData()) {
+        db()->insertIfExistsUpdateObject(contact);
+    }
+
+    return true;
+}
+
+bool ApiV1_5::cardValidation(const QSharedPointer<API::Card> &cardFromDB,
+                             const QByteArray &ownerSecret) const {
+    switch (NodeTypeHelper::getBaseType(node()->nodeType())) {
+    case NodeType::Server: {
+        if (!cardFromDB)
+            return true;
+
+        auto signature = cardFromDB->ownerSignature();
+
+        if (signature.isEmpty()) {
+            return true;
+        }
+
+        auto ownerSignature =  API::User::makeKey(ownerSecret);
+
+        if (signature == ownerSignature)
+            return true;
+
+        // check additional access
+        unsigned int childId = API::User::makeId(ownerSignature);
+        unsigned int ownerId = API::User::makeId(signature);
+
+        auto contact = node()->getContactFromChildId(ownerId, childId);
+        return contact;
+    }
+
+    default: {};
+    }
+
+    return true;
+}
+
+bool ApiV1_5::processContacts(const QSharedPointer<APIv1_5::UpdateContactData> &message,
+                              const QH::AbstractNodeInfo *,
+                              const QH::Header &) {
+
+    auto userKey = API::User::makeKey(message->userSecreet());
+    auto userId = API::User::makeId(userKey);
+
+    if (userId != message->getUser()) {
+        QuasarAppUtils::Params::log("User try change permission for another user.",
+                                    QuasarAppUtils::Error);
+        return false;
+    }
+
+    if (message->getRemove()) {
+        if (!db()->deleteObject(message.staticCast<API::Contacts>())) {
+            QuasarAppUtils::Params::log("Fail to detele user permisiion",
+                                        QuasarAppUtils::Error);
+            return false;
+        }
+
+    } else {
+        if (!db()->insertIfExistsUpdateObject(message.staticCast<API::Contacts>())) {
+            QuasarAppUtils::Params::log("Fail to save user permisiion",
+                                        QuasarAppUtils::Error);
+            return false;
+        }
+    }
+
+    return true;
+}
+
+bool ApiV1_5::processContactsResponce(
+        const QSharedPointer<APIv1_5::UpdateContactDataResponce> &message,
+        const QH::AbstractNodeInfo *,
+        const QH::Header & hdr) {
+
+    processContactsResponcePrivate(hdr.triggerHash, message->getSuccessful());
+    return true;
+}
+
 void ApiV1_5::restoreOldDateRequest(const QByteArray &curentUserKey,
                                     QH::AbstractNodeInfo *dist) {
     ApiV1::restoreOldDateRequest(curentUserKey, dist);
@@ -342,6 +505,32 @@ void ApiV1_5::restoreOldDateRequest(const QByteArray &curentUserKey,
 void ApiV1_5::restoreOneCardRequest(unsigned int cardId, QH::AbstractNodeInfo *dist) {
     ApiV1::restoreOneCardRequest(cardId, dist);
 
+}
+
+bool ApiV1_5::sendContacts(const QSharedPointer<APIv1_5::UpdateContactData> & contact,
+                           QH::AbstractNodeInfo *dist) {
+
+    unsigned int pkgHash = node()->sendData(contact.data(), dist);
+
+    if (!pkgHash) {
+        return false;
+    }
+
+    _waitResponce[pkgHash] = contact;
+
+    QTimer::singleShot(10000, nullptr, [this, pkgHash]() {
+        processContactsResponcePrivate(pkgHash, false);
+    });
+
+    return true;
+}
+
+bool ApiV1_5::requestContacts(unsigned int userId, QH::AbstractNodeInfo *dist) {
+
+    APIv1_5::GetConntactsRequest request;
+    request.setUserId(userId);
+
+    return node()->sendData(&request, dist, nullptr);
 }
 
 bool ApiV1_5::sendUpdateCard(unsigned int cardId,

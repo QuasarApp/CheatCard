@@ -27,3 +27,7 @@ int TestServer::getPurchaseCount(unsigned int userId, unsigned int cardId) {
 
     return result->getPurchasesNumber();
 }
+
+bool TestServer::containsContact(unsigned int userId, unsigned int childId) {
+    return getContactFromChildId(userId, childId);
+}
