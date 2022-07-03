@@ -316,7 +316,8 @@ void RC::ApiV1_5::applayUpdateContactData(
         }
     }
 
-    emit node()->sigContactsStatusResult(success);
+    emit node()->sigContactsStatusResult(data.staticCast<API::Contacts>(),
+                                         success, data->getRemove());
 }
 
 void ApiV1_5::processContactsResponcePrivate(unsigned int requestId, bool result) {
@@ -503,16 +504,23 @@ void ApiV1_5::restoreOneCardRequest(unsigned int cardId, QH::AbstractNodeInfo *d
 
 }
 
-bool ApiV1_5::sendContacts(const QSharedPointer<APIv1_5::UpdateContactData> & contact,
+bool ApiV1_5::sendContacts(const API::Contacts &contact,
+                           const QByteArray& secreet,
+                           bool removeRequest,
                            QH::AbstractNodeInfo *dist) {
 
-    unsigned int pkgHash = node()->sendData(contact.data(), dist);
+
+    auto request = QSharedPointer<RC::APIv1_5::UpdateContactData>::create(contact);
+    request->setRemove(removeRequest);
+    request->setUserSecreet(secreet);
+
+    unsigned int pkgHash = node()->sendData(request.data(), dist);
 
     if (!pkgHash) {
         return false;
     }
 
-    _waitResponce[pkgHash] = contact;
+    _waitResponce[pkgHash] = request;
 
     QTimer::singleShot(10000, nullptr, [this, pkgHash]() {
         processContactsResponcePrivate(pkgHash, false);

@@ -190,14 +190,14 @@ private slots:
     void handleAppOutdated(int minimumRequiredVersion);
     void handlePermissionChanged(const QSharedPointer<RC::API::Contacts>& permision);
     void handlePermissionRemoved(QSharedPointer<RC::API::Contacts> permision);
-
+    void handlePermissionAdded(const QString &childUserName);
+    void handleContactsStatusResult(QSharedPointer<API::Contacts> contact,
+                                    bool succesed, bool removed);
 private:
     void saveUser();
     void lastStatusRequest();
 
     QH::ISqlDBCache *db() const;
-
-    QSharedPointer<UserModel> initUser();
 
     void initCardsListModels();
     void initImagesModels();

@@ -359,16 +359,18 @@ bool BaseNode::getContactsList(const QByteArray& userKey,
                    QH::NodeCoonectionStatus::Confirmed);
 }
 
-bool BaseNode::updateContactData(const QSharedPointer<APIv1_5::UpdateContactData> &update,
+bool BaseNode::updateContactData(const API::Contacts &contact,
+                                 const QByteArray& secreet,
+                                 bool removeRequest,
                                  const QString &domain, int port) {
 
-    auto action = [this, update](QH::AbstractNodeInfo *node) {
+    auto action = [this, contact, secreet, removeRequest](QH::AbstractNodeInfo *node) {
 
         auto dist = static_cast<NodeInfo*>(node);
 
         auto api = selectParser(dist->version()).dynamicCast<ApiV1_5>();
         if (api) {
-            api->sendContacts(update, node);
+            api->sendContacts(contact, secreet, removeRequest, node);
         }
     };
 

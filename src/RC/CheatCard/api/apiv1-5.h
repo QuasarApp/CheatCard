@@ -50,7 +50,9 @@ public:
 
     void restoreOldDateRequest(const QByteArray &curentUserKey, QH::AbstractNodeInfo *dist) override;
     void restoreOneCardRequest(unsigned int cardId, QH::AbstractNodeInfo *dist) override;
-    bool sendContacts(const QSharedPointer<RC::APIv1_5::UpdateContactData>&,
+    bool sendContacts(const API::Contacts& conntact,
+                      const QByteArray& secreet,
+                      bool removeRequest,
                       QH::AbstractNodeInfo *dist);
 
     bool requestContacts(const QByteArray &userKey,

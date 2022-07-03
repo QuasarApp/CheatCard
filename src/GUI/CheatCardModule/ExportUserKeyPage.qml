@@ -27,10 +27,6 @@ CPage {
 
     contentItem: ColumnLayout {
 
-        //        Item {
-        //            Layout.fillHeight: true
-        //        }
-
         Label {
             text: (fExport)? qsTr("**For what this use**"):
                              qsTr("**Sharing access to your account**")
@@ -89,9 +85,5 @@ CPage {
             }
 
         }
-
-        //        Item {
-        //            Layout.fillHeight: true
-        //        }
     }
 }

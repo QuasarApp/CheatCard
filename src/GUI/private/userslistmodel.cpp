@@ -74,6 +74,10 @@ void UsersListModel::setUsers(const QList<QSharedPointer<API::User> >
 
 QSharedPointer<UserModel>
 UsersListModel::importUser(const QSharedPointer<API::User> &user) {
+
+    if (!user)
+        return {};
+
     unsigned int id = user->getId().toUInt();
 
     if (_users.contains(id)) {
@@ -114,9 +118,12 @@ void UsersListModel::setCurrentUser(unsigned int newCurrentUser) {
 
     if (_cache.contains(newCurrentUser)) {
         _currentUser = newCurrentUser;
-    } else {
+    } else if (_cache.size()) {
         _currentUser = _cache.begin().key();
+    } else {
+        return;
     }
+
     emit sigUserChanged(currentUser());
     emit currentUserIdChanged();
 }

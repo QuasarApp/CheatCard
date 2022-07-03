@@ -8,39 +8,52 @@
 #ifndef PERMISIONSMODEL_H
 #define PERMISIONSMODEL_H
 
-#include "abstrcattablemodelwithheaders.h"
+#include "userslistmodel.h"
 #include <CheatCard/api/api0/contacts.h>
 #include <QSharedPointer>
 
 namespace RC {
+class UserModel;
+class WaitConfirmModel;
 
 /**
  * @brief The PermisioonsModel class
  */
-class PermisionsModel: public QAbstractListModel
+class PermisionsModel: public UsersListModel
 {
     Q_OBJECT
+    Q_PROPERTY(QObject* waitModel READ waitModel CONSTANT)
+
 public:
-    PermisionsModel();
+    PermisionsModel(ImagesStorageModel *imageStorage);
+    ~PermisionsModel() override;
 
     enum Roles {
         PermisionRole = Qt::UserRole
     };
 
-    int rowCount(const QModelIndex &parent = {}) const override;
-    QHash<int, QByteArray> roleNames() const override;
-
-    QVariant data(const QModelIndex &index, int role) const override;
     Q_INVOKABLE void setNewDescription(int row, const QString& description);
-    void setPermissions(const QList<QSharedPointer<API::Contacts> > &newData);
+    Q_INVOKABLE void addNewPermision(const QString& description);
+    Q_INVOKABLE void removePermision(int row);
+
+    void setPermissions(const QList<QSharedPointer<API::Contacts> > &newData,
+                        const QSharedPointer<API::User>& currentUser);
+
+    QObject *waitModel() const;
+
+    void handleServerResult(const QSharedPointer<RC::API::Contacts>& contact,
+                            const QSharedPointer<API::User>& currentuser,
+                            bool succesed, bool removed);
 
 signals:
-    void sigPermision(const QSharedPointer<RC::API::Contacts>& permision);
+    void sigPermisionUpdated(const QSharedPointer<RC::API::Contacts>& permision);
     void sigPermisionRemoved(QSharedPointer<RC::API::Contacts> permision);
+    void sigPermisionAdded(const QString& name);
 
 private:
     QHash<unsigned int, QSharedPointer<RC::API::Contacts>> _data;
-    QList<unsigned int> _permissions;
+    QSharedPointer<RC::UserModel> _currentUserModel;
+    WaitConfirmModel *_waitModel = nullptr;
 
 };
 

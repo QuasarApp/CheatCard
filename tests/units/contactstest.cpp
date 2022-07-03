@@ -68,10 +68,11 @@ void ContactsTest::test() {
     // create child seller user
     QVERIFY(seller->createChilduser("child", childSeller, contact));
 
-    auto updateRequest = QSharedPointer<RC::APIv1_5::UpdateContactData>::create(*contact);
-    updateRequest->setRemove(false);
-    updateRequest->setUserSecreet(sellerUser->secret());
-    QVERIFY(seller->updateContactData(updateRequest, TEST_CHEAT_HOST, TEST_CHEAT_PORT));
+    QVERIFY(seller->updateContactData(*contact,
+                                      sellerUser->secret(),
+                                      false,
+                                      TEST_CHEAT_HOST,
+                                      TEST_CHEAT_PORT));
 
     auto childKey = childSeller->getKey();
 
@@ -99,12 +100,12 @@ void ContactsTest::test() {
     // wait for finished last seesion
     WAIT_FOR_FINSISHED_CONNECTION
 
-    updateRequest->setRemove(true);
-    updateRequest->setUserSecreet(childSeller->secret());
-
     // try remove additional permisions from another seller account
-    QVERIFY(seller->updateContactData(updateRequest, TEST_CHEAT_HOST, TEST_CHEAT_PORT));
-
+    QVERIFY(seller->updateContactData(*contact,
+                                      childSeller->secret(),
+                                      true,
+                                      TEST_CHEAT_HOST,
+                                      TEST_CHEAT_PORT));
     QVERIFY(wait([seller]() {
         return seller->getLastErrrorCode() == 1;
     }, WAIT_TIME));
@@ -114,8 +115,11 @@ void ContactsTest::test() {
 
     seller->setCurrentUser(sellerUser);
     // Remove right of child account
-    updateRequest->setUserSecreet(sellerUser->secret());
-    QVERIFY(seller->updateContactData(updateRequest, TEST_CHEAT_HOST, TEST_CHEAT_PORT));
+    QVERIFY(seller->updateContactData(*contact,
+                                      sellerUser->secret(),
+                                      true,
+                                      TEST_CHEAT_HOST,
+                                      TEST_CHEAT_PORT));
 
     // Wait for removing additional acces to server
     QVERIFY(wait([server, childKey, sellerUserKey]() {

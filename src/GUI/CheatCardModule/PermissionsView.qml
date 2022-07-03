@@ -5,93 +5,113 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-
-
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
 import "Style"
 
-Page {
+CPage {
 
-    Layout.fillWidth: true
-    Layout.fillHeight: true
+    title: qsTr("Your Workers")
 
-    header: HorizontalHeaderView {
-        id: horizontalHeader
-        syncView: tableView
-        clip: true
+    id: root
+    property var model: mainModel.permisionsModel
 
-        delegate: Item {
-            property string dataText: display
-            ToolButton {
-                text: dataText
-                anchors.fill: parent
-                implicitHeight: 0x0
-                implicitWidth: 0x0
-                onReleased: {
-                    if (root.model) {
-                        root.model.sortView(column)
+    contentItem:
+        GridLayout {
+        flow: (flowChecker.fHorisontal)?  GridLayout.LeftToRight :GridLayout.TopToBottom
+
+
+        ExportUserKeyPage {
+            fExport: true
+            model: (root.model)? root.model.currentUserModel: null
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+        }
+
+        ListView {
+            id: list
+            model : root.model
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+
+            Component {
+                id: delegateItem
+
+                RowLayout {
+                    UserView {
+                        id: userView
+                        width: list.width
+                        height: implicitHeight
+                        model: userObject
+                        userDefaultAvatar: (root.model)?
+                                               root.model.userDefaultAvatar(userID):
+                                               ""
+                        fCurrent: list.model && userID === list.model.currentUserId
+                        onClick: {
+                            if (list.model) {
+                                list.model.currentUserId = userID
+                            }
+                        }
                     }
+
+                    ToolButton {
+                        icon.source: "qrc:/images/private/resources/Interface_icons/Right_topmenu.svg"
+                        icon.color: Material.accent
+                        font.bold: true
+                        font.pointSize: 14
+
+                        onClicked: () => {
+                                   }
+                    }
+
+                    ToolButton {
+                        icon.source: "qrc:/images/private/resources/Interface_icons/delete_card.svg"
+                        icon.color: Material.accent
+                        font.bold: true
+                        font.pointSize: 14
+
+                        onClicked: () => {
+                                   }
+                    }
+                }
+            }
+
+            delegate: delegateItem
+
+            Button {
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.bottom: parent.bottom
+                text: qsTr("Add new worker account")
+
+
+                onClicked: {
+                    enternameDalog.open()
                 }
             }
         }
     }
 
-    contentItem: TableView {
-        id: tableView
-        model: (root.model)? root.model.proxy(): null
-        clip: true
+    Dialog {
+        id: enternameDalog
+        x: parent.width / 2 - enternameDalog.width / 2
+        y: parent.height / 2 - enternameDalog.height / 2
 
-        ScrollBar.vertical: ScrollBar { }
+        title: qsTr("Create a new worker's account")
+        standardButtons: Dialog.Ok | Dialog.Cancel
 
-        property var columnWidths: [-120, 80, 90, 100, 90, 200, 100]
-        property int selectedRow: 0
-
-        columnWidthProvider: function (column) {
-
-            const width = columnWidths[column];
-            if (!width) {
-                let sum = 0;
-                columnWidths.forEach((item)=> {
-                                         if (item > 0)
-                                            sum += item;
-                                     })
-
-                return Math.max(tableView.width - sum, Math.abs(width))
-            }
-
-            return width;
+        onAccepted: {
+            if (root.model)
+                root.model.addNewPermision(workerName);
+                workerName.text = "";
         }
 
-
-        delegate: Rectangle {
-
-            property bool fSelect: row === tableView.selectedRow
-
-            onFSelectChanged: {
-                if (root.model && fSelect)
-                    root.model.chouseRow(row);
-            }
-
-            color: (fSelect)? Material.accent:
-                              (row % 2 === 0) ? "#55888888":
-                                                "#11888888"
-
-
-            Label {
-                text: display
-                wrapMode: Label.WordWrap
-                anchors.fill: parent
-                horizontalAlignment: Label.AlignHCenter
-                verticalAlignment: Label.AlignVCenter
-            }
-
-            MouseArea {
-                onClicked: tableView.selectedRow = row
-                anchors.fill: parent
-            }
+        contentItem: TextField {
+            id: workerName
+            placeholderText: qsTr("Enter your worker name.")
         }
+
+        visible: false
     }
 }

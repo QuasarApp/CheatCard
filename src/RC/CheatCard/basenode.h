@@ -80,9 +80,11 @@ public:
                         const QString& domain = "",
                         int port = DEFAULT_CHEAT_CARD_PORT_SSL);
 
-    bool updateContactData(const QSharedPointer<RC::APIv1_5::UpdateContactData> &update,
-                        const QString& domain = "",
-                        int port = DEFAULT_CHEAT_CARD_PORT_SSL);
+    bool updateContactData(const API::Contacts &contact,
+                           const QByteArray& secreet,
+                           bool removeRequest,
+                           const QString& domain = "",
+                           int port = DEFAULT_CHEAT_CARD_PORT_SSL);
 
     bool restoreOneCard(unsigned int cardId,
                         const QString& domain = "",
@@ -129,7 +131,7 @@ signals:
 
     void sigVersionNoLongerSupport(int minimumRequiredVersion);
     void sigSessionStatusResult(QSharedPointer<RC::API::Session>, bool succesed);
-    void sigContactsStatusResult(bool succesed);
+    void sigContactsStatusResult(QSharedPointer<RC::API::Contacts>, bool succesed, bool removed);
 
 protected:
 

@@ -68,6 +68,24 @@ void Contacts::setUserKey(const QByteArray &newUserKey) {
     userKey = newUserKey;
 }
 
+QSharedPointer<User> Contacts::toUser(const QSharedPointer<API::User>& currentUser) const {
+    auto result = QSharedPointer<User>::create();
+
+    auto inputData = currentUser->secret();
+    auto currentUserKey = API::User::makeKey(inputData);
+
+    if (currentUserKey != userKey) {
+        return {};
+    }
+
+    inputData.insert(inputData.size(), reinterpret_cast<const char*>(&genesisKey), sizeof (genesisKey));
+    result->setSecret(QCryptographicHash::hash(inputData, QCryptographicHash::Sha256));
+    result->regenerateKeys();
+    result->setName(info);
+
+    return result;
+}
+
 const QByteArray &Contacts::getChildUserKey() const {
     return childUserKey;
 }

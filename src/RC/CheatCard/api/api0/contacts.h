@@ -13,6 +13,7 @@
 
 namespace RC {
 namespace API {
+class User;
 
 class CHEATCARD_CORE_EXPORT Contacts: public QH::PKG::DBObject
 {
@@ -42,6 +43,7 @@ public:
     const QByteArray &getUserKey() const;
     void setUserKey(const QByteArray &newUserKey);
 
+    QSharedPointer<API::User> toUser(const QSharedPointer<API::User>& currentUser) const;
 protected:
     QString primaryKey() const override;
     QDataStream &fromStream(QDataStream &stream) override;

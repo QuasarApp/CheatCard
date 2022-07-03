@@ -6,56 +6,57 @@
 //#
 
 #include "permisionsmodel.h"
+#include "usermodel.h"
+#include "waitconfirmmodel.h"
+#include <QQmlEngine>
 
 namespace RC {
 
-PermisionsModel::PermisionsModel() {
+PermisionsModel::PermisionsModel(ImagesStorageModel * imageStorage):
+    UsersListModel(imageStorage) {
+    _waitModel = new WaitConfirmModel();
+    QQmlEngine::setObjectOwnership(_waitModel, QQmlEngine::CppOwnership);
 }
 
-void PermisionsModel::setPermissions(const QList<QSharedPointer<RC::API::Contacts> > &newData) {
-    beginResetModel();
+PermisionsModel::~PermisionsModel() {
+    delete _waitModel;
+}
+
+void PermisionsModel::setPermissions(const QList<QSharedPointer<API::Contacts> > &newData,
+                                     const QSharedPointer<API::User> &currentUser) {
+    // clear old users list;
     _data.clear();
-    _permissions.clear();
+    setUsers({});
+
+
     for (const QSharedPointer<API::Contacts>& permision : newData) {
         _data.insert(permision->getGenesisKey(),
-                      permision
-                      );
-        _permissions.push_back(permision->getGenesisKey());
+                     permision
+                     );
+
+        importUser(permision->toUser(currentUser));
     }
-    endResetModel();
 }
 
-
-int PermisionsModel::rowCount(const QModelIndex &) const {
-    return _data.size();
+QObject *PermisionsModel::waitModel() const {
+    return _waitModel;
 }
 
-QHash<int, QByteArray> PermisionsModel::roleNames() const {
-    QHash<int, QByteArray> roles;
+void PermisionsModel::handleServerResult(const QSharedPointer<API::Contacts>& contact,
+                                         const QSharedPointer<API::User> &currentUser,
+                                         bool succesed, bool removed) {
 
-    roles[PermisionRole] = "permissionName";
+    _waitModel->confirm(1, succesed);
 
-    return roles;
-}
+    if (removed) {
+        // to-do
+    } else {
+        _data.insert(contact->getGenesisKey(),
+                     contact
+                     );
 
-QVariant PermisionsModel::data(const QModelIndex &index, int role) const {
-
-    if (role != PermisionRole) {
-        return {};
+        importUser(contact->toUser(currentUser));
     }
-
-    if (index.row() >= rowCount()) {
-        return {};
-    }
-
-    int permisionKey = _permissions[index.row()];
-    auto cacheData = _data.value(permisionKey, {});
-
-    if (cacheData) {
-        return cacheData->getInfo();
-    }
-
-    return {};
 }
 
 void PermisionsModel::setNewDescription(int row, const QString &description) {
@@ -63,15 +64,42 @@ void PermisionsModel::setNewDescription(int row, const QString &description) {
         return;
     }
 
-    int permisionKey = _permissions[row];
+    // From QVariant to QObject *
+    QObject* obj = qvariant_cast<QObject *>(data(index(row), UserObjectRole));
+    // from QObject* to myClass*
+    UserModel* userModel = qobject_cast<UserModel*>(obj);
 
-    if (_data.contains(permisionKey)) {
-        _data[permisionKey]->setInfo(description);
-
-        emit dataChanged(index(row), index(row), {PermisionRole});
-        emit sigPermision(_data[permisionKey]);
+    if (!userModel) {
+        return;
     }
 
+    userModel->setName(description);
+
+    if (_data.contains(userModel->userId())) {
+        _data[userModel->userId()]->setInfo(description);
+        emit sigPermisionUpdated(_data[userModel->userId()]);
+    }
+}
+
+void PermisionsModel::addNewPermision(const QString &description) {
+
+    _waitModel->wait(1);
+
+    emit sigPermisionAdded(description);
+}
+
+void PermisionsModel::removePermision(int row) {
+    // From QVariant to QObject *
+    QObject* obj = qvariant_cast<QObject *>(data(index(row), UserObjectRole));
+    // from QObject* to myClass*
+    UserModel* userModel = qobject_cast<UserModel*>(obj);
+    if (!userModel) {
+        return;
+    }
+
+    if (_data.contains(userModel->userId())) {
+        emit sigPermisionRemoved(_data[userModel->userId()]);
+    }
 
 }
 }

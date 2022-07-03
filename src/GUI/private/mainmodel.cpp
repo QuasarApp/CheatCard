@@ -97,12 +97,10 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
     initLanguageModel();
     initActivityProcessorModel();
     initCreateCardModel();
-    initUsersListModel();
     initPermisionsModel();
 
     configureCardsList();
-
-    setCurrentUser(initUser());
+    initUsersListModel();
 
     auto app = dynamic_cast<QGuiApplication*>(QGuiApplication::instance());
 
@@ -230,12 +228,50 @@ void MainModel::handleAppOutdated(int) {
 }
 
 void MainModel::handlePermissionChanged(const QSharedPointer<API::Contacts> &permision) {
-    // send to server insery/update request
+    if (!_currentUser || !_currentUser->user()) {
+        return;
+    }
+
+    _backEndModel->updateContactData(*permision,
+                                     _currentUser->user()->secret(),
+                                     false);
 }
 
 void MainModel::handlePermissionRemoved(QSharedPointer<API::Contacts> permision) {
+    if (!_currentUser || !_currentUser->user()) {
+        return;
+    }
+
+    _backEndModel->updateContactData(*permision,
+                                     _currentUser->user()->secret(),
+                                     true);
+}
+
+void MainModel::handlePermissionAdded(const QString &childUserName) {
     // send to server remove request
 
+    if (!_currentUser || !_currentUser->user()) {
+        return;
+    }
+
+    auto childUser = QSharedPointer<API::User>::create();
+    auto contacts = QSharedPointer<API::Contacts>::create();
+
+    if (!_backEndModel->createChilduser(childUserName, childUser, contacts)) {
+        return;
+    }
+
+    _backEndModel->updateContactData(*contacts,
+                                     _currentUser->user()->secret(),
+                                     false);
+}
+
+void MainModel::handleContactsStatusResult(QSharedPointer<API::Contacts> contact,
+                                           bool succesed, bool removed) {
+    _permisionsModel->handleServerResult(contact,
+                                         _currentUser->user(),
+                                         succesed,
+                                         removed);
 }
 
 const QSharedPointer<UserModel>& MainModel::getCurrentUser() const {
@@ -283,10 +319,8 @@ void MainModel::setCurrentUser(const QSharedPointer<RC::UserModel>& value) {
             _cardsListModel->updateMetaData(result->data());
         }
 
-        QH::PKG::DBObjectsRequest<API::Contacts> permisionsRequest("Contacts", where);
-        if (auto result =_db->getObject(permisionsRequest)) {
-            _permisionsModel->setPermissions(result->data());
-        }
+        _permisionsModel->setPermissions(_backEndModel->getSlaveKeys(userKey),
+                                         _currentUser->user());
 
         if (_billing) {
             connect(_currentUser.data(), &UserModel::sigBecomeSeller,
@@ -300,20 +334,6 @@ void MainModel::setCurrentUser(const QSharedPointer<RC::UserModel>& value) {
 void MainModel::saveUser() {
     _db->insertIfExistsUpdateObject(_currentUser->user());
     _config->setCurrUser(_currentUser->user()->userId());
-}
-
-QSharedPointer<UserModel> MainModel::initUser() {
-    if (_currentUser) {
-        return _currentUser;
-    }
-
-    auto result = _usersListModel->currentUser();
-
-    if (!result) {
-        return _usersListModel->importUser(QSharedPointer<API::User>::create());
-    }
-
-    return result;
 }
 
 void MainModel::initCardsListModels() {
@@ -411,10 +431,14 @@ void MainModel::initUsersListModel() {
     _usersListModel->setUsers(result->data());
     setFirst(!result->data().size());
 
-    _usersListModel->setCurrentUser(_config->getCurrUser());
-
     connect(_usersListModel, &UsersListModel::sigUserChanged,
             this, &MainModel::setCurrentUser);
+
+    if (!_usersListModel->rowCount()) {
+        _usersListModel->importUser(QSharedPointer<API::User>::create());
+    }
+
+    _usersListModel->setCurrentUser(_config->getCurrUser());
 }
 
 void MainModel::initBackgroundsModel() {
@@ -426,15 +450,19 @@ void MainModel::initIconsModel() {
 }
 
 void MainModel::initPermisionsModel() {
-    _permisionsModel = new PermisionsModel();
+    _permisionsModel = new PermisionsModel(_icons);
 
     QQmlEngine::setObjectOwnership(_permisionsModel, QQmlEngine::CppOwnership);
 
-    connect(_permisionsModel, &PermisionsModel::sigPermision,
+    connect(_permisionsModel, &PermisionsModel::sigPermisionUpdated,
             this, &MainModel::handlePermissionChanged);
 
     connect(_permisionsModel, &PermisionsModel::sigPermisionRemoved,
             this, &MainModel::handlePermissionRemoved);
+
+    connect(_permisionsModel, &PermisionsModel::sigPermisionAdded,
+            this, &MainModel::handlePermissionAdded);
+
 }
 
 void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
@@ -461,6 +489,8 @@ void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
         disconnect(_backEndModel.data(), &BaseNode::sigSessionStatusResult,
                    _waitModel, &WaitConnectionModel::handleSessionServerResult);
 
+        disconnect(_backEndModel.data(), &BaseNode::sigContactsStatusResult,
+                   this, &MainModel::handleContactsStatusResult);
     }
 
     _backEndModel = newModel;
@@ -488,6 +518,10 @@ void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
 
         connect(_backEndModel.data(), &BaseNode::sigSessionStatusResult,
                 _waitModel, &WaitConnectionModel::handleSessionServerResult);
+
+        connect(_backEndModel.data(), &BaseNode::sigContactsStatusResult,
+                this, &MainModel::handleContactsStatusResult);
+
 
         _backEndModel->checkNetworkConnection();
 

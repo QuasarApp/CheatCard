@@ -101,6 +101,21 @@ Frame {
 
             }
 
+            Button {
+                id: showWorkers
+                text: qsTr("Workers management");
+                Layout.alignment: Qt.AlignHCenter
+                visible:!becomeaseller.visible && fBillingAwailable && root.model.mode
+
+                onClicked: {
+                    if (mainModel) {
+                        activityProcessor.newActivity("qrc:/CheatCardModule/PermissionsView.qml",
+                                                      mainModel.permisionsModel);
+                        userPanel.close()
+                    }
+                }
+            }
+
             Item {
                 id: helpMsgWrap
                 Layout.fillWidth: true

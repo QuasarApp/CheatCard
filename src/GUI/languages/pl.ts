@@ -304,6 +304,10 @@
         <source>To receive a card or a seal, as well as to receive an already accumulated bonus, show this Qr code to the seller.</source>
         <translation>Aby otrzymać kartę lub pieczęć, a także otrzymać już zgromadzony bonus, pokaż sprzedawcy ten kod QR.</translation>
     </message>
+    <message>
+        <source>Workers management</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ExportUserKeyPage</name>
@@ -623,6 +627,25 @@
     <message>
         <source>To get a cheat card, scan the QR code and follow the link.</source>
         <translation>Aby otrzymać oszukaną kartę, zeskanuj kod QR i skorzystaj z linku.</translation>
+    </message>
+</context>
+<context>
+    <name>PermissionsView</name>
+    <message>
+        <source>Your Workers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add new worker account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create a new worker&apos;s account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter your worker name.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
