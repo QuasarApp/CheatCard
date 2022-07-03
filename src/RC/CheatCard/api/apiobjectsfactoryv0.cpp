@@ -71,13 +71,11 @@ APIObjectsFactoryV0::getCard(unsigned int cardId) {
 QList<QSharedPointer<API::Card> >
 APIObjectsFactoryV0::getAllUserCards(const QByteArray &userKey, bool restOf) {
     return getAllUserCardsImpl<API_PREFIX::Card>(userKey, restOf);
-
 }
 
 QList<QSharedPointer<API::UsersCards> >
 APIObjectsFactoryV0::getAllUserCardsData(const QByteArray &userKey) {
     return getAllUserCardsDataImpl<API_PREFIX::UsersCards>(userKey);
-
 }
 
 QSharedPointer<API::Contacts>
@@ -88,7 +86,6 @@ APIObjectsFactoryV0::getContactFromChildId(const QByteArray& userId, const QByte
 QSharedPointer<API::Contacts>
 APIObjectsFactoryV0::getContactFromGenesis(const QByteArray& userId, int genesis) {
     return getContactFromGenesisIdImpl<API::Contacts>(userId, genesis);
-
 }
 
 QList<QSharedPointer<API::Contacts> >

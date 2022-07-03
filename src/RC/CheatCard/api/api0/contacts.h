@@ -8,12 +8,13 @@
 #ifndef SALLERSUSERS_H
 #define SALLERSUSERS_H
 #include <dbobject.h>
+#include "CheatCard/core_global.h"
 
 
 namespace RC {
 namespace API {
 
-class Contacts: public QH::PKG::DBObject
+class CHEATCARD_CORE_EXPORT Contacts: public QH::PKG::DBObject
 {
     QH_PACKAGE_AUTO(RC::API::Contacts)
 
