@@ -337,16 +337,16 @@ bool BaseNode::restoreAllData(const QByteArray &curentUserKey,
                    QH::NodeCoonectionStatus::Confirmed);
 }
 
-bool BaseNode::getContactsList(const unsigned int userId,
+bool BaseNode::getContactsList(const QByteArray& userKey,
                                const QString &domain, int port) {
 
-    auto action = [this, userId](QH::AbstractNodeInfo *node) {
+    auto action = [this, userKey](QH::AbstractNodeInfo *node) {
 
         auto dist = static_cast<NodeInfo*>(node);
 
         auto api = selectParser(dist->version()).dynamicCast<ApiV1_5>();
         if (api) {
-            api->requestContacts(userId, node);
+            api->requestContacts(userKey, node);
         }
     };
 
@@ -459,10 +459,10 @@ bool BaseNode::createChilduser(const QString &description,
     if (!resultChilduserAccount->isValid())
         return false;
 
-    resultContact->setUser(_currentUser->userId());
+    resultContact->setUserKey(_currentUser->getKey());
     resultContact->setGenesisKey(genesis);
     resultContact->setInfo(description);
-    resultContact->setChildUserId(resultChilduserAccount->userId());
+    resultContact->setChildUserKey(resultChilduserAccount->getKey());
 
     return resultContact->isValid();
 }

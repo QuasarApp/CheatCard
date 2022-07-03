@@ -200,10 +200,13 @@ protected:
     };
 
     template<class Contacts>
-    QSharedPointer<Contacts> getContactFromChildIdImpl(unsigned int userId, unsigned int childUserId) {
+    QSharedPointer<Contacts> getContactFromChildIdImpl(const QByteArray& userKey, const QByteArray& childUserKey) {
         check_type(Contacts);
 
-        QString whereBlock = QString("user='%0' AND childuserId='%1'").arg(userId).arg(childUserId);
+        QString whereBlock = QString("userKey='%0' AND childUserKey='%1'").
+                arg(QString(userKey.toBase64(QByteArray::Base64UrlEncoding)),
+                QString(childUserKey.toBase64(QByteArray::Base64UrlEncoding)));
+
         QH::PKG::DBObjectsRequest<Contacts>
                 request("Contacts", whereBlock);
 
@@ -216,10 +219,32 @@ protected:
     }
 
     template<class Contacts>
-    QSharedPointer<Contacts> getContactFromGenesisIdImpl(unsigned int userId, unsigned int genesis) {
+    QSharedPointer<Contacts> getContactFromGenesisIdImpl(const QByteArray& userKey, unsigned int genesis) {
         check_type(Contacts);
 
-        QString whereBlock = QString("user='%0' AND genesisKey='%1'").arg(userId).arg(genesis);
+        QString whereBlock = QString("userKey='%0' AND genesisKey='%1'").
+                arg(QString(userKey.toBase64(QByteArray::Base64UrlEncoding))).
+                arg(genesis);
+
+        QH::PKG::DBObjectsRequest<Contacts>
+                request("Contacts", whereBlock);
+
+
+        auto result = _db->getObject(request);
+
+        if (!result || result->data().isEmpty())
+            return {};
+
+        return *result->data().begin();
+    }
+
+    template<class Contacts>
+    QList<QSharedPointer<Contacts>> getMasterKeysImpl(const QByteArray& childUserKey) {
+        check_type(Contacts);
+
+        QString whereBlock = QString("childUserKey='%0'").
+                arg(QString(childUserKey.toBase64(QByteArray::Base64UrlEncoding)));
+
         QH::PKG::DBObjectsRequest<Contacts>
                 request("Contacts", whereBlock);
 
@@ -228,7 +253,25 @@ protected:
         if (!result || result->data().isEmpty())
             return {};
 
-        return *result->data().begin();
+        return {result->data().begin(), result->data().end()};
+    }
+
+    template<class Contacts>
+    QList<QSharedPointer<Contacts>> getSlaveKeysImpl(const QByteArray& userKey) {
+        check_type(Contacts);
+
+        QString whereBlock = QString("userKey='%0'").
+                arg(QString(userKey.toBase64(QByteArray::Base64UrlEncoding)));
+
+        QH::PKG::DBObjectsRequest<Contacts>
+                request("Contacts", whereBlock);
+
+        auto result = _db->getObject(request);
+
+        if (!result || result->data().isEmpty())
+            return {};
+
+        return {result->data().begin(), result->data().end()};
     }
 
 private:

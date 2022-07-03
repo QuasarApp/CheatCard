@@ -28,6 +28,6 @@ int TestServer::getPurchaseCount(unsigned int userId, unsigned int cardId) {
     return result->getPurchasesNumber();
 }
 
-bool TestServer::containsContact(unsigned int userId, unsigned int childId) {
+bool TestServer::containsContact(const QByteArray &userId, const QByteArray &childId) {
     return getContactFromChildId(userId, childId);
 }

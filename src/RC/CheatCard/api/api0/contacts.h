@@ -29,13 +29,17 @@ public:
     void setInfo(const QString &newInfo);
 
     unsigned int getUser() const;
-    void setUser(unsigned int newUser);
 
     unsigned int getChildUserId() const;
-    void setChildUserId(unsigned int newPermisionKey);
 
     int getGenesisKey() const;
     void setGenesisKey(int newGenesisKey);
+
+    const QByteArray &getChildUserKey() const;
+    void setChildUserKey(const QByteArray &newChildUserKey);
+
+    const QByteArray &getUserKey() const;
+    void setUserKey(const QByteArray &newUserKey);
 
 protected:
     QString primaryKey() const override;
@@ -44,8 +48,9 @@ protected:
     QString condition() const override;
 
 private:
-    unsigned int childUserId = 0;
-    unsigned int user = 0;
+    QByteArray childUserKey;
+
+    QByteArray userKey;
     int genesisKey = 0;
 
     QString info;

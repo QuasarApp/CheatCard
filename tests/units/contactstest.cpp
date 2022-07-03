@@ -21,6 +21,11 @@
 #define TEST_CHEAT_PORT 15002
 #define TEST_CHEAT_HOST "localhost"
 
+#define WAIT_FOR_FINSISHED_CONNECTION \
+    QVERIFY(wait([server](){ \
+        return server->connectionsCount() == 0; \
+    }, WAIT_TIME));
+
 ContactsTest::ContactsTest() {
 
 }
@@ -40,6 +45,9 @@ void ContactsTest::test() {
     auto clientUser = CheatCardTestsHelper::makeUser();
     unsigned int cardId = CheatCardTestsHelper::testCardId();
     unsigned int userId = sellerUser->userId();
+    auto sellerUserKey = sellerUser->getKey();
+
+    unsigned int clientUserId = clientUser->userId();
 
     seller->setCurrentUser(sellerUser);
 
@@ -65,26 +73,34 @@ void ContactsTest::test() {
     updateRequest->setUserSecreet(sellerUser->secret());
     QVERIFY(seller->updateContactData(updateRequest, TEST_CHEAT_HOST, TEST_CHEAT_PORT));
 
-    unsigned int childId = childSeller->userId();
+    auto childKey = childSeller->getKey();
+
     // wait for adding additional acces to server
-    QVERIFY(wait([server, childId, userId]() {
-        return server->containsContact(userId, childId);
+    QVERIFY(wait([server, childKey, sellerUserKey]() {
+        return server->containsContact(sellerUserKey, childKey);
     }, WAIT_TIME));
 
+    WAIT_FOR_FINSISHED_CONNECTION
+
+    seller->setCurrentUser(childSeller);
     // try add seals from child account
     addSeal(seller, client, server, clientUser, cardId, 6, obj, TEST_CHEAT_HOST,  TEST_CHEAT_PORT);
 
-    QVERIFY(wait([client, cardId, userId]() {
-        return client->getFreeItemsCount(userId, cardId) == 1;
+    QVERIFY(wait([client, cardId, clientUserId]() {
+        return client->getFreeItemsCount(clientUserId, cardId) == 1;
     }, WAIT_TIME));
 
-    QVERIFY(seller->sentDataToServerReceive(obj, cardId, 0, TEST_CHEAT_HOST, TEST_CHEAT_PORT));
+    QVERIFY(seller->sentDataToServerReceive(obj, cardId, 1, TEST_CHEAT_HOST, TEST_CHEAT_PORT));
 
-    QVERIFY(wait([client, cardId, userId]() {
-        return client->getFreeItemsCount(userId, cardId) == 0;
+    QVERIFY(wait([server, cardId, clientUserId]() {
+        return server->getFreeItemsCount(clientUserId, cardId) == 0;
     }, WAIT_TIME));
+
+    // wait for finished last seesion
+    WAIT_FOR_FINSISHED_CONNECTION
 
     updateRequest->setRemove(true);
+    updateRequest->setUserSecreet(childSeller->secret());
 
     // try remove additional permisions from another seller account
     QVERIFY(seller->updateContactData(updateRequest, TEST_CHEAT_HOST, TEST_CHEAT_PORT));
@@ -93,9 +109,21 @@ void ContactsTest::test() {
         return seller->getLastErrrorCode() == 1;
     }, WAIT_TIME));
 
+    // wait for finished last seesion
+    WAIT_FOR_FINSISHED_CONNECTION
+
     seller->setCurrentUser(sellerUser);
-    // remove right of child account
+    // Remove right of child account
+    updateRequest->setUserSecreet(sellerUser->secret());
     QVERIFY(seller->updateContactData(updateRequest, TEST_CHEAT_HOST, TEST_CHEAT_PORT));
+
+    // Wait for removing additional acces to server
+    QVERIFY(wait([server, childKey, sellerUserKey]() {
+        return !server->containsContact(sellerUserKey, childKey);
+    }, WAIT_TIME));
+
+    // wait for finished last seesion
+    WAIT_FOR_FINSISHED_CONNECTION
 
     seller->setCurrentUser(childSeller);
 

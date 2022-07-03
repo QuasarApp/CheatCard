@@ -67,6 +67,9 @@ protected:
      */
     virtual bool cardValidation(const QSharedPointer<API::Card>& card,
                         const QByteArray &ownerSecret) const;
+    void collectDataOfuser(const QByteArray& userKey,
+                           QH::PKG::DataPack<APIv1::UsersCards> &responce);
+    
 private:
 
     /**

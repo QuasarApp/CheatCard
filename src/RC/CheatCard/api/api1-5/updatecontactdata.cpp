@@ -19,8 +19,8 @@ UpdateContactData::UpdateContactData()
 
 UpdateContactData::UpdateContactData(const Contacts &contact) {
     setInfo(contact.getInfo());
-    setUser(contact.getUser());
-    setChildUserId(contact.getChildUserId());
+    setUserKey(contact.getUserKey());
+    setChildUserKey(contact.getChildUserKey());
     setGenesisKey(contact.getGenesisKey());
 }
 

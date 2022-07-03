@@ -81,15 +81,22 @@ APIObjectsFactoryV0::getAllUserCardsData(const QByteArray &userKey) {
 }
 
 QSharedPointer<API::Contacts>
-APIObjectsFactoryV0::getContactFromChildId(unsigned int userId, unsigned int childUserId) {
+APIObjectsFactoryV0::getContactFromChildId(const QByteArray& userId, const QByteArray& childUserId) {
     return getContactFromChildIdImpl<API::Contacts>(userId, childUserId);
 }
 
 QSharedPointer<API::Contacts>
-APIObjectsFactoryV0::getContactFromGenesis(unsigned int userId, int genesis) {
+APIObjectsFactoryV0::getContactFromGenesis(const QByteArray& userId, int genesis) {
     return getContactFromGenesisIdImpl<API::Contacts>(userId, genesis);
 
 }
 
+QList<QSharedPointer<API::Contacts> >
+APIObjectsFactoryV0::getMasterKeys(const QByteArray& childUserId) {
+    return getMasterKeysImpl<API::Contacts>(childUserId);
+}
 
+QList<QSharedPointer<API::Contacts> > APIObjectsFactoryV0::getSlaveKeys(const QByteArray &userId) {
+    return getSlaveKeysImpl<API::Contacts>(userId);
+}
 }

@@ -7,27 +7,27 @@ GetConntactsRequest::GetConntactsRequest() {
 }
 
 bool GetConntactsRequest::isValid() const {
-    return userId;
+    return userKey.size();
 }
 
 QDataStream &GetConntactsRequest::fromStream(QDataStream &stream) {
-    stream >> userId;
+    stream >> userKey;
 
     return stream;
 }
 
 QDataStream &GetConntactsRequest::toStream(QDataStream &stream) const {
-    stream << userId;
+    stream << userKey;
 
     return stream;
 }
 
-unsigned int GetConntactsRequest::getUserId() const {
-    return userId;
+const QByteArray &GetConntactsRequest::getUserKey() const {
+    return userKey;
 }
 
-void GetConntactsRequest::setUserId(unsigned int newUserId) {
-    userId = newUserId;
+void GetConntactsRequest::setUserKey(const QByteArray &newUserKey) {
+    userKey = newUserKey;
 }
 
 }

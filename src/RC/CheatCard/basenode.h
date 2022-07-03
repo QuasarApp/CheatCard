@@ -76,7 +76,7 @@ public:
                         const QString& domain = "",
                         int port = DEFAULT_CHEAT_CARD_PORT_SSL);
 
-    bool getContactsList(const unsigned int userId,
+    bool getContactsList(const QByteArray &userKey,
                         const QString& domain = "",
                         int port = DEFAULT_CHEAT_CARD_PORT_SSL);
 

@@ -53,7 +53,7 @@ public:
     bool sendContacts(const QSharedPointer<RC::APIv1_5::UpdateContactData>&,
                       QH::AbstractNodeInfo *dist);
 
-    bool requestContacts(unsigned int userId,
+    bool requestContacts(const QByteArray &userKey,
                        QH::AbstractNodeInfo *dist);
     bool sendUpdateCard(unsigned int cardId, unsigned int version, QH::AbstractNodeInfo *dist);
 protected:

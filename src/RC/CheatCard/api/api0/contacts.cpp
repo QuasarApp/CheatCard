@@ -7,6 +7,7 @@
 //#
 
 #include "contacts.h"
+#include "user.h"
 
 namespace RC {
 namespace API {
@@ -18,16 +19,16 @@ QH::PKG::DBObject *Contacts::createDBObject() const {
 }
 
 QH::PKG::DBVariantMap Contacts::variantMap() const {
-    return {{"user",               {user,         QH::PKG::MemberType::Insert}},
-            {"childuserId",        {childUserId,  QH::PKG::MemberType::Insert}},
-            {"genesisKey",         {genesisKey,   QH::PKG::MemberType::Insert}},
-            {"info",               {info,         QH::PKG::MemberType::InsertUpdate}},
+    return {{"userKey",      {QString(userKey.toBase64(QByteArray::Base64UrlEncoding)),      QH::PKG::MemberType::Insert}},
+            {"childUserKey", {QString(childUserKey.toBase64(QByteArray::Base64UrlEncoding)), QH::PKG::MemberType::Insert}},
+            {"genesisKey",   {genesisKey,   QH::PKG::MemberType::Insert}},
+            {"info",         {info,         QH::PKG::MemberType::InsertUpdate}},
 
     };
 }
 
 bool Contacts::isValid() const {
-    return user && childUserId && genesisKey;
+    return userKey.size() && childUserKey.size() && genesisKey;
 }
 
 QString Contacts::primaryKey() const {
@@ -36,8 +37,8 @@ QString Contacts::primaryKey() const {
 
 QDataStream &Contacts::fromStream(QDataStream &stream) {
 
-    stream >> user;
-    stream >> childUserId;
+    stream >> userKey;
+    stream >> childUserKey;
     stream >> genesisKey;
     stream >> info;
 
@@ -46,8 +47,8 @@ QDataStream &Contacts::fromStream(QDataStream &stream) {
 
 QDataStream &Contacts::toStream(QDataStream &stream) const {
 
-    stream << user;
-    stream << childUserId;
+    stream << userKey;
+    stream << childUserKey;
     stream << genesisKey;
     stream << info;
 
@@ -55,7 +56,24 @@ QDataStream &Contacts::toStream(QDataStream &stream) const {
 }
 
 QString Contacts::condition() const {
-    return QString("user='%0' AND genesisKey='%1'").arg(user).arg(genesisKey);
+    QString strUserKey(userKey.toBase64(QByteArray::Base64UrlEncoding));
+    return QString("userKey='%0' AND genesisKey='%1'").arg(strUserKey).arg(genesisKey);
+}
+
+const QByteArray &Contacts::getUserKey() const {
+    return userKey;
+}
+
+void Contacts::setUserKey(const QByteArray &newUserKey) {
+    userKey = newUserKey;
+}
+
+const QByteArray &Contacts::getChildUserKey() const {
+    return childUserKey;
+}
+
+void Contacts::setChildUserKey(const QByteArray &newChildUserKey) {
+    childUserKey = newChildUserKey;
 }
 
 int Contacts::getGenesisKey() const {
@@ -67,19 +85,11 @@ void Contacts::setGenesisKey(int newGenesisKey) {
 }
 
 unsigned int Contacts::getChildUserId() const {
-    return childUserId;
-}
-
-void Contacts::setChildUserId(unsigned int  newPermisionKey) {
-    childUserId = newPermisionKey;
+    return API::User::makeId(childUserKey);
 }
 
 unsigned int Contacts::getUser() const {
-    return user;
-}
-
-void Contacts::setUser(unsigned int newUser) {
-    user = newUser;
+    return API::User::makeId(userKey);
 }
 
 const QString &Contacts::getInfo() const {
@@ -92,10 +102,12 @@ void Contacts::setInfo(const QString &newInfo) {
 
 bool Contacts::fromSqlRecord(const QSqlRecord &q) {
 
-    childUserId = q.value("childuserId").toUInt();
+    childUserKey = QByteArray::fromBase64(q.value("childUserKey").toByteArray(),
+                                          QByteArray::Base64UrlEncoding);
     genesisKey = q.value("genesisKey").toInt();
 
-    user = q.value("user").toUInt();
+    userKey = QByteArray::fromBase64(q.value("userKey").toByteArray(),
+                                    QByteArray::Base64UrlEncoding);
     info = q.value("info").toUInt();
 
     return true;

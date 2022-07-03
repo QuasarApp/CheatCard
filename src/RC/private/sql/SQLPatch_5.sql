@@ -7,17 +7,13 @@ BEGIN TRANSACTION;
 DROP TABLE Contacts;
 
 CREATE TABLE IF NOT EXISTS "Contacts" (
-       "user" INTEGER NOT NULL,
+       "userKey" VARCHAR(44) NOT NULL,
        "genesisKey" INTEGER NOT NULL,
-       "childuserId" INTEGER NOT NULL,
+       "childUserKey" VARCHAR(44) NOT NULL,
 
-       "info" TEXT DEFAULT '',
-
-       FOREIGN KEY(user) REFERENCES Users(id)
-               ON UPDATE CASCADE
-               ON DELETE CASCADE
+       "info" TEXT DEFAULT ''
 );
 
-CREATE UNIQUE INDEX ContactsIndex ON Contacts(user, genesisKey);
+CREATE UNIQUE INDEX ContactsIndex ON Contacts(userKey, genesisKey);
 
 COMMIT;

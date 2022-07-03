@@ -57,8 +57,10 @@ public:
      */
     virtual QList<QSharedPointer<API::UsersCards>> getAllUserCardsData(const QByteArray &userKey) = 0;
 
-    virtual QSharedPointer<API::Contacts> getContactFromChildId(unsigned int userId, unsigned int childUserId) = 0;
-    virtual QSharedPointer<API::Contacts> getContactFromGenesis(unsigned int userId, int genesis) = 0;
+    virtual QSharedPointer<API::Contacts> getContactFromChildId(const QByteArray& userKey, const QByteArray& childUserId) = 0;
+    virtual QSharedPointer<API::Contacts> getContactFromGenesis(const QByteArray& userKey, int genesis) = 0;
+    virtual QList<QSharedPointer<API::Contacts>> getMasterKeys(const QByteArray& childUserId) = 0;
+    virtual QList<QSharedPointer<API::Contacts>> getSlaveKeys(const QByteArray& userId) = 0;
 
 };
 

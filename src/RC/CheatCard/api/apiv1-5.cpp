@@ -293,15 +293,11 @@ bool ApiV1_5::processGetConntactsRequest(
         const QH::AbstractNodeInfo *sender,
         const QH::Header &hdr) {
 
-    QH::PKG::DBObjectsRequest<API::Contacts>
-            request("Contacts",
-                    QString("user = %0").arg(cardrequest->getUserId()));
+    auto slaveKeys = node()->getSlaveKeys(cardrequest->getUserKey());
 
-    auto result = db()->getObject(request);
-
-    if (result) {
+    if (slaveKeys.size()) {
         QH::PKG::DataPack<API::Contacts> responce;
-        responce.setPackData(result->data());
+        responce.setPackData(slaveKeys);
 
         return node()->sendData(&responce, sender,&hdr);
     }
@@ -444,10 +440,7 @@ bool ApiV1_5::cardValidation(const QSharedPointer<API::Card> &cardFromDB,
             return true;
 
         // check additional access
-        unsigned int childId = API::User::makeId(ownerSignature);
-        unsigned int ownerId = API::User::makeId(signature);
-
-        auto contact = node()->getContactFromChildId(ownerId, childId);
+        auto contact = node()->getContactFromChildId(signature, ownerSignature);
         return contact;
     }
 
@@ -528,10 +521,10 @@ bool ApiV1_5::sendContacts(const QSharedPointer<APIv1_5::UpdateContactData> & co
     return true;
 }
 
-bool ApiV1_5::requestContacts(unsigned int userId, QH::AbstractNodeInfo *dist) {
+bool ApiV1_5::requestContacts(const QByteArray& userKey, QH::AbstractNodeInfo *dist) {
 
     APIv1_5::GetConntactsRequest request;
-    request.setUserId(userId);
+    request.setUserKey(userKey);
 
     return node()->sendData(&request, dist, nullptr);
 }

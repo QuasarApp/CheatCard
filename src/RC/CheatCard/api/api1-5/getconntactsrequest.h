@@ -26,15 +26,16 @@ public:
     GetConntactsRequest();
     bool isValid() const override;
 
-    unsigned int getUserId() const;
-    void setUserId(unsigned int newUserId);
+
+    const QByteArray &getUserKey() const;
+    void setUserKey(const QByteArray &newUserKey);
 
 protected:
     QDataStream &fromStream(QDataStream &stream) override;
     QDataStream &toStream(QDataStream &stream) const override;
 
 private:
-    unsigned int userId = 0;
+    QByteArray userKey = 0;
 };
 
 }
