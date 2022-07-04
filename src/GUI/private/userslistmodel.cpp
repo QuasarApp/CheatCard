@@ -18,6 +18,9 @@ int RC::UsersListModel::rowCount(const QModelIndex &) const {
 }
 
 QVariant RC::UsersListModel::data(const QModelIndex &index, int role) const {
+    if (role == Row) {
+        return index.row();
+    }
 
     if (index.row() >= rowCount()) {
         return {};
@@ -46,6 +49,7 @@ QHash<int, QByteArray> RC::UsersListModel::roleNames() const {
 
     roles[UserObjectRole] = "userObject";
     roles[UserId] = "userID";
+    roles[Row] = "rowNumber";
 
     return roles;
 

@@ -45,7 +45,9 @@
 #include "cmath"
 #include <qmlnotifyservice.h>
 
+#include <CheatCard/dataconvertor.h>
 #include <CheatCard/sellerssl.h>
+#include <CheatCard/usersnames.h>
 #include <CheatCard/visitorssl.h>
 
 #include <QDir>
@@ -84,6 +86,7 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
     qRegisterMetaType<QSharedPointer<RC::API::Card>>();
     qRegisterMetaType<QSharedPointer<RC::API::Session>>();
     qRegisterMetaType<QSharedPointer<RC::API::UserHeader>>();
+    qRegisterMetaType<QSharedPointer<RC::API::Contacts>>();
 
     initBackgroundsModel();
     initIconsModel();
@@ -247,31 +250,29 @@ void MainModel::handlePermissionRemoved(QSharedPointer<API::Contacts> permision)
                                      true);
 }
 
-void MainModel::handlePermissionAdded(const QString &childUserName) {
+void MainModel::handlePermissionAdded(QSharedPointer<API::UserHeader> childUserName) {
     // send to server remove request
 
     if (!_currentUser || !_currentUser->user()) {
         return;
     }
 
-    auto childUser = QSharedPointer<API::User>::create();
+    auto childUser = DataConvertor::toUser(childUserName);
+
+    childUser->setName(childUserName->userName());
+    if (childUser->name().isEmpty()) {
+        childUser->setName(UsersNames::randomUserName());
+    }
+
     auto contacts = QSharedPointer<API::Contacts>::create();
 
-    if (!_backEndModel->createChilduser(childUserName, childUser, contacts)) {
+    if (!_backEndModel->createContact(childUser, contacts)) {
         return;
     }
 
     _backEndModel->updateContactData(*contacts,
                                      _currentUser->user()->secret(),
                                      false);
-}
-
-void MainModel::handleContactsStatusResult(QSharedPointer<API::Contacts> contact,
-                                           bool succesed, bool removed) {
-    _permisionsModel->handleServerResult(contact,
-                                         _currentUser->user(),
-                                         succesed,
-                                         removed);
 }
 
 const QSharedPointer<UserModel>& MainModel::getCurrentUser() const {
@@ -319,8 +320,7 @@ void MainModel::setCurrentUser(const QSharedPointer<RC::UserModel>& value) {
             _cardsListModel->updateMetaData(result->data());
         }
 
-        _permisionsModel->setPermissions(_backEndModel->getSlaveKeys(userKey),
-                                         _currentUser->user());
+        _permisionsModel->setPermissions(_backEndModel->getSlaveKeys(userKey));
 
         if (_billing) {
             connect(_currentUser.data(), &UserModel::sigBecomeSeller,
@@ -490,7 +490,7 @@ void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
                    _waitModel, &WaitConnectionModel::handleSessionServerResult);
 
         disconnect(_backEndModel.data(), &BaseNode::sigContactsStatusResult,
-                   this, &MainModel::handleContactsStatusResult);
+                   _permisionsModel, &PermisionsModel::handleServerResult);
     }
 
     _backEndModel = newModel;
@@ -520,7 +520,7 @@ void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
                 _waitModel, &WaitConnectionModel::handleSessionServerResult);
 
         connect(_backEndModel.data(), &BaseNode::sigContactsStatusResult,
-                this, &MainModel::handleContactsStatusResult);
+                _permisionsModel, &PermisionsModel::handleServerResult);
 
 
         _backEndModel->checkNetworkConnection();

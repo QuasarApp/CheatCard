@@ -83,11 +83,6 @@ APIObjectsFactoryV0::getContactFromChildId(const QByteArray& userId, const QByte
     return getContactFromChildIdImpl<API::Contacts>(userId, childUserId);
 }
 
-QSharedPointer<API::Contacts>
-APIObjectsFactoryV0::getContactFromGenesis(const QByteArray& userId, int genesis) {
-    return getContactFromGenesisIdImpl<API::Contacts>(userId, genesis);
-}
-
 QList<QSharedPointer<API::Contacts> >
 APIObjectsFactoryV0::getMasterKeys(const QByteArray& childUserId) {
     return getMasterKeysImpl<API::Contacts>(childUserId);

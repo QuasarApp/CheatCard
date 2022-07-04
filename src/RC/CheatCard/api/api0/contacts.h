@@ -9,7 +9,7 @@
 #define SALLERSUSERS_H
 #include <dbobject.h>
 #include "CheatCard/core_global.h"
-
+#include <QSharedPointer>
 
 namespace RC {
 namespace API {
@@ -34,16 +34,17 @@ public:
 
     unsigned int getChildUserId() const;
 
-    int getGenesisKey() const;
-    void setGenesisKey(int newGenesisKey);
-
     const QByteArray &getChildUserKey() const;
     void setChildUserKey(const QByteArray &newChildUserKey);
 
     const QByteArray &getUserKey() const;
     void setUserKey(const QByteArray &newUserKey);
 
-    QSharedPointer<API::User> toUser(const QSharedPointer<API::User>& currentUser) const;
+    /**
+     * @brief toUser Create a readOnly user (without private key)
+     * @return  readOnly user
+     */
+    QSharedPointer<API::User> toUser() const;
 protected:
     QString primaryKey() const override;
     QDataStream &fromStream(QDataStream &stream) override;
@@ -54,7 +55,6 @@ private:
     QByteArray childUserKey;
 
     QByteArray userKey;
-    int genesisKey = 0;
 
     QString info;
 
@@ -62,4 +62,7 @@ private:
 
 }
 }
+
+Q_DECLARE_METATYPE(RC::API::Contacts)
+Q_DECLARE_METATYPE(QSharedPointer<RC::API::Contacts>)
 #endif // SALLERSUSERS_H

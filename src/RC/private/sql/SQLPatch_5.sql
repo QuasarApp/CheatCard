@@ -8,12 +8,10 @@ DROP TABLE Contacts;
 
 CREATE TABLE IF NOT EXISTS "Contacts" (
        "userKey" VARCHAR(44) NOT NULL,
-       "genesisKey" INTEGER NOT NULL,
        "childUserKey" VARCHAR(44) NOT NULL,
-
        "info" TEXT DEFAULT ''
 );
 
-CREATE UNIQUE INDEX ContactsIndex ON Contacts(userKey, genesisKey);
+CREATE UNIQUE INDEX ContactsIndex ON Contacts(userKey, childUserKey);
 
 COMMIT;

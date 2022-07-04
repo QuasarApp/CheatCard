@@ -63,13 +63,11 @@ public:
     /**
      * @brief createNewContact This method create a new contact and new child user account of current user.
      * The child account's seccret key it is sha256 of the secreet key of the current user + random genesis number.;
-     * @param description This is name of the child user.
-     * @param resultChilduserAccount This is result child account
+     * @param anotherUser This is another childAccount
      * @param resultContact this is result contact object.
      * @return true if function crate all items successfull else false.
      */
-    bool createChilduser(const QString& description,
-                     QSharedPointer<API::User>& resultChilduserAccount,
+    bool createContact(const QSharedPointer<API::User>& anotherUser,
                      QSharedPointer<API::Contacts>& resultContact);
 
     bool restoreAllData(const QByteArray &curentUserKey,

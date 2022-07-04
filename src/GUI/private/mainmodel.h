@@ -74,6 +74,7 @@ class MainModel : public QObject, public QuasarAppUtils::SettingsListner
     Q_PROPERTY(QObject * activityProcessorModel READ activityProcessorModel NOTIFY activityProcessorModelChanged)
     Q_PROPERTY(QObject * createCardModel READ createCardModel NOTIFY createCardModelChanged)
     Q_PROPERTY(QObject * usersListModel READ usersListModel NOTIFY usersListModelChanged)
+    Q_PROPERTY(QObject * permisionsModel READ permisionsModel CONSTANT)
 
 
 public:
@@ -190,9 +191,8 @@ private slots:
     void handleAppOutdated(int minimumRequiredVersion);
     void handlePermissionChanged(const QSharedPointer<RC::API::Contacts>& permision);
     void handlePermissionRemoved(QSharedPointer<RC::API::Contacts> permision);
-    void handlePermissionAdded(const QString &childUserName);
-    void handleContactsStatusResult(QSharedPointer<API::Contacts> contact,
-                                    bool succesed, bool removed);
+    void handlePermissionAdded(QSharedPointer<API::UserHeader> childUserName);
+
 private:
     void saveUser();
     void lastStatusRequest();

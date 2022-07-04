@@ -44,7 +44,6 @@ void ContactsTest::test() {
     auto sellerUser = seller->getUser(CheatCardTestsHelper::testUserId());
     auto clientUser = CheatCardTestsHelper::makeUser();
     unsigned int cardId = CheatCardTestsHelper::testCardId();
-    unsigned int userId = sellerUser->userId();
     auto sellerUserKey = sellerUser->getKey();
 
     unsigned int clientUserId = clientUser->userId();
@@ -63,10 +62,11 @@ void ContactsTest::test() {
     auto obj = QSharedPointer<RC::API::UserHeader>::create();
 
     auto childSeller = QSharedPointer<RC::API::User>::create();
+    childSeller->setName("child");
     auto contact = QSharedPointer<RC::API::Contacts>::create();
 
     // create child seller user
-    QVERIFY(seller->createChilduser("child", childSeller, contact));
+    QVERIFY(seller->createContact(childSeller, contact));
 
     QVERIFY(seller->updateContactData(*contact,
                                       sellerUser->secret(),

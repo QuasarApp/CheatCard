@@ -21,7 +21,6 @@ UpdateContactData::UpdateContactData(const Contacts &contact) {
     setInfo(contact.getInfo());
     setUserKey(contact.getUserKey());
     setChildUserKey(contact.getChildUserKey());
-    setGenesisKey(contact.getGenesisKey());
 }
 
 QDataStream &UpdateContactData::fromStream(QDataStream &stream) {

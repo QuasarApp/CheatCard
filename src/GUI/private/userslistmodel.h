@@ -35,7 +35,8 @@ public:
 
     enum Roles {
         UserObjectRole = Qt::UserRole,
-        UserId
+        UserId,
+        Row
 
     };
 

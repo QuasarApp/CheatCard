@@ -16,6 +16,9 @@ namespace RC {
 class UserModel;
 class WaitConfirmModel;
 
+namespace API {
+class UserHeader;
+}
 /**
  * @brief The PermisioonsModel class
  */
@@ -33,22 +36,22 @@ public:
     };
 
     Q_INVOKABLE void setNewDescription(int row, const QString& description);
-    Q_INVOKABLE void addNewPermision(const QString& description);
+    Q_INVOKABLE void addNewPermision(const QString &rawUserHeaderData);
     Q_INVOKABLE void removePermision(int row);
 
-    void setPermissions(const QList<QSharedPointer<API::Contacts> > &newData,
-                        const QSharedPointer<API::User>& currentUser);
+    void setPermissions(const QList<QSharedPointer<API::Contacts> > &newData);
 
     QObject *waitModel() const;
 
+public slots:
+
     void handleServerResult(const QSharedPointer<RC::API::Contacts>& contact,
-                            const QSharedPointer<API::User>& currentuser,
                             bool succesed, bool removed);
 
 signals:
     void sigPermisionUpdated(const QSharedPointer<RC::API::Contacts>& permision);
     void sigPermisionRemoved(QSharedPointer<RC::API::Contacts> permision);
-    void sigPermisionAdded(const QString& name);
+    void sigPermisionAdded(QSharedPointer<RC::API::UserHeader> userHeader);
 
 private:
     QHash<unsigned int, QSharedPointer<RC::API::Contacts>> _data;

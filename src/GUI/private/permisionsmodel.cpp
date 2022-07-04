@@ -9,6 +9,7 @@
 #include "usermodel.h"
 #include "waitconfirmmodel.h"
 #include <QQmlEngine>
+#include <qmlnotifyservice.h>
 
 namespace RC {
 
@@ -22,19 +23,18 @@ PermisionsModel::~PermisionsModel() {
     delete _waitModel;
 }
 
-void PermisionsModel::setPermissions(const QList<QSharedPointer<API::Contacts> > &newData,
-                                     const QSharedPointer<API::User> &currentUser) {
+void PermisionsModel::setPermissions(const QList<QSharedPointer<API::Contacts> > &newData) {
     // clear old users list;
     _data.clear();
     setUsers({});
 
 
     for (const QSharedPointer<API::Contacts>& permision : newData) {
-        _data.insert(permision->getGenesisKey(),
+        _data.insert(permision->getChildUserId(),
                      permision
                      );
 
-        importUser(permision->toUser(currentUser));
+        importUser(permision->toUser());
     }
 }
 
@@ -43,7 +43,6 @@ QObject *PermisionsModel::waitModel() const {
 }
 
 void PermisionsModel::handleServerResult(const QSharedPointer<API::Contacts>& contact,
-                                         const QSharedPointer<API::User> &currentUser,
                                          bool succesed, bool removed) {
 
     _waitModel->confirm(1, succesed);
@@ -51,11 +50,11 @@ void PermisionsModel::handleServerResult(const QSharedPointer<API::Contacts>& co
     if (removed) {
         // to-do
     } else {
-        _data.insert(contact->getGenesisKey(),
+        _data.insert(contact->getChildUserId(),
                      contact
                      );
 
-        importUser(contact->toUser(currentUser));
+        importUser(contact->toUser());
     }
 }
 
@@ -81,11 +80,18 @@ void PermisionsModel::setNewDescription(int row, const QString &description) {
     }
 }
 
-void PermisionsModel::addNewPermision(const QString &description) {
+void PermisionsModel::addNewPermision(const QString& rawUserHeaderdata) {
+
+    auto header = QSharedPointer<API::UserHeader>::create();
+    header->fromBytes(QByteArray::fromHex(rawUserHeaderdata.toLatin1()));
+
+    if (!header->isValid()) {
+        return;
+    }
 
     _waitModel->wait(1);
 
-    emit sigPermisionAdded(description);
+    emit sigPermisionAdded(header);
 }
 
 void PermisionsModel::removePermision(int row) {
@@ -98,7 +104,21 @@ void PermisionsModel::removePermision(int row) {
     }
 
     if (_data.contains(userModel->userId())) {
-        emit sigPermisionRemoved(_data[userModel->userId()]);
+        auto service = QmlNotificationService::NotificationService::getService();
+
+
+        QmlNotificationService::Listner listner = [userModel, this] (bool accepted) {
+            if (accepted) {
+                emit sigPermisionRemoved(_data[userModel->userId()]);
+            }
+        };
+
+        service->setQuestion(listner, tr("Remove access for %0 ").arg(userModel->name()),
+                           tr("If You remove access for the %0 user, he cannot be use your cards anymore.").
+                             arg(userModel->name()) +
+                           tr(" Do you want to continue?"),
+                           "");
+
     }
 
 }

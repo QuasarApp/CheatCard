@@ -11,6 +11,10 @@ import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
 
 Page {
+    property var waitModel: null
+
+    padding: 10
+
     header: Label {
         horizontalAlignment: Label.AlignHCenter
         text: title
@@ -20,4 +24,21 @@ Page {
 
     }
 
+    Frame {
+        id: waitForCondition
+        visible : Boolean(waitModel && waitModel.waitConfirm)
+        anchors.fill: parent
+
+        contentItem: ColumnLayout {
+            Label {
+                text: qsTr("Please wait for response from server");
+                Layout.alignment: Qt.AlignHCenter || Qt.AlignVCenter
+            }
+
+            BusyIndicator {
+                Layout.alignment: Qt.AlignHCenter || Qt.AlignVCenter
+                running: true;
+            }
+        }
+    }
 }

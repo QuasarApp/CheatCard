@@ -34,7 +34,6 @@ public:
     QList<QSharedPointer<API::Card> > getAllUserCards(const QByteArray &userKey, bool restOf) override;
     QList<QSharedPointer<API::UsersCards> > getAllUserCardsData(const QByteArray &userKey) override;
     QSharedPointer<API::Contacts> getContactFromChildId(const QByteArray& userId, const QByteArray& childUserId) override;
-    QSharedPointer<API::Contacts> getContactFromGenesis(const QByteArray& userId, int genesis) override;
     QList<QSharedPointer<API::Contacts>> getMasterKeys(const QByteArray& childUserId) override;
     QList<QSharedPointer<API::Contacts>> getSlaveKeys(const QByteArray& userId) override;
 

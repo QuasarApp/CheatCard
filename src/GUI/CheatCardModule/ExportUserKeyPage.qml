@@ -71,7 +71,7 @@ CPage {
 
             Layout.alignment: Qt.AlignHCenter
             fileName: "CheatCard-" + ((root.model)? root.model.name: "") + ".qrrc";
-            inputText: (root.model)? root.model.userBackUpData(): "Sorry"
+            inputText: (root.model)? root.model.userBackUpData(): ""
         }
 
         Button {

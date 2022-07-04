@@ -440,31 +440,19 @@ void BaseNode::init() {
     initCheatCardBaseResources();
 }
 
-bool BaseNode::createChilduser(const QString &description,
-                                QSharedPointer<API::User> &resultChilduserAccount,
+bool BaseNode::createContact(const QSharedPointer<API::User> &anotherUser,
                                 QSharedPointer<API::Contacts> &resultContact) {
 
     if (!_currentUser->isValid())
         return false;
 
-    // generate new genesis number
-    int genesis = rand();
-
-    auto inputData = _currentUser->secret();
-    inputData.insert(inputData.size(), reinterpret_cast<char*>(&genesis), sizeof (genesis));
-
-    resultChilduserAccount->setSecret(QCryptographicHash::hash(inputData,
-                                                               QCryptographicHash::Sha256));
-    resultChilduserAccount->regenerateKeys();
-    resultChilduserAccount->setName(description);
-
-    if (!resultChilduserAccount->isValid())
+    if (_currentUser->userId() == anotherUser->userId()) {
         return false;
+    }
 
     resultContact->setUserKey(_currentUser->getKey());
-    resultContact->setGenesisKey(genesis);
-    resultContact->setInfo(description);
-    resultContact->setChildUserKey(resultChilduserAccount->getKey());
+    resultContact->setInfo(anotherUser->name());
+    resultContact->setChildUserKey(anotherUser->getKey());
 
     return resultContact->isValid();
 }

@@ -156,16 +156,6 @@ Frame {
                 fileName: "currentuserqrcode";
                 inputText: (userModel)? (userModel.sessionCode): ""
 
-
-                MouseArea {
-                    anchors.fill: parent
-
-                    onReleased: {
-                        activityProcessor.newActivity("qrc:/CheatCardModule/QrCodeView.qml",
-                                                      qrBox.qrCodeFilePath);
-                        userPanel.close()
-                    }
-                }
             }
             AdditionalInformationForSeller {
                 implicitWidth: 0x0

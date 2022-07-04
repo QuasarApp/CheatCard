@@ -16,18 +16,64 @@ CPage {
     title: qsTr("Your Workers")
 
     id: root
-    property var model: mainModel.permisionsModel
+    property var model: null
+    waitModel: (model)? model.waitModel: null
 
     contentItem:
-        GridLayout {
-        flow: (flowChecker.fHorisontal)?  GridLayout.LeftToRight :GridLayout.TopToBottom
+        ColumnLayout {
+        spacing: 20
+        visible : !(waitModel && waitModel.waitConfirm)
 
-
-        ExportUserKeyPage {
-            fExport: true
-            model: (root.model)? root.model.currentUserModel: null
-            Layout.fillHeight: true
+        Label {
+            font.pointSize: 16
+            font.bold: true
+            color: "#999999"
+            Layout.alignment: Qt.AlignHCenter |  Qt.AlignVCenter
             Layout.fillWidth: true
+            wrapMode: Label.WordWrap
+            verticalAlignment: Text.AlignVCenter | Text.AlignHCenter
+            horizontalAlignment: Text.AlignVCenter | Text.AlignHCenter
+
+            text: qsTr("If you want to add access to your cards, you can add workers.")
+        }
+
+        Label {
+            color: "#999999"
+            Layout.alignment: Qt.AlignHCenter |  Qt.AlignVCenter
+            Layout.fillWidth: true
+            wrapMode: Label.WordWrap
+            verticalAlignment: Text.AlignVCenter
+            text: qsTr("How to manage your workers:")
+        }
+
+        Label {
+            color: "#999999"
+            Layout.alignment: Qt.AlignHCenter |  Qt.AlignVCenter
+            Layout.fillWidth: true
+            wrapMode: Label.WordWrap
+            horizontalAlignment: Text.AlignJustify
+            verticalAlignment: Text.AlignVCenter
+            text: qsTr("* Click the 'Scan QR code of your worker' button and scan a qr code from the sidebar of your worker's device.")
+        }
+
+        Label {
+            color: "#999999"
+            Layout.alignment: Qt.AlignHCenter |  Qt.AlignVCenter
+            Layout.fillWidth: true
+            wrapMode: Label.WordWrap
+            horizontalAlignment: Text.AlignJustify
+            verticalAlignment: Text.AlignVCenter
+            text: qsTr("* Your worker will get access to all your cards")
+        }
+
+        Label {
+            color: "#999999"
+            Layout.alignment: Qt.AlignHCenter |  Qt.AlignVCenter
+            Layout.fillWidth: true
+            wrapMode: Label.WordWrap
+            horizontalAlignment: Text.AlignJustify
+            verticalAlignment: Text.AlignVCenter
+            text: qsTr("* If you want to remove access of your cards, just remove the worker record on the bottom workers list menu.")
         }
 
         ListView {
@@ -36,13 +82,19 @@ CPage {
             Layout.fillHeight: true
             Layout.fillWidth: true
 
+            ScrollBar.vertical: ScrollBar {}
+
             Component {
                 id: delegateItem
 
                 RowLayout {
+                    width: list.width
+                    height: implicitHeight
+
                     UserView {
                         id: userView
-                        width: list.width
+                        Layout.alignment: Qt.AlignHCenter
+                        Layout.fillWidth: true
                         height: implicitHeight
                         model: userObject
                         userDefaultAvatar: (root.model)?
@@ -63,6 +115,11 @@ CPage {
                         font.pointSize: 14
 
                         onClicked: () => {
+                                       if (userObject) {
+                                           workerName.text = userObject.name
+                                       }
+                                       enternameDalog.currentRow = rowNumber
+                                       enternameDalog.open()
                                    }
                     }
 
@@ -73,6 +130,7 @@ CPage {
                         font.pointSize: 14
 
                         onClicked: () => {
+                                        list.model.removePermision(rowNumber)
                                    }
                     }
                 }
@@ -80,21 +138,39 @@ CPage {
 
             delegate: delegateItem
 
-            Button {
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.bottom: parent.bottom
-                text: qsTr("Add new worker account")
+        }
 
+        Button {
+            text: qsTr("Scan QR code of your worker")
+            Layout.alignment: Qt.AlignHCenter
+            Component {
+                id: scaner
+                QrScanner {
+                    id:qrScaner
+                    onCaptured: (data) => {
+                                    root.model.addNewPermision(data);
+                                    activityProcessor.popItem();
 
-                onClicked: {
-                    enternameDalog.open()
+                                }
+
+                    onVisibleChanged: {
+                        if(!visible)
+                            destroy()
+                    }
                 }
+            }
+
+            onClicked: {
+                activityProcessor.newActivityFromComponent(scaner);
             }
         }
     }
 
     Dialog {
         id: enternameDalog
+
+        property int currentRow: 0
+
         x: parent.width / 2 - enternameDalog.width / 2
         y: parent.height / 2 - enternameDalog.height / 2
 
@@ -102,9 +178,10 @@ CPage {
         standardButtons: Dialog.Ok | Dialog.Cancel
 
         onAccepted: {
-            if (root.model)
-                root.model.addNewPermision(workerName);
-                workerName.text = "";
+            if (root.model) {
+                root.model.setNewDescription(currentRow, workerName.text);
+            }
+
         }
 
         contentItem: TextField {

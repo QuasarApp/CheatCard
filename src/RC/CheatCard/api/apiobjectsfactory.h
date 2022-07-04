@@ -219,26 +219,6 @@ protected:
     }
 
     template<class Contacts>
-    QSharedPointer<Contacts> getContactFromGenesisIdImpl(const QByteArray& userKey, unsigned int genesis) {
-        check_type(Contacts);
-
-        QString whereBlock = QString("userKey='%0' AND genesisKey='%1'").
-                arg(QString(userKey.toBase64(QByteArray::Base64UrlEncoding))).
-                arg(genesis);
-
-        QH::PKG::DBObjectsRequest<Contacts>
-                request("Contacts", whereBlock);
-
-
-        auto result = _db->getObject(request);
-
-        if (!result || result->data().isEmpty())
-            return {};
-
-        return *result->data().begin();
-    }
-
-    template<class Contacts>
     QList<QSharedPointer<Contacts>> getMasterKeysImpl(const QByteArray& childUserKey) {
         check_type(Contacts);
 
