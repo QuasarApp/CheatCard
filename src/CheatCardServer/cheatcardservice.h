@@ -29,7 +29,7 @@ public:
 private:
 
     RC::Server *_serverSSL = nullptr;
-
+    QString dbBackPath;
     RC::DataBase * _db = nullptr;
 
 

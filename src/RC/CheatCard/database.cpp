@@ -14,6 +14,7 @@
 #include <getsinglevalue.h>
 
 #include <CheatCard/api/api0/card.h>
+#include <QDir>
 
 namespace RC {
 
@@ -46,6 +47,9 @@ bool DataBase::backUp() const {
 
     if (db() && db()->writer() &&
             QFile::exists(db()->writer()->databaseLocation())) {
+
+        QDir().mkpath(_backUp);
+
         return QFile::copy(db()->writer()->databaseLocation(), file);
     }
 

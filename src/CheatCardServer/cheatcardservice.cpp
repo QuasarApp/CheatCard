@@ -17,19 +17,14 @@ CheatCardService::CheatCardService(int argc, char **argv):
     QString fileLog = QuasarAppUtils::Params::getArg("fileLog");
 
     if (!fileLog.length()) {
-        QuasarAppUtils::Params::setArg("fileLog", QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/log" + QDateTime::currentDateTimeUtc().toString("_dd_MM_yyyy") + ".log");
+        QuasarAppUtils::Params::setArg("fileLog",
+                                       QStandardPaths::writableLocation(
+                                           QStandardPaths::AppDataLocation) + "/log" +
+                                       QDateTime::currentDateTimeUtc().toString("_dd_MM_yyyy") +
+                                       ".log");
     }
 
-    QString dbBackUp = QuasarAppUtils::Params::getArg("dbBackUp");
-
-    if (!dbBackUp.length()) {
-        QuasarAppUtils::Params::setArg("dbBackUp", QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/dbBackUp/");
-    }
-
-    QuasarAppUtils::Params::log("Log available in: " + QuasarAppUtils::Params::getArg("fileLog"));
     QuasarAppUtils::Params::log("BackUps available in: " + QuasarAppUtils::Params::getArg("dbBackUp"));
-
-
 }
 
 CheatCardService::~CheatCardService() {
@@ -44,7 +39,9 @@ CheatCardService::~CheatCardService() {
 
 bool CheatCardService::onStart() {
     if (!_db) {
-        _db = new RC::DataBase("", QuasarAppUtils::Params::getArg("dbBackUp"));
+        _db = new RC::DataBase("",
+                               QStandardPaths::writableLocation(
+                                   QStandardPaths::AppDataLocation) + "/dbBackUp/");
         _db->initSqlDb();
     }
 
@@ -90,11 +87,10 @@ bool CheatCardService::handleReceive(const Patronum::Feature &data) {
 
         if (!(_db && _db->backUp())) {
             sendResuylt("Failed to make backup of data base");
+        } else {
+            sendResuylt("Back up created sucessfull");
         }
-
-        sendResuylt("Back up created sucessfull");
     }
-
 
     return true;
 }
