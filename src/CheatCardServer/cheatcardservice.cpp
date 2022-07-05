@@ -85,10 +85,21 @@ bool CheatCardService::handleReceive(const Patronum::Feature &data) {
         sendResuylt("New verbose level is " + QuasarAppUtils::Params::getArg("verbose"));
     } else if (data.cmd() == "backUp") {
 
-        if (!(_db && _db->backUp())) {
-            sendResuylt("Failed to make backup of data base");
+        if (!_db) {
+            sendResuylt("Failed to make backup of data base: Server not initialised");
+            return true;
+        }
+
+        QString distPath = data.arg();
+        if (!distPath.isEmpty()) {
+            distPath = _db->backUpPath();
+        }
+
+        QString result = _db->backUp(distPath);
+        if (result.size()) {
+            sendResuylt("Back up created sucessfull in: " + result);
         } else {
-            sendResuylt("Back up created sucessfull");
+            sendResuylt("Failed to make backup of data base");
         }
     }
 
@@ -100,7 +111,7 @@ QSet<Patronum::Feature> CheatCardService::supportedFeatures() {
 
     data << Patronum::Feature("ping", {}, "This is description of the ping command");
     data << Patronum::Feature("state", {}, "return state");
-    data << Patronum::Feature("backUp", {}, "make back up of current database ");
+    data << Patronum::Feature("backUp", "path to backup dir", "make back up of current database ");
     data << Patronum::Feature("setVerbose", "verbose level", "sets new verbose log level");
 
     return data;

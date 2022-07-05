@@ -22,7 +22,7 @@ DataBase::DataBase(const QString &name, const QString &backUpLocation) {
     if (name.size())
         setLocalNodeName(name);
 
-    _backUp = backUpLocation;
+    setBackUpPath(backUpLocation);
 }
 
 QH::ISqlDBCache *DataBase::db() const {
@@ -37,23 +37,29 @@ QStringList DataBase::SQLSources() const {
     return QH::DataBaseNode::SQLSources() << ":/DataBase/private/sql/DataBase.sql";
 }
 
-bool DataBase::backUp() const {
+QString DataBase::backUp(QString path) const {
 
-    if (_backUp.isEmpty()) {
-        return false;
+    if (path.isEmpty()) {
+        path = _backUpPath;
     }
 
-    auto file = _backUp + "/DB-" + QDateTime::currentDateTimeUtc().toString("hh:mm:ss_dd_MM_yyyy") + ".db";
+    if (path.isEmpty()) {
+        return {};
+    }
+
+    auto file = path + "/DB-" + QDateTime::currentDateTimeUtc().toString("hh:mm:ss_dd_MM_yyyy") + ".db";
 
     if (db() && db()->writer() &&
             QFile::exists(db()->writer()->databaseLocation())) {
 
-        QDir().mkpath(_backUp);
+        QDir().mkpath(path);
 
-        return QFile::copy(db()->writer()->databaseLocation(), file);
+        if (!QFile::copy(db()->writer()->databaseLocation(), file)) {
+            return {};
+        }
     }
 
-    return false;
+    return file;
 }
 
 // See https://quasarapp.ddns.net:3031/docs/QuasarApp/Heart/latest/classQH_1_1DataBaseNode.html#a9e2969af3bd4e6b49b80820000aef108
@@ -74,6 +80,14 @@ QH::DBPatchMap DataBase::dbPatches() const {
     result += beta2Patches();
 
     return result;
+}
+
+const QString &DataBase::backUpPath() const {
+    return _backUpPath;
+}
+
+void DataBase::setBackUpPath(const QString &newBackUpPath) {
+    _backUpPath = newBackUpPath;
 }
 
 QH::DBPatchMap DataBase::beta1Patches() const {
