@@ -11,8 +11,8 @@ import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
 import com.scythestudio.scodes 1.0
-
-Page {
+import "Style"
+CPage {
 
     id: root
     property var model: mainModel.usersListModel

@@ -48,12 +48,10 @@ void PermisionsModel::handleServerResult(const QSharedPointer<API::Contacts>& co
     _waitModel->confirm(1, succesed);
 
     if (removed) {
-        // to-do
+        _data.remove(contact->getChildUserId());
+        removeUser(contact->getChildUserId());
     } else {
-        _data.insert(contact->getChildUserId(),
-                     contact
-                     );
-
+        _data[contact->getChildUserId()] = contact;
         importUser(contact->toUser());
     }
 }
@@ -76,6 +74,9 @@ void PermisionsModel::setNewDescription(int row, const QString &description) {
 
     if (_data.contains(userModel->userId())) {
         _data[userModel->userId()]->setInfo(description);
+
+        _waitModel->wait(1);
+
         emit sigPermisionUpdated(_data[userModel->userId()]);
     }
 }
@@ -109,6 +110,7 @@ void PermisionsModel::removePermision(int row) {
 
         QmlNotificationService::Listner listner = [userModel, this] (bool accepted) {
             if (accepted) {
+                _waitModel->wait(1);
                 emit sigPermisionRemoved(_data[userModel->userId()]);
             }
         };
@@ -121,5 +123,10 @@ void PermisionsModel::removePermision(int row) {
 
     }
 
+}
+
+void PermisionsModel::refresh() {
+    _waitModel->wait(1);
+    emit sigRefresh();
 }
 }

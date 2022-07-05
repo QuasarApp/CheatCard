@@ -67,6 +67,13 @@
     </message>
 </context>
 <context>
+    <name>CPage</name>
+    <message>
+        <source>Please wait for response from server</source>
+        <translation type="unfinished">Пожалуйста, дождитесь ответа от сервера</translation>
+    </message>
+</context>
+<context>
     <name>CardsListView</name>
     <message>
         <source>Don&apos;t have any cards yet? </source>
@@ -339,8 +346,8 @@
         <translation>**Общий доступ к вашей учетной записи**</translation>
     </message>
     <message>
-        <source>Scan This Qr code using the &apos;import user option&apos; on left drop menu or in a user&apos;s list page on another device to export this user account to another device.</source>
-        <translation>Отсканируйте этот Qr-код, используя «параметр импорта пользователя» в левом раскрывающемся меню или на странице списка пользователей на другом устройстве, чтобы экспортировать эту учетную запись пользователя на другое устройство.</translation>
+        <source>Scan This Qr code using the &apos;import user&apos; button on the bottom of a user&apos;s list page on another device to export this user account to another device.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -635,15 +642,35 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Add new worker account</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Create a new worker&apos;s account</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Enter your worker name.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you want to add access to your cards, you can add workers.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>How to manage your workers:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* Click the &apos;Scan QR code of your worker&apos; button and scan a qr code from the sidebar of your worker&apos;s device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* Your worker will get access to all your cards</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* If you want to remove access of your cards, just remove the worker record on the bottom workers list menu.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scan QR code of your worker</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -782,6 +809,21 @@
     </message>
 </context>
 <context>
+    <name>RC::PermisionsModel</name>
+    <message>
+        <source>Remove access for %0 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If You remove access for the %0 user, he cannot be use your cards anymore.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> Do you want to continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>RC::SellerStatisticModel</name>
     <message>
         <source>Name</source>
@@ -840,11 +882,34 @@
     </message>
 </context>
 <context>
-    <name>RC::WaitConnectionModel</name>
+    <name>RC::WaitConfirmModel</name>
+    <message>
+        <source>Not so fast!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please wait for finished of a previous request</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>We Have trouble</source>
+        <translation type="unfinished">У нас проблемы</translation>
+    </message>
+    <message>
+        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
+        <translation type="unfinished">Не удалось выдать бонус или штамп. Возможно, ваши локальные данные устарели, мы уже обновляем ваши локальные данные. Пожалуйста, попробуйте еще раз оформить бонус или штамп.</translation>
+    </message>
+    <message>
+        <source>Server not responds</source>
+        <translation type="unfinished">Сервер не отвечает</translation>
+    </message>
     <message>
         <source>Hmm, maybe you have a super slow internet connection... Try again</source>
-        <translation>Хм, возможно, у вас очень медленное интернет-соединение... Попробуйте еще раз</translation>
+        <translation type="unfinished">Хм, возможно, у вас очень медленное интернет-соединение... Попробуйте еще раз</translation>
     </message>
+</context>
+<context>
+    <name>RC::WaitConnectionModel</name>
     <message>
         <source>We Have trouble</source>
         <translation>У нас проблемы</translation>
@@ -852,10 +917,6 @@
     <message>
         <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
         <translation>Не удалось выдать бонус или штамп. Возможно, ваши локальные данные устарели, мы уже обновляем ваши локальные данные. Пожалуйста, попробуйте еще раз оформить бонус или штамп.</translation>
-    </message>
-    <message>
-        <source>Server not responds</source>
-        <translation>Сервер не отвечает</translation>
     </message>
 </context>
 <context>
@@ -1005,10 +1066,6 @@
     <message>
         <source>Select the number of purchases that the customer has made.</source>
         <translation>Выберите количество покупок, которые совершил клиент.</translation>
-    </message>
-    <message>
-        <source>Please wait for response from server</source>
-        <translation>Пожалуйста, дождитесь ответа от сервера</translation>
     </message>
 </context>
 </TS>

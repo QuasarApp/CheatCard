@@ -275,6 +275,12 @@ void MainModel::handlePermissionAdded(QSharedPointer<API::UserHeader> childUserN
                                      false);
 }
 
+void MainModel::handleRefreshPermissions() {
+    if (_backEndModel && _currentUser) {
+        _backEndModel->getContactsList(_currentUser->user()->getKey());
+    }
+}
+
 const QSharedPointer<UserModel>& MainModel::getCurrentUser() const {
     return _currentUser;
 }
@@ -462,6 +468,9 @@ void MainModel::initPermisionsModel() {
 
     connect(_permisionsModel, &PermisionsModel::sigPermisionAdded,
             this, &MainModel::handlePermissionAdded);
+
+    connect(_permisionsModel, &PermisionsModel::sigRefresh,
+            this, &MainModel::handleRefreshPermissions);
 
 }
 

@@ -67,6 +67,13 @@
     </message>
 </context>
 <context>
+    <name>CPage</name>
+    <message>
+        <source>Please wait for response from server</source>
+        <translation type="unfinished">Proszę czekać na odpowiedź z serwera</translation>
+    </message>
+</context>
+<context>
     <name>CardsListView</name>
     <message>
         <source>Don&apos;t have any cards yet? </source>
@@ -340,8 +347,8 @@
         <translation>**Dzielenie dostępu do swojego konta**</translation>
     </message>
     <message>
-        <source>Scan This Qr code using the &apos;import user option&apos; on left drop menu or in a user&apos;s list page on another device to export this user account to another device.</source>
-        <translation>Zeskanuj ten kod QR za pomocą opcji „Importuj użytkownika” w menu rozwijanym po lewej stronie lub na stronie listy użytkownika na innym urządzeniu, aby wyeksportować to konto użytkownika na inne urządzenie.</translation>
+        <source>Scan This Qr code using the &apos;import user&apos; button on the bottom of a user&apos;s list page on another device to export this user account to another device.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -636,15 +643,35 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Add new worker account</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Create a new worker&apos;s account</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Enter your worker name.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you want to add access to your cards, you can add workers.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>How to manage your workers:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* Click the &apos;Scan QR code of your worker&apos; button and scan a qr code from the sidebar of your worker&apos;s device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* Your worker will get access to all your cards</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* If you want to remove access of your cards, just remove the worker record on the bottom workers list menu.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scan QR code of your worker</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -783,6 +810,21 @@
     </message>
 </context>
 <context>
+    <name>RC::PermisionsModel</name>
+    <message>
+        <source>Remove access for %0 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If You remove access for the %0 user, he cannot be use your cards anymore.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> Do you want to continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>RC::SellerStatisticModel</name>
     <message>
         <source>Name</source>
@@ -841,11 +883,34 @@
     </message>
 </context>
 <context>
-    <name>RC::WaitConnectionModel</name>
+    <name>RC::WaitConfirmModel</name>
+    <message>
+        <source>Not so fast!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please wait for finished of a previous request</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>We Have trouble</source>
+        <translation type="unfinished">Mamy kłopoty</translation>
+    </message>
+    <message>
+        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
+        <translation type="unfinished">Nie udało się wystawić premii lub pieczątki. Być może Twoje dane lokalne są przestarzałe, już zaktualizowaliśmy Twoje dane lokalne. Spróbuj ponownie, aby wystawić premię lub pieczątkę.</translation>
+    </message>
+    <message>
+        <source>Server not responds</source>
+        <translation type="unfinished">Serwer nie odpowiada</translation>
+    </message>
     <message>
         <source>Hmm, maybe you have a super slow internet connection... Try again</source>
-        <translation>Hmm, może masz bardzo wolne połączenie internetowe... Spróbuj ponownie</translation>
+        <translation type="unfinished">Hmm, może masz bardzo wolne połączenie internetowe... Spróbuj ponownie</translation>
     </message>
+</context>
+<context>
+    <name>RC::WaitConnectionModel</name>
     <message>
         <source>We Have trouble</source>
         <translation>Mamy kłopoty</translation>
@@ -853,10 +918,6 @@
     <message>
         <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
         <translation>Nie udało się wystawić premii lub pieczątki. Być może Twoje dane lokalne są przestarzałe, już zaktualizowaliśmy Twoje dane lokalne. Spróbuj ponownie, aby wystawić premię lub pieczątkę.</translation>
-    </message>
-    <message>
-        <source>Server not responds</source>
-        <translation>Serwer nie odpowiada</translation>
     </message>
 </context>
 <context>
@@ -1006,10 +1067,6 @@
     <message>
         <source>Select the number of purchases that the customer has made.</source>
         <translation>Wybierz liczbę zakupów dokonanych przez klienta.</translation>
-    </message>
-    <message>
-        <source>Please wait for response from server</source>
-        <translation>Proszę czekać na odpowiedź z serwera</translation>
     </message>
 </context>
 </TS>

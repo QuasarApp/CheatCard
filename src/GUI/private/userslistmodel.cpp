@@ -73,6 +73,7 @@ void UsersListModel::setUsers(const QList<QSharedPointer<API::User> >
     }
 
     endResetModel();
+    emit usersCountChanged();
 
 }
 
@@ -97,7 +98,25 @@ UsersListModel::importUser(const QSharedPointer<API::User> &user) {
 
     endInsertRows();
 
+    emit usersCountChanged();
+
     return userModel;
+}
+
+void UsersListModel::removeUser(int userId) {
+    int index = _users.indexOf(userId);
+
+    if (index < 0)
+        return;
+
+    beginRemoveRows({}, index, index);
+
+    _cache.remove(userId);
+    _users.removeAt(index);
+
+    endRemoveRows();
+
+    emit usersCountChanged();
 }
 
 QSharedPointer<UserModel>
@@ -147,6 +166,10 @@ int UsersListModel::currentUserId() const {
 
 QObject *UsersListModel::currentUserModel() const {
     return currentUser().data();
+}
+
+int UsersListModel::usersCount() const {
+    return rowCount();
 }
 
 }

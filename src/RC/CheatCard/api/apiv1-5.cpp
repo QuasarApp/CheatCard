@@ -412,14 +412,15 @@ bool ApiV1_5::processSession(const QSharedPointer<API::Session> &session,
 }
 
 bool ApiV1_5::processContactsPack(const QSharedPointer<QH::PKG::DataPack<API::Contacts> > &message,
-                                  const QH::AbstractNodeInfo *,
+                                  const QH::AbstractNodeInfo * sender,
                                   const QH::Header &) {
 
     for (const auto& contact: message->packData()) {
         db()->insertIfExistsUpdateObject(contact);
+        emit node()->sigContactsStatusResult(contact, true, false);
     }
 
-    return true;
+    return node()->removeNode(sender->networkAddress());
 }
 
 bool ApiV1_5::cardValidation(const QSharedPointer<API::Card> &cardFromDB,

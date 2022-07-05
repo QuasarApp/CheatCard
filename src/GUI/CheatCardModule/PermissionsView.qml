@@ -22,7 +22,6 @@ CPage {
     contentItem:
         ColumnLayout {
         spacing: 20
-        visible : !(waitModel && waitModel.waitConfirm)
 
         Label {
             font.pointSize: 16
@@ -140,30 +139,52 @@ CPage {
 
         }
 
-        Button {
-            text: qsTr("Scan QR code of your worker")
+        RowLayout {
+            Layout.fillWidth: true
             Layout.alignment: Qt.AlignHCenter
-            Component {
-                id: scaner
-                QrScanner {
-                    id:qrScaner
-                    onCaptured: (data) => {
-                                    root.model.addNewPermision(data);
-                                    activityProcessor.popItem();
 
-                                }
+            ToolButton {
+                Layout.alignment: Qt.AlignHCenter
 
-                    onVisibleChanged: {
-                        if(!visible)
-                            destroy()
+                icon.source: "qrc:/images/private/resources/Interface_icons/Camera_switch.svg"
+                icon.color: Material.accent
+                font.bold: true
+                font.pointSize: 14
+
+                Component {
+                    id: scaner
+                    QrScanner {
+                        id:qrScaner
+                        onCaptured: (data) => {
+                                        root.model.addNewPermision(data);
+                                        activityProcessor.popItem();
+
+                                    }
+
+                        onVisibleChanged: {
+                            if(!visible)
+                                destroy()
+                        }
                     }
+                }
+
+                onClicked: {
+                    activityProcessor.newActivityFromComponent(scaner);
                 }
             }
 
-            onClicked: {
-                activityProcessor.newActivityFromComponent(scaner);
+            ToolButton {
+                icon.source: "qrc:/images/private/resources/Interface_icons/refresh.svg"
+                icon.color: Material.accent
+                font.bold: true
+                font.pointSize: 14
+
+                onClicked: () => {
+                               list.model.refresh()
+                           }
             }
         }
+
     }
 
     Dialog {
