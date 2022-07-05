@@ -8,6 +8,7 @@
 #include "database.h"
 #include "dbobjectsrequest.h"
 #include "CheatCard/api/api0/user.h"
+#include <sqldbwriter.h>
 
 #include <customdbrequest.h>
 #include <getsinglevalue.h>
@@ -16,9 +17,11 @@
 
 namespace RC {
 
-DataBase::DataBase(const QString &name) {
+DataBase::DataBase(const QString &name, const QString &backUpLocation) {
     if (name.size())
         setLocalNodeName(name);
+
+    _backUp = backUpLocation;
 }
 
 QH::ISqlDBCache *DataBase::db() const {
@@ -33,9 +36,26 @@ QStringList DataBase::SQLSources() const {
     return QH::DataBaseNode::SQLSources() << ":/DataBase/private/sql/DataBase.sql";
 }
 
+bool DataBase::backUp() const {
+
+    if (_backUp.isEmpty()) {
+        return false;
+    }
+
+    auto file = _backUp + "/DB-" + QDateTime::currentDateTimeUtc().toString("hh:mm:ss_dd_MM_yyyy") + ".db";
+
+    if (db() && db()->writer() &&
+            QFile::exists(db()->writer()->databaseLocation())) {
+        return QFile::copy(db()->writer()->databaseLocation(), file);
+    }
+
+    return false;
+}
+
 // See https://quasarapp.ddns.net:3031/docs/QuasarApp/Heart/latest/classQH_1_1DataBaseNode.html#a9e2969af3bd4e6b49b80820000aef108
 QH::DBPatchMap DataBase::dbPatches() const {
 
+    backUp();
 
     QH::DBPatchMap result;
 

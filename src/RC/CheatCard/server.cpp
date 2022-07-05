@@ -44,7 +44,6 @@ Server::Server(QH::ISqlDBCache *db): BaseNode(db) {
     registerPackageType<APIv1_5::GetConntactsRequest>();
     registerPackageType<APIv1_5::UpdateContactData>();
 
-
 }
 
 NodeType Server::nodeType() const {

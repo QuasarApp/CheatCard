@@ -20,7 +20,15 @@ CheatCardService::CheatCardService(int argc, char **argv):
         QuasarAppUtils::Params::setArg("fileLog", QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/log" + QDateTime::currentDateTimeUtc().toString("_dd_MM_yyyy") + ".log");
     }
 
+    QString dbBackUp = QuasarAppUtils::Params::getArg("dbBackUp");
+
+    if (!dbBackUp.length()) {
+        QuasarAppUtils::Params::setArg("dbBackUp", QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/dbBackUp/");
+    }
+
     QuasarAppUtils::Params::log("Log available in: " + QuasarAppUtils::Params::getArg("fileLog"));
+    QuasarAppUtils::Params::log("BackUps available in: " + QuasarAppUtils::Params::getArg("dbBackUp"));
+
 
 }
 
@@ -36,7 +44,7 @@ CheatCardService::~CheatCardService() {
 
 bool CheatCardService::onStart() {
     if (!_db) {
-        _db = new RC::DataBase();
+        _db = new RC::DataBase("", QuasarAppUtils::Params::getArg("dbBackUp"));
         _db->initSqlDb();
     }
 
@@ -78,7 +86,15 @@ bool CheatCardService::handleReceive(const Patronum::Feature &data) {
         QuasarAppUtils::Params::setArg("verbose", data.arg());
 
         sendResuylt("New verbose level is " + QuasarAppUtils::Params::getArg("verbose"));
+    } else if (data.cmd() == "backUp") {
+
+        if (!(_db && _db->backUp())) {
+            sendResuylt("Failed to make backup of data base");
+        }
+
+        sendResuylt("Back up created sucessfull");
     }
+
 
     return true;
 }
@@ -88,6 +104,7 @@ QSet<Patronum::Feature> CheatCardService::supportedFeatures() {
 
     data << Patronum::Feature("ping", {}, "This is description of the ping command");
     data << Patronum::Feature("state", {}, "return state");
+    data << Patronum::Feature("backUp", {}, "make back up of current database ");
     data << Patronum::Feature("setVerbose", "verbose level", "sets new verbose log level");
 
     return data;

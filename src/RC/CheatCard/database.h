@@ -23,8 +23,9 @@ class CHEATCARD_CORE_EXPORT DataBase: public QH::DataBaseNode
 {
     Q_OBJECT
 public:
-    DataBase(const QString& name = "");
+    DataBase(const QString& name = "", const QString& backUpLocation = "");
     QH::ISqlDBCache *db() const;
+    bool backUp() const;
 
     QString localFilePath() const;
 
@@ -34,6 +35,8 @@ protected:
     QH::DBPatchMap dbPatches() const;
 
 private:
+
+    QString _backUp;
 
     /**
     * @brief beta1Patches This method return lsit of patches to beta1 from beta0
