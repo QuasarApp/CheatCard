@@ -274,7 +274,6 @@ ApplicationWindow {
         y: header.height
         height: mainWindow.height - toolBar.height
         property int isOpen: position
-        dragMargin: mainWindow.width * 0.1
         onIsOpenChanged: {
             if (mainModel && !isOpen) {
                 mainModel.handleFirstDataSendet();
