@@ -13,9 +13,10 @@ import QtQuick.Layouts 1.15
 
 import "Style"
 
-Page {
+CPage {
     id: root
     property var model: null
+    waitModel: (model)? model.waitModel: null
 
     implicitHeight: 0x0    // disable resize by content
 
@@ -33,27 +34,7 @@ Page {
                           root.model.allowScreenDim = !visible;
                       }
 
-    contentItem:     Control {
-        Frame {
-            id: waitForCondition
-            visible : model && model.waitConfirm
-            anchors.fill: parent
-
-            contentItem: ColumnLayout {
-                Label {
-                    text: qsTr("Please wait for response from server");
-                    Layout.alignment: Qt.AlignHCenter || Qt.AlignVCenter
-                }
-
-                BusyIndicator {
-                    Layout.alignment: Qt.AlignHCenter || Qt.AlignVCenter
-                    running: true;
-                }
-            }
-        }
-
-
-        ColumnLayout {
+    contentItem: ColumnLayout {
             id: waitConnectView
             anchors.fill: parent
             visible : model && !model.waitConfirm
@@ -124,8 +105,6 @@ Page {
 
             }
         }
-
-    }
 
 
     Component {

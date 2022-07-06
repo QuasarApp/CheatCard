@@ -12,6 +12,7 @@
 #include <CheatCard/api/api0/card.h>
 #include <CheatCard/api/api0/user.h>
 #include <CheatCard/api/api0/userscards.h>
+#include <CheatCard/api/api0/contacts.h>
 
 namespace RC {
 
@@ -70,14 +71,24 @@ APIObjectsFactoryV0::getCard(unsigned int cardId) {
 QList<QSharedPointer<API::Card> >
 APIObjectsFactoryV0::getAllUserCards(const QByteArray &userKey, bool restOf) {
     return getAllUserCardsImpl<API_PREFIX::Card>(userKey, restOf);
-
 }
 
 QList<QSharedPointer<API::UsersCards> >
 APIObjectsFactoryV0::getAllUserCardsData(const QByteArray &userKey) {
     return getAllUserCardsDataImpl<API_PREFIX::UsersCards>(userKey);
-
 }
 
+QSharedPointer<API::Contacts>
+APIObjectsFactoryV0::getContactFromChildId(const QByteArray& userId, const QByteArray& childUserId) {
+    return getContactFromChildIdImpl<API::Contacts>(userId, childUserId);
+}
 
+QList<QSharedPointer<API::Contacts> >
+APIObjectsFactoryV0::getMasterKeys(const QByteArray& childUserId) {
+    return getMasterKeysImpl<API::Contacts>(childUserId);
+}
+
+QList<QSharedPointer<API::Contacts> > APIObjectsFactoryV0::getSlaveKeys(const QByteArray &userId) {
+    return getSlaveKeysImpl<API::Contacts>(userId);
+}
 }

@@ -11,6 +11,7 @@
 #define DATACONVERTOR_H
 
 #include <QSharedPointer>
+#include "core_global.h"
 
 namespace RC {
 
@@ -19,7 +20,7 @@ class UserHeader;
 class User;
 }
 
-class DataConvertor
+class CHEATCARD_CORE_EXPORT DataConvertor
 {
 public:
     DataConvertor();

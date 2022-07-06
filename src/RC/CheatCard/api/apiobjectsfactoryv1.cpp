@@ -12,6 +12,7 @@
 #include <CheatCard/api/api1/userscards.h>
 #include <CheatCard/api/api1/card.h>
 
+
 namespace RC {
 
 APIObjectsFactoryV1::APIObjectsFactoryV1(QH::ISqlDBCache *db): APIObjectsFactoryV0(db)
@@ -66,4 +67,5 @@ APIObjectsFactoryV1::getAllUserCardsData(const QByteArray &userKey) {
     return getAllUserCardsDataImpl<API_PREFIX::UsersCards>(userKey);
 
 }
+
 }

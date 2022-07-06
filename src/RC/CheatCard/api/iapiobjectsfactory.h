@@ -13,6 +13,7 @@ class User;
 class CardStatus;
 class CardDataRequest;
 class CardStatusRequest;
+class Contacts;
 }
 
 const int ACTIVE_USER_TIME_LIMIT = 60 * 60 * 24 * 30;// 1 mounth
@@ -56,6 +57,9 @@ public:
      */
     virtual QList<QSharedPointer<API::UsersCards>> getAllUserCardsData(const QByteArray &userKey) = 0;
 
+    virtual QSharedPointer<API::Contacts> getContactFromChildId(const QByteArray& userKey, const QByteArray& childUserId) = 0;
+    virtual QList<QSharedPointer<API::Contacts>> getMasterKeys(const QByteArray& childUserId) = 0;
+    virtual QList<QSharedPointer<API::Contacts>> getSlaveKeys(const QByteArray& userId) = 0;
 
 };
 

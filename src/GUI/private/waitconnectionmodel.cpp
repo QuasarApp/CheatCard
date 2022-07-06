@@ -8,7 +8,9 @@
 
 
 #include "iplatformtools.h"
+#include "waitconfirmmodel.h"
 #include "waitconnectionmodel.h"
+#include <QQmlEngine>
 
 #include <QTimer>
 #include <qmlnotifyservice.h>
@@ -19,8 +21,12 @@
 namespace RC {
 
 WaitConnectionModel::WaitConnectionModel() {
-    connect(&_timer, &QTimer::timeout,
-            this, &WaitConnectionModel::handleTimeOut);
+    _waitModel = new WaitConfirmModel();
+    QQmlEngine::setObjectOwnership(_waitModel, QQmlEngine::CppOwnership);
+}
+
+WaitConnectionModel::~WaitConnectionModel() {
+    delete _waitModel;
 }
 
 QObject* WaitConnectionModel::card() const {
@@ -48,11 +54,6 @@ void WaitConnectionModel::setPurchaseCount(int newPurchaseCount) {
 
 void WaitConnectionModel::begin() {
 
-    if (_notConfirmedSessions) {
-        // please wait for finished of a previous request
-        return;
-    }
-
     auto header = QSharedPointer<API::UserHeader>::create();
     header->fromBytes(QByteArray::fromHex(_extraData.toLatin1()));
 
@@ -60,9 +61,9 @@ void WaitConnectionModel::begin() {
         return;
     }
 
-    _notConfirmedSessions = header->getSessionId();
-    setWaitConfirm(true);
-    _timer.start(10000);
+    if (_waitModel->wait(header->getSessionId())) {
+        return;
+    }
 
     emit purchaseTaskCompleted(purchaseCount(), _card, header);
 }
@@ -95,52 +96,14 @@ void WaitConnectionModel::setAllowScreenDim(bool newAllowScreenDim) {
     emit allowScreenDimChanged();
 }
 
-void WaitConnectionModel::handleTimeOut() {
-
-    if (_notConfirmedSessions) {
-        disbaleWaiting();
-        auto service = QmlNotificationService::NotificationService::getService();
-
-        service->setNotify(tr("Server not responds"),
-                           tr("Hmm, maybe you have a super slow internet connection... Try again"),
-                           "", QmlNotificationService::NotificationData::Error);
-    }
-
-    _timer.stop();
-}
-
-bool WaitConnectionModel::waitConfirm() const {
-    return _waitConfirm;
-}
-
-void WaitConnectionModel::setWaitConfirm(bool newWitConfirm) {
-    if (_waitConfirm == newWitConfirm)
-        return;
-    _waitConfirm = newWitConfirm;
-    emit waitConfirmChanged();
-}
-
-void RC::WaitConnectionModel::disbaleWaiting() {
-    _notConfirmedSessions = 0;
-    setWaitConfirm(false);
-    _timer.stop();
-}
-
 void WaitConnectionModel::handleSessionServerResult(QSharedPointer<RC::API::Session> session,
                                                     bool succesed) {
 
     auto service = QmlNotificationService::NotificationService::getService();
 
-    if (succesed) {
-        if (session->getSessionId() == _notConfirmedSessions) {
-            disbaleWaiting();
-        }
+    _waitModel->confirm(session->getSessionId(), succesed);
 
-    } else {
-
-        if (session->getSessionId() == _notConfirmedSessions) {
-            disbaleWaiting();
-        }
+    if (!succesed) {
 
         service->setNotify(tr("We Have trouble"),
                            tr("Failed to issue a bonus or stamp."
@@ -150,6 +113,10 @@ void WaitConnectionModel::handleSessionServerResult(QSharedPointer<RC::API::Sess
                            "", QmlNotificationService::NotificationData::Error);
 
     }
+}
+
+QObject *WaitConnectionModel::waitModel() const {
+    return _waitModel;
 }
 
 }

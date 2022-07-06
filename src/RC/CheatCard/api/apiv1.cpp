@@ -24,6 +24,7 @@
 #include <cmath>
 #include <dbobjectsrequest.h>
 #include "CheatCard/basenode.h"
+#include <CheatCard/api/api0/contacts.h>
 
 
 namespace RC {
@@ -213,13 +214,9 @@ bool ApiV1::processCardData(const QSharedPointer<QH::PKG::DataPack<APIv1::Card>>
     return node()->removeNode(sender->networkAddress());
 }
 
-bool ApiV1::processRestoreDataRequest(const QSharedPointer<APIv1::RestoreDataRequest> &cardrequest,
-                                      const QH::AbstractNodeInfo *sender, const QH::Header &pkg) {
-
-
-    QH::PKG::DataPack<APIv1::UsersCards> responce;
-
-    unsigned int userID = API::User::makeId(cardrequest->userKey());
+void RC::ApiV1::collectDataOfuser(const QByteArray& userKey, QH::PKG::DataPack<APIv1::UsersCards>& responce) {
+    ;
+    unsigned int userID = API::User::makeId(userKey);
 
     auto result = objectFactoryInstance()->getAllUserData(userID);
 
@@ -228,11 +225,28 @@ bool ApiV1::processRestoreDataRequest(const QSharedPointer<APIv1::RestoreDataReq
         responce.push(data.staticCast<APIv1::UsersCards>());
     }
 
-    const auto datalist = objectFactoryInstance()->getAllUserCardsData(cardrequest->userKey());
+    const auto datalist = objectFactoryInstance()->getAllUserCardsData(userKey);
     for (const auto& item: datalist) {
         item->setCardVersion(node()->getCardVersion(item->getCard()));
         responce.push(item.staticCast<APIv1::UsersCards>());
     }
+
+    auto masterUser = node()->getMasterKeys(userKey);
+    for (const auto &contact: qAsConst(masterUser)) {
+        if (contact->isValid()) {
+            // get recursive cards from master
+            collectDataOfuser(contact->getUserKey(), responce);
+        }
+    }
+
+    return;
+}
+
+bool ApiV1::processRestoreDataRequest(const QSharedPointer<APIv1::RestoreDataRequest> &cardrequest,
+                                      const QH::AbstractNodeInfo *sender, const QH::Header &pkg) {
+
+    QH::PKG::DataPack<APIv1::UsersCards> responce;
+    collectDataOfuser(cardrequest->userKey(), responce);
 
     if (responce.isValid()) {
         return node()->sendData(&responce, sender, &pkg);

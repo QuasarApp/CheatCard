@@ -30,6 +30,7 @@ public:
     QSharedPointer<API::Card> getCard(unsigned int cardId) override;
     QList<QSharedPointer<API::Card> > getAllUserCards(const QByteArray &userKey, bool restOf) override;
     QList<QSharedPointer<API::UsersCards> > getAllUserCardsData(const QByteArray &userKey) override;
+
 };
 }
 #endif // IAPIOBJECTSFACTORYV1_H

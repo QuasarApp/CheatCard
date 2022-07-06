@@ -67,6 +67,13 @@
     </message>
 </context>
 <context>
+    <name>CPage</name>
+    <message>
+        <source>Please wait for response from server</source>
+        <translation>Пожалуйста, дождитесь ответа от сервера</translation>
+    </message>
+</context>
+<context>
     <name>CardsListView</name>
     <message>
         <source>Don&apos;t have any cards yet? </source>
@@ -303,6 +310,10 @@
         <source>To receive a card or a seal, as well as to receive an already accumulated bonus, show this Qr code to the seller.</source>
         <translation>Чтобы получить карту или печать, а также получить уже накопленный бонус, покажите этот Qr-код продавцу.</translation>
     </message>
+    <message>
+        <source>Workers management</source>
+        <translation>Управление работниками</translation>
+    </message>
 </context>
 <context>
     <name>ExportUserKeyPage</name>
@@ -335,8 +346,8 @@
         <translation>**Общий доступ к вашей учетной записи**</translation>
     </message>
     <message>
-        <source>Scan This Qr code using the &apos;import user option&apos; on left drop menu or in a user&apos;s list page on another device to export this user account to another device.</source>
-        <translation>Отсканируйте этот Qr-код, используя «параметр импорта пользователя» в левом раскрывающемся меню или на странице списка пользователей на другом устройстве, чтобы экспортировать эту учетную запись пользователя на другое устройство.</translation>
+        <source>Scan This Qr code using the &apos;import user&apos; button on the bottom of a user&apos;s list page on another device to export this user account to another device.</source>
+        <translation>Отсканируйте этот Qr-код с помощью кнопки «импортировать пользователя» в нижней части страницы списка пользователей на другом устройстве, чтобы экспортировать эту учетную запись пользователя на другое устройство.</translation>
     </message>
 </context>
 <context>
@@ -625,6 +636,41 @@
     </message>
 </context>
 <context>
+    <name>PermissionsView</name>
+    <message>
+        <source>Your Workers</source>
+        <translation>Ваши работники</translation>
+    </message>
+    <message>
+        <source>Enter your worker name.</source>
+        <translation>Введите имя вашего работника.</translation>
+    </message>
+    <message>
+        <source>If you want to add access to your cards, you can add workers.</source>
+        <translation>Если вы хотите добавить доступ к своим картам, вы можете добавить рабочих.</translation>
+    </message>
+    <message>
+        <source>How to manage your workers:</source>
+        <translation>Как управлять своими работниками:</translation>
+    </message>
+    <message>
+        <source>* Click the &apos;Scan QR code of your worker&apos; button and scan a qr code from the sidebar of your worker&apos;s device.</source>
+        <translation>* Нажмите кнопку «Сканировать QR-код вашего работника» и отсканируйте QR-код с боковой панели устройства вашего работника.</translation>
+    </message>
+    <message>
+        <source>* Your worker will get access to all your cards</source>
+        <translation>* Ваш работник получит доступ ко всем вашим картам</translation>
+    </message>
+    <message>
+        <source>* If you want to remove access of your cards, just remove the worker record on the bottom workers list menu.</source>
+        <translation>* Если вы хотите закрыть доступ к своим картам, просто удалите запись рабочего в нижнем меню списка рабочих.</translation>
+    </message>
+    <message>
+        <source>Edit worker&apos;s name</source>
+        <translation>Изменить имя работника</translation>
+    </message>
+</context>
+<context>
     <name>QrCodeView</name>
     <message>
         <source>It looks like this code should be shown to the seller!</source>
@@ -759,6 +805,21 @@
     </message>
 </context>
 <context>
+    <name>RC::PermisionsModel</name>
+    <message>
+        <source>Remove access for %0 </source>
+        <translation>Удалить доступ для %0 </translation>
+    </message>
+    <message>
+        <source>If You remove access for the %0 user, he cannot be use your cards anymore.</source>
+        <translation>Если Вы отключите доступ для пользователя %0, он больше не сможет пользоваться вашими картами.</translation>
+    </message>
+    <message>
+        <source> Do you want to continue?</source>
+        <translation> Вы хотите продолжить?</translation>
+    </message>
+</context>
+<context>
     <name>RC::SellerStatisticModel</name>
     <message>
         <source>Name</source>
@@ -817,10 +878,14 @@
     </message>
 </context>
 <context>
-    <name>RC::WaitConnectionModel</name>
+    <name>RC::WaitConfirmModel</name>
     <message>
-        <source>Hmm, maybe you have a super slow internet connection... Try again</source>
-        <translation>Хм, возможно, у вас очень медленное интернет-соединение... Попробуйте еще раз</translation>
+        <source>Not so fast!</source>
+        <translation>Не так быстро!</translation>
+    </message>
+    <message>
+        <source>Please wait for finished of a previous request</source>
+        <translation>Пожалуйста, дождитесь завершения предыдущего запроса</translation>
     </message>
     <message>
         <source>We Have trouble</source>
@@ -833,6 +898,21 @@
     <message>
         <source>Server not responds</source>
         <translation>Сервер не отвечает</translation>
+    </message>
+    <message>
+        <source>Hmm, maybe you have a super slow internet connection... Try again</source>
+        <translation>Хм, возможно, у вас очень медленное интернет-соединение... Попробуйте еще раз</translation>
+    </message>
+</context>
+<context>
+    <name>RC::WaitConnectionModel</name>
+    <message>
+        <source>We Have trouble</source>
+        <translation>У нас проблемы</translation>
+    </message>
+    <message>
+        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
+        <translation>Не удалось выдать бонус или штамп. Возможно, ваши локальные данные устарели, мы уже обновляем ваши локальные данные. Пожалуйста, попробуйте еще раз оформить бонус или штамп.</translation>
     </message>
 </context>
 <context>
@@ -959,7 +1039,7 @@
     </message>
     <message>
         <source>Name:</source>
-        <translation>Имя пользователя:</translation>
+        <translation>Имя:</translation>
     </message>
 </context>
 <context>
@@ -982,10 +1062,6 @@
     <message>
         <source>Select the number of purchases that the customer has made.</source>
         <translation>Выберите количество покупок, которые совершил клиент.</translation>
-    </message>
-    <message>
-        <source>Please wait for response from server</source>
-        <translation>Пожалуйста, дождитесь ответа от сервера</translation>
     </message>
 </context>
 </TS>

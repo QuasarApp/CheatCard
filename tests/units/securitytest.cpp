@@ -63,7 +63,7 @@ void SecurityTest::secureTest(const QSharedPointer<TestSeller> &seller,
     // 3619648333 This is card id from test database.
     unsigned int cardId = CheatCardTestsHelper::testCardId();
 
-    addSeal(seller, client, server, user, cardId, 1, obj);
+    addSeal(seller, client, server, user, cardId, 1, obj, TEST_CHEAT_HOST, TEST_CHEAT_PORT);
 
     // make another sellre with some card.
     auto seller2 = CheatCardTestsHelper::makeNode<TestSeller>();

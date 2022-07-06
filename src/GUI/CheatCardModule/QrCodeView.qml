@@ -26,6 +26,8 @@ GridLayout {
         Layout.preferredWidth:  Math.min(parent.width * 0.8, parent.height * 0.8)
         Layout.alignment: Qt.AlignHCenter
         customSource: "file:/" + model
+        extendable: false
+        alwaysView: true
     }
 
     ColumnLayout {

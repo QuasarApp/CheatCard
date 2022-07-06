@@ -67,6 +67,13 @@
     </message>
 </context>
 <context>
+    <name>CPage</name>
+    <message>
+        <source>Please wait for response from server</source>
+        <translation>Дочекайтеся відповіді від сервера</translation>
+    </message>
+</context>
+<context>
     <name>CardsListView</name>
     <message>
         <source>Don&apos;t have any cards yet? </source>
@@ -303,6 +310,10 @@
         <source>To receive a card or a seal, as well as to receive an already accumulated bonus, show this Qr code to the seller.</source>
         <translation>Щоб отримати картку або печатку, а також отримати вже накопичений бонус, покажіть цей Qr-код продавцеві.</translation>
     </message>
+    <message>
+        <source>Workers management</source>
+        <translation>Управління працівниками</translation>
+    </message>
 </context>
 <context>
     <name>ExportUserKeyPage</name>
@@ -335,8 +346,8 @@
         <translation>**Спільний доступ до вашого облікового запису**</translation>
     </message>
     <message>
-        <source>Scan This Qr code using the &apos;import user option&apos; on left drop menu or in a user&apos;s list page on another device to export this user account to another device.</source>
-        <translation>Відскануйте цей Qr-код за допомогою «опції імпорту користувача» у спадному меню ліворуч або на сторінці списку користувачів на іншому пристрої, щоб експортувати цей обліковий запис користувача на інший пристрій.</translation>
+        <source>Scan This Qr code using the &apos;import user&apos; button on the bottom of a user&apos;s list page on another device to export this user account to another device.</source>
+        <translation>Відскануйте цей Qr-код за допомогою кнопки «Імпортувати користувача» внизу сторінки зі списком користувачів на іншому пристрої, щоб експортувати цей обліковий запис користувача на інший пристрій.</translation>
     </message>
 </context>
 <context>
@@ -625,6 +636,41 @@
     </message>
 </context>
 <context>
+    <name>PermissionsView</name>
+    <message>
+        <source>Your Workers</source>
+        <translation>Ваші працівники</translation>
+    </message>
+    <message>
+        <source>Enter your worker name.</source>
+        <translation>Введіть ім&apos;я свого працівника.</translation>
+    </message>
+    <message>
+        <source>If you want to add access to your cards, you can add workers.</source>
+        <translation>Якщо ви хочете додати доступ до своїх карток, ви можете додати працівників.</translation>
+    </message>
+    <message>
+        <source>How to manage your workers:</source>
+        <translation>Як керувати своїми працівниками:</translation>
+    </message>
+    <message>
+        <source>* Click the &apos;Scan QR code of your worker&apos; button and scan a qr code from the sidebar of your worker&apos;s device.</source>
+        <translation>* Натисніть кнопку «Сканувати QR-код свого працівника» та відскануйте QR-код із бічної панелі пристрою вашого працівника.</translation>
+    </message>
+    <message>
+        <source>* Your worker will get access to all your cards</source>
+        <translation>* Ваш працівник отримає доступ до всіх ваших карток</translation>
+    </message>
+    <message>
+        <source>* If you want to remove access of your cards, just remove the worker record on the bottom workers list menu.</source>
+        <translation>* Якщо ви хочете скасувати доступ до своїх карток, просто видаліть запис про працівника в нижньому меню списку працівників.</translation>
+    </message>
+    <message>
+        <source>Edit worker&apos;s name</source>
+        <translation>Редагувати ім&apos;я працівника</translation>
+    </message>
+</context>
+<context>
     <name>QrCodeView</name>
     <message>
         <source>It looks like this code should be shown to the seller!</source>
@@ -759,6 +805,21 @@
     </message>
 </context>
 <context>
+    <name>RC::PermisionsModel</name>
+    <message>
+        <source>Remove access for %0 </source>
+        <translation>Скасувати доступ для %0 </translation>
+    </message>
+    <message>
+        <source>If You remove access for the %0 user, he cannot be use your cards anymore.</source>
+        <translation>Якщо ви видалите доступ для користувача %0, він більше не зможе використовувати ваші картки.</translation>
+    </message>
+    <message>
+        <source> Do you want to continue?</source>
+        <translation> Ви хочете продовжити?</translation>
+    </message>
+</context>
+<context>
     <name>RC::SellerStatisticModel</name>
     <message>
         <source>Name</source>
@@ -817,10 +878,14 @@
     </message>
 </context>
 <context>
-    <name>RC::WaitConnectionModel</name>
+    <name>RC::WaitConfirmModel</name>
     <message>
-        <source>Hmm, maybe you have a super slow internet connection... Try again</source>
-        <translation>Хм, можливо, у вас дуже повільне з’єднання з Інтернетом... Спробуйте ще раз</translation>
+        <source>Not so fast!</source>
+        <translation>Не так швидко!</translation>
+    </message>
+    <message>
+        <source>Please wait for finished of a previous request</source>
+        <translation>Дочекайтеся завершення попереднього запиту</translation>
     </message>
     <message>
         <source>We Have trouble</source>
@@ -833,6 +898,21 @@
     <message>
         <source>Server not responds</source>
         <translation>Сервер не відповідає</translation>
+    </message>
+    <message>
+        <source>Hmm, maybe you have a super slow internet connection... Try again</source>
+        <translation>Хм, можливо, у вас дуже повільне з’єднання з Інтернетом... Спробуйте ще раз</translation>
+    </message>
+</context>
+<context>
+    <name>RC::WaitConnectionModel</name>
+    <message>
+        <source>We Have trouble</source>
+        <translation>У нас проблеми</translation>
+    </message>
+    <message>
+        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
+        <translation>Не вдалося надати бонус або штамп. Можливо, ваші локальні дані застаріли, ми вже оновлюємо ваші локальні дані. Будь ласка, спробуйте ще раз зробити видачу бонусом або печаткою.</translation>
     </message>
 </context>
 <context>
@@ -959,7 +1039,7 @@
     </message>
     <message>
         <source>Name:</source>
-        <translation>ім&apos;я користувача:</translation>
+        <translation type="unfinished">ім&apos;я:</translation>
     </message>
 </context>
 <context>
@@ -982,10 +1062,6 @@
     <message>
         <source>Select the number of purchases that the customer has made.</source>
         <translation>Виберіть кількість покупок, які зробив клієнт.</translation>
-    </message>
-    <message>
-        <source>Please wait for response from server</source>
-        <translation>Дочекайтеся відповіді від сервера</translation>
     </message>
 </context>
 </TS>

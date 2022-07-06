@@ -103,7 +103,7 @@ ApplicationWindow {
                 icon.source: "qrc:/images/private/resources/Interface_icons/user.svg"
                 font.bold: true
                 font.pointSize: 14
-
+                visible: mainModel && mainModel.usersListModel.usersCount > 1
                 onClicked: {
                     activityProcessor.newActivityFromComponent(pageUsers);
                 }
