@@ -146,7 +146,10 @@ CPage {
             ToolButton {
                 Layout.alignment: Qt.AlignHCenter
 
-                icon.source: "qrc:/images/private/resources/Interface_icons/Camera_switch.svg"
+                icon.source: "qrc:/images/private/resources/Interface_icons/qrscaner.svg"
+                icon.height: 60
+                icon.width: 60
+
                 icon.color: Material.accent
                 font.bold: true
                 font.pointSize: 14
@@ -172,19 +175,7 @@ CPage {
                     activityProcessor.newActivityFromComponent(scaner);
                 }
             }
-
-            ToolButton {
-                icon.source: "qrc:/images/private/resources/Interface_icons/refresh.svg"
-                icon.color: Material.accent
-                font.bold: true
-                font.pointSize: 14
-
-                onClicked: () => {
-                               list.model.refresh()
-                           }
-            }
         }
-
     }
 
     Dialog {

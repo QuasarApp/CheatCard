@@ -51,7 +51,7 @@ bool InvalidCardIdPill::diagnostic() const {
 bool InvalidCardIdPill::fix() const {
     APIObjectsFactoryV1 factory(_db);
 
-    const auto availableCards = factory.getAllUserCards("all", true);
+    const auto availableCards = factory.getAllUserCards("all", true, {});
     if (availableCards.isEmpty())
         return false;
 

@@ -20,6 +20,7 @@
 #include <CheatCard/api/api0/userscards.h>
 #include <CheatCard/api/api1-5/cardupdated.h>
 #include <CheatCard/api/api1-5/changeuserscards.h>
+#include <CheatCard/api/api1-5/restoreresponce.h>
 #include <CheatCard/api/api1-5/updatecontactdataresponce.h>
 #include "CheatCard/api/api1-5/statusafterchanges.h"
 #include <CheatCard/api/apiv0.h>
@@ -35,6 +36,7 @@ Seller::Seller(QH::ISqlDBCache *db): BaseNode(db) {
     registerPackageType<APIv1_5::CardUpdated>();
     registerPackageType<QH::PKG::DataPack<API::Contacts>>();
     registerPackageType<APIv1_5::UpdateContactDataResponce>();
+    registerPackageType<APIv1_5::RestoreResponce>();
 
 
 }

@@ -38,7 +38,6 @@ public:
     Q_INVOKABLE void setNewDescription(int row, const QString& description);
     Q_INVOKABLE void addNewPermision(const QString &rawUserHeaderData);
     Q_INVOKABLE void removePermision(int row);
-    Q_INVOKABLE void refresh();
 
     void setPermissions(const QList<QSharedPointer<API::Contacts> > &newData);
 
@@ -53,7 +52,6 @@ signals:
     void sigPermisionUpdated(const QSharedPointer<RC::API::Contacts>& permision);
     void sigPermisionRemoved(QSharedPointer<RC::API::Contacts> permision);
     void sigPermisionAdded(QSharedPointer<RC::API::UserHeader> userHeader);
-    void sigRefresh();
 
 private:
     QHash<unsigned int, QSharedPointer<RC::API::Contacts>> _data;

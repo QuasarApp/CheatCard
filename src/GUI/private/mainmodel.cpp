@@ -275,10 +275,15 @@ void MainModel::handlePermissionAdded(QSharedPointer<API::UserHeader> childUserN
                                      false);
 }
 
-void MainModel::handleRefreshPermissions() {
-    if (_backEndModel && _currentUser) {
-        _backEndModel->getContactsList(_currentUser->user()->getKey());
-    }
+void MainModel::handleContactsListChanged() {
+    QByteArray userKey = _currentUser->user()->getKey();
+
+    auto masterKeys = _backEndModel->getMasterKeys(userKey);
+    _ownCardsListModel->setCards(_backEndModel->getAllUserCards(userKey,
+                                                                false,
+                                                                masterKeys));
+
+
 }
 
 const QSharedPointer<UserModel>& MainModel::getCurrentUser() const {
@@ -310,12 +315,15 @@ void MainModel::setCurrentUser(const QSharedPointer<RC::UserModel>& value) {
         _currentUser->regenerateSessionKey();
 
         // get list of owned cards
+        auto masterKeys = _backEndModel->getMasterKeys(userKey);
         _ownCardsListModel->setCards(_backEndModel->getAllUserCards(userKey,
-                                                                    false));
+                                                                    false,
+                                                                    masterKeys));
 
         // get list of included cards
         _cardsListModel->setCards(_backEndModel->getAllUserCards(userKey,
-                                                                 true));
+                                                                 true,
+                                                                 masterKeys));
 
         // get list of cards usings statuses
         QString where = QString("user = %0").
@@ -468,10 +476,6 @@ void MainModel::initPermisionsModel() {
 
     connect(_permisionsModel, &PermisionsModel::sigPermisionAdded,
             this, &MainModel::handlePermissionAdded);
-
-    connect(_permisionsModel, &PermisionsModel::sigRefresh,
-            this, &MainModel::handleRefreshPermissions);
-
 }
 
 void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
@@ -500,6 +504,9 @@ void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
 
         disconnect(_backEndModel.data(), &BaseNode::sigContactsStatusResult,
                    _permisionsModel, &PermisionsModel::handleServerResult);
+
+        disconnect(_backEndModel.data(), &BaseNode::sigContactsListChanged,
+                   this, &MainModel::handleContactsListChanged);
     }
 
     _backEndModel = newModel;
@@ -531,6 +538,8 @@ void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
         connect(_backEndModel.data(), &BaseNode::sigContactsStatusResult,
                 _permisionsModel, &PermisionsModel::handleServerResult);
 
+        connect(_backEndModel.data(), &BaseNode::sigContactsListChanged,
+                   this, &MainModel::handleContactsListChanged);
 
         _backEndModel->checkNetworkConnection();
 

@@ -31,8 +31,10 @@ public:
                                                                      int unixTimeRange = ACTIVE_USER_TIME_LIMIT) const override;
     QList<QSharedPointer<API::User> > getAllUserDataFromCard(unsigned int cardId) const override;
     QSharedPointer<API::Card> getCard(unsigned int cardId) override;
-    QList<QSharedPointer<API::Card> > getAllUserCards(const QByteArray &userKey, bool restOf) override;
-    QList<QSharedPointer<API::UsersCards> > getAllUserCardsData(const QByteArray &userKey) override;
+    QList<QSharedPointer<API::Card> > getAllUserCards(const QByteArray &userKey, bool restOf,
+                                                      const QList<QSharedPointer<API::Contacts> > &childs) override;
+    QList<QSharedPointer<API::UsersCards> > getAllUserCardsData(const QByteArray &userKey,
+                                                                const QList<QSharedPointer<API::Contacts> > &childs) override;
     QSharedPointer<API::Contacts> getContactFromChildId(const QByteArray& userId, const QByteArray& childUserId) override;
     QList<QSharedPointer<API::Contacts>> getMasterKeys(const QByteArray& childUserId) override;
     QList<QSharedPointer<API::Contacts>> getSlaveKeys(const QByteArray& userId) override;
