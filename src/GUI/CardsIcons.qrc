@@ -108,5 +108,6 @@
         <file>private/resources/Interface_icons/outdated.svg</file>
         <file>private/resources/Interface_icons/user.svg</file>
         <file>private/resources/Interface_icons/refresh.svg</file>
+        <file>private/resources/Interface_icons/qrcode.svg</file>
     </qresource>
 </RCC>
