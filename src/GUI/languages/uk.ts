@@ -70,7 +70,7 @@
     <name>CPage</name>
     <message>
         <source>Please wait for response from server</source>
-        <translation type="unfinished">Дочекайтеся відповіді від сервера</translation>
+        <translation>Дочекайтеся відповіді від сервера</translation>
     </message>
 </context>
 <context>
@@ -312,7 +312,7 @@
     </message>
     <message>
         <source>Workers management</source>
-        <translation type="unfinished"></translation>
+        <translation>Управління працівниками</translation>
     </message>
 </context>
 <context>
@@ -347,7 +347,7 @@
     </message>
     <message>
         <source>Scan This Qr code using the &apos;import user&apos; button on the bottom of a user&apos;s list page on another device to export this user account to another device.</source>
-        <translation type="unfinished"></translation>
+        <translation>Відскануйте цей Qr-код за допомогою кнопки «Імпортувати користувача» внизу сторінки зі списком користувачів на іншому пристрої, щоб експортувати цей обліковий запис користувача на інший пристрій.</translation>
     </message>
 </context>
 <context>
@@ -639,39 +639,35 @@
     <name>PermissionsView</name>
     <message>
         <source>Your Workers</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Create a new worker&apos;s account</source>
-        <translation type="unfinished"></translation>
+        <translation>Ваші працівники</translation>
     </message>
     <message>
         <source>Enter your worker name.</source>
-        <translation type="unfinished"></translation>
+        <translation>Введіть ім&apos;я свого працівника.</translation>
     </message>
     <message>
         <source>If you want to add access to your cards, you can add workers.</source>
-        <translation type="unfinished"></translation>
+        <translation>Якщо ви хочете додати доступ до своїх карток, ви можете додати працівників.</translation>
     </message>
     <message>
         <source>How to manage your workers:</source>
-        <translation type="unfinished"></translation>
+        <translation>Як керувати своїми працівниками:</translation>
     </message>
     <message>
         <source>* Click the &apos;Scan QR code of your worker&apos; button and scan a qr code from the sidebar of your worker&apos;s device.</source>
-        <translation type="unfinished"></translation>
+        <translation>* Натисніть кнопку «Сканувати QR-код свого працівника» та відскануйте QR-код із бічної панелі пристрою вашого працівника.</translation>
     </message>
     <message>
         <source>* Your worker will get access to all your cards</source>
-        <translation type="unfinished"></translation>
+        <translation>* Ваш працівник отримає доступ до всіх ваших карток</translation>
     </message>
     <message>
         <source>* If you want to remove access of your cards, just remove the worker record on the bottom workers list menu.</source>
-        <translation type="unfinished"></translation>
+        <translation>* Якщо ви хочете скасувати доступ до своїх карток, просто видаліть запис про працівника в нижньому меню списку працівників.</translation>
     </message>
     <message>
-        <source>Scan QR code of your worker</source>
-        <translation type="unfinished"></translation>
+        <source>Edit worker&apos;s name</source>
+        <translation>Редагувати ім&apos;я працівника</translation>
     </message>
 </context>
 <context>
@@ -812,15 +808,15 @@
     <name>RC::PermisionsModel</name>
     <message>
         <source>Remove access for %0 </source>
-        <translation type="unfinished"></translation>
+        <translation>Скасувати доступ для %0 </translation>
     </message>
     <message>
         <source>If You remove access for the %0 user, he cannot be use your cards anymore.</source>
-        <translation type="unfinished"></translation>
+        <translation>Якщо ви видалите доступ для користувача %0, він більше не зможе використовувати ваші картки.</translation>
     </message>
     <message>
         <source> Do you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation> Ви хочете продовжити?</translation>
     </message>
 </context>
 <context>
@@ -885,27 +881,27 @@
     <name>RC::WaitConfirmModel</name>
     <message>
         <source>Not so fast!</source>
-        <translation type="unfinished"></translation>
+        <translation>Не так швидко!</translation>
     </message>
     <message>
         <source>Please wait for finished of a previous request</source>
-        <translation type="unfinished"></translation>
+        <translation>Дочекайтеся завершення попереднього запиту</translation>
     </message>
     <message>
         <source>We Have trouble</source>
-        <translation type="unfinished">У нас проблеми</translation>
+        <translation>У нас проблеми</translation>
     </message>
     <message>
         <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
-        <translation type="unfinished">Не вдалося надати бонус або штамп. Можливо, ваші локальні дані застаріли, ми вже оновлюємо ваші локальні дані. Будь ласка, спробуйте ще раз зробити видачу бонусом або печаткою.</translation>
+        <translation>Не вдалося надати бонус або штамп. Можливо, ваші локальні дані застаріли, ми вже оновлюємо ваші локальні дані. Будь ласка, спробуйте ще раз зробити видачу бонусом або печаткою.</translation>
     </message>
     <message>
         <source>Server not responds</source>
-        <translation type="unfinished">Сервер не відповідає</translation>
+        <translation>Сервер не відповідає</translation>
     </message>
     <message>
         <source>Hmm, maybe you have a super slow internet connection... Try again</source>
-        <translation type="unfinished">Хм, можливо, у вас дуже повільне з’єднання з Інтернетом... Спробуйте ще раз</translation>
+        <translation>Хм, можливо, у вас дуже повільне з’єднання з Інтернетом... Спробуйте ще раз</translation>
     </message>
 </context>
 <context>
@@ -1043,7 +1039,7 @@
     </message>
     <message>
         <source>Name:</source>
-        <translation>ім&apos;я користувача:</translation>
+        <translation type="unfinished">ім&apos;я:</translation>
     </message>
 </context>
 <context>

@@ -195,7 +195,7 @@ CPage {
         x: parent.width / 2 - enternameDalog.width / 2
         y: parent.height / 2 - enternameDalog.height / 2
 
-        title: qsTr("Create a new worker's account")
+        title: qsTr("Edit worker's name")
         standardButtons: Dialog.Ok | Dialog.Cancel
 
         onAccepted: {

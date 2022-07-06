@@ -70,7 +70,7 @@
     <name>CPage</name>
     <message>
         <source>Please wait for response from server</source>
-        <translation type="unfinished">Proszę czekać na odpowiedź z serwera</translation>
+        <translation>Proszę czekać na odpowiedź z serwera</translation>
     </message>
 </context>
 <context>
@@ -313,7 +313,7 @@
     </message>
     <message>
         <source>Workers management</source>
-        <translation type="unfinished"></translation>
+        <translation>Zarządzanie pracownikami</translation>
     </message>
 </context>
 <context>
@@ -348,7 +348,7 @@
     </message>
     <message>
         <source>Scan This Qr code using the &apos;import user&apos; button on the bottom of a user&apos;s list page on another device to export this user account to another device.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeskanuj ten kod QR za pomocą przycisku „Importuj użytkownika” na dole strony z listą użytkownika na innym urządzeniu, aby wyeksportować to konto użytkownika na inne urządzenie.</translation>
     </message>
 </context>
 <context>
@@ -640,39 +640,35 @@
     <name>PermissionsView</name>
     <message>
         <source>Your Workers</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Create a new worker&apos;s account</source>
-        <translation type="unfinished"></translation>
+        <translation>Twoi pracownicy</translation>
     </message>
     <message>
         <source>Enter your worker name.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wpisz swoje imię i nazwisko pracownika.</translation>
     </message>
     <message>
         <source>If you want to add access to your cards, you can add workers.</source>
-        <translation type="unfinished"></translation>
+        <translation>Jeśli chcesz dodać dostęp do swoich kart, możesz dodać pracowników.</translation>
     </message>
     <message>
         <source>How to manage your workers:</source>
-        <translation type="unfinished"></translation>
+        <translation>Jak zarządzać swoimi pracownikami:</translation>
     </message>
     <message>
         <source>* Click the &apos;Scan QR code of your worker&apos; button and scan a qr code from the sidebar of your worker&apos;s device.</source>
-        <translation type="unfinished"></translation>
+        <translation>* Kliknij przycisk „Skanuj kod QR pracownika” i zeskanuj kod QR z paska bocznego urządzenia pracownika.</translation>
     </message>
     <message>
         <source>* Your worker will get access to all your cards</source>
-        <translation type="unfinished"></translation>
+        <translation>* Twój pracownik uzyska dostęp do wszystkich Twoich kart</translation>
     </message>
     <message>
         <source>* If you want to remove access of your cards, just remove the worker record on the bottom workers list menu.</source>
-        <translation type="unfinished"></translation>
+        <translation>* Jeśli chcesz usunąć dostęp do swoich kart, po prostu usuń rekord pracownika z dolnego menu listy pracowników.</translation>
     </message>
     <message>
-        <source>Scan QR code of your worker</source>
-        <translation type="unfinished"></translation>
+        <source>Edit worker&apos;s name</source>
+        <translation>Edytuj nazwisko pracownika</translation>
     </message>
 </context>
 <context>
@@ -813,15 +809,15 @@
     <name>RC::PermisionsModel</name>
     <message>
         <source>Remove access for %0 </source>
-        <translation type="unfinished"></translation>
+        <translation>Usuń dostęp dla %0 </translation>
     </message>
     <message>
         <source>If You remove access for the %0 user, he cannot be use your cards anymore.</source>
-        <translation type="unfinished"></translation>
+        <translation>Jeśli usuniesz dostęp dla użytkownika %0, nie będzie on mógł już używać twoich kart.</translation>
     </message>
     <message>
         <source> Do you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation> Czy chcesz kontynuować?</translation>
     </message>
 </context>
 <context>
@@ -886,27 +882,27 @@
     <name>RC::WaitConfirmModel</name>
     <message>
         <source>Not so fast!</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie tak szybko!</translation>
     </message>
     <message>
         <source>Please wait for finished of a previous request</source>
-        <translation type="unfinished"></translation>
+        <translation>Proszę czekać na zakończenie poprzedniego żądania</translation>
     </message>
     <message>
         <source>We Have trouble</source>
-        <translation type="unfinished">Mamy kłopoty</translation>
+        <translation>Mamy kłopoty</translation>
     </message>
     <message>
         <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
-        <translation type="unfinished">Nie udało się wystawić premii lub pieczątki. Być może Twoje dane lokalne są przestarzałe, już zaktualizowaliśmy Twoje dane lokalne. Spróbuj ponownie, aby wystawić premię lub pieczątkę.</translation>
+        <translation>Nie udało się wystawić premii lub pieczątki. Być może Twoje dane lokalne są przestarzałe, już zaktualizowaliśmy Twoje dane lokalne. Spróbuj ponownie, aby wystawić premię lub pieczątkę.</translation>
     </message>
     <message>
         <source>Server not responds</source>
-        <translation type="unfinished">Serwer nie odpowiada</translation>
+        <translation>Serwer nie odpowiada</translation>
     </message>
     <message>
         <source>Hmm, maybe you have a super slow internet connection... Try again</source>
-        <translation type="unfinished">Hmm, może masz bardzo wolne połączenie internetowe... Spróbuj ponownie</translation>
+        <translation>Hmm, może masz bardzo wolne połączenie internetowe... Spróbuj ponownie</translation>
     </message>
 </context>
 <context>
@@ -1044,7 +1040,7 @@
     </message>
     <message>
         <source>Name:</source>
-        <translation>Nazwa Użytkownika:</translation>
+        <translation>Nazwa:</translation>
     </message>
 </context>
 <context>
