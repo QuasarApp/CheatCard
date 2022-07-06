@@ -27,8 +27,9 @@ public:
     void onResume() override;
     void onPause() override;
 private:
-    RC::Server *_serverSSL = nullptr;
 
+    RC::Server *_serverSSL = nullptr;
+    QString dbBackPath;
     RC::DataBase * _db = nullptr;
 
 

@@ -23,8 +23,10 @@ void TestSeller::handleRequestError(unsigned char code, QString) {
     lastErrrorCode = code;
 }
 
-unsigned char TestSeller::getLastErrrorCode() const {
-    return lastErrrorCode;
+unsigned char TestSeller::getLastErrrorCode() {
+    unsigned char lastErr = lastErrrorCode;
+    lastErrrorCode = 0;
+    return lastErr;
 }
 
 void TestSeller::dropDB() {

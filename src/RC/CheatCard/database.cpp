@@ -8,17 +8,21 @@
 #include "database.h"
 #include "dbobjectsrequest.h"
 #include "CheatCard/api/api0/user.h"
+#include <sqldbwriter.h>
 
 #include <customdbrequest.h>
 #include <getsinglevalue.h>
 
 #include <CheatCard/api/api0/card.h>
+#include <QDir>
 
 namespace RC {
 
-DataBase::DataBase(const QString &name) {
+DataBase::DataBase(const QString &name, const QString &backUpLocation) {
     if (name.size())
         setLocalNodeName(name);
+
+    setBackUpPath(backUpLocation);
 }
 
 QH::ISqlDBCache *DataBase::db() const {
@@ -33,9 +37,35 @@ QStringList DataBase::SQLSources() const {
     return QH::DataBaseNode::SQLSources() << ":/DataBase/private/sql/DataBase.sql";
 }
 
+QString DataBase::backUp(QString path) const {
+
+    if (path.isEmpty()) {
+        path = _backUpPath;
+    }
+
+    if (path.isEmpty()) {
+        return {};
+    }
+
+    auto file = path + "/DB-" + QDateTime::currentDateTimeUtc().toString("hh:mm:ss_dd_MM_yyyy") + ".db";
+
+    if (db() && db()->writer() &&
+            QFile::exists(db()->writer()->databaseLocation())) {
+
+        QDir().mkpath(path);
+
+        if (!QFile::copy(db()->writer()->databaseLocation(), file)) {
+            return {};
+        }
+    }
+
+    return file;
+}
+
 // See https://quasarapp.ddns.net:3031/docs/QuasarApp/Heart/latest/classQH_1_1DataBaseNode.html#a9e2969af3bd4e6b49b80820000aef108
 QH::DBPatchMap DataBase::dbPatches() const {
 
+    backUp();
 
     QH::DBPatchMap result;
 
@@ -50,6 +80,14 @@ QH::DBPatchMap DataBase::dbPatches() const {
     result += beta2Patches();
 
     return result;
+}
+
+const QString &DataBase::backUpPath() const {
+    return _backUpPath;
+}
+
+void DataBase::setBackUpPath(const QString &newBackUpPath) {
+    _backUpPath = newBackUpPath;
 }
 
 QH::DBPatchMap DataBase::beta1Patches() const {
@@ -186,6 +224,11 @@ QH::DBPatchMap DataBase::beta1Patches() const {
     // See task #380 https://quasarapp.ddns.net:3000/QuasarApp/CheatCard/issues/380
     result += [](const QH::iObjectProvider* database) -> bool {
         return database->doSql(":/DataBase/private/sql/SQLPatch_4.sql");
+    };
+
+    // See task #512 https://quasarapp.ddns.net:3000/QuasarApp/CheatCard/issues/512
+    result += [](const QH::iObjectProvider* database) -> bool {
+        return database->doSql(":/DataBase/private/sql/SQLPatch_5.sql");
     };
 
     return result;

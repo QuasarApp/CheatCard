@@ -199,6 +199,61 @@ protected:
         return {result->data().begin(), result->data().end()};
     };
 
+    template<class Contacts>
+    QSharedPointer<Contacts> getContactFromChildIdImpl(const QByteArray& userKey, const QByteArray& childUserKey) {
+        check_type(Contacts);
+
+        QString whereBlock = QString("userKey='%0' AND childUserKey='%1'").
+                arg(QString(userKey.toBase64(QByteArray::Base64UrlEncoding)),
+                QString(childUserKey.toBase64(QByteArray::Base64UrlEncoding)));
+
+        QH::PKG::DBObjectsRequest<Contacts>
+                request("Contacts", whereBlock);
+
+        auto result = _db->getObject(request);
+
+        if (!result || result->data().isEmpty())
+            return {};
+
+        return *result->data().begin();
+    }
+
+    template<class Contacts>
+    QList<QSharedPointer<Contacts>> getMasterKeysImpl(const QByteArray& childUserKey) {
+        check_type(Contacts);
+
+        QString whereBlock = QString("childUserKey='%0'").
+                arg(QString(childUserKey.toBase64(QByteArray::Base64UrlEncoding)));
+
+        QH::PKG::DBObjectsRequest<Contacts>
+                request("Contacts", whereBlock);
+
+        auto result = _db->getObject(request);
+
+        if (!result || result->data().isEmpty())
+            return {};
+
+        return {result->data().begin(), result->data().end()};
+    }
+
+    template<class Contacts>
+    QList<QSharedPointer<Contacts>> getSlaveKeysImpl(const QByteArray& userKey) {
+        check_type(Contacts);
+
+        QString whereBlock = QString("userKey='%0'").
+                arg(QString(userKey.toBase64(QByteArray::Base64UrlEncoding)));
+
+        QH::PKG::DBObjectsRequest<Contacts>
+                request("Contacts", whereBlock);
+
+        auto result = _db->getObject(request);
+
+        if (!result || result->data().isEmpty())
+            return {};
+
+        return {result->data().begin(), result->data().end()};
+    }
+
 private:
     QH::ISqlDBCache *_db = nullptr;
 };

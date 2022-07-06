@@ -44,7 +44,9 @@ void ConnectionTest::addSeal(const QSharedPointer<TestSeller> &seller,
                              const QSharedPointer<RC::API::User> user,
                              unsigned int cardId,
                              int sealsCount,
-                             QSharedPointer<RC::API::UserHeader>& resultUserHeader) {
+                             QSharedPointer<RC::API::UserHeader>& resultUserHeader,
+                             const QString& host ,
+                             int port) {
 
     // random session
     long long session = rand() * rand();
@@ -59,7 +61,7 @@ void ConnectionTest::addSeal(const QSharedPointer<TestSeller> &seller,
 
         qDebug () << "Add seal " << i << "/" << sealsCount;
 
-        QVERIFY(seller->incrementPurchase(resultUserHeader, cardId, 1, TEST_CHEAT_HOST, TEST_CHEAT_PORT));
+        QVERIFY(seller->incrementPurchase(resultUserHeader, cardId, 1, host, port));
 
         QVERIFY(wait([server, cardId](){
             auto card = server->getCard(cardId);
@@ -74,7 +76,7 @@ void ConnectionTest::addSeal(const QSharedPointer<TestSeller> &seller,
             return server->connectionsCount() == 0;
         }, WAIT_TIME));
 
-        QVERIFY(client->checkCardData(session, TEST_CHEAT_HOST, TEST_CHEAT_PORT));
+        QVERIFY(client->checkCardData(session, host, port));
 
         QVERIFY(wait([client, cardId](){
             auto card = client->getCard(cardId);
@@ -178,7 +180,7 @@ void ConnectionTest::apiTest(const QSharedPointer<TestSeller> &seller,
     unsigned int cardId = CheatCardTestsHelper::testCardId();
     unsigned int userId = user->userId();
 
-    addSeal(seller, client, server, user, cardId, 100, obj);
+    addSeal(seller, client, server, user, cardId, 100, obj, TEST_CHEAT_HOST,  TEST_CHEAT_PORT);
 
     int sellerFreeItems = seller->getFreeItemsCount(user->userId(), cardId);
     int visitorFreeItems = client->getFreeItemsCount(user->userId(), cardId);

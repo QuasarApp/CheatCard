@@ -7,33 +7,108 @@
 //#
 
 #include "contacts.h"
+#include "user.h"
 
 namespace RC {
 namespace API {
 
-Contacts::Contacts(unsigned int user, unsigned int contactUser ): QH::PKG::DBObject("Contacts") {
-    this->contactUser = contactUser;
-    this->user = user;
-}
+Contacts::Contacts(): QH::PKG::DBObject("Contacts") {}
 
 QH::PKG::DBObject *Contacts::createDBObject() const {
-    return new Contacts(0, 0);
+    return new Contacts();
 }
 
 QH::PKG::DBVariantMap Contacts::variantMap() const {
-    return {{"user",               {user,        QH::PKG::MemberType::Insert}},
-            {"contactUser",        {contactUser, QH::PKG::MemberType::Insert}},
+    return {{"userKey",      {QString(userKey.toBase64(QByteArray::Base64UrlEncoding)),      QH::PKG::MemberType::Insert}},
+            {"childUserKey", {QString(childUserKey.toBase64(QByteArray::Base64UrlEncoding)), QH::PKG::MemberType::Insert}},
+            {"info",         {info,         QH::PKG::MemberType::InsertUpdate}},
+
     };
+}
+
+bool Contacts::isValid() const {
+    return userKey.size() && childUserKey.size();
 }
 
 QString Contacts::primaryKey() const {
     return "";
 }
 
+QDataStream &Contacts::fromStream(QDataStream &stream) {
+
+    stream >> userKey;
+    stream >> childUserKey;
+    stream >> info;
+
+    return stream;
+}
+
+QDataStream &Contacts::toStream(QDataStream &stream) const {
+
+    stream << userKey;
+    stream << childUserKey;
+    stream << info;
+
+    return stream;
+}
+
+QString Contacts::condition() const {
+    QString strUserKey(userKey.toBase64(QByteArray::Base64UrlEncoding));
+    QString strChildUserKey(childUserKey.toBase64(QByteArray::Base64UrlEncoding));
+
+    return QString("userKey='%0' AND childUserKey='%1'").
+            arg(strUserKey, strChildUserKey);
+}
+
+const QByteArray &Contacts::getUserKey() const {
+    return userKey;
+}
+
+void Contacts::setUserKey(const QByteArray &newUserKey) {
+    userKey = newUserKey;
+}
+
+QSharedPointer<User> Contacts::toUser() const {
+    auto result = QSharedPointer<User>::create();
+
+    result->setKey(childUserKey);
+    result->setId(API::User::makeId(childUserKey));
+    result->setName(info);
+
+    return result;
+}
+
+const QByteArray &Contacts::getChildUserKey() const {
+    return childUserKey;
+}
+
+void Contacts::setChildUserKey(const QByteArray &newChildUserKey) {
+    childUserKey = newChildUserKey;
+}
+
+unsigned int Contacts::getChildUserId() const {
+    return API::User::makeId(childUserKey);
+}
+
+unsigned int Contacts::getUser() const {
+    return API::User::makeId(userKey);
+}
+
+const QString &Contacts::getInfo() const {
+    return info;
+}
+
+void Contacts::setInfo(const QString &newInfo) {
+    info = newInfo;
+}
+
 bool Contacts::fromSqlRecord(const QSqlRecord &q) {
 
-    contactUser = q.value("contactUser").toUInt();
-    user = q.value("user").toUInt();
+    childUserKey = QByteArray::fromBase64(q.value("childUserKey").toByteArray(),
+                                          QByteArray::Base64UrlEncoding);
+    userKey = QByteArray::fromBase64(q.value("userKey").toByteArray(),
+                                    QByteArray::Base64UrlEncoding);
+    info = q.value("info").toString();
 
     return true;
 }
