@@ -397,12 +397,12 @@
         <translation>Роздавати</translation>
     </message>
     <message>
-        <source>Wooooh seems like someone available %0 %1 !!!</source>
-        <translation>Wooooh, здається, хтось доступний %0 %1 !!!</translation>
-    </message>
-    <message>
         <source>Don`t give out</source>
         <translation>Не видавати</translation>
+    </message>
+    <message>
+        <source>Wooooh seems like someone has available %0 %1 !!!</source>
+        <translation>Ох, здається, хтось має доступний %0 %1 !!!</translation>
     </message>
 </context>
 <context>

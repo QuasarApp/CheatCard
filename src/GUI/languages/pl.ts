@@ -398,12 +398,12 @@
         <translation>Wydać</translation>
     </message>
     <message>
-        <source>Wooooh seems like someone available %0 %1 !!!</source>
-        <translation>Wooooh wygląda na to, że ktoś jest dostępny %0 %1 !!!</translation>
-    </message>
-    <message>
         <source>Don`t give out</source>
         <translation>Nie poddawaj się</translation>
+    </message>
+    <message>
+        <source>Wooooh seems like someone has available %0 %1 !!!</source>
+        <translation>Wooooh wygląda na to, że ktoś ma dostępne %0 %1 !!!</translation>
     </message>
 </context>
 <context>

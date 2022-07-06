@@ -5,7 +5,7 @@
     <name>About</name>
     <message>
         <source> </source>
-        <translation></translation>
+        <translation> </translation>
     </message>
     <message>
         <source>**Third party libraries**</source>
@@ -20,389 +20,389 @@
     <name>AdditionalInformationForSeller</name>
     <message>
         <source>Have any questions?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ёсць пытанні?</translation>
     </message>
     <message>
         <source>* You can learn more about using CheatCard in the help page or introduction video:</source>
-        <translation type="unfinished"></translation>
+        <translation>* Вы можаце даведацца больш аб выкарыстанні CheatCard на старонцы даведкі або ўводным відэа:</translation>
     </message>
     <message>
         <source>Open help page</source>
-        <translation type="unfinished"></translation>
+        <translation>Адкрыць старонку даведкі</translation>
     </message>
     <message>
         <source>Watch help video</source>
-        <translation type="unfinished"></translation>
+        <translation>Глядзіце дапаможнае відэа</translation>
     </message>
     <message>
         <source>* You can get additional seller resources:</source>
-        <translation type="unfinished"></translation>
+        <translation>* Вы можаце атрымаць дадатковыя рэсурсы прадаўца:</translation>
     </message>
     <message>
         <source>Get CheatCard Banners</source>
-        <translation type="unfinished"></translation>
+        <translation>Атрымайце банэры CheatCard</translation>
     </message>
     <message>
         <source>* Or You can contact with developers here:</source>
-        <translation type="unfinished"></translation>
+        <translation>* Вы можаце звязацца з распрацоўшчыкамі тут:</translation>
     </message>
 </context>
 <context>
     <name>AppearanceCustomPage</name>
     <message>
         <source>Select application color</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберыце колер праграмы</translation>
     </message>
     <message>
         <source>Select</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберыце</translation>
     </message>
     <message>
         <source>Dark Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Цёмная тэма</translation>
     </message>
     <message>
         <source>Please choose a color</source>
-        <translation type="unfinished"></translation>
+        <translation>Калі ласка, абярыце колер</translation>
     </message>
 </context>
 <context>
     <name>CardsListView</name>
     <message>
         <source>Don&apos;t have any cards yet? </source>
-        <translation type="unfinished"></translation>
+        <translation>У вас яшчэ няма картак? </translation>
     </message>
     <message>
         <source>* Visit any cafe that support CheatCard Application</source>
-        <translation type="unfinished"></translation>
+        <translation>* Наведайце любое кафэ, якое падтрымлівае праграму CheatCard</translation>
     </message>
     <message>
         <source>Let&apos;s go create the first card! Press &quot;Add Card &quot; button</source>
-        <translation type="unfinished"></translation>
+        <translation>Давайце створым першую картку! Націсніце кнопку «Дадаць картку»</translation>
     </message>
     <message>
         <source>* At the time of purchase, tell the seller that you have a cheat card</source>
-        <translation type="unfinished"></translation>
+        <translation>* Падчас пакупкі скажыце прадаўцу, што ў вас ёсць cheat-card</translation>
     </message>
     <message>
         <source>* And get your bonuses!!!</source>
-        <translation type="unfinished"></translation>
+        <translation>* І атрымлівайце свае бонусы!!!</translation>
     </message>
     <message>
         <source>Activate card</source>
-        <translation type="unfinished"></translation>
+        <translation>Актываваць картку</translation>
     </message>
     <message>
         <source>Add card</source>
-        <translation type="unfinished"></translation>
+        <translation>Дадаць картку</translation>
     </message>
 </context>
 <context>
     <name>CheatCard</name>
     <message>
         <source>Hello </source>
-        <translation type="unfinished"></translation>
+        <translation>добры дзень </translation>
     </message>
     <message>
         <source> (work mode)</source>
-        <translation type="unfinished"></translation>
+        <translation> (рэжым працы)</translation>
     </message>
     <message>
         <source>Create a card</source>
-        <translation type="unfinished"></translation>
+        <translation>Стварыце картку</translation>
     </message>
     <message>
         <source>Contact with developers</source>
-        <translation type="unfinished"></translation>
+        <translation>Кантакт з распрацоўшчыкамі</translation>
     </message>
     <message>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>аб праграме</translation>
     </message>
     <message>
         <source>Share application</source>
-        <translation type="unfinished"></translation>
+        <translation>Падзяліцца праграмай</translation>
     </message>
     <message>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>дапамога</translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Налады</translation>
     </message>
     <message>
         <source>Import Account</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпарт акаўнта</translation>
     </message>
     <message>
         <source>Export Account</source>
-        <translation type="unfinished"></translation>
+        <translation>Экспарт акаўнта</translation>
     </message>
 </context>
 <context>
     <name>ColorPicker</name>
     <message>
         <source>Random collor</source>
-        <translation type="unfinished"></translation>
+        <translation>Выпадковы колер</translation>
     </message>
 </context>
 <context>
     <name>Contacts</name>
     <message>
         <source>Go to our site. There you will get extended information about the CheatCard application and will be able to contact the developers.</source>
-        <translation type="unfinished"></translation>
+        <translation>Заходзьце на наш сайт. Там вы атрымаеце падрабязную інфармацыю аб праграме CheatCard і зможаце звязацца з распрацоўшчыкамі.</translation>
     </message>
     <message>
         <source>Join to our telegram channel to get support and see the last changes.</source>
-        <translation type="unfinished"></translation>
+        <translation>Далучайцеся да нашага telegram-канала, каб атрымаць падтрымку і ўбачыць апошнія змены.</translation>
     </message>
     <message>
         <source>Join to our Instagram channel to get support and see the last changes.</source>
-        <translation type="unfinished"></translation>
+        <translation>Далучайцеся да нашага канала ў Instagram, каб атрымаць падтрымку і ўбачыць апошнія змены.</translation>
     </message>
 </context>
 <context>
     <name>EditCardView</name>
     <message>
         <source>Enter card title</source>
-        <translation type="unfinished"></translation>
+        <translation>Увядзіце назву карткі</translation>
     </message>
     <message>
         <source>Your telegramm</source>
-        <translation type="unfinished"></translation>
+        <translation>Ваш Telegram</translation>
     </message>
     <message>
         <source>Your instagramm</source>
-        <translation type="unfinished"></translation>
+        <translation>Ваш instagram</translation>
     </message>
     <message>
         <source>Your physical address</source>
-        <translation type="unfinished"></translation>
+        <translation>Ваш фізічны адрас</translation>
     </message>
     <message>
         <source>Your web site</source>
-        <translation type="unfinished"></translation>
+        <translation>Ваш web-сайт</translation>
     </message>
     <message>
         <source>Your phone number</source>
-        <translation type="unfinished"></translation>
+        <translation>Ваш нумар тэлефона</translation>
     </message>
     <message>
         <source>Enter bonus name</source>
-        <translation type="unfinished"></translation>
+        <translation>Увядзіце назву бонуса</translation>
     </message>
     <message>
         <source>Detail of </source>
-        <translation type="unfinished"></translation>
+        <translation>Падрабязна аб </translation>
     </message>
     <message>
         <source>Purchases count: </source>
-        <translation type="unfinished"></translation>
+        <translation>Колькасць пакупак: </translation>
     </message>
     <message>
         <source>Available %0: </source>
-        <translation type="unfinished"></translation>
+        <translation>Даступна %0: </translation>
     </message>
     <message>
         <source>Received %0: </source>
-        <translation type="unfinished"></translation>
+        <translation>Атрымана %0: </translation>
     </message>
     <message>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation>Па змаўчанні</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Захаваць</translation>
     </message>
     <message>
         <source>Select Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберыце малюнак</translation>
     </message>
     <message>
         <source>Select card logo</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберыце лагатып карткі</translation>
     </message>
     <message>
         <source>Select card seal</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберыце пячатку карткі</translation>
     </message>
     <message>
         <source>Please choose a color</source>
-        <translation type="unfinished"></translation>
+        <translation>Калі ласка, абярыце колер</translation>
     </message>
     <message>
         <source>Edit card</source>
-        <translation type="unfinished"></translation>
+        <translation>рэдагаваць картку</translation>
     </message>
     <message>
         <source>Remove card</source>
-        <translation type="unfinished"></translation>
+        <translation>Выдаліць картку</translation>
     </message>
     <message>
         <source>Activate card</source>
-        <translation type="unfinished"></translation>
+        <translation>Актываваць картку</translation>
     </message>
     <message>
         <source>Hide statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Схаваць статыстыку</translation>
     </message>
     <message>
         <source>Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Статыстыка</translation>
     </message>
     <message>
         <source>Background color</source>
-        <translation type="unfinished"></translation>
+        <translation>Колер фону</translation>
     </message>
     <message>
         <source>Foreground color</source>
-        <translation type="unfinished"></translation>
+        <translation>Колер пярэдняга плана</translation>
     </message>
     <message>
         <source>Background image</source>
-        <translation type="unfinished"></translation>
+        <translation>Фонавы малюнак</translation>
     </message>
     <message>
         <source>Card logo</source>
-        <translation type="unfinished"></translation>
+        <translation>Лагатып карткі</translation>
     </message>
     <message>
         <source>Card seal</source>
-        <translation type="unfinished"></translation>
+        <translation>Пячатка карткi</translation>
     </message>
 </context>
 <context>
     <name>EditUserView</name>
     <message>
         <source>About your profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Аб вашым профілі</translation>
     </message>
     <message>
         <source>No user selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Карыстальнік не выбраны</translation>
     </message>
     <message>
         <source>User Id:</source>
-        <translation type="unfinished"></translation>
+        <translation>ld карыстальніка:</translation>
     </message>
     <message>
         <source>Its my name:</source>
-        <translation type="unfinished"></translation>
+        <translation>маё імя:</translation>
     </message>
     <message>
         <source>Start integration with business</source>
-        <translation type="unfinished"></translation>
+        <translation>Пачніце інтэграцыю з бізнесам</translation>
     </message>
     <message>
         <source>Work mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Рэжым працы</translation>
     </message>
     <message>
         <source>To receive a card or a seal, as well as to receive an already accumulated bonus, show this Qr code to the seller.</source>
-        <translation type="unfinished"></translation>
+        <translation>Каб атрымаць картку або пячатку, а таксама атрымаць ужо назапашаны бонус, пакажыце гэты Qr-код прадаўцу.</translation>
     </message>
 </context>
 <context>
     <name>ExportUserKeyPage</name>
     <message>
         <source>Export user account</source>
-        <translation type="unfinished"></translation>
+        <translation>Экспарт уліковага запісу карыстальніка</translation>
     </message>
     <message>
         <source>**For what this use**</source>
-        <translation type="unfinished"></translation>
+        <translation>**Для чаго гэта выкарыстоўваецца**</translation>
     </message>
     <message>
         <source>**Sharing access to your account**</source>
-        <translation type="unfinished"></translation>
+        <translation>**Агульны доступ да вашага ўліковага запісу**</translation>
     </message>
     <message>
         <source>Some times you can drop your application data or your device. Therefore you can create a backup qr code that can recovery your application data after dropping</source>
-        <translation type="unfinished"></translation>
+        <translation>Часам вы можаце выдаліць дадзеныя праграмы або прылады. Такім чынам, вы можаце стварыць рэзервовы QR-код, які можа аднавіць дадзеныя вашай праграмы пасля падзення</translation>
     </message>
     <message>
         <source>Scan This Qr code using the &apos;import user option&apos; on left drop menu or in a user&apos;s list page on another device to export this user account to another device.</source>
-        <translation type="unfinished"></translation>
+        <translation>Адсканіруйце гэты Qr-код, выкарыстоўваючы опцыю «імпартаваць карыстальніка» ў левым выпадальным меню або на старонцы спісу карыстальніка на іншай прыладзе, каб экспартаваць гэты ўліковы запіс карыстальніка на іншую прыладу.</translation>
     </message>
     <message>
         <source>Save and open in files</source>
-        <translation type="unfinished"></translation>
+        <translation>Захаваць і адкрыць у файлах</translation>
     </message>
     <message>
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation>Гатова</translation>
     </message>
     <message>
         <source>Backup code exported successful. The Backup Code Available in your documents&apos; folder. See &lt;b&gt;%0&lt;/b&gt; path</source>
-        <translation type="unfinished"></translation>
+        <translation>Рэзервовы код паспяхова экспартаваны. Рэзервовы код даступны ў папцы вашых дакументаў. Глядзіце шлях &lt;b&gt;%0&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
     <name>FirstRunPage</name>
     <message>
         <source>Who are you?</source>
-        <translation type="unfinished"></translation>
+        <translation>Хто ты?</translation>
     </message>
     <message>
         <source>Сhoose a language:</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберыце мову:</translation>
     </message>
     <message>
         <source>I am client</source>
-        <translation type="unfinished"></translation>
+        <translation>Я кліент</translation>
     </message>
     <message>
         <source>I am a business representative</source>
-        <translation type="unfinished"></translation>
+        <translation>Я прадстаўнік бізнесу</translation>
     </message>
     <message>
         <source>I just want to recover data</source>
-        <translation type="unfinished"></translation>
+        <translation>Я проста хачу аднавіць дадзеныя</translation>
     </message>
     <message>
         <source>What is your name?</source>
-        <translation type="unfinished"></translation>
+        <translation>Як вас завуць?</translation>
     </message>
     <message>
         <source>What is the name of your company?</source>
-        <translation type="unfinished"></translation>
+        <translation>Як называецца ваша кампанія?</translation>
     </message>
     <message>
         <source>Please enter your name here</source>
-        <translation type="unfinished"></translation>
+        <translation>Калі ласка, увядзіце тут сваё імя</translation>
     </message>
     <message>
         <source>Customize the appearance of your application.</source>
-        <translation type="unfinished"></translation>
+        <translation>Наладзьце знешні выгляд вашай праграмы.</translation>
     </message>
     <message>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Назад</translation>
     </message>
     <message>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation>Далей</translation>
     </message>
     <message>
         <source>Done!</source>
-        <translation type="unfinished"></translation>
+        <translation>Гатова!</translation>
     </message>
 </context>
 <context>
     <name>FreeItemsView</name>
     <message>
-        <source>Wooooh seems like someone available %0 %1 !!!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Don`t give out</source>
-        <translation type="unfinished"></translation>
+        <translation>Не выдавайце</translation>
     </message>
     <message>
         <source>Give out</source>
-        <translation type="unfinished"></translation>
+        <translation>Выдаць</translation>
+    </message>
+    <message>
+        <source>Wooooh seems like someone has available %0 %1 !!!</source>
+        <translation>Вауууу, здаецца, нехта мае даступны %0 %1 !!!</translation>
     </message>
 </context>
 <context>
@@ -835,7 +835,7 @@
     <name>RegistrationFinishedPage</name>
     <message>
         <source>Done!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Гатова!</translation>
     </message>
     <message>
         <source>All Done! &lt;b&gt;But If you drop your application data, then all your cards will be removed&lt;/b&gt;. For save, itself of these situations, we recommend creating a back-up of your master key.</source>
@@ -865,15 +865,15 @@
     </message>
     <message>
         <source>Select application color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Выберыце колер прыкладання</translation>
     </message>
     <message>
         <source>Select</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Выберыце</translation>
     </message>
     <message>
         <source>Dark Theme</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Цёмная тэма</translation>
     </message>
     <message>
         <source>Language</source>
@@ -881,7 +881,7 @@
     </message>
     <message>
         <source>Please choose a color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Калі ласка, абярыце колер</translation>
     </message>
     <message>
         <source>Privacy</source>
