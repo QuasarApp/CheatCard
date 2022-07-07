@@ -1040,7 +1040,7 @@ void MainModel::handleFirstDataSendet() {
 
     auto visitor = _backEndModel.dynamicCast<Visitor>();
 
-    if (!visitor) {
+    if (!(visitor && _currentUser)) {
         return;
     }
 
