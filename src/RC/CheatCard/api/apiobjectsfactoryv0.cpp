@@ -69,13 +69,28 @@ APIObjectsFactoryV0::getCard(unsigned int cardId) {
 }
 
 QList<QSharedPointer<API::Card> >
-APIObjectsFactoryV0::getAllUserCards(const QByteArray &userKey, bool restOf) {
-    return getAllUserCardsImpl<API_PREFIX::Card>(userKey, restOf);
+APIObjectsFactoryV0::getAllUserCards(const QByteArray &userKey, bool restOf,
+                                     const QList<QSharedPointer<API::Contacts>> &childs) {
+
+    QList<QByteArray> keys;
+    for (const auto& key: childs) {
+        keys.push_back(key->getUserKey());
+    }
+    keys.push_back(userKey);
+
+    return getAllUserCardsImpl<API_PREFIX::Card>(keys, restOf);
 }
 
 QList<QSharedPointer<API::UsersCards> >
-APIObjectsFactoryV0::getAllUserCardsData(const QByteArray &userKey) {
-    return getAllUserCardsDataImpl<API_PREFIX::UsersCards>(userKey);
+APIObjectsFactoryV0::getAllUserCardsData(const QByteArray &userKey,
+                                         const QList<QSharedPointer<API::Contacts>>& childs) {
+    QList<QByteArray> keys;
+    for (const auto& key: childs) {
+        keys.push_back(key->getUserKey());
+    }
+    keys.push_back(userKey);
+
+    return getAllUserCardsDataImpl<API_PREFIX::UsersCards>(keys);
 }
 
 QSharedPointer<API::Contacts>

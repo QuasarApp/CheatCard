@@ -74,10 +74,6 @@ public:
                         const QString& domain = "",
                         int port = DEFAULT_CHEAT_CARD_PORT_SSL);
 
-    bool getContactsList(const QByteArray &userKey,
-                        const QString& domain = "",
-                        int port = DEFAULT_CHEAT_CARD_PORT_SSL);
-
     bool updateContactData(const API::Contacts &contact,
                            const QByteArray& secreet,
                            bool removeRequest,
@@ -130,6 +126,7 @@ signals:
     void sigVersionNoLongerSupport(int minimumRequiredVersion);
     void sigSessionStatusResult(QSharedPointer<RC::API::Session>, bool succesed);
     void sigContactsStatusResult(QSharedPointer<RC::API::Contacts>, bool succesed, bool removed);
+    void sigContactsListChanged();
 
 protected:
 

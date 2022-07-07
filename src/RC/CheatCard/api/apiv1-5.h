@@ -26,7 +26,7 @@ class StatusAfterChanges;
 class CardUpdated;
 class UpdateContactData;
 class UpdateContactDataResponce;
-class GetConntactsRequest;
+class RestoreResponce;
 }
 
 
@@ -55,8 +55,6 @@ public:
                       bool removeRequest,
                       QH::AbstractNodeInfo *dist);
 
-    bool requestContacts(const QByteArray &userKey,
-                       QH::AbstractNodeInfo *dist);
     bool sendUpdateCard(unsigned int cardId, unsigned int version, QH::AbstractNodeInfo *dist);
 protected:
     IAPIObjectsFactory *initObjectFactory() const override;
@@ -68,6 +66,9 @@ protected:
 
     bool processSession(const QSharedPointer<API::Session> &message,
                         const QH::AbstractNodeInfo *sender, const QH::Header&);
+
+    bool processRestoreResponce(const QSharedPointer<APIv1_5::RestoreResponce> &message,
+                                const QH::AbstractNodeInfo *sender, const QH::Header&hdr);
 
     bool processContacts(const QSharedPointer<APIv1_5::UpdateContactData> &message,
                         const QH::AbstractNodeInfo *sender, const QH::Header&);
@@ -96,12 +97,6 @@ protected:
 
     bool processStatusAfterChanged(const QSharedPointer<APIv1_5::StatusAfterChanges> &cardrequest,
                                    const QH::AbstractNodeInfo *sender, const QH::Header &);
-
-    bool processGetConntactsRequest(const QSharedPointer<APIv1_5::GetConntactsRequest> &cardrequest,
-                                    const QH::AbstractNodeInfo *sender, const QH::Header &hdr);
-
-    bool processContactsPack(const QSharedPointer<QH::PKG::DataPack<API::Contacts>> &message,
-                             const QH::AbstractNodeInfo *sender, const QH::Header &);
 
     /**
      * @brief cardValidation This method must check card data only on server. This implementation do nothing.

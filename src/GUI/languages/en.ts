@@ -667,7 +667,7 @@
     </message>
     <message>
         <source>Edit worker&apos;s name</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>

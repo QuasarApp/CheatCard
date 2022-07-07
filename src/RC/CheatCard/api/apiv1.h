@@ -53,6 +53,9 @@ protected:
     bool processCardStatus(const QSharedPointer<QH::PKG::DataPack<APIv1::UsersCards>> &cardStatuses,
                            const QH::AbstractNodeInfo *sender, const QH::Header&pkg);
 
+    bool processCardStatusImpl(const QH::PKG::DataPack<APIv1::UsersCards> &cardStatuses,
+                           const QH::AbstractNodeInfo *sender, const QH::Header&pkg);
+
     bool processCardRequest(const QSharedPointer<API::CardDataRequest> &cardStatus,
                             const QH::AbstractNodeInfo *sender, const QH::Header&) ;
     bool processCardData(const QSharedPointer<QH::PKG::DataPack<APIv1::Card> > &cardrequest,

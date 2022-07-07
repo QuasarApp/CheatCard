@@ -49,13 +49,15 @@ public:
      * @return cards list;
      */
     virtual QList<QSharedPointer<API::Card>> getAllUserCards(const QByteArray &userKey,
-                                                             bool restOf = false) = 0;
+                                                             bool restOf = false,
+                                                             const QList<QSharedPointer<API::Contacts>>& childs = {}) = 0;
     /**
      * @brief getAllUserCardsData This method will return list of available userscards data of the user with @a userKey key
      * @param userKey user key
      * @return cards data list;
      */
-    virtual QList<QSharedPointer<API::UsersCards>> getAllUserCardsData(const QByteArray &userKey) = 0;
+    virtual QList<QSharedPointer<API::UsersCards>> getAllUserCardsData(const QByteArray &userKey,
+                                                                       const QList<QSharedPointer<API::Contacts>>& childs = {}) = 0;
 
     virtual QSharedPointer<API::Contacts> getContactFromChildId(const QByteArray& userKey, const QByteArray& childUserId) = 0;
     virtual QList<QSharedPointer<API::Contacts>> getMasterKeys(const QByteArray& childUserId) = 0;

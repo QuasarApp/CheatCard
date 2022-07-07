@@ -18,6 +18,7 @@
 
 #include <CheatCard/api/apiv0.h>
 
+#include <CheatCard/api/api1-5/restoreresponce.h>
 #include <CheatCard/api/api1-5/updatecontactdataresponce.h>
 
 #include <CheatCard/api/api0/contacts.h>
@@ -30,6 +31,7 @@ Visitor::Visitor(QH::ISqlDBCache *db): BaseNode(db) {
     _timer = new QTimer(this);
     registerPackageType<QH::PKG::DataPack<API::Contacts>>();
     registerPackageType<APIv1_5::UpdateContactDataResponce>();
+    registerPackageType<APIv1_5::RestoreResponce>();
 
     connect(_timer, &QTimer::timeout, this, &Visitor::handleTick);
 

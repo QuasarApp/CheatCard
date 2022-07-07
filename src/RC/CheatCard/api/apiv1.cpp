@@ -95,9 +95,15 @@ IAPIObjectsFactory *ApiV1::initObjectFactory() const {
 
 bool ApiV1::processCardStatus(const QSharedPointer<QH::PKG::DataPack<APIv1::UsersCards> > &cardStatuses,
                               const QH::AbstractNodeInfo *sender, const QH::Header &pkg) {
+    return processCardStatusImpl(*cardStatuses, sender, pkg);
+}
+
+bool ApiV1::processCardStatusImpl(const QH::PKG::DataPack<APIv1::UsersCards> &cardStatuses,
+                              const QH::AbstractNodeInfo *sender,
+                              const QH::Header &pkg) {
     API::CardDataRequest request;
 
-    for (const auto& cardStatus : cardStatuses->packData()) {
+    for (const auto& cardStatus : cardStatuses.packData()) {
         auto dbCard = objectFactoryInstance()->getCard(cardStatus->getCard());
         auto dbUsersCards = objectFactoryInstance()->getUserCardData(
                     cardStatus->getUser(),
@@ -108,7 +114,7 @@ bool ApiV1::processCardStatus(const QSharedPointer<QH::PKG::DataPack<APIv1::User
             continue;
         }
 
-        if (!cardValidation(dbCard, cardStatuses->customData())) {
+        if (!cardValidation(dbCard, cardStatuses.customData())) {
 
             QuasarAppUtils::Params::log("Receive not signed cards seal");
             break;
@@ -217,6 +223,7 @@ bool ApiV1::processCardData(const QSharedPointer<QH::PKG::DataPack<APIv1::Card>>
 void RC::ApiV1::collectDataOfuser(const QByteArray& userKey, QH::PKG::DataPack<APIv1::UsersCards>& responce) {
     ;
     unsigned int userID = API::User::makeId(userKey);
+    auto masterUser = node()->getMasterKeys(userKey);
 
     auto result = objectFactoryInstance()->getAllUserData(userID);
 
@@ -225,18 +232,10 @@ void RC::ApiV1::collectDataOfuser(const QByteArray& userKey, QH::PKG::DataPack<A
         responce.push(data.staticCast<APIv1::UsersCards>());
     }
 
-    const auto datalist = objectFactoryInstance()->getAllUserCardsData(userKey);
+    const auto datalist = objectFactoryInstance()->getAllUserCardsData(userKey, masterUser);
     for (const auto& item: datalist) {
         item->setCardVersion(node()->getCardVersion(item->getCard()));
         responce.push(item.staticCast<APIv1::UsersCards>());
-    }
-
-    auto masterUser = node()->getMasterKeys(userKey);
-    for (const auto &contact: qAsConst(masterUser)) {
-        if (contact->isValid()) {
-            // get recursive cards from master
-            collectDataOfuser(contact->getUserKey(), responce);
-        }
     }
 
     return;

@@ -192,8 +192,7 @@ private slots:
     void handlePermissionChanged(const QSharedPointer<RC::API::Contacts>& permision);
     void handlePermissionRemoved(QSharedPointer<RC::API::Contacts> permision);
     void handlePermissionAdded(QSharedPointer<API::UserHeader> childUserName);
-    void handleRefreshPermissions();
-
+    void handleContactsListChanged();
 private:
     void saveUser();
     void lastStatusRequest();

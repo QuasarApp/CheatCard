@@ -65,5 +65,32 @@ QDataStream &Card::toStream(QDataStream &stream) const {
     return stream;
 }
 
+QString Card::toString() const {
+    QString result("id: %0 \n"
+                   "title: %1 \n"
+                   "phone: %2 \n"
+                   "telegram: %3 \n"
+                   "instagram: %4 \n"
+                   "physicalAddress: %5 \n "
+                   "webSite: %6 \n "
+                   "freeItemName: %7 \n "
+                   "freeIndex: %8 \n "
+                   "cardVersion: %9 \n ");
+
+    result = result.arg(cardId()).
+            arg(_title).
+            arg(_phone).
+            arg(_telegramm).
+            arg(_instagramm).
+            arg(_physicalAddress).
+            arg(_webSite).
+            arg(_freeItemName).
+            arg(freeIndex).
+            arg(cardVersion);
+
+    return result;
+}
+
+
 }
 }

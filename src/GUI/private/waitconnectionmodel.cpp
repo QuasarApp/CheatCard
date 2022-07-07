@@ -61,7 +61,7 @@ void WaitConnectionModel::begin() {
         return;
     }
 
-    if (_waitModel->wait(header->getSessionId())) {
+    if (!_waitModel->wait(header->getSessionId())) {
         return;
     }
 

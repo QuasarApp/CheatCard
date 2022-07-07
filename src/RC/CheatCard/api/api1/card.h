@@ -23,6 +23,7 @@ public:
     Card();
     QH::PKG::DBObject *createDBObject() const override;
 
+    QString toString() const override;
 protected:
     QDataStream &fromStream(QDataStream &stream) override;
     QDataStream &toStream(QDataStream &stream) const override;

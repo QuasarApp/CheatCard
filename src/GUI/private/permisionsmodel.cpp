@@ -125,8 +125,4 @@ void PermisionsModel::removePermision(int row) {
 
 }
 
-void PermisionsModel::refresh() {
-    _waitModel->wait(1);
-    emit sigRefresh();
-}
 }

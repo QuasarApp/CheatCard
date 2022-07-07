@@ -337,28 +337,6 @@ bool BaseNode::restoreAllData(const QByteArray &curentUserKey,
                    QH::NodeCoonectionStatus::Confirmed);
 }
 
-bool BaseNode::getContactsList(const QByteArray& userKey,
-                               const QString &domain, int port) {
-
-    auto action = [this, userKey](QH::AbstractNodeInfo *node) {
-
-        auto dist = static_cast<NodeInfo*>(node);
-
-        auto api = selectParser(dist->version()).dynamicCast<ApiV1_5>();
-        if (api) {
-            api->requestContacts(userKey, node);
-        }
-    };
-
-    if (domain.isEmpty()) {
-        return addNode(getServerHost(), port, action,
-                       QH::NodeCoonectionStatus::Confirmed);
-    }
-
-    return addNode(domain, port, action,
-                   QH::NodeCoonectionStatus::Confirmed);
-}
-
 bool BaseNode::updateContactData(const API::Contacts &contact,
                                  const QByteArray& secreet,
                                  bool removeRequest,
