@@ -48,24 +48,6 @@ CPage {
                         id: column
                         anchors.fill: parent
 
-                        RowLayout {
-                            Label {
-                                text: qsTr("Сhoose a language:")
-                            }
-                            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-
-                            ComboBox {
-                                id: langSelector
-                                model: (mainModel)? mainModel.langModel: null
-                                displayText: (model)? model.getCurrentLanguage(): "";
-                                onActivated: {
-                                    if (model) {
-                                        model.selectLanguagge(currentText, this)
-                                    }
-                                }
-                            }
-                        }
-
                         ColumnLayout {
                             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
@@ -84,6 +66,24 @@ CPage {
                             RadioButton {
                                 id: fRestore
                                 text: qsTr("I just want to recover data")
+                            }
+                        }
+
+                        RowLayout {
+                            Label {
+                                text: qsTr("Сhoose a language:")
+                            }
+                            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+
+                            ComboBox {
+                                id: langSelector
+                                model: (mainModel)? mainModel.langModel: null
+                                displayText: (model)? model.getCurrentLanguage(): "";
+                                onActivated: {
+                                    if (model) {
+                                        model.selectLanguagge(currentText, this)
+                                    }
+                                }
                             }
                         }
                     }
