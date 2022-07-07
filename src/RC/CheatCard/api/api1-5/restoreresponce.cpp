@@ -11,7 +11,7 @@ RestoreResponce::RestoreResponce() {
 }
 
 bool RestoreResponce::isValid() const {
-    return _contacts.packData().size() && _usersCards.packData().size();
+    return _userKey.size();
 }
 
 QDataStream &RestoreResponce::fromStream(QDataStream &stream) {
