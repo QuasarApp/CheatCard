@@ -205,9 +205,9 @@ protected:
         QString where;
         for (const QByteArray& key: userKeys) {
             if (where.isEmpty()) {
-                where += QString{"ownerSignature!= '%0'"}.arg(QString(key.toBase64(QByteArray::Base64UrlEncoding)));
+                where += QString{"ownerSignature= '%0'"}.arg(QString(key.toBase64(QByteArray::Base64UrlEncoding)));
             } else {
-                where += QString{" AND ownerSignature!= '%0'"}.arg(QString(key.toBase64(QByteArray::Base64UrlEncoding)));
+                where += QString{" OR ownerSignature= '%0'"}.arg(QString(key.toBase64(QByteArray::Base64UrlEncoding)));
             }
         }
 

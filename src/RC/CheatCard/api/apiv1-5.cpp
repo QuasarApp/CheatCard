@@ -18,7 +18,6 @@
 #include <CheatCard/api/api1-5/cardupdated.h>
 #include <CheatCard/api/api1-5/changeuserscards.h>
 #include <CheatCard/api/api1-5/restoreresponce.h>
-#include <CheatCard/api/api1-5/restoreresponce.h>
 #include <CheatCard/api/api1-5/statusafterchanges.h>
 #include <CheatCard/api/api1-5/updatecontactdata.h>
 #include <CheatCard/api/api1-5/updatecontactdataresponce.h>
@@ -416,9 +415,12 @@ bool ApiV1_5::processRestoreResponce(const QSharedPointer<APIv1_5::RestoreRespon
         db()->insertIfExistsUpdateObject(contact);
     }
 
+    if (!ApiV1::processCardStatusImpl(message->usersCards(), sender, hdr))
+        return false;
+
     emit node()->sigContactsListChanged();
 
-    return ApiV1::processCardStatusImpl(message->usersCards(), sender, hdr);
+    return true;
 }
 
 bool ApiV1_5::cardValidation(const QSharedPointer<API::Card> &cardFromDB,
