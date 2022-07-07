@@ -339,6 +339,7 @@ void MainModel::setCurrentUser(const QSharedPointer<RC::UserModel>& value) {
         if (_billing) {
             connect(_currentUser.data(), &UserModel::sigBecomeSeller,
                     _billing, &IBilling::becomeSeller);
+            _billing->init();
         }
     }
 
