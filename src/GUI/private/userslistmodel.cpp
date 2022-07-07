@@ -135,7 +135,7 @@ UsersListModel::updateUser(const QSharedPointer<API::User> &user) {
 
 void UsersListModel::setCurrentUser(unsigned int newCurrentUser) {
 
-    if (newCurrentUser == _currentUser) {
+    if (_currentUser && newCurrentUser == _currentUser) {
         return;
     }
 
