@@ -462,10 +462,6 @@
         <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;To implement the loyalty program of your institution using a cheat card, you need to do the following:</translation>
     </message>
     <message>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**IMPORTANT:** After you put at least one seal on the customer, the card cannot be edited. Instead, you can create a new map based on the old one. all customer data and their statistics will be automatically transferred to the corrected card. Instead, you can create a new map based on the old one. all customer data and their statistics will be automatically transferred to the corrected card.</source>
-        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**IMPORTANT:** After you put at least one seal on the customer, the card cannot be edited. Instead, you can create a new map based on the old one. all customer data and their statistics will be automatically transferred to the corrected card. Instead, you can create a new map based on the old one. all customer data and their statistics will be automatically transferred to the corrected card.</translation>
-    </message>
-    <message>
         <source>### How to use?</source>
         <translation>### How to use?</translation>
     </message>
@@ -512,10 +508,6 @@
     <message>
         <source>* The created map will be displayed on the main screen of the application.</source>
         <translation>* The created map will be displayed on the main screen of the application.</translation>
-    </message>
-    <message>
-        <source>* A screen will open where you can specify how many stamps to put to the client, then click &quot;print&quot;.</source>
-        <translation>* A screen will open where you can specify how many stamps to put to the client, then click &quot;print&quot;.</translation>
     </message>
     <message>
         <source>* Scan the visitor&apos;s QR code.</source>
@@ -565,6 +557,14 @@
         <source>### Guide to using Cheat Cards for business</source>
         <translation></translation>
     </message>
+    <message>
+        <source>* A screen will open where you can specify how many stamps to put to the client, then click &quot;seal&quot;.</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**IMPORTANT:** After you put at least one seal to the customer, the card cannot be edited. Instead, you can create a new map based on the old one. All customer data and their statistics will be automatically transferred to the corrected card.</source>
+        <translation></translation>
+    </message>
 </context>
 <context>
     <name>PageHelpVisitor</name>
@@ -589,10 +589,6 @@
         <translation>* Showed the QR code in the application at the checkout.</translation>
     </message>
     <message>
-        <source>* Received print to card.</source>
-        <translation>* Received print to card.</translation>
-    </message>
-    <message>
         <source>* Repeated this procedure several times and received the bonus set by the seller.</source>
         <translation>* Repeated this procedure several times and received the bonus set by the seller.</translation>
     </message>
@@ -615,6 +611,10 @@
     <message>
         <source>&lt;img src=&quot;qrc:/private/resources/help/Help1.jpg&quot; alt=&quot;tt&quot; width=&quot;100&quot;/&gt;</source>
         <translation>&lt;img src=&quot;qrc:/private/resources/help/Help1.jpg&quot; alt=&quot;tt&quot; width=&quot;100&quot;/&gt;</translation>
+    </message>
+    <message>
+        <source>* Receive seal to card.</source>
+        <translation></translation>
     </message>
 </context>
 <context>

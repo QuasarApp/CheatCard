@@ -57,5 +57,6 @@
         <file>languages/ru.qm</file>
         <file>languages/uk.qm</file>
         <file>languages/pl.qm</file>
+        <file>languages/be.qm</file>
     </qresource>
 </RCC>

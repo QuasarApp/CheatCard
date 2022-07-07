@@ -37,7 +37,7 @@ Credits {
             align: Label.AlignLeft
         },
         {
-            text: qsTr("* Received print to card."),
+            text: qsTr("* Receive seal to card."),
             align: Label.AlignLeft
         },
         {
