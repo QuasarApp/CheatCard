@@ -22,6 +22,7 @@ LanguagesModel::LanguagesModel() {
     addLang("ru", "Русский");
     addLang("pl", "Polski");
     addLang("uk", "Ukrainian");
+    addLang("be", "Беларуский");
 
 }
 

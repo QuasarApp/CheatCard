@@ -89,7 +89,7 @@ Credits {
             align: Label.AlignLeft
         },
         {
-            text: qsTr("&nbsp;&nbsp;&nbsp;&nbsp;**IMPORTANT:** After you put at least one seal on the customer, the card cannot be edited. Instead, you can create a new map based on the old one. all customer data and their statistics will be automatically transferred to the corrected card. Instead, you can create a new map based on the old one. all customer data and their statistics will be automatically transferred to the corrected card."),
+            text: qsTr("&nbsp;&nbsp;&nbsp;&nbsp;**IMPORTANT:** After you put at least one seal to the customer, the card cannot be edited. Instead, you can create a new map based on the old one. All customer data and their statistics will be automatically transferred to the corrected card."),
             align: Label.AlignLeft
         },
         {
@@ -110,7 +110,7 @@ Credits {
             align: Label.AlignLeft
         },
         {
-            text: qsTr("* A screen will open where you can specify how many stamps to put to the client, then click \"print\"."),
+            text: qsTr("* A screen will open where you can specify how many stamps to put to the client, then click \"seal\"."),
             align: Label.AlignLeft
         },
         {

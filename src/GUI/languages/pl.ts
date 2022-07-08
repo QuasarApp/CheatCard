@@ -409,12 +409,12 @@
         <translation>Wydać</translation>
     </message>
     <message>
-        <source>Wooooh seems like someone available %0 %1 !!!</source>
-        <translation>Wooooh wygląda na to, że ktoś jest dostępny %0 %1 !!!</translation>
-    </message>
-    <message>
         <source>Don`t give out</source>
         <translation>Nie poddawaj się</translation>
+    </message>
+    <message>
+        <source>Wooooh seems like someone has available %0 %1 !!!</source>
+        <translation>Wooooh wygląda na to, że ktoś ma dostępne %0 %1 !!!</translation>
     </message>
 </context>
 <context>
@@ -522,10 +522,6 @@
         <translation>* Utworzona mapa zostanie wyświetlona na głównym ekranie aplikacji.</translation>
     </message>
     <message>
-        <source>* A screen will open where you can specify how many stamps to put to the client, then click &quot;print&quot;.</source>
-        <translation>* Otworzy się ekran, na którym możesz określić, ile znaczków należy włożyć do klienta, a następnie kliknąć „Drukuj”.</translation>
-    </message>
-    <message>
         <source>* Scan the visitor&apos;s QR code.</source>
         <translation>* Zeskanuj kod QR odwiedzającego.</translation>
     </message>
@@ -548,10 +544,6 @@
     <message>
         <source>* Enter the contact and other details of your establishment. In the item &quot;Bonus name&quot; it is necessary to indicate what the client will receive in the form of a bonus (product / service / discount / etc.).</source>
         <translation>* Wprowadź kontakt i inne dane swojej placówki. W pozycji „Nazwa bonusu” należy wskazać, co klient otrzyma w formie bonusu (produkt / usługa / rabat / itp.).</translation>
-    </message>
-    <message>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**IMPORTANT:** After you put at least one seal on the customer, the card cannot be edited. Instead, you can create a new map based on the old one. all customer data and their statistics will be automatically transferred to the corrected card. Instead, you can create a new map based on the old one. all customer data and their statistics will be automatically transferred to the corrected card.</source>
-        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**WAŻNE:** Po nałożeniu co najmniej jednej pieczęci na klienta nie można edytować karty. Zamiast tego możesz utworzyć nową mapę na podstawie starej. wszystkie dane klientów i ich statystyki zostaną automatycznie przeniesione na poprawioną kartę. Zamiast tego możesz utworzyć nową mapę na podstawie starej. wszystkie dane klientów i ich statystyki zostaną automatycznie przeniesione na poprawioną kartę.</translation>
     </message>
     <message>
         <source>* When the client has collected a sufficient number of stamps, you can give him a bonus, the application itself will notify you that the client has made a sufficient number of purchases.</source>
@@ -577,6 +569,14 @@
         <source>### Guide to using Cheat Cards for business</source>
         <translation>### Przewodnik po korzystaniu z Cheat Cards w biznesie</translation>
     </message>
+    <message>
+        <source>* A screen will open where you can specify how many stamps to put to the client, then click &quot;seal&quot;.</source>
+        <translation>* Otworzy się ekran, na którym możesz określić, ile znaczków należy włożyć do klienta, a następnie kliknąć „zapieczętować”.</translation>
+    </message>
+    <message>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**IMPORTANT:** After you put at least one seal to the customer, the card cannot be edited. Instead, you can create a new map based on the old one. All customer data and their statistics will be automatically transferred to the corrected card.</source>
+        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**WAŻNE:** Po nałożeniu co najmniej jednej pieczęci klientowi nie można edytować karty. Zamiast tego możesz utworzyć nową mapę na podstawie starej. Wszystkie dane klientów i ich statystyki zostaną automatycznie przeniesione na poprawioną kartę.</translation>
+    </message>
 </context>
 <context>
     <name>PageHelpVisitor</name>
@@ -601,10 +601,6 @@
         <translation>* Pokazał kod QR w aplikacji przy kasie.</translation>
     </message>
     <message>
-        <source>* Received print to card.</source>
-        <translation>* Otrzymano wydruk na kartę.</translation>
-    </message>
-    <message>
         <source>* Repeated this procedure several times and received the bonus set by the seller.</source>
         <translation>* Powtórz tę procedurę kilka razy i otrzymał premię ustaloną przez sprzedającego.</translation>
     </message>
@@ -627,6 +623,10 @@
     <message>
         <source>&lt;img src=&quot;qrc:/private/resources/help/Help1.jpg&quot; alt=&quot;tt&quot; width=&quot;100&quot;/&gt;</source>
         <translation></translation>
+    </message>
+    <message>
+        <source>* Receive seal to card.</source>
+        <translation>* Odbierz pieczęć na kartę.</translation>
     </message>
 </context>
 <context>

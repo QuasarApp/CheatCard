@@ -408,12 +408,12 @@
         <translation>Роздавати</translation>
     </message>
     <message>
-        <source>Wooooh seems like someone available %0 %1 !!!</source>
-        <translation>Wooooh, здається, хтось доступний %0 %1 !!!</translation>
-    </message>
-    <message>
         <source>Don`t give out</source>
         <translation>Не видавати</translation>
+    </message>
+    <message>
+        <source>Wooooh seems like someone has available %0 %1 !!!</source>
+        <translation>Ох, здається, хтось має доступний %0 %1 !!!</translation>
     </message>
 </context>
 <context>
@@ -521,10 +521,6 @@
         <translation>* Створена карта буде відображена на головному екрані програми.</translation>
     </message>
     <message>
-        <source>* A screen will open where you can specify how many stamps to put to the client, then click &quot;print&quot;.</source>
-        <translation>* Відкриється екран, де ви можете вказати, скільки марок поставити клієнту, потім натисніть «друк».</translation>
-    </message>
-    <message>
         <source>* Scan the visitor&apos;s QR code.</source>
         <translation>* Скануйте QR-код відвідувача.</translation>
     </message>
@@ -547,10 +543,6 @@
     <message>
         <source>* Enter the contact and other details of your establishment. In the item &quot;Bonus name&quot; it is necessary to indicate what the client will receive in the form of a bonus (product / service / discount / etc.).</source>
         <translation>* Введіть контактні та інші дані вашого закладу. У пункті «Назва бонусу» необхідно вказати, що отримає клієнт у вигляді бонусу (товар / послуга / знижка / тощо).</translation>
-    </message>
-    <message>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**IMPORTANT:** After you put at least one seal on the customer, the card cannot be edited. Instead, you can create a new map based on the old one. all customer data and their statistics will be automatically transferred to the corrected card. Instead, you can create a new map based on the old one. all customer data and their statistics will be automatically transferred to the corrected card.</source>
-        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**ВАЖЛИВО:** Після того, як ви поставили хоча б одну печатку на клієнта, картку не можна буде редагувати. Замість цього ви можете створити нову карту на основі старої. всі дані клієнтів і їхня статистика будуть автоматично перенесені на виправлену картку. Замість цього ви можете створити нову карту на основі старої. всі дані клієнтів і їхня статистика будуть автоматично перенесені на виправлену картку.</translation>
     </message>
     <message>
         <source>* When the client has collected a sufficient number of stamps, you can give him a bonus, the application itself will notify you that the client has made a sufficient number of purchases.</source>
@@ -576,6 +568,14 @@
         <source>### Guide to using Cheat Cards for business</source>
         <translation>### Посібник із використання чит-карт для бізнесу</translation>
     </message>
+    <message>
+        <source>* A screen will open where you can specify how many stamps to put to the client, then click &quot;seal&quot;.</source>
+        <translation>* Відкриється екран, де ви можете вказати, скільки штампів поставити клієнту, а потім натиснути «печатка».</translation>
+    </message>
+    <message>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**IMPORTANT:** After you put at least one seal to the customer, the card cannot be edited. Instead, you can create a new map based on the old one. All customer data and their statistics will be automatically transferred to the corrected card.</source>
+        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**ВАЖЛИВО:** Після того, як ви поставите хоча б одну печатку клієнту, картку неможливо редагувати. Замість цього ви можете створити нову карту на основі старої. Усі дані клієнтів та їх статистика будуть автоматично перенесені на виправлену картку.</translation>
+    </message>
 </context>
 <context>
     <name>PageHelpVisitor</name>
@@ -600,10 +600,6 @@
         <translation>* Показав QR-код у додатку на касі.</translation>
     </message>
     <message>
-        <source>* Received print to card.</source>
-        <translation>* Отримано друк на картку.</translation>
-    </message>
-    <message>
         <source>* Repeated this procedure several times and received the bonus set by the seller.</source>
         <translation>* Повторив цю процедуру кілька разів і отримав встановлений продавцем бонус.</translation>
     </message>
@@ -626,6 +622,10 @@
     <message>
         <source>&lt;img src=&quot;qrc:/private/resources/help/Help1.jpg&quot; alt=&quot;tt&quot; width=&quot;100&quot;/&gt;</source>
         <translation></translation>
+    </message>
+    <message>
+        <source>* Receive seal to card.</source>
+        <translation>* Отримайте печатку на картку.</translation>
     </message>
 </context>
 <context>

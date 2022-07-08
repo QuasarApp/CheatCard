@@ -408,12 +408,12 @@
         <translation>Выдать</translation>
     </message>
     <message>
-        <source>Wooooh seems like someone available %0 %1 !!!</source>
-        <translation>Ооо кажется у кого то доступно %0 %1 !!!</translation>
-    </message>
-    <message>
         <source>Don`t give out</source>
         <translation>Не выдавать</translation>
+    </message>
+    <message>
+        <source>Wooooh seems like someone has available %0 %1 !!!</source>
+        <translation>Вау кажется, у кого-то есть доступный %0 %1 !!!</translation>
     </message>
 </context>
 <context>
@@ -473,10 +473,6 @@
         <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Для реализации программы лояльности вашего заведения при помомощи чит карты необходимо сделать следующее:</translation>
     </message>
     <message>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**IMPORTANT:** After you put at least one seal on the customer, the card cannot be edited. Instead, you can create a new map based on the old one. all customer data and their statistics will be automatically transferred to the corrected card. Instead, you can create a new map based on the old one. all customer data and their statistics will be automatically transferred to the corrected card.</source>
-        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**ВАЖНО:** После того как вы поставите хотя бы одну печать покупателю, карту нельзя будет редактировать. В место этого вы сможите создать новую карту на основе старой. Все данные покупателей и их статистика будет автоматически перенесена на исправленную карту. В место этого вы сможите создать новую карту на основе старой. все данные покупателей и их статистика будет автоматически перенесена на исправленную карту.</translation>
-    </message>
-    <message>
         <source>### How to use?</source>
         <translation>### Как использовать?</translation>
     </message>
@@ -523,10 +519,6 @@
     <message>
         <source>* The created map will be displayed on the main screen of the application.</source>
         <translation>* Созданная карта будет отображатся на основном экране приложения.</translation>
-    </message>
-    <message>
-        <source>* A screen will open where you can specify how many stamps to put to the client, then click &quot;print&quot;.</source>
-        <translation>* Откроется экран где вы сможете указать какое количество печатей поставить клиенту, далее нажмите &quot;печать&quot;.</translation>
     </message>
     <message>
         <source>* Scan the visitor&apos;s QR code.</source>
@@ -576,6 +568,14 @@
         <source>### Guide to using Cheat Cards for business</source>
         <translation>### Руководство по использованию чит-карт для бизнеса</translation>
     </message>
+    <message>
+        <source>* A screen will open where you can specify how many stamps to put to the client, then click &quot;seal&quot;.</source>
+        <translation>* Откроется экран, где можно указать, сколько штампов поставить клиенту, затем нажать «печать».</translation>
+    </message>
+    <message>
+        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**IMPORTANT:** After you put at least one seal to the customer, the card cannot be edited. Instead, you can create a new map based on the old one. All customer data and their statistics will be automatically transferred to the corrected card.</source>
+        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**ВАЖНО:** После того, как вы поставили покупателю хотя бы одну печать, карточку нельзя редактировать. Вместо этого вы можете создать новую карту на основе старой. Все данные клиентов и их статистика будут автоматически перенесены на исправленную карту.</translation>
+    </message>
 </context>
 <context>
     <name>PageHelpVisitor</name>
@@ -600,10 +600,6 @@
         <translation>* Показал QR код в приложении на кассе.</translation>
     </message>
     <message>
-        <source>* Received print to card.</source>
-        <translation>* Получил печать в карточку.</translation>
-    </message>
-    <message>
         <source>* Repeated this procedure several times and received the bonus set by the seller.</source>
         <translation>* Повторил эту процедуру несколько раз и получил бонус установленный продавцом.</translation>
     </message>
@@ -626,6 +622,10 @@
     <message>
         <source>&lt;img src=&quot;qrc:/private/resources/help/Help1.jpg&quot; alt=&quot;tt&quot; width=&quot;100&quot;/&gt;</source>
         <translation></translation>
+    </message>
+    <message>
+        <source>* Receive seal to card.</source>
+        <translation>* Получите печать на карту.</translation>
     </message>
 </context>
 <context>
