@@ -82,8 +82,9 @@ CPage {
         selectExisting: true
         title: qsTr("Select your backup qr code")
         onSelectionAccepted: {
-            if (root.model)
-                root.model.processQrCode(fileUrl);
+            if (root.model && root.model.processQrCode(fileUrl)) {
+                importFinished();
+            }
         }
     }
 
@@ -99,6 +100,7 @@ CPage {
         id: privateRoot
 
         function importDataFinished (data) {
+            importFinished();
             activityProcessor.popItem();
         }
 

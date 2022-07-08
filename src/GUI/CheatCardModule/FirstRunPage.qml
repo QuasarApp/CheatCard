@@ -134,7 +134,7 @@ CPage {
                         visible: fRestore.checked
 
                         onImportFinished: {
-                            root.finished();
+                            root.model.configureFinished();
                         }
 
                     }

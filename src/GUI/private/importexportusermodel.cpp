@@ -25,7 +25,7 @@ ImportExportUserModel::ImportExportUserModel() {
             this, &ImportExportUserModel::handleDecodeFinished);
 }
 
-void ImportExportUserModel::processQrCode(QString path) {
+bool ImportExportUserModel::processQrCode(QString path) {
     QUrl url(path);
     auto service = QmlNotificationService::NotificationService::getService();
 
@@ -36,7 +36,7 @@ void ImportExportUserModel::processQrCode(QString path) {
                            tr("Permission denied to selected file."),
                            "",
                            QmlNotificationService::NotificationData::Error);
-        return;
+        return false;
     }
 
 #ifdef Q_OS_ANDROID
@@ -50,9 +50,10 @@ void ImportExportUserModel::processQrCode(QString path) {
                            tr("It looks like the file you selected does not contain a recovery code"),
                            "",
                            QmlNotificationService::NotificationData::Error);
+        return false;
     }
 
-
+    return true;
 }
 
 void ImportExportUserModel::handleDecodeFinished(const QString &data) {
