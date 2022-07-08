@@ -101,7 +101,7 @@
     <name>CheatCard</name>
     <message>
         <source>Hello </source>
-        <translation>добры дзень </translation>
+        <translation>Добры дзень </translation>
     </message>
     <message>
         <source> (work mode)</source>
@@ -117,7 +117,7 @@
     </message>
     <message>
         <source>About</source>
-        <translation>аб праграме</translation>
+        <translation>Аб праграме</translation>
     </message>
     <message>
         <source>Share application</source>
@@ -125,7 +125,7 @@
     </message>
     <message>
         <source>Help</source>
-        <translation>дапамога</translation>
+        <translation>Дапамога</translation>
     </message>
     <message>
         <source>Settings</source>
@@ -170,7 +170,7 @@
     </message>
     <message>
         <source>Your telegramm</source>
-        <translation>Ваш Telegram</translation>
+        <translation>Ваш telegram</translation>
     </message>
     <message>
         <source>Your instagramm</source>
@@ -234,7 +234,7 @@
     </message>
     <message>
         <source>Edit card</source>
-        <translation>рэдагаваць картку</translation>
+        <translation>Рэдагаваць картку</translation>
     </message>
     <message>
         <source>Remove card</source>
@@ -289,7 +289,7 @@
     </message>
     <message>
         <source>Its my name:</source>
-        <translation>маё імя:</translation>
+        <translation>Маё імя:</translation>
     </message>
     <message>
         <source>Start integration with business</source>
@@ -421,7 +421,7 @@
     </message>
     <message>
         <source>codes</source>
-        <translation>коды</translation>
+        <translation>Коды</translation>
     </message>
     <message>
         <source>Select your backup qr code</source>
@@ -639,7 +639,7 @@
     <name>QrScanner</name>
     <message>
         <source>switch camera</source>
-        <translation>пераключыць камеру</translation>
+        <translation>Пераключыць камеру</translation>
     </message>
 </context>
 <context>
@@ -921,7 +921,7 @@
     </message>
     <message>
         <source>Host</source>
-        <translation>гаспадар</translation>
+        <translation>Гаспадар</translation>
     </message>
     <message>
         <source>Default settings</source>
