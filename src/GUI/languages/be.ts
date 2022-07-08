@@ -471,7 +471,7 @@
     </message>
     <message>
         <source>* In order to create a map, click the &quot;Add Map&quot; button at the bottom of the screen.</source>
-        <translation>* Каб стварыць картку, націсніце кнопку «Дадаць карту» ў ніжняй частцы экрана.</translation>
+        <translation>* Каб стварыць картку, націсніце кнопку «Дадаць картку» ў ніжняй частцы экрана.</translation>
     </message>
     <message>
         <source>* An empty card will be created.</source>
