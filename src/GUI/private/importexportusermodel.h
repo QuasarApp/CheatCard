@@ -17,7 +17,7 @@ class ImportExportUserModel: public QObject {
     Q_OBJECT
 public:
     ImportExportUserModel();
-    Q_INVOKABLE void processQrCode(QString path);
+    Q_INVOKABLE bool processQrCode(QString path);
 
 public slots:
     void handleDecodeFinished(const QString &data);
