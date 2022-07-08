@@ -12,6 +12,7 @@
 #include <CheatCard/api/api0/card.h>
 #include <CheatCard/api/api0/user.h>
 #include <CheatCard/api/api0/userscards.h>
+#include <CheatCard/api/api0/contacts.h>
 
 namespace RC {
 
@@ -68,16 +69,41 @@ APIObjectsFactoryV0::getCard(unsigned int cardId) {
 }
 
 QList<QSharedPointer<API::Card> >
-APIObjectsFactoryV0::getAllUserCards(const QByteArray &userKey, bool restOf) {
-    return getAllUserCardsImpl<API_PREFIX::Card>(userKey, restOf);
+APIObjectsFactoryV0::getAllUserCards(const QByteArray &userKey, bool restOf,
+                                     const QList<QSharedPointer<API::Contacts>> &childs) {
 
+    QList<QByteArray> keys;
+    for (const auto& key: childs) {
+        keys.push_back(key->getUserKey());
+    }
+    keys.push_back(userKey);
+
+    return getAllUserCardsImpl<API_PREFIX::Card>(keys, restOf);
 }
 
 QList<QSharedPointer<API::UsersCards> >
-APIObjectsFactoryV0::getAllUserCardsData(const QByteArray &userKey) {
-    return getAllUserCardsDataImpl<API_PREFIX::UsersCards>(userKey);
+APIObjectsFactoryV0::getAllUserCardsData(const QByteArray &userKey,
+                                         const QList<QSharedPointer<API::Contacts>>& childs) {
+    QList<QByteArray> keys;
+    for (const auto& key: childs) {
+        keys.push_back(key->getUserKey());
+    }
+    keys.push_back(userKey);
 
+    return getAllUserCardsDataImpl<API_PREFIX::UsersCards>(keys);
 }
 
+QSharedPointer<API::Contacts>
+APIObjectsFactoryV0::getContactFromChildId(const QByteArray& userId, const QByteArray& childUserId) {
+    return getContactFromChildIdImpl<API::Contacts>(userId, childUserId);
+}
 
+QList<QSharedPointer<API::Contacts> >
+APIObjectsFactoryV0::getMasterKeys(const QByteArray& childUserId) {
+    return getMasterKeysImpl<API::Contacts>(childUserId);
+}
+
+QList<QSharedPointer<API::Contacts> > APIObjectsFactoryV0::getSlaveKeys(const QByteArray &userId) {
+    return getSlaveKeysImpl<API::Contacts>(userId);
+}
 }

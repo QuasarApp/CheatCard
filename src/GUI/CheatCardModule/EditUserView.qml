@@ -101,6 +101,21 @@ Frame {
 
             }
 
+            Button {
+                id: showWorkers
+                text: qsTr("Workers management");
+                Layout.alignment: Qt.AlignHCenter
+                visible:!becomeaseller.visible && fBillingAwailable && root.model.mode
+
+                onClicked: {
+                    if (mainModel) {
+                        activityProcessor.newActivity("qrc:/CheatCardModule/PermissionsView.qml",
+                                                      mainModel.permisionsModel);
+                        userPanel.close()
+                    }
+                }
+            }
+
             Item {
                 id: helpMsgWrap
                 Layout.fillWidth: true
@@ -141,16 +156,6 @@ Frame {
                 fileName: "currentuserqrcode";
                 inputText: (userModel)? (userModel.sessionCode): ""
 
-
-                MouseArea {
-                    anchors.fill: parent
-
-                    onReleased: {
-                        activityProcessor.newActivity("qrc:/CheatCardModule/QrCodeView.qml",
-                                                      qrBox.qrCodeFilePath);
-                        userPanel.close()
-                    }
-                }
             }
             AdditionalInformationForSeller {
                 implicitWidth: 0x0

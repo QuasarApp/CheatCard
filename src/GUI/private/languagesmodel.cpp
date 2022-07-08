@@ -92,18 +92,4 @@ QString LanguagesModel::getCurrentLanguage() {
     return _languagesMap.value(code, code);
 }
 
-QStringList LanguagesModel::extractLanguages() const {
-
-    const auto availableList = QDir(":/CheatCardTr/languages/").
-            entryInfoList(QDir::Filter::NoDotAndDotDot | QDir::Filter::Files);
-
-    QStringList result;
-    for (const auto& lang: availableList) {
-        auto langName = _languagesMap.value(lang.baseName(), lang.baseName());
-        result.push_back(langName);
-    }
-
-    return result;
-}
-
 }

@@ -22,6 +22,7 @@
 #include "iplatformtools.h"
 #include "imagebackgroundsmodel.h"
 #include "imagelogomodel.h"
+#include "permisionsmodel.h"
 
 #include <CheatCard/database.h>
 
@@ -44,7 +45,9 @@
 #include "cmath"
 #include <qmlnotifyservice.h>
 
+#include <CheatCard/dataconvertor.h>
 #include <CheatCard/sellerssl.h>
+#include <CheatCard/usersnames.h>
 #include <CheatCard/visitorssl.h>
 
 #include <QDir>
@@ -83,6 +86,7 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
     qRegisterMetaType<QSharedPointer<RC::API::Card>>();
     qRegisterMetaType<QSharedPointer<RC::API::Session>>();
     qRegisterMetaType<QSharedPointer<RC::API::UserHeader>>();
+    qRegisterMetaType<QSharedPointer<RC::API::Contacts>>();
 
     initBackgroundsModel();
     initIconsModel();
@@ -96,11 +100,10 @@ MainModel::MainModel(QH::ISqlDBCache *db) {
     initLanguageModel();
     initActivityProcessorModel();
     initCreateCardModel();
-    initUsersListModel();
+    initPermisionsModel();
 
     configureCardsList();
-
-    setCurrentUser(initUser());
+    initUsersListModel();
 
     auto app = dynamic_cast<QGuiApplication*>(QGuiApplication::instance());
 
@@ -227,6 +230,62 @@ void MainModel::handleAppOutdated(int) {
     _activityProcessorModel->newActivity("qrc:/CheatCardModule/UpdateRequestPage.qml");
 }
 
+void MainModel::handlePermissionChanged(const QSharedPointer<API::Contacts> &permision) {
+    if (!_currentUser || !_currentUser->user()) {
+        return;
+    }
+
+    _backEndModel->updateContactData(*permision,
+                                     _currentUser->user()->secret(),
+                                     false);
+}
+
+void MainModel::handlePermissionRemoved(QSharedPointer<API::Contacts> permision) {
+    if (!_currentUser || !_currentUser->user()) {
+        return;
+    }
+
+    _backEndModel->updateContactData(*permision,
+                                     _currentUser->user()->secret(),
+                                     true);
+}
+
+void MainModel::handlePermissionAdded(QSharedPointer<API::UserHeader> childUserName) {
+    // send to server remove request
+
+    if (!_currentUser || !_currentUser->user()) {
+        return;
+    }
+
+    auto childUser = DataConvertor::toUser(childUserName);
+
+    childUser->setName(childUserName->userName());
+    if (childUser->name().isEmpty()) {
+        childUser->setName(UsersNames::randomUserName());
+    }
+
+    auto contacts = QSharedPointer<API::Contacts>::create();
+
+    if (!_backEndModel->createContact(childUser, contacts)) {
+        return;
+    }
+
+    _backEndModel->updateContactData(*contacts,
+                                     _currentUser->user()->secret(),
+                                     false);
+}
+
+void MainModel::handleContactsListChanged() {
+    QByteArray userKey = _currentUser->user()->getKey();
+
+    auto masterKeys = _backEndModel->getMasterKeys(userKey);
+    _ownCardsListModel->setCards(_backEndModel->getAllUserCards(userKey,
+                                                                false,
+                                                                masterKeys));
+
+
+}
+
 const QSharedPointer<UserModel>& MainModel::getCurrentUser() const {
     return _currentUser;
 }
@@ -256,12 +315,15 @@ void MainModel::setCurrentUser(const QSharedPointer<RC::UserModel>& value) {
         _currentUser->regenerateSessionKey();
 
         // get list of owned cards
+        auto masterKeys = _backEndModel->getMasterKeys(userKey);
         _ownCardsListModel->setCards(_backEndModel->getAllUserCards(userKey,
-                                                                    false));
+                                                                    false,
+                                                                    masterKeys));
 
         // get list of included cards
         _cardsListModel->setCards(_backEndModel->getAllUserCards(userKey,
-                                                                 true));
+                                                                 true,
+                                                                 masterKeys));
 
         // get list of cards usings statuses
         QString where = QString("user = %0").
@@ -272,9 +334,12 @@ void MainModel::setCurrentUser(const QSharedPointer<RC::UserModel>& value) {
             _cardsListModel->updateMetaData(result->data());
         }
 
+        _permisionsModel->setPermissions(_backEndModel->getSlaveKeys(userKey));
+
         if (_billing) {
             connect(_currentUser.data(), &UserModel::sigBecomeSeller,
                     _billing, &IBilling::becomeSeller);
+            _billing->init();
         }
     }
 
@@ -284,20 +349,6 @@ void MainModel::setCurrentUser(const QSharedPointer<RC::UserModel>& value) {
 void MainModel::saveUser() {
     _db->insertIfExistsUpdateObject(_currentUser->user());
     _config->setCurrUser(_currentUser->user()->userId());
-}
-
-QSharedPointer<UserModel> MainModel::initUser() {
-    if (_currentUser) {
-        return _currentUser;
-    }
-
-    auto result = _usersListModel->currentUser();
-
-    if (!result) {
-        return _usersListModel->importUser(QSharedPointer<API::User>::create());
-    }
-
-    return result;
 }
 
 void MainModel::initCardsListModels() {
@@ -395,10 +446,14 @@ void MainModel::initUsersListModel() {
     _usersListModel->setUsers(result->data());
     setFirst(!result->data().size());
 
-    _usersListModel->setCurrentUser(_config->getCurrUser());
-
     connect(_usersListModel, &UsersListModel::sigUserChanged,
             this, &MainModel::setCurrentUser);
+
+    if (!_usersListModel->rowCount()) {
+        _usersListModel->importUser(QSharedPointer<API::User>::create());
+    }
+
+    _usersListModel->setCurrentUser(_config->getCurrUser());
 }
 
 void MainModel::initBackgroundsModel() {
@@ -407,6 +462,21 @@ void MainModel::initBackgroundsModel() {
 
 void MainModel::initIconsModel() {
     _icons = new ImageLogoModel();
+}
+
+void MainModel::initPermisionsModel() {
+    _permisionsModel = new PermisionsModel(_icons);
+
+    QQmlEngine::setObjectOwnership(_permisionsModel, QQmlEngine::CppOwnership);
+
+    connect(_permisionsModel, &PermisionsModel::sigPermisionUpdated,
+            this, &MainModel::handlePermissionChanged);
+
+    connect(_permisionsModel, &PermisionsModel::sigPermisionRemoved,
+            this, &MainModel::handlePermissionRemoved);
+
+    connect(_permisionsModel, &PermisionsModel::sigPermisionAdded,
+            this, &MainModel::handlePermissionAdded);
 }
 
 void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
@@ -433,6 +503,11 @@ void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
         disconnect(_backEndModel.data(), &BaseNode::sigSessionStatusResult,
                    _waitModel, &WaitConnectionModel::handleSessionServerResult);
 
+        disconnect(_backEndModel.data(), &BaseNode::sigContactsStatusResult,
+                   _permisionsModel, &PermisionsModel::handleServerResult);
+
+        disconnect(_backEndModel.data(), &BaseNode::sigContactsListChanged,
+                   this, &MainModel::handleContactsListChanged);
     }
 
     _backEndModel = newModel;
@@ -460,6 +535,12 @@ void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
 
         connect(_backEndModel.data(), &BaseNode::sigSessionStatusResult,
                 _waitModel, &WaitConnectionModel::handleSessionServerResult);
+
+        connect(_backEndModel.data(), &BaseNode::sigContactsStatusResult,
+                _permisionsModel, &PermisionsModel::handleServerResult);
+
+        connect(_backEndModel.data(), &BaseNode::sigContactsListChanged,
+                   this, &MainModel::handleContactsListChanged);
 
         _backEndModel->checkNetworkConnection();
 
@@ -959,7 +1040,7 @@ void MainModel::handleFirstDataSendet() {
 
     auto visitor = _backEndModel.dynamicCast<Visitor>();
 
-    if (!visitor) {
+    if (!(visitor && _currentUser)) {
         return;
     }
 
@@ -996,6 +1077,10 @@ QObject *MainModel::createCardModel() const {
 
 QObject *MainModel::usersListModel() const {
     return _usersListModel;
+}
+
+QObject *MainModel::permisionsModel() const {
+    return _permisionsModel;
 }
 
 }

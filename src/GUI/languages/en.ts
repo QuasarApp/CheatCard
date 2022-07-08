@@ -67,6 +67,13 @@
     </message>
 </context>
 <context>
+    <name>CPage</name>
+    <message>
+        <source>Please wait for response from server</source>
+        <translation></translation>
+    </message>
+</context>
+<context>
     <name>CardsListView</name>
     <message>
         <source>Don&apos;t have any cards yet? </source>
@@ -303,6 +310,10 @@
         <source>To receive a card or a seal, as well as to receive an already accumulated bonus, show this Qr code to the seller.</source>
         <translation></translation>
     </message>
+    <message>
+        <source>Workers management</source>
+        <translation></translation>
+    </message>
 </context>
 <context>
     <name>ExportUserKeyPage</name>
@@ -335,7 +346,7 @@
         <translation></translation>
     </message>
     <message>
-        <source>Scan This Qr code using the &apos;import user option&apos; on left drop menu or in a user&apos;s list page on another device to export this user account to another device.</source>
+        <source>Scan This Qr code using the &apos;import user&apos; button on the bottom of a user&apos;s list page on another device to export this user account to another device.</source>
         <translation></translation>
     </message>
 </context>
@@ -625,6 +636,41 @@
     </message>
 </context>
 <context>
+    <name>PermissionsView</name>
+    <message>
+        <source>Your Workers</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Enter your worker name.</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>If you want to add access to your cards, you can add workers.</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>How to manage your workers:</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>* Click the &apos;Scan QR code of your worker&apos; button and scan a qr code from the sidebar of your worker&apos;s device.</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>* Your worker will get access to all your cards</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>* If you want to remove access of your cards, just remove the worker record on the bottom workers list menu.</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Edit worker&apos;s name</source>
+        <translation></translation>
+    </message>
+</context>
+<context>
     <name>QrCodeView</name>
     <message>
         <source>It looks like this code should be shown to the seller!</source>
@@ -759,6 +805,21 @@
     </message>
 </context>
 <context>
+    <name>RC::PermisionsModel</name>
+    <message>
+        <source>Remove access for %0 </source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>If You remove access for the %0 user, he cannot be use your cards anymore.</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source> Do you want to continue?</source>
+        <translation></translation>
+    </message>
+</context>
+<context>
     <name>RC::SellerStatisticModel</name>
     <message>
         <source>Name</source>
@@ -817,9 +878,13 @@
     </message>
 </context>
 <context>
-    <name>RC::WaitConnectionModel</name>
+    <name>RC::WaitConfirmModel</name>
     <message>
-        <source>Hmm, maybe you have a super slow internet connection... Try again</source>
+        <source>Not so fast!</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Please wait for finished of a previous request</source>
         <translation></translation>
     </message>
     <message>
@@ -832,6 +897,21 @@
     </message>
     <message>
         <source>Server not responds</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Hmm, maybe you have a super slow internet connection... Try again</source>
+        <translation></translation>
+    </message>
+</context>
+<context>
+    <name>RC::WaitConnectionModel</name>
+    <message>
+        <source>We Have trouble</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
         <translation></translation>
     </message>
 </context>
@@ -981,10 +1061,6 @@
     </message>
     <message>
         <source>Select the number of purchases that the customer has made.</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Please wait for response from server</source>
         <translation></translation>
     </message>
 </context>

@@ -9,6 +9,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
+import QtQuick.Controls.Material.impl 2.15
 
 ColumnLayout {
     id: root
@@ -25,6 +26,55 @@ ColumnLayout {
 
         editable: Boolean(root.model && root.model.mode)
         visible: !firstRun.visible
+
+        ToolButton {
+            id: lambdsButtonQrCode
+            icon.source: "qrc:/images/private/resources/Interface_icons/qrcode.svg"
+            font.bold: true
+            font.pointSize: 14
+            visible: !mainListView.editable
+            width: 50
+            height: 50
+
+            background:
+                Rectangle {
+                    color: "#00000000"
+                    border.width: 2
+                    border.color: Material.accent
+                    radius: Math.min(width, height) / 2
+                    opacity: 0.3
+
+                    Ripple {
+                        implicitWidth: lambdsButtonQrCode.Material.touchTarget
+                        implicitHeight: lambdsButtonQrCode.Material.touchTarget
+
+                        readonly property bool square: lambdsButtonQrCode.contentItem.width <= lambdsButtonQrCode.contentItem.height
+
+                        x: (parent.width - width) / 2
+                        y: (parent.height - height) / 2
+                        clip: !square
+                        width: square ? parent.height / 2 : parent.width
+                        height: square ? parent.height / 2 : parent.height
+                        pressed: lambdsButtonQrCode.pressed
+                        anchor: lambdsButtonQrCode
+                        active: lambdsButtonQrCode.enabled && (lambdsButtonQrCode.down || lambdsButtonQrCode.visualFocus || lambdsButtonQrCode.hovered)
+                        color: lambdsButtonQrCode.Material.rippleColor
+                    }
+                }
+
+
+            icon.color: Material.accent
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+            anchors.rightMargin: 20
+            anchors.bottomMargin: 20
+
+            opacity: 0.6
+
+            onClicked: {
+                backButton.onClicked()
+            }
+        }
     }
 
     FirstRunPage {

@@ -44,7 +44,9 @@ protected:
                  const QSharedPointer<TestServer> &server,
                  const QSharedPointer<RC::API::User> user,
                  unsigned int cardId, int sealsCount,
-                 QSharedPointer<RC::API::UserHeader>&);
+                 QSharedPointer<RC::API::UserHeader>&,
+                 const QString &host,
+                 int port);
 private:
     void firstContact();
     void apiTest(const QSharedPointer<TestSeller> &seller,

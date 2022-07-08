@@ -67,6 +67,13 @@
     </message>
 </context>
 <context>
+    <name>CPage</name>
+    <message>
+        <source>Please wait for response from server</source>
+        <translation>Proszę czekać na odpowiedź z serwera</translation>
+    </message>
+</context>
+<context>
     <name>CardsListView</name>
     <message>
         <source>Don&apos;t have any cards yet? </source>
@@ -304,6 +311,10 @@
         <source>To receive a card or a seal, as well as to receive an already accumulated bonus, show this Qr code to the seller.</source>
         <translation>Aby otrzymać kartę lub pieczęć, a także otrzymać już zgromadzony bonus, pokaż sprzedawcy ten kod QR.</translation>
     </message>
+    <message>
+        <source>Workers management</source>
+        <translation>Zarządzanie pracownikami</translation>
+    </message>
 </context>
 <context>
     <name>ExportUserKeyPage</name>
@@ -336,8 +347,8 @@
         <translation>**Dzielenie dostępu do swojego konta**</translation>
     </message>
     <message>
-        <source>Scan This Qr code using the &apos;import user option&apos; on left drop menu or in a user&apos;s list page on another device to export this user account to another device.</source>
-        <translation>Zeskanuj ten kod QR za pomocą opcji „Importuj użytkownika” w menu rozwijanym po lewej stronie lub na stronie listy użytkownika na innym urządzeniu, aby wyeksportować to konto użytkownika na inne urządzenie.</translation>
+        <source>Scan This Qr code using the &apos;import user&apos; button on the bottom of a user&apos;s list page on another device to export this user account to another device.</source>
+        <translation>Zeskanuj ten kod QR za pomocą przycisku „Importuj użytkownika” na dole strony z listą użytkownika na innym urządzeniu, aby wyeksportować to konto użytkownika na inne urządzenie.</translation>
     </message>
 </context>
 <context>
@@ -626,6 +637,41 @@
     </message>
 </context>
 <context>
+    <name>PermissionsView</name>
+    <message>
+        <source>Your Workers</source>
+        <translation>Twoi pracownicy</translation>
+    </message>
+    <message>
+        <source>Enter your worker name.</source>
+        <translation>Wpisz swoje imię i nazwisko pracownika.</translation>
+    </message>
+    <message>
+        <source>If you want to add access to your cards, you can add workers.</source>
+        <translation>Jeśli chcesz dodać dostęp do swoich kart, możesz dodać pracowników.</translation>
+    </message>
+    <message>
+        <source>How to manage your workers:</source>
+        <translation>Jak zarządzać swoimi pracownikami:</translation>
+    </message>
+    <message>
+        <source>* Click the &apos;Scan QR code of your worker&apos; button and scan a qr code from the sidebar of your worker&apos;s device.</source>
+        <translation>* Kliknij przycisk „Skanuj kod QR pracownika” i zeskanuj kod QR z paska bocznego urządzenia pracownika.</translation>
+    </message>
+    <message>
+        <source>* Your worker will get access to all your cards</source>
+        <translation>* Twój pracownik uzyska dostęp do wszystkich Twoich kart</translation>
+    </message>
+    <message>
+        <source>* If you want to remove access of your cards, just remove the worker record on the bottom workers list menu.</source>
+        <translation>* Jeśli chcesz usunąć dostęp do swoich kart, po prostu usuń rekord pracownika z dolnego menu listy pracowników.</translation>
+    </message>
+    <message>
+        <source>Edit worker&apos;s name</source>
+        <translation>Edytuj nazwisko pracownika</translation>
+    </message>
+</context>
+<context>
     <name>QrCodeView</name>
     <message>
         <source>It looks like this code should be shown to the seller!</source>
@@ -760,6 +806,21 @@
     </message>
 </context>
 <context>
+    <name>RC::PermisionsModel</name>
+    <message>
+        <source>Remove access for %0 </source>
+        <translation>Usuń dostęp dla %0 </translation>
+    </message>
+    <message>
+        <source>If You remove access for the %0 user, he cannot be use your cards anymore.</source>
+        <translation>Jeśli usuniesz dostęp dla użytkownika %0, nie będzie on mógł już używać twoich kart.</translation>
+    </message>
+    <message>
+        <source> Do you want to continue?</source>
+        <translation> Czy chcesz kontynuować?</translation>
+    </message>
+</context>
+<context>
     <name>RC::SellerStatisticModel</name>
     <message>
         <source>Name</source>
@@ -818,10 +879,14 @@
     </message>
 </context>
 <context>
-    <name>RC::WaitConnectionModel</name>
+    <name>RC::WaitConfirmModel</name>
     <message>
-        <source>Hmm, maybe you have a super slow internet connection... Try again</source>
-        <translation>Hmm, może masz bardzo wolne połączenie internetowe... Spróbuj ponownie</translation>
+        <source>Not so fast!</source>
+        <translation>Nie tak szybko!</translation>
+    </message>
+    <message>
+        <source>Please wait for finished of a previous request</source>
+        <translation>Proszę czekać na zakończenie poprzedniego żądania</translation>
     </message>
     <message>
         <source>We Have trouble</source>
@@ -834,6 +899,21 @@
     <message>
         <source>Server not responds</source>
         <translation>Serwer nie odpowiada</translation>
+    </message>
+    <message>
+        <source>Hmm, maybe you have a super slow internet connection... Try again</source>
+        <translation>Hmm, może masz bardzo wolne połączenie internetowe... Spróbuj ponownie</translation>
+    </message>
+</context>
+<context>
+    <name>RC::WaitConnectionModel</name>
+    <message>
+        <source>We Have trouble</source>
+        <translation>Mamy kłopoty</translation>
+    </message>
+    <message>
+        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
+        <translation>Nie udało się wystawić premii lub pieczątki. Być może Twoje dane lokalne są przestarzałe, już zaktualizowaliśmy Twoje dane lokalne. Spróbuj ponownie, aby wystawić premię lub pieczątkę.</translation>
     </message>
 </context>
 <context>
@@ -960,7 +1040,7 @@
     </message>
     <message>
         <source>Name:</source>
-        <translation>Nazwa Użytkownika:</translation>
+        <translation>Nazwa:</translation>
     </message>
 </context>
 <context>
@@ -983,10 +1063,6 @@
     <message>
         <source>Select the number of purchases that the customer has made.</source>
         <translation>Wybierz liczbę zakupów dokonanych przez klienta.</translation>
-    </message>
-    <message>
-        <source>Please wait for response from server</source>
-        <translation>Proszę czekać na odpowiedź z serwera</translation>
     </message>
 </context>
 </TS>

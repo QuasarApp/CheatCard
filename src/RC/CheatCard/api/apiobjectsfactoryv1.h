@@ -28,8 +28,11 @@ public:
     QList<QSharedPointer<API::UsersCards> > getAllActiveUserFromCard(unsigned int cardId,
                                                                      int unixTimeRange = ACTIVE_USER_TIME_LIMIT) const override;
     QSharedPointer<API::Card> getCard(unsigned int cardId) override;
-    QList<QSharedPointer<API::Card> > getAllUserCards(const QByteArray &userKey, bool restOf) override;
-    QList<QSharedPointer<API::UsersCards> > getAllUserCardsData(const QByteArray &userKey) override;
+    QList<QSharedPointer<API::Card> > getAllUserCards(const QByteArray &userKey, bool restOf,
+                                                      const QList<QSharedPointer<API::Contacts>> &childs) override;
+    QList<QSharedPointer<API::UsersCards> > getAllUserCardsData(const QByteArray &userKey,
+                                                                const QList<QSharedPointer<API::Contacts> > &childs) override;
+
 };
 }
 #endif // IAPIOBJECTSFACTORYV1_H

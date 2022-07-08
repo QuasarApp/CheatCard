@@ -158,17 +158,32 @@ protected:
     };
 
     template<class Card>
-    QList<QSharedPointer<API::Card>> getAllUserCardsImpl(const QByteArray &userKey,
+    QList<QSharedPointer<API::Card>> getAllUserCardsImpl(const QList<QByteArray> &userKeys,
                                                          bool restOf = false) {
 
         check_type(Card);
 
-        QString where = "ownerSignature= '%0'";
-        if (restOf) {
-            where = "ownerSignature!= '%0' OR ownerSignature IS NULL";
-        }
+        QString where;
 
-        where = where.arg(QString(userKey.toBase64(QByteArray::Base64UrlEncoding)));
+        if (restOf) {
+
+            for (const QByteArray& key: userKeys) {
+                if (where.isEmpty()) {
+                    where += QString{"ownerSignature!= '%0'"}.arg(QString(key.toBase64(QByteArray::Base64UrlEncoding)));
+                } else {
+                    where += QString{" AND ownerSignature!= '%0'"}.arg(QString(key.toBase64(QByteArray::Base64UrlEncoding)));
+                }
+            }
+
+        } else {
+            for (const QByteArray& key: userKeys) {
+                if (where.isEmpty()) {
+                    where += QString{"ownerSignature= '%0'"}.arg(QString(key.toBase64(QByteArray::Base64UrlEncoding)));
+                } else {
+                    where += QString{" OR ownerSignature= '%0'"}.arg(QString(key.toBase64(QByteArray::Base64UrlEncoding)));
+                }
+            }
+        }
 
         QH::PKG::DBObjectsRequest<Card> cardRequest("Cards", where);
 
@@ -182,14 +197,22 @@ protected:
     };
 
     template<class UsersCards>
-    QList<QSharedPointer<API::UsersCards>> getAllUserCardsDataImpl(const QByteArray &userKey) {
+    QList<QSharedPointer<API::UsersCards>> getAllUserCardsDataImpl(const QList<QByteArray> &userKeys) {
 
         check_type(UsersCards);
 
-        QString whereBlock = QString("card IN (SELECT id FROM Cards WHERE ownerSignature = '%0')");
+        QString whereBlock = QString("card IN (SELECT id FROM Cards WHERE %0)");
+        QString where;
+        for (const QByteArray& key: userKeys) {
+            if (where.isEmpty()) {
+                where += QString{"ownerSignature= '%0'"}.arg(QString(key.toBase64(QByteArray::Base64UrlEncoding)));
+            } else {
+                where += QString{" OR ownerSignature= '%0'"}.arg(QString(key.toBase64(QByteArray::Base64UrlEncoding)));
+            }
+        }
+
         QH::PKG::DBObjectsRequest<UsersCards>
-                request("UsersCards",
-                        whereBlock.arg(QString(userKey.toBase64(QByteArray::Base64UrlEncoding))));
+                request("UsersCards", whereBlock.arg(where));
 
         auto result = _db->getObject(request);
 
@@ -198,6 +221,61 @@ protected:
 
         return {result->data().begin(), result->data().end()};
     };
+
+    template<class Contacts>
+    QSharedPointer<Contacts> getContactFromChildIdImpl(const QByteArray& userKey, const QByteArray& childUserKey) {
+        check_type(Contacts);
+
+        QString whereBlock = QString("userKey='%0' AND childUserKey='%1'").
+                arg(QString(userKey.toBase64(QByteArray::Base64UrlEncoding)),
+                QString(childUserKey.toBase64(QByteArray::Base64UrlEncoding)));
+
+        QH::PKG::DBObjectsRequest<Contacts>
+                request("Contacts", whereBlock);
+
+        auto result = _db->getObject(request);
+
+        if (!result || result->data().isEmpty())
+            return {};
+
+        return *result->data().begin();
+    }
+
+    template<class Contacts>
+    QList<QSharedPointer<Contacts>> getMasterKeysImpl(const QByteArray& childUserKey) {
+        check_type(Contacts);
+
+        QString whereBlock = QString("childUserKey='%0'").
+                arg(QString(childUserKey.toBase64(QByteArray::Base64UrlEncoding)));
+
+        QH::PKG::DBObjectsRequest<Contacts>
+                request("Contacts", whereBlock);
+
+        auto result = _db->getObject(request);
+
+        if (!result || result->data().isEmpty())
+            return {};
+
+        return {result->data().begin(), result->data().end()};
+    }
+
+    template<class Contacts>
+    QList<QSharedPointer<Contacts>> getSlaveKeysImpl(const QByteArray& userKey) {
+        check_type(Contacts);
+
+        QString whereBlock = QString("userKey='%0'").
+                arg(QString(userKey.toBase64(QByteArray::Base64UrlEncoding)));
+
+        QH::PKG::DBObjectsRequest<Contacts>
+                request("Contacts", whereBlock);
+
+        auto result = _db->getObject(request);
+
+        if (!result || result->data().isEmpty())
+            return {};
+
+        return {result->data().begin(), result->data().end()};
+    }
 
 private:
     QH::ISqlDBCache *_db = nullptr;

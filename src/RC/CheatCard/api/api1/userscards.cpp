@@ -37,6 +37,24 @@ QH::PKG::DBVariantMap UsersCards::variantMap() const {
     };
 }
 
+QString UsersCards::toString() const {
+    QString result("id: %0 \n"
+                   "user: %1 \n"
+                   "card: %2 \n"
+                   "purchasesNumber: %3 \n"
+                   "received: %4 \n"
+                   "time: %5 \n ");
+
+    result = result.arg(id).
+            arg(user).
+            arg(card).
+            arg(purchasesNumber).
+            arg(received).
+            arg(_time.toString());
+
+    return result;
+}
+
 QDataStream &UsersCards::fromStream(QDataStream &stream) {
 
     DBObject::fromStream(stream); // clazy:exclude=skipped-base-method

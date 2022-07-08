@@ -17,7 +17,6 @@ void RC::UserModel::regenerateSessionKey() {
 
 UserModel::UserModel(QSharedPointer<API::User> user) {
     setUser(user);
-    srand(time(0));
 }
 
 bool UserModel::fSaller() const {

@@ -37,11 +37,7 @@ public:
     Q_INVOKABLE void selectLanguagge(const QString& lang, QObject *gui);
     Q_INVOKABLE QString getCurrentLanguage();
 
-    void setCurrentLanguage(const QString &newCurrentLanguage);
-
 private:
-    QStringList extractLanguages() const;
-
 
     QMap<QString, QString> _languagesMap;
     QMap<QString, QString> _reverceLanguagesMap;

@@ -9,6 +9,9 @@ Item {
 
     property string inputText: ""
     property string fileName: "";
+    // Sets to true for allow open qr code to new activity
+    property bool extendable: true;
+    property bool alwaysView: false;
 
     property alias qrCodeFilePath: generator.filePath
     property alias customSource: imgQr.source
@@ -20,7 +23,7 @@ Item {
     Image {
         id: imgQr
         property int qrIndex: 0
-
+        visible: root.inputText.length || alwaysView
         anchors.centerIn: parent
         height: Math.min(parent.height, parent.width)
         width: Math.min(parent.height, parent.width)
@@ -46,5 +49,15 @@ Item {
             fragSh: "qrc:/private/resources/shaders/shaderColorQrCode.fsh"
         }
 
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        enabled: extendable
+        onReleased: {
+            activityProcessor.newActivity("qrc:/CheatCardModule/QrCodeView.qml",
+                                          root.qrCodeFilePath);
+            userPanel.close()
+        }
     }
 }

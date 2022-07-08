@@ -23,7 +23,11 @@
 #include <cmath>
 #include <dbobjectsrequest.h>
 
+#include <CheatCard/api/apiv1-5.h>
 #include <CheatCard/api/apiv1.h>
+
+#include <CheatCard/api/api1-5/updatecontactdata.h>
+#include <QCryptographicHash>
 
 namespace RC {
 
@@ -333,6 +337,30 @@ bool BaseNode::restoreAllData(const QByteArray &curentUserKey,
                    QH::NodeCoonectionStatus::Confirmed);
 }
 
+bool BaseNode::updateContactData(const API::Contacts &contact,
+                                 const QByteArray& secreet,
+                                 bool removeRequest,
+                                 const QString &domain, int port) {
+
+    auto action = [this, contact, secreet, removeRequest](QH::AbstractNodeInfo *node) {
+
+        auto dist = static_cast<NodeInfo*>(node);
+
+        auto api = selectParser(dist->version()).dynamicCast<ApiV1_5>();
+        if (api) {
+            api->sendContacts(contact, secreet, removeRequest, node);
+        }
+    };
+
+    if (domain.isEmpty()) {
+        return addNode(getServerHost(), port, action,
+                       QH::NodeCoonectionStatus::Confirmed);
+    }
+
+    return addNode(domain, port, action,
+                   QH::NodeCoonectionStatus::Confirmed);
+}
+
 bool BaseNode::restoreOneCard(unsigned int cardId, const QString &domain, int port) {
     auto action = [this, cardId](QH::AbstractNodeInfo *node) {
 
@@ -388,6 +416,23 @@ QH::ISqlDBCache *BaseNode::db() const {
 
 void BaseNode::init() {
     initCheatCardBaseResources();
+}
+
+bool BaseNode::createContact(const QSharedPointer<API::User> &anotherUser,
+                                QSharedPointer<API::Contacts> &resultContact) {
+
+    if (!_currentUser->isValid())
+        return false;
+
+    if (_currentUser->userId() == anotherUser->userId()) {
+        return false;
+    }
+
+    resultContact->setUserKey(_currentUser->getKey());
+    resultContact->setInfo(anotherUser->name());
+    resultContact->setChildUserKey(anotherUser->getKey());
+
+    return resultContact->isValid();
 }
 
 const QMap<int, QSharedPointer<QH::iParser> > &BaseNode::apiParsers() const {

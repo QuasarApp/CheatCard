@@ -8,12 +8,12 @@
 
 #include "user.h"
 #include "QCryptographicHash"
+#include "qaglobalutils.h"
 namespace RC {
 namespace API {
 
 User::User(): QH::PKG::DBObject("Users") {
     regenerateKeys();
-    srand(time(0));
 }
 
 void User::regenerateKeys() {
@@ -65,10 +65,7 @@ QDataStream &User::toStream(QDataStream &stream) const {
 QByteArray User::randomArray() const {
 
     QByteArray result;
-    for (int length = 64 ;length >= 0 ; length--) {
-        result.push_back(rand());
-    }
-
+    ::randomArray(64, result);
     return result;
 }
 

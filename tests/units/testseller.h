@@ -13,7 +13,7 @@ public:
     TestSeller(QSharedPointer<TestDataBaseWrapper> db);
     void dropDB();
     int getPurchaseCount(unsigned int userId, unsigned int cardId);
-    unsigned char getLastErrrorCode() const;
+    unsigned char getLastErrrorCode();
 
 private slots:
     void handleRequestError(unsigned char code, QString msg);

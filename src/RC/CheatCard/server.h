@@ -35,6 +35,7 @@ protected:
                                   const QH::Header &pkgHeader,
                                   const QH::AbstractNodeInfo *sender) override;
 
+
     friend class ClearOldData;
 };
 }

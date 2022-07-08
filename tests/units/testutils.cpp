@@ -45,10 +45,12 @@ TestUtils::~TestUtils() {
 
 bool TestUtils::wait(const std::function<bool()> &forWait, int msec) const {
     auto curmsec = QDateTime::currentMSecsSinceEpoch() + msec;
-    while (curmsec > QDateTime::currentMSecsSinceEpoch() && !forWait()) {
+    bool condition = forWait();
+    while (curmsec > QDateTime::currentMSecsSinceEpoch() && !condition) {
         QCoreApplication::processEvents();
+        condition = forWait();
     }
     QCoreApplication::processEvents();
-    return forWait();
+    return condition;
 }
 

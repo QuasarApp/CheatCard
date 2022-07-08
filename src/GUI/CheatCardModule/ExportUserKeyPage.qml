@@ -27,10 +27,6 @@ CPage {
 
     contentItem: ColumnLayout {
 
-        //        Item {
-        //            Layout.fillHeight: true
-        //        }
-
         Label {
             text: (fExport)? qsTr("**For what this use**"):
                              qsTr("**Sharing access to your account**")
@@ -44,20 +40,20 @@ CPage {
 
         Label {
             text: qsTr("Some times you can drop your application data or your device. Therefore you can create a backup qr code that can recovery your application data after dropping")
+
             Layout.fillWidth: true
             wrapMode: Label.WordWrap
-            horizontalAlignment: TextInput.AlignHCenter
+            horizontalAlignment: Text.AlignJustify
             Layout.alignment: Qt.AlignHCenter
             textFormat: Label.MarkdownText
             visible: !fExport;
-
         }
 
         Label {
-            text: qsTr("Scan This Qr code using the 'import user option' on left drop menu or in a user's list page on another device to export this user account to another device.")
+            text: qsTr("Scan This Qr code using the 'import user' button on the bottom of a user's list page on another device to export this user account to another device.")
             Layout.fillWidth: true
             wrapMode: Label.WordWrap
-            horizontalAlignment: TextInput.AlignHCenter
+            horizontalAlignment: Text.AlignJustify
             Layout.alignment: Qt.AlignHCenter
             textFormat: Label.MarkdownText
             visible: fExport;
@@ -75,7 +71,7 @@ CPage {
 
             Layout.alignment: Qt.AlignHCenter
             fileName: "CheatCard-" + ((root.model)? root.model.name: "") + ".qrrc";
-            inputText: (root.model)? root.model.userBackUpData(): "Sorry"
+            inputText: (root.model)? root.model.userBackUpData(): ""
         }
 
         Button {
@@ -89,9 +85,5 @@ CPage {
             }
 
         }
-
-        //        Item {
-        //            Layout.fillHeight: true
-        //        }
     }
 }
