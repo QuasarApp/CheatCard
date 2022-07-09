@@ -151,7 +151,60 @@ IAPIObjectsFactory *ApiV1_5::initObjectFactory() const {
 
 bool ApiV1_5::processCardStatus(const QSharedPointer<QH::PKG::DataPack<APIv1::UsersCards> > &cardStatuses,
                                 const QH::AbstractNodeInfo *sender, const QH::Header &pkg) {
-    return ApiV1::processCardStatus(cardStatuses, sender, pkg);
+    return ApiV1_5::processCardStatusImpl(*cardStatuses, sender, pkg);
+}
+
+bool ApiV1_5::processCardStatusImpl(const QH::PKG::DataPack<APIv1::UsersCards> &cardStatuses,
+                                    const QH::AbstractNodeInfo *sender,
+                                    const QH::Header &pkg) {
+    API::CardDataRequest request;
+
+    for (const auto& cardStatus : cardStatuses.packData()) {
+        auto dbCard = objectFactoryInstance()->getCard(cardStatus->getCard());
+        auto dbUsersCards = objectFactoryInstance()->getUserCardData(
+                    cardStatus->getUser(),
+                    cardStatus->getCard());
+
+        // ignore seels statuses that has a depricated time.
+        if (dbUsersCards && dbUsersCards->getRawTime() > cardStatus->getRawTime()) {
+            QuasarAppUtils::Params::log(QString("Receive deprecated cards seal"
+                                        " Current seal time: %0 receiverd seal time: %1").
+                                        arg(dbUsersCards->getRawTime()).
+                                        arg(cardStatus->getRawTime()));
+            continue;
+        }
+
+        if (!cardValidation(dbCard, cardStatuses.customData())) {
+
+            QuasarAppUtils::Params::log("Receive not signed cards seal",
+                                        QuasarAppUtils::Warning);
+            break;
+        }
+
+        // Disable alert if this packge is ansver to restore request
+        if (!applayPurchases(cardStatus, sender, pkg.triggerHash != _restoreDataPacakgeHash)) {
+            break;
+        }
+
+        bool hasUpdate = dbCard && dbCard->getCardVersion() < cardStatus->getCardVersion();
+
+        if (!dbCard || hasUpdate) {
+            request.push(cardStatus->getCard());
+        }
+    }
+
+    if (request.getCardIds().size()) {
+
+        if (!node()->sendData(&request, sender, &pkg)) {
+            QuasarAppUtils::Params::log("Failed to send responce", QuasarAppUtils::Error);
+
+            return false;
+        }
+
+        return true;
+    }
+
+    return node()->removeNode(sender->networkAddress());
 }
 
 void ApiV1_5::processCardStatusWithoutCardRequests(
@@ -415,7 +468,7 @@ bool ApiV1_5::processRestoreResponce(const QSharedPointer<APIv1_5::RestoreRespon
         db()->insertIfExistsUpdateObject(contact);
     }
 
-    if (!ApiV1::processCardStatusImpl(message->usersCards(), sender, hdr))
+    if (!ApiV1_5::processCardStatusImpl(message->usersCards(), sender, hdr))
         return false;
 
     emit node()->sigContactsListChanged();

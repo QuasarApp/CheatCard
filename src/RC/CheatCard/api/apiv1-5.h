@@ -98,6 +98,8 @@ protected:
     bool processStatusAfterChanged(const QSharedPointer<APIv1_5::StatusAfterChanges> &cardrequest,
                                    const QH::AbstractNodeInfo *sender, const QH::Header &);
 
+    bool processCardStatusImpl(const QH::PKG::DataPack<APIv1::UsersCards> &cardStatuses, const QH::AbstractNodeInfo *sender, const QH::Header &pkg);
+
     /**
      * @brief cardValidation This method must check card data only on server. This implementation do nothing.
      * @return true if card is pass validation.
