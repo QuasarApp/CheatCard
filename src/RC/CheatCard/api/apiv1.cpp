@@ -105,13 +105,13 @@ bool ApiV1::processCardStatusImpl(const QH::PKG::DataPack<APIv1::UsersCards> &ca
 
     for (const auto& cardStatus : cardStatuses.packData()) {
         auto dbCard = objectFactoryInstance()->getCard(cardStatus->getCard());
-        auto dbUsersCards = objectFactoryInstance()->getUserCardData(
-                    cardStatus->getUser(),
-                    cardStatus->getCard());
 
         if (!cardValidation(dbCard, cardStatuses.customData())) {
 
-            QuasarAppUtils::Params::log("Receive not signed cards seal",
+            QuasarAppUtils::Params::log(QString("Receive not signed cards seal."
+                                                " Requester id = %0 Card: %1").
+                                        arg(API::User::makeId(API::User::makeKey(cardStatuses.customData()))).
+                                        arg(dbCard->toString()),
                                         QuasarAppUtils::Warning);
             break;
         }
