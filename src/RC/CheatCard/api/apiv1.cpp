@@ -111,12 +111,17 @@ bool ApiV1::processCardStatusImpl(const QH::PKG::DataPack<APIv1::UsersCards> &ca
 
         // ignore seels statuses that has a depricated time.
         if (dbUsersCards && dbUsersCards->getTime() > cardStatus->getTime()) {
+            QuasarAppUtils::Params::log(QString("Receive deprecated cards seal"
+                                        " Current seal time: %0 receiverd seal time: %1").
+                                        arg(dbUsersCards->getTime().toSecsSinceEpoch()).
+                                        arg(cardStatus->getTime().toSecsSinceEpoch()));
             continue;
         }
 
         if (!cardValidation(dbCard, cardStatuses.customData())) {
 
-            QuasarAppUtils::Params::log("Receive not signed cards seal");
+            QuasarAppUtils::Params::log("Receive not signed cards seal",
+                                        QuasarAppUtils::Warning);
             break;
         }
 
