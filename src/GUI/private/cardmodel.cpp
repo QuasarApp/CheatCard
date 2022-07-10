@@ -12,6 +12,7 @@
 #include <QBuffer>
 #include <QPixmap>
 #include <cmath>
+#include "settingsmodel.h"
 
 #define MAXIMUM_IMAGE_SIZE 300.0f
 
@@ -343,7 +344,13 @@ int CardModel::availableItems(const QSharedPointer<API::UsersCards> &data,
 }
 
 bool CardModel::isMaster() const {
-    return API::User::makeId(_card->ownerSignature()) != _userData->getUser();
+
+    auto config = dynamic_cast<RC::SettingsModel*>(QuasarAppUtils::ISettings::instance());
+
+    if (!config)
+        return false;
+
+    return API::User::makeId(_card->ownerSignature()) != config->getCurrUser();
 }
 
 
