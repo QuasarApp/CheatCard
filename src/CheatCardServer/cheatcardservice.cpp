@@ -174,7 +174,8 @@ QVariantMap CheatCardService::cardList(unsigned int user) const {
     cards = _serverSSL->getAllUserCards("all", true, {});
 
     for (const auto &card : qAsConst(cards)) {
-        QString cardShortString = QString("card id: %0").arg(card->cardId());
+        QString cardShortString = QString("card id: %0 title: %1").
+                arg(card->cardId()).arg(card->title());
         result[QString::number(RC::API::User::makeId(card->ownerSignature()))] = cardShortString;
     }
 
