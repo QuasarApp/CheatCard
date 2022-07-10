@@ -7,6 +7,7 @@
 
 #include "cardmodel.h"
 #include "CheatCard/api/api0/card.h"
+#include "CheatCard/api/api0/user.h"
 #include "CheatCard/api/api0/userscards.h"
 #include <QBuffer>
 #include <QPixmap>
@@ -339,6 +340,10 @@ int CardModel::availableItems(const QSharedPointer<API::UsersCards> &data,
     return std::floor( data->getPurchasesNumber() / freeIndexVal)
             - data->getReceived();
 
+}
+
+bool CardModel::isMaster() const {
+    return API::User::makeId(_card->ownerSignature()) != _userData->getUser();
 }
 
 
