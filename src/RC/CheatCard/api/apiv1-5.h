@@ -27,6 +27,8 @@ class CardUpdated;
 class UpdateContactData;
 class UpdateContactDataResponce;
 class RestoreResponce;
+class UsersCards;
+class UsersCards;
 }
 
 
@@ -76,11 +78,11 @@ protected:
     bool processContactsResponce(const QSharedPointer<APIv1_5::UpdateContactDataResponce> &message,
                         const QH::AbstractNodeInfo *sender, const QH::Header&);
 
-    bool processCardStatus(const QSharedPointer<QH::PKG::DataPack<APIv1::UsersCards>> &cardStatuses,
+    bool processCardStatus(const QSharedPointer<QH::PKG::DataPack<APIv1_5::UsersCards>> &cardStatuses,
                            const QH::AbstractNodeInfo *sender, const QH::Header&pkg);
 
     void processCardStatusWithoutCardRequests(
-            const QSharedPointer<QH::PKG::DataPack<APIv1::UsersCards>> &cardStatuses);
+            const QSharedPointer<QH::PKG::DataPack<APIv1_5::UsersCards>> &cardStatuses);
 
 
     bool processCardRequest(const QSharedPointer<API::CardDataRequest> &cardStatus,
@@ -98,7 +100,7 @@ protected:
     bool processStatusAfterChanged(const QSharedPointer<APIv1_5::StatusAfterChanges> &cardrequest,
                                    const QH::AbstractNodeInfo *sender, const QH::Header &);
 
-    bool processCardStatusImpl(const QH::PKG::DataPack<APIv1::UsersCards> &cardStatuses, const QH::AbstractNodeInfo *sender, const QH::Header &pkg);
+    bool processCardStatusImpl(const QH::PKG::DataPack<APIv1_5::UsersCards> &cardStatuses, const QH::AbstractNodeInfo *sender, const QH::Header &pkg);
 
     /**
      * @brief cardValidation This method must check card data only on server. This implementation do nothing.
@@ -107,15 +109,16 @@ protected:
     bool cardValidation(const QSharedPointer<API::Card>& card,
                         const QByteArray &ownerSecret) const override;
 private:
+    void collectDataOfuser(const QByteArray &userKey, QH::PKG::DataPack<APIv1_5::UsersCards> &responce);
 
     void processContactsResponcePrivate(unsigned int requestId, bool result);
     void applayUpdateContactData(const QSharedPointer<APIv1_5::UpdateContactData> &data,
                                  bool success);
 
-    QH::PKG::DataPack<APIv1::UsersCards>
+    QH::PKG::DataPack<APIv1_5::UsersCards>
     lastUserStatus(unsigned int cardId);
 
-    bool processCardStatusBase(const QSharedPointer<APIv1::UsersCards> &cardStatus,
+    bool processCardStatusBase(const QSharedPointer<APIv1_5::UsersCards> &cardStatus,
                                const QByteArray &userSecreet,
                                const QH::AbstractNodeInfo *sender,
                                const QH::Header &pkg,

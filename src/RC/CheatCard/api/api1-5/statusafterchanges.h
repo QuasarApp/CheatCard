@@ -15,11 +15,8 @@
 
 namespace RC {
 
-namespace APIv1 {
-class UsersCards;
-}
-
 namespace APIv1_5 {
+class UsersCards;
 
 /**
  * @brief The StatusAfterChanges class contains result of the changes.
@@ -42,9 +39,9 @@ public:
     unsigned int getUser() const;
     unsigned int getCard() const;
 
-    const QH::PKG::DataPack<APIv1::UsersCards> &getLastStatus() const;
-    void setLastStatus(const QH::PKG::DataPack<APIv1::UsersCards> &newLastStatus);
-    void addLastStatus(const QSharedPointer<RC::APIv1::UsersCards> &newLastStatus);
+    const QH::PKG::DataPack<APIv1_5::UsersCards> &getLastStatus() const;
+    void setLastStatus(const QH::PKG::DataPack<APIv1_5::UsersCards> &newLastStatus);
+    void addLastStatus(const QSharedPointer<RC::APIv1_5::UsersCards> &newLastStatus);
 
 protected:
     QDataStream &fromStream(QDataStream &stream) override;
@@ -53,7 +50,7 @@ protected:
 private:
     bool _status = false;
     bool _neededCard = false;
-    QH::PKG::DataPack<APIv1::UsersCards> lastStatus;
+    QH::PKG::DataPack<APIv1_5::UsersCards> lastStatus;
 
 };
 }

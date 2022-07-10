@@ -1,6 +1,6 @@
 #include "changeuserscards.h"
 
-#include <CheatCard/api/api1/userscards.h>
+#include <CheatCard/api/api1-5/userscards.h>
 
 
 namespace RC {
@@ -30,11 +30,11 @@ void ChangeUsersCards::setPurchase(qint8 newPurchase) {
 }
 
 unsigned int ChangeUsersCards::getUser() const {
-    return APIv1::UsersCards::getUserId(getUsercardId());
+    return APIv1_5::UsersCards::getUserId(getUsercardId());
 }
 
 unsigned int ChangeUsersCards::getCard() const {
-    return APIv1::UsersCards::getCardId(getUsercardId());
+    return APIv1_5::UsersCards::getCardId(getUsercardId());
 }
 
 bool ChangeUsersCards::isValid() const {

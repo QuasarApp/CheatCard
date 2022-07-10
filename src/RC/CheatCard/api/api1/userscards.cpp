@@ -65,7 +65,6 @@ QDataStream &UsersCards::fromStream(QDataStream &stream) {
     stream >> purchasesNumber;
     stream >> received;
     stream >> cardVersion;
-    stream >> _time;
 
     return stream;
 }
@@ -79,7 +78,6 @@ QDataStream &UsersCards::toStream(QDataStream &stream) const {
     stream << purchasesNumber;
     stream << received;
     stream << cardVersion;
-    stream << _time;
 
     return stream;
 }

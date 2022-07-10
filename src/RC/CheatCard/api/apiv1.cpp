@@ -217,7 +217,6 @@ bool ApiV1::processCardData(const QSharedPointer<QH::PKG::DataPack<APIv1::Card>>
 }
 
 void RC::ApiV1::collectDataOfuser(const QByteArray& userKey, QH::PKG::DataPack<APIv1::UsersCards>& responce) {
-    ;
     unsigned int userID = API::User::makeId(userKey);
     auto masterUser = node()->getMasterKeys(userKey);
 

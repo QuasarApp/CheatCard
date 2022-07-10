@@ -73,13 +73,13 @@ protected:
     void collectDataOfuser(const QByteArray& userKey,
                            QH::PKG::DataPack<APIv1::UsersCards> &responce);
     
-private:
 
     /**
      * @brief getSignData This method sets to @a data secret key of this node. This method should be works only for sellers.
      * @param data result value.
      */
     void getSignData(QByteArray& data) const;
+private:
 
     unsigned int _restoreDataPacakgeHash = 0;
 
