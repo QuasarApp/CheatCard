@@ -7,6 +7,7 @@
 //#
 
 #include "dataconvertor.h"
+#include "usersnames.h"
 #include "CheatCard/api/api0/user.h"
 #include "CheatCard/api/api0/userheader.h"
 

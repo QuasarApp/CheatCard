@@ -951,6 +951,17 @@ void MainModel::handleListenStart(int purchasesCount,
 
     _lastUserHeader = header;
 
+    if (auto client = DataConvertor::toUser(header)) {
+        auto dbClientData = db()->getObject(*client);
+        if (client->name().isEmpty()) {
+            if (dbClientData->name().isEmpty()) {
+                client->setName(UsersNames::randomUserName());
+            } else {
+                client->setName(dbClientData->name());
+            }
+        }
+    }
+
     sendSellerDataToServer(header, model->card()->cardId(), purchasesCount, false);
 }
 
