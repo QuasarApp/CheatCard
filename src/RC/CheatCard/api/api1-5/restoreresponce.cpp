@@ -1,6 +1,6 @@
 #include "restoreresponce.h"
 
-#include <CheatCard/api/api1/userscards.h>
+#include <CheatCard/api/api1-5/userscards.h>
 
 #include <CheatCard/api/api0/contacts.h>
 
@@ -46,11 +46,11 @@ void RestoreResponce::setContacts(const QH::PKG::DataPack<API::Contacts> &newCon
     _contacts = newContacts;
 }
 
-const QH::PKG::DataPack<APIv1::UsersCards> &RestoreResponce::usersCards() const {
+const QH::PKG::DataPack<APIv1_5::UsersCards> &RestoreResponce::usersCards() const {
     return _usersCards;
 }
 
-void RestoreResponce::setUsersCards(const QH::PKG::DataPack<APIv1::UsersCards> &newUsersCards) {
+void RestoreResponce::setUsersCards(const QH::PKG::DataPack<APIv1_5::UsersCards> &newUsersCards) {
     _usersCards = newUsersCards;
 }
 

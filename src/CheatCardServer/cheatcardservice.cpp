@@ -116,9 +116,8 @@ bool CheatCardService::handleReceive(const Patronum::Feature &data) {
 
 QSet<Patronum::Feature> CheatCardService::supportedFeatures() {
     QSet<Patronum::Feature> data;
-
     data << Patronum::Feature("ping", {}, "This is description of the ping command");
-    data << Patronum::Feature("statistic", "card id", "Show list of clients of the card");
+    data << Patronum::Feature("statistic", "card id", "Show the list of card's clients");
     data << Patronum::Feature("cardsList", "user id", "Show list of clients of the card. skip user id for show all cards");
     data << Patronum::Feature("state", {}, "return state");
     data << Patronum::Feature("backUp", "path to backup dir", "make back up of current database ");
@@ -164,12 +163,20 @@ QVariantMap CheatCardService::cardList(unsigned int user) const {
         auto masterKeys = _serverSSL->getMasterKeys(userObj->getKey());
         cards = _serverSSL->getAllUserCards(userObj->getKey(), false, masterKeys);
 
-    } else {
-        cards = _serverSSL->getAllUserCards("all", true, {});
+        for (const auto &card : qAsConst(cards)) {
+            result[QString::number(RC::API::User::makeId(card->ownerSignature()))] = card->toString();
+        }
+
+        return result;
+
     }
 
+    cards = _serverSSL->getAllUserCards("all", true, {});
+
     for (const auto &card : qAsConst(cards)) {
-        result[QString::number(RC::API::User::makeId(card->ownerSignature()))] = card->toString();
+        QString cardShortString = QString("card id: %0 title: %1").
+                arg(card->cardId()).arg(card->title());
+        result[QString::number(RC::API::User::makeId(card->ownerSignature()))] = cardShortString;
     }
 
     return result;

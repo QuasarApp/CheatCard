@@ -105,18 +105,14 @@ bool ApiV1::processCardStatusImpl(const QH::PKG::DataPack<APIv1::UsersCards> &ca
 
     for (const auto& cardStatus : cardStatuses.packData()) {
         auto dbCard = objectFactoryInstance()->getCard(cardStatus->getCard());
-        auto dbUsersCards = objectFactoryInstance()->getUserCardData(
-                    cardStatus->getUser(),
-                    cardStatus->getCard());
-
-        // ignore seels statuses that has a depricated time.
-        if (dbUsersCards && dbUsersCards->getTime() > cardStatus->getTime()) {
-            continue;
-        }
 
         if (!cardValidation(dbCard, cardStatuses.customData())) {
 
-            QuasarAppUtils::Params::log("Receive not signed cards seal");
+            QuasarAppUtils::Params::log(QString("Receive not signed cards seal."
+                                                " Requester id = %0 Card: %1").
+                                        arg(API::User::makeId(API::User::makeKey(cardStatuses.customData()))).
+                                        arg(dbCard->toString()),
+                                        QuasarAppUtils::Warning);
             break;
         }
 
@@ -221,7 +217,6 @@ bool ApiV1::processCardData(const QSharedPointer<QH::PKG::DataPack<APIv1::Card>>
 }
 
 void RC::ApiV1::collectDataOfuser(const QByteArray& userKey, QH::PKG::DataPack<APIv1::UsersCards>& responce) {
-    ;
     unsigned int userID = API::User::makeId(userKey);
     auto masterUser = node()->getMasterKeys(userKey);
 

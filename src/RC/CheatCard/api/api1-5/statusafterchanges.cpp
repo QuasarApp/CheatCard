@@ -1,5 +1,5 @@
 #include "statusafterchanges.h"
-#include "CheatCard/api/api1/userscards.h"
+#include "CheatCard/api/api1-5/userscards.h"
 
 
 namespace RC {
@@ -39,15 +39,15 @@ QDataStream &StatusAfterChanges::toStream(QDataStream &stream) const {
     return stream;
 }
 
-const QH::PKG::DataPack<APIv1::UsersCards> &StatusAfterChanges::getLastStatus() const {
+const QH::PKG::DataPack<APIv1_5::UsersCards> &StatusAfterChanges::getLastStatus() const {
     return lastStatus;
 }
 
-void StatusAfterChanges::setLastStatus(const QH::PKG::DataPack<APIv1::UsersCards> &newLastStatus) {
+void StatusAfterChanges::setLastStatus(const QH::PKG::DataPack<APIv1_5::UsersCards> &newLastStatus) {
     lastStatus = newLastStatus;
 }
 
-void StatusAfterChanges::addLastStatus(const QSharedPointer<APIv1::UsersCards> &newLastStatus) {
+void StatusAfterChanges::addLastStatus(const QSharedPointer<APIv1_5::UsersCards> &newLastStatus) {
     lastStatus.push(newLastStatus);
 }
 
@@ -60,11 +60,11 @@ void StatusAfterChanges::setNeededCard(bool newNeededCard) {
 }
 
 unsigned int StatusAfterChanges::getUser() const {
-    return APIv1::UsersCards::getUserId(getUsercardId());
+    return APIv1_5::UsersCards::getUserId(getUsercardId());
 }
 
 unsigned int StatusAfterChanges::getCard() const {
-    return APIv1::UsersCards::getCardId(getUsercardId());
+    return APIv1_5::UsersCards::getCardId(getUsercardId());
 }
 
 }

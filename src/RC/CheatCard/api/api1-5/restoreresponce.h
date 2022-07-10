@@ -19,11 +19,8 @@ namespace API {
     class Contacts;
 }
 
-namespace APIv1 {
-    class UsersCards;
-}
-
 namespace APIv1_5 {
+class UsersCards;
 
 /**
  * @brief The GetConntactsRequest class
@@ -36,8 +33,8 @@ public:
     RestoreResponce();
     bool isValid() const override;
 
-    const QH::PKG::DataPack<APIv1::UsersCards> &usersCards() const;
-    void setUsersCards(const QH::PKG::DataPack<APIv1::UsersCards> &newUsersCards);
+    const QH::PKG::DataPack<APIv1_5::UsersCards> &usersCards() const;
+    void setUsersCards(const QH::PKG::DataPack<APIv1_5::UsersCards> &newUsersCards);
 
     const QH::PKG::DataPack<API::Contacts> &contacts() const;
     void setContacts(const QH::PKG::DataPack<API::Contacts> &newContacts);
@@ -50,7 +47,7 @@ protected:
     QDataStream &toStream(QDataStream &stream) const override;
 
 private:
-    QH::PKG::DataPack<APIv1::UsersCards> _usersCards;
+    QH::PKG::DataPack<APIv1_5::UsersCards> _usersCards;
     QH::PKG::DataPack<API::Contacts> _contacts;
     QByteArray _userKey;
 

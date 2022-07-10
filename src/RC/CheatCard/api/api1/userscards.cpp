@@ -13,7 +13,7 @@ namespace RC {
 namespace APIv1 {
 
 UsersCards::UsersCards(): API::UsersCards() {
-    _time.fromSecsSinceEpoch(static_cast<int>(time(0)));
+    _time = time(0);
 }
 
 UsersCards::UsersCards(unsigned int user, unsigned int card): APIv1::UsersCards() {
@@ -33,7 +33,7 @@ QH::PKG::DBVariantMap UsersCards::variantMap() const {
             {"id",             {id,                             QH::PKG::MemberType::PrimaryKey}},
             {"purchasesNumber",{purchasesNumber,                QH::PKG::MemberType::InsertUpdate}},
             {"received",       {received,                       QH::PKG::MemberType::InsertUpdate}},
-            {"time",           {_time.toSecsSinceEpoch(),       QH::PKG::MemberType::InsertUpdate}},
+            {"time",           {_time,       QH::PKG::MemberType::InsertUpdate}},
     };
 }
 
@@ -50,7 +50,7 @@ QString UsersCards::toString() const {
             arg(card).
             arg(purchasesNumber).
             arg(received).
-            arg(_time.toString());
+            arg(_time);
 
     return result;
 }
@@ -65,7 +65,6 @@ QDataStream &UsersCards::fromStream(QDataStream &stream) {
     stream >> purchasesNumber;
     stream >> received;
     stream >> cardVersion;
-    stream >> _time;
 
     return stream;
 }
@@ -79,7 +78,6 @@ QDataStream &UsersCards::toStream(QDataStream &stream) const {
     stream << purchasesNumber;
     stream << received;
     stream << cardVersion;
-    stream << _time;
 
     return stream;
 }

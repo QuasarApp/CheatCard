@@ -82,8 +82,8 @@ QDataStream &UsersCards::toStream(QDataStream &stream) const {
     return stream;
 }
 
-const QDateTime& UsersCards::getTime() const {
-    return _time;
+QDateTime UsersCards::getTime() const {
+    return QDateTime::fromSecsSinceEpoch(_time);
 }
 
 bool UsersCards::isActive() const {
@@ -97,6 +97,10 @@ unsigned int UsersCards::getCardVersion() const {
 
 void UsersCards::setCardVersion(unsigned int newCardVersion) {
     cardVersion = newCardVersion;
+}
+
+unsigned int UsersCards::getRawTime() const {
+    return _time;
 }
 
 long long UsersCards::getId() const {
@@ -164,7 +168,7 @@ bool UsersCards::fromSqlRecord(const QSqlRecord &q) {
     purchasesNumber = q.value("purchasesNumber").toUInt();
     card = q.value("card").toUInt();
     received = q.value("received").toUInt();
-    _time = QDateTime::fromTime_t(q.value("time").toInt());
+    _time = q.value("time").toInt();
 
     return true;
 }

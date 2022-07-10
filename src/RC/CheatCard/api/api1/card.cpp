@@ -7,6 +7,7 @@
 
 #include "card.h"
 #include <ctime>
+#include <CheatCard/api/api0/user.h>
 
 namespace RC {
 namespace APIv1 {
@@ -78,15 +79,18 @@ QString Card::toString() const {
                    "cardVersion: %9 \n ");
 
     result = result.arg(cardId()).
-            arg(_title).
-            arg(_phone).
-            arg(_telegramm).
-            arg(_instagramm).
-            arg(_physicalAddress).
-            arg(_webSite).
-            arg(_freeItemName).
+            arg(_title,
+                _phone,
+                _telegramm,
+                _instagramm,
+                _physicalAddress,
+                _webSite,
+                _freeItemName).
             arg(freeIndex).
             arg(cardVersion);
+
+    result += ("ownerId: %0 \n");
+    result = result.arg(API::User::makeId(_ownerSignature));
 
     return result;
 }

@@ -56,7 +56,8 @@ public:
     unsigned int getCardVersion() const;
     void setCardVersion(unsigned int newCardVersion);
 
-    const QDateTime& getTime() const;
+    unsigned int getRawTime() const;
+    QDateTime getTime() const;
     bool isActive() const;
 
 protected:
@@ -70,7 +71,7 @@ protected:
     unsigned int cardVersion = 0;
     unsigned int purchasesNumber = 0;
     unsigned int received = 0;
-    QDateTime _time;
+    unsigned int _time;
 };
 
 }

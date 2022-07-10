@@ -67,6 +67,13 @@
     </message>
 </context>
 <context>
+    <name>CPage</name>
+    <message>
+        <source>Please wait for response from server</source>
+        <translation type="unfinished">Дачакайцеся адказу ад сервера</translation>
+    </message>
+</context>
+<context>
     <name>CardsListView</name>
     <message>
         <source>Don&apos;t have any cards yet? </source>
@@ -303,6 +310,10 @@
         <source>To receive a card or a seal, as well as to receive an already accumulated bonus, show this Qr code to the seller.</source>
         <translation>Каб атрымаць картку або пячатку, а таксама атрымаць ужо назапашаны бонус, пакажыце гэты Qr-код прадаўцу.</translation>
     </message>
+    <message>
+        <source>Workers management</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ExportUserKeyPage</name>
@@ -323,10 +334,6 @@
         <translation>Часам вы можаце выдаліць дадзеныя праграмы або прылады. Такім чынам, вы можаце стварыць рэзервовы QR-код, які можа аднавіць дадзеныя вашай праграмы пасля падзення</translation>
     </message>
     <message>
-        <source>Scan This Qr code using the &apos;import user option&apos; on left drop menu or in a user&apos;s list page on another device to export this user account to another device.</source>
-        <translation>Адсканіруйце гэты Qr-код, выкарыстоўваючы опцыю «імпартаваць карыстальніка» ў левым выпадальным меню або на старонцы спісу карыстальніка на іншай прыладзе, каб экспартаваць гэты ўліковы запіс карыстальніка на іншую прыладу.</translation>
-    </message>
-    <message>
         <source>Save and open in files</source>
         <translation>Захаваць і адкрыць у файлах</translation>
     </message>
@@ -337,6 +344,10 @@
     <message>
         <source>Backup code exported successful. The Backup Code Available in your documents&apos; folder. See &lt;b&gt;%0&lt;/b&gt; path</source>
         <translation>Рэзервовы код паспяхова экспартаваны. Рэзервовы код даступны ў папцы вашых дакументаў. Глядзіце шлях &lt;b&gt;%0&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <source>Scan This Qr code using the &apos;import user&apos; button on the bottom of a user&apos;s list page on another device to export this user account to another device.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -621,6 +632,41 @@
     </message>
 </context>
 <context>
+    <name>PermissionsView</name>
+    <message>
+        <source>Your Workers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you want to add access to your cards, you can add workers.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>How to manage your workers:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* Click the &apos;Scan QR code of your worker&apos; button and scan a qr code from the sidebar of your worker&apos;s device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* Your worker will get access to all your cards</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* If you want to remove access of your cards, just remove the worker record on the bottom workers list menu.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit worker&apos;s name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter your worker name.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>QrCodeView</name>
     <message>
         <source>It looks like this code should be shown to the seller!</source>
@@ -755,6 +801,21 @@
     </message>
 </context>
 <context>
+    <name>RC::PermisionsModel</name>
+    <message>
+        <source>Remove access for %0 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If You remove access for the %0 user, he cannot be use your cards anymore.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> Do you want to continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>RC::SellerStatisticModel</name>
     <message>
         <source>Name</source>
@@ -813,15 +874,34 @@
     </message>
 </context>
 <context>
-    <name>RC::WaitConnectionModel</name>
+    <name>RC::WaitConfirmModel</name>
+    <message>
+        <source>Not so fast!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please wait for finished of a previous request</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>We Have trouble</source>
+        <translation type="unfinished">У нас праблемы</translation>
+    </message>
+    <message>
+        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
+        <translation type="unfinished">Не ўдалося выдаць бонус ці штамп. Магчыма, вашы лакальныя даныя састарэлі, мы ўжо абнаўляем вашы лакальныя даныя. Калі ласка, паспрабуйце яшчэ раз, каб выдаць бонус ці штамп.</translation>
+    </message>
     <message>
         <source>Server not responds</source>
-        <translation>Сервер не адказвае</translation>
+        <translation type="unfinished">Сервер не адказвае</translation>
     </message>
     <message>
         <source>Hmm, maybe you have a super slow internet connection... Try again</source>
-        <translation>Хм, магчыма, у вас вельмі павольнае інтэрнэт-злучэнне... Паспрабуйце яшчэ раз</translation>
+        <translation type="unfinished">Хм, магчыма, у вас вельмі павольнае інтэрнэт-злучэнне... Паспрабуйце яшчэ раз</translation>
     </message>
+</context>
+<context>
+    <name>RC::WaitConnectionModel</name>
     <message>
         <source>We Have trouble</source>
         <translation>У нас праблемы</translation>
@@ -967,10 +1047,6 @@
 </context>
 <context>
     <name>WaitConnectView</name>
-    <message>
-        <source>Please wait for response from server</source>
-        <translation>Дачакайцеся адказу ад сервера</translation>
-    </message>
     <message>
         <source>Select the number of purchases that the customer has made.</source>
         <translation>Выберыце колькасць пакупак, зробленых кліентам.</translation>
