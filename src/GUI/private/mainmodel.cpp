@@ -440,11 +440,10 @@ void MainModel::initUsersListModel() {
     _usersListModel = new UsersListModel(_icons);
     QQmlEngine::setObjectOwnership(_usersListModel, QQmlEngine::CppOwnership);
 
-    auto request = QH::PKG::DBObjectsRequest<API::User>("Users");
-    auto result = _db->getObject(request);
+    auto result = _backEndModel->getAllUserWithPrivateKeys();
 
-    _usersListModel->setUsers(result->data());
-    setFirst(!result->data().size());
+    _usersListModel->setUsers(result);
+    setFirst(!result.size());
 
     connect(_usersListModel, &UsersListModel::sigUserChanged,
             this, &MainModel::setCurrentUser);
@@ -951,15 +950,30 @@ void MainModel::handleListenStart(int purchasesCount,
 
     _lastUserHeader = header;
 
-    if (auto client = DataConvertor::toUser(header)) {
-        auto dbClientData = db()->getObject(*client);
-        if (client->name().isEmpty()) {
-            if (dbClientData->name().isEmpty()) {
-                client->setName(UsersNames::randomUserName());
-            } else {
-                client->setName(dbClientData->name());
-            }
+    auto client = DataConvertor::toUser(header);
+
+    if (!client->isValid()) {
+        auto service = QmlNotificationService::NotificationService::getService();
+
+        service->setNotify(tr("Oops"),
+                           tr("Some kind of garbage happened when reading the qr code. Try again"),
+                           "", QmlNotificationService::NotificationData::Warning);
+
+        return;
+    }
+
+    auto dbClientData = db()->getObject(*client);
+    if (client->name().isEmpty()) {
+        if (!dbClientData || dbClientData->name().isEmpty()) {
+            client->setName(UsersNames::randomUserName());
+        } else {
+            client->setName(dbClientData->name());
         }
+    }
+
+    // update only external users data.
+    if (!dbClientData || dbClientData->secret().isEmpty()) {
+        db()->insertIfExistsUpdateObject(client);
     }
 
     sendSellerDataToServer(header, model->card()->cardId(), purchasesCount, false);

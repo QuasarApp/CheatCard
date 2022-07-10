@@ -132,6 +132,19 @@ protected:
     };
 
     template<class User>
+    QList<QSharedPointer<API::User> > getAllUserWithPrivateKeysImpl() const {
+
+        check_type(User);
+
+
+        QH::PKG::DBObjectsRequest<User> request("Users",
+                                                "secret IS NOT NULL AND secret != \"\"");
+
+        return _db->getObject(request)->data();
+    };
+
+
+    template<class User>
     QList<QSharedPointer<API::User> > getAllUserDataFromCardImpl(unsigned int cardId) const {
 
         check_type(User);

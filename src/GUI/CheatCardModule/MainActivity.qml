@@ -33,8 +33,11 @@ ColumnLayout {
             font.bold: true
             font.pointSize: 14
             visible: !mainListView.editable
-            width: 50
-            height: 50
+            width: 70
+            height: 70
+
+            icon.height: 40
+            icon.width: 40
 
             background:
                 Rectangle {

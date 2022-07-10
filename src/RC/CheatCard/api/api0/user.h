@@ -40,7 +40,7 @@ public:
     QH::PKG::DBObject *createDBObject() const override;
 
     QH::PKG::DBVariantMap variantMap() const override;
-
+    bool isValid() const override;
     const QString &name() const;
     void setName(const QString &newName);
     bool fromSqlRecord(const QSqlRecord &q) override;

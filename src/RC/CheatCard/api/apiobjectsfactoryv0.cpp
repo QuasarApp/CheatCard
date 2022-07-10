@@ -62,6 +62,11 @@ APIObjectsFactoryV0::getAllUserDataFromCard(unsigned int cardId) const {
 
 }
 
+QList<QSharedPointer<API::User> >
+APIObjectsFactoryV0::getAllUserWithPrivateKeys() const {
+    return getAllUserWithPrivateKeysImpl<API::User>();
+}
+
 QSharedPointer<API::Card>
 APIObjectsFactoryV0::getCard(unsigned int cardId) {
     return getCardImpl<API_PREFIX::Card>(cardId);

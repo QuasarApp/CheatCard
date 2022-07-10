@@ -23,6 +23,7 @@ QSharedPointer<API::User> DataConvertor::toUser(const QSharedPointer<API::UserHe
     result->setKey(userHeader->token());
     result->setId(userHeader->getUserId());
     result->setName(userHeader->userName());
+    result->setSecret("");
 
     return  result;
 }
