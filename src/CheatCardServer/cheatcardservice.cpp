@@ -41,6 +41,8 @@ CheatCardService::~CheatCardService() {
 }
 
 bool CheatCardService::onStart() {
+    srand(time(0));
+
     if (!_db) {
         _db = new RC::DataBase("",
                                QStandardPaths::writableLocation(

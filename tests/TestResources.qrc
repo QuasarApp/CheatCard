@@ -2,5 +2,6 @@
     <qresource prefix="/sql">
         <file>units/sql/TestSallerDb.sql</file>
         <file>units/sql/bug_386.sqlite.sql</file>
+        <file>units/sql/bug_539.sqlite.sql</file>
     </qresource>
 </RCC>

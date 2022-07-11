@@ -32,6 +32,13 @@ int InvalidUsersPill::id() const {
     return qHash("InvalidUsersPill");
 }
 
+bool InvalidUsersPill::doFix() {
+    if (diagnostic()) {
+        return fix();
+    }
+    return true;
+}
+
 bool InvalidUsersPill::diagnostic() {
 
     if (!(_db && _db->writer()))
@@ -62,7 +69,7 @@ bool InvalidUsersPill::fix() {
 
         if (user->isValid()) {
             user->setSecret({});
-            result = result && _db->insertObject(user, true);
+            result = result && _db->updateObject(user, true);
         } else {
             result = result && _db->deleteObject(user);
         }

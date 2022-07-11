@@ -63,6 +63,7 @@ private:
  * init all availabel units for testsing
  */
 tstMain::tstMain() {
+    srand(time(0));
 
     // init xample unit test
     int argc =0;

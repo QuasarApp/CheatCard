@@ -38,6 +38,9 @@ public:
     QString name() const override;
     QString description() const override;
     int id() const override;
+
+    bool doFix();
+
 protected:
     bool diagnostic() override;
     bool fix() override;

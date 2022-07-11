@@ -64,6 +64,8 @@
 
 #include <qaglobalutils.h>
 
+#include <CheatCard/pills/invaliduserspill.h>
+
 
 
 namespace RC {
@@ -409,6 +411,7 @@ void MainModel::initNetIndicateModels() {
 void MainModel::initDoctorModel() {
     QList<QSharedPointer<DP::iPill>> pills;
     pills << QSharedPointer<InvalidCardIdPill>::create(_db);
+    pills << QSharedPointer<InvalidUsersPill>::create(_db);
 
     _doctorModel = new DP::DoctorModel(pills);
     QQmlEngine::setObjectOwnership(_doctorModel, QQmlEngine::CppOwnership);

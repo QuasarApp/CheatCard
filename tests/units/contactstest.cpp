@@ -36,7 +36,7 @@ void ContactsTest::test() {
     QSharedPointer<TestVisitor> client;
     QSharedPointer<TestServer> server;
 
-    qDebug() << "TEST API V1";
+    qDebug() << "TEST COntacts V1";
 
     seller = CheatCardTestsHelper::makeNode<TestSeller>();
     client = CheatCardTestsHelper::makeNode<TestVisitor>();
