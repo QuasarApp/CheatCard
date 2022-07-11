@@ -5,11 +5,15 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#ifndef INVALIDCARDIDPILL_H
-#define INVALIDCARDIDPILL_H
+
+#ifndef INVALIDUSERSPILL_H
+#define INVALIDUSERSPILL_H
+
 
 #include "doctorpill.h"
 #include "CheatCard/core_global.h"
+
+#include <QSharedPointer>
 
 namespace QH {
 class ISqlDBCache;
@@ -17,15 +21,17 @@ class ISqlDBCache;
 
 namespace RC {
 
-/**
- * @brief The InvalidCardIdPill class
- * see the https://quasarapp.ddns.net:3000/QuasarApp/CheatCard/issues/386
- */
-class CHEATCARD_CORE_EXPORT InvalidCardIdPill: public DP::iPill
-{
+namespace API {
+class User;
+};
 
+/**
+ * @brief The InvalidUsersPill class sets to empty private key if the private key of user is not master key of public user's key
+ */
+class CHEATCARD_CORE_EXPORT InvalidUsersPill: public DP::iPill
+{
 public:
-    InvalidCardIdPill(QH::ISqlDBCache* db);
+    InvalidUsersPill(QH::ISqlDBCache* db);
 
     // iPill interface
 public:
@@ -33,14 +39,17 @@ public:
     QString description() const override;
     int id() const override;
 
+    bool doFix();
+
 protected:
     bool diagnostic() override;
     bool fix() override;
 
 private:
-
+    QList<QSharedPointer<API::User>> _brokenUsers;
     QH::ISqlDBCache * _db = nullptr;
-};
 
+
+};
 }
-#endif // INVALIDCARDIDPILL_H
+#endif // INVALIDUSERSPILL_H

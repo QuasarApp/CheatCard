@@ -13,7 +13,6 @@ namespace RC {
 namespace API {
 
 User::User(): QH::PKG::DBObject("Users") {
-    srand(time(0));
     regenerateKeys();
 }
 
@@ -30,8 +29,8 @@ QH::PKG::DBObject *User::createDBObject() const {
 QH::PKG::DBVariantMap User::variantMap() const {
     return {{"id",          {getId(),     QH::PKG::MemberType::PrimaryKey}},
             {"name",        {_name,       QH::PKG::MemberType::InsertUpdate}},
-            {"key",         {QString(_key.toBase64(QByteArray::Base64UrlEncoding)),    QH::PKG::MemberType::Insert}},
-            {"secret",      {QString(_secret.toBase64(QByteArray::Base64UrlEncoding)), QH::PKG::MemberType::Insert}},
+            {"key",         {QString(_key.toBase64(QByteArray::Base64UrlEncoding)),    QH::PKG::MemberType::InsertUpdate}},
+            {"secret",      {QString(_secret.toBase64(QByteArray::Base64UrlEncoding)), QH::PKG::MemberType::InsertUpdate}},
             {"time",        {static_cast<int>(time(0)),      QH::PKG::MemberType::InsertUpdate}},
 
     };
@@ -39,6 +38,14 @@ QH::PKG::DBVariantMap User::variantMap() const {
 
 bool User::isValid() const {
     return DBObject::isValid() && _key.size();
+}
+
+bool User::isAllKeysIsValid() const {
+    if (_secret.size()) {
+        return makeKey(_secret) == _key && makeId(_key) == userId();
+    }
+
+    return  makeId(_key) == userId();
 }
 
 QString User::primaryKey() const {

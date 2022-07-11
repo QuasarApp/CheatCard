@@ -41,6 +41,8 @@ public:
 
     QH::PKG::DBVariantMap variantMap() const override;
     bool isValid() const override;
+    bool isAllKeysIsValid() const;
+
     const QString &name() const;
     void setName(const QString &newName);
     bool fromSqlRecord(const QSqlRecord &q) override;

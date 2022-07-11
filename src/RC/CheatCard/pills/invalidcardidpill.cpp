@@ -27,7 +27,11 @@ QString InvalidCardIdPill::description() const {
                        " See https://quasarapp.ddns.net:3000/QuasarApp/CheatCard/issues/386 ");
 }
 
-bool InvalidCardIdPill::diagnostic() const {
+int InvalidCardIdPill::id() const {
+    return qHash("InvalidCardIdPill");
+}
+
+bool InvalidCardIdPill::diagnostic() {
 
     if (!(_db && _db->writer()))
         return false;
@@ -48,7 +52,7 @@ bool InvalidCardIdPill::diagnostic() const {
     return false;
 }
 
-bool InvalidCardIdPill::fix() const {
+bool InvalidCardIdPill::fix() {
     APIObjectsFactoryV1 factory(_db);
 
     const auto availableCards = factory.getAllUserCards("all", true, {});

@@ -144,7 +144,10 @@ void ApiV1_5::sendCardStatusRequest(long long userSession, QH::AbstractNodeInfo 
     API::CardStatusRequest request;
     request.setSessionId(userSession);
 
-    node()->sendData(&request, dist);
+    _checkUserRequestHash.clear();
+    if (auto pkghash = node()->sendData(&request, dist)) {
+        _checkUserRequestHash += pkghash;
+    }
 }
 
 IAPIObjectsFactory *ApiV1_5::initObjectFactory() const {

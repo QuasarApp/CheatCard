@@ -12,6 +12,7 @@
 #include "userscardstest.h"
 #include "securitytest.h"
 #include "contactstest.h"
+#include "fixbrokenuserstest.h"
 
 // Use This macros for initialize your own test classes.
 // Check exampletests
@@ -43,7 +44,7 @@ private slots:
     TestCase(fixDBIdsPillTest, FixDBIdsPillTest)
     TestCase(restoreDataTest, RestoreDataTest)
     TestCase(contactsTest, ContactsTest)
-
+    TestCase(fixBrokenUsersTest, FixBrokenUsersTest)
     // END TEST CASES
 
 private:
@@ -62,6 +63,7 @@ private:
  * init all availabel units for testsing
  */
 tstMain::tstMain() {
+    srand(time(0));
 
     // init xample unit test
     int argc =0;

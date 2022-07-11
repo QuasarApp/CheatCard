@@ -14,6 +14,7 @@
 #include <getsinglevalue.h>
 
 #include <CheatCard/api/api0/card.h>
+#include <CheatCard/pills/invaliduserspill.h>
 #include <QDir>
 
 namespace RC {
@@ -228,7 +229,16 @@ QH::DBPatchMap DataBase::beta1Patches() const {
 
     // See task #512 https://quasarapp.ddns.net:3000/QuasarApp/CheatCard/issues/512
     result += [](const QH::iObjectProvider* database) -> bool {
-        return database->doSql(":/DataBase/private/sql/SQLPatch_5.sql");
+        if (!database->doSql(":/DataBase/private/sql/SQLPatch_5.sql"))
+            return false;
+
+        auto ISqlDBCache = const_cast<QH::ISqlDBCache*>(dynamic_cast<const QH::ISqlDBCache*>(database));
+        if (!ISqlDBCache) {
+            return false;
+        }
+
+        InvalidUsersPill pill(ISqlDBCache);
+        return pill.doFix();
     };
 
     return result;
