@@ -223,6 +223,26 @@ bool Seller::cardUpdated(unsigned int cardId, unsigned int version,
                    QH::NodeCoonectionStatus::Confirmed);
 }
 
+bool Seller::deleteCard(unsigned int cardId, const QString &domain, int port) {
+    auto action = [this, cardId](QH::AbstractNodeInfo *node) {
+
+        auto dist = static_cast<NodeInfo*>(node);
+
+        auto api = selectParser(dist->version()).dynamicCast<ApiV1_5>();
+        if (api) {
+            api->deleteCard(cardId, dist);
+        }
+    };
+
+    if (domain.isEmpty()) {
+        return addNode(getServerHost(), port, action,
+                       QH::NodeCoonectionStatus::Confirmed);
+    }
+
+    return addNode(domain, port, action,
+                   QH::NodeCoonectionStatus::Confirmed);
+}
+
 NodeType Seller::nodeType() const {
     return NodeType::Seller;
 }

@@ -882,6 +882,10 @@ void MainModel::handleRemoveRequest(const QSharedPointer<API::Card> &card) {
             }
 
             listner(true);
+
+            if (auto backEnd = _backEndModel.dynamicCast<Seller>()) {
+                backEnd->deleteCard(card->cardId());
+            }
             return;
         }
 

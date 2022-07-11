@@ -16,7 +16,7 @@ class CardStatusRequest;
 class Contacts;
 }
 
-const int ACTIVE_USER_TIME_LIMIT = 60 * 60 * 24 * 30;// 1 mounth
+const int ACTIVE_USER_TIME_LIMIT = 60 * 60 * 24 * 7;// 1 weack
 
 /**
  * @brief The IAPIObjectsFactory class Contains functions for gettings objects from database.
