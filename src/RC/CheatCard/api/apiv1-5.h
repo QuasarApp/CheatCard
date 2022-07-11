@@ -52,6 +52,8 @@ public:
 
     void restoreOldDateRequest(const QByteArray &curentUserKey, QH::AbstractNodeInfo *dist) override;
     void restoreOneCardRequest(unsigned int cardId, QH::AbstractNodeInfo *dist) override;
+    void sendSessions(const QHash<long long, QSharedPointer<API::Session> > &sessions,
+                      QH::AbstractNodeInfo *dist) override;
     bool sendContacts(const API::Contacts& conntact,
                       const QByteArray& secreet,
                       bool removeRequest,
@@ -124,7 +126,7 @@ private:
                                const QH::Header &pkg,
                                unsigned int& neededCardId);
 
-    unsigned int _restoreDataPacakgeHash = 0;
+    QSet<unsigned int> _checkUserRequestHash;
     QHash<unsigned int, QSharedPointer<RC::APIv1_5::UpdateContactData>> _waitResponce ;
 
 };

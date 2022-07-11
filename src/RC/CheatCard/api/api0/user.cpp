@@ -13,6 +13,7 @@ namespace RC {
 namespace API {
 
 User::User(): QH::PKG::DBObject("Users") {
+    srand(time(0));
     regenerateKeys();
 }
 

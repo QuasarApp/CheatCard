@@ -162,36 +162,14 @@ bool ApiV1_5::processCardStatusImpl(const QH::PKG::DataPack<APIv1_5::UsersCards>
     API::CardDataRequest request;
 
     for (const auto& cardStatus : cardStatuses.packData()) {
-        auto dbCard = objectFactoryInstance()->getCard(cardStatus->getCard());
-        auto dbUsersCards = objectFactoryInstance()->getUserCardData(
-                    cardStatus->getUser(),
-                    cardStatus->getCard());
-
-        // ignore seels statuses that has a depricated time.
-        if (dbUsersCards && dbUsersCards->getRawTime() > cardStatus->getRawTime()) {
-            QuasarAppUtils::Params::log(QString("Receive deprecated cards seal"
-                                        " Current seal time: %0 receiverd seal time: %1").
-                                        arg(dbUsersCards->getRawTime()).
-                                        arg(cardStatus->getRawTime()));
-            continue;
-        }
-
-        if (!cardValidation(dbCard, cardStatuses.customData())) {
-
-            QuasarAppUtils::Params::log("Receive not signed cards seal",
-                                        QuasarAppUtils::Warning);
+        unsigned int neededCardId = 0;
+        if (!processCardStatusBase(cardStatus, cardStatuses.customData(),
+                                  sender, pkg, neededCardId)) {
             break;
         }
 
-        // Disable alert if this packge is ansver to restore request
-        if (!applayPurchases(cardStatus, sender, pkg.triggerHash != _restoreDataPacakgeHash)) {
-            break;
-        }
-
-        bool hasUpdate = dbCard && dbCard->getCardVersion() < cardStatus->getCardVersion();
-
-        if (!dbCard || hasUpdate) {
-            request.push(cardStatus->getCard());
+        if (neededCardId) {
+            request.push(neededCardId);
         }
     }
 
@@ -207,6 +185,47 @@ bool ApiV1_5::processCardStatusImpl(const QH::PKG::DataPack<APIv1_5::UsersCards>
     }
 
     return node()->removeNode(sender->networkAddress());
+}
+
+bool ApiV1_5::processCardStatusBase(const QSharedPointer<APIv1_5::UsersCards> &cardStatus,
+                                    const QByteArray& userSecreet,
+                                    const QH::AbstractNodeInfo *sender,
+                                    const QH::Header &pkg,
+                                    unsigned int& neededCardId) {
+
+    auto dbCard = objectFactoryInstance()->getCard(cardStatus->getCard());
+    auto dbUsersCards = objectFactoryInstance()->getUserCardData(
+                cardStatus->getUser(),
+                cardStatus->getCard());
+
+    // ignore seels statuses that has a depricated time.
+    if (dbUsersCards && dbUsersCards->getRawTime() > cardStatus->getRawTime()) {
+        QuasarAppUtils::Params::log(QString("Receive deprecated cards seal"
+                                    " Current seal time: %0 receiverd seal time: %1").
+                                    arg(dbUsersCards->getRawTime()).
+                                    arg(cardStatus->getRawTime()));
+        return true;
+    }
+
+    if (!cardValidation(dbCard, userSecreet)) {
+
+        QuasarAppUtils::Params::log("Receive not signed cards seal",
+                                    QuasarAppUtils::Warning);
+        return false;
+    }
+
+    // Disable alert if this packge is ansver to restore request
+    if (!applayPurchases(cardStatus, sender, _checkUserRequestHash.contains(pkg.triggerHash))) {
+        return false;
+    }
+
+    bool hasUpdate = !dbCard || dbCard->getCardVersion() < cardStatus->getCardVersion();
+
+    if (hasUpdate) {
+        neededCardId = cardStatus->getCard();
+    }
+
+    return true;
 }
 
 void ApiV1_5::processCardStatusWithoutCardRequests(
@@ -236,43 +255,6 @@ void ApiV1_5::processCardStatusWithoutCardRequests(
     }
 
     return;
-}
-
-bool ApiV1_5::processCardStatusBase(const QSharedPointer<APIv1_5::UsersCards> &cardStatus,
-                                    const QByteArray& userSecreet,
-                                    const QH::AbstractNodeInfo *sender,
-                                    const QH::Header &pkg,
-                                    unsigned int& neededCardId) {
-
-    auto dbCard = objectFactoryInstance()->getCard(cardStatus->getCard());
-    auto dbUsersCards = objectFactoryInstance()->getUserCardData(
-                cardStatus->getUser(),
-                cardStatus->getCard());
-
-    // ignore seels statuses that has a depricated time.
-    if (dbUsersCards && dbUsersCards->getTime() > cardStatus->getTime()) {
-        return true;
-    }
-
-    if (!cardValidation(dbCard, userSecreet)) {
-
-        QuasarAppUtils::Params::log("Receive not signed cards seal");
-        return false;
-    }
-
-    // Disable alert if this packge is ansver to restore request
-    if (!applayPurchases(cardStatus, sender, pkg.triggerHash != _restoreDataPacakgeHash)) {
-        return false;
-    }
-
-    bool hasUpdate = dbCard && dbCard->getCardVersion() < cardStatus->getCardVersion();
-
-    if (!dbCard || hasUpdate) {
-        neededCardId = cardStatus->getCard();
-    }
-
-    return true;
-
 }
 
 bool ApiV1_5::processCardRequest(const QSharedPointer<API::CardDataRequest> &cardrequest,
@@ -604,6 +586,17 @@ void ApiV1_5::restoreOldDateRequest(const QByteArray &curentUserKey,
 void ApiV1_5::restoreOneCardRequest(unsigned int cardId, QH::AbstractNodeInfo *dist) {
     ApiV1::restoreOneCardRequest(cardId, dist);
 
+}
+
+void ApiV1_5::sendSessions(const QHash<long long, QSharedPointer<API::Session> >
+                           &sessions, QH::AbstractNodeInfo *dist) {
+
+    _checkUserRequestHash.clear();
+    for (const auto &session: qAsConst(sessions)) {
+        if (unsigned int pkgHash = node()->sendData(session.data(), dist)) {
+            _checkUserRequestHash += pkgHash;
+        }
+    }
 }
 
 bool ApiV1_5::sendContacts(const API::Contacts &contact,
