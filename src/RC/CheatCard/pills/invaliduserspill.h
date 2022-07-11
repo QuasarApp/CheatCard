@@ -28,7 +28,7 @@ class User;
 /**
  * @brief The InvalidUsersPill class sets to empty private key if the private key of user is not master key of public user's key
  */
-class InvalidUsersPill: public DP::iPill
+class CHEATCARD_CORE_EXPORT InvalidUsersPill: public DP::iPill
 {
 public:
     InvalidUsersPill(QH::ISqlDBCache* db);
