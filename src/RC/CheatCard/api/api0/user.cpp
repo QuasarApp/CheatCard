@@ -36,6 +36,10 @@ QH::PKG::DBVariantMap User::variantMap() const {
     };
 }
 
+bool User::isValid() const {
+    return DBObject::isValid() && _key.size();
+}
+
 QString User::primaryKey() const {
     return "id";
 }

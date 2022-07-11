@@ -30,6 +30,8 @@ public:
     QList<QSharedPointer<API::UsersCards> > getAllActiveUserFromCard(unsigned int cardId,
                                                                      int unixTimeRange = ACTIVE_USER_TIME_LIMIT) const override;
     QList<QSharedPointer<API::User> > getAllUserDataFromCard(unsigned int cardId) const override;
+    QList<QSharedPointer<API::User>> getAllUserWithPrivateKeys() const override;;
+
     QSharedPointer<API::Card> getCard(unsigned int cardId) override;
     QList<QSharedPointer<API::Card> > getAllUserCards(const QByteArray &userKey, bool restOf,
                                                       const QList<QSharedPointer<API::Contacts> > &childs) override;
