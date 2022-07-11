@@ -40,8 +40,16 @@ void APITest::testProcessDeleteCardRequest() {
     QVERIFY(user);
     request->setSecret(user->secret());
 
+    QVERIFY(server->getCard(1990574875));
+    auto dataList = server->getAllUserCardsData(user->getKey(), {});
+    QVERIFY(!dataList.empty());
+
     // try remove card with correct secreet. must be failed
     QVERIFY(api->processDeleteCardRequest(request, nullptr, {}));
+
+    QVERIFY(!server->getCard(1990574875));
+    QVERIFY(server->getAllUserCardsData(user->getKey(), {}).empty());
+
 }
 
 
