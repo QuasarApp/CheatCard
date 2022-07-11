@@ -34,6 +34,7 @@ class CardModel: public QObject
 
     Q_PROPERTY(int freeIndex READ freeIndex WRITE setFreeIndex NOTIFY objChanged)
     Q_PROPERTY(int cardVersion READ cardVersion NOTIFY objChanged)
+    Q_PROPERTY(bool isMaster READ isMaster NOTIFY objChanged)
 
     Q_PROPERTY(QString phone READ phone WRITE setPhone NOTIFY objChanged)
     Q_PROPERTY(QString telegramm READ telegramm WRITE setTelegramm NOTIFY objChanged)
@@ -106,6 +107,8 @@ public:
     int available() const;
     static int availableItems(const QSharedPointer<API::UsersCards>& data,
                               const QSharedPointer<API::Card>& card);
+
+    bool isMaster() const;
 
 signals:
     void objChanged();

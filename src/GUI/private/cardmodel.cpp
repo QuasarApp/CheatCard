@@ -7,10 +7,12 @@
 
 #include "cardmodel.h"
 #include "CheatCard/api/api0/card.h"
+#include "CheatCard/api/api0/user.h"
 #include "CheatCard/api/api0/userscards.h"
 #include <QBuffer>
 #include <QPixmap>
 #include <cmath>
+#include "settingsmodel.h"
 
 #define MAXIMUM_IMAGE_SIZE 300.0f
 
@@ -339,6 +341,16 @@ int CardModel::availableItems(const QSharedPointer<API::UsersCards> &data,
     return std::floor( data->getPurchasesNumber() / freeIndexVal)
             - data->getReceived();
 
+}
+
+bool CardModel::isMaster() const {
+
+    auto config = dynamic_cast<RC::SettingsModel*>(QuasarAppUtils::ISettings::instance());
+
+    if (!config)
+        return false;
+
+    return API::User::makeId(_card->ownerSignature()) != config->getCurrUser();
 }
 
 
