@@ -41,6 +41,14 @@ bool User::isValid() const {
     return DBObject::isValid() && _key.size();
 }
 
+bool User::isAllKeysIsValid() const {
+    if (_secret.size()) {
+        return makeKey(_secret) == _key && makeId(_key) == userId();
+    }
+
+    return  makeId(_key) == userId();
+}
+
 QString User::primaryKey() const {
     return "id";
 }
