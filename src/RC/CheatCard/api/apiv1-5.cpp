@@ -200,7 +200,7 @@ bool ApiV1_5::processCardStatusImpl(const QH::PKG::DataPack<APIv1_5::UsersCards>
 }
 
 bool ApiV1_5::processDeleteCardRequest(const QSharedPointer<APIv1_5::DeleteCardRequest> &request,
-                                       const QH::AbstractNodeInfo *,
+                                       const QH::AbstractNodeInfo * sender,
                                        const QH::Header &) {
 
     auto dbCard = objectFactoryInstance()->getCard(request->card());
@@ -223,8 +223,10 @@ bool ApiV1_5::processDeleteCardRequest(const QSharedPointer<APIv1_5::DeleteCardR
     db()->doQuery(QString("DELETE FROM Cards WHERE id ='%0'").arg(request->card()));
     db()->doQuery(QString("DELETE FROM UsersCards WHERE card ='%0'").arg(request->card()));
 
+    if (sender) {
+        return node()->removeNode(sender->networkAddress());
+    }
     return true;
-
 }
 
 bool ApiV1_5::processCardStatusBase(const QSharedPointer<APIv1_5::UsersCards> &cardStatus,
