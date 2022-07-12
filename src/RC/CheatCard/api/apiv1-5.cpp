@@ -204,6 +204,8 @@ bool ApiV1_5::processDeleteCardRequest(const QSharedPointer<APIv1_5::DeleteCardR
                                        const QH::Header &) {
 
     auto dbCard = objectFactoryInstance()->getCard(request->card());
+    if (!dbCard)
+        return true;
 
     if (!accessValidation(dbCard, request->secret(), false)) {
 
