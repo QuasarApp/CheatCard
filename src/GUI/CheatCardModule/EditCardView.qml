@@ -855,9 +855,6 @@ Page {
 
             text: qsTr("Remove card")
 
-            visible: (root.model)? !(root.model.isMaster && mainModel.mode): true
-            height: (visible)? ganeralMenuItem.height: 0
-
             icon.source: "qrc:/images/private/resources/Interface_icons/delete_card.svg"
             onClicked:  () => {
                             if (root.model) {

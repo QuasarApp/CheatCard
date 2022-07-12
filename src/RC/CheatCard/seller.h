@@ -35,6 +35,10 @@ public:
                      const QString& domain = "",
                       int port = DEFAULT_CHEAT_CARD_PORT_SSL);
 
+    bool deleteCard(unsigned int cardId,
+                    const QString& domain = "",
+                     int port = DEFAULT_CHEAT_CARD_PORT_SSL);
+
     NodeType nodeType() const override;
 
 protected:

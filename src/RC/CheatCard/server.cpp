@@ -26,6 +26,7 @@
 
 #include <CheatCard/api/api1-5/restoreresponce.h>
 #include <CheatCard/api/api1-5/updatecontactdata.h>
+#include <CheatCard/api/api1-5/deletecardrequest.h>
 
 
 namespace RC {
@@ -43,6 +44,7 @@ Server::Server(QH::ISqlDBCache *db): BaseNode(db) {
     registerPackageType<APIv1_5::CardUpdated>();
     registerPackageType<APIv1_5::RestoreResponce>();
     registerPackageType<APIv1_5::UpdateContactData>();
+    registerPackageType<APIv1_5::DeleteCardRequest>();
 
 }
 

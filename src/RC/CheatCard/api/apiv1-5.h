@@ -29,6 +29,7 @@ class UpdateContactDataResponce;
 class RestoreResponce;
 class UsersCards;
 class UsersCards;
+class DeleteCardRequest;
 }
 
 
@@ -58,6 +59,8 @@ public:
                       const QByteArray& secreet,
                       bool removeRequest,
                       QH::AbstractNodeInfo *dist);
+
+    bool deleteCard(unsigned int cardId, QH::AbstractNodeInfo *dist);
 
     bool sendUpdateCard(unsigned int cardId, unsigned int version, QH::AbstractNodeInfo *dist);
 protected:
@@ -102,14 +105,19 @@ protected:
     bool processStatusAfterChanged(const QSharedPointer<APIv1_5::StatusAfterChanges> &cardrequest,
                                    const QH::AbstractNodeInfo *sender, const QH::Header &);
 
-    bool processCardStatusImpl(const QH::PKG::DataPack<APIv1_5::UsersCards> &cardStatuses, const QH::AbstractNodeInfo *sender, const QH::Header &pkg);
+    bool processCardStatusImpl(const QH::PKG::DataPack<APIv1_5::UsersCards> &cardStatuses,
+                               const QH::AbstractNodeInfo *sender, const QH::Header &pkg);
+
+    bool processDeleteCardRequest(const QSharedPointer<APIv1_5::DeleteCardRequest>& request,
+                                  const QH::AbstractNodeInfo *sender, const QH::Header &pkg);
 
     /**
-     * @brief cardValidation This method must check card data only on server. This implementation do nothing.
+     * @brief accessValidation This method must check card data only on server. This implementation do nothing.
      * @return true if card is pass validation.
      */
-    bool cardValidation(const QSharedPointer<API::Card>& card,
-                        const QByteArray &ownerSecret) const override;
+    bool accessValidation(const QSharedPointer<API::Card>& card,
+                          const QByteArray &ownerSecret,
+                          bool allowWorkers) const;
 private:
     void collectDataOfuser(const QByteArray &userKey, QH::PKG::DataPack<APIv1_5::UsersCards> &responce);
 

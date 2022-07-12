@@ -21,6 +21,7 @@
 #include <CheatCard/api/api1-5/updatecontactdata.h>
 #include <CheatCard/api/api1-5/updatecontactdataresponce.h>
 #include <CheatCard/api/api1-5/userscards.h>
+#include <CheatCard/api/api1-5/deletecardrequest.h>
 
 #include "CheatCard/nodeinfo.h"
 
@@ -137,6 +138,14 @@ QH::ParserResult ApiV1_5::parsePackage(const QSharedPointer<QH::PKG::AbstractDat
         return result;
     }
 
+    result = commandHandler<APIv1_5::DeleteCardRequest>(this,
+                                                  &ApiV1_5::processDeleteCardRequest,
+                                                  pkg, sender, pkgHeader);
+
+    if (result != QH::ParserResult::NotProcessed) {
+        return result;
+    }
+
     return QH::ParserResult::NotProcessed;
 }
 
@@ -190,6 +199,34 @@ bool ApiV1_5::processCardStatusImpl(const QH::PKG::DataPack<APIv1_5::UsersCards>
     return node()->removeNode(sender->networkAddress());
 }
 
+bool ApiV1_5::processDeleteCardRequest(const QSharedPointer<APIv1_5::DeleteCardRequest> &request,
+                                       const QH::AbstractNodeInfo *,
+                                       const QH::Header &) {
+
+    auto dbCard = objectFactoryInstance()->getCard(request->card());
+    if (!dbCard)
+        return true;
+
+    if (!accessValidation(dbCard, request->secret(), false)) {
+
+        QuasarAppUtils::Params::log("Receive not signed delete request",
+                                    QuasarAppUtils::Warning);
+        return false;
+    }
+
+    auto listOfUsers = node()->getAllActiveUserFromCard(request->card());
+
+    if (listOfUsers.size()) {
+        return false;
+    }
+
+    db()->doQuery(QString("DELETE FROM Cards WHERE id ='%0'").arg(request->card()));
+    db()->doQuery(QString("DELETE FROM UsersCards WHERE card ='%0'").arg(request->card()));
+
+    return true;
+
+}
+
 bool ApiV1_5::processCardStatusBase(const QSharedPointer<APIv1_5::UsersCards> &cardStatus,
                                     const QByteArray& userSecreet,
                                     const QH::AbstractNodeInfo *sender,
@@ -210,7 +247,7 @@ bool ApiV1_5::processCardStatusBase(const QSharedPointer<APIv1_5::UsersCards> &c
         return true;
     }
 
-    if (!cardValidation(dbCard, userSecreet)) {
+    if (!accessValidation(dbCard, userSecreet, true)) {
 
         QuasarAppUtils::Params::log("Receive not signed cards seal",
                                     QuasarAppUtils::Warning);
@@ -245,7 +282,7 @@ void ApiV1_5::processCardStatusWithoutCardRequests(
             continue;
         }
 
-        if (!cardValidation(dbCard, cardStatuses->customData())) {
+        if (!accessValidation(dbCard, cardStatuses->customData(), true)) {
 
             QuasarAppUtils::Params::log("Receive not signed cards seal");
             break;
@@ -514,8 +551,9 @@ bool ApiV1_5::processRestoreResponce(const QSharedPointer<APIv1_5::RestoreRespon
     return true;
 }
 
-bool ApiV1_5::cardValidation(const QSharedPointer<API::Card> &cardFromDB,
-                             const QByteArray &ownerSecret) const {
+bool ApiV1_5::accessValidation(const QSharedPointer<API::Card> &cardFromDB,
+                               const QByteArray &ownerSecret,
+                               bool allowWorkers) const {
     switch (NodeTypeHelper::getBaseType(node()->nodeType())) {
     case NodeType::Server: {
         if (!cardFromDB)
@@ -526,6 +564,9 @@ bool ApiV1_5::cardValidation(const QSharedPointer<API::Card> &cardFromDB,
 
         if (signature == ownerSignature)
             return true;
+
+        if (!allowWorkers)
+            return false;
 
         // check additional access
         auto contact = node()->getContactFromChildId(signature, ownerSignature);
@@ -625,6 +666,20 @@ bool ApiV1_5::sendContacts(const API::Contacts &contact,
     });
 
     return true;
+}
+
+bool ApiV1_5::deleteCard(unsigned int cardId,
+                         QH::AbstractNodeInfo *dist) {
+    APIv1_5::DeleteCardRequest request;
+    request.setCard(cardId);
+    auto currUser = node()->currentUser();
+
+    if (!currUser)
+        return false;
+
+    request.setSecret(node()->currentUser()->secret());
+
+    return node()->sendData(&request, dist, nullptr);
 }
 
 bool ApiV1_5::sendUpdateCard(unsigned int cardId,

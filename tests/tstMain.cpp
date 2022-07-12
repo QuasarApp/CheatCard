@@ -13,6 +13,7 @@
 #include "securitytest.h"
 #include "contactstest.h"
 #include "fixbrokenuserstest.h"
+#include "apitest.h"
 
 // Use This macros for initialize your own test classes.
 // Check exampletests
@@ -38,6 +39,7 @@ private slots:
 
 
     // BEGIN TESTS CASES
+    TestCase(apiTest, APITest)
     TestCase(usersCardsTest, UsersCardsTest)
     TestCase(connectionTest, ConnectionTest)
     TestCase(securityTest, SecurityTest)
