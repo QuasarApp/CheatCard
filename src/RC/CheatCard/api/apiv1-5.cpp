@@ -214,7 +214,9 @@ bool ApiV1_5::processDeleteCardRequest(const QSharedPointer<APIv1_5::DeleteCardR
         return false;
     }
 
-    auto listOfUsers = node()->getAllActiveUserFromCard(request->card());
+    auto userKey = API::User::makeKey(request->secret());
+    auto userId = API::User::makeId(userKey);
+    auto listOfUsers = node()->getAllActiveUserFromCard(request->card(), ACTIVE_USER_TIME_LIMIT, userId);
 
     if (listOfUsers.size()) {
         return false;

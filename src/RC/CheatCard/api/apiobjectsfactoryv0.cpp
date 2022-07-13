@@ -38,22 +38,24 @@ APIObjectsFactoryV0::getUserCardData(unsigned int userId, unsigned int cardId) c
 }
 
 QList<QSharedPointer<API::UsersCards> >
-APIObjectsFactoryV0::getAllUserFromCard(unsigned int cardId) const {
-    return getAllUserFromCardImpl<API_PREFIX::UsersCards>(cardId);
+APIObjectsFactoryV0::getAllUserFromCard(unsigned int cardId, unsigned int ignore) const {
+    return getAllUserFromCardImpl<API_PREFIX::UsersCards>(cardId, ignore);
 
 }
 
 QList<QSharedPointer<API::UsersCards> >
 APIObjectsFactoryV0::getAllPassiveUserFromCard(unsigned int cardId,
-                                               int unixTimeRange) const {
-    return getAllPassiveUserFromCardImpl<API_PREFIX::UsersCards>(cardId, unixTimeRange);
+                                               int unixTimeRange,
+                                               unsigned int ignoreUserId) const {
+    return getAllPassiveUserFromCardImpl<API_PREFIX::UsersCards>(cardId, unixTimeRange, ignoreUserId);
 
 }
 
 QList<QSharedPointer<API::UsersCards> >
 APIObjectsFactoryV0::getAllActiveUserFromCard(unsigned int cardId,
-                                              int unixTimeRange) const {
-    return getAllActiveUserFromCardImpl<API_PREFIX::UsersCards>(cardId, unixTimeRange);
+                                              int unixTimeRange,
+                                              unsigned int ignoreUserId) const {
+    return getAllActiveUserFromCardImpl<API_PREFIX::UsersCards>(cardId, unixTimeRange, ignoreUserId);
 }
 
 QList<QSharedPointer<API::User> >
