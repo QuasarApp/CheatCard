@@ -193,238 +193,238 @@
     </message>
     <message>
         <source>Your phone number</source>
-        <translation>Თქვენი ტელეფონის ნომერი</translation>
+        <translation>ქვენი ტელეფონის ნომერი</translation>
     </message>
     <message>
         <source>Enter bonus name</source>
-        <translation type="unfinished"></translation>
+        <translation>შეიყვანეთ ბონუსის სახელი</translation>
     </message>
     <message>
         <source>Detail of </source>
-        <translation type="unfinished"></translation>
+        <translation>დეტალი </translation>
     </message>
     <message>
         <source>Purchases count: </source>
-        <translation type="unfinished"></translation>
+        <translation>შესყიდვების რაოდენობა: </translation>
     </message>
     <message>
         <source>Available %0: </source>
-        <translation type="unfinished"></translation>
+        <translation>ხელმისაწვდომი %0: </translation>
     </message>
     <message>
         <source>Received %0: </source>
-        <translation type="unfinished"></translation>
+        <translation>მიღებული %0: </translation>
     </message>
     <message>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation>ნაგულისხმევი</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>გადარჩენა</translation>
     </message>
     <message>
         <source>Select Image</source>
-        <translation type="unfinished"></translation>
+        <translation>აირჩიეთ სურათი</translation>
     </message>
     <message>
         <source>Select card logo</source>
-        <translation type="unfinished"></translation>
+        <translation>აირჩიეთ ბარათის ლოგო</translation>
     </message>
     <message>
         <source>Select card seal</source>
-        <translation type="unfinished"></translation>
+        <translation>აირჩიეთ ბარათის ბეჭდვა</translation>
     </message>
     <message>
         <source>Please choose a color</source>
-        <translation type="unfinished">გთხოვთ აირჩიოთ ფერი</translation>
+        <translation>გთხოვთ აირჩიოთ ფერი</translation>
     </message>
     <message>
         <source>Edit card</source>
-        <translation type="unfinished"></translation>
+        <translation>ბარათის რედაქტირება</translation>
     </message>
     <message>
         <source>Remove card</source>
-        <translation type="unfinished"></translation>
+        <translation>ბარათის წაშლა</translation>
     </message>
     <message>
         <source>Activate card</source>
-        <translation type="unfinished">ბარათის გააქტიურება</translation>
+        <translation>ბარათის გააქტიურება</translation>
     </message>
     <message>
         <source>Hide statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>სტატისტიკის დამალვა</translation>
     </message>
     <message>
         <source>Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>სტატისტიკა</translation>
     </message>
     <message>
         <source>Background color</source>
-        <translation type="unfinished"></translation>
+        <translation>ფონის ფერი</translation>
     </message>
     <message>
         <source>Foreground color</source>
-        <translation type="unfinished"></translation>
+        <translation>წინა პლანზე ფერი</translation>
     </message>
     <message>
         <source>Background image</source>
-        <translation type="unfinished"></translation>
+        <translation>ფონის სურათი</translation>
     </message>
     <message>
         <source>Card logo</source>
-        <translation type="unfinished"></translation>
+        <translation>ბარათის ლოგო</translation>
     </message>
     <message>
         <source>Card seal</source>
-        <translation type="unfinished"></translation>
+        <translation>ბარათის ბეჭედი</translation>
     </message>
 </context>
 <context>
     <name>EditUserView</name>
     <message>
         <source>About your profile</source>
-        <translation type="unfinished"></translation>
+        <translation>თქვენი პროფილის შესახებ</translation>
     </message>
     <message>
         <source>No user selected</source>
-        <translation type="unfinished"></translation>
+        <translation>მომხმარებელი არ არის არჩეული</translation>
     </message>
     <message>
         <source>User Id:</source>
-        <translation type="unfinished"></translation>
+        <translation>მომხმარებელი Id:</translation>
     </message>
     <message>
         <source>Its my name:</source>
-        <translation type="unfinished"></translation>
+        <translation>ჩემი სახელია:</translation>
     </message>
     <message>
         <source>Start integration with business</source>
-        <translation type="unfinished"></translation>
+        <translation>დაიწყეთ ბიზნესთან ინტეგრაცია</translation>
     </message>
     <message>
         <source>Work mode</source>
-        <translation type="unfinished"></translation>
+        <translation>სამუშაო რეჟიმი</translation>
     </message>
     <message>
         <source>Workers management</source>
-        <translation type="unfinished"></translation>
+        <translation>მუშათა მენეჯმენტი</translation>
     </message>
     <message>
         <source>To receive a card or a seal, as well as to receive an already accumulated bonus, show this Qr code to the seller.</source>
-        <translation type="unfinished"></translation>
+        <translation>ბარათის ან ბეჭდის მისაღებად, ასევე უკვე დაგროვილი ბონუსის მისაღებად, აჩვენეთ ეს Qr კოდი გამყიდველს.</translation>
     </message>
 </context>
 <context>
     <name>ExportUserKeyPage</name>
     <message>
         <source>Export user account</source>
-        <translation type="unfinished"></translation>
+        <translation>მომხმარებლის ანგარიშის ექსპორტი</translation>
     </message>
     <message>
         <source>**For what this use**</source>
-        <translation type="unfinished"></translation>
+        <translation>** რისთვის გამოიყენება ეს **</translation>
     </message>
     <message>
         <source>**Sharing access to your account**</source>
-        <translation type="unfinished"></translation>
+        <translation>** თქვენს ანგარიშზე წვდომის გაზიარება **</translation>
     </message>
     <message>
         <source>Some times you can drop your application data or your device. Therefore you can create a backup qr code that can recovery your application data after dropping</source>
-        <translation type="unfinished"></translation>
+        <translation>ზოგჯერ შეგიძლიათ ჩამოაგდოთ თქვენი აპლიკაციის მონაცემები ან თქვენი მოწყობილობა. აქედან გამომდინარე, შეგიძლიათ შექმნათ სარეზერვო qr კოდი, რომელსაც შეუძლია თქვენი აპლიკაციის მონაცემების აღდგენა ჩამოშვების შემდეგ</translation>
     </message>
     <message>
         <source>Scan This Qr code using the &apos;import user&apos; button on the bottom of a user&apos;s list page on another device to export this user account to another device.</source>
-        <translation type="unfinished"></translation>
+        <translation>დაასკანირეთ ეს Qr კოდი ღილაკის „მომხმარებლის იმპორტის“ გამოყენებით სხვა მოწყობილობაზე მომხმარებელთა სიის გვერდის ბოლოში, რათა მოხდეს ამ მომხმარებლის ანგარიშის სხვა მოწყობილობაში ექსპორტი.</translation>
     </message>
     <message>
         <source>Save and open in files</source>
-        <translation type="unfinished"></translation>
+        <translation>შეინახეთ და გახსენით ფაილებში</translation>
     </message>
     <message>
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation>შესრულებულია</translation>
     </message>
     <message>
         <source>Backup code exported successful. The Backup Code Available in your documents&apos; folder. See &lt;b&gt;%0&lt;/b&gt; path</source>
-        <translation type="unfinished"></translation>
+        <translation>სარეზერვო კოდი წარმატებით იქნა ექსპორტირებული. სარეზერვო კოდი ხელმისაწვდომია თქვენი დოკუმენტების საქაღალდეში. იხილეთ &lt;b&gt;%0&lt;/b&gt; ბილიკი</translation>
     </message>
 </context>
 <context>
     <name>FirstRunPage</name>
     <message>
         <source>Who are you?</source>
-        <translation type="unfinished"></translation>
+        <translation>ვინ ხარ?</translation>
     </message>
     <message>
         <source>I am client</source>
-        <translation type="unfinished"></translation>
+        <translation>კლიენტი ვარ</translation>
     </message>
     <message>
         <source>I am a business representative</source>
-        <translation type="unfinished"></translation>
+        <translation>ვარ ბიზნესის წარმომადგენელი</translation>
     </message>
     <message>
         <source>I just want to recover data</source>
-        <translation type="unfinished"></translation>
+        <translation>მე უბრალოდ მინდა მონაცემების აღდგენა</translation>
     </message>
     <message>
         <source>Сhoose a language:</source>
-        <translation type="unfinished"></translation>
+        <translation>აირჩიეთ ენა:</translation>
     </message>
     <message>
         <source>What is your name?</source>
-        <translation type="unfinished"></translation>
+        <translation>ა გქვია?</translation>
     </message>
     <message>
         <source>What is the name of your company?</source>
-        <translation type="unfinished"></translation>
+        <translation>რა ჰქვია თქვენს კომპანიას?</translation>
     </message>
     <message>
         <source>Please enter your name here</source>
-        <translation type="unfinished"></translation>
+        <translation>გთხოვთ შეიყვანოთ თქვენი სახელი აქ</translation>
     </message>
     <message>
         <source>Customize the appearance of your application.</source>
-        <translation type="unfinished"></translation>
+        <translation>შეცვალეთ თქვენი განაცხადის გარეგნობა.</translation>
     </message>
     <message>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>უკან</translation>
     </message>
     <message>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation>შემდეგი</translation>
     </message>
     <message>
         <source>Done!</source>
-        <translation type="unfinished"></translation>
+        <translation>ესრულებულია!</translation>
     </message>
 </context>
 <context>
     <name>FreeItemsView</name>
     <message>
         <source>Wooooh seems like someone has available %0 %1 !!!</source>
-        <translation type="unfinished"></translation>
+        <translation>Wooooh, როგორც ჩანს, ვინმეს აქვს %0 %1 !!!</translation>
     </message>
     <message>
         <source>Don`t give out</source>
-        <translation type="unfinished"></translation>
+        <translation>არ გასცეს</translation>
     </message>
     <message>
         <source>Give out</source>
-        <translation type="unfinished"></translation>
+        <translation>ბეჭედი გაცემა</translation>
     </message>
 </context>
 <context>
     <name>ImportUserKeyPage</name>
     <message>
         <source>Import your cards data</source>
-        <translation type="unfinished"></translation>
+        <translation>თქვენი ბარათების მონაცემების გადატანა</translation>
     </message>
     <message>
         <source>Import from qr code scanner</source>
-        <translation type="unfinished"></translation>
+        <translation>იმპორტი qr კოდის სკანერიდან</translation>
     </message>
     <message>
         <source>Import from file with qr code</source>
@@ -915,7 +915,7 @@
     <name>RegistrationFinishedPage</name>
     <message>
         <source>Done!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ესრულებულია!</translation>
     </message>
     <message>
         <source>All Done! &lt;b&gt;But If you drop your application data, then all your cards will be removed&lt;/b&gt;. For save, itself of these situations, we recommend creating a back-up of your master key.</source>
