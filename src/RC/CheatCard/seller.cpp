@@ -62,16 +62,16 @@ bool Seller::incrementPurchases(const QSharedPointer<API::UsersCards> &usersCard
 }
 
 QSharedPointer<API::UsersCards>
-Seller::prepareData(const QSharedPointer<API::UserHeader> &userHeaderData,
+Seller::prepareData(const API::UserHeader &userHeaderData,
                     unsigned int cardId) {
 
-    if (!userHeaderData->isValid())
+    if (!userHeaderData.isValid())
         return nullptr;
 
     auto session = QSharedPointer<API::Session>::create();
 
-    session->setSessionId(userHeaderData->getSessionId());
-    session->setUsercardId(API::UsersCards::genId(userHeaderData->getUserId(), cardId));
+    session->setSessionId(userHeaderData.getSessionId());
+    session->setUsercardId(API::UsersCards::genId(userHeaderData.getUserId(), cardId));
 
     if (!session->isValid()) {
         return nullptr;
@@ -83,7 +83,7 @@ Seller::prepareData(const QSharedPointer<API::UserHeader> &userHeaderData,
     _lastRequested[session->getSessionId()] = session;
 
     API::User userrquest;
-    userrquest.setId(userHeaderData->getUserId());
+    userrquest.setId(userHeaderData.getUserId());
 
     auto dbUser = DataConvertor::toUser(userHeaderData);
 
@@ -96,10 +96,10 @@ Seller::prepareData(const QSharedPointer<API::UserHeader> &userHeaderData,
 
     }
 
-    auto userCardsData = getUserCardData(userHeaderData->getUserId(), cardId);
+    auto userCardsData = getUserCardData(userHeaderData.getUserId(), cardId);
     if (!userCardsData) {
         userCardsData = QSharedPointer<API::UsersCards>::create();
-        userCardsData->setUser(userHeaderData->getUserId());
+        userCardsData->setUser(userHeaderData.getUserId());
         userCardsData->setPurchasesNumber(0);
         userCardsData->setCard(cardId);
     }
@@ -144,7 +144,7 @@ bool Seller::incrementPurchase(const QSharedPointer<API::UserHeader> &userHeader
     }
 
     // code for old api
-    auto usersCardsData = prepareData(userHeaderData, cardId);
+    auto usersCardsData = prepareData(*userHeaderData, cardId);
     if (!usersCardsData)
         return false;
 
@@ -158,6 +158,25 @@ bool Seller::incrementPurchase(const QSharedPointer<API::UserHeader> &userHeader
     }
 
     emit sigPurchaseWasSuccessful(usersCardsData, true);
+
+    return sendDataPrivate(domain, port);
+}
+
+
+bool Seller::setPurchase(const API::UserHeader &userHeaderData,
+                         unsigned int cardId, int purchasesCount,
+                         const QString &domain, int port) {
+
+    // code for old api
+    auto usersCardsData = prepareData(userHeaderData, cardId);
+    if (!usersCardsData)
+        return false;
+
+    usersCardsData->setPurchasesNumber(purchasesCount);
+
+    if (!db()->insertIfExistsUpdateObject(usersCardsData)) {
+        return false;
+    }
 
     return sendDataPrivate(domain, port);
 }
@@ -183,7 +202,7 @@ bool Seller::sentDataToServerReceive(const QSharedPointer<API::UserHeader> &user
 
 
     // code for old api
-    auto usersCardsData = prepareData(userHeaderData, cardId);
+    auto usersCardsData = prepareData(*userHeaderData, cardId);
     if (!usersCardsData)
         return false;
 

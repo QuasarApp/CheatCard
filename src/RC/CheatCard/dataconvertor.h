@@ -26,6 +26,8 @@ public:
     DataConvertor();
 
     static QSharedPointer<API::User> toUser(const QSharedPointer<RC::API::UserHeader>& userHeader);
+    static QSharedPointer<API::User> toUser(const RC::API::UserHeader& userHeader);
+
     static QSharedPointer<API::UserHeader> toUserHeader(const QSharedPointer<RC::API::User> &user);
 
 };

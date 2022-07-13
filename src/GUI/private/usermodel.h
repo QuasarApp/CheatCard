@@ -64,6 +64,7 @@ public:
     Q_INVOKABLE QString userBackUpData() const;
 
     int userId() const;
+    API::UserHeader getHelloPackage() const;
 
 signals:
     void objChanged();
@@ -74,7 +75,6 @@ signals:
 
 protected:
     void setSessinon(long long newSessinon);
-    API::UserHeader getHelloPackage() const;
     void handleSettingsChanged(const QString& key, const QVariant& value) override;
 
 private:

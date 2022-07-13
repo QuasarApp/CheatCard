@@ -24,11 +24,13 @@ public:
     QSharedPointer<API::User> getUser(unsigned int userId) const override;
     QList<QSharedPointer<API::UsersCards> > getAllUserData(unsigned int userId) const override;
     QSharedPointer<API::UsersCards> getUserCardData(unsigned int userId, unsigned int cardId) const override;
-    QList<QSharedPointer<API::UsersCards> > getAllUserFromCard(unsigned int cardId) const override;
+    QList<QSharedPointer<API::UsersCards> > getAllUserFromCard(unsigned int cardId, unsigned int ignore = 0) const override;
     QList<QSharedPointer<API::UsersCards> > getAllPassiveUserFromCard(unsigned int cardId,
-                                                                      int unixTimeRange = ACTIVE_USER_TIME_LIMIT) const override;
+                                                                      int unixTimeRange = ACTIVE_USER_TIME_LIMIT,
+                                                                      unsigned int ignoreUserId = 0) const override;
     QList<QSharedPointer<API::UsersCards> > getAllActiveUserFromCard(unsigned int cardId,
-                                                                     int unixTimeRange = ACTIVE_USER_TIME_LIMIT) const override;
+                                                                     int unixTimeRange = ACTIVE_USER_TIME_LIMIT,
+                                                                     unsigned int ignoreUserId = 0) const override;
     QList<QSharedPointer<API::User> > getAllUserDataFromCard(unsigned int cardId) const override;
     QList<QSharedPointer<API::User>> getAllUserWithPrivateKeys() const override;;
 
