@@ -58,6 +58,7 @@ private:
 
     QHash<long long, QSharedPointer<API::Session>> _lastRequested;
 
+    void updateUsersData(const RC::API::UserHeader &userHeaderData);
 };
 }
 #endif // SELLER_H

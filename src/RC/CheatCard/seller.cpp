@@ -61,6 +61,28 @@ bool Seller::incrementPurchases(const QSharedPointer<API::UsersCards> &usersCard
     return true;
 }
 
+void RC::Seller::updateUsersData(const API::UserHeader &userHeaderData)
+{
+    auto dbUser = getUser(userHeaderData.getUserId());
+
+    if (dbUser && dbUser->secret().isEmpty()) {
+        return;
+    }
+
+    if (!dbUser) {
+        dbUser = DataConvertor::toUser(userHeaderData);
+    }
+
+    if (dbUser->name().isEmpty()) {
+        dbUser->setName(UsersNames::randomUserName());
+    }
+
+    if (!db()->insertIfExistsUpdateObject(dbUser)) {
+        QuasarAppUtils::Params::log("Failed to update user data", QuasarAppUtils::Warning);
+
+    }
+}
+
 QSharedPointer<API::UsersCards>
 Seller::prepareData(const API::UserHeader &userHeaderData,
                     unsigned int cardId) {
@@ -82,19 +104,7 @@ Seller::prepareData(const API::UserHeader &userHeaderData,
 
     _lastRequested[session->getSessionId()] = session;
 
-    API::User userrquest;
-    userrquest.setId(userHeaderData.getUserId());
-
-    auto dbUser = DataConvertor::toUser(userHeaderData);
-
-    if (dbUser->name().isEmpty()) {
-        dbUser->setName(UsersNames::randomUserName());
-    }
-
-    if (!db()->insertIfExistsUpdateObject(dbUser)) {
-        QuasarAppUtils::Params::log("Failed to update user data", QuasarAppUtils::Warning);
-
-    }
+    updateUsersData(userHeaderData);
 
     auto userCardsData = getUserCardData(userHeaderData.getUserId(), cardId);
     if (!userCardsData) {
