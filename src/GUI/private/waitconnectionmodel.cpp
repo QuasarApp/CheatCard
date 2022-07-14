@@ -99,12 +99,11 @@ void WaitConnectionModel::setAllowScreenDim(bool newAllowScreenDim) {
 void WaitConnectionModel::handleSessionServerResult(QSharedPointer<RC::API::Session> session,
                                                     bool succesed) {
 
-    auto service = QmlNotificationService::NotificationService::getService();
 
     _waitModel->confirm(session->getSessionId(), succesed);
 
     if (!succesed) {
-
+        auto service = QmlNotificationService::NotificationService::getService();
         service->setNotify(tr("We Have trouble"),
                            tr("Failed to issue a bonus or stamp."
                               " Maybe your local data is deprecated, "

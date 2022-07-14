@@ -448,8 +448,8 @@ bool ApiV1_5::processCardStatusRequest(const QSharedPointer<API::CardStatusReque
     if (!result || result->data().isEmpty()) {
         QuasarAppUtils::Params::log(QString("The session %0 is missing").
                                     arg(sessionId),
-                                    QuasarAppUtils::Error);
-        return false;
+                                    QuasarAppUtils::Debug);
+        return true;
     }
 
     QH::PKG::DataPack<APIv1_5::UsersCards> responce;
