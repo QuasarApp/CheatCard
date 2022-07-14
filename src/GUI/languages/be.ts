@@ -788,6 +788,14 @@
         <source>Some kind of garbage happened when reading the qr code. Try again</source>
         <translation>Пры чытанні qr-кода здарылася нейкая фігня. Паспрабуй яшчэ</translation>
     </message>
+    <message>
+        <source>We Have trouble: trouble code is %0</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server sent the erorr message. Message: &quot;%0.&quot;  Sorry ;)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RC::NetIndicatorModel</name>
@@ -871,6 +879,10 @@
     <message>
         <source>Export the database finished successful</source>
         <translation>Экспарт базы даных паспяхова завершаны</translation>
+    </message>
+    <message>
+        <source>Internal acces error wih %0</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
