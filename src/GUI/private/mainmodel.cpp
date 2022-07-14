@@ -288,6 +288,17 @@ void MainModel::handleContactsListChanged() {
 
 }
 
+void MainModel::handleSerrverSentError(unsigned char code,
+                                       QString errorMessage) {
+
+    auto service = QmlNotificationService::NotificationService::getService();
+    service->setNotify(tr("We Have trouble: trouble code is %0").arg(static_cast<int>(code)),
+                       tr("Server sent the erorr message."
+                          " Message: \"%0.\" "
+                          " Sorry ;)").arg(errorMessage),
+                       "", QmlNotificationService::NotificationData::Error);
+}
+
 const QSharedPointer<UserModel>& MainModel::getCurrentUser() const {
     return _currentUser;
 }
@@ -514,6 +525,11 @@ void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
 
         disconnect(_backEndModel.data(), &BaseNode::sigContactsListChanged,
                    this, &MainModel::handleContactsListChanged);
+
+        disconnect(_backEndModel.data(), &BaseNode::requestError,
+                   this, &MainModel::handleSerrverSentError);
+
+
     }
 
     _backEndModel = newModel;
@@ -546,7 +562,10 @@ void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
                 _permisionsModel, &PermisionsModel::handleServerResult);
 
         connect(_backEndModel.data(), &BaseNode::sigContactsListChanged,
-                   this, &MainModel::handleContactsListChanged);
+                this, &MainModel::handleContactsListChanged);
+
+        connect(_backEndModel.data(), &BaseNode::requestError,
+                this, &MainModel::handleSerrverSentError);
 
         _backEndModel->checkNetworkConnection();
 

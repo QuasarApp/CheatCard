@@ -78,6 +78,7 @@ StackView {
     }
 
     function popItem() {
-        pop();
+        var item = pop();
+        item.destroy();
     }
 }
