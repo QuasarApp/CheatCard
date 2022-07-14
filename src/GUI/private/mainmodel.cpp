@@ -349,6 +349,10 @@ void MainModel::setCurrentUser(const QSharedPointer<RC::UserModel>& value) {
 }
 
 void MainModel::saveUser() {
+
+    if (_currentUser->user()->secret().isEmpty())
+        return;
+
     _db->insertIfExistsUpdateObject(_currentUser->user());
     _config->setCurrUser(_currentUser->user()->userId());
 }

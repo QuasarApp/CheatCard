@@ -65,7 +65,7 @@ void RC::Seller::updateUsersData(const API::UserHeader &userHeaderData)
 {
     auto dbUser = getUser(userHeaderData.getUserId());
 
-    if (dbUser && dbUser->secret().isEmpty()) {
+    if (dbUser && !dbUser->secret().isEmpty()) {
         return;
     }
 
