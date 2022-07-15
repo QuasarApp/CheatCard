@@ -449,7 +449,7 @@ bool ApiV1_5::processCardStatusRequest(const QSharedPointer<API::CardStatusReque
         QuasarAppUtils::Params::log(QString("The session %0 is missing").
                                     arg(sessionId),
                                     QuasarAppUtils::Debug);
-        return true;
+        return node()->removeNode(sender->networkAddress());
     }
 
     QH::PKG::DataPack<APIv1_5::UsersCards> responce;

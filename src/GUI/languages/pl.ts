@@ -793,6 +793,14 @@
         <source>Failed to sync data with server. Please check your internet connection and try to restore your data again</source>
         <translation>Nie udało się zsynchronizować danych z serwerem. Sprawdź połączenie internetowe i spróbuj ponownie przywrócić dane</translation>
     </message>
+    <message>
+        <source>We Have trouble: trouble code is %0</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server sent the erorr message. Message: &quot;%0.&quot;  Sorry ;)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RC::NetIndicatorModel</name>
@@ -876,6 +884,10 @@
     <message>
         <source>Export the database finished successful</source>
         <translation>Wyeksportowanie bazy danych zakończone pomyślnie</translation>
+    </message>
+    <message>
+        <source>Internal acces error wih %0</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
