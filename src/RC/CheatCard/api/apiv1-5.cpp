@@ -242,15 +242,6 @@ bool ApiV1_5::processCardStatusBase(const QSharedPointer<APIv1_5::UsersCards> &c
                 cardStatus->getUser(),
                 cardStatus->getCard());
 
-    // ignore seels statuses that has a depricated time.
-    if (dbUsersCards && dbUsersCards->getRawTime() > cardStatus->getRawTime() && dbUsersCards->getRawTime() < time(0)) {
-        QuasarAppUtils::Params::log(QString("Receive deprecated cards seal"
-                                    " Current seal time: %0 receiverd seal time: %1").
-                                    arg(dbUsersCards->getRawTime()).
-                                    arg(cardStatus->getRawTime()));
-        return true;
-    }
-
     if (!accessValidation(dbCard, userSecreet, true)) {
 
         QuasarAppUtils::Params::log("Receive not signed cards seal",
@@ -510,6 +501,7 @@ bool ApiV1_5::processChanges(const QSharedPointer<APIv1_5::ChangeUsersCards> &me
     db()->insertObject(message);
 
     dbUsersCards->setPurchasesNumber(dbUsersCards->getPurchasesNumber() + message->purchase());
+    dbUsersCards->setTime(time(0));
     dbUsersCards->receive(message->receive());
 
     unsigned int neededCardId = 0;
