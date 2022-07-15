@@ -60,6 +60,8 @@ public:
     QDateTime getTime() const;
     bool isActive() const;
 
+    void setTime(unsigned int newTime);
+
 protected:
     QString primaryKey() const override;
     QDataStream &fromStream(QDataStream &stream) override;
