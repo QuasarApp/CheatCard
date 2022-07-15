@@ -243,7 +243,7 @@ bool ApiV1_5::processCardStatusBase(const QSharedPointer<APIv1_5::UsersCards> &c
                 cardStatus->getCard());
 
     // ignore seels statuses that has a depricated time.
-    if (dbUsersCards && dbUsersCards->getRawTime() > cardStatus->getRawTime()) {
+    if (dbUsersCards && dbUsersCards->getRawTime() > cardStatus->getRawTime() && dbUsersCards->getRawTime() < time(0)) {
         QuasarAppUtils::Params::log(QString("Receive deprecated cards seal"
                                     " Current seal time: %0 receiverd seal time: %1").
                                     arg(dbUsersCards->getRawTime()).

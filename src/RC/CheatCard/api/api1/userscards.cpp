@@ -28,12 +28,12 @@ QH::PKG::DBObject *UsersCards::createDBObject() const {
 }
 
 QH::PKG::DBVariantMap UsersCards::variantMap() const {
-    return {{"user",           {user,                           QH::PKG::MemberType::Insert}},
-            {"card",           {card,                           QH::PKG::MemberType::Insert}},
-            {"id",             {id,                             QH::PKG::MemberType::PrimaryKey}},
-            {"purchasesNumber",{purchasesNumber,                QH::PKG::MemberType::InsertUpdate}},
-            {"received",       {received,                       QH::PKG::MemberType::InsertUpdate}},
-            {"time",           {_time,       QH::PKG::MemberType::InsertUpdate}},
+    return {{"user",           {user,            QH::PKG::MemberType::Insert}},
+            {"card",           {card,            QH::PKG::MemberType::Insert}},
+            {"id",             {id,              QH::PKG::MemberType::PrimaryKey}},
+            {"purchasesNumber",{purchasesNumber, QH::PKG::MemberType::InsertUpdate}},
+            {"received",       {received,        QH::PKG::MemberType::InsertUpdate}},
+            {"time",           {_time,           QH::PKG::MemberType::InsertUpdate}},
     };
 }
 
