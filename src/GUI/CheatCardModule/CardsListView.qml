@@ -51,7 +51,12 @@ Page {
 
             highlightRangeMode: ListView.StrictlyEnforceRange
             ScrollBar.vertical: ScrollBar {
-                id: scrollBar
+                id: vScrollBar
+                enabled: !hasEdit
+            }
+
+            ScrollBar.horizontal: ScrollBar {
+                id: hScrollBar
                 enabled: !hasEdit
             }
 
@@ -157,6 +162,7 @@ Page {
                     EditCardView {
                         id: cardView
                         model: card
+                        showSeals: !(vScrollBar.active || hScrollBar.active) && isCurrentItem
                         opacity: (isCurrentItem)? 1: 0.5
                         editable: !Boolean(card && card.title.length)
                         onEditableChanged: {
