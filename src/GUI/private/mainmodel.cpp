@@ -952,7 +952,9 @@ void MainModel::handleCardSelectedForStatistic(const QSharedPointer<CardModel> &
 
 void MainModel::handlePurchaseWasSuccessful(QSharedPointer<RC::API::UsersCards> card, bool alert){
 
-    soundEffectPlayback("Seal");
+    if (alert)
+        soundEffectPlayback("Seal");
+
     auto cardModel = getCurrentListModel()->cache().value(card->getCard());
     int freeIndex = _backEndModel->getCardFreeIndex(card->getCard());
 
@@ -969,7 +971,9 @@ void MainModel::handlePurchaseWasSuccessful(QSharedPointer<RC::API::UsersCards> 
                 QuasarAppUtils::Params::log("Fail to show bonus page.",
                                             QuasarAppUtils::Error);
             }
-            soundEffectPlayback("Bonus");
+
+            if (alert)
+                soundEffectPlayback("Bonus");
         }
 
     } else {
