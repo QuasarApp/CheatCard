@@ -293,7 +293,7 @@ void MainModel::handleSerrverSentError(unsigned char code,
 
     auto service = QmlNotificationService::NotificationService::getService();
     service->setNotify(tr("We Have trouble: trouble code is %0").arg(static_cast<int>(code)),
-                       tr("Server sent the erorr message."
+                       tr("Server sent the error message."
                           " Message: \"%0.\" "
                           " Sorry ;)").arg(errorMessage),
                        "", QmlNotificationService::NotificationData::Error);

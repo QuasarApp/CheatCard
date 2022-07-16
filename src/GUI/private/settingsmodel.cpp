@@ -80,7 +80,7 @@ void SettingsModel::exportDataBase() {
 
     if (!QFileInfo::exists(db)) {
         service->setNotify(tr("Failed to export database"),
-                           tr("Internal acces error wih %0").arg(db),
+                           tr("Internal access error with %0").arg(db),
                            "", QmlNotificationService::NotificationData::Error);
     }
 
