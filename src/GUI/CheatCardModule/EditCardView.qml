@@ -36,6 +36,7 @@ Page {
 
     property bool backSide: false
     property bool isCurrentItem: false
+    property bool showSeals: true
 
     signal finished();
     signal sigHold();
@@ -375,7 +376,7 @@ Page {
 
                 GridLayout {
                     id: freeFridLayout
-
+                    visible: showSeals
                     Layout.rowSpan: 1
                     Layout.columnSpan: 2
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
@@ -387,13 +388,12 @@ Page {
 
                     Repeater {
                         id: reppit
-                        model:  freeIndex.value
+                        model: showSeals && freeIndex.value
                         delegate: signZone
                         Component {
                             id: signZone
                             Rectangle {
                                 Layout.alignment: Qt.AlignHCenter
-
                                 Layout.fillHeight: true
                                 Layout.maximumHeight: cardTitle.height
                                 Layout.preferredWidth: height
