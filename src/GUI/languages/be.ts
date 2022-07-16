@@ -790,11 +790,11 @@
     </message>
     <message>
         <source>We Have trouble: trouble code is %0</source>
-        <translation type="unfinished"></translation>
+        <translation>У нас праблема: код памылкі %0</translation>
     </message>
     <message>
-        <source>Server sent the erorr message. Message: &quot;%0.&quot;  Sorry ;)</source>
-        <translation type="unfinished"></translation>
+        <source>Server sent the error message. Message: &quot;%0.&quot;  Sorry ;)</source>
+        <translation>Сервер адправіў паведамленне пра памылку. Паведамленне: &quot;%0.&quot; Прабачце ;)</translation>
     </message>
 </context>
 <context>
@@ -882,7 +882,7 @@
     </message>
     <message>
         <source>Internal acces error wih %0</source>
-        <translation type="unfinished"></translation>
+        <translation>Унутраная памылка доступу з %0</translation>
     </message>
 </context>
 <context>

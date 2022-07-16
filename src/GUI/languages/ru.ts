@@ -794,11 +794,11 @@
     </message>
     <message>
         <source>We Have trouble: trouble code is %0</source>
-        <translation type="unfinished"></translation>
+        <translation>У нас проблема: код неисправности %0</translation>
     </message>
     <message>
-        <source>Server sent the erorr message. Message: &quot;%0.&quot;  Sorry ;)</source>
-        <translation type="unfinished"></translation>
+        <source>Server sent the error message. Message: &quot;%0.&quot;  Sorry ;)</source>
+        <translation>Сервер отправил сообщение об ошибке. Сообщение: &quot;%0&quot;. Извините ;)</translation>
     </message>
 </context>
 <context>
@@ -885,8 +885,8 @@
         <translation>Экспорт базы данных завершен успешно</translation>
     </message>
     <message>
-        <source>Internal acces error wih %0</source>
-        <translation type="unfinished"></translation>
+        <source>Internal access error with %0</source>
+        <translation>Внутренняя ошибка доступа с %0</translation>
     </message>
 </context>
 <context>
