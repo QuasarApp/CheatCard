@@ -3,6 +3,8 @@
 #include "getsinglevalue.h"
 
 #include <asynclauncher.h>
+#include <thread>
+#include <chrono>
 
 namespace RC {
 
@@ -13,6 +15,7 @@ ImageResponse::ImageResponse(const QString &id, const QSize &requestedSize,
 
     _db = db;
     auto task = [id, requestedSize, this]() {
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
         _image = prepareImage(id, requestedSize);
         emit finished();
         return true;
