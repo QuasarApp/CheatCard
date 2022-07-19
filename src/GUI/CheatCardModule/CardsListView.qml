@@ -166,7 +166,7 @@ Page {
                         height: cardItem.height * 0.9
                         width:  cardItem.width * 0.9
                         anchors.centerIn: parent
-                        visible: loader.status !== Loader.Ready
+                        visible: cardItem.status === Loader.Loading
 
                         Label {
                             text: qsTr("Loading ...")
