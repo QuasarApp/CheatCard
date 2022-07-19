@@ -103,6 +103,10 @@
         <source>Add card</source>
         <translation>Дадаць картку</translation>
     </message>
+    <message>
+        <source>Loading ...</source>
+        <translation>Загрузка ...</translation>
+    </message>
 </context>
 <context>
     <name>CheatCard</name>

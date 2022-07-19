@@ -158,6 +158,26 @@ Page {
                     x: list.width / 2 - width / 2
                     y: list.height / 2 - height / 2
 
+                    Rectangle {
+                        color: "#00ffffff"
+                        border.color: "#777777"
+                        border.width: 3
+                        radius: 10
+                        height: cardItem.height * 0.9
+                        width:  cardItem.width * 0.9
+                        anchors.centerIn: parent
+                        visible: loader.status !== Loader.Ready
+
+                        Label {
+                            text: qsTr("Loading ...")
+                            font.pointSize: 14
+                            color: "#777777"
+                            anchors.centerIn: parent
+
+                        }
+
+                    }
+
                     asynchronous: true
                     sourceComponent: Component {
                         id: ecitCardSource
