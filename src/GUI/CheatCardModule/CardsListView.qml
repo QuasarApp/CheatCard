@@ -52,12 +52,12 @@ Page {
             highlightRangeMode: ListView.StrictlyEnforceRange
             ScrollBar.vertical: ScrollBar {
                 id: vScrollBar
-                enabled: !hasEdit
+                enabled: !hasEdit && list.orientation == ListView.Vertical
             }
 
             ScrollBar.horizontal: ScrollBar {
                 id: hScrollBar
-                enabled: !hasEdit
+                enabled: !hasEdit && list.orientation == ListView.Horizontal
             }
 
             orientation: (root.width < root.height)? ListView.Vertical : ListView.Horizontal

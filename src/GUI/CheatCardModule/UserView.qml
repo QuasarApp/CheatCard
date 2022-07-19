@@ -46,6 +46,7 @@ Page {
                 Image {
 
                     id: userAvatar
+                    asynchronous: true
                     fillMode: Image.PreserveAspectFit
 
                     source: (userDefaultAvatar.length)?

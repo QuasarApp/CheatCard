@@ -22,6 +22,7 @@ RowLayout {
 
     Image {
         id: img
+        asynchronous: true
         Layout.preferredHeight: source.height * 0.9
         Layout.preferredWidth: height
         fillMode: Image.PreserveAspectFit
