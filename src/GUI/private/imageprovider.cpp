@@ -8,6 +8,7 @@
 #include "imageprovider.h"
 #include <QQuickImageResponse>
 #include <QtConcurrent>
+#include "imageresponse.h"
 #include "quasarapp.h"
 #include <CheatCard/database.h>
 #include "getsinglevalue.h"
@@ -15,77 +16,30 @@
 
 namespace RC {
 
+
 ImageProvider::ImageProvider(DataBase* db):
-    QQuickImageProvider(QQuickImageProvider::Pixmap) {
+    QQuickAsyncImageProvider() {
 
     debug_assert(db, "The database must be not null");
 
     _db = db;
+    _imageLoaderThread = new QThread();
+    _imageLoaderThread->setObjectName("imageLoaderThread");
+    _imageLoaderThread->start();
+}
+
+QQuickImageResponse *ImageProvider::requestImageResponse(const QString &id,
+                                                         const QSize &requestedSize) {
+
+    return new class ImageResponse(id, requestedSize, _db, _imageLoaderThread);
 };
-ImageProvider::~ImageProvider() = default;
 
+ImageProvider::~ImageProvider() {
 
-QPixmap ImageProvider::requestPixmap(const QString &id,
-                                     QSize *imageSize,
-                                     const QSize &requestedSize) {
+    _imageLoaderThread->quit();
+    _imageLoaderThread->wait();
 
-    auto request = id.split(':', Qt::SkipEmptyParts);
+    delete _imageLoaderThread;
+};
 
-    QPixmap result(1,1);
-    auto type = request.value(0);
-
-    if (type == "file") {
-        result.load(request.value(1));
-
-        if (imageSize) {
-            imageSize->setHeight(result.height());
-            imageSize->setWidth(result.width());
-        }
-
-        if (requestedSize.isValid()) {
-            return result.scaled(requestedSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-        }
-        return result;
-    }
-
-    if (_db) {
-        unsigned int id = request.value(1).toUInt();
-        QH::PKG::GetSingleValue request(QH::DbAddress("cards", id), type);
-        auto dbObj = _db->db()->getObject(request);
-
-        if (!dbObj || dbObj->value().isNull()) {
-            getDefaultImage(type, result);
-            return result;
-        }
-
-        auto array = dbObj->value().toByteArray();
-
-        if (array.size()) {
-            result.loadFromData(array, "PNG");
-
-            if (requestedSize.isValid()) {
-                return result.scaled(requestedSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-            }
-            return result;
-        }
-
-        getDefaultImage(type, result);
-        return result;
-    }
-
-    return result;
-
-}
-
-void ImageProvider::getDefaultImage(const QString &type, QPixmap& result) {
-
-    if (type == "logo") {
-        result = QPixmap(":/images/private/resources/CoffeLogo.png");
-    } else if (type == "seal") {
-        result = QPixmap(":/images/private/resources/coffeSign.png");
-    } else {
-        result = QPixmap(1,1);
-        result.fill(QColor::fromRgba(0x00000000));
-    }
-}
 }

@@ -881,7 +881,7 @@
         <translation>Экспарт базы даных паспяхова завершаны</translation>
     </message>
     <message>
-        <source>Internal acces error wih %0</source>
+        <source>Internal access error with %0</source>
         <translation>Унутраная памылка доступу з %0</translation>
     </message>
 </context>
