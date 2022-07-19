@@ -103,6 +103,10 @@
         <source>* Visit any cafe that support CheatCard Application</source>
         <translation>* Відвідайте будь-яке кафе, яке підтримує додаток CheatCard</translation>
     </message>
+    <message>
+        <source>Loading ...</source>
+        <translation>Завантаження ...</translation>
+    </message>
 </context>
 <context>
     <name>CheatCard</name>

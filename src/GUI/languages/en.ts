@@ -103,6 +103,10 @@
         <source>* Visit any cafe that support CheatCard Application</source>
         <translation></translation>
     </message>
+    <message>
+        <source>Loading ...</source>
+        <translation></translation>
+    </message>
 </context>
 <context>
     <name>CheatCard</name>

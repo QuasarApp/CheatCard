@@ -56,7 +56,7 @@ void CheatCard::initLang() {
                                       ":/DoctorPillTr/languages/"
                                       }
                                       )){
-        QuasarAppUtils::Params::log("Error load language : ", QuasarAppUtils::Error);
+        QuasarAppUtils::Params::log("Failed to load language : ", QuasarAppUtils::Error);
     }
 }
 
@@ -94,7 +94,6 @@ bool CheatCard::init(QQmlApplicationEngine *engine, IBilling *billingObject) {
 
     root->setContextProperty("mainModel", QVariant::fromValue(_model));
     root->setContextProperty("config", QVariant::fromValue(settingsInstance));
-
 
     qmlRegisterType<SBarcodeGenerator>("com.scythestudio.scodes", 1, 0, "SBarcodeGenerator");
     qmlRegisterType<SBarcodeFilter>("com.scythestudio.scodes", 1, 0, "SBarcodeFilter");

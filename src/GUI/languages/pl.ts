@@ -103,6 +103,10 @@
         <source>* Visit any cafe that support CheatCard Application</source>
         <translation>* Odwiedź dowolną kawiarnię, która obsługuje aplikację CheatCard</translation>
     </message>
+    <message>
+        <source>Loading ...</source>
+        <translation>Ładowanie ...</translation>
+    </message>
 </context>
 <context>
     <name>CheatCard</name>

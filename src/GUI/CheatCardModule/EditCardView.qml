@@ -85,7 +85,7 @@ Page {
                 id: cardBackground
                 fillMode: Image.PreserveAspectCrop
                 anchors.fill: parent
-
+                asynchronous: true
                 Binding {
                     target: cardBackground
                     property: "source"
@@ -164,6 +164,8 @@ Page {
                 Image {
                     id: cardLogoIamge
                     fillMode: Image.PreserveAspectFit
+                    asynchronous: true
+
                     Binding {
                         target: cardLogoIamge
                         property: "source"
@@ -405,6 +407,7 @@ Page {
                                     visible: Boolean(root.model) &&
                                              ((root.purchasesNumber %
                                                freeIndex.value) > index)
+                                    asynchronous: true
 
                                     anchors.centerIn: parent
                                     width: parent.width * 0.9
