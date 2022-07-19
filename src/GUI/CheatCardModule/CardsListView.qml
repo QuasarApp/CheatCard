@@ -153,7 +153,7 @@ Page {
                 Loader {
                     id: cardItem
 
-                    asynchronous: false
+                    asynchronous: true
                     sourceComponent: Component {
                         id: ecitCardSource
                         Item {
