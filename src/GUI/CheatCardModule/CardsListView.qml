@@ -157,48 +157,62 @@ Page {
                     width: list.itemWidth
                     x: list.width / 2 - width / 2
                     y: list.height / 2 - height / 2
-
-                    EditCardView {
-                        id: cardView
-                        model: card
-                        showSeals: !(vScrollBar.active || hScrollBar.active) && isCurrentItem
-                        opacity: (isCurrentItem)? 1: 0.5
-                        editable: !Boolean(card && card.title.length)
-                        onEditableChanged: {
-                            hasEdit = editable
+                    property var source: null
+                    Component.onCompleted: {
+                        var source = ecitCardSource.createObject(cardItem);
+                        if (source === null) {
+                            // Error Handling
+                            console.error("Error creating Activity object. " + component.errorString());
+                            return;
                         }
-                        isCurrentItem: cardItem.ListView.isCurrentItem
-                        onFinished: () => {
-                                        hasEdit = editable = customization = false
-                                        root.finished()
-
-                                    }
-
-                        Behavior on width {
-                            NumberAnimation {
-                                id: animation
-                                easing.type: Easing.InQuad
-
-                            }
-                        }
-
-                        Behavior on height {
-                            NumberAnimation {
-                                easing.type: Easing.InQuad
-
-                            }
-                        }
-
-                        Behavior on opacity {
-                            NumberAnimation {
-                                easing.type: Easing.InQuad
-                            }
-                        }
-
-                        height: parent.height * ((cardItem.ListView.isCurrentItem)? 1: 0.9)
-                        width: parent.width * ((cardItem.ListView.isCurrentItem)? 1: 0.9)
-                        anchors.centerIn: parent
                     }
+
+                    Component {
+                        id: ecitCardSource
+                        EditCardView {
+                            id: cardView
+                            model: card
+                            showSeals: !(vScrollBar.active || hScrollBar.active) && isCurrentItem
+                            opacity: (isCurrentItem)? 1: 0.5
+                            editable: !Boolean(card && card.title.length)
+                            onEditableChanged: {
+                                hasEdit = editable
+                            }
+                            isCurrentItem: cardItem.ListView.isCurrentItem
+                            onFinished: () => {
+                                            hasEdit = editable = customization = false
+                                            root.finished()
+
+                                        }
+
+                            Behavior on width {
+                                NumberAnimation {
+                                    id: animation
+                                    easing.type: Easing.InQuad
+
+                                }
+                            }
+
+                            Behavior on height {
+                                NumberAnimation {
+                                    easing.type: Easing.InQuad
+
+                                }
+                            }
+
+                            Behavior on opacity {
+                                NumberAnimation {
+                                    easing.type: Easing.InQuad
+                                }
+                            }
+
+                            height: parent.height * ((cardItem.ListView.isCurrentItem)? 1: 0.9)
+                            width: parent.width * ((cardItem.ListView.isCurrentItem)? 1: 0.9)
+                            anchors.centerIn: parent
+                        }
+                    }
+
+
                 }
 
             }
