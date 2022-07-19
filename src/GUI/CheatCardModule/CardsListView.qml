@@ -153,14 +153,17 @@ Page {
                 Loader {
                     id: cardItem
 
+                    height: list.itemHeight
+                    width: list.itemWidth
+                    x: list.width / 2 - width / 2
+                    y: list.height / 2 - height / 2
+
                     asynchronous: true
                     sourceComponent: Component {
                         id: ecitCardSource
                         Item {
-                            height: list.itemHeight
-                            width: list.itemWidth
-                            x: list.width / 2 - width / 2
-                            y: list.height / 2 - height / 2
+                            height: cardItem.height
+                            width: cardItem.width
 
                             anchors.centerIn: parent
 
