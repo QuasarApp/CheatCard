@@ -36,7 +36,7 @@ Page {
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.alignment: Qt.AlignHCenter
-
+            cacheBuffer: Math.min(list.width, list.height) * 5
             implicitHeight: 0x0
             implicitWidth: 0x0
 
