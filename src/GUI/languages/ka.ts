@@ -5,7 +5,7 @@
     <name>About</name>
     <message>
         <source> </source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>**Third party libraries**</source>
@@ -594,471 +594,471 @@
     </message>
     <message>
         <source>* Showed the QR code in the application at the checkout.</source>
-        <translation type="unfinished"></translation>
+        <translation>* აჩვენა QR კოდი აპლიკაციაში ანგარიშსწორებისას.</translation>
     </message>
     <message>
         <source>* Receive seal to card.</source>
-        <translation type="unfinished"></translation>
+        <translation>* მიიღე ბეჭედი ბარათზე.</translation>
     </message>
     <message>
         <source>* Repeated this procedure several times and received the bonus set by the seller.</source>
-        <translation type="unfinished"></translation>
+        <translation>* რამდენჯერმე გაიმეორა ეს პროცედურა და მიიღო გამყიდველის მიერ დადგენილი ბონუსი.</translation>
     </message>
     <message>
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;In order to open the QR code, click on the item in the upper left corner of the screen. </source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp; &amp; NBSP;იმისათვის, რომ გახსნათ QR კოდი, დააჭირეთ ნივთს ეკრანის ზედა მარცხენა კუთხეში. </translation>
     </message>
     <message>
         <source>&lt;img src=&quot;qrc:/private/resources/help/Help1.jpg&quot; alt=&quot;tt&quot; width=&quot;100&quot;/&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;A sidebar will open at the bottom of which there will be a QR code, you can click on it to enlarge it.</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; გაიხსნება გვერდითი პანელი, რომლის ბოლოში იქნება QR კოდი, შეგიძლიათ დააწკაპუნოთ მასზე გასადიდებლად.</translation>
     </message>
     <message>
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;After receiving the card, you can view additional information about the card by clicking on it.</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;ბარათის მიღების შემდეგ, ბარათის შესახებ დამატებითი ინფორმაციის ნახვა შეგიძლიათ მასზე დაწკაპუნებით.</translation>
     </message>
     <message>
         <source> </source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
     <name>PageShareApp</name>
     <message>
         <source>To get a cheat card, scan the QR code and follow the link.</source>
-        <translation type="unfinished"></translation>
+        <translation>cheat card-ის მისაღებად, დაასკანირეთ QR კოდი და მიჰყევით ბმულს.</translation>
     </message>
 </context>
 <context>
     <name>PermissionsView</name>
     <message>
         <source>Your Workers</source>
-        <translation type="unfinished"></translation>
+        <translation>შენი მუშები</translation>
     </message>
     <message>
         <source>If you want to add access to your cards, you can add workers.</source>
-        <translation type="unfinished"></translation>
+        <translation>თუ გსურთ დაამატოთ წვდომა თქვენს ბარათებზე, შეგიძლიათ დაამატოთ მუშები.</translation>
     </message>
     <message>
         <source>How to manage your workers:</source>
-        <translation type="unfinished"></translation>
+        <translation>როგორ მართოთ თქვენი მუშები:</translation>
     </message>
     <message>
         <source>* Click the &apos;Scan QR code of your worker&apos; button and scan a qr code from the sidebar of your worker&apos;s device.</source>
-        <translation type="unfinished"></translation>
+        <translation>* დააწკაპუნეთ ღილაკზე „თქვენი თანამშრომლის QR კოდის სკანირება“ და დაასკანირეთ qr კოდი თქვენი თანამშრომლის მოწყობილობის გვერდითი ზოლიდან.</translation>
     </message>
     <message>
         <source>* Your worker will get access to all your cards</source>
-        <translation type="unfinished"></translation>
+        <translation>* თქვენი თანამშრომელი მიიღებს წვდომას თქვენს ყველა ბარათზე</translation>
     </message>
     <message>
         <source>* If you want to remove access of your cards, just remove the worker record on the bottom workers list menu.</source>
-        <translation type="unfinished"></translation>
+        <translation>* თუ გსურთ წაშალოთ წვდომა თქვენს ბარათებზე, უბრალოდ წაშალეთ მუშაკთა ჩანაწერი მუშაკთა სიის ქვედა მენიუში.</translation>
     </message>
     <message>
         <source>Edit worker&apos;s name</source>
-        <translation type="unfinished"></translation>
+        <translation>შეცვალეთ თანამშრომლის სახელი</translation>
     </message>
     <message>
         <source>Enter your worker name.</source>
-        <translation type="unfinished"></translation>
+        <translation>შეიყვანეთ თქვენი თანამშრომლის სახელი.</translation>
     </message>
 </context>
 <context>
     <name>QrCodeView</name>
     <message>
         <source>It looks like this code should be shown to the seller!</source>
-        <translation type="unfinished"></translation>
+        <translation>როგორც ჩანს, ეს კოდი უნდა აჩვენოს გამყიდველს!</translation>
     </message>
     <message>
         <source>Show your phone to the seller, so that the drawn QR code gets into the scanning area.</source>
-        <translation type="unfinished"></translation>
+        <translation>აჩვენეთ თქვენი ტელეფონი გამყიდველს, რათა შედგენილი QR კოდი მოხვდეს სკანირების ზონაში.</translation>
     </message>
     <message>
         <source>When all passed is successful, the Seller&apos;s device will complete the scan, and you will receive your bonuses as soon as you hide the Qr code.</source>
-        <translation type="unfinished"></translation>
+        <translation>როდესაც ყველაფერი წარმატებით დასრულდა, გამყიდველის მოწყობილობა დაასრულებს სკანირებას და თქვენ მიიღებთ თქვენს ბონუსებს Qr კოდის დამალვისთანავე.</translation>
     </message>
 </context>
 <context>
     <name>QrScanner</name>
     <message>
         <source>switch camera</source>
-        <translation type="unfinished"></translation>
+        <translation>კამერის შეცვლა</translation>
     </message>
 </context>
 <context>
     <name>RC::AbstrcattableModelWithHeaders</name>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>უცნობი</translation>
     </message>
 </context>
 <context>
     <name>RC::ImportExportUserModel</name>
     <message>
         <source>Oh shit</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Permission denied to selected file.</source>
-        <translation type="unfinished"></translation>
+        <translation>არჩეულ ფაილზე ნებართვა უარყოფილია.</translation>
     </message>
     <message>
         <source>It looks like the file you selected does not contain a recovery code</source>
-        <translation type="unfinished"></translation>
+        <translation>როგორც ჩანს, თქვენ მიერ არჩეული ფაილი არ შეიცავს აღდგენის კოდს</translation>
     </message>
 </context>
 <context>
     <name>RC::MainModel</name>
     <message>
         <source>We Have trouble</source>
-        <translation type="unfinished"></translation>
+        <translation>პრობლემები გვაქვს</translation>
     </message>
     <message>
         <source>Yor secret key and public key is not pair May be you scan not valid qr code ...</source>
-        <translation type="unfinished"></translation>
+        <translation>თქვენი საიდუმლო გასაღები და საჯარო გასაღები არ არის დაწყვილებული, შესაძლოა თქვენ დაასკანიროთ არასწორი qr კოდი ...</translation>
     </message>
     <message>
         <source>Wow shit</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>This qr code is invalid. Sorry... </source>
-        <translation type="unfinished"></translation>
+        <translation>ეს qr კოდი არასწორია... </translation>
     </message>
     <message>
         <source>I managed to do it !</source>
-        <translation type="unfinished"></translation>
+        <translation>მე მოვახერხე ეს!</translation>
     </message>
     <message>
         <source>Yor secret key are imported</source>
-        <translation type="unfinished"></translation>
+        <translation>თქვენი საიდუმლო გასაღები იმპორტირებულია</translation>
     </message>
     <message>
         <source>Failed to sync data with server. Please check your internet connection and try to restore your data again</source>
-        <translation type="unfinished"></translation>
+        <translation>სერვერთან მონაცემების სინქრონიზაცია ვერ მოხერხდა. გთხოვთ, შეამოწმოთ თქვენი ინტერნეტ კავშირი და ხელახლა სცადოთ თქვენი მონაცემების აღდგენა</translation>
     </message>
     <message>
         <source>Your customers already using this card!</source>
-        <translation type="unfinished"></translation>
+        <translation>თქვენი მომხმარებლები უკვე იყენებენ ამ ბარათს!</translation>
     </message>
     <message>
         <source> You&apos;re trying to change the bonus rules. These changes will be saved as a new card. The old card continues to work correctly and all customers data will be saved. Do you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation> თქვენ ცდილობთ შეცვალოთ ბონუს წესები. ეს ცვლილებები შეინახება როგორც ახალი რუკა. ძველი ბარათი აგრძელებს ჩვეულებრივ მუშაობას და მომხმარებლის ყველა მონაცემი შეინახება. გსურთ გააგრძელოთ?</translation>
     </message>
     <message>
         <source>We seem to have problems</source>
-        <translation type="unfinished"></translation>
+        <translation>როგორც ჩანს, პრობლემები გვაქვს</translation>
     </message>
     <message>
         <source>The card reset to default successful but load default card from server failed, so you receive your card after new purchase in institution that has give out this card.</source>
-        <translation type="unfinished"></translation>
+        <translation>ბარათის ნაგულისხმევი ღირებულებით გადატვირთვა წარმატებული იყო, მაგრამ სერვერიდან ნაგულისხმევი ბარათის ჩამოტვირთვა შეუძლებელი იყო, ასე რომ თქვენ მიიღებთ თქვენს ბარათს ახალი შესყიდვის შემდეგ იმ დაწესებულებიდან, რომელმაც გასცა ეს ბარათი.</translation>
     </message>
     <message>
         <source>Operation not permitted</source>
-        <translation type="unfinished"></translation>
+        <translation>ოპერაცია არ არის ნებადართული</translation>
     </message>
     <message>
         <source>This card has active clients, so you can&apos;t to remove this card.</source>
-        <translation type="unfinished"></translation>
+        <translation>ამ ბარათს ჰყავს აქტიური კლიენტები, ამიტომ ამ ბარათის ამოღება შეუძლებელია.</translation>
     </message>
     <message>
         <source>Remove Card</source>
-        <translation type="unfinished"></translation>
+        <translation>ბარათის ამოღება</translation>
     </message>
     <message>
         <source>You trying to delete this card, do not worry a seller that has give out this card save all bonuses locally,  so after repeat visit you will be get all your removed bonuses again. Do you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>თქვენ ცდილობთ წაშალოთ ეს ბარათი, არ ინერვიულოთ, გამყიდველი, რომელმაც გასცა ეს ბარათი, დაზოგავს ყველა ბონუსს ადგილობრივად, ასე რომ, როდესაც კვლავ მოინახულებთ, კვლავ მიიღებთ ყველა წაშლილ პრემიას. გსურთ გააგრძელოთ?</translation>
     </message>
     <message>
         <source>Sorry but not</source>
-        <translation type="unfinished"></translation>
+        <translation>ვწუხვარ, მაგრამ არ არსებობს</translation>
     </message>
     <message>
         <source>This client does not have any bonuses. Sorry... </source>
-        <translation type="unfinished"></translation>
+        <translation>ამ კლიენტს არ აქვს ბონუსი... </translation>
     </message>
     <message>
         <source>Oops</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Some kind of garbage happened when reading the qr code. Try again</source>
-        <translation type="unfinished"></translation>
+        <translation>რაღაც ნაგავი მოხდა qr კოდის წაკითხვისას. იდევ სცადე</translation>
     </message>
 </context>
 <context>
     <name>RC::NetIndicatorModel</name>
     <message>
         <source>Oops</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>No internet connection.</source>
-        <translation type="unfinished"></translation>
+        <translation>ინტერნეტი არ არის.</translation>
     </message>
 </context>
 <context>
     <name>RC::PermisionsModel</name>
     <message>
         <source>Remove access for %0 </source>
-        <translation type="unfinished"></translation>
+        <translation>ამოიღეთ წვდომა %0-ისთვის </translation>
     </message>
     <message>
         <source>If You remove access for the %0 user, he cannot be use your cards anymore.</source>
-        <translation type="unfinished"></translation>
+        <translation>თუ თქვენ გაუქმებთ წვდომას %0 მომხმარებლისთვის, ის ვეღარ გამოიყენებს თქვენს ბარათებს.</translation>
     </message>
     <message>
         <source> Do you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation> ინდა გააგრძელო?</translation>
     </message>
 </context>
 <context>
     <name>RC::SellerStatisticModel</name>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>სახელი</translation>
     </message>
     <message>
         <source>Id</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Purchases</source>
-        <translation type="unfinished"></translation>
+        <translation>შესყიდვები</translation>
     </message>
     <message>
         <source>Available</source>
-        <translation type="unfinished"></translation>
+        <translation>ხელმისაწვდომია</translation>
     </message>
     <message>
         <source>Issued</source>
-        <translation type="unfinished"></translation>
+        <translation>ამოცემული, მიღებული</translation>
     </message>
     <message>
         <source>Last visit</source>
-        <translation type="unfinished"></translation>
+        <translation>ბოლო ვიზიტი</translation>
     </message>
     <message>
         <source>Status</source>
-        <translation type="unfinished"></translation>
+        <translation>სტატუსი</translation>
     </message>
     <message>
         <source>Active</source>
-        <translation type="unfinished"></translation>
+        <translation>აქტიური</translation>
     </message>
     <message>
         <source>Passive</source>
-        <translation type="unfinished"></translation>
+        <translation>პასიური</translation>
     </message>
 </context>
 <context>
     <name>RC::SettingsModel</name>
     <message>
         <source>Database location</source>
-        <translation type="unfinished"></translation>
+        <translation>მონაცემთა ბაზის ადგილმდებარეობა</translation>
     </message>
     <message>
         <source>Failed to export database</source>
-        <translation type="unfinished"></translation>
+        <translation>მონაცემთა ბაზის ექსპორტი ვერ მოხერხდა</translation>
     </message>
     <message>
         <source>From %0 to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%0-დან %1-მდე</translation>
     </message>
     <message>
         <source>Export the database finished successful</source>
-        <translation type="unfinished"></translation>
+        <translation>მონაცემთა ბაზის ექსპორტი წარმატებით დასრულდა</translation>
     </message>
 </context>
 <context>
     <name>RC::WaitConfirmModel</name>
     <message>
         <source>Not so fast!</source>
-        <translation type="unfinished"></translation>
+        <translation>არც ისე სწრაფად!</translation>
     </message>
     <message>
         <source>Please wait for finished of a previous request</source>
-        <translation type="unfinished"></translation>
+        <translation>გთხოვთ, დაელოდოთ წინა მოთხოვნის დასრულებას</translation>
     </message>
     <message>
         <source>We Have trouble</source>
-        <translation type="unfinished"></translation>
+        <translation>პრობლემები გვაქვს</translation>
     </message>
     <message>
         <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
-        <translation type="unfinished"></translation>
+        <translation>ბონუსის ან შტამპის გაცემა ვერ მოხერხდა. შესაძლოა, თქვენი ადგილობრივი მონაცემები მოძველებულია, ჩვენ უკვე ვაახლებთ თქვენს ლოკალურ მონაცემებს. გთხოვთ, სცადოთ ხელახლა გამოუშვათ ბონუსი ან შტამპი.</translation>
     </message>
     <message>
         <source>Server not responds</source>
-        <translation type="unfinished"></translation>
+        <translation>სერვერი არ პასუხობს</translation>
     </message>
     <message>
         <source>Hmm, maybe you have a super slow internet connection... Try again</source>
-        <translation type="unfinished"></translation>
+        <translation>Hmm, შესაძლოა სუპერ ნელი ინტერნეტ კავშირი გაქვთ... სცადეთ ხელახლა</translation>
     </message>
 </context>
 <context>
     <name>RC::WaitConnectionModel</name>
     <message>
         <source>We Have trouble</source>
-        <translation type="unfinished"></translation>
+        <translation>პრობლემები გვაქვს</translation>
     </message>
     <message>
         <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
-        <translation type="unfinished"></translation>
+        <translation>ბონუსის ან შტამპის გაცემა ვერ მოხერხდა.შესაძლოა, თქვენი ადგილობრივი მონაცემები მოძველებულია, ჩვენ უკვე ვაახლებთ თქვენს ლოკალურ მონაცემებს.გთხოვთ, სცადოთ ხელახლა გამოუშვათ ბონუსი ან  შტამპი.</translation>
     </message>
 </context>
 <context>
     <name>RegistrationFinishedPage</name>
     <message>
         <source>Done!</source>
-        <translation type="unfinished">ესრულებულია!</translation>
+        <translation>ესრულებულია!</translation>
     </message>
     <message>
         <source>All Done! &lt;b&gt;But If you drop your application data, then all your cards will be removed&lt;/b&gt;. For save, itself of these situations, we recommend creating a back-up of your master key.</source>
-        <translation type="unfinished"></translation>
+        <translation>ველაფერი შესრულებულია! &lt;b&gt;მაგრამ თუ თქვენი აპლიკაციის მონაცემებს ჩამოაგდებთ, მაშინ ყველა თქვენი ბარათი წაიშლება&lt;/b&gt;. ამ სიტუაციების დაზოგვის მიზნით, გირჩევთ შექმნათ თქვენი მთავარი გასაღების სარეზერვო საშუალება.</translation>
     </message>
     <message>
         <source>Create a backup of master key to save data of my account.</source>
-        <translation type="unfinished"></translation>
+        <translation>შექმენით საძიებო გასაღების სარეზერვო ასლი თქვენი ანგარიშის მონაცემების შესანახად.</translation>
     </message>
     <message>
         <source>Go to use</source>
-        <translation type="unfinished"></translation>
+        <translation>გადადით გამოყენებაზე</translation>
     </message>
 </context>
 <context>
     <name>ScannerOverlay</name>
     <message>
         <source>Scan QR code</source>
-        <translation type="unfinished"></translation>
+        <translation>QR კოდის სკანირება</translation>
     </message>
 </context>
 <context>
     <name>Settings</name>
     <message>
         <source>Appearance</source>
-        <translation type="unfinished"></translation>
+        <translation>გარეგნობა</translation>
     </message>
     <message>
         <source>Select application color</source>
-        <translation type="unfinished">აირჩიეთ განაცხადის ფერი</translation>
+        <translation>აირჩიეთ განაცხადის ფერი</translation>
     </message>
     <message>
         <source>Select</source>
-        <translation type="unfinished">აირჩიეთ</translation>
+        <translation>აირჩიეთ</translation>
     </message>
     <message>
         <source>Dark Theme</source>
-        <translation type="unfinished">მუქი თემა</translation>
+        <translation>მუქი თემა</translation>
     </message>
     <message>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation>ენა</translation>
     </message>
     <message>
         <source>Please choose a color</source>
-        <translation type="unfinished">გთხოვთ აირჩიოთ ფერი</translation>
+        <translation>გთხოვთ აირჩიოთ ფერი</translation>
     </message>
     <message>
         <source>Privacy</source>
-        <translation type="unfinished"></translation>
+        <translation>კონფიდენციალურობა</translation>
     </message>
     <message>
         <source>Share name with seller</source>
-        <translation type="unfinished"></translation>
+        <translation>გაუზიარე სახელი გამყიდველს</translation>
     </message>
     <message>
         <source>Work rules</source>
-        <translation type="unfinished"></translation>
+        <translation>მუშაობის წესები</translation>
     </message>
     <message>
         <source>Select work camera</source>
-        <translation type="unfinished"></translation>
+        <translation>აირჩიეთ სამუშაო კამერა</translation>
     </message>
     <message>
         <source>Developer settings</source>
-        <translation type="unfinished"></translation>
+        <translation>დეველოპერის პარამეტრები</translation>
     </message>
     <message>
         <source>Check database location</source>
-        <translation type="unfinished"></translation>
+        <translation>შეამოწმეთ მონაცემთა ბაზის ადგილმდებარეობა</translation>
     </message>
     <message>
         <source>Export a database</source>
-        <translation type="unfinished"></translation>
+        <translation>მონაცემთა ბაზის ექსპორტი</translation>
     </message>
     <message>
         <source>Diagnostic the application</source>
-        <translation type="unfinished"></translation>
+        <translation>განაცხადის დიაგნოსტიკა</translation>
     </message>
     <message>
         <source>Use custom server</source>
-        <translation type="unfinished"></translation>
+        <translation>გამოიყენეთ მორგებული სერვერი</translation>
     </message>
     <message>
         <source>Host</source>
-        <translation type="unfinished"></translation>
+        <translation>მასპინძელი</translation>
     </message>
     <message>
         <source>Default settings</source>
-        <translation type="unfinished"></translation>
+        <translation>ნაგულისხმევი პარამეტრები</translation>
     </message>
     <message>
         <source>Reset all settings</source>
-        <translation type="unfinished"></translation>
+        <translation>ყველა პარამეტრის გადატვირთვა</translation>
     </message>
 </context>
 <context>
     <name>UpdateRequestPage</name>
     <message>
         <source>Outdated!</source>
-        <translation type="unfinished"></translation>
+        <translation>მოძველებულია!</translation>
     </message>
     <message>
         <source>Sorry but your application version no longer support. Please upgrade your application!</source>
-        <translation type="unfinished"></translation>
+        <translation>უკაცრავად, მაგრამ თქვენი აპლიკაციის ვერსია აღარ არის მხარდაჭერილი. გთხოვთ განაახლოთ თქვენი აპლიკაცია!</translation>
     </message>
     <message>
         <source>Upgrade</source>
-        <translation type="unfinished"></translation>
+        <translation>განახლება</translation>
     </message>
 </context>
 <context>
     <name>UserView</name>
     <message>
         <source>Id:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>სახელი:</translation>
     </message>
 </context>
 <context>
     <name>UsersListView</name>
     <message>
         <source>Import new user</source>
-        <translation type="unfinished"></translation>
+        <translation>ახალი მომხმარებლის იმპორტი</translation>
     </message>
 </context>
 <context>
     <name>WaitConnectView</name>
     <message>
         <source>Select the number of purchases that the customer has made.</source>
-        <translation type="unfinished"></translation>
+        <translation>შეარჩიეთ შესყიდვების რაოდენობა, რაც გააკეთა მომხმარებელმა.</translation>
     </message>
     <message>
         <source>Seal</source>
-        <translation type="unfinished"></translation>
+        <translation>ბეჭდვა</translation>
     </message>
     <message>
         <source>Check</source>
-        <translation type="unfinished"></translation>
+        <translation>ჩეკი</translation>
     </message>
 </context>
 </TS>
