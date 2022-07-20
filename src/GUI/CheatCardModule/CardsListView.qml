@@ -158,19 +158,12 @@ Page {
                     x: list.width / 2 - width / 2
                     y: list.height / 2 - height / 2
 
-                    RowLayout {
+                    Label {
+                        text: qsTr("Loading ...")
+                        font.pointSize: 20
+                        color: "#777777"
                         anchors.centerIn: parent
                         visible: cardItem.status === Loader.Loading
-                        BusyIndicator {
-                            running: true
-                        }
-
-                        Label {
-                            text: qsTr("Loading ...")
-                            font.pointSize: 14
-                            color: "#777777"
-
-                        }
                     }
 
                     asynchronous: true
