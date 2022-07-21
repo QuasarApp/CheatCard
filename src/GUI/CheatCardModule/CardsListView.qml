@@ -36,7 +36,6 @@ Page {
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.alignment: Qt.AlignHCenter
-
             implicitHeight: 0x0
             implicitWidth: 0x0
 
@@ -51,8 +50,13 @@ Page {
 
             highlightRangeMode: ListView.StrictlyEnforceRange
             ScrollBar.vertical: ScrollBar {
-                id: scrollBar
-                enabled: !hasEdit
+                id: vScrollBar
+                enabled: !hasEdit && list.orientation == ListView.Vertical
+            }
+
+            ScrollBar.horizontal: ScrollBar {
+                id: hScrollBar
+                enabled: !hasEdit && list.orientation == ListView.Horizontal
             }
 
             orientation: (root.width < root.height)? ListView.Vertical : ListView.Horizontal
@@ -144,60 +148,80 @@ Page {
                                         Math.min(list.width, bottomButton.y / 0.75) :
                                         Math.min(list.width, list.height / 0.75)
 
-            Component {
-                id: delegateItem
 
-                Item {
+            delegate: Component {
+                Loader {
                     id: cardItem
+
                     height: list.itemHeight
                     width: list.itemWidth
                     x: list.width / 2 - width / 2
                     y: list.height / 2 - height / 2
 
-                    EditCardView {
-                        id: cardView
-                        model: card
-                        opacity: (isCurrentItem)? 1: 0.5
-                        editable: !Boolean(card && card.title.length)
-                        onEditableChanged: {
-                            hasEdit = editable
-                        }
-                        isCurrentItem: cardItem.ListView.isCurrentItem
-                        onFinished: () => {
-                                        hasEdit = editable = customization = false
-                                        root.finished()
+                    Label {
+                        text: qsTr("Loading ...")
+                        font.pointSize: 20
+                        color: "#777777"
+                        anchors.centerIn: parent
+                        visible: cardItem.status === Loader.Loading
+                    }
+
+                    asynchronous: true
+                    sourceComponent: Component {
+                        id: ecitCardSource
+                        Item {
+                            height: cardItem.height
+                            width: cardItem.width
+
+                            anchors.centerIn: parent
+
+                            EditCardView {
+                                id: cardView
+                                isCurrentItem: cardItem.ListView.isCurrentItem
+
+                                model: card
+                                showSeals: !(vScrollBar.active || hScrollBar.active) && isCurrentItem
+                                editable: !Boolean(card && card.title.length)
+                                onEditableChanged: {
+                                    hasEdit = editable
+                                }
+                                onFinished: () => {
+                                                hasEdit = editable = customization = false
+                                                root.finished()
+
+                                            }
+
+                                Behavior on width {
+                                    NumberAnimation {
+                                        id: animation
+                                        easing.type: Easing.InQuad
 
                                     }
+                                }
 
-                        Behavior on width {
-                            NumberAnimation {
-                                id: animation
-                                easing.type: Easing.InQuad
+                                Behavior on height {
+                                    NumberAnimation {
+                                        easing.type: Easing.InQuad
+
+                                    }
+                                }
+
+                                Behavior on opacity {
+                                    NumberAnimation {
+                                        easing.type: Easing.InQuad
+                                    }
+                                }
+                                opacity: (isCurrentItem)? 1: 0.5
+
+                                height: (isCurrentItem)? cardItem.height: cardItem.height * 0.9
+                                width: (isCurrentItem)? cardItem.width : cardItem.width * 0.9
+                                anchors.centerIn: parent
 
                             }
                         }
-
-                        Behavior on height {
-                            NumberAnimation {
-                                easing.type: Easing.InQuad
-
-                            }
-                        }
-
-                        Behavior on opacity {
-                            NumberAnimation {
-                                easing.type: Easing.InQuad
-                            }
-                        }
-
-                        height: parent.height * ((cardItem.ListView.isCurrentItem)? 1: 0.9)
-                        width: parent.width * ((cardItem.ListView.isCurrentItem)? 1: 0.9)
-                        anchors.centerIn: parent
                     }
                 }
             }
-
-            delegate: delegateItem
         }
 
         Button {

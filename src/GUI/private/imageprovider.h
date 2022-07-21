@@ -8,28 +8,26 @@
 #ifndef IMAGEPROVIDER_H
 #define IMAGEPROVIDER_H
 
-#include <QQuickImageProvider>
+#include <QQuickAsyncImageProvider>
 #include <QPixmap>
+#include <async.h>
 
 namespace RC {
 
 class DataBase;
 
-class ImageProvider: public QQuickImageProvider {
+class ImageProvider: public QQuickAsyncImageProvider {
 
 public:
     explicit ImageProvider(DataBase* db);
     ~ImageProvider() override;
 
-    QPixmap requestPixmap(const QString &id,
-                          QSize *size,
-                          const QSize &requestedSize) override;
-
+    QQuickImageResponse *requestImageResponse(const QString &id,
+                                              const QSize &requestedSize) override;
 private:
-
-    void getDefaultImage(const QString &type, QPixmap &result);
-
     DataBase *_db = nullptr;
+    QThread *_imageLoaderThread = nullptr;
+
 };
 
 }

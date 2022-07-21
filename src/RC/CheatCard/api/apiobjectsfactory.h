@@ -70,11 +70,17 @@ protected:
     };
 
     template<class UsersCards>
-    QList<QSharedPointer<API::UsersCards> > getAllUserFromCardImpl(unsigned int cardId) const {
+    QList<QSharedPointer<API::UsersCards> > getAllUserFromCardImpl(unsigned int cardId,
+                                                                   unsigned int ignoreUserId = 0) const {
 
         check_type(UsersCards);
 
-        QString where = QString("card=%0").arg(cardId);
+        QString where;
+        if (ignoreUserId) {
+            where = QString("card=%0 AND user!=%1").arg(cardId).arg(ignoreUserId);
+        } else {
+            where = QString("card=%0").arg(cardId);
+        }
 
         QH::PKG::DBObjectsRequest<UsersCards> request("UsersCards",
                                                       where);
@@ -89,14 +95,21 @@ protected:
 
     template<class UsersCards>
     QList<QSharedPointer<API::UsersCards> > getAllActiveUserFromCardImpl(unsigned int cardId,
-                                                                         int unixTimeRange = ACTIVE_USER_TIME_LIMIT) const {
+                                                                         int unixTimeRange = ACTIVE_USER_TIME_LIMIT,
+                                                                         unsigned int ignoreUserId = 0) const {
 
         check_type(UsersCards);
 
         int timePoint = time(0) - unixTimeRange;
 
-        QString where = QString("card=%0 AND time>%1").
-                arg(cardId).arg(timePoint);
+        QString where;
+        if (ignoreUserId) {
+            where = QString("card=%0 AND time>%1 AND user!=%2").
+                    arg(cardId).arg(timePoint).arg(ignoreUserId);
+        } else {
+            where = QString("card=%0 AND time>%1")
+                    .arg(cardId).arg(timePoint);
+        }
 
         QH::PKG::DBObjectsRequest<UsersCards> request("UsersCards",
                                                       where);
@@ -111,14 +124,21 @@ protected:
 
     template<class UsersCards>
     QList<QSharedPointer<API::UsersCards> > getAllPassiveUserFromCardImpl(unsigned int cardId,
-                                                                          int unixTimeRange = ACTIVE_USER_TIME_LIMIT) const {
+                                                                          int unixTimeRange = ACTIVE_USER_TIME_LIMIT,
+                                                                          unsigned int ignoreUserId = 0) const {
 
         check_type(UsersCards);
 
         int timePoint = time(0) - unixTimeRange;
 
-        QString where = QString("card=%0 AND time<%1").
-                arg(cardId).arg(timePoint);
+        QString where;
+        if (ignoreUserId) {
+            where = QString("card=%0 AND time<%1 AND user!=%2").
+                    arg(cardId).arg(timePoint).arg(ignoreUserId);
+        } else {
+            where = QString("card=%0 AND time<%1")
+                    .arg(cardId).arg(timePoint);
+        }
 
         QH::PKG::DBObjectsRequest<UsersCards> request("UsersCards",
                                                       where);

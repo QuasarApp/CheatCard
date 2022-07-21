@@ -31,6 +31,7 @@ Page {
                 flow: (rootAlign.fHorisontal)? GridLayout.LeftToRight : GridLayout.TopToBottom
                 ColumnLayout {
                     Image {
+                        asynchronous: true
                         fillMode: Image.PreserveAspectFit
                         Layout.preferredWidth:  Math.min(root.width * 0.5, root.height * 0.5)
                         Layout.preferredHeight: width * 0.5
@@ -55,6 +56,7 @@ Page {
                 }
 
                 Image {
+                    asynchronous: true
                     fillMode: Image.PreserveAspectFit
                     Layout.preferredHeight: Math.min(root.width * 0.8, root.height * 0.8)
                     Layout.preferredWidth:  Math.min(root.width * 0.8, root.height * 0.8)
@@ -74,6 +76,8 @@ Page {
                 ColumnLayout {
                     Image {
                         fillMode: Image.PreserveAspectFit
+                        asynchronous: true
+
                         Layout.preferredWidth:  Math.min(root.width * 0.5, root.height * 0.5)
                         Layout.preferredHeight: width * 0.5
                         Layout.alignment: Qt.AlignHCenter
@@ -98,6 +102,8 @@ Page {
 
                 Image {
                     fillMode: Image.PreserveAspectFit
+                    asynchronous: true
+
                     Layout.preferredHeight: Math.min(root.width * 0.8, root.height * 0.8)
                     Layout.preferredWidth:  Math.min(root.width * 0.8, root.height * 0.8)
                     Layout.alignment: Qt.AlignHCenter

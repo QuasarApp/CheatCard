@@ -41,6 +41,10 @@ public:
 
     NodeType nodeType() const override;
 
+    bool setPurchase(const RC::API::UserHeader &userHeaderData,
+                     unsigned int cardId, int purchasesCount,
+                     const QString& domain = "",
+                      int port = DEFAULT_CHEAT_CARD_PORT_SSL);
 protected:
     void nodeConnected(QH::AbstractNodeInfo *node) override;
     void nodeConfirmend(QH::AbstractNodeInfo *node) override;
@@ -48,12 +52,13 @@ protected:
                             int purchasesCount);
 
 private:
-    QSharedPointer<API::UsersCards> prepareData(const QSharedPointer<API::UserHeader> &userHeaderData,
+    QSharedPointer<API::UsersCards> prepareData(const RC::API::UserHeader &userHeaderData,
                                                 unsigned int cardId);
     bool sendDataPrivate(const QString &domain, int port);
 
     QHash<long long, QSharedPointer<API::Session>> _lastRequested;
 
+    void updateUsersData(const RC::API::UserHeader &userHeaderData);
 };
 }
 #endif // SELLER_H

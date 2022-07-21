@@ -24,6 +24,8 @@ Item {
         id: imgQr
         property int qrIndex: 0
         visible: root.inputText.length || alwaysView
+        asynchronous: true
+
         anchors.centerIn: parent
         height: Math.min(parent.height, parent.width)
         width: Math.min(parent.height, parent.width)

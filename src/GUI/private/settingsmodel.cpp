@@ -78,6 +78,12 @@ void SettingsModel::exportDataBase() {
 
     auto service = QmlNotificationService::NotificationService::getService();
 
+    if (!QFileInfo::exists(db)) {
+        service->setNotify(tr("Failed to export database"),
+                           tr("Internal access error with %0").arg(db),
+                           "", QmlNotificationService::NotificationData::Error);
+    }
+
     if (!QFile::copy(db, exportDb)) {
         if (service) {
             service->setNotify(tr("Failed to export database"),

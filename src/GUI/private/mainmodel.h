@@ -193,6 +193,8 @@ private slots:
     void handlePermissionRemoved(QSharedPointer<RC::API::Contacts> permision);
     void handlePermissionAdded(QSharedPointer<API::UserHeader> childUserName);
     void handleContactsListChanged();
+    void handleSerrverSentError(unsigned char code, QString);
+
 private:
     void saveUser();
     void lastStatusRequest();

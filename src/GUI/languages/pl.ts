@@ -103,6 +103,10 @@
         <source>* Visit any cafe that support CheatCard Application</source>
         <translation>* Odwiedź dowolną kawiarnię, która obsługuje aplikację CheatCard</translation>
     </message>
+    <message>
+        <source>Loading ...</source>
+        <translation>Ładowanie ...</translation>
+    </message>
 </context>
 <context>
     <name>CheatCard</name>
@@ -793,6 +797,14 @@
         <source>Failed to sync data with server. Please check your internet connection and try to restore your data again</source>
         <translation>Nie udało się zsynchronizować danych z serwerem. Sprawdź połączenie internetowe i spróbuj ponownie przywrócić dane</translation>
     </message>
+    <message>
+        <source>We Have trouble: trouble code is %0</source>
+        <translation>Wystąpił problem: jest problem z %0</translation>
+    </message>
+    <message>
+        <source>Server sent the error message. Message: &quot;%0.&quot;  Sorry ;)</source>
+        <translation>Serwer wysłał komunikat o błędzie. Wiadomość: „%0”. przepraszam ;)</translation>
+    </message>
 </context>
 <context>
     <name>RC::NetIndicatorModel</name>
@@ -876,6 +888,10 @@
     <message>
         <source>Export the database finished successful</source>
         <translation>Wyeksportowanie bazy danych zakończone pomyślnie</translation>
+    </message>
+    <message>
+        <source>Internal access error with %0</source>
+        <translation>Wewnętrzny błąd dostępu z %0</translation>
     </message>
 </context>
 <context>

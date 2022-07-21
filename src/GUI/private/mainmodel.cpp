@@ -288,6 +288,17 @@ void MainModel::handleContactsListChanged() {
 
 }
 
+void MainModel::handleSerrverSentError(unsigned char code,
+                                       QString errorMessage) {
+
+    auto service = QmlNotificationService::NotificationService::getService();
+    service->setNotify(tr("We Have trouble: trouble code is %0").arg(static_cast<int>(code)),
+                       tr("Server sent the error message."
+                          " Message: \"%0.\" "
+                          " Sorry ;)").arg(errorMessage),
+                       "", QmlNotificationService::NotificationData::Error);
+}
+
 const QSharedPointer<UserModel>& MainModel::getCurrentUser() const {
     return _currentUser;
 }
@@ -349,6 +360,10 @@ void MainModel::setCurrentUser(const QSharedPointer<RC::UserModel>& value) {
 }
 
 void MainModel::saveUser() {
+
+    if (_currentUser->user()->secret().isEmpty())
+        return;
+
     _db->insertIfExistsUpdateObject(_currentUser->user());
     _config->setCurrUser(_currentUser->user()->userId());
 }
@@ -370,11 +385,14 @@ void MainModel::initCardsListModels() {
     connect(_cardsListModel, &CardsListModel::sigRemoveRequest,
             this, &MainModel::handleRemoveRequest);
 
-    connect(_ownCardsListModel, &CardsListModel::sigEditFinished,
-            this, &MainModel::handleCardEditFinished);
-
     connect(_cardsListModel, &CardsListModel::sigEditFinished,
             this, &MainModel::saveCard);
+
+    connect(_cardsListModel, &CardsListModel::sigResetCardModel,
+            this, &MainModel::handleResetCardModel);
+
+    connect(_ownCardsListModel, &CardsListModel::sigEditFinished,
+            this, &MainModel::handleCardEditFinished);
 
     connect(_ownCardsListModel, &CardsListModel::sigRemoveRequest,
             this, &MainModel::handleRemoveRequest);
@@ -384,9 +402,6 @@ void MainModel::initCardsListModels() {
 
     connect(_ownCardsListModel, &CardsListModel::sigCardSelectedForStatistic,
             this, &MainModel::handleCardSelectedForStatistic);
-
-    connect(_cardsListModel, &CardsListModel::sigResetCardModel,
-            this, &MainModel::handleResetCardModel);
 
     connect(_ownCardsListModel, &CardsListModel::sigResetCardModel,
             this, &MainModel::handleResetCardModel);
@@ -510,6 +525,11 @@ void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
 
         disconnect(_backEndModel.data(), &BaseNode::sigContactsListChanged,
                    this, &MainModel::handleContactsListChanged);
+
+        disconnect(_backEndModel.data(), &BaseNode::requestError,
+                   this, &MainModel::handleSerrverSentError);
+
+
     }
 
     _backEndModel = newModel;
@@ -542,7 +562,10 @@ void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
                 _permisionsModel, &PermisionsModel::handleServerResult);
 
         connect(_backEndModel.data(), &BaseNode::sigContactsListChanged,
-                   this, &MainModel::handleContactsListChanged);
+                this, &MainModel::handleContactsListChanged);
+
+        connect(_backEndModel.data(), &BaseNode::requestError,
+                this, &MainModel::handleSerrverSentError);
 
         _backEndModel->checkNetworkConnection();
 
@@ -779,15 +802,24 @@ void RC::MainModel::saveCard(const QSharedPointer<API::Card>& card) {
         card->setCardVersion(VERSION_CARD_USER);
     } else {
         card->setCardVersion(card->getCardVersion() + 1);
-
     }
 
     _db->insertIfExistsUpdateObject(card);
 
     // send notification about updates to server
-    if (!fClient) {
-        auto seller = _backEndModel.staticCast<Seller>();
-        seller->cardUpdated(card->cardId(), card->getCardVersion());
+    auto currentUserId  = _currentUser->userId();
+    if (card->isOvner(currentUserId)) {
+
+        auto seller = _backEndModel.dynamicCast<Seller>();
+        if (!seller)
+            return;
+
+        auto header = _currentUser->getHelloPackage();
+
+        seller->setPurchase(header,
+                            card->cardId(),
+                            0);
+
     }
 }
 
@@ -801,7 +833,8 @@ void MainModel::handleCardEditFinished(const QSharedPointer<API::Card>& card) {
         return;
     }
 
-    auto listOfUsers = _backEndModel->getAllUserFromCard(card->cardId());
+    auto listOfUsers = _backEndModel->getAllUserFromCard(card->cardId(),
+                                                         _currentUser->userId());
 
     if (localCard && listOfUsers.size() && localCard->getFreeIndex() != card->getFreeIndex()) {
 
@@ -871,7 +904,9 @@ void MainModel::handleRemoveRequest(const QSharedPointer<API::Card> &card) {
         };
 
         if (getMode()) {
-            auto listOfUsers = _backEndModel->getAllActiveUserFromCard(card->cardId());
+            auto listOfUsers = _backEndModel->getAllActiveUserFromCard(card->cardId(),
+                                                                       ACTIVE_USER_TIME_LIMIT,
+                                                                       _currentUser->userId());
 
             if (listOfUsers.size()) {
                 service->setNotify(tr("Operation not permitted"),
@@ -906,7 +941,7 @@ void MainModel::handleCardSelectedForWork(const QSharedPointer<CardModel> &card)
 }
 
 void MainModel::handleCardSelectedForStatistic(const QSharedPointer<CardModel> &card) {
-    auto usersList = _backEndModel->getAllUserFromCard(card->card()->cardId());
+    auto usersList = _backEndModel->getAllUserFromCard(card->card()->cardId(), _currentUser->userId());
     auto usersDataList = _backEndModel->getAllUserDataFromCard(card->card()->cardId());
 
     _statisticModel->setDataList(card, usersList, usersDataList);
@@ -917,7 +952,9 @@ void MainModel::handleCardSelectedForStatistic(const QSharedPointer<CardModel> &
 
 void MainModel::handlePurchaseWasSuccessful(QSharedPointer<RC::API::UsersCards> card, bool alert){
 
-    soundEffectPlayback("Seal");
+    if (alert)
+        soundEffectPlayback("Seal");
+
     auto cardModel = getCurrentListModel()->cache().value(card->getCard());
     int freeIndex = _backEndModel->getCardFreeIndex(card->getCard());
 
@@ -934,7 +971,9 @@ void MainModel::handlePurchaseWasSuccessful(QSharedPointer<RC::API::UsersCards> 
                 QuasarAppUtils::Params::log("Fail to show bonus page.",
                                             QuasarAppUtils::Error);
             }
-            soundEffectPlayback("Bonus");
+
+            if (alert)
+                soundEffectPlayback("Bonus");
         }
 
     } else {

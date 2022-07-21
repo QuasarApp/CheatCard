@@ -34,9 +34,12 @@ public:
     virtual QSharedPointer<API::UsersCards> getUserCardData(unsigned int userId,
                                                             unsigned int cardId) const = 0;
 
-    virtual QList<QSharedPointer<API::UsersCards>> getAllUserFromCard(unsigned int cardId) const = 0;
-    virtual QList<QSharedPointer<API::UsersCards>> getAllActiveUserFromCard(unsigned int cardId, int unixTimeRange) const = 0;
-    virtual QList<QSharedPointer<API::UsersCards>> getAllPassiveUserFromCard(unsigned int cardId, int unixTimeRange) const = 0;
+    virtual QList<QSharedPointer<API::UsersCards>> getAllUserFromCard(unsigned int cardId,
+                                                                      unsigned int ignoreUserId = 0) const = 0;
+    virtual QList<QSharedPointer<API::UsersCards>> getAllActiveUserFromCard(unsigned int cardId, int unixTimeRange,
+                                                                            unsigned int ignoreUserId = 0) const = 0;
+    virtual QList<QSharedPointer<API::UsersCards>> getAllPassiveUserFromCard(unsigned int cardId, int unixTimeRange,
+                                                                             unsigned int ignoreUserId = 0) const = 0;
 
     virtual QList<QSharedPointer<API::User>> getAllUserDataFromCard(unsigned int cardId) const = 0;
     virtual QList<QSharedPointer<API::User>> getAllUserWithPrivateKeys() const = 0;

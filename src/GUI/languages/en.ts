@@ -103,6 +103,10 @@
         <source>* Visit any cafe that support CheatCard Application</source>
         <translation></translation>
     </message>
+    <message>
+        <source>Loading ...</source>
+        <translation></translation>
+    </message>
 </context>
 <context>
     <name>CheatCard</name>
@@ -792,6 +796,14 @@
         <source>Failed to sync data with server. Please check your internet connection and try to restore your data again</source>
         <translation></translation>
     </message>
+    <message>
+        <source>We Have trouble: trouble code is %0</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Server sent the error message. Message: &quot;%0.&quot;  Sorry ;)</source>
+        <translation></translation>
+    </message>
 </context>
 <context>
     <name>RC::NetIndicatorModel</name>
@@ -874,6 +886,10 @@
     </message>
     <message>
         <source>Export the database finished successful</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Internal access error with %0</source>
         <translation></translation>
     </message>
 </context>

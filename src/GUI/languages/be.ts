@@ -70,7 +70,7 @@
     <name>CPage</name>
     <message>
         <source>Please wait for response from server</source>
-        <translation type="unfinished">Дачакайцеся адказу ад сервера</translation>
+        <translation>Дачакайцеся адказу ад сервера</translation>
     </message>
 </context>
 <context>
@@ -102,6 +102,10 @@
     <message>
         <source>Add card</source>
         <translation>Дадаць картку</translation>
+    </message>
+    <message>
+        <source>Loading ...</source>
+        <translation>Загрузка ...</translation>
     </message>
 </context>
 <context>
@@ -312,7 +316,7 @@
     </message>
     <message>
         <source>Workers management</source>
-        <translation type="unfinished"></translation>
+        <translation>Кіраванне рабочымі</translation>
     </message>
 </context>
 <context>
@@ -347,7 +351,7 @@
     </message>
     <message>
         <source>Scan This Qr code using the &apos;import user&apos; button on the bottom of a user&apos;s list page on another device to export this user account to another device.</source>
-        <translation type="unfinished"></translation>
+        <translation>Адсканіруйце гэты Qr-код з дапамогай кнопкі «Імпартаваць карыстальніка» ўнізе старонкі са спісам карыстальнікаў на іншай прыладзе, каб экспартаваць гэты ўліковы запіс карыстальніка на іншую прыладу.</translation>
     </message>
 </context>
 <context>
@@ -635,35 +639,35 @@
     <name>PermissionsView</name>
     <message>
         <source>Your Workers</source>
-        <translation type="unfinished"></translation>
+        <translation>Вашы працаўнікі</translation>
     </message>
     <message>
         <source>If you want to add access to your cards, you can add workers.</source>
-        <translation type="unfinished"></translation>
+        <translation>Калі вы хочаце дадаць доступ да сваіх картак, вы можаце дадаць рабочых.</translation>
     </message>
     <message>
         <source>How to manage your workers:</source>
-        <translation type="unfinished"></translation>
+        <translation>Як кіраваць сваімі супрацоўнікамі:</translation>
     </message>
     <message>
         <source>* Click the &apos;Scan QR code of your worker&apos; button and scan a qr code from the sidebar of your worker&apos;s device.</source>
-        <translation type="unfinished"></translation>
+        <translation>* Націсніце кнопку «Сканаваць QR-код вашага супрацоўніка» і адсканіруйце QR-код з бакавой панэлі прылады вашага супрацоўніка.</translation>
     </message>
     <message>
         <source>* Your worker will get access to all your cards</source>
-        <translation type="unfinished"></translation>
+        <translation>* Ваш супрацоўнік атрымае доступ да ўсіх вашых картак</translation>
     </message>
     <message>
         <source>* If you want to remove access of your cards, just remove the worker record on the bottom workers list menu.</source>
-        <translation type="unfinished"></translation>
+        <translation>* Калі вы хочаце пазбавіць доступу да сваіх картак, проста выдаліце запіс работніка ў ніжнім меню спісу работнікаў.</translation>
     </message>
     <message>
         <source>Edit worker&apos;s name</source>
-        <translation type="unfinished"></translation>
+        <translation>Рэдагаваць імя работніка</translation>
     </message>
     <message>
         <source>Enter your worker name.</source>
-        <translation type="unfinished"></translation>
+        <translation>Увядзіце сваё імя работніка.</translation>
     </message>
 </context>
 <context>
@@ -788,6 +792,14 @@
         <source>Some kind of garbage happened when reading the qr code. Try again</source>
         <translation>Пры чытанні qr-кода здарылася нейкая фігня. Паспрабуй яшчэ</translation>
     </message>
+    <message>
+        <source>We Have trouble: trouble code is %0</source>
+        <translation>У нас праблема: код памылкі %0</translation>
+    </message>
+    <message>
+        <source>Server sent the error message. Message: &quot;%0.&quot;  Sorry ;)</source>
+        <translation>Сервер адправіў паведамленне пра памылку. Паведамленне: &quot;%0.&quot; Прабачце ;)</translation>
+    </message>
 </context>
 <context>
     <name>RC::NetIndicatorModel</name>
@@ -804,15 +816,15 @@
     <name>RC::PermisionsModel</name>
     <message>
         <source>Remove access for %0 </source>
-        <translation type="unfinished"></translation>
+        <translation>Выдаліць доступ для %0 </translation>
     </message>
     <message>
         <source>If You remove access for the %0 user, he cannot be use your cards anymore.</source>
-        <translation type="unfinished"></translation>
+        <translation>Калі вы выдаліце доступ для карыстальніка %0, ён больш не зможа карыстацца вашымі карткамі.</translation>
     </message>
     <message>
         <source> Do you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation> Вы хочаце працягнуць?</translation>
     </message>
 </context>
 <context>
@@ -872,32 +884,36 @@
         <source>Export the database finished successful</source>
         <translation>Экспарт базы даных паспяхова завершаны</translation>
     </message>
+    <message>
+        <source>Internal access error with %0</source>
+        <translation>Унутраная памылка доступу з %0</translation>
+    </message>
 </context>
 <context>
     <name>RC::WaitConfirmModel</name>
     <message>
         <source>Not so fast!</source>
-        <translation type="unfinished"></translation>
+        <translation>Не так хутка!</translation>
     </message>
     <message>
         <source>Please wait for finished of a previous request</source>
-        <translation type="unfinished"></translation>
+        <translation>Дачакайцеся выканання папярэдняга запыту</translation>
     </message>
     <message>
         <source>We Have trouble</source>
-        <translation type="unfinished">У нас праблемы</translation>
+        <translation>У нас праблемы</translation>
     </message>
     <message>
         <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
-        <translation type="unfinished">Не ўдалося выдаць бонус ці штамп. Магчыма, вашы лакальныя даныя састарэлі, мы ўжо абнаўляем вашы лакальныя даныя. Калі ласка, паспрабуйце яшчэ раз, каб выдаць бонус ці штамп.</translation>
+        <translation>Не ўдалося выдаць бонус ці штамп. Магчыма, вашы лакальныя даныя састарэлі, мы ўжо абнаўляем вашы лакальныя даныя. Калі ласка, паспрабуйце яшчэ раз, каб выдаць бонус ці штамп.</translation>
     </message>
     <message>
         <source>Server not responds</source>
-        <translation type="unfinished">Сервер не адказвае</translation>
+        <translation>Сервер не адказвае</translation>
     </message>
     <message>
         <source>Hmm, maybe you have a super slow internet connection... Try again</source>
-        <translation type="unfinished">Хм, магчыма, у вас вельмі павольнае інтэрнэт-злучэнне... Паспрабуйце яшчэ раз</translation>
+        <translation>Хм, магчыма, у вас вельмі павольнае інтэрнэт-злучэнне... Паспрабуйце яшчэ раз</translation>
     </message>
 </context>
 <context>

@@ -82,6 +82,10 @@ QDataStream &UsersCards::toStream(QDataStream &stream) const {
     return stream;
 }
 
+void UsersCards::setTime(unsigned int newTime) {
+    _time = newTime;
+}
+
 QDateTime UsersCards::getTime() const {
     return QDateTime::fromSecsSinceEpoch(_time);
 }

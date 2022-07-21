@@ -103,6 +103,10 @@
         <source>* Visit any cafe that support CheatCard Application</source>
         <translation>* Відвідайте будь-яке кафе, яке підтримує додаток CheatCard</translation>
     </message>
+    <message>
+        <source>Loading ...</source>
+        <translation>Завантаження ...</translation>
+    </message>
 </context>
 <context>
     <name>CheatCard</name>
@@ -792,6 +796,14 @@
         <source>Failed to sync data with server. Please check your internet connection and try to restore your data again</source>
         <translation>Не вдалося синхронізувати дані із сервером. Перевірте підключення до Інтернету та спробуйте відновити дані ще раз</translation>
     </message>
+    <message>
+        <source>We Have trouble: trouble code is %0</source>
+        <translation>У нас проблема: код несправності %0</translation>
+    </message>
+    <message>
+        <source>Server sent the error message. Message: &quot;%0.&quot;  Sorry ;)</source>
+        <translation>Сервер надіслав повідомлення про помилку. Повідомлення: &quot;%0.&quot; Вибачте ;)</translation>
+    </message>
 </context>
 <context>
     <name>RC::NetIndicatorModel</name>
@@ -875,6 +887,10 @@
     <message>
         <source>Export the database finished successful</source>
         <translation>Експорт бази даних завершився успішно</translation>
+    </message>
+    <message>
+        <source>Internal access error with %0</source>
+        <translation>Внутрішня помилка доступу з %0</translation>
     </message>
 </context>
 <context>
@@ -1039,7 +1055,7 @@
     </message>
     <message>
         <source>Name:</source>
-        <translation type="unfinished">ім&apos;я:</translation>
+        <translation>ім&apos;я:</translation>
     </message>
 </context>
 <context>

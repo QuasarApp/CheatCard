@@ -214,7 +214,9 @@ bool ApiV1_5::processDeleteCardRequest(const QSharedPointer<APIv1_5::DeleteCardR
         return false;
     }
 
-    auto listOfUsers = node()->getAllActiveUserFromCard(request->card());
+    auto userKey = API::User::makeKey(request->secret());
+    auto userId = API::User::makeId(userKey);
+    auto listOfUsers = node()->getAllActiveUserFromCard(request->card(), ACTIVE_USER_TIME_LIMIT, userId);
 
     if (listOfUsers.size()) {
         return false;
@@ -239,15 +241,6 @@ bool ApiV1_5::processCardStatusBase(const QSharedPointer<APIv1_5::UsersCards> &c
     auto dbUsersCards = objectFactoryInstance()->getUserCardData(
                 cardStatus->getUser(),
                 cardStatus->getCard());
-
-    // ignore seels statuses that has a depricated time.
-    if (dbUsersCards && dbUsersCards->getRawTime() > cardStatus->getRawTime()) {
-        QuasarAppUtils::Params::log(QString("Receive deprecated cards seal"
-                                    " Current seal time: %0 receiverd seal time: %1").
-                                    arg(dbUsersCards->getRawTime()).
-                                    arg(cardStatus->getRawTime()));
-        return true;
-    }
 
     if (!accessValidation(dbCard, userSecreet, true)) {
 
@@ -446,8 +439,8 @@ bool ApiV1_5::processCardStatusRequest(const QSharedPointer<API::CardStatusReque
     if (!result || result->data().isEmpty()) {
         QuasarAppUtils::Params::log(QString("The session %0 is missing").
                                     arg(sessionId),
-                                    QuasarAppUtils::Error);
-        return false;
+                                    QuasarAppUtils::Debug);
+        return node()->removeNode(sender->networkAddress());
     }
 
     QH::PKG::DataPack<APIv1_5::UsersCards> responce;
@@ -508,6 +501,7 @@ bool ApiV1_5::processChanges(const QSharedPointer<APIv1_5::ChangeUsersCards> &me
     db()->insertObject(message);
 
     dbUsersCards->setPurchasesNumber(dbUsersCards->getPurchasesNumber() + message->purchase());
+    dbUsersCards->setTime(time(0));
     dbUsersCards->receive(message->receive());
 
     unsigned int neededCardId = 0;

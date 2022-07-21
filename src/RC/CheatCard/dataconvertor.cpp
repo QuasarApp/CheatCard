@@ -18,11 +18,19 @@ DataConvertor::DataConvertor()
 }
 
 QSharedPointer<API::User> DataConvertor::toUser(const QSharedPointer<API::UserHeader> &userHeader) {
+
+    if (!userHeader)
+        return nullptr;
+
+    return toUser(*userHeader);
+}
+
+QSharedPointer<API::User> DataConvertor::toUser(const API::UserHeader &userHeader) {
     auto result = QSharedPointer<API::User>::create();
 
-    result->setKey(userHeader->token());
-    result->setId(userHeader->getUserId());
-    result->setName(userHeader->userName());
+    result->setKey(userHeader.token());
+    result->setId(userHeader.getUserId());
+    result->setName(userHeader.userName());
     result->setSecret("");
 
     return  result;
