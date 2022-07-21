@@ -103,6 +103,10 @@
         <source>Add card</source>
         <translation>ბარათის დამატება</translation>
     </message>
+    <message>
+        <source>Loading ...</source>
+        <translation>იტვირთება ...</translation>
+    </message>
 </context>
 <context>
     <name>CheatCard</name>
@@ -789,6 +793,14 @@
         <source>Some kind of garbage happened when reading the qr code. Try again</source>
         <translation>რაღაც ნაგავი მოხდა qr კოდის წაკითხვისას. იდევ სცადე</translation>
     </message>
+    <message>
+        <source>We Have trouble: trouble code is %0</source>
+        <translation>ჩვენ გვაქვს პრობლემა: ხარვეზის კოდი %0</translation>
+    </message>
+    <message>
+        <source>Server sent the error message. Message: &quot;%0.&quot;  Sorry ;)</source>
+        <translation>სერვერმა გაუგზავნა შეცდომის შეტყობინება. შეტყობინება: &quot;%0.&quot; Ბოდიში ;)</translation>
+    </message>
 </context>
 <context>
     <name>RC::NetIndicatorModel</name>
@@ -872,6 +884,10 @@
     <message>
         <source>Export the database finished successful</source>
         <translation>მონაცემთა ბაზის ექსპორტი წარმატებით დასრულდა</translation>
+    </message>
+    <message>
+        <source>Internal access error with %0</source>
+        <translation>შიდა წვდომის შეცდომა %0-ით</translation>
     </message>
 </context>
 <context>
