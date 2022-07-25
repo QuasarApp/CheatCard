@@ -110,6 +110,12 @@ public:
 
     bool isMaster() const;
 
+    Q_INVOKABLE void openTelegram() const;
+    Q_INVOKABLE void openInstagram() const;
+    Q_INVOKABLE void openSite() const;
+    Q_INVOKABLE void openMap() const;
+    Q_INVOKABLE void openPhone() const;
+
 signals:
     void objChanged();
     void editFinished(const QSharedPointer<API::Card>& card);

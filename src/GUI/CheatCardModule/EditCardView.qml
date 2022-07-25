@@ -242,7 +242,8 @@ Page {
                         }
 
                         onClicked: () => {
-                                       Qt.openUrlExternally("https://t.me/" + textField.text)
+                                       if (root.model)
+                                           root.model.openTelegram();
                                    }
 
                         image: "qrc:/images/private/resources/telegramm.png"
@@ -267,7 +268,8 @@ Page {
                         }
 
                         onClicked: () => {
-                                       Qt.openUrlExternally("https://www.instagram.com/" + textField.text)
+                                       if (root.model)
+                                           root.model.openInstagram();
                                    }
 
                         image: "qrc:/images/private/resources/instagramm.png"
@@ -291,7 +293,8 @@ Page {
                         }
 
                         onClicked: () => {
-                                       Qt.openUrlExternally("https://www.google.com/maps/search/" + textField.text)
+                                       if (root.model)
+                                           root.model.openMap();
                                    }
 
                         image: "qrc:/images/private/resources/mapLogo.png"
@@ -313,7 +316,8 @@ Page {
                         }
 
                         onClicked: () => {
-                                       Qt.openUrlExternally(textField.text)
+                                       if (root.model)
+                                           root.model.openSite();
                                    }
 
                         textField.placeholderText: qsTr("Your web site");
@@ -339,7 +343,8 @@ Page {
                         }
 
                         onClicked: () => {
-                                       Qt.openUrlExternally("tel:" + textField.text)
+                                       if (root.model)
+                                           root.model.openPhone();
                                    }
 
                         textField.placeholderText: qsTr("Your phone number");
