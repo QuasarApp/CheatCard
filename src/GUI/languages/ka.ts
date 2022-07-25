@@ -460,6 +460,13 @@
     </message>
 </context>
 <context>
+    <name>MainActivity</name>
+    <message>
+        <source>Search a card</source>
+        <translation>მოძებნეთ ბარათი</translation>
+    </message>
+</context>
+<context>
     <name>PageHelpSeller</name>
     <message>
         <source>### Guide to using Cheat Cards for business</source>

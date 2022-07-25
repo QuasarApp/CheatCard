@@ -28,43 +28,6 @@ Page {
     ColumnLayout {
         anchors.fill: parent
 
-        RowLayout {
-            Layout.alignment: Qt.AlignHCenter
-
-            Layout.leftMargin: 10
-            Layout.rightMargin: 10
-
-            CTextField {
-                id: filterLine
-                fontColor: Material.accent
-                placeholderText: qsTr("Search card");
-                visible: root.model.sourceModel.rowCount() > 3
-                Layout.fillWidth: true
-                Layout.maximumWidth: 300
-                onTextChanged: {
-                    root.model.setFilterFixedString(text)
-
-                }
-
-                onVisibleChanged: {
-                    if (!visible)
-                        root.model.setFilterFixedString("")
-                }
-            }
-
-            ToolButton {
-                icon.source: "qrc:/images/private/resources/Interface_icons/delete_card.svg"
-                icon.color: Material.accent
-                font.bold: true
-                font.pointSize: 14
-                visible: filterLine.text.length
-                onClicked: {
-                    filterLine.text = ""
-                }
-            }
-        }
-
-
         ListView {
 
             id: list
