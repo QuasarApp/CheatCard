@@ -28,7 +28,9 @@ class CardsListModel: public QAbstractListModel, public iCardListModel
 public:
 
     enum Roles {
-        CardRole = Qt::UserRole
+        FilterRole =  Qt::DisplayRole,
+        CardRole = Qt::UserRole,
+
     };
 
 

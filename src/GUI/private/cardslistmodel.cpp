@@ -23,9 +23,6 @@ int CardsListModel::rowCount(const QModelIndex &) const {
 
 QVariant CardsListModel::data(const QModelIndex &index, int role) const {
 
-    if (role != CardRole) {
-        return {};
-    }
 
     if (index.row() >= rowCount()) {
         return {};
@@ -36,7 +33,18 @@ QVariant CardsListModel::data(const QModelIndex &index, int role) const {
     auto cacheData = _cache.value(cardId, {});
 
     if (cacheData) {
-        return QVariant::fromValue(cacheData.data());
+
+        switch (role) {
+        case FilterRole:
+            return cacheData.data()->title()
+                    + cacheData.data()->getFreeItem();
+
+        case CardRole:
+            return  QVariant::fromValue(cacheData.data());
+
+        default:
+            return {};
+        }
     }
 
     return {};

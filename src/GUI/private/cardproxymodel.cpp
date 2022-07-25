@@ -9,8 +9,7 @@
 #include "cardslistmodel.h"
 namespace RC {
 
-CardProxyModel::CardProxyModel()
-{
+CardProxyModel::CardProxyModel() {
 
 }
 
@@ -49,4 +48,5 @@ bool CardProxyModel::lessThan(const QModelIndex &source_left,
 
     return left->card()->title() < right->card()->title();
 }
+
 }

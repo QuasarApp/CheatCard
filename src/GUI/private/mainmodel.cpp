@@ -381,6 +381,7 @@ void MainModel::initCardsListModels() {
 
     _currentCardsListModel->sort(0);
     _currentCardsListModel->setDynamicSortFilter(true);
+    _currentCardsListModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
 
     connect(_cardsListModel, &CardsListModel::sigRemoveRequest,
             this, &MainModel::handleRemoveRequest);
