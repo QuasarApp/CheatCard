@@ -33,7 +33,7 @@ ColumnLayout {
             anchors.top: parent.top
             anchors.rightMargin: 10
             anchors.topMargin: 10
-            visible: mainListView.model.sourceModel.rowCount() > 3
+            visible: mainListView.model.sourceModel.rowCount() > 4
 
             onVisibleChanged: {
                 if (!visible)
