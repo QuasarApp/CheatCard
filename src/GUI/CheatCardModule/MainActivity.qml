@@ -27,6 +27,59 @@ ColumnLayout {
         editable: Boolean(root.model && root.model.mode)
         visible: !firstRun.visible
 
+        Row {
+
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.rightMargin: 10
+            anchors.topMargin: 10
+            visible: mainListView.model.sourceModel.rowCount() > 4
+
+            onVisibleChanged: {
+                if (!visible)
+                    mainListView.model.setFilterFixedString("")
+            }
+
+            TextField {
+                id: filterLine
+                placeholderText: qsTr("Search a card");
+                opacity: 0;
+                visible: opacity
+                onTextChanged: {
+                    mainListView.model.setFilterFixedString(text)
+                }
+
+                onVisibleChanged: {
+                    if (!visible)
+                        mainListView.model.setFilterFixedString("")
+                }
+
+
+                Behavior on opacity {
+                    NumberAnimation {
+                        duration: 250
+                        easing.type: Easing.InQuad
+                    }
+                }
+            }
+
+
+            ToolButton {
+                id: lambdsSearchButton
+                icon.source: "qrc:/images/private/resources/Interface_icons/search.svg"
+                font.bold: true
+                font.pointSize: 14
+                icon.color: Material.accent
+
+                opacity: 0.6
+
+                onClicked: {
+                    filterLine.opacity = !filterLine.opacity
+                }
+            }
+        }
+
+
         ToolButton {
             id: lambdsButtonQrCode
             icon.source: "qrc:/images/private/resources/Interface_icons/qrcode.svg"

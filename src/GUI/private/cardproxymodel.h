@@ -17,6 +17,7 @@ namespace RC {
 class CardProxyModel: public QSortFilterProxyModel, public iCardListModel
 {
     Q_OBJECT
+
 public:
     CardProxyModel();
 
@@ -24,7 +25,6 @@ public:
     Q_INVOKABLE void activateCard(int cardId) override;
     Q_INVOKABLE void activateCardByIndex(int index) override;
 
-    // QSortFilterProxyModel interface
 protected:
     bool lessThan(const QModelIndex &source_left, const QModelIndex &source_right) const override;
 };

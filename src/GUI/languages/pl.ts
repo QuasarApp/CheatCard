@@ -460,6 +460,13 @@
     </message>
 </context>
 <context>
+    <name>MainActivity</name>
+    <message>
+        <source>Search a card</source>
+        <translation>Wyszukaj kartę</translation>
+    </message>
+</context>
+<context>
     <name>PageHelpSeller</name>
     <message>
         <source> </source>

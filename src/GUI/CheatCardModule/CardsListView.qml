@@ -9,6 +9,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
+import "Style"
 
 Page {
     id: root
@@ -38,7 +39,6 @@ Page {
             Layout.alignment: Qt.AlignHCenter
             implicitHeight: 0x0
             implicitWidth: 0x0
-
             snapMode: ListView.NoSnap
             boundsBehavior:Flickable.StopAtBounds
             preferredHighlightBegin: (orientation == ListView.Vertical)?

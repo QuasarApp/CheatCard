@@ -110,5 +110,6 @@
         <file>private/resources/Interface_icons/refresh.svg</file>
         <file>private/resources/Interface_icons/qrscaner.svg</file>
         <file>private/resources/Interface_icons/qrcode.svg</file>
+        <file>private/resources/Interface_icons/search.svg</file>
     </qresource>
 </RCC>
