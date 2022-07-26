@@ -13,6 +13,7 @@
 #include <QPixmap>
 #include <cmath>
 #include "settingsmodel.h"
+#include <QDesktopServices>
 
 #define MAXIMUM_IMAGE_SIZE 300.0f
 
@@ -351,6 +352,55 @@ bool CardModel::isMaster() const {
         return false;
 
     return API::User::makeId(_card->ownerSignature()) != config->getCurrUser();
+}
+
+void CardModel::openTelegram() const {
+
+    auto telegrammString = telegramm();
+    telegrammString = telegrammString.remove("https://", Qt::CaseInsensitive);
+    telegrammString = telegrammString.remove("t.me/", Qt::CaseInsensitive);
+    QDesktopServices::openUrl(QUrl("https://t.me/" + telegrammString,
+                                   QUrl::TolerantMode));
+
+}
+
+void CardModel::openInstagram() const {
+    auto url = instagramm();
+    url = url.remove("https://", Qt::CaseInsensitive);
+    url = url.remove("www.", Qt::CaseInsensitive);
+    url = url.remove("instagram.com/", Qt::CaseInsensitive);
+    url = url.remove("@", Qt::CaseInsensitive);
+
+    QDesktopServices::openUrl(QUrl("https://www.instagram.com/" + url,
+                                   QUrl::TolerantMode));
+}
+
+void CardModel::openSite() const {
+    auto url = webSite();
+    url = url.remove("https://", Qt::CaseInsensitive);
+    QDesktopServices::openUrl(QUrl("https://" + url,
+                                   QUrl::TolerantMode));
+}
+
+void CardModel::openMap() const {
+    auto url = physicalAddress();
+    url = url.remove("https://", Qt::CaseInsensitive);
+    url = url.remove("www.", Qt::CaseInsensitive);
+    url = url.remove("google.com/", Qt::CaseInsensitive);
+    url = url.remove("maps/search/", Qt::CaseInsensitive);
+
+    QDesktopServices::openUrl(QUrl("https://www.google.com/maps/search/" + url,
+                                   QUrl::TolerantMode));
+
+}
+
+void CardModel::openPhone() const {
+    auto url = phone();
+    url = url.remove("tel:", Qt::CaseInsensitive);
+
+    QDesktopServices::openUrl(QUrl("tel:" + url,
+                                   QUrl::TolerantMode));
+
 }
 
 
