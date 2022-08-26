@@ -15,6 +15,7 @@
 namespace RC {
 class UserModel;
 class WaitConfirmModel;
+class QRCodeDecoder;
 
 namespace API {
 class UserHeader;
@@ -37,6 +38,8 @@ public:
 
     Q_INVOKABLE void setNewDescription(int row, const QString& description);
     Q_INVOKABLE void addNewPermision(const QString &rawUserHeaderData);
+    Q_INVOKABLE void addNewPermisionFromImage(const QString &rawUserHeaderData);
+
     Q_INVOKABLE void removePermision(int row);
 
     void setPermissions(const QList<QSharedPointer<API::Contacts> > &newData);
@@ -53,10 +56,14 @@ signals:
     void sigPermisionRemoved(QSharedPointer<RC::API::Contacts> permision);
     void sigPermisionAdded(QSharedPointer<RC::API::UserHeader> userHeader);
 
+private slots:
+    void handleImageDecodet(const QString &data);
+
 private:
     QHash<unsigned int, QSharedPointer<RC::API::Contacts>> _data;
     QSharedPointer<RC::UserModel> _currentUserModel;
     WaitConfirmModel *_waitModel = nullptr;
+    QRCodeDecoder *_codeProcessor = nullptr;
 
 };
 

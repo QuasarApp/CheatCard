@@ -6,6 +6,7 @@
 //#
 
 #include "permisionsmodel.h"
+#include "qrcodedecoder.h"
 #include "usermodel.h"
 #include "waitconfirmmodel.h"
 #include <QQmlEngine>
@@ -16,11 +17,18 @@ namespace RC {
 PermisionsModel::PermisionsModel(ImagesStorageModel * imageStorage):
     UsersListModel(imageStorage) {
     _waitModel = new WaitConfirmModel();
+    _codeProcessor = new QRCodeDecoder();
+
     QQmlEngine::setObjectOwnership(_waitModel, QQmlEngine::CppOwnership);
+    QQmlEngine::setObjectOwnership(_codeProcessor, QQmlEngine::CppOwnership);
+
+    connect(_codeProcessor, &QRCodeDecoder::decodeFinished,
+            this, &PermisionsModel::handleImageDecodet);
 }
 
 PermisionsModel::~PermisionsModel() {
     delete _waitModel;
+    delete _codeProcessor;
 }
 
 void PermisionsModel::setPermissions(const QList<QSharedPointer<API::Contacts> > &newData) {
@@ -56,6 +64,10 @@ void PermisionsModel::handleServerResult(const QSharedPointer<API::Contacts>& co
     }
 }
 
+void PermisionsModel::handleImageDecodet(const QString &data) {
+    addNewPermision(data);
+}
+
 void PermisionsModel::setNewDescription(int row, const QString &description) {
     if (row >= rowCount()) {
         return;
@@ -87,12 +99,21 @@ void PermisionsModel::addNewPermision(const QString& rawUserHeaderdata) {
     header->fromBytes(QByteArray::fromHex(rawUserHeaderdata.toLatin1()));
 
     if (!header->isValid()) {
+        auto service = QmlNotificationService::NotificationService::getService();
+        service->setNotify(tr("Oops"),
+                           tr("The Selected image does not contains a valid qr code. Try again."),
+                           "", QmlNotificationService::NotificationData::Warning);
+
         return;
     }
 
     _waitModel->wait(1);
 
     emit sigPermisionAdded(header);
+}
+
+void PermisionsModel::addNewPermisionFromImage(const QString &qrImage) {
+    _codeProcessor->processQrCode(qrImage);
 }
 
 void PermisionsModel::removePermision(int row) {
