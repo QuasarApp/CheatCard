@@ -87,6 +87,8 @@ Page {
 
         anchors.bottom: parent.bottom
         icon.source: "qrc:/images/private/resources/Interface_icons/Camera_switch.svg"
+        icon.color: Material.accent
+
         onClicked:  {
             camera.deviceIndex++
         }

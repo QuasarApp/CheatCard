@@ -9,24 +9,13 @@
 #ifndef IMPORTEXPORTUSERMODEL_H
 #define IMPORTEXPORTUSERMODEL_H
 
-#include <QObject>
-#include <SBarcodeDecoder.h>
+#include "qrcodedecoder.h"
 
 namespace RC {
-class ImportExportUserModel: public QObject {
+class ImportExportUserModel: public QRCodeDecoder {
     Q_OBJECT
 public:
     ImportExportUserModel();
-    Q_INVOKABLE bool processQrCode(QString path);
-
-public slots:
-    void handleDecodeFinished(const QString &data);
-
-signals:
-    void decodeFinished(QString data);
-
-private:
-    SBarcodeDecoder _decoder;
 };
 }
 

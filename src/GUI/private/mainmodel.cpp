@@ -10,7 +10,6 @@
 #include "aboutmodel.h"
 #include "itemsmodel.h"
 #include "mainmodel.h"
-#include "qrcodereceiver.h"
 #include "waitconnectionmodel.h"
 #include "soundplayback.h"
 #include "cardproxymodel.h"
@@ -35,8 +34,6 @@
 #include <CheatCard/api/apiv1-5.h>
 
 #include "dbobjectsrequest.h"
-#include "deleteobject.h"
-#include "config.h"
 #include "cardslistmodel.h"
 #include "usermodel.h"
 #include <getsinglevalue.h>
