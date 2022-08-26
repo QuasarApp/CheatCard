@@ -9,7 +9,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
-import QtQuick.Dialogs 1.3
+import QtQuick.Dialogs 1.3 as Dialogs
 
 import "Style"
 
@@ -189,7 +189,7 @@ CPage {
                 font.bold: true
                 font.pointSize: 14
 
-                FileDialog {
+                Dialogs.FileDialog {
                     id: fromFile
                     folder: shortcuts.documents
 

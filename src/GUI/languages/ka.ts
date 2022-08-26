@@ -843,8 +843,8 @@
         <translation type="unfinished">არჩეულ ფაილზე ნებართვა უარყოფილია.</translation>
     </message>
     <message>
-        <source>It looks like the file you selected does not contain a recovery code</source>
-        <translation type="unfinished">როგორც ჩანს, თქვენ მიერ არჩეული ფაილი არ შეიცავს აღდგენის კოდს</translation>
+        <source>It looks like the file you selected does not contain a qr code</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

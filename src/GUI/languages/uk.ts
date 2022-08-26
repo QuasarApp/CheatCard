@@ -846,8 +846,8 @@
         <translation type="unfinished">Відмовлено у дозволі на вибраний файл.</translation>
     </message>
     <message>
-        <source>It looks like the file you selected does not contain a recovery code</source>
-        <translation type="unfinished">Схоже, вибраний файл не містить коду відновлення</translation>
+        <source>It looks like the file you selected does not contain a qr code</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

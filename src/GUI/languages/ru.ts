@@ -846,8 +846,8 @@
         <translation type="unfinished">Отказано в доступе к выбранному файлу.</translation>
     </message>
     <message>
-        <source>It looks like the file you selected does not contain a recovery code</source>
-        <translation type="unfinished">Похоже что выбранный вами файл не содержит кода восстановления</translation>
+        <source>It looks like the file you selected does not contain a qr code</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

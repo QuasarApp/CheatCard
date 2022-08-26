@@ -45,13 +45,14 @@ bool QRCodeDecoder::processQrCode(QString path) {
     QPixmap tmpImage((url.scheme() == "qrc")? ":" + QUrl(path).path(): QUrl(path).path());
 #endif
 
-    if (!_decoder.process(tmpImage.toImage())) {
+    if (!(_decoder.process(tmpImage.toImage()) && _decoder.captured().size())) {
         service->setNotify(tr("Oh shit"),
-                           tr("It looks like the file you selected does not contain a recovery code"),
+                           tr("It looks like the file you selected does not contain a qr code"),
                            "",
                            QmlNotificationService::NotificationData::Error);
         return false;
     }
+
 
     return true;
 }
