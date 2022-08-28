@@ -678,7 +678,7 @@
     </message>
     <message>
         <source>Select image with qr code of your worker</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберыце малюнак з qr-кодам вашага работніка</translation>
     </message>
 </context>
 <context>
@@ -824,26 +824,26 @@
     </message>
     <message>
         <source>Oops</source>
-        <translation type="unfinished">Ой</translation>
+        <translation>Ой</translation>
     </message>
     <message>
         <source>The Selected image does not contains a valid qr code. Try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Выбраная выява не змяшчае сапраўдны QR-код. Паспрабуй яшчэ.</translation>
     </message>
 </context>
 <context>
     <name>RC::QRCodeDecoder</name>
     <message>
         <source>Oh shit</source>
-        <translation type="unfinished">Ай чорт</translation>
+        <translation>Ай чорт</translation>
     </message>
     <message>
         <source>Permission denied to selected file.</source>
-        <translation type="unfinished">Адмоўлена ў дазволе на выбраны файл.</translation>
+        <translation>Адмоўлена ў дазволе на выбраны файл.</translation>
     </message>
     <message>
         <source>It looks like the file you selected does not contain a qr code</source>
-        <translation type="unfinished"></translation>
+        <translation>Здаецца, выбраны вамі файл не ўтрымлівае qr-кода</translation>
     </message>
 </context>
 <context>
