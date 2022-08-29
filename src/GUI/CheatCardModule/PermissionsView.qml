@@ -9,7 +9,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
-import QtQuick.Dialogs 1.3
+import QtQuick.Dialogs 1.3 as Dialogs
 
 import "Style"
 
@@ -182,14 +182,14 @@ CPage {
                 Layout.alignment: Qt.AlignHCenter
 
                 icon.source: "qrc:/images/private/resources/Interface_icons/background_image.svg"
-                icon.height: 60
+                icon.height: 50
                 icon.width: 60
 
                 icon.color: Material.accent
                 font.bold: true
                 font.pointSize: 14
 
-                FileDialog {
+                Dialogs.FileDialog {
                     id: fromFile
                     folder: shortcuts.documents
 

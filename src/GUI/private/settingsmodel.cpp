@@ -9,7 +9,6 @@
 #include <getsinglevalue.h>
 #include <setsinglevalue.h>
 #include "settingsmodel.h"
-#include "dbaddress.h"
 #include "iplatformtools.h"
 #include <sqldbwriter.h>
 #include <qmlnotifyservice.h>
@@ -27,7 +26,7 @@ SettingsModel::~SettingsModel() {
 }
 
 QuasarAppUtils::ISettings *SettingsModel::init(const QH::ISqlDBCache *db) {
-    return QuasarAppUtils::ISettings::init<SettingsModel>(db);
+    return SettingsModel::initService<RC::SettingsModel>(db);
 }
 
 unsigned int SettingsModel::getCurrUser() {

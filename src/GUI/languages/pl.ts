@@ -683,7 +683,7 @@
     </message>
     <message>
         <source>Select image with qr code of your worker</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybierz obrazek z kodem QR swojego pracownika</translation>
     </message>
 </context>
 <context>
@@ -829,26 +829,26 @@
     </message>
     <message>
         <source>Oops</source>
-        <translation type="unfinished">Ups</translation>
+        <translation>Ups</translation>
     </message>
     <message>
         <source>The Selected image does not contains a valid qr code. Try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybrany obraz nie zawiera prawidłowego kodu QR. Spróbuj ponownie.</translation>
     </message>
 </context>
 <context>
     <name>RC::QRCodeDecoder</name>
     <message>
         <source>Oh shit</source>
-        <translation type="unfinished">O cholera</translation>
+        <translation>O cholera</translation>
     </message>
     <message>
         <source>Permission denied to selected file.</source>
-        <translation type="unfinished">Odmowa uprawnień do wybranego pliku.</translation>
+        <translation>Odmowa uprawnień do wybranego pliku.</translation>
     </message>
     <message>
-        <source>It looks like the file you selected does not contain a recovery code</source>
-        <translation type="unfinished">Wygląda na to, że wybrany plik nie zawiera kodu odzyskiwania</translation>
+        <source>It looks like the file you selected does not contain a qr code</source>
+        <translation>Wygląda na to, że wybrany plik nie zawiera kodu qr</translation>
     </message>
 </context>
 <context>
