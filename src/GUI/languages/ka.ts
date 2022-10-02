@@ -677,6 +677,10 @@
         <source>Enter your worker name.</source>
         <translation>შეიყვანეთ თქვენი თანამშრომლის სახელი.</translation>
     </message>
+    <message>
+        <source>Select image with qr code of your worker</source>
+        <translation>აირჩიეთ სურათი თქვენი თანამშრომლის qr კოდით</translation>
+    </message>
 </context>
 <context>
     <name>QrCodeView</name>
@@ -705,21 +709,6 @@
     <message>
         <source>Unknown</source>
         <translation>უცნობი</translation>
-    </message>
-</context>
-<context>
-    <name>RC::ImportExportUserModel</name>
-    <message>
-        <source>Oh shit</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Permission denied to selected file.</source>
-        <translation>არჩეულ ფაილზე ნებართვა უარყოფილია.</translation>
-    </message>
-    <message>
-        <source>It looks like the file you selected does not contain a recovery code</source>
-        <translation>როგორც ჩანს, თქვენ მიერ არჩეული ფაილი არ შეიცავს აღდგენის კოდს</translation>
     </message>
 </context>
 <context>
@@ -833,6 +822,29 @@
     <message>
         <source> Do you want to continue?</source>
         <translation> ინდა გააგრძელო?</translation>
+    </message>
+    <message>
+        <source>Oops</source>
+        <translation>უი</translation>
+    </message>
+    <message>
+        <source>The Selected image does not contains a valid qr code. Try again.</source>
+        <translation>არჩეული სურათი არ შეიცავს მოქმედ qr კოდს. Კიდევ სცადე.</translation>
+    </message>
+</context>
+<context>
+    <name>RC::QRCodeDecoder</name>
+    <message>
+        <source>Oh shit</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Permission denied to selected file.</source>
+        <translation>არჩეულ ფაილზე ნებართვა უარყოფილია.</translation>
+    </message>
+    <message>
+        <source>It looks like the file you selected does not contain a qr code</source>
+        <translation>როგორც ჩანს, თქვენ მიერ არჩეული ფაილი არ შეიცავს qr კოდს</translation>
     </message>
 </context>
 <context>

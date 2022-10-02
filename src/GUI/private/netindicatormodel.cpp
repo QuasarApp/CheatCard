@@ -6,7 +6,7 @@
 //#
 
 #include "netindicatormodel.h"
-#include "qmlnotifyservice.h"
+#include "notificationservice.h"
 
 
 namespace RC {

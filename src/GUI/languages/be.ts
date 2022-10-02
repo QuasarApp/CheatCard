@@ -676,6 +676,10 @@
         <source>Enter your worker name.</source>
         <translation>Увядзіце сваё імя работніка.</translation>
     </message>
+    <message>
+        <source>Select image with qr code of your worker</source>
+        <translation>Выберыце малюнак з qr-кодам вашага работніка</translation>
+    </message>
 </context>
 <context>
     <name>QrCodeView</name>
@@ -704,21 +708,6 @@
     <message>
         <source>Unknown</source>
         <translation>Невядомы</translation>
-    </message>
-</context>
-<context>
-    <name>RC::ImportExportUserModel</name>
-    <message>
-        <source>Oh shit</source>
-        <translation>Ай чорт</translation>
-    </message>
-    <message>
-        <source>Permission denied to selected file.</source>
-        <translation>Адмоўлена ў дазволе на выбраны файл.</translation>
-    </message>
-    <message>
-        <source>It looks like the file you selected does not contain a recovery code</source>
-        <translation>Здаецца, выбраны вамі файл не ўтрымлівае кода аднаўлення</translation>
     </message>
 </context>
 <context>
@@ -832,6 +821,29 @@
     <message>
         <source> Do you want to continue?</source>
         <translation> Вы хочаце працягнуць?</translation>
+    </message>
+    <message>
+        <source>Oops</source>
+        <translation>Ой</translation>
+    </message>
+    <message>
+        <source>The Selected image does not contains a valid qr code. Try again.</source>
+        <translation>Выбраная выява не змяшчае сапраўдны QR-код. Паспрабуй яшчэ.</translation>
+    </message>
+</context>
+<context>
+    <name>RC::QRCodeDecoder</name>
+    <message>
+        <source>Oh shit</source>
+        <translation>Ай чорт</translation>
+    </message>
+    <message>
+        <source>Permission denied to selected file.</source>
+        <translation>Адмоўлена ў дазволе на выбраны файл.</translation>
+    </message>
+    <message>
+        <source>It looks like the file you selected does not contain a qr code</source>
+        <translation>Здаецца, выбраны вамі файл не ўтрымлівае qr-кода</translation>
     </message>
 </context>
 <context>

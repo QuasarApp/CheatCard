@@ -681,6 +681,10 @@
         <source>Edit worker&apos;s name</source>
         <translation>Edytuj nazwisko pracownika</translation>
     </message>
+    <message>
+        <source>Select image with qr code of your worker</source>
+        <translation>Wybierz obrazek z kodem QR swojego pracownika</translation>
+    </message>
 </context>
 <context>
     <name>QrCodeView</name>
@@ -709,21 +713,6 @@
     <message>
         <source>Unknown</source>
         <translation>Nieznany</translation>
-    </message>
-</context>
-<context>
-    <name>RC::ImportExportUserModel</name>
-    <message>
-        <source>Oh shit</source>
-        <translation>O cholera</translation>
-    </message>
-    <message>
-        <source>It looks like the file you selected does not contain a recovery code</source>
-        <translation>Wygląda na to, że wybrany plik nie zawiera kodu odzyskiwania</translation>
-    </message>
-    <message>
-        <source>Permission denied to selected file.</source>
-        <translation>Odmowa uprawnień do wybranego pliku.</translation>
     </message>
 </context>
 <context>
@@ -837,6 +826,29 @@
     <message>
         <source> Do you want to continue?</source>
         <translation> Czy chcesz kontynuować?</translation>
+    </message>
+    <message>
+        <source>Oops</source>
+        <translation>Ups</translation>
+    </message>
+    <message>
+        <source>The Selected image does not contains a valid qr code. Try again.</source>
+        <translation>Wybrany obraz nie zawiera prawidłowego kodu QR. Spróbuj ponownie.</translation>
+    </message>
+</context>
+<context>
+    <name>RC::QRCodeDecoder</name>
+    <message>
+        <source>Oh shit</source>
+        <translation>O cholera</translation>
+    </message>
+    <message>
+        <source>Permission denied to selected file.</source>
+        <translation>Odmowa uprawnień do wybranego pliku.</translation>
+    </message>
+    <message>
+        <source>It looks like the file you selected does not contain a qr code</source>
+        <translation>Wygląda na to, że wybrany plik nie zawiera kodu qr</translation>
     </message>
 </context>
 <context>
