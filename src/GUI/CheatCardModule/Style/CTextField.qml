@@ -16,6 +16,7 @@ TextField {
     id: root
     property color fontColor: Material.foreground
     color: fontColor
+    autoScroll: false
     background: Rectangle {
         y: root.height - height - root.bottomPadding + 8
         implicitWidth: 120
