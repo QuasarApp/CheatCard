@@ -22,8 +22,17 @@ Page {
 
     contentItem:
         GridLayout {
-            flow: (rootAlign.fHorisontal)? GridLayout.LeftToRight : GridLayout.TopToBottom
+            flow: (flowChecker.fHorisontal)? GridLayout.LeftToRight : GridLayout.TopToBottom
+
+            implicitHeight: 0x0
+            implicitWidth: 0x0
+
             ColumnLayout {
+                implicitHeight: 0x0
+                implicitWidth: 0x0
+
+                Layout.fillWidth: true
+                Layout.fillHeight: true
 
                 ToolButton {
                     Layout.alignment:  Qt.AlignHCenter
@@ -46,11 +55,6 @@ Page {
                 }
             }
 
-            Item {
-                Layout.fillHeight: true
-                Layout.fillWidth: true
-            }
-
             Image {
                 asynchronous: true
                 fillMode: Image.PreserveAspectFit
@@ -64,14 +68,6 @@ Page {
                     fragSh: "qrc:/private/resources/shaders/shaderColorQrCode.fsh"
                 }
             }
-            anchors.fill: parent
+
         }
-
-    Item {
-        id: rootAlign
-        Layout.fillHeight: true
-        Layout.fillWidth: true
-
-        property bool fHorisontal: root.height < root.width
-    }
 }
