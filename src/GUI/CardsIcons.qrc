@@ -8,7 +8,6 @@
         <file>private/resources/coffeSign.png</file>
         <file>private/resources/mapLogo.png</file>
         <file>private/resources/telegramm.png</file>
-        <file>private/resources/instagramm.png</file>
         <file>private/resources/www.png</file>
         <file>private/resources/Icons/Cup_icon_20.png</file>
         <file>private/resources/Icons/Cup_icon_19.png</file>
@@ -83,8 +82,6 @@
         <file>private/resources/Interface_icons/sharing_icon.svg</file>
         <file>private/resources/Interface_icons/Google_play_logo.png</file>
         <file>private/resources/Interface_icons/AppStore.png</file>
-        <file>private/resources/Interface_icons/qr-code_android_link.png</file>
-        <file>private/resources/Interface_icons/qr-code_apple_link.png</file>
         <file>private/resources/Interface_icons/android_icon_btn.svg</file>
         <file>private/resources/Interface_icons/apple_icon_btn.svg</file>
         <file>private/resources/Interface_icons/statistic.svg</file>
@@ -111,5 +108,7 @@
         <file>private/resources/Interface_icons/qrscaner.svg</file>
         <file>private/resources/Interface_icons/qrcode.svg</file>
         <file>private/resources/Interface_icons/search.svg</file>
+        <file>private/resources/Interface_icons/shareApp.png</file>
+        <file>private/resources/instagramm.png</file>
     </qresource>
 </RCC>
