@@ -2,6 +2,17 @@
 
 ![Banner](src/GUI/private/resources/Logo/CheatCard_Banner.jpg)
 
+
+## Download CheatCard app
+
+[![Android](Doc/download/google.png)](https://play.google.com/store/apps/details?id=quasarapp.core.cheatcard)
+
+---
+
+[![iOS](Doc/download/apple.png)](https://apps.apple.com/app/id1603813109)
+
+
+
 ## About this app 
 
 CheatCard - This is service which provides the ability to conveniently create discount cards for the clients of your business.  
