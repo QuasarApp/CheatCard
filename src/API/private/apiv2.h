@@ -57,7 +57,9 @@ public:
                       bool removeRequest,
                       QH::AbstractNodeInfo *dist) override;
 
-    bool deleteCard(unsigned int cardId, QH::AbstractNodeInfo *dist) override;
+    bool deleteCard(unsigned int cardId,
+                    const QByteArray &curentUserKey,
+                    QH::AbstractNodeInfo *dist) override;
 
     bool sendUpdateCard(unsigned int cardId, unsigned int version, QH::AbstractNodeInfo *dist) override;
     bool changeUsersData(const QByteArray &sellerUserKey, unsigned int cardId,
