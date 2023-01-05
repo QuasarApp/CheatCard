@@ -162,16 +162,16 @@
 <context>
     <name>Contacts</name>
     <message>
-        <source>Go to our site. There you will get extended information about the CheatCard application and will be able to contact the developers.</source>
-        <translation>Wejdź na naszą stronę. Tam otrzymasz rozszerzone informacje o aplikacji CheatCard i będziesz mógł skontaktować się z twórcami.</translation>
-    </message>
-    <message>
         <source>Join to our telegram channel to get support and see the last changes.</source>
         <translation>Dołącz do naszego kanału telegramów, aby uzyskać wsparcie i zobaczyć ostatnie zmiany.</translation>
     </message>
     <message>
         <source>Join to our Instagram channel to get support and see the last changes.</source>
         <translation>Dołącz do naszego kanału Instagram, aby uzyskać wsparcie i zobaczyć ostatnie zmiany.</translation>
+    </message>
+    <message>
+        <source>Go to discussions. There you will get extended help.</source>
+        <translation>Przejdź do dyskusji. Tam uzyskasz rozszerzoną pomoc.</translation>
     </message>
 </context>
 <context>
@@ -799,11 +799,11 @@
     </message>
     <message>
         <source>Your reserve QR code is deprecated</source>
-        <translation type="unfinished"></translation>
+        <translation>Twój rezerwowy kod QR jest przestarzały</translation>
     </message>
     <message>
         <source>It is still works, but in the next releases the support of this qr code will be dropped. Please. Create the new recovery Qr code.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nadal działa, ale w następnych wydaniach obsługa tego kodu qr zostanie usunięta. Proszę. Utwórz nowy kod Qr odzyskiwania.</translation>
     </message>
 </context>
 <context>
@@ -902,11 +902,11 @@
     </message>
     <message>
         <source>no longer support</source>
-        <translation type="unfinished"></translation>
+        <translation>już nie obsługuje</translation>
     </message>
     <message>
         <source>Export no longer support</source>
-        <translation type="unfinished"></translation>
+        <translation>Eksport nie jest już obsługiwany</translation>
     </message>
 </context>
 <context>

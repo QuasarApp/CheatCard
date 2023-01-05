@@ -161,16 +161,16 @@
 <context>
     <name>Contacts</name>
     <message>
-        <source>Go to our site. There you will get extended information about the CheatCard application and will be able to contact the developers.</source>
-        <translation>გადადით ჩვენს საიტზე. იქ მიიღებთ გაფართოებულ ინფორმაციას CheatCard აპლიკაციის შესახებ და შეძლებთ დაუკავშირდეთ დეველოპერებს.</translation>
-    </message>
-    <message>
         <source>Join to our telegram channel to get support and see the last changes.</source>
         <translation>შემოუერთდით ჩვენს telegram არხს, რომ მიიღოთ მხარდაჭერა და ნახოთ ბოლო ცვლილებები.</translation>
     </message>
     <message>
         <source>Join to our Instagram channel to get support and see the last changes.</source>
         <translation>შემოუერთდით ჩვენს Instagram არხს, რომ მიიღოთ მხარდაჭერა და ნახოთ ბოლო ცვლილებები.</translation>
+    </message>
+    <message>
+        <source>Go to discussions. There you will get extended help.</source>
+        <translation>გადადით დისკუსიებზე. იქ მიიღებთ გაფართოებულ დახმარებას.</translation>
     </message>
 </context>
 <context>
@@ -795,11 +795,11 @@
     </message>
     <message>
         <source>Your reserve QR code is deprecated</source>
-        <translation type="unfinished"></translation>
+        <translation>თქვენი სარეზერვო QR კოდი მოძველებულია</translation>
     </message>
     <message>
         <source>It is still works, but in the next releases the support of this qr code will be dropped. Please. Create the new recovery Qr code.</source>
-        <translation type="unfinished"></translation>
+        <translation>ის ჯერ კიდევ მუშაობს, მაგრამ შემდეგ გამოშვებებში ამ qr კოდის მხარდაჭერა გაუქმდება. გთხოვთ. შექმენით ახალი აღდგენის Qr კოდი.</translation>
     </message>
 </context>
 <context>
@@ -898,11 +898,11 @@
     </message>
     <message>
         <source>no longer support</source>
-        <translation type="unfinished"></translation>
+        <translation>აღარ უჭერს მხარს</translation>
     </message>
     <message>
         <source>Export no longer support</source>
-        <translation type="unfinished"></translation>
+        <translation>ექსპორტი აღარ არის მხარდაჭერილი</translation>
     </message>
 </context>
 <context>

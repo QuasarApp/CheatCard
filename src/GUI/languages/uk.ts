@@ -161,16 +161,16 @@
 <context>
     <name>Contacts</name>
     <message>
-        <source>Go to our site. There you will get extended information about the CheatCard application and will be able to contact the developers.</source>
-        <translation>Перейдіть на наш веб-сайт. Там ви отримаєте розширену інформацію про програму CheatCard і зможете зв&apos;язатися з розробниками.</translation>
-    </message>
-    <message>
         <source>Join to our telegram channel to get support and see the last changes.</source>
         <translation>Приєднуйтесь до нашого телеграм-каналу, щоб отримати підтримку та побачити останні зміни.</translation>
     </message>
     <message>
         <source>Join to our Instagram channel to get support and see the last changes.</source>
         <translation>Приєднуйтесь до нашого Instagram-каналу, щоб отримати підтримку та побачити останні зміни.</translation>
+    </message>
+    <message>
+        <source>Go to discussions. There you will get extended help.</source>
+        <translation>Переходьте до обговорень. Там ви отримаєте розширену допомогу.</translation>
     </message>
 </context>
 <context>
@@ -798,11 +798,11 @@
     </message>
     <message>
         <source>Your reserve QR code is deprecated</source>
-        <translation type="unfinished"></translation>
+        <translation>Ваш резервний QR-код більше не підтримується</translation>
     </message>
     <message>
         <source>It is still works, but in the next releases the support of this qr code will be dropped. Please. Create the new recovery Qr code.</source>
-        <translation type="unfinished"></translation>
+        <translation>Він все ще працює, але в наступних випусках підтримку цього qr-коду буде припинено. Будь ласка Створіть новий Qr-код відновлення.</translation>
     </message>
 </context>
 <context>
@@ -901,11 +901,11 @@
     </message>
     <message>
         <source>no longer support</source>
-        <translation type="unfinished"></translation>
+        <translation>більше не підтримується</translation>
     </message>
     <message>
         <source>Export no longer support</source>
-        <translation type="unfinished"></translation>
+        <translation>Експорт більше не підтримується</translation>
     </message>
 </context>
 <context>
