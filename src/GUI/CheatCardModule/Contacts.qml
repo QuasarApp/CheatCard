@@ -48,11 +48,11 @@ Page {
                         icon.height: imageSize
                         icon.width: imageSize
                         icon.color: "transparent"
-                        onClicked: Qt.openUrlExternally("https://www.cheatcard.net/")
+                        onClicked: Qt.openUrlExternally("https://github.com/QuasarApp/CheatCard/discussions")
                     }
 
                     Label {
-                        text: qsTr("Go to our site. There you will get extended information about the CheatCard application and will be able to contact the developers.")
+                        text: qsTr("Go to discussions. There you will get extended help.")
                         horizontalAlignment: Qt.AlignLeft
                         verticalAlignment: Qt.AlignVCenter
                         wrapMode: Label.WordWrap

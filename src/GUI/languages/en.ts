@@ -161,15 +161,15 @@
 <context>
     <name>Contacts</name>
     <message>
-        <source>Go to our site. There you will get extended information about the CheatCard application and will be able to contact the developers.</source>
-        <translation>Go to our site. There you will get extended information about the CheatCard application and will be able to contact the developers.</translation>
-    </message>
-    <message>
         <source>Join to our telegram channel to get support and see the last changes.</source>
         <translation></translation>
     </message>
     <message>
         <source>Join to our Instagram channel to get support and see the last changes.</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Go to discussions. There you will get extended help.</source>
         <translation></translation>
     </message>
 </context>
@@ -798,11 +798,11 @@
     </message>
     <message>
         <source>Your reserve QR code is deprecated</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>It is still works, but in the next releases the support of this qr code will be dropped. Please. Create the new recovery Qr code.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -901,11 +901,11 @@
     </message>
     <message>
         <source>no longer support</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Export no longer support</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
