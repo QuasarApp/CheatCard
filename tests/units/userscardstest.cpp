@@ -1,7 +1,6 @@
 #include "userscardstest.h"
 
-#include <CheatCard/api/api1-5/changeuserscards.h>
-#include <CheatCard/api/api1/userscards.h>
+#include <rci/rcutils.h>
 
 UsersCardsTest::UsersCardsTest()
 {
@@ -12,12 +11,9 @@ void UsersCardsTest::test() {
     const unsigned int user = 10;
     const unsigned int card = 20;
 
-    RC::APIv1_5::ChangeUsersCards changes;
-    auto usersCards = RC::API::UsersCards::genId(user, card);
+    auto usersCards = RC::RCUtils::makeUsersCardsId(user, card);
 
-    changes.setUsercardId(usersCards);
-
-    QVERIFY(user == changes.getUser());
-    QVERIFY(card == changes.getCard());
+    QVERIFY(user == RC::RCUtils::getUserIdFromUsrsCards(usersCards));
+    QVERIFY(card == RC::RCUtils::getCardIdFromUsrsCards(usersCards));
 
 }

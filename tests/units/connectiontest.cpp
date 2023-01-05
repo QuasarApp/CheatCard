@@ -1,25 +1,24 @@
 //#
-//# Copyright (C) 2020-2021 QuasarApp.
+//# Copyright (C) 2020-2023 QuasarApp.
 //# Distributed under the GPLv3 software license, see the accompanying
 //# Everyone is permitted to copy and distribute verbatim copies
 //# of this license document, but changing it is not allowed.
 //#
 
+#include "CheatCard/clearolddata.h"
+#include "CheatCard/userheader.h"
+#include "api.h"
 #include "cheatcardtestshelper.h"
 #include "connectiontest.h"
-#include "testdatabasewrapper.h"
 #include "testserver.h"
-
-#include <CheatCard/api/api0/card.h>
-#include <CheatCard/api/api0/user.h>
-#include <CheatCard/api/api0/userheader.h>
 
 #include <thread>
 #include <chrono>
 #include <testseller.h>
 #include <testvisitor.h>
 #include <type_traits>
-#include <CheatCard/api/apiv1-5.h>
+
+#include <rci/objects/iuser.h>
 
 #define TEST_CHEAT_PORT 15001
 #define TEST_CHEAT_HOST "localhost"
@@ -34,24 +33,23 @@ ConnectionTest::~ConnectionTest() {
 }
 
 void ConnectionTest::test() {
-    QDir(APP_DATA_LOCATION).removeRecursively();
+    QDir(DEFAULT_DB_PATH).removeRecursively();
     firstContact();
 }
 
 void ConnectionTest::addSeal(const QSharedPointer<TestSeller> &seller,
                              const QSharedPointer<TestVisitor> &client,
                              const QSharedPointer<TestServer> &server,
-                             const QSharedPointer<RC::API::User> user,
-                             unsigned int cardId,
-                             int sealsCount,
-                             QSharedPointer<RC::API::UserHeader>& resultUserHeader,
-                             const QString& host ,
-                             int port) {
+                             const QSharedPointer<RC::Interfaces::iUser> &user,
+                             unsigned int cardId, int sealsCount,
+                             QSharedPointer<RC::UserHeader> & resultUserHeader,
+                             const QString &host, int port)
+{
 
     // random session
     long long session = rand() * rand();
 
-    unsigned int userId = user->userId();
+    unsigned int userId = user->id();
 
     resultUserHeader->setSessionId(session);
     resultUserHeader->setToken(user->getKey());
@@ -105,60 +103,16 @@ void ConnectionTest::firstContact() {
     QSharedPointer<TestVisitor> client;
     QSharedPointer<TestServer> server;
 
-    qDebug() << "TEST API V1";
+    qDebug() << "TEST API V2";
 
-    seller = CheatCardTestsHelper::makeNode<TestSeller>();
+    seller = CheatCardTestsHelper::makeNode<TestSeller>(":/sql/units/sql/TestSallerDb.sql");
     client = CheatCardTestsHelper::makeNode<TestVisitor>();
     server = CheatCardTestsHelper::makeNode<TestServer>();
     seller->setCurrentUser(seller->getUser(CheatCardTestsHelper::testUserId()));
 
-    seller->addApiParser<RC::ApiV1>();
-    client->addApiParser<RC::ApiV1>();
-    server->addApiParser<RC::ApiV1>();
-    server->addApiParser<RC::ApiV1_5>();
-
-    apiTest(seller, client, server);
-
-    qDebug() << "TEST API V1(seller)";
-
-    seller = CheatCardTestsHelper::makeNode<TestSeller>();
-    client = CheatCardTestsHelper::makeNode<TestVisitor>();
-    server = CheatCardTestsHelper::makeNode<TestServer>();
-    seller->setCurrentUser(seller->getUser(CheatCardTestsHelper::testUserId()));
-
-    seller->addApiParser<RC::ApiV1>();
-    client->addApiParser<RC::ApiV1_5>();
-    server->addApiParser<RC::ApiV1>();
-    server->addApiParser<RC::ApiV1_5>();
-
-    apiTest(seller, client, server);
-
-    qDebug() << "TEST API V1(client)";
-
-    seller = CheatCardTestsHelper::makeNode<TestSeller>();
-    client = CheatCardTestsHelper::makeNode<TestVisitor>();
-    server = CheatCardTestsHelper::makeNode<TestServer>();
-    seller->setCurrentUser(seller->getUser(CheatCardTestsHelper::testUserId()));
-
-    seller->addApiParser<RC::ApiV1_5>();
-    client->addApiParser<RC::ApiV1>();
-    server->addApiParser<RC::ApiV1>();
-    server->addApiParser<RC::ApiV1_5>();
-
-    apiTest(seller, client, server);
-
-
-    qDebug() << "TEST API V1-5";
-
-    seller = CheatCardTestsHelper::makeNode<TestSeller>();
-    client = CheatCardTestsHelper::makeNode<TestVisitor>();
-    server = CheatCardTestsHelper::makeNode<TestServer>();
-    seller->setCurrentUser(seller->getUser(CheatCardTestsHelper::testUserId()));
-
-    seller->addApiParser<RC::ApiV1_5>();
-    client->addApiParser<RC::ApiV1_5>();
-    server->addApiParser<RC::ApiV1>();
-    server->addApiParser<RC::ApiV1_5>();
+    RC::API::init({2}, seller->getDBObject(), seller.data());
+    RC::API::init({2}, client->getDBObject(), client.data());
+    RC::API::init({2}, server->getDBObject(), server.data());
 
     apiTest(seller, client, server);
 
@@ -172,18 +126,18 @@ void ConnectionTest::apiTest(const QSharedPointer<TestSeller> &seller,
     QVERIFY(server->run(TEST_CHEAT_HOST, TEST_CHEAT_PORT));
 
     auto user = CheatCardTestsHelper::makeUser();
-    auto obj = QSharedPointer<RC::API::UserHeader>::create();
+    auto obj = QSharedPointer<RC::UserHeader>::create();
 
 
 
     // 3619648333 This is card id from test database.
     unsigned int cardId = CheatCardTestsHelper::testCardId();
-    unsigned int userId = user->userId();
+    unsigned int userId = user->id();
 
     addSeal(seller, client, server, user, cardId, 100, obj, TEST_CHEAT_HOST,  TEST_CHEAT_PORT);
 
-    int sellerFreeItems = seller->getFreeItemsCount(user->userId(), cardId);
-    int visitorFreeItems = client->getFreeItemsCount(user->userId(), cardId);
+    int sellerFreeItems = seller->getFreeItemsCount(user->id(), cardId);
+    int visitorFreeItems = client->getFreeItemsCount(user->id(), cardId);
 
     QVERIFY(sellerFreeItems == visitorFreeItems);
     QVERIFY(sellerFreeItems == 16);
@@ -203,7 +157,7 @@ void ConnectionTest::apiTest(const QSharedPointer<TestSeller> &seller,
     }, WAIT_TIME));
 
 
-    QVERIFY(seller->getFreeItemsCount(user->userId(), cardId) == 0);
+    QVERIFY(seller->getFreeItemsCount(user->id(), cardId) == 0);
 
 
     // check rad on serve before clear
@@ -212,7 +166,7 @@ void ConnectionTest::apiTest(const QSharedPointer<TestSeller> &seller,
         return card && card->isValid();
     }, WAIT_TIME));
 
-    auto task = QSharedPointer<RC::ClearOldData>::create();
+    auto task = QSharedPointer<RC::ClearOldData>::create(server->getDBObject());
     task->setTime(0);
     task->setMode(QH::ScheduleMode::SingleWork);
     QVERIFY(server->sheduleTask(task));
@@ -224,7 +178,7 @@ void ConnectionTest::apiTest(const QSharedPointer<TestSeller> &seller,
     }, WAIT_TIME));
 
     // run force clear
-    task = QSharedPointer<RC::ClearOldData>::create(-1);
+    task = QSharedPointer<RC::ClearOldData>::create(server->getDBObject(), -1);
     task->setTime(0);
     task->setMode(QH::ScheduleMode::SingleWork);
     QVERIFY(server->sheduleTask(task));

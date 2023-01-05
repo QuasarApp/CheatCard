@@ -1,5 +1,5 @@
 //#
-//# Copyright (C) 2021-2021 QuasarApp.
+//# Copyright (C) 2021-2023 QuasarApp.
 //# Distributed under the GPLv3 software license, see the accompanying
 //# Everyone is permitted to copy and distribute verbatim copies
 //# of this license document, but changing it is not allowed.
@@ -9,15 +9,12 @@
 #include <QQuickImageResponse>
 #include <QtConcurrent>
 #include "imageresponse.h"
-#include "quasarapp.h"
-#include <CheatCard/database.h>
-#include "getsinglevalue.h"
 #include <qaglobalutils.h>
 
 namespace RC {
 
 
-ImageProvider::ImageProvider(DataBase* db):
+ImageProvider::ImageProvider(const QSharedPointer<Interfaces::iDB> &db):
     QQuickAsyncImageProvider() {
 
     debug_assert(db, "The database must be not null");

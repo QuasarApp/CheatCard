@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2020-2021 QuasarApp.
+# Copyright (C) 2020-2023 QuasarApp.
 # Distributed under the GPLv3 software license, see the accompanying
 # Everyone is permitted to copy and distribute verbatim copies
 # of this license document, but changing it is not allowed.
@@ -13,14 +13,17 @@ set(CURRENT_PROJECT "${PROJECT_NAME}Gui")
 
 file(GLOB SOURCE_CPP
     "*CheatCardGui/*.cpp"
-     "private/*.cpp"
-     "private/platforms/*.cpp"
-     "private/pills/*.cpp"
+    "private/*.cpp"
+    "private/platforms/*.cpp"
+    "private/pills/*.cpp"
+    "private/models/*.cpp"
 
-     "*CheatCardGui/*.h"
-      "private/*.h"
-      "private/platforms/*.h"
-      "private/pills/*.h"
+    "*CheatCardGui/*.h"
+    "private/*.h"
+    "private/platforms/*.h"
+    "private/pills/*.h"
+    "private/models/*.h"
+
 
 )
 

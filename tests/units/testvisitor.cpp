@@ -1,25 +1,17 @@
 #include "testvisitor.h"
 
-#include <testdatabasewrapper.h>
-#include <CheatCard/api/api0/card.h>
-#include <CheatCard/api/api0/userscards.h>
-#include <CheatCard/clearolddata.h>
 
-TestVisitor::TestVisitor(QSharedPointer<TestDataBaseWrapper> db): RC::Visitor(db->db()) {
-        privateDb = db;
+TestVisitor::TestVisitor(const QSharedPointer<RC::Interfaces::iDB> &db):
+    RC::Visitor(db) {
         setRequestInterval(0);
 }
 
-QSharedPointer<RC::API::Card> TestVisitor::getCard(unsigned int cardId) const {
-    RC::API::Card card;
-    card.setId(cardId);
-
-    auto cardObj = db()->getObject(card);
-    return cardObj;
+QSharedPointer<RC::Interfaces::iCard> TestVisitor::getCard(unsigned int cardId) const {
+    return db()->getCard(cardId);
 }
 
 int TestVisitor::getPurchaseCount(unsigned int userId, unsigned int cardId) {
-    QSharedPointer<RC::API::UsersCards> result = getUserCardData(userId, cardId);
+    auto result = db()->getUserCardData(userId, cardId);
 
     if (!result)
         return 0;
@@ -27,11 +19,17 @@ int TestVisitor::getPurchaseCount(unsigned int userId, unsigned int cardId) {
     return result->getPurchasesNumber();
 }
 
-void TestVisitor::dropDB() {
+int TestVisitor::getFreeItemsCount(unsigned int userId, unsigned int cardId) {
+    auto dbUsersCards = db()->getUserCardData(
+        userId,
+        cardId);
+    return db()->getFreeItemsCount(dbUsersCards);
+}
 
-    // run force clear
-    auto task = QSharedPointer<RC::ClearOldData>::create(-1);
-    task->setTime(0);
-    task->setMode(QH::ScheduleMode::SingleWork);
-    sheduleTask(task);
+const QSharedPointer<RC::Interfaces::iDB> &TestVisitor::getDBObject() const {
+    return db();
+}
+
+void TestVisitor::dropDB() {
+    db()->clearOldData(-1);
 }

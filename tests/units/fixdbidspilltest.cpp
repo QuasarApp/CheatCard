@@ -3,7 +3,6 @@
 #include <testseller.h>
 #include <QtTest>
 #include <DoctorPillCore/doctortest.h>
-#include <CheatCard/pills/invalidcardidpill.h>
 
 FixDBIdsPillTest::FixDBIdsPillTest() {
 
@@ -12,8 +11,12 @@ FixDBIdsPillTest::FixDBIdsPillTest() {
 void FixDBIdsPillTest::test() {
     auto app = CheatCardTestsHelper::makeNode<TestSeller>(":/sql/units/sql/bug_386.sqlite.sql");
     QVERIFY(app);
+
+    auto db = app->getDBObject();
+    auto testedPill = db->initPills("InvalidCardIdPill");
+
     DP::DoctorTest test;
 
-    QVERIFY(test.test({QSharedPointer<RC::InvalidCardIdPill>::create(app->db())}, true));
+    QVERIFY(test.test(testedPill, true));
 
 }

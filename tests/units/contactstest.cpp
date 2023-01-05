@@ -1,5 +1,5 @@
 //#
-//# Copyright (C) 2020-2021 QuasarApp.
+//# Copyright (C) 2020-2023 QuasarApp.
 //# Distributed under the GPLv3 software license, see the accompanying
 //# Everyone is permitted to copy and distribute verbatim copies
 //# of this license document, but changing it is not allowed.
@@ -8,15 +8,12 @@
 
 #include <testseller.h>
 #include <testvisitor.h>
+#include <CheatCard/userheader.h>
+#include "api.h"
 #include "contactstest.h"
 
-#include <CheatCard/api/api0/card.h>
-#include <CheatCard/api/api0/user.h>
-#include <CheatCard/api/api0/userheader.h>
 #include "cheatcardtestshelper.h"
 #include "testserver.h"
-#include <CheatCard/api/apiv1-5.h>
-#include <CheatCard/api/api1-5/updatecontactdata.h>
 
 #define TEST_CHEAT_PORT 15002
 #define TEST_CHEAT_HOST "localhost"
@@ -38,7 +35,7 @@ void ContactsTest::test() {
 
     qDebug() << "TEST COntacts V1";
 
-    seller = CheatCardTestsHelper::makeNode<TestSeller>();
+    seller = CheatCardTestsHelper::makeNode<TestSeller>(":/sql/units/sql/TestSallerDb.sql");
     client = CheatCardTestsHelper::makeNode<TestVisitor>();
     server = CheatCardTestsHelper::makeNode<TestServer>();
     auto sellerUser = seller->getUser(CheatCardTestsHelper::testUserId());
@@ -46,29 +43,28 @@ void ContactsTest::test() {
     unsigned int cardId = CheatCardTestsHelper::testCardId();
     auto sellerUserKey = sellerUser->getKey();
 
-    unsigned int clientUserId = clientUser->userId();
+    unsigned int clientUserId = clientUser->id();
 
     seller->setCurrentUser(sellerUser);
 
     // tst only last api
-    seller->addApiParser<RC::ApiV1_5>();
-    client->addApiParser<RC::ApiV1_5>();
-    server->addApiParser<RC::ApiV1_5>();
-
+    RC::API::init({2}, seller->getDBObject(), seller.data());
+    RC::API::init({2}, client->getDBObject(), client.data());
+    RC::API::init({2}, server->getDBObject(), server.data());
 
     // run server
     QVERIFY(server->run(TEST_CHEAT_HOST, TEST_CHEAT_PORT));
 
-    auto obj = QSharedPointer<RC::API::UserHeader>::create();
+    auto obj = QSharedPointer<RC::UserHeader>::create();
 
-    auto childSeller = QSharedPointer<RC::API::User>::create();
+    auto childSeller = CheatCardTestsHelper::makeUser();
     childSeller->setName("child");
-    auto contact = QSharedPointer<RC::API::Contacts>::create();
+    auto contact = CheatCardTestsHelper::makeContact();
 
     // create child seller user
     QVERIFY(seller->createContact(childSeller, contact));
 
-    QVERIFY(seller->updateContactData(*contact,
+    QVERIFY(seller->updateContactData(contact,
                                       sellerUser->secret(),
                                       false,
                                       TEST_CHEAT_HOST,
@@ -84,6 +80,7 @@ void ContactsTest::test() {
     WAIT_FOR_FINSISHED_CONNECTION
 
     seller->setCurrentUser(childSeller);
+    seller->getDBObject()->saveUser(childSeller);
     // try add seals from child account
     addSeal(seller, client, server, clientUser, cardId, 6, obj, TEST_CHEAT_HOST,  TEST_CHEAT_PORT);
 
@@ -101,7 +98,7 @@ void ContactsTest::test() {
     WAIT_FOR_FINSISHED_CONNECTION
 
     // try remove additional permisions from another seller account
-    QVERIFY(seller->updateContactData(*contact,
+    QVERIFY(seller->updateContactData(contact,
                                       childSeller->secret(),
                                       true,
                                       TEST_CHEAT_HOST,
@@ -115,7 +112,7 @@ void ContactsTest::test() {
 
     seller->setCurrentUser(sellerUser);
     // Remove right of child account
-    QVERIFY(seller->updateContactData(*contact,
+    QVERIFY(seller->updateContactData(contact,
                                       sellerUser->secret(),
                                       true,
                                       TEST_CHEAT_HOST,

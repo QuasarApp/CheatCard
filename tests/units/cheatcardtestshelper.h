@@ -1,20 +1,26 @@
+//#
+//# Copyright (C) 2022-2023 QuasarApp.
+//# Distributed under the GPLv3 software license, see the accompanying
+//# Everyone is permitted to copy and distribute verbatim copies
+//# of this license document, but changing it is not allowed.
+//#
+
+
 #ifndef CHEATCARDTESTSHELPER_H
 #define CHEATCARDTESTSHELPER_H
 
-#include "testdatabasewrapper.h"
-
+#include <db.h>
 #include <QSharedPointer>
 
 #include <CheatCard/seller.h>
 
 
 namespace RC {
-namespace API {
-class User;
+namespace Interfaces {
+class iUser;
 }
 }
 
-void softDeleteWrapDB(TestDataBaseWrapper* obj);
 void softDeleteWrapNode(RC::BaseNode* obj);
 
 class CheatCardTestsHelper
@@ -23,30 +29,22 @@ public:
     CheatCardTestsHelper();
 
     template <class NodeType>
-    static QSharedPointer<NodeType> makeNode(const QString database = ":/sql/units/sql/TestSallerDb.sql",
-                                             bool forceUseCustomDb = false) {
+    static QSharedPointer<NodeType> makeNode(const QString database = "") {
         srand(time(0) + rand());
         QString randomNodeName = QByteArray::number(rand()).toHex() + typeid(NodeType).name();
 
-        TestDataBaseWrapper* source;
-        if (std::is_base_of<RC::Seller,NodeType>::value || forceUseCustomDb) {
+        auto sallerDb = RC::DB::makeDb(1, randomNodeName, "", database);
 
-            source = new TestDataBaseWrapper(randomNodeName,
-                                             database);
-        } else {
-            source = new TestDataBaseWrapper(randomNodeName);
-        }
-
-        auto sallerDb = QSharedPointer<TestDataBaseWrapper>(source,
-                                                            softDeleteWrapDB);
-        if (!sallerDb->initSqlDb()) {
+        if (!sallerDb->init()) {
             return {};
         }
 
         return QSharedPointer<NodeType>(new NodeType(sallerDb), softDeleteWrapNode);
     }
 
-    static QSharedPointer<RC::API::User> makeUser();
+    static QSharedPointer<RC::Interfaces::iUser> makeUser();
+    static QSharedPointer<RC::Interfaces::iContacts> makeContact();
+
     static unsigned int testCardId();
     static unsigned int testUserId();
     static QByteArray testUserPublicKey();

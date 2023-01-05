@@ -1,16 +1,13 @@
+#include "CheatCard/userheader.h"
+#include "api.h"
 #include "cheatcardtestshelper.h"
 #include "restoredatatest.h"
 #include "testseller.h"
 #include "testserver.h"
 #include "testvisitor.h"
+#include <rci/rcutils.h>
 
-#include <CheatCard/api/api0/card.h>
-#include <CheatCard/api/api0/user.h>
-#include <CheatCard/api/api0/userheader.h>
-#include <CheatCard/api/apiv1.h>
-
-
-#define TEST_CHEAT_PORT 15001
+#define TEST_CHEAT_PORT 15003
 #define TEST_CHEAT_HOST "localhost"
 
 RestoreDataTest::RestoreDataTest() {
@@ -22,14 +19,14 @@ void RestoreDataTest::test() {
 
     qDebug() << "TEST RESTORE CARDS API V1";
 
-    auto seller = CheatCardTestsHelper::makeNode<TestSeller>();
+    auto seller = CheatCardTestsHelper::makeNode<TestSeller>(":/sql/units/sql/TestSallerDb.sql");
     auto client = CheatCardTestsHelper::makeNode<TestVisitor>();
     auto server = CheatCardTestsHelper::makeNode<TestServer>();
     seller->setCurrentUser(seller->getUser(CheatCardTestsHelper::testUserId()));
 
-    seller->addApiParser<RC::ApiV1>();
-    client->addApiParser<RC::ApiV1>();
-    server->addApiParser<RC::ApiV1>();
+    RC::API::init({2}, seller->getDBObject(), seller.data());
+    RC::API::init({2}, client->getDBObject(), client.data());
+    RC::API::init({2}, server->getDBObject(), server.data());
 
     restoreTest(seller, client, server);
 }
@@ -46,11 +43,11 @@ void RestoreDataTest::restoreTest(const QSharedPointer<TestSeller> &seller,
     QVERIFY(server->run(TEST_CHEAT_HOST, TEST_CHEAT_PORT));
 
     auto user = CheatCardTestsHelper::makeUser();
-    auto obj = QSharedPointer<RC::API::UserHeader>::create();
+    auto obj = QSharedPointer<RC::UserHeader>::create();
 
     obj->setSessionId(session);
     obj->setToken(user->getKey());
-    obj->setUserId(user->userId());
+    obj->setUserId(user->id());
 
     unsigned int cardId = CheatCardTestsHelper::testCardId();
     for (int i = 0; i < 6; i++) {
@@ -66,7 +63,7 @@ void RestoreDataTest::restoreTest(const QSharedPointer<TestSeller> &seller,
 
 
         QVERIFY(wait([server, user, cardId, i](){
-            return server->getPurchaseCount(user->userId(), cardId) == (i + 1);
+            return server->getPurchaseCount(user->id(), cardId) == (i + 1);
         }, WAIT_TIME));
 
         QVERIFY(wait([server](){
@@ -82,7 +79,7 @@ void RestoreDataTest::restoreTest(const QSharedPointer<TestSeller> &seller,
 
 
         QVERIFY(wait([client, user, cardId, i](){
-            return client->getPurchaseCount(user->userId(), cardId) == (i + 1);
+            return client->getPurchaseCount(user->id(), cardId) == (i + 1);
         }, WAIT_TIME));
 
         QVERIFY(wait([server](){
@@ -91,8 +88,8 @@ void RestoreDataTest::restoreTest(const QSharedPointer<TestSeller> &seller,
 
     }
 
-    int sellerFreeItems = seller->getFreeItemsCount(user->userId(), cardId);
-    int visitorFreeItems = client->getFreeItemsCount(user->userId(), cardId);
+    int sellerFreeItems = seller->getFreeItemsCount(user->id(), cardId);
+    int visitorFreeItems = client->getFreeItemsCount(user->id(), cardId);
 
     QVERIFY(sellerFreeItems == visitorFreeItems);
     QVERIFY(sellerFreeItems == 1);
@@ -100,8 +97,8 @@ void RestoreDataTest::restoreTest(const QSharedPointer<TestSeller> &seller,
     auto userKey = CheatCardTestsHelper::testUserPublicKey();
     auto testPrivKey = CheatCardTestsHelper::testUserPrivKey();
 
-    QVERIFY(RC::API::User::makeKey(testPrivKey) == userKey);
-    QVERIFY(RC::API::User::makeId(userKey) == CheatCardTestsHelper::testUserId());
+    QVERIFY(RC::RCUtils::makeUserKey(testPrivKey) == userKey);
+    QVERIFY(RC::RCUtils::makeUserId(userKey) == CheatCardTestsHelper::testUserId());
 
     seller->dropDB();
 

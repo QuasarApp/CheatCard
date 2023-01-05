@@ -750,10 +750,6 @@
         <translation>Twój klucz tajny został zaimportowany</translation>
     </message>
     <message>
-        <source>Yor secret key and public key is not pair May be you scan not valid qr code ...</source>
-        <translation>Twój klucz tajny i klucz publiczny nie są parą, może skanujesz nieprawidłowy kod qr ...</translation>
-    </message>
-    <message>
         <source>Operation not permitted</source>
         <translation>operacja niedozwolona</translation>
     </message>
@@ -800,6 +796,14 @@
     <message>
         <source>Server sent the error message. Message: &quot;%0.&quot;  Sorry ;)</source>
         <translation>Serwer wysłał komunikat o błędzie. Wiadomość: „%0”. przepraszam ;)</translation>
+    </message>
+    <message>
+        <source>Your reserve QR code is deprecated</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>It is still works, but in the next releases the support of this qr code will be dropped. Please. Create the new recovery Qr code.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -897,20 +901,12 @@
         <translation>Lokalizacja bazy danych</translation>
     </message>
     <message>
-        <source>Failed to export database</source>
-        <translation>Nie udało się wyeksportować bazy danych</translation>
+        <source>no longer support</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>From %0 to %1</source>
-        <translation>Od %0 do %1</translation>
-    </message>
-    <message>
-        <source>Export the database finished successful</source>
-        <translation>Wyeksportowanie bazy danych zakończone pomyślnie</translation>
-    </message>
-    <message>
-        <source>Internal access error with %0</source>
-        <translation>Wewnętrzny błąd dostępu z %0</translation>
+        <source>Export no longer support</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

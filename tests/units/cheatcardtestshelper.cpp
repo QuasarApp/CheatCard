@@ -1,18 +1,21 @@
 #include "cheatcardtestshelper.h"
 
-#include <CheatCard/api/api0/user.h>
-
 CheatCardTestsHelper::CheatCardTestsHelper()
 {
 
 }
 
-QSharedPointer<RC::API::User> CheatCardTestsHelper::makeUser() {
-    auto result = QSharedPointer<RC::API::User>::create();
+QSharedPointer<RC::Interfaces::iUser> CheatCardTestsHelper::makeUser() {
+    static auto db = RC::DB::makeDb(1);
+    auto newUser = db->makeEmptyUser();
 
-    result->setName(QString("User%0").arg(rand()));
+    newUser->setName(QString("User%0").arg(rand()));
+    return newUser;
+}
 
-    return result;
+QSharedPointer<RC::Interfaces::iContacts> CheatCardTestsHelper::makeContact() {
+    static auto db = RC::DB::makeDb(1);
+    return db->makeEmptyContact();
 }
 
 unsigned int CheatCardTestsHelper::testCardId() {
@@ -31,10 +34,6 @@ QByteArray CheatCardTestsHelper::testUserPublicKey() {
 QByteArray CheatCardTestsHelper::testUserPrivKey() {
     return QByteArray::fromBase64("yj5JduAESMuQR4m-M1D7zcvm-rdCn-hlNF6m_-UijJk=",
                                   QByteArray::Base64UrlEncoding);
-}
-
-void softDeleteWrapDB(TestDataBaseWrapper *obj) {
-    obj->softDelete();
 }
 
 void softDeleteWrapNode(RC::BaseNode *obj) {

@@ -1,16 +1,17 @@
 #include "imageresponse.h"
-#include "CheatCard/database.h"
-#include "getsinglevalue.h"
 
 #include <asynclauncher.h>
 #include <thread>
 #include <chrono>
+#include <QSharedPointer>
+
+#include <rci/core/idb.h>
 
 namespace RC {
 
 
 ImageResponse::ImageResponse(const QString &id, const QSize &requestedSize,
-                             DataBase *db, QThread *thread):
+                             const QSharedPointer<Interfaces::iDB> &db, QThread *thread):
     QQuickImageResponse() {
 
     _db = db;
@@ -59,15 +60,14 @@ QImage ImageResponse::prepareImage(const QString &id, const QSize &size) {
 
     if (_db) {
         unsigned int id = request.value(1).toUInt();
-        QH::PKG::GetSingleValue request(QH::DbAddress("cards", id), type);
-        auto dbObj = _db->db()->getObject(request);
+        auto dbObj = _db->getCardField(id, type);
 
-        if (!dbObj || dbObj->value().isNull()) {
+        if (dbObj.isNull()) {
             getDefaultImage(type, result);
             return result;
         }
 
-        auto array = dbObj->value().toByteArray();
+        auto array = dbObj.toByteArray();
 
         if (array.size()) {
             result.loadFromData(array, "PNG");

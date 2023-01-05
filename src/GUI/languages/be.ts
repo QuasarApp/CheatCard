@@ -717,10 +717,6 @@
         <translation>У нас праблемы</translation>
     </message>
     <message>
-        <source>Yor secret key and public key is not pair May be you scan not valid qr code ...</source>
-        <translation>Ваш сакрэтны ключ і адкрыты ключ не спалучаюцца, магчыма, вы адсканавалі няправільны qr-код ...</translation>
-    </message>
-    <message>
         <source>Wow shit</source>
         <translation>Во дзярмо</translation>
     </message>
@@ -795,6 +791,14 @@
     <message>
         <source>Server sent the error message. Message: &quot;%0.&quot;  Sorry ;)</source>
         <translation>Сервер адправіў паведамленне пра памылку. Паведамленне: &quot;%0.&quot; Прабачце ;)</translation>
+    </message>
+    <message>
+        <source>Your reserve QR code is deprecated</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>It is still works, but in the next releases the support of this qr code will be dropped. Please. Create the new recovery Qr code.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -892,20 +896,12 @@
         <translation>Размяшчэнне базы дадзеных</translation>
     </message>
     <message>
-        <source>Failed to export database</source>
-        <translation>Не ўдалося экспартаваць базу дадзеных</translation>
+        <source>no longer support</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>From %0 to %1</source>
-        <translation>Ад %0 да %1</translation>
-    </message>
-    <message>
-        <source>Export the database finished successful</source>
-        <translation>Экспарт базы даных паспяхова завершаны</translation>
-    </message>
-    <message>
-        <source>Internal access error with %0</source>
-        <translation>Унутраная памылка доступу з %0</translation>
+        <source>Export no longer support</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

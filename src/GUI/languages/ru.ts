@@ -749,10 +749,6 @@
         <translation>Ваш секретный ключ импортирован</translation>
     </message>
     <message>
-        <source>Yor secret key and public key is not pair May be you scan not valid qr code ...</source>
-        <translation>Ваш секретный ключ и открытый ключ не совпадают. Возможно, вы отсканировали неверный qr-код ...</translation>
-    </message>
-    <message>
         <source>Operation not permitted</source>
         <translation>Операция не разрешена</translation>
     </message>
@@ -799,6 +795,14 @@
     <message>
         <source>Server sent the error message. Message: &quot;%0.&quot;  Sorry ;)</source>
         <translation>Сервер отправил сообщение об ошибке. Сообщение: &quot;%0&quot;. Извините ;)</translation>
+    </message>
+    <message>
+        <source>Your reserve QR code is deprecated</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>It is still works, but in the next releases the support of this qr code will be dropped. Please. Create the new recovery Qr code.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -896,20 +900,12 @@
         <translation>Расположение базы данных</translation>
     </message>
     <message>
-        <source>Failed to export database</source>
-        <translation>Не удалось экспортировать базу данных</translation>
+        <source>no longer support</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>From %0 to %1</source>
-        <translation>Из %0 в %1</translation>
-    </message>
-    <message>
-        <source>Export the database finished successful</source>
-        <translation>Экспорт базы данных завершен успешно</translation>
-    </message>
-    <message>
-        <source>Internal access error with %0</source>
-        <translation>Внутренняя ошибка доступа с %0</translation>
+        <source>Export no longer support</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

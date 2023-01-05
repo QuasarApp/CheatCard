@@ -1,5 +1,5 @@
 //#
-//# Copyright (C) 2020-2021 QuasarApp.
+//# Copyright (C) 2020-2023 QuasarApp.
 //# Distributed under the GPLv3 software license, see the accompanying
 //# Everyone is permitted to copy and distribute verbatim copies
 //# of this license document, but changing it is not allowed.
@@ -16,10 +16,10 @@
 #include <CheatCard/basenode.h>
 
 namespace RC {
-    namespace API {
-        class User;
-        class UserHeader;
-    }
+namespace Intefaces {
+    class iUser;
+}
+class UserHeader;
 }
 
 class TestSeller;
@@ -42,9 +42,9 @@ protected:
     void addSeal(const QSharedPointer<TestSeller> &seller,
                  const QSharedPointer<TestVisitor> &client,
                  const QSharedPointer<TestServer> &server,
-                 const QSharedPointer<RC::API::User> user,
+                 const QSharedPointer<RC::Interfaces::iUser> &user,
                  unsigned int cardId, int sealsCount,
-                 QSharedPointer<RC::API::UserHeader>&,
+                 QSharedPointer<RC::UserHeader>&,
                  const QString &host,
                  int port);
 private:

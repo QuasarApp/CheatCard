@@ -1,5 +1,5 @@
 //#
-//# Copyright (C) 2021-2021 QuasarApp.
+//# Copyright (C) 2021-2023 QuasarApp.
 //# Distributed under the GPLv3 software license, see the accompanying
 //# Everyone is permitted to copy and distribute verbatim copies
 //# of this license document, but changing it is not allowed.
@@ -10,9 +10,10 @@
 
 #include <QObject>
 #include <QSettings>
+#include <modelsstorage.h>
 #include <settingslistner.h>
-#include <CheatCard/database.h>
 #include <CheatCardGui/ibilling.h>
+#include <rci/core/idb.h>
 
 
 namespace DP {
@@ -21,14 +22,9 @@ class DoctorModel;
 
 namespace RC {
 
-
-namespace API {
-class Card;
-class User;
-class UsersCards;
-class UserHeader;
-class Session;
-class Contacts;
+namespace Interfaces {
+class iCard;
+class iUsersCards;
 }
 
 class SoundPlayback;
@@ -51,6 +47,7 @@ class CreateCardModel;
 class UsersListModel;
 class ImagesStorageModel;
 class PermisionsModel;
+class UserHeader;
 
 /**
  * @brief The MainModel class is main model of the application.
@@ -83,7 +80,7 @@ public:
         Client = 0,
         Seller = 1
     };
-    MainModel(QH::ISqlDBCache* db);
+    MainModel(const QSharedPointer<Interfaces::iDB> &db);
     ~MainModel();
 
     bool fFirst() const;
@@ -167,31 +164,33 @@ signals:
 
 protected:
     void handleSettingsChanged(const QString &key, const QVariant &value) override;
+    QByteArray importDeprecatedUser(const QString &base64UserData);
 
 private slots:
     bool handleImportUser(const QString &base64UserData);
-    void handleCardReceived(QSharedPointer<RC::API::Card> card);
 
-    void handleCardEditFinished(const QSharedPointer<RC::API::Card> &card);
-    void handleResetCardModel(const QSharedPointer<RC::API::Card> &card);
+    void handleCardReceived(QSharedPointer<RC::Interfaces::iCard> card);
 
-    void handleRemoveRequest(const QSharedPointer<API::Card> &card);
+    void handleCardEditFinished(const QSharedPointer<RC::Interfaces::iCard> &card);
+    void handleResetCardModel(const QSharedPointer<RC::Interfaces::iCard> &card);
+
+    void handleRemoveRequest(const QSharedPointer<RC::Interfaces::iCard> &card);
     void handleCardSelectedForWork(const QSharedPointer<RC::CardModel>& card);
     void handleCardSelectedForStatistic(const QSharedPointer<RC::CardModel>& card);
 
-    void handlePurchaseWasSuccessful(QSharedPointer<API::UsersCards>, bool alert);
+    void handlePurchaseWasSuccessful(QSharedPointer<RC::Interfaces::iUsersCards>, bool alert);
     void handleListenStart(int purchasesCount,
                            QSharedPointer<RC::CardModel> model,
-                           QSharedPointer<RC::API::UserHeader>);
+                           QSharedPointer<RC::UserHeader>);
     void handleListenStop();
     void handleAppStateChanged(Qt::ApplicationState state);
     void handlePurchaseReceived(RC::Purchase purchase);
-    void saveCard(const QSharedPointer<RC::API::Card> &card);
-    void handleCardCreated(const QSharedPointer<API::Card> &card);
+    void saveCard(const QSharedPointer<RC::Interfaces::iCard> &card);
+    void handleCardCreated(const QSharedPointer<RC::Interfaces::iCard> &card);
     void handleAppOutdated(int minimumRequiredVersion);
-    void handlePermissionChanged(const QSharedPointer<RC::API::Contacts>& permision);
-    void handlePermissionRemoved(QSharedPointer<RC::API::Contacts> permision);
-    void handlePermissionAdded(QSharedPointer<API::UserHeader> childUserName);
+    void handlePermissionChanged(const QSharedPointer<RC::Interfaces::iContacts>& permision);
+    void handlePermissionRemoved(QSharedPointer<RC::Interfaces::iContacts> permision);
+    void handlePermissionAdded(QSharedPointer<RC::UserHeader> childUserName);
     void handleContactsListChanged();
     void handleSerrverSentError(unsigned char code, QString);
 
@@ -199,33 +198,20 @@ private:
     void saveUser();
     void lastStatusRequest();
 
-    QH::ISqlDBCache *db() const;
+    const QSharedPointer<Interfaces::iDB>& db() const;
 
-    void initCardsListModels();
-    void initImagesModels();
+    void initModels();
     void setBackEndModel(const QSharedPointer<BaseNode> &newModel);
-    void initWaitConnectionModel();
-    void initSellerStatisticModel();
-    void initImportExportModel();
-    void initNetIndicateModels();
-    void initDoctorModel();
-    void initLanguageModel();
-    void initActivityProcessorModel();
-    void initCreateCardModel();
-    void initUsersListModel();
-    void initBackgroundsModel();
-    void initIconsModel();
-    void initPermisionsModel();
 
     void configureCardsList();
 
-    void setCardListModel(CardsListModel *model);
+    void setCardListModel(const QSharedPointer<CardsListModel>& model);
 
     void initMode(const QSharedPointer<UserModel>& user);
 
     void soundEffectPlayback(const QString &soundName);
 
-    bool sendSellerDataToServer(const QSharedPointer<API::UserHeader> &header,
+    bool sendSellerDataToServer(const QSharedPointer<UserHeader> &header,
                                 unsigned int cardId,
                                 int purchasesCount,
                                 bool receive);
@@ -233,43 +219,32 @@ private:
     CardsListModel* getCurrentListModel() const;    
     void syncWithServer() const;
     void setFirst(bool ffirst);
+    void initCardsListModels();
+    void initImagesModels();
     bool _firstRun = true;
 
-    QH::ISqlDBCache * _db = nullptr;
+    QSharedPointer<Interfaces::iDB> _db;
     QSharedPointer<UserModel> _currentUser;
     SettingsModel* _config = nullptr;
 
-    CardsListModel *_cardsListModel = nullptr;
-    CardsListModel *_ownCardsListModel = nullptr;
+    QSharedPointer<CardsListModel> _cardsListModel;
+    QSharedPointer<CardsListModel> _ownCardsListModel;
 
-    CardProxyModel *_currentCardsListModel = nullptr;
-    UsersListModel *_usersListModel = nullptr;
-    ImagesStorageModel *_backgrounds = nullptr;
-    ImagesStorageModel *_icons = nullptr;
+    QSharedPointer<CardProxyModel> _currentCardsListModel;
 
-
-    AboutModel *_aboutModel = nullptr;
     SoundPlayback *_soundEffect = nullptr;
-    SellerStatisticModel *_statisticModel = nullptr;
-    ItemsModel *_defaultLogosModel = nullptr;
-    ItemsModel *_defaultBackgroundsModel = nullptr;
-    NetIndicatorModel *_netIdicatorModel = nullptr;
-    DP::DoctorModel *_doctorModel = nullptr;
-    LanguagesModel *_langModel = nullptr;
-    ActivityProcessorModel *_activityProcessorModel = nullptr;
-    CreateCardModel *_createCardModel = nullptr;
-    PermisionsModel *_permisionsModel = nullptr;
+    QSharedPointer<ItemsModel> _defaultLogosModel;
+    QSharedPointer<ItemsModel> _defaultBackgroundsModel;
 
-    ImportExportUserModel *_importExportModel = nullptr;
+    QSharedPointer<ModelsStorage> _modelStorage;
+
     IBilling *_billing = nullptr;
 
     QSharedPointer<BaseNode> _backEndModel = nullptr;
     QSharedPointer<BaseNode> _sellerbackEndModel = nullptr;
     QSharedPointer<BaseNode> _visitorbackEndModel = nullptr;
 
-    WaitConnectionModel *_waitModel = nullptr;
-
-    QSharedPointer<API::UserHeader> _lastUserHeader;
+    QSharedPointer<UserHeader> _lastUserHeader;
 
     Mode _mode = Mode::Client;
     bool _fShowEmptyBonuspackaMessage = false;

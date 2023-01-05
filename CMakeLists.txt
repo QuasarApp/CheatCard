@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2020-2021 QuasarApp.
+# Copyright (C) 2020-2023 QuasarApp.
 # Distributed under the GPLv3 software license, see the accompanying
 # Everyone is permitted to copy and distribute verbatim copies
 # of this license document, but changing it is not allowed.
@@ -31,7 +31,7 @@ endif()
 
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Test QUIET)
 
-include(submodules/Heart/QuasarAppLib/CMake/QuasarApp.cmake)
+include(submodules/Heart/submodules/QuasarAppLib/CMake/QuasarApp.cmake)
 
 initAll()
 addDoc(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/doxygen.conf)
@@ -46,80 +46,37 @@ updateGitVars()
 set(CHEAT_CARD_SHORT_VERSION "1.${GIT_COMMIT_COUNT}")
 set(CHEAT_CARD_VERSION "${CHEAT_CARD_SHORT_VERSION}.${GIT_COMMIT_HASH}")
 
-if (NOT DEFINED CHEATCARD_TESTS)
-    set(CHEATCARD_TESTS ON)
 
-    if (DEFINED TARGET_PLATFORM_TOOLCHAIN)
-        if (${TARGET_PLATFORM_TOOLCHAIN} STREQUAL "wasm32")
-            set(CHEATCARD_TESTS OFF)
-            return()
-        endif()
-    endif()
-
-    if (ANDROID OR IOS)
-        set(CHEATCARD_TESTS OFF)
-    endif()
-
-    if (NOT QT_VERSION_MAJOR)
-        set(CHEATCARD_TESTS OFF)
-    endif()
-
-    if(WIN32)
-        set(CHEATCARD_TESTS OFF)
-    endif()
+if(QA_WASM32)
+    return()
 endif()
 
-if (NOT DEFINED CHEATCARD_SERVER)
-    set(CHEATCARD_SERVER ON)
-
-    if (DEFINED TARGET_PLATFORM_TOOLCHAIN)
-        if (${TARGET_PLATFORM_TOOLCHAIN} STREQUAL "wasm32")
-            set(CHEATCARD_SERVER OFF)
-            return()
-        endif()
-    endif()
-
-    if (ANDROID OR APPLE)
-        set(CHEATCARD_SERVER OFF)
-    endif()
-
-    if (NOT QT_VERSION_MAJOR)
-        set(CHEATCARD_SERVER OFF)
-    endif()
-
-    if(WIN32)
-        set(CHEATCARD_SERVER OFF)
-    endif()
+if (ANDROID OR IOS OR WIN32)
+    option (CHEATCARD_TESTS "This option enable or disable app tests" OFF)
+    option (CHEATCARD_SERVER "This option enable or disable app server" OFF)
+else()
+    option (CHEATCARD_TESTS "This option enable or disable app tests" ON)
+    option (CHEATCARD_SERVER "This option enable or disable app server" ON)
 endif()
 
-if (NOT DEFINED CHEATCARD_APP)
-    set(CHEATCARD_APP ON)
-
-    if (DEFINED TARGET_PLATFORM_TOOLCHAIN)
-        if (${TARGET_PLATFORM_TOOLCHAIN} STREQUAL "wasm32")
-            set(CHEATCARD_APP OFF)
-            return()
-        endif()
-    endif()
-
-endif()
-
+option (CHEATCARD_APP "This option enable or disable main app" ON)
 option(ALLOW_BILLING "This option force to add seller functions" ON)
 
-set(HEART_BUILD_LVL 1)
-
 add_subdirectory(submodules/Heart)
-add_subdirectory(src/RC)
+
+option(DOCTOR_PILL_EXAMPLE "Enable example app of this library" OFF)
+option(DOCTOR_PILL_TESTS "Enable tests of this library" OFF)
+add_subdirectory(submodules/DoctorPill)
+
+add_subdirectory(src/Interfaces)
+add_subdirectory(src/DB)
+add_subdirectory(src/API)
+
+add_subdirectory(src/Core)
 
 if (CHEATCARD_SERVER)
     add_subdirectory(submodules/Patronum)
-    add_subdirectory(src/CheatCardServer)
-else()
-    message("The ${PROJECT_NAME} tests is disabled.")
-endif()
-
-if (CHEATCARD_TESTS)
-    add_subdirectory(tests)
+    add_subdirectory(src/Server)
 else()
     message("The ${PROJECT_NAME} tests is disabled.")
 endif()
@@ -131,15 +88,17 @@ if (CHEATCARD_APP)
     add_subdirectory(submodules/QrCodes/src)
     set(CREDITS_EXAMPLES OFF)
     add_subdirectory(submodules/Credits)
-    option(DOCTOR_PILL_EXAMPLE "Enable example app of this library" OFF)
-    option(DOCTOR_PILL_TESTS "Enable tests of this library" OFF)
-    add_subdirectory(submodules/DoctorPill)
     add_subdirectory(src/GUI)
     if (ANDROID OR IOS)
         add_subdirectory(submodules/QtNativeTr)
     endif()
-    add_subdirectory(src/RCApp)
+    add_subdirectory(src/App)
 else()
     message("The ${PROJECT_NAME} app is disabled.")
 endif()
 
+if (CHEATCARD_TESTS)
+    add_subdirectory(tests)
+else()
+    message("The ${PROJECT_NAME} tests is disabled.")
+endif()

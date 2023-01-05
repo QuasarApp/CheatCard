@@ -1,26 +1,19 @@
-#include "testdatabasewrapper.h"
 #include "testserver.h"
-
-#include <CheatCard/api/api0/card.h>
-#include <CheatCard/api/api0/userscards.h>
 
 #include <QCoreApplication>
 
-TestServer::TestServer(QSharedPointer<TestDataBaseWrapper> db):
-    RC::Server(db->db()) {
-    privateDb = db;
+TestServer::TestServer(const QSharedPointer<RC::Interfaces::iDB> &db):
+    RC::Server(db) {
 }
 
-QSharedPointer<RC::API::Card> TestServer::getCard(unsigned int cardId) const {
-    RC::API::Card card;
-    card.setId(cardId);
+QSharedPointer<RC::Interfaces::iCard> TestServer::getCard(unsigned int cardId) const {
 
-    auto cardObj = db()->getObject(card);
+    auto cardObj = db()->getCard(cardId);
     return cardObj;
 }
 
 int TestServer::getPurchaseCount(unsigned int userId, unsigned int cardId) {
-    QSharedPointer<RC::API::UsersCards> result = getUserCardData(userId, cardId);
+    auto result = db()->getUserCardData(userId, cardId);
 
     if (!result)
         return 0;
@@ -29,5 +22,17 @@ int TestServer::getPurchaseCount(unsigned int userId, unsigned int cardId) {
 }
 
 bool TestServer::containsContact(const QByteArray &userId, const QByteArray &childId) {
-    return getContactFromChildId(userId, childId);
+    return db()->getContactFromChildId(userId, childId);
+}
+
+int TestServer::getFreeItemsCount(unsigned int userId, unsigned int cardId) {
+    auto dbUsersCards = db()->getUserCardData(
+        userId,
+        cardId);
+    return db()->getFreeItemsCount(dbUsersCards);
+}
+
+
+const QSharedPointer<RC::Interfaces::iDB> &TestServer::getDBObject() const {
+    return db();
 }

@@ -1,10 +1,11 @@
 #include "apitest.h"
+#include "api.h"
+#include "testseller.h"
 #include "testserver.h"
 #include "cheatcardtestshelper.h"
 
-#include <CheatCard/api/apiv1-5.h>
-#include <CheatCard/api/api1-5/deletecardrequest.h>
-#include <CheatCard/api/api0/user.h>
+#define TEST_CHEAT_PORT 15005
+#define TEST_CHEAT_HOST "localhost"
 
 template<class Base>
 class ApiTester: public Base {
@@ -22,35 +23,77 @@ void APITest::test() {
 }
 
 void APITest::testProcessDeleteCardRequest() {
-    auto server = CheatCardTestsHelper::makeNode<TestServer>(":/sql/units/sql/TestSallerDb.sql", true);
-    server->addApiParser<ApiTester<RC::ApiV1_5>>();
+    // intialization nodes.
+    auto server = CheatCardTestsHelper::makeNode<TestServer>();
+    auto seller1 = CheatCardTestsHelper::makeNode<TestSeller>();
+    auto seller2 = CheatCardTestsHelper::makeNode<TestSeller>();
 
-    // api parser 1.5
-    auto api = server->apiParsers().value(2).dynamicCast<ApiTester<RC::ApiV1_5>>();
-    QVERIFY(api);
+    // initialization api objects for nodes.
+    RC::API::init({2}, server->getDBObject(), server.data());
+    RC::API::init({2}, seller1->getDBObject(), seller1.data());
+    RC::API::init({2}, seller2->getDBObject(), seller2.data());
 
-    auto request =  QSharedPointer<RC::APIv1_5::DeleteCardRequest>::create();
-    request->setSecret("random");
-    request->setCard(1990574875);
+    // run server node.
+    QVERIFY(server->run(TEST_CHEAT_HOST, TEST_CHEAT_PORT));
 
-    // try remove card with invalid secreet. must be failed
-    QVERIFY(!api->processDeleteCardRequest(request, nullptr, {}));
+    // init meta objects. (create card)
+    auto seller1DB = seller1->getDBObject();
+    auto seller2DB = seller2->getDBObject();
 
-    auto user = server->getUser(2936319662);
-    QVERIFY(user);
-    request->setSecret(user->secret());
+    auto card = seller1DB->makeEmptyCard();
+    unsigned int cardId = card->cardId();
 
-    QVERIFY(server->getCard(1990574875));
-    auto dataList = server->getAllUserCardsData(user->getKey(), {});
-    QVERIFY(dataList.size() == 2);
+    // initialisation of the first user object.
+    auto seller1User = seller1DB->makeEmptyUser();
+    QVERIFY(seller1User->isValid());
+    QVERIFY(seller1DB->saveUser(seller1User));
 
-    // try remove card with correct secreet. must be failed
-    QVERIFY(api->processDeleteCardRequest(request, nullptr, {}));
+    // initialisation of the second user object.
+    auto seller2User = seller2DB->makeEmptyUser();
+    QVERIFY(seller2User->isValid());
+    QVERIFY(seller2DB->saveUser(seller2User));
 
-    QVERIFY(!server->getCard(1990574875));
-    QVERIFY(server->getAllUserCardsData(user->getKey(), {}).size() == 1);
+    // create a test card
+    card->setTitle("testCard");
+    card->setFreeIndex(10);
+    card->setOwnerSignature(seller1User->getKey());
+    card->setFreeItemName("Free Item");
 
-    QVERIFY(server->getCard(1990574874));
+    QVERIFY(card->isValid());
+    QVERIFY(seller1DB->saveCard(card));
+
+    // send card to server.
+    QVERIFY(seller1->cardUpdated(cardId, card->getCardVersion() + 1, TEST_CHEAT_HOST, TEST_CHEAT_PORT));
+    QVERIFY(wait([server, cardId](){
+        auto card = server->getCard(cardId);
+        return card && card->isValid();
+    }, WAIT_TIME));
+
+    // make a cheat client with random secret
+    seller1User->setSecret(QCryptographicHash::hash("secret", QCryptographicHash::Sha256));
+    QVERIFY(seller2DB->saveUser(seller1User));
+    QVERIFY(seller2DB->saveCard(card));
+
+    // send request tu remove (shold be failed and client shld be receivve erro message.)
+    QVERIFY(seller2->deleteCard(cardId, TEST_CHEAT_HOST, TEST_CHEAT_PORT));
+    QVERIFY(wait([seller2](){
+        auto err = seller2->getLastErrrorCode();
+        return err == 1;
+    }, WAIT_TIME));
+
+
+    // card should be exists
+    QVERIFY(server->getCard(cardId));
+
+
+    QVERIFY(seller1->deleteCard(cardId, TEST_CHEAT_HOST, TEST_CHEAT_PORT));
+
+    // wait for delete card on server
+    QVERIFY(wait([server, cardId](){
+        return !server->getCard(cardId);
+    }, WAIT_TIME));
+
+
 
 }
 
