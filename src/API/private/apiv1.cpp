@@ -379,6 +379,13 @@ bool ApiV1::sendContacts(const Interfaces::iContacts &,
     return false;
 }
 
+bool ApiV1::deleteCard(unsigned int ,
+                       QH::AbstractNodeInfo *) {
+    QuasarAppUtils::Params::log(QString("Invoke not supported method : ApiV1::deleteCard"),
+                                QuasarAppUtils::Warning);
+    return false;
+}
+
 bool ApiV1::sendUpdateCard(unsigned int ,
                            unsigned int ,
                            QH::AbstractNodeInfo *) {

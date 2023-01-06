@@ -47,7 +47,8 @@ public:
                       const QByteArray &secreet,
                       bool removeRequest,
                       QH::AbstractNodeInfo *dist) override;
-
+    bool deleteCard(unsigned int cardId,
+                    QH::AbstractNodeInfo *dist) override;
     bool sendUpdateCard(unsigned int cardId,
                         unsigned int version,
                         QH::AbstractNodeInfo *dist) override;

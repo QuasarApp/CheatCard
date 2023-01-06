@@ -710,11 +710,10 @@ bool ApiV2::sendContacts(const Interfaces::iContacts& contact,
 }
 
 bool ApiV2::deleteCard(unsigned int cardId,
-                       const QByteArray &curentUserKey,
                        QH::AbstractNodeInfo *dist) {
     API::V2::DeleteCardRequest request;
     request.setCard(cardId);
-    auto secret = db()->getSecret(curentUserKey);
+    auto secret = db()->getSecretOfCardOvner(cardId);
 
     if (secret.isEmpty())
         return false;

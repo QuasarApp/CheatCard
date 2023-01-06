@@ -80,13 +80,10 @@ public:
     /**
      * @brief deleteCard This is delete card request
      * @param cardId card id
-     * @param curentUserKey This is key of user that want to remove the card with @a cardId
      * @param dist This is distanation node.
      * @return true if request created and sent successful else false.
      */
-    virtual bool deleteCard(unsigned int cardId,
-                            const QByteArray &curentUserKey,
-                            QH::AbstractNodeInfo *dist) = 0;
+    virtual bool deleteCard(unsigned int cardId, QH::AbstractNodeInfo *dist) = 0;
 
     /**
      * @brief sendUpdateCard This request send new updated information about the card.
