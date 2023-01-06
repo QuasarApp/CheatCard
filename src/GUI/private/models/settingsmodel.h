@@ -62,9 +62,6 @@ public:
     unsigned int getCurrUser();
     void setCurrUser(unsigned int id);
 
-    Q_INVOKABLE void showDataBaseLocation();
-    Q_INVOKABLE void exportDataBase();
-
 protected:
     void syncImplementation() override;
     QVariant getValueImplementation(const QString &key, const QVariant &def) override;

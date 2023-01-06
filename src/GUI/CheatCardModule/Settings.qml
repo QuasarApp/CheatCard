@@ -327,24 +327,6 @@ Page {
                     }
 
                     Button {
-                        text: qsTr("Check database location")
-                        Layout.fillWidth: true
-
-                        onClicked: {
-                            config.showDataBaseLocation();
-                        }
-                    }
-
-                    Button {
-                        text: qsTr("Export a database")
-                        Layout.fillWidth: true
-
-                        onClicked: {
-                            config.exportDataBase();
-                        }
-                    }
-
-                    Button {
                         text: qsTr("Diagnostic the application")
                         Layout.fillWidth: true;
 
