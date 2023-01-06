@@ -36,24 +36,6 @@ void SettingsModel::setCurrUser(unsigned int id) {
     forceReloadCache();
 }
 
-void SettingsModel::showDataBaseLocation() {
-    if (auto service = QmlNotificationService::NotificationService::getService()) {
-        service->setNotify(tr("Database location"),
-                           tr("no longer support"),
-                           "", QmlNotificationService::NotificationData::Normal);
-
-        return;
-    }
-}
-
-void SettingsModel::exportDataBase() {
-    if ( auto service = QmlNotificationService::NotificationService::getService()) {
-        service->setNotify(tr("Export no longer support"),
-                           tr("Export no longer support"),
-                           "", QmlNotificationService::NotificationData::Error);
-    }
-}
-
 void SettingsModel::syncImplementation() {
     QuasarAppUtils::Settings::syncImplementation();
 }
