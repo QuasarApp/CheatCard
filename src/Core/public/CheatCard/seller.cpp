@@ -208,7 +208,7 @@ bool Seller::deleteCard(unsigned int cardId, const QString &domain, int port) {
 
         auto api = getApi(node);
         if (api) {
-            api->deleteCard(cardId, dist);
+            api->deleteCard(cardId, currentUser()->getKey(), dist);
         }
     };
 
