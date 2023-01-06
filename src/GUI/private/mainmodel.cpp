@@ -423,7 +423,7 @@ void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
                 this, &MainModel::handlePurchaseWasSuccessful);
 
         connect(_backEndModel.data(), &BaseNode::sigCardReceived,
-                this, &MainModel::handleCardReceived);
+                this, &MainModel::handleCardReceived, Qt::DirectConnection);
 
         connect(_backEndModel.data(), &BaseNode::sigVersionNoLongerSupport,
                 this, &MainModel::handleAppOutdated);
@@ -630,10 +630,29 @@ QSharedPointer<BaseNode> initBackEndModel(const QSharedPointer<UserModel>& user,
     QSharedPointer<BaseNode> result;
     result = QSharedPointer<BaseNode>(new BackEndType(db), softRemove);
 
-    API::init({2}, db, result.data());
+    const auto apis = API::init({2}, db, result.data());
     if (user) {
         result->setCurrentUser(user->user());
     }
+
+    for (const auto & api: apis) {
+        MainModel::connect(api.data(), &API::APIBase::sigCardReceived,
+                           result.data(), &BaseNode::sigCardReceived, Qt::DirectConnection);
+
+        MainModel::connect(api.data(), &API::APIBase::sigContactsStatusResult,
+                           result.data(), &BaseNode::sigContactsStatusResult, Qt::DirectConnection);
+
+        MainModel::connect(api.data(), &API::APIBase::sigSessionStatusResult,
+                           result.data(), &BaseNode::sigSessionStatusResult, Qt::DirectConnection);
+
+        MainModel::connect(api.data(), &API::APIBase::sigContactsListChanged,
+                           result.data(), &BaseNode::sigContactsListChanged, Qt::DirectConnection);
+
+        MainModel::connect(api.data(), &API::APIBase::sigPurchaseWasSuccessful,
+                           result.data(), &BaseNode::sigPurchaseWasSuccessful, Qt::DirectConnection);
+
+    }
+
 
     return result;
 };
@@ -698,7 +717,7 @@ QObject *MainModel::cardsList() const {
     return _currentCardsListModel.data();
 }
 
-void MainModel::handleCardReceived(QSharedPointer<Interfaces::iCard> card) {
+void MainModel::handleCardReceived(QSharedPointer<RC::Interfaces::iCard> card) {
 
     if (card->isOvner(_currentUser->user()->id())) {
         _ownCardsListModel->importCard(card);
