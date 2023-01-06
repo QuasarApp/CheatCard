@@ -839,8 +839,10 @@ void MainModel::handleRemoveRequest(const QSharedPointer<Interfaces::iCard> &car
 
             listner(true);
 
-            if (auto backEnd = _backEndModel.dynamicCast<Seller>()) {
-                backEnd->deleteCard(card->cardId());
+            // only owners can remove the card on server
+            if (card->isOvner(_currentUser->userId()) ) {
+                if (auto backEnd = _backEndModel.dynamicCast<Seller>())
+                    backEnd->deleteCard(card->cardId());
             }
             return;
         }
