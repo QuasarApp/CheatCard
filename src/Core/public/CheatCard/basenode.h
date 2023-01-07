@@ -77,7 +77,7 @@ public:
 
 signals:
     void sigPurchaseWasSuccessful(QSharedPointer<RC::Interfaces::iUsersCards> data, bool alert);
-    void sigCardReceived(QSharedPointer<RC::Interfaces::iCard> err);
+    void sigCardReceived(QSharedPointer<RC::Interfaces::iCard> card);
     void sigNetworkError(QAbstractSocket::SocketError errorCode,
                          QSslError::SslError sslError);
     void sigAvailableNetworkChanged(bool);

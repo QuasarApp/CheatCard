@@ -51,15 +51,6 @@ public:
                       QH::AbstractNodeInfo *dist) override;
     void initSupportedCommands() override;
 
-signals:
-
-    void sigPurchaseWasSuccessful(QSharedPointer<RC::Interfaces::iUsersCards> userData, bool alert) override;
-    void sigCardReceived(QSharedPointer<RC::Interfaces::iCard>) override;
-    void sigSessionStatusResult(QSharedPointer<RC::Interfaces::iSession>, bool succesed) override;
-    void sigContactsStatusResult(QSharedPointer<RC::Interfaces::iContacts> contact,
-                                 bool succesed, bool removed) override;
-    void sigContactsListChanged() override;
-
 protected:
 
     bool processCardStatusRequest(const QSharedPointer<V0::CardStatusRequest> &message,
