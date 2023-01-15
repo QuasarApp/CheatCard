@@ -79,6 +79,7 @@ if (ANDROID)
         QuasarApp
         Credits
         Heart
+        crc
         QmlNotyfyService
         SCodes
         ZXing
