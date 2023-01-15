@@ -894,21 +894,6 @@
     </message>
 </context>
 <context>
-    <name>RC::SettingsModel</name>
-    <message>
-        <source>Database location</source>
-        <translation>Розташування бази даних</translation>
-    </message>
-    <message>
-        <source>no longer support</source>
-        <translation>більше не підтримується</translation>
-    </message>
-    <message>
-        <source>Export no longer support</source>
-        <translation>Експорт більше не підтримується</translation>
-    </message>
-</context>
-<context>
     <name>RC::WaitConfirmModel</name>
     <message>
         <source>Not so fast!</source>
@@ -1025,14 +1010,6 @@
     <message>
         <source>Dark Theme</source>
         <translation>Темна тема</translation>
-    </message>
-    <message>
-        <source>Check database location</source>
-        <translation>Перевірте розташування бази даних</translation>
-    </message>
-    <message>
-        <source>Export a database</source>
-        <translation>Експортувати базу даних</translation>
     </message>
     <message>
         <source>Diagnostic the application</source>
