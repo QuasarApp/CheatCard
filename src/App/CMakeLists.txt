@@ -72,6 +72,10 @@ if (ANDROID)
     set(SNAKE_EXTRA_LIBS
         ${PROJECT_NAME}Core
         ${PROJECT_NAME}Gui
+        ${PROJECT_NAME}API
+        ${PROJECT_NAME}DB
+        ${PROJECT_NAME}Interfaces
+
         QuasarApp
         Credits
         Heart

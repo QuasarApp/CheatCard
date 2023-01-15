@@ -895,21 +895,6 @@
     </message>
 </context>
 <context>
-    <name>RC::SettingsModel</name>
-    <message>
-        <source>Database location</source>
-        <translation>Lokalizacja bazy danych</translation>
-    </message>
-    <message>
-        <source>no longer support</source>
-        <translation>już nie obsługuje</translation>
-    </message>
-    <message>
-        <source>Export no longer support</source>
-        <translation>Eksport nie jest już obsługiwany</translation>
-    </message>
-</context>
-<context>
     <name>RC::WaitConfirmModel</name>
     <message>
         <source>Not so fast!</source>
@@ -1026,14 +1011,6 @@
     <message>
         <source>Dark Theme</source>
         <translation>Ciemny schemat</translation>
-    </message>
-    <message>
-        <source>Check database location</source>
-        <translation>Sprawdź lokalizację bazy danych</translation>
-    </message>
-    <message>
-        <source>Export a database</source>
-        <translation>Eksportuj bazę danych</translation>
     </message>
     <message>
         <source>Diagnostic the application</source>

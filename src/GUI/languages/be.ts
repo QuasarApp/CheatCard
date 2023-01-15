@@ -890,21 +890,6 @@
     </message>
 </context>
 <context>
-    <name>RC::SettingsModel</name>
-    <message>
-        <source>Database location</source>
-        <translation>Размяшчэнне базы дадзеных</translation>
-    </message>
-    <message>
-        <source>no longer support</source>
-        <translation>больш не падтрымліваецца</translation>
-    </message>
-    <message>
-        <source>Export no longer support</source>
-        <translation>Экспарт больш не падтрымліваецца</translation>
-    </message>
-</context>
-<context>
     <name>RC::WaitConfirmModel</name>
     <message>
         <source>Not so fast!</source>
@@ -1013,14 +998,6 @@
     <message>
         <source>Developer settings</source>
         <translation>Налады распрацоўніка</translation>
-    </message>
-    <message>
-        <source>Check database location</source>
-        <translation>Праверце месцазнаходжанне базы дадзеных</translation>
-    </message>
-    <message>
-        <source>Export a database</source>
-        <translation>Экспарт базы дадзеных</translation>
     </message>
     <message>
         <source>Diagnostic the application</source>

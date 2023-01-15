@@ -891,21 +891,6 @@
     </message>
 </context>
 <context>
-    <name>RC::SettingsModel</name>
-    <message>
-        <source>Database location</source>
-        <translation>მონაცემთა ბაზის ადგილმდებარეობა</translation>
-    </message>
-    <message>
-        <source>no longer support</source>
-        <translation>აღარ უჭერს მხარს</translation>
-    </message>
-    <message>
-        <source>Export no longer support</source>
-        <translation>ექსპორტი აღარ არის მხარდაჭერილი</translation>
-    </message>
-</context>
-<context>
     <name>RC::WaitConfirmModel</name>
     <message>
         <source>Not so fast!</source>
@@ -1014,14 +999,6 @@
     <message>
         <source>Developer settings</source>
         <translation>დეველოპერის პარამეტრები</translation>
-    </message>
-    <message>
-        <source>Check database location</source>
-        <translation>შეამოწმეთ მონაცემთა ბაზის ადგილმდებარეობა</translation>
-    </message>
-    <message>
-        <source>Export a database</source>
-        <translation>მონაცემთა ბაზის ექსპორტი</translation>
     </message>
     <message>
         <source>Diagnostic the application</source>
