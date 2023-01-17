@@ -61,6 +61,10 @@ MainModel::MainModel(const QSharedPointer<Interfaces::iDB> &db) {
     _modelStorage = QSharedPointer<ModelsStorage>::create(_db);
 
     qRegisterMetaType<QSharedPointer<RC::CardModel>>();
+    qRegisterMetaType<QSharedPointer<RC::Interfaces::iUsersCards>>();
+    qRegisterMetaType<QSharedPointer<RC::UserHeader>>();
+    qRegisterMetaType<QSharedPointer<RC::Interfaces::iSession>>();
+    qRegisterMetaType<QSharedPointer<RC::Interfaces::iContacts>>();
 
     initModels();
 
