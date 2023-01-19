@@ -751,7 +751,13 @@ bool ApiV2::changeUsersData(const QByteArray& sellerUserKey,
     changes.setReceive(receivedCount);
     changes.setSecret(db()->getSecret(sellerUserKey));
 
-    return sendData(&changes, dist);
+
+    _checkUserRequestHash.clear();
+
+    auto packageHash = sendData(&changes, dist);
+    _checkUserRequestHash += packageHash;
+
+    return packageHash;
 
 }
 
