@@ -24,8 +24,6 @@ void SecurityTest::test() {
     QSharedPointer<TestVisitor> client;
     QSharedPointer<TestServer> server;
 
-    qDebug() << "TEST API V1";
-
     seller = CheatCardTestsHelper::makeNode<TestSeller>(":/sql/units/sql/TestSallerDb.sql");
 
     client = CheatCardTestsHelper::makeNode<TestVisitor>();

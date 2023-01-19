@@ -61,6 +61,11 @@ MainModel::MainModel(const QSharedPointer<Interfaces::iDB> &db) {
     _modelStorage = QSharedPointer<ModelsStorage>::create(_db);
 
     qRegisterMetaType<QSharedPointer<RC::CardModel>>();
+    qRegisterMetaType<QSharedPointer<RC::Interfaces::iUsersCards>>();
+    qRegisterMetaType<QSharedPointer<RC::UserHeader>>();
+    qRegisterMetaType<QSharedPointer<RC::Interfaces::iSession>>();
+    qRegisterMetaType<QSharedPointer<RC::Interfaces::iContacts>>();
+    qRegisterMetaType<QSharedPointer<RC::Interfaces::iCard>>();
 
     initModels();
 
@@ -423,7 +428,7 @@ void MainModel::setBackEndModel(const QSharedPointer<BaseNode>& newModel) {
                 this, &MainModel::handlePurchaseWasSuccessful);
 
         connect(_backEndModel.data(), &BaseNode::sigCardReceived,
-                this, &MainModel::handleCardReceived, Qt::DirectConnection);
+                this, &MainModel::handleCardReceived);
 
         connect(_backEndModel.data(), &BaseNode::sigVersionNoLongerSupport,
                 this, &MainModel::handleAppOutdated);

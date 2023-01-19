@@ -50,4 +50,7 @@ private:
     QString _userName;
 };
 }
+
+Q_DECLARE_METATYPE(QSharedPointer<RC::UserHeader>)
+
 #endif // USERHEADER_H
