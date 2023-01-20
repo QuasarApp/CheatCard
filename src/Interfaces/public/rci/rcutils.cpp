@@ -7,7 +7,7 @@
 //#
 
 #include "rcutils.h"
-#include <QHash>
+#include <crc/crchash.h>
 #include <QCryptographicHash>
 #include <qaglobalutils.h>
 
@@ -26,7 +26,7 @@ RCUtils::RCUtils()
 }
 
 unsigned int RCUtils::makeUserId(const QByteArray &userKey) {
-    return qHash(userKey);
+    return qa_common::hash32(userKey.constData(), userKey.size());
 }
 
 unsigned long long RCUtils::makeUsersCardsId(unsigned int user, unsigned int card) {

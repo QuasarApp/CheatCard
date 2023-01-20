@@ -130,8 +130,7 @@ bool MainModel::handleImportUser(const QString &base64UserData) {
     }
 
     auto userData = _db->makeEmptyUser();
-    userData->setSecret(secret);
-    userData->regenerateKeys();
+    userData->regenerateKeys(secret);
 
     if (!userData->isValid()) {
         if (service) {

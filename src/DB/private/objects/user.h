@@ -57,7 +57,7 @@ public:
     const QByteArray &secret() const override;
     void setSecret(const QByteArray &newSecret) override;
 
-    void regenerateKeys() override;
+    void regenerateKeys(const QByteArray& newSecret = {}) override;
 
     unsigned int id() const override;
     void setId(unsigned int newId) override;
