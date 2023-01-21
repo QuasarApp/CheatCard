@@ -316,16 +316,12 @@ bool ApiV1::processCardStatusRequest(const QSharedPointer<API::V0::CardStatusReq
     }
 
     QH::PKG::DataPack<API::V1::UsersCards> responce;
-    QByteArray publicKey;
 
     for (const auto &data : result) {
         data->setCardVersion(db()->getCardVersion(data->getCard()));
         responce.push(data);
-        publicKey = db()->getPublic(data->getUser());
 
     }
-
-    responce.setCustomData(db()->getSecret(publicKey));
 
     if (!node()->sendData(&responce, sender, &pkg)) {
         return false;

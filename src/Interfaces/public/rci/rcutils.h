@@ -21,13 +21,6 @@ public:
     RCUtils();
 
     /**
-     * @brief makeUserId This method make short user id from the userKey.
-     * @param userKey This is public user key.
-     * @return short user id.
-     */
-    static unsigned int makeUserId(const QByteArray& userKey);
-
-    /**
      * @brief makeUsersCardsId This method generate userscards id by user id and card id.
      * @param user This is user id
      * @param card This is card id
@@ -56,6 +49,12 @@ public:
      */
     static QByteArray makeUserKey(const QByteArray &secret);
 
+    /**
+     * @brief makeUserId this is deprecated method.
+     * @param userKey
+     * @return
+     */
+    [[deprecated]] static unsigned int makeUserId(const QByteArray &userKey);
 };
 }
 #endif // RCUTILS_H

@@ -306,13 +306,6 @@ public:
     virtual QByteArray getSecretOfCardOvner(unsigned int cardId) const = 0;
 
     /**
-     * @brief getPublic This method return public key by the user id
-     * @param userKey This is user id
-     * @return public key by the user id
-     */
-    virtual QByteArray getPublic(unsigned int userId) const = 0;
-
-    /**
      * @brief getFreeItemsCount This method return coun of free items by user data
      * @param inputData This is user data.
      * @return free items count

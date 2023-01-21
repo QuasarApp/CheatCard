@@ -32,7 +32,7 @@ set(PRIVATE_INCUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/private")
 
 add_library(${CURRENT_PROJECT} ${SOURCE_CPP} )
 
-target_link_libraries(${CURRENT_PROJECT} PUBLIC QuasarApp)
+target_link_libraries(${CURRENT_PROJECT} PUBLIC QuasarApp crc)
 
 target_include_directories(${CURRENT_PROJECT} PUBLIC ${PUBLIC_INCUDE_DIR})
 target_include_directories(${CURRENT_PROJECT} PRIVATE ${PRIVATE_INCUDE_DIR})

@@ -7,7 +7,7 @@
 //#
 
 #include "rcutils.h"
-#include <QHash>
+#include <crc/crchash.h>
 #include <QCryptographicHash>
 #include <qaglobalutils.h>
 

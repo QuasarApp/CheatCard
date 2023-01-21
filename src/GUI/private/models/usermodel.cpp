@@ -139,7 +139,7 @@ QString UserModel::userBackUpPath() const {
 }
 
 QString UserModel::userBackUpData() const {
-    return _user->secret();
+    return _user->secret().toBase64(QByteArray::Base64UrlEncoding);
 }
 
 int UserModel::userId() const {

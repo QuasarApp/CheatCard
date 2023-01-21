@@ -85,7 +85,6 @@ public:
 
     virtual QByteArray getSecretOfCardOvner(unsigned int cardId) const override;
     QByteArray getSecret(const QByteArray& userKey) const override;
-    QByteArray getPublic(unsigned int userId) const override;
 
     QSharedPointer<DP::iPill> initPills(const QString &piilId) override;
     QList<QSharedPointer<DP::iPill>> initPills() override;

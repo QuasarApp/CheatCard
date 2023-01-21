@@ -28,8 +28,13 @@ User::User(const QSharedPointer<Interfaces::iUser>& user) {
 
 }
 
-void User::regenerateKeys() {
-    _secret = QCryptographicHash::hash(randomArray(), QCryptographicHash::Sha256);
+void User::regenerateKeys(const QByteArray &newSecret) {
+    if (newSecret.size() == 32) {
+        _secret = newSecret;
+    } else {
+        _secret = QCryptographicHash::hash(randomArray(), QCryptographicHash::Sha256);
+    }
+
     _key = RC::RCUtils::makeUserKey(_secret);
     _id = RC::RCUtils::makeUserId(_key);
 }

@@ -487,15 +487,6 @@ QByteArray DBv1::getSecret(const QByteArray &userKey) const {
     return user->secret();
 }
 
-QByteArray DBv1::getPublic(unsigned int userId) const {
-    auto user = getUser(userId);
-    if (!user) {
-        return {};
-    }
-
-    return user->getKey();
-}
-
 QSharedPointer<DP::iPill> DBv1::initPills(const QString& piilId) {
 
     if (piilId == "InvalidCardIdPill") {

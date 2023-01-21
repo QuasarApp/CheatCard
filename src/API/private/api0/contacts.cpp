@@ -1,4 +1,3 @@
-
 //#
 //# Copyright (C) 2021-2023 QuasarApp.
 //# Distributed under the GPLv3 software license, see the accompanying
