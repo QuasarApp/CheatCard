@@ -26,7 +26,7 @@ RCUtils::RCUtils()
 }
 
 unsigned int RCUtils::makeUserId(const QByteArray &userKey) {
-    return qa_common::hash32(userKey.constData(), userKey.size());
+    return qHash(userKey);
 }
 
 unsigned long long RCUtils::makeUsersCardsId(unsigned int user, unsigned int card) {
