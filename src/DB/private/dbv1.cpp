@@ -408,9 +408,11 @@ QList<QSharedPointer<Interfaces::iUser> >
 DBv1::getAllUserWithPrivateKeys() const {
     QH::PKG::DBObjectsRequest<DB::User> request("Users",
                                                 "secret IS NOT NULL AND secret != \"\"");
-    auto result = db()->getObject(request)->data();
+    auto result = db()->getObject(request);
+    if (!result)
+        return {};
 
-    return {result.begin(), result.end()} ;
+    return {result->data().begin(), result->data().end()} ;
 }
 
 QSharedPointer<Interfaces::iContacts>
