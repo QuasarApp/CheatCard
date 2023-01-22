@@ -19,29 +19,6 @@ class CHEATCARD_INTERFACES_EXPORT RCUtils
 {
 public:
     RCUtils();
-
-    /**
-     * @brief makeUsersCardsId This method generate userscards id by user id and card id.
-     * @param user This is user id
-     * @param card This is card id
-     * @return id of user data by card.
-     */
-    static unsigned long long makeUsersCardsId(unsigned int user, unsigned int card);
-
-    /**
-     * @brief getUserIdFromUsrsCards This method return an user id from the userscards id
-     * @param userscard This is users cards id
-     * @return an user id from the userscards id
-     */
-    static unsigned int getUserIdFromUsrsCards(long long userscard);
-
-    /**
-     * @brief getUserIdFromUsrsCards This method return an card id from the userscards id
-     * @param userscard This is users cards id
-     * @return an card id from the userscards id
-     */
-    static unsigned int getCardIdFromUsrsCards(long long userscard);
-
     /**
      * @brief makeUserKey This method create a public user key from user secreet.
      * @param secret This is user secreet key.
@@ -50,11 +27,11 @@ public:
     static QByteArray makeUserKey(const QByteArray &secret);
 
     /**
-     * @brief makeUserId this is deprecated method.
-     * @param userKey
-     * @return
+     * @brief randomSHA256 This method create a random sha256 hash.
+     * @return random sha256 hash
      */
-    [[deprecated]] static unsigned int makeUserId(const QByteArray &userKey);
+    static QByteArray randomSHA256();
+
 };
 }
 #endif // RCUTILS_H
