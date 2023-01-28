@@ -43,18 +43,6 @@ public:
     virtual bool isValid() const = 0;
 
     /**
-     * @brief id This method should be return user id.
-     * @return user id
-     */
-    virtual unsigned int id() const = 0;
-
-    /**
-     * @brief setId This method sets new id for user.
-     * @param newId This is new user id
-     */
-    virtual void setId(unsigned int newId) = 0;
-
-    /**
      * @brief name This method should be return a curent user name
      * @return current user name
      */

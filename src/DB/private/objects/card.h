@@ -27,8 +27,8 @@ public:
     Card();
     Card(const QSharedPointer<Interfaces::iCard> &obj);
 
-    unsigned int id() const;
-    void setId(unsigned int newId) override;
+    const QByteArray& cardKey() const override;
+    void setCardKey(const QByteArray& newId) override;
     QH::PKG::DBObject *createDBObject() const override;
     const QByteArray &logo() const override;
     void setLogo(const QByteArray &newImage) override;
@@ -54,7 +54,6 @@ public:
     void setTitle(const QString &newTitle) override;
     const QByteArray &background() const override;
     void setBackground(const QByteArray &newBackground) override;
-    unsigned int cardId() const override;
     const QString &freeItemName() const override;
     void setFreeItemName(const QString &newFreeItemName) override;
     unsigned int getCardVersion() const override;
@@ -81,7 +80,7 @@ protected:
 
 private:
 
-    unsigned int _id = 0;
+    QByteArray _key;
     QString _title;
     QByteArray _logo;
     QByteArray _seal;

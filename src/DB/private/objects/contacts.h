@@ -35,10 +35,6 @@ public:
     const QString &getInfo() const override;
     void setInfo(const QString &newInfo) override;
 
-    unsigned int getUser() const override;
-
-    unsigned int getChildUserId() const override;
-
     const QByteArray &getChildUserKey() const override;
     void setChildUserKey(const QByteArray &newChildUserKey) override;
 

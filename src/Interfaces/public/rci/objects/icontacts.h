@@ -41,18 +41,6 @@ public:
     virtual void setInfo(const QString &newInfo) = 0;
 
     /**
-     * @brief getUser This method return user id that create this contact.
-     * @return user id that create this contact.
-     */
-    virtual unsigned int getUser() const = 0;
-
-    /**
-     * @brief getChildUserId This method return child user id
-     * @return child user id
-     */
-    virtual unsigned int getChildUserId() const = 0;
-
-    /**
      * @brief getChildUserKey This method return child user key.
      * @return child user key.
      */

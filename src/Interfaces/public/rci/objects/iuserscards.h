@@ -38,25 +38,25 @@ public:
      * @brief getUser This method should be rerutn user id.
      * @return user id
      */
-    virtual unsigned int getUser() const = 0;
+    virtual const QByteArray& getUser() const = 0;
 
     /**
      * @brief setUser This method should be set new value for the user id property.
      * @param newUser this is new value of the user id.
      */
-    virtual void setUser(unsigned int newUser) = 0;
+    virtual void setUser(const QByteArray& newUser) = 0;
 
     /**
      * @brief getUser This method should be rerutn catd id.
      * @return card id
      */
-    virtual unsigned int getCard() const = 0;
+    virtual const QByteArray& getCard() const = 0;
 
     /**
      * @brief setUser This method should be set new value for the user id property.
      * @param newUser this is new value of the user id.
      */
-    virtual void setCard(unsigned int newCard) = 0;
+    virtual void setCard(const QByteArray& newCard) = 0;
 
     /**
      * @brief getPurchasesNumber This method sgould be return count of the user's purchases on the card.
@@ -87,12 +87,6 @@ public:
      * @param receiveFreItemsCount value of increment
      */
     virtual void receive(unsigned int receiveFreItemsCount) = 0;
-
-    /**
-     * @brief getId This method should be return id of this pair. usualy it is userId + cardId
-     * @return long this data item id.
-     */
-    virtual long long getId() const = 0;
 
     /**
      * @brief getCardVersion This method should be return card version.

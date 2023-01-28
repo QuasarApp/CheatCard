@@ -74,18 +74,22 @@ public:
     const QByteArray &ownerSignature() const;
     void setOwnerSignature(const QByteArray &newOwnerSignature);
 
-    const QByteArray &id() const;
-    void setId(const QByteArray &newId);
-
     QSharedPointer<RC::Interfaces::iCard>
     toObject(const QSharedPointer<Interfaces::iDB>& db);
+
+    unsigned int shortId() const;
+    void setShortId(unsigned int newShortId);
+
+    QByteArray key() const;
+    void setKey(const QByteArray &newKey);
 
 protected:
     QDataStream &fromStream(QDataStream &stream) override;
     QDataStream &toStream(QDataStream &stream) const override;
 
 private:
-    QByteArray _id;
+    unsigned int _shortId;
+    QByteArray _key;
     QString _title;
     QByteArray _logo;
     QByteArray _seal;

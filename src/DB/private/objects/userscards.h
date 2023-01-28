@@ -29,16 +29,15 @@ public:
     UsersCards(unsigned int user, unsigned int card);
     UsersCards(const QSharedPointer<Interfaces::iUsersCards> &obj);
 
-    unsigned int getUser() const override;
-    void setUser(unsigned int newUser) override;
-    unsigned int getCard() const override;
-    void setCard(unsigned int newCard) override;
+    const QByteArray& getUser() const override;
+    void setUser(const QByteArray& newUser) override;
+    const QByteArray& getCard() const override;
+    void setCard(const QByteArray& newCard) override;
     unsigned int getPurchasesNumber() const override;
     void setPurchasesNumber(unsigned int newPurchasesNumber) override;
     unsigned int getReceived() const override;
     void setReceived(unsigned int newReceived) override;
     void receive(unsigned int receiveFreItemsCount) override;
-    long long getId() const override;
     unsigned int getCardVersion() const override;
     void setCardVersion(unsigned int newCardVersion) override;
     unsigned int getRawTime() const override;
@@ -60,9 +59,8 @@ protected:
     QString primaryValue() const override;
 
 private:
-    long long id = 0;
-    unsigned int user = 0;
-    unsigned int card = 0;
+    QByteArray user;
+    QByteArray card;
     unsigned int cardVersion = 0;
     unsigned int purchasesNumber = 0;
     unsigned int received = 0;

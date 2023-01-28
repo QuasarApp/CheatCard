@@ -40,7 +40,8 @@ Card::Card(const QSharedPointer<Interfaces::iCard> &obj) {
 }
 
 QDataStream &Card::fromStream(QDataStream &stream) {
-    stream >> _id;
+    stream >> _shortId;
+    stream << _key;
     stream >> _title;
     stream >> _logo;
     stream >> _seal;
@@ -61,9 +62,8 @@ QDataStream &Card::fromStream(QDataStream &stream) {
 }
 
 QDataStream &Card::toStream(QDataStream &stream) const {
-    QVariant id(_id);
-    stream << id;
-
+    stream << _shortId;
+    stream << _key;
     stream << _title;
     stream << _logo;
     stream << _seal;
@@ -83,6 +83,22 @@ QDataStream &Card::toStream(QDataStream &stream) const {
     return stream;
 }
 
+QByteArray Card::key() const {
+    return _key;
+}
+
+void Card::setKey(const QByteArray &newKey) {
+    _key = newKey;
+}
+
+unsigned int Card::shortId() const {
+    return _shortId;
+}
+
+void Card::setShortId(unsigned int newShortId) {
+    _shortId = newShortId;
+}
+
 QString Card::toString() const {
     QString result("id: %0 \n"
                    "title: %1 \n"
@@ -95,7 +111,7 @@ QString Card::toString() const {
                    "freeIndex: %8 \n "
                    "cardVersion: %9 \n ");
 
-    result = result.arg(QString(id().toBase64(QByteArray::Base64UrlEncoding))).
+    result = result.arg(QString(_key.toBase64(QByteArray::Base64UrlEncoding))).
             arg(_title,
                 _phone,
                 _telegramm,
@@ -118,7 +134,7 @@ Card::toObject(const QSharedPointer<Interfaces::iDB> &db) {
         return nullptr;
 
     QSharedPointer<Interfaces::iCard> result = db->makeEmptyCard();
-    result->setId(_id);
+    result->;
     result->setTitle(_title);
     result->setLogo(_logo);
     result->setSeal(_seal);
@@ -166,11 +182,11 @@ void Card::setOwnerSignature(const QByteArray &newOwnerSignature) {
     _ownerSignature = newOwnerSignature;
 }
 
-const QByteArray& Card::id() const {
+unsigned int Card::id() const {
     return _id;
 }
 
-void Card::setId(const QByteArray& newId) {
+void Card::setId(unsigned int newId) {
     _id = newId;
 }
 

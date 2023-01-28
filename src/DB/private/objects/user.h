@@ -59,8 +59,6 @@ public:
 
     void regenerateKeys(const QByteArray& newSecret = {}) override;
 
-    unsigned int id() const override;
-    void setId(unsigned int newId) override;
     QString toString() const override;
 
 protected:
