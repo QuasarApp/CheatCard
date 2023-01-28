@@ -14,7 +14,6 @@
 #include <cmath>
 #include <dbobjectsrequest.h>
 #include <getsinglevalue.h>
-#include <objects/session.h>
 #include <objects/userscards.h>
 #include <pills/invalidcardidpill.h>
 #include <pills/invaliduserspill.h>
@@ -54,16 +53,6 @@ bool DBv1::deleteContact(const QSharedPointer<Interfaces::iContacts> &contact) c
         return false;
 
     return db()->deleteObject(QSharedPointer<DB::Contacts>::create(contact));
-}
-
-bool DBv1::deleteSessuon(long long sessionId) const {
-    if(!db())
-        return false;
-
-    auto request = QSharedPointer<DB::Session>::create();
-    request->setSessionId(sessionId);
-
-    return db()->deleteObject(request);
 }
 
 bool DBv1::deleteCard(unsigned int cardId) const {
@@ -119,10 +108,6 @@ bool DBv1::saveCard(const QSharedPointer<Interfaces::iCard>& card) const {
 
 bool DBv1::saveUsersCard(const QSharedPointer<Interfaces::iUsersCards>& userData) const {
     return saveObject<Interfaces::iUsersCards, DB::UsersCards>(userData, db());
-}
-
-bool DBv1::saveSession(const QSharedPointer<Interfaces::iSession> &session) const {
-    return saveObject<Interfaces::iSession, DB::Session>(session, db());
 }
 
 bool DBv1::saveContact(const QSharedPointer<Interfaces::iContacts> &contact) const {
@@ -516,8 +501,7 @@ bool DBv1::clearOldData(int duration) {
     QStringList tables = {
         "Cards",
         "Users",
-        "UsersCards",
-        "Sessions"
+        "UsersCards"
     };
     for (const QString& table : qAsConst(tables)) {
 

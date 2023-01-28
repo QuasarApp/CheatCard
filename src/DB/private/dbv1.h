@@ -31,7 +31,6 @@ public:
     bool isInit() const override;
 
     bool deleteContact(const QSharedPointer<Interfaces::iContacts>& contact) const override;
-    bool deleteSessuon(long long sessionId) const override;
     bool deleteCard(unsigned int cardId) const override;
     bool deleteContactsByChildUserKey(const QByteArray& childUser) const override;
 
@@ -39,12 +38,10 @@ public:
     QSharedPointer<Interfaces::iUser> makeEmptyUser() const override;
     QSharedPointer<Interfaces::iCard> makeEmptyCard() const override;
     QSharedPointer<Interfaces::iUsersCards> makeEmptyUsersCard() const override;
-    QSharedPointer<Interfaces::iSession> makeEmptySession() const override;
 
     bool saveUser(const QSharedPointer<Interfaces::iUser>& user) const override;
     bool saveCard(const QSharedPointer<Interfaces::iCard>& card) const override;
     bool saveUsersCard(const QSharedPointer<Interfaces::iUsersCards>& userData) const override;
-    bool saveSession(const QSharedPointer<Interfaces::iSession>& session) const override;
     bool saveContact(const QSharedPointer<Interfaces::iContacts>& contact) const override;
 
     int getFreeItemsCount(const QSharedPointer<Interfaces::iUsersCards> &inputData) const override;
@@ -52,8 +49,6 @@ public:
     unsigned int getCardVersion(unsigned int cardId) const override;
     QVariant getCardField(unsigned int cardId, const QString& field) override;
 
-    QList<QSharedPointer<Interfaces::iUsersCards>>
-    getUsersCardsFromSession(long long sessionId) override;
     QSharedPointer<Interfaces::iUser>
     getUser(unsigned int userId) const override;
     QList<QSharedPointer<Interfaces::iUsersCards> >

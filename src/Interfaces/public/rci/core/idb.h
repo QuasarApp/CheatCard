@@ -16,7 +16,6 @@
 #include <rci/objects/iuser.h>
 #include <rci/objects/iuserscards.h>
 #include "rci/global.h"
-#include "rci/objects/isession.h"
 
 namespace DP {
 class iPill;
@@ -50,21 +49,14 @@ public:
     /**
      * @brief deleteContact This method remove contact object from database.
      * @param contact This is contact object that will be removeed
-     * @return true if session removed successful.
+     * @return true if contact removed successful.
      */
     virtual bool deleteContact(const QSharedPointer<iContacts>& contact) const = 0;
 
     /**
-     * @brief deleteSessuon This method remove the session object from database.
-     * @param sessionId This is id of session
-     * @return true if session removed successful.
-     */
-    virtual bool deleteSessuon(long long sessionId) const = 0;
-
-    /**
      * @brief deleteCard This method remove the card and card data.
      * @param cardId This is id of card
-     * @return true if session removed successful.
+     * @return true if card removed successful.
      */
     virtual bool deleteCard(unsigned int cardId) const = 0;
 
@@ -100,12 +92,6 @@ public:
     virtual QSharedPointer<iUsersCards> makeEmptyUsersCard() const = 0;
 
     /**
-     * @brief makeEmptyUser This method create session data object
-     * @return  empty session object
-     */
-    virtual QSharedPointer<iSession> makeEmptySession() const = 0;
-
-    /**
      * @brief saveUser This method save user object into database.
      * @param user This is user object
      * @return true if saving finsihed successful else false
@@ -125,13 +111,6 @@ public:
      * @return true if saving finsihed successful else false
      */
     virtual bool saveUsersCard(const QSharedPointer<iUsersCards>& userData) const = 0;
-
-    /**
-     * @brief saveSession This method save session object into database.
-     * @param session This is session object.
-     * @return true if saving finsihed successful else false
-     */
-    virtual bool saveSession(const QSharedPointer<iSession>& session) const = 0;
 
     /**
      * @brief saveContact This method save contact object into database.
@@ -154,14 +133,6 @@ public:
      * @return card's field value.
      */
     virtual QVariant getCardField(unsigned int cardId, const QString& field) = 0;
-
-    /**
-     * @brief getUsersCardsFromSession This method return list of users data from session object.
-     * @param sessionId This is id of the nedded session.
-     * @return list of users data from session object.
-     */
-    virtual QList<QSharedPointer<iUsersCards>>
-    getUsersCardsFromSession(long long sessionId) = 0;
 
     /**
      * @brief getUser This method return object of use from db
