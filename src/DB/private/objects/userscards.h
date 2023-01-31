@@ -26,7 +26,7 @@ class UsersCards: public RC::Interfaces::iUsersCards, public QH::PKG::DBObject
 
 public:
     UsersCards();
-    UsersCards(unsigned int user, unsigned int card);
+    UsersCards(const QByteArray &user, const QByteArray &card);
     UsersCards(const QSharedPointer<Interfaces::iUsersCards> &obj);
 
     const QByteArray& getUser() const override;

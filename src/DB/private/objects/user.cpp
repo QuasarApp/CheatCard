@@ -24,7 +24,6 @@ User::User(const QSharedPointer<Interfaces::iUser>& user) {
     _key = user->getKey();
     _secret = user->secret();
     _fSaller = user->fSaller();
-    _id = RC::RCUtils::makeUserId(_key);
 
 }
 
@@ -36,7 +35,6 @@ void User::regenerateKeys(const QByteArray &newSecret) {
     }
 
     _key = RC::RCUtils::makeUserKey(_secret);
-    _id = RC::RCUtils::makeUserId(_key);
 }
 
 QH::PKG::DBObject *User::createDBObject() const {
@@ -44,8 +42,7 @@ QH::PKG::DBObject *User::createDBObject() const {
 }
 
 QH::PKG::DBVariantMap User::variantMap() const {
-    return {{"id",          {_id,     QH::PKG::MemberType::PrimaryKey}},
-            {"name",        {_name,       QH::PKG::MemberType::InsertUpdate}},
+    return {{"name",        {_name,       QH::PKG::MemberType::InsertUpdate}},
             {"key",         {QString(_key.toBase64(QByteArray::Base64UrlEncoding)),    QH::PKG::MemberType::InsertUpdate}},
             {"secret",      {QString(_secret.toBase64(QByteArray::Base64UrlEncoding)), QH::PKG::MemberType::InsertUpdate}},
             {"time",        {static_cast<int>(time(0)),      QH::PKG::MemberType::InsertUpdate}},
@@ -62,10 +59,10 @@ bool User::isValid() const {
 
 bool User::isAllKeysIsValid() const {
     if (_secret.size()) {
-        return RC::RCUtils::makeUserKey(_secret) == _key && RC::RCUtils::makeUserId(_key) == _id;
+        return RC::RCUtils::makeUserKey(_secret) == _key && _key.size();
     }
 
-    return  RC::RCUtils::makeUserId(_key) == _id;
+    return _key.size();
 }
 
 QString User::primaryKey() const {
@@ -73,28 +70,20 @@ QString User::primaryKey() const {
 }
 
 QString User::primaryValue() const {
-    return QString::number(_id);
+    return _key;
 }
 
 QDataStream &User::fromStream(QDataStream &stream) {
-    QVariant id;
 
-    stream >> id;
-    _id = id.toUInt();
     stream >> _name;
     stream >> _key;
     stream >> _secret;
     stream >> _fSaller;
 
-    _id = RC::RCUtils::makeUserId(_key);
-
     return stream;
 }
 
 QDataStream &User::toStream(QDataStream &stream) const {
-    QVariant id(_id);
-
-    stream << id;
 
     stream << _name;
     stream << _key;
@@ -115,22 +104,14 @@ QByteArray User::randomArray() const {
     return result;
 }
 
-unsigned int User::id() const {
-    return _id;
-}
-
-void User::setId(unsigned int newId) {
-    _id = newId;
-}
-
 QString User::toString() const {
-    QString result("id: %0 \n"
-                   "name: %1 \n"
-                   "publicKey: %2 \n"
-                   "secreetKey: %3 \n"
-                   "seller: %4 \n");
+    QString result(
+                   "name: %0 \n"
+                   "publicKey: %1 \n"
+                   "secreetKey: %2 \n"
+                   "seller: %3 \n");
 
-    result = result.arg(id()).
+    result = result.
              arg(name()).
              arg(getKey(),
                  secret()).
@@ -181,7 +162,6 @@ void User::setName(const QString &newName) {
 
 bool User::fromSqlRecord(const QSqlRecord &q) {
 
-    _id = q.value("id").toUInt();
     setName(q.value("name").toString());
     setKey(QByteArray::fromBase64(q.value("key").toByteArray(),
                                   QByteArray::Base64UrlEncoding));

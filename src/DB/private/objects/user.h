@@ -71,8 +71,6 @@ protected:
 private:
     QByteArray randomArray() const;
 
-    unsigned int _id = 0;
-
     QByteArray _key;
     QByteArray _secret;
 

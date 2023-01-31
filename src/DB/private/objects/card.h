@@ -27,8 +27,8 @@ public:
     Card();
     Card(const QSharedPointer<Interfaces::iCard> &obj);
 
-    const QByteArray& cardKey() const override;
-    void setCardKey(const QByteArray& newId) override;
+    const QByteArray& cardId() const override;
+    void setCardId(const QByteArray& newId) override;
     QH::PKG::DBObject *createDBObject() const override;
     const QByteArray &logo() const override;
     void setLogo(const QByteArray &newImage) override;
@@ -61,7 +61,7 @@ public:
     void idGen();
     const QByteArray &ownerSignature() const override;
     void setOwnerSignature(const QByteArray &newOwnerSignature) override;
-    bool isOvner(const unsigned int userId) const override;
+    bool isOvner(const QByteArray &userId) const override;
 
     QString toString() const override;
     bool fromSqlRecord(const QSqlRecord &q) override;
@@ -80,7 +80,7 @@ protected:
 
 private:
 
-    QByteArray _key;
+    QByteArray _id;
     QString _title;
     QByteArray _logo;
     QByteArray _seal;

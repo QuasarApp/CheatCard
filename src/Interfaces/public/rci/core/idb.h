@@ -58,7 +58,7 @@ public:
      * @param cardId This is id of card
      * @return true if card removed successful.
      */
-    virtual bool deleteCard(unsigned int cardId) const = 0;
+    virtual bool deleteCard(const QByteArray& cardId) const = 0;
 
     /**
      * @brief deleteContactsByChildUserKey This method delete contacts with selected childUser.
@@ -124,7 +124,7 @@ public:
      * @param cardId This is card id
      * @return version of the card in database.
      */
-    virtual unsigned int getCardVersion(unsigned int cardId) const = 0;
+    virtual unsigned int getCardVersion(const QByteArray& cardId) const = 0;
 
     /**
      * @brief getCardField This method return any field from the card data.
@@ -132,7 +132,7 @@ public:
      * @param field This is needed filed of the card.
      * @return card's field value.
      */
-    virtual QVariant getCardField(unsigned int cardId, const QString& field) = 0;
+    virtual QVariant getCardField(const QByteArray& cardId, const QString& field) = 0;
 
     /**
      * @brief getUser This method return object of use from db
@@ -140,7 +140,7 @@ public:
      * @return object of use from db
      */
     virtual QSharedPointer<iUser>
-    getUser(unsigned int userId) const = 0;
+    getUser(const QByteArray& userId) const = 0;
 
     /**
      * @brief getAllUserData This method return all user's data from db
@@ -148,7 +148,7 @@ public:
      * @return all user's data from db
      */
     virtual QList<QSharedPointer<iUsersCards>>
-    getAllUserData(unsigned int userId) const = 0;
+    getAllUserData(const QByteArray& userId) const = 0;
 
     /**
      * @brief getUserCardData This method return shared data between user with @a userId and card with @a cardId
@@ -157,8 +157,8 @@ public:
      * @return shared data between user with @a userId and card with @a cardId
      */
     virtual QSharedPointer<iUsersCards>
-    getUserCardData(unsigned int userId,
-                    unsigned int cardId) const = 0;
+    getUserCardData(const QByteArray& userId,
+                    const QByteArray& cardId) const = 0;
 
     /**
      * @brief getAllUserFromCard This method return all data of the card @a cardId.
@@ -168,8 +168,8 @@ public:
      * @return  all data of the card @a cardId.
      */
     virtual QList<QSharedPointer<iUsersCards>>
-    getAllUserFromCard(unsigned int cardId,
-                       unsigned int ignoreUserId = 0) const = 0;
+    getAllUserFromCard(const QByteArray& cardId,
+                       const QByteArray& ignoreUserId = {}) const = 0;
 
     /**
      * @brief getAllActiveUserFromCard This method return all a data of all active users on the card @a cardId.
@@ -180,8 +180,8 @@ public:
      * @see IDB::getAllPassiveUserFromCard
      */
     virtual QList<QSharedPointer<iUsersCards>>
-    getAllActiveUserFromCard(unsigned int cardId, int unixTimeRange,
-                             unsigned int ignoreUserId = 0) const = 0;
+    getAllActiveUserFromCard(const QByteArray& cardId, int unixTimeRange,
+                             const QByteArray& ignoreUserId = {}) const = 0;
 
     /**
      * @brief getAllPassiveUserFromCard This method return all a data of all passive users on the card @a cardId.
@@ -192,8 +192,8 @@ public:
      * @see IDB::getAllActiveUserFromCard
      */
     virtual QList<QSharedPointer<iUsersCards>>
-    getAllPassiveUserFromCard(unsigned int cardId, int unixTimeRange,
-                              unsigned int ignoreUserId = 0) const = 0;
+    getAllPassiveUserFromCard(const QByteArray& cardId, int unixTimeRange,
+                              const QByteArray& ignoreUserId = {}) const = 0;
 
     /**
      * @brief getAllUserDataFromCard This method return list of users that use card @a cardId
@@ -201,7 +201,7 @@ public:
      * @return list of users that use card @a cardId
      */
     virtual QList<QSharedPointer<iUser>>
-    getAllUserDataFromCard(unsigned int cardId) const = 0;
+    getAllUserDataFromCard(const QByteArray& cardId) const = 0;
 
     /**
      * @brief getAllUserWithPrivateKeys This method return list of users that has private keys. (not guest users records)
@@ -216,7 +216,7 @@ public:
      * @return card by id.
      */
     virtual QSharedPointer<iCard>
-    getCard(unsigned int cardId) = 0;
+    getCard(const QByteArray& cardId) = 0;
 
     /**
      * @brief getAllUserCards This method will return list of available cards of the user with @a userKey key
@@ -274,7 +274,7 @@ public:
      * @param userKey This is public user key
      * @return secret key by the user key
      */
-    virtual QByteArray getSecretOfCardOvner(unsigned int cardId) const = 0;
+    virtual QByteArray getSecretOfCardOvner(const QByteArray& cardId) const = 0;
 
     /**
      * @brief getFreeItemsCount This method return coun of free items by user data
@@ -289,8 +289,8 @@ public:
      * @param cardId This is card id.
      * @return count of the received bonuses of the user with @a userId in a card with @a cardId
      */
-    virtual int getCountOfReceivedItems(unsigned int userId,
-                                        unsigned int cardId) = 0;
+    virtual int getCountOfReceivedItems(const QByteArray& userId,
+                                        const QByteArray& cardId) = 0;
 
     /**
      * @brief clearOldData This method remove all date that oldly of the duration time.

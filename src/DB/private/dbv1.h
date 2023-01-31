@@ -31,7 +31,7 @@ public:
     bool isInit() const override;
 
     bool deleteContact(const QSharedPointer<Interfaces::iContacts>& contact) const override;
-    bool deleteCard(unsigned int cardId) const override;
+    bool deleteCard(const QByteArray& cardId) const override;
     bool deleteContactsByChildUserKey(const QByteArray& childUser) const override;
 
     QSharedPointer<Interfaces::iContacts> makeEmptyContact() const override;
@@ -45,28 +45,28 @@ public:
     bool saveContact(const QSharedPointer<Interfaces::iContacts>& contact) const override;
 
     int getFreeItemsCount(const QSharedPointer<Interfaces::iUsersCards> &inputData) const override;
-    int getCountOfReceivedItems(unsigned int userId, unsigned int cardId) override;
-    unsigned int getCardVersion(unsigned int cardId) const override;
-    QVariant getCardField(unsigned int cardId, const QString& field) override;
+    int getCountOfReceivedItems(const QByteArray& userId, const QByteArray& cardId) override;
+    unsigned int getCardVersion(const QByteArray& cardId) const override;
+    QVariant getCardField(const QByteArray& cardId, const QString& field) override;
 
     QSharedPointer<Interfaces::iUser>
-    getUser(unsigned int userId) const override;
+    getUser(const QByteArray &userId) const override;
     QList<QSharedPointer<Interfaces::iUsersCards> >
-    getAllUserData(unsigned int userId) const override;
+    getAllUserData(const QByteArray& userId) const override;
     QSharedPointer<Interfaces::iUsersCards>
-    getUserCardData(unsigned int userId, unsigned int cardId) const override;
+    getUserCardData(const QByteArray &userId, const QByteArray &cardId) const override;
     QList<QSharedPointer<Interfaces::iUsersCards> >
-    getAllUserFromCard(unsigned int cardId, unsigned int ignoreUserId) const override;
+    getAllUserFromCard(const QByteArray& cardId, const QByteArray& ignoreUserId) const override;
     QList<QSharedPointer<Interfaces::iUsersCards> >
-    getAllActiveUserFromCard(unsigned int cardId, int unixTimeRange, unsigned int ignoreUserId) const override;
+    getAllActiveUserFromCard(const QByteArray& cardId, int unixTimeRange, const QByteArray& ignoreUserId) const override;
     QList<QSharedPointer<Interfaces::iUsersCards> >
-    getAllPassiveUserFromCard(unsigned int cardId, int unixTimeRange, unsigned int ignoreUserId) const override;
+    getAllPassiveUserFromCard(const QByteArray& cardId, int unixTimeRange, const QByteArray& ignoreUserId) const override;
     QList<QSharedPointer<Interfaces::iUser> >
-    getAllUserDataFromCard(unsigned int cardId) const override;
+    getAllUserDataFromCard(const QByteArray &cardId) const override;
     QList<QSharedPointer<Interfaces::iUser> >
     getAllUserWithPrivateKeys() const override;
     QSharedPointer<Interfaces::iCard>
-    getCard(unsigned int cardId) override;
+    getCard(const QByteArray &cardId) override;
     QList<QSharedPointer<Interfaces::iCard> >
     getAllUserCards(const QByteArray &userKey, bool restOf, const QList<QSharedPointer<Interfaces::iContacts> > &childs) override;
     QList<QSharedPointer<Interfaces::iUsersCards> >
@@ -78,7 +78,7 @@ public:
     QList<QSharedPointer<Interfaces::iContacts> >
     getSlaveKeys(const QByteArray &userId) override;
 
-    virtual QByteArray getSecretOfCardOvner(unsigned int cardId) const override;
+    QByteArray getSecretOfCardOvner(const QByteArray &cardId) const override;
     QByteArray getSecret(const QByteArray& userKey) const override;
 
     QSharedPointer<DP::iPill> initPills(const QString &piilId) override;
@@ -92,7 +92,7 @@ private:
     int getFreeItemsCount(const DB::UsersCards &inputData,
                           unsigned int freeIndex) const;
 
-    int getCardFreeIndex(unsigned int cardId) const;
+    int getCardFreeIndex(const QByteArray& cardId) const;
 
 };
 }

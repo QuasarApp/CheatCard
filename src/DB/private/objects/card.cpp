@@ -7,7 +7,7 @@
 
 #include "card.h"
 #include <ctime>
-#include "rci/rcutils.h"
+#include "qaglobalutils.h"
 
 namespace RC {
 namespace DB {
@@ -42,11 +42,7 @@ QH::PKG::DBObject *Card::createDBObject() const {
 }
 
 QDataStream &Card::fromStream(QDataStream &stream) {
-    QVariant id;
-
-    stream >> id;
-    _id = id.toUInt();
-
+    stream >> _id;
     stream >> _title;
     stream >> _logo;
     stream >> _seal;
@@ -67,9 +63,8 @@ QDataStream &Card::fromStream(QDataStream &stream) {
 }
 
 QDataStream &Card::toStream(QDataStream &stream) const {
-    QVariant id(_id);
 
-    stream << id;
+    stream << _id;
 
     stream << _title;
     stream << _logo;
@@ -102,8 +97,9 @@ QString Card::toString() const {
                    "freeIndex: %8 \n "
                    "cardVersion: %9 \n ");
 
-    result = result.arg(cardId()).
-            arg(_title,
+    result = result.
+            arg(_id.toBase64(QByteArray::Base64UrlEncoding),
+                _title,
                 _phone,
                 _telegramm,
                 _instagramm,
@@ -114,37 +110,38 @@ QString Card::toString() const {
             arg(cardVersion);
 
     result += ("ownerId: %0 \n");
-    result = result.arg(RC::RCUtils::makeUserId(_ownerSignature));
+    result = result.arg(QString(_ownerSignature.toBase64(QByteArray::Base64UrlEncoding)));
 
     return result;
 }
 
 void Card::idGen() {
-    Card::setId(rand() + time(0));
+    _id.clear();
+    randomArray(32, _id);
 }
 
 QH::PKG::DBVariantMap Card::variantMap() const {
-    return {{"id",              {_id,         QH::PKG::MemberType::PrimaryKey}},
-            {"title",           {_title,          QH::PKG::MemberType::InsertUpdate}},
-            {"logo",            {_logo,           QH::PKG::MemberType::InsertUpdate}},
-            {"seal",            {_seal,           QH::PKG::MemberType::InsertUpdate}},
-            {"background",      {_background,     QH::PKG::MemberType::InsertUpdate}},
-            {"color",           {color,           QH::PKG::MemberType::InsertUpdate}},
-            {"fontColor",       {fontColor,       QH::PKG::MemberType::InsertUpdate}},
+    return {{"id",              {_id,             QH::PKG::MemberType::PrimaryKey}},
+        {"title",           {_title,          QH::PKG::MemberType::InsertUpdate}},
+        {"logo",            {_logo,           QH::PKG::MemberType::InsertUpdate}},
+        {"seal",            {_seal,           QH::PKG::MemberType::InsertUpdate}},
+        {"background",      {_background,     QH::PKG::MemberType::InsertUpdate}},
+        {"color",           {color,           QH::PKG::MemberType::InsertUpdate}},
+        {"fontColor",       {fontColor,       QH::PKG::MemberType::InsertUpdate}},
 
-            {"phone",           {_phone,          QH::PKG::MemberType::InsertUpdate}},
-            {"telegramm",       {_telegramm,      QH::PKG::MemberType::InsertUpdate}},
-            {"instagramm",      {_instagramm,     QH::PKG::MemberType::InsertUpdate}},
-            {"physicalAddress", {_physicalAddress,QH::PKG::MemberType::InsertUpdate}},
-            {"webSite",         {_webSite,        QH::PKG::MemberType::InsertUpdate}},
-            {"freeItemName",    {_freeItemName,   QH::PKG::MemberType::InsertUpdate}},
+        {"phone",           {_phone,          QH::PKG::MemberType::InsertUpdate}},
+        {"telegramm",       {_telegramm,      QH::PKG::MemberType::InsertUpdate}},
+        {"instagramm",      {_instagramm,     QH::PKG::MemberType::InsertUpdate}},
+        {"physicalAddress", {_physicalAddress,QH::PKG::MemberType::InsertUpdate}},
+        {"webSite",         {_webSite,        QH::PKG::MemberType::InsertUpdate}},
+        {"freeItemName",    {_freeItemName,   QH::PKG::MemberType::InsertUpdate}},
 
-            {"freeIndex",       {freeIndex,       QH::PKG::MemberType::InsertUpdate}},
-            {"time",            {static_cast<int>(time(0)),      QH::PKG::MemberType::InsertUpdate}},
-            {"cardVersion",     {cardVersion,     QH::PKG::MemberType::InsertUpdate}},
-            {"ownerSignature",  {QString(_ownerSignature.toBase64(QByteArray::Base64UrlEncoding)), QH::PKG::MemberType::InsertUpdate}},
+        {"freeIndex",       {freeIndex,       QH::PKG::MemberType::InsertUpdate}},
+        {"time",            {static_cast<int>(time(0)),      QH::PKG::MemberType::InsertUpdate}},
+        {"cardVersion",     {cardVersion,     QH::PKG::MemberType::InsertUpdate}},
+        {"ownerSignature",  {QString(_ownerSignature.toBase64(QByteArray::Base64UrlEncoding)), QH::PKG::MemberType::InsertUpdate}},
 
-            };
+    };
 }
 
 bool Card::compare(const QSharedPointer<iCard> &other) {
@@ -156,7 +153,7 @@ bool Card::compare(const QSharedPointer<iCard> &other) {
 }
 
 bool Card::isValid() const {
-    return _id && _ownerSignature.size() && _freeItemName.size() && freeIndex > 0;
+    return _id.size() && _ownerSignature.size() && _freeItemName.size() && freeIndex > 0;
 }
 
 const QByteArray &Card::logo() const {
@@ -177,7 +174,8 @@ void Card::setFreeIndex(int newFreeIndex) {
 
 bool Card::fromSqlRecord(const QSqlRecord &q) {
 
-    setId(q.value("id").toUInt());
+    setCardId(QByteArray::fromBase64(q.value("id").toByteArray(),
+                                 QByteArray::Base64UrlEncoding));
     setTitle(q.value("title").toString());
     setLogo(q.value("logo").toByteArray());
     setSeal(q.value("seal").toByteArray());
@@ -211,15 +209,7 @@ QString Card::primaryKey() const {
 }
 
 QString Card::primaryValue() const {
-    return QString::number(_id);
-}
-
-unsigned int Card::id() const {
-    return _id;
-}
-
-void Card::setId(unsigned int newId) {
-    _id = newId;
+    return _id.toBase64(QByteArray::Base64UrlEncoding);
 }
 
 const QByteArray &Card::ownerSignature() const {
@@ -230,8 +220,8 @@ void Card::setOwnerSignature(const QByteArray &newOwnerSignature) {
     _ownerSignature = newOwnerSignature;
 }
 
-bool Card::isOvner(const unsigned int userId) const {
-    return RC::RCUtils::makeUserId(_ownerSignature) == userId;
+bool Card::isOvner(const QByteArray& userId) const {
+    return _ownerSignature == userId;
 }
 
 unsigned int Card::getCardVersion() const {
@@ -258,8 +248,12 @@ void Card::setBackground(const QByteArray &newBackground) {
     _background = newBackground;
 }
 
-unsigned int Card::cardId() const {
+const QByteArray& Card::cardId() const {
     return _id;
+}
+
+void Card::setCardId(const QByteArray &newId) {
+    _id = newId;
 }
 
 const QString &Card::title() const {

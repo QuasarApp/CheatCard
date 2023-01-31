@@ -104,14 +104,6 @@ void Contacts::setChildUserKey(const QByteArray &newChildUserKey) {
     childUserKey = newChildUserKey;
 }
 
-unsigned int Contacts::getChildUserId() const {
-    return RC::RCUtils::makeUserId(childUserKey);
-}
-
-unsigned int Contacts::getUser() const {
-    return RC::RCUtils::makeUserId(userKey);
-}
-
 const QString &Contacts::getInfo() const {
     return info;
 }
