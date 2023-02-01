@@ -19,8 +19,10 @@ CREATE TABLE "Users" (
     "name"          TEXT NOT NULL DEFAULT "",
     "time"          INTEGER NOT NULL DEFAULT 0,
     "secret"        TEXT DEFAULT NULL,
-    PRIMARY KEY("id")
+    PRIMARY KEY("key")
 );
+
+INSERT INTO Users SELECT key,name,time,secret FROM Users_old;
 
 CREATE TABLE IF NOT EXISTS "Cards_old" (
         "id"	INTEGER NOT NULL,
@@ -77,8 +79,6 @@ CREATE TABLE IF NOT EXISTS "UsersData" (
         FOREIGN KEY("card") REFERENCES "Cards"("id") ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-INSERT INTO Users SELECT id,key,name,time,secret FROM Users_tmp;
-DROP TABLE Users_tmp;
 DROP TABLE Config;
 DROP TABLE NetworkMembers;
 DROP TABLE MemberPermisions;

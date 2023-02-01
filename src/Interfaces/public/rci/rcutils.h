@@ -32,6 +32,13 @@ public:
      */
     static QByteArray randomSHA256();
 
+    /**
+     * @brief convrtOldIdToSHA256 This is static method that convert old unsigned int id to the new sha256 id.
+     * @param oldId This is old id value.
+     * @return new sha256 id value.
+     */
+    static QByteArray convrtOldIdToSHA256(unsigned int oldId);
+
 };
 }
 #endif // RCUTILS_H

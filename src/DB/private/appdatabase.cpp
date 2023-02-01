@@ -6,6 +6,7 @@
 //#
 
 #include "appdatabase.h"
+#include "objects/userscards.h"
 #include <sqldbwriter.h>
 
 #include <customdbrequest.h>
@@ -20,6 +21,13 @@
 #include <objects/user.h>
 
 #include <rci/rcutils.h>
+
+#include <dbobjectsrequest.h>
+
+#include <objects_v0/card.h>
+#include <objects_v0/user.h>
+#include <objects_v0/userscards.h>
+#include <objects_v0/contacts.h>
 
 namespace RC {
 namespace DB {
@@ -54,20 +62,86 @@ QStringList AppDataBase::SQLSources() const {
 void AppDataBase::localdbPatches() {
 
     addDBPatch({
-        0,
-        6,
-        [](const QH::iObjectProvider* database) -> bool {
-            return database->doSql(":/DataBase/private/sql/SQLPatch_6.sql");
-        }
-    });
+                   0,
+                   6,
+                   [](QH::iObjectProvider* database) -> bool {
+                       return database->doSql(":/DataBase/private/sql/SQLPatch_6.sql");
+                   }
+               });
 
     addDBPatch({
-        6,
-        7,
-        [](const QH::iObjectProvider* database) -> bool {
-            return database->doSql(":/DataBase/private/sql/SQLPatch_7.sql");
-        }
-    });
+                   6,
+                   7,
+                   [](QH::iObjectProvider* database) -> bool {
+                       if (!database->doSql(":/DataBase/private/sql/SQLPatch_7.sql")) {
+                           return false;
+                       }
+
+                       QHash<unsigned int, QByteArray> usersKeysPairs;
+                       {
+                           QH::PKG::DBObjectsRequest<DBv0::User> query("Users_old");
+                           auto result = database->getObject(query);
+                           if (result && result->data().size()) {
+                               for (const auto& user: result->data()) {
+                                   usersKeysPairs[user->id()] = user->getKey();
+                               }
+                           }
+                       }
+
+                       // port of a cards data.
+                       {
+                           QH::PKG::DBObjectsRequest<DBv0::Card> query("Cards_old");
+                           auto result = database->getObject(query);
+                           if (result && result->data().size()) {
+                               for (const auto& object: result->data()) {
+                                   auto newCard = QSharedPointer<DB::Card>::create();
+                                   newCard->setCardId(RCUtils::convrtOldIdToSHA256(object->cardId()));
+                                   newCard->setCardVersion(object->getCardVersion());
+                                   newCard->setBackground(object->background());
+                                   newCard->setColor(object->getColor());
+                                   newCard->setFontColor(object->getFontColor());
+                                   newCard->setFreeIndex(object->getFreeIndex());
+                                   newCard->setFreeItemName(object->freeItemName());
+                                   newCard->setInstagramm(object->instagramm());
+                                   newCard->setTelegramm(object->telegramm());
+                                   newCard->setLogo(object->logo());
+                                   newCard->setOwnerSignature(object->ownerSignature());
+                                   newCard->setPhone(object->phone());
+                                   newCard->setPhysicalAddress(object->physicalAddress());
+                                   newCard->setSeal(object->seal());
+                                   newCard->setWebSite(object->webSite());
+
+                                   if (!database->insertObject(newCard, true)) {
+                                       return false;
+                                   }
+                               }
+                           }
+                       }
+
+                       // port of the usersdata table
+                       {
+                           QH::PKG::DBObjectsRequest<DBv0::UsersCards> query("UsersCards");
+                           auto result = database->getObject(query);
+                           if (result && result->data().size()) {
+                               for (const auto& object: result->data()) {
+                                   auto newCard = QSharedPointer<DB::UsersCards>::create();
+                                   newCard->setCard(RCUtils::convrtOldIdToSHA256(object->getCard()));
+                                   newCard->setUser(usersKeysPairs.value(object->getUser(), 0));
+                                   newCard->setCardVersion(object->getCardVersion());
+                                   newCard->setPurchasesNumber(object->getPurchasesNumber());
+                                   newCard->setReceived(object->getReceived());
+                                   newCard->setTime(object->getRawTime());
+
+                                   if (!database->insertObject(newCard, true)) {
+                                       return false;
+                                   }
+                               }
+                           }
+                       }
+
+                       return database->doSql(":/DataBase/private/sql/SQLPatch_7_2.sql");
+                   }
+               });
 }
 
 void AppDataBase::onBeforeDBUpgrade(int currentVersion, int ) const {

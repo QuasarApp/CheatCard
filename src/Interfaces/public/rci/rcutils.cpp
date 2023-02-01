@@ -27,4 +27,9 @@ QByteArray RCUtils::randomSHA256() {
     return result;
 }
 
+QByteArray RCUtils::convrtOldIdToSHA256(unsigned int oldId) {
+    return QCryptographicHash::hash(QByteArray::number(oldId, sizeof(oldId)),
+                                    QCryptographicHash::Sha256);
+}
+
 }
