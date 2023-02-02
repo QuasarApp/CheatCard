@@ -26,16 +26,16 @@ void CardUpdated::setCardVersion(unsigned int newCardVersion) {
     _cardVersion = newCardVersion;
 }
 
-unsigned int CardUpdated::cardId() const {
+const QByteArray &CardUpdated::cardId() const {
     return _cardId;
 }
 
-void CardUpdated::setCardId(unsigned int newCardId) {
+void CardUpdated::setCardId(const QByteArray &newCardId) {
     _cardId = newCardId;
 }
 
 bool CardUpdated::isValid() const {
-    return _cardId && _cardVersion;
+    return _cardId.size() == 32 && _cardVersion;
 }
 
 QDataStream &CardUpdated::fromStream(QDataStream &stream) {

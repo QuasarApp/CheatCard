@@ -40,8 +40,7 @@ Card::Card(const QSharedPointer<Interfaces::iCard> &obj) {
 }
 
 QDataStream &Card::fromStream(QDataStream &stream) {
-    stream >> _shortId;
-    stream << _key;
+    stream << _id;
     stream >> _title;
     stream >> _logo;
     stream >> _seal;
@@ -62,8 +61,7 @@ QDataStream &Card::fromStream(QDataStream &stream) {
 }
 
 QDataStream &Card::toStream(QDataStream &stream) const {
-    stream << _shortId;
-    stream << _key;
+    stream << _id;
     stream << _title;
     stream << _logo;
     stream << _seal;
@@ -83,20 +81,12 @@ QDataStream &Card::toStream(QDataStream &stream) const {
     return stream;
 }
 
-QByteArray Card::key() const {
-    return _key;
+const QByteArray &Card::id() const {
+    return _id;
 }
 
-void Card::setKey(const QByteArray &newKey) {
-    _key = newKey;
-}
-
-unsigned int Card::shortId() const {
-    return _shortId;
-}
-
-void Card::setShortId(unsigned int newShortId) {
-    _shortId = newShortId;
+void Card::setId(const QByteArray &id) {
+    _id = id;
 }
 
 QString Card::toString() const {
@@ -111,7 +101,7 @@ QString Card::toString() const {
                    "freeIndex: %8 \n "
                    "cardVersion: %9 \n ");
 
-    result = result.arg(QString(_key.toBase64(QByteArray::Base64UrlEncoding))).
+    result = result.arg(QString(_id.toBase64(QByteArray::Base64UrlEncoding))).
             arg(_title,
                 _phone,
                 _telegramm,
@@ -134,7 +124,7 @@ Card::toObject(const QSharedPointer<Interfaces::iDB> &db) {
         return nullptr;
 
     QSharedPointer<Interfaces::iCard> result = db->makeEmptyCard();
-    result->;
+    result->setCardId(_id);
     result->setTitle(_title);
     result->setLogo(_logo);
     result->setSeal(_seal);
@@ -155,7 +145,7 @@ Card::toObject(const QSharedPointer<Interfaces::iDB> &db) {
 }
 
 bool Card::isValid() const {
-    return _id.size() == 32;
+    return _id.size() == 32 && _ownerSignature.size() == 32;
 }
 
 const QByteArray &Card::logo() const {
@@ -180,14 +170,6 @@ const QByteArray &Card::ownerSignature() const {
 
 void Card::setOwnerSignature(const QByteArray &newOwnerSignature) {
     _ownerSignature = newOwnerSignature;
-}
-
-unsigned int Card::id() const {
-    return _id;
-}
-
-void Card::setId(unsigned int newId) {
-    _id = newId;
 }
 
 unsigned int Card::getCardVersion() const {

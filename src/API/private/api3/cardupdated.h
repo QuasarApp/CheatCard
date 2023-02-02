@@ -29,8 +29,8 @@ public:
     unsigned int cardVersion() const;
     void setCardVersion(unsigned int newCardVersion);
 
-    unsigned int cardId() const;
-    void setCardId(unsigned int newCardId);
+    const QByteArray& cardId() const;
+    void setCardId(const QByteArray& newCardId);
     bool isValid() const override;
 
 protected:
@@ -39,7 +39,7 @@ protected:
 
 private:
     unsigned int _cardVersion = 0;
-    unsigned int _cardId = 0;
+    QByteArray _cardId;
 
 };
 

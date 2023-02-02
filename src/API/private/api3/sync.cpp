@@ -7,24 +7,24 @@
 
 
 
-#include "restoreresponce.h"
-#include "api2/userscards.h"
-#include <api0/contacts.h>
+#include "sync.h"
+#include "api3/userscards.h"
+#include <api3/contacts.h>
 
 
 namespace RC {
 namespace API {
 namespace V3 {
 
-RestoreResponce::RestoreResponce() {
+Sync::Sync() {
 
 }
 
-bool RestoreResponce::isValid() const {
-    return _userKey.size();
+bool Sync::isValid() const {
+    return _userKey.size() == 32;
 }
 
-QDataStream &RestoreResponce::fromStream(QDataStream &stream) {
+QDataStream &Sync::fromStream(QDataStream &stream) {
     stream >> _usersCards;
     stream >> _contacts;
     stream >> _userKey;
@@ -32,7 +32,7 @@ QDataStream &RestoreResponce::fromStream(QDataStream &stream) {
     return stream;
 }
 
-QDataStream &RestoreResponce::toStream(QDataStream &stream) const {
+QDataStream &Sync::toStream(QDataStream &stream) const {
     stream << _usersCards;
     stream << _contacts;
     stream << _userKey;
@@ -40,27 +40,27 @@ QDataStream &RestoreResponce::toStream(QDataStream &stream) const {
     return stream;
 }
 
-const QByteArray &RestoreResponce::userKey() const {
+const QByteArray &Sync::userKey() const {
     return _userKey;
 }
 
-void RestoreResponce::setUserKey(const QByteArray &newUserKey) {
+void Sync::setUserKey(const QByteArray &newUserKey) {
     _userKey = newUserKey;
 }
 
-const QH::PKG::DataPack<API::V3::Contacts> &RestoreResponce::contacts() const {
+const QH::PKG::DataPack<API::V3::Contacts> &Sync::contacts() const {
     return _contacts;
 }
 
-void RestoreResponce::setContacts(const QH::PKG::DataPack<API::V3::Contacts> &newContacts) {
+void Sync::setContacts(const QH::PKG::DataPack<API::V3::Contacts> &newContacts) {
     _contacts = newContacts;
 }
 
-const QH::PKG::DataPack<API::V3::UsersCards> &RestoreResponce::usersCards() const {
+const QH::PKG::DataPack<API::V3::UsersCards> &Sync::usersCards() const {
     return _usersCards;
 }
 
-void RestoreResponce::setUsersCards(const QH::PKG::DataPack<API::V3::UsersCards> &newUsersCards) {
+void Sync::setUsersCards(const QH::PKG::DataPack<API::V3::UsersCards> &newUsersCards) {
     _usersCards = newUsersCards;
 }
 

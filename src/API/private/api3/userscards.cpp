@@ -14,16 +14,25 @@ namespace API {
 namespace V3 {
 
 UsersCards::UsersCards() {}
-UsersCards::UsersCards(const QSharedPointer<Interfaces::iUsersCards>& obj): V1::UsersCards(obj) {};
+UsersCards::UsersCards(const QSharedPointer<Interfaces::iUsersCards>& obj) {
 
-UsersCards::UsersCards(unsigned int user, unsigned int card): API::V1::UsersCards(user, card) {}
+    UsersCards::setUser(obj->getUser());
+    UsersCards::setCard(obj->getCard());
+    UsersCards::setPurchasesNumber(obj->getPurchasesNumber());
+    UsersCards::setReceived(obj->getReceived());
+    UsersCards::setCardVersion(obj->getCardVersion());
+    UsersCards::setTime(obj->getRawTime());
+};
+
+UsersCards::UsersCards(const QByteArray &user, const QByteArray &card) {
+    UsersCards::setUser(user);
+    UsersCards::setCard(card);
+}
+
 QDataStream &UsersCards::fromStream(QDataStream &stream) {
 
-    QVariant plug;
-    stream >> plug;
     stream >> user;
     stream >> card;
-    stream >> id;
     stream >> purchasesNumber;
     stream >> received;
     stream >> cardVersion;
@@ -33,17 +42,67 @@ QDataStream &UsersCards::fromStream(QDataStream &stream) {
 }
 
 QDataStream &UsersCards::toStream(QDataStream &stream) const {
-    QVariant plug;
-    stream << plug;
+
     stream << user;
     stream << card;
-    stream << id;
     stream << purchasesNumber;
     stream << received;
     stream << cardVersion;
     stream << _time;
 
     return stream;
+}
+
+QByteArray UsersCards::getUser() const {
+    return user;
+}
+
+void UsersCards::setUser(const QByteArray &newUser) {
+    user = newUser;
+}
+
+QByteArray UsersCards::getCard() const {
+    return card;
+}
+
+void UsersCards::setCard(const QByteArray &newCard) {
+    card = newCard;
+}
+
+unsigned int UsersCards::getCardVersion() const {
+    return cardVersion;
+}
+
+void UsersCards::setCardVersion(unsigned int newCardVersion) {
+    cardVersion = newCardVersion;
+}
+
+unsigned int UsersCards::getPurchasesNumber() const {
+    return purchasesNumber;
+}
+
+void UsersCards::setPurchasesNumber(unsigned int newPurchasesNumber) {
+    purchasesNumber = newPurchasesNumber;
+}
+
+unsigned int UsersCards::getReceived() const {
+    return received;
+}
+
+void UsersCards::setReceived(unsigned int newReceived) {
+    received = newReceived;
+}
+
+unsigned int UsersCards::time() const {
+    return _time;
+}
+
+void UsersCards::setTime(unsigned int newTime) {
+    _time = newTime;
+}
+
+bool RC::API::V3::UsersCards::UsersCards::isValid() const {
+    return user.size() && card.size();
 }
 
 }

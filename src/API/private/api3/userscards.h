@@ -10,23 +10,50 @@
 #ifndef USERSCARDS_V3_H
 #define USERSCARDS_V3_H
 
+#include "rci/objects/iuserscards.h"
+#include <packages/abstractdata.h>
+
 namespace RC {
 namespace API {
 namespace V3 {
 
-class UsersCards: public API::V1::UsersCards
+class UsersCards: public QH::PKG::AbstractData
 {
-    QH_PACKAGE(RC::API::V3::UsersCards, "APIv3::UsersCards")
+    QH_PACKAGE_AUTO(RC::API::V3::UsersCards)
 
 public:
     UsersCards();
-    UsersCards(unsigned int user, unsigned int card);
+    UsersCards(const QByteArray& user, const QByteArray& card);
     UsersCards(const QSharedPointer<Interfaces::iUsersCards>& obj);
+
+
+    QByteArray getUser() const;
+    void setUser(const QByteArray &newUser);
+    QByteArray getCard() const;
+    void setCard(const QByteArray &newCard);
+    unsigned int getCardVersion() const;
+    void setCardVersion(unsigned int newCardVersion);
+    unsigned int getPurchasesNumber() const;
+    void setPurchasesNumber(unsigned int newPurchasesNumber);
+    unsigned int getReceived() const;
+    void setReceived(unsigned int newReceived);
+    unsigned int time() const;
+    void setTime(unsigned int newTime);
+
+    bool isValid() const override;
 
 
 protected:
     QDataStream &fromStream(QDataStream &stream) override;
     QDataStream &toStream(QDataStream &stream) const override;
+
+private:
+    QByteArray user;
+    QByteArray card;
+    unsigned int cardVersion = 0;
+    unsigned int purchasesNumber = 0;
+    unsigned int received = 0;
+    unsigned int _time;
 };
 
 }

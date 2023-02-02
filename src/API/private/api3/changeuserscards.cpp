@@ -8,8 +8,6 @@
 
 
 #include "changeuserscards.h"
-#include "rci/rcutils.h"
-
 
 namespace RC {
 namespace API {
@@ -39,36 +37,46 @@ void ChangeUsersCards::setPurchase(qint8 newPurchase) {
     _purchase = newPurchase;
 }
 
-unsigned int ChangeUsersCards::getUser() const {
-    return RC::RCUtils::getUserIdFromUsrsCards(getUsercardId());
+const QByteArray& ChangeUsersCards::getUser() const {
+    return _user;
 }
 
-unsigned int ChangeUsersCards::getCard() const {
-    return RC::RCUtils::getCardIdFromUsrsCards(getUsercardId());
+const QByteArray& ChangeUsersCards::getCard() const {
+    return _card;
 }
 
 bool ChangeUsersCards::isValid() const {
-    return V0::Session::isValid() && _secret.size();
+    return _secret.size() && _user.size() && _card.size();
 }
 
 QDataStream &ChangeUsersCards::fromStream(QDataStream &stream) {
-    V0::Session::fromStream(stream);
 
     stream >> _receive;
     stream >> _purchase;
     stream >> _secret;
+    stream >> _user;
+    stream >> _card;
 
     return stream;
 }
 
 QDataStream &ChangeUsersCards::toStream(QDataStream &stream) const {
-    V0::Session::toStream(stream);
 
     stream << _receive;
     stream << _purchase;
     stream << _secret;
+    stream << _user;
+    stream << _card;
 
     return stream;
+}
+
+void ChangeUsersCards::setUser(const QByteArray &newUser) {
+    _user = newUser;
+}
+
+void ChangeUsersCards::setCard(const QByteArray &newCard) {
+    _card = newCard;
 }
 
 const QByteArray &ChangeUsersCards::secret() const {

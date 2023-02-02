@@ -17,14 +17,14 @@ DeleteCardRequest::DeleteCardRequest() {
 }
 
 bool DeleteCardRequest::isValid() const {
-    return _card && _secret.size();
+    return _card.size() == 32 && _secret.size() == 32;
 }
 
-unsigned int DeleteCardRequest::card() const {
+const QByteArray& DeleteCardRequest::card() const {
     return _card;
 }
 
-void DeleteCardRequest::setCard(unsigned int newCard) {
+void DeleteCardRequest::setCard(const QByteArray &newCard) {
     _card = newCard;
 }
 

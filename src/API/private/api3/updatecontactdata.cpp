@@ -25,7 +25,7 @@ UpdateContactData::UpdateContactData(const Interfaces::iContacts &contact) {
 }
 
 QDataStream &UpdateContactData::fromStream(QDataStream &stream) {
-    API::V0::Contacts::fromStream(stream);
+    API::V3::Contacts::fromStream(stream);
 
     stream >> _userSecreet;
     stream >> remove;
@@ -33,7 +33,7 @@ QDataStream &UpdateContactData::fromStream(QDataStream &stream) {
 }
 
 QDataStream &UpdateContactData::toStream(QDataStream &stream) const {
-    API::V0::Contacts::toStream(stream);
+    API::V3::Contacts::toStream(stream);
 
     stream << _userSecreet;
     stream << remove;
@@ -50,7 +50,7 @@ void UpdateContactData::setRemove(bool newRemove) {
 }
 
 bool UpdateContactData::isValid() const {
-    return API::V0::Contacts::isValid() && _userSecreet.size();
+    return API::V3::Contacts::isValid() && _userSecreet.size();
 }
 
 const QByteArray &UpdateContactData::userSecreet() const {

@@ -27,8 +27,8 @@ public:
     DeleteCardRequest();
     bool isValid() const override;
 
-    unsigned int card() const;
-    void setCard(unsigned int newCard);
+    const QByteArray& card() const;
+    void setCard(const QByteArray& newCard);
 
     const QByteArray &secret() const;
     void setSecret(const QByteArray &newSecret);
@@ -38,7 +38,7 @@ protected:
     QDataStream &toStream(QDataStream &stream) const override;
 
 private:
-    unsigned int _card;
+    QByteArray _card;
     QByteArray _secret;
 };
 }

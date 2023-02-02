@@ -21,7 +21,7 @@ class User;
 
 class Contacts: public QH::PKG::AbstractData
 {
-    QH_PACKAGE(RC::API::V3::Contacts, "RC::API::Contacts")
+    QH_PACKAGE_AUTO(RC::API::V3::Contacts)
 
 public:
     Contacts();
@@ -31,10 +31,6 @@ public:
 
     const QString &getInfo() const;
     void setInfo(const QString &newInfo);
-
-    unsigned int getUser() const;
-
-    unsigned int getChildUserId() const;
 
     const QByteArray &getChildUserKey() const;
     void setChildUserKey(const QByteArray &newChildUserKey);

@@ -20,20 +20,21 @@ namespace API {
 namespace V3 {
 
 class UsersCards;
+class Contacts;
 
 /**
  * @brief The GetConntactsRequest class
  */
-class RestoreResponce: public QH::PKG::AbstractData
+class Sync: public QH::PKG::AbstractData
 {
-    QH_PACKAGE(RestoreResponce, "APIv3::RestoreResponce")
+    QH_PACKAGE_AUTO(API::V3::Sync)
 
 public:
-    RestoreResponce();
+    Sync();
     bool isValid() const override;
 
     const QH::PKG::DataPack<API::V3::UsersCards> &usersCards() const;
-    void setUsersCards(const QH::PKG::DataPack<API::V2::UsersCards> &newUsersCards);
+    void setUsersCards(const QH::PKG::DataPack<API::V3::UsersCards> &newUsersCards);
 
     const QH::PKG::DataPack<API::V3::Contacts> &contacts() const;
     void setContacts(const QH::PKG::DataPack<API::V3::Contacts> &newContacts);

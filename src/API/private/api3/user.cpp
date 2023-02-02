@@ -22,7 +22,6 @@ User::User(): QH::PKG::AbstractData() {
 void User::regenerateKeys() {
     _secret = QCryptographicHash::hash(randomArray(), QCryptographicHash::Sha256);
     _key = RC::RCUtils::makeUserKey(_secret);
-    setId(RC::RCUtils::makeUserId(_key));
 }
 
 bool User::isValid() const {
@@ -31,16 +30,13 @@ bool User::isValid() const {
 
 bool User::isAllKeysIsValid() const {
     if (_secret.size()) {
-        return RC::RCUtils::makeUserKey(_secret) == _key && RC::RCUtils::makeUserId(_key) == userId();
+        return RC::RCUtils::makeUserKey(_secret) == _key && _key.size() == 32;
     }
 
-    return RC::RCUtils::makeUserId(_key) == userId();
+    return _key.size() == 32;
 }
 
 QDataStream &User::fromStream(QDataStream &stream) {
-    QVariant id;
-    stream >> id;
-    _id = id.toUInt();
 
     stream >> _name;
     stream >> _key;
@@ -51,8 +47,6 @@ QDataStream &User::fromStream(QDataStream &stream) {
 }
 
 QDataStream &User::toStream(QDataStream &stream) const {
-    QVariant id(_id);
-    stream << id;
 
     stream << _name;
     stream << _key;
@@ -67,14 +61,6 @@ QByteArray User::randomArray() const {
     QByteArray result;
     ::randomArray(64, result);
     return result;
-}
-
-unsigned int User::id() const {
-    return _id;
-}
-
-void User::setId(unsigned int newId) {
-    _id = newId;
 }
 
 const QByteArray &User::secret() const {
@@ -95,10 +81,6 @@ const QString User::getSignature() const {
 
 void User::setKey(const QByteArray &newKey){
     _key = newKey;
-}
-
-unsigned int User::userId() const {
-    return id();
 }
 
 bool User::fSaller() const {

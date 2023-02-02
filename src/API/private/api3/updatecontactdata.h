@@ -8,7 +8,9 @@
 #ifndef UPDATECONTACTDATA_V3_H
 #define UPDATECONTACTDATA_V3_H
 
-#include <api0/contacts.h>
+#include "rci/objects/icontacts.h"
+#include "contacts.h"
+#include <packages/abstractdata.h>
 
 namespace RC {
 namespace API {
@@ -16,9 +18,9 @@ namespace V3 {
 /**
  * @brief The UpdateContactData class sendt to server new permssion data.
  */
-class UpdateContactData: public API::V0::Contacts
+class UpdateContactData: public Contacts
 {
-    QH_PACKAGE(UpdateContactData, "APIv3::UpdateContactData")
+    QH_PACKAGE_AUTO(API::V3::UpdateContactData)
 
 public:
     UpdateContactData();

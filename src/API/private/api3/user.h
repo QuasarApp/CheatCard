@@ -31,7 +31,7 @@ namespace V3 {
  */
 class User: public QH::PKG::AbstractData
 {
-    QH_PACKAGE(User, "CheatCardUser")
+    QH_PACKAGE_AUTO(API::V3::User)
 
 public:
     User();
@@ -49,14 +49,10 @@ public:
     const QString getSignature() const;
     void setKey(const QByteArray &newKey);
 
-    unsigned int userId() const;
     const QByteArray &secret() const;
     void setSecret(const QByteArray &newSecret);
 
     void regenerateKeys();
-
-    unsigned int id() const;
-    void setId(unsigned int newId);
 
 protected:
     QDataStream &fromStream(QDataStream &stream) override;
@@ -66,7 +62,6 @@ private:
 
     QByteArray randomArray() const;
 
-    unsigned int _id = 0;
     QByteArray _key;
     QByteArray _secret;
 
