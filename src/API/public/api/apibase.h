@@ -72,12 +72,6 @@ signals:
     void sigPurchaseWasSuccessful(QSharedPointer<RC::Interfaces::iUsersCards> userData,
                                   bool alert) override;
     void sigCardReceived(QSharedPointer<RC::Interfaces::iCard>) override;
-
-    void sigSessionStatusResult(QSharedPointer<RC::Interfaces::iSession>,
-                                bool succesed) override;
-    void sigContactsStatusResult(QSharedPointer<RC::Interfaces::iContacts> contact,
-                                 bool succesed, bool removed) override;
-
     void sigContactsListChanged()override;
 private:
     QSharedPointer<Interfaces::iDB> _db;

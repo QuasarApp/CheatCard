@@ -63,7 +63,7 @@ public:
      * @param dist This is distanation node.
      * @return true if request created and sent successful else false.
      */
-    virtual bool deleteCard(unsigned int cardId,
+    virtual bool deleteCard(const QByteArray &cardId,
                             const QByteArray &curentUserKey,
                             QH::AbstractNodeInfo *dist,
                             const std::function<void(int err)>& = {}) = 0;

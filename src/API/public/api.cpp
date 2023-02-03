@@ -8,7 +8,7 @@
 
 #include "api.h"
 
-#include <apiv2.h>
+#include <apiv3.h>
 #include <params.h>
 
 namespace RC {
@@ -24,8 +24,8 @@ init(const QVector<unsigned short> &neededVersions,
 
     for (const unsigned short version : neededVersions) {
         switch (version) {
-        case 2: {
-            mainNode->addApiParser(result[version] = QSharedPointer<API::ApiV2>::create(dataBase, mainNode));
+        case 3: {
+            mainNode->addApiParser(result[version] = QSharedPointer<API::ApiV3>::create(dataBase, mainNode));
             break;
         }
 

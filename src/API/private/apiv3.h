@@ -22,8 +22,9 @@ class StatusAfterChanges;
 class CardUpdated;
 class UpdateContactData;
 class UpdateContactDataResponce;
-class RestoreResponce;
 class DeleteCardRequest;
+class Sync;
+class UsersCards;
 }
 
 
@@ -48,46 +49,46 @@ public:
                                   const QH::Header &pkgHeader,
                                   QH::AbstractNodeInfo *sender) override;
 
-    void sendCardStatusRequest(long long userSession, QH::AbstractNodeInfo *dist) override;
+    void syncRequest(const QByteArray &curentUserKey,
+                     QH::AbstractNodeInfo *dist,
+                     const std::function<void(bool successful)>& = {}) override;
 
-    void restoreOldDateRequest(const QByteArray &curentUserKey, QH::AbstractNodeInfo *dist) override;
-    void restoreOneCardRequest(unsigned int cardId, QH::AbstractNodeInfo *dist) override;
-    void sendSessions(const QHash<long long, QSharedPointer<Interfaces::iSession> > &sessions,
-                      QH::AbstractNodeInfo *dist) override;
+
     bool sendContacts(const Interfaces::iContacts& conntact,
                       const QByteArray& secreet,
                       bool removeRequest,
-                      QH::AbstractNodeInfo *dist) override;
+                      QH::AbstractNodeInfo *dist,
+                      const std::function<void(int err)>& = {}) override;
 
-    bool deleteCard(unsigned int cardId,
+    bool deleteCard(const QByteArray &cardId,
                     const QByteArray &curentUserKey,
-                    QH::AbstractNodeInfo *dist) override;
+                    QH::AbstractNodeInfo *dist,
+                    const std::function<void(int err)>& = {}) override;
 
-    bool sendUpdateCard(unsigned int cardId, unsigned int version, QH::AbstractNodeInfo *dist) override;
-    bool changeUsersData(const QByteArray &sellerUserKey, unsigned int cardId,
-                         unsigned int userId,
-                         unsigned long long session,
+    bool sendUpdateCard(const QByteArray &cardId,
+                        unsigned int version,
+                        QH::AbstractNodeInfo *dist,
+                        const std::function<void(int err)>& = {}) override;
+
+    bool changeUsersData(const QByteArray &sellerUserKey,
+                         const QByteArray &cardId,
+                         const QByteArray &userId,
                          unsigned int purchasesCount,
                          unsigned int receivedCount,
-                         QH::AbstractNodeInfo *dist) override;
+                         QH::AbstractNodeInfo *dist,
+                         const std::function<void(int err, const QSharedPointer<Interfaces::iUsersCards>& currentState)>& = {}) override;
 protected:
-    bool processCardStatusRequest(const QSharedPointer<V3::CardStatusRequest> &message,
-                                  const QH::AbstractNodeInfo *sender, const QH::Header&) ;
+    bool processSync(const QSharedPointer<V3::Sync> &message,
+                            const QH::AbstractNodeInfo *sender, const QH::Header&) ;
 
     bool processChanges(const QSharedPointer<V3::ChangeUsersCards> &message,
                         const QH::AbstractNodeInfo *sender, const QH::Header&) ;
 
-    bool processSession(const QSharedPointer<V3::Session> &message,
-                        const QH::AbstractNodeInfo *sender, const QH::Header&);
-
-    bool processRestoreResponce(const QSharedPointer<V3::RestoreResponce> &message,
-                                const QH::AbstractNodeInfo *sender, const QH::Header&hdr);
-
     bool processContacts(const QSharedPointer<V3::UpdateContactData> &message,
-                        const QH::AbstractNodeInfo *sender, const QH::Header&);
+                         const QH::AbstractNodeInfo *sender, const QH::Header&);
 
     bool processContactsResponce(const QSharedPointer<V3::UpdateContactDataResponce> &message,
-                        const QH::AbstractNodeInfo *sender, const QH::Header&);
+                                 const QH::AbstractNodeInfo *sender, const QH::Header&);
 
     bool processCardStatus(const QSharedPointer<QH::PKG::DataPack<V3::UsersCards>> &cardStatuses,
                            const QH::AbstractNodeInfo *sender, const QH::Header&pkg);
@@ -103,7 +104,7 @@ protected:
                          const QH::AbstractNodeInfo *sender, const QH::Header &) ;
 
     bool processCardUpdate(const QSharedPointer<V3::CardUpdated> &cardrequest,
-                         const QH::AbstractNodeInfo *sender, const QH::Header &) ;
+                           const QH::AbstractNodeInfo *sender, const QH::Header &) ;
 
     bool processRestoreDataRequest(const QSharedPointer<V3::RestoreDataRequest> &cardrequest,
                                    const QH::AbstractNodeInfo *sender, const QH::Header &) override;
