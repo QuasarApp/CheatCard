@@ -23,13 +23,27 @@ class UsersCards;
 class Contacts;
 
 /**
- * @brief The GetConntactsRequest class
+ * @brief The GetConntactsRequest class base class for sync information betwin nodes.
  */
 class Sync: public QH::PKG::AbstractData
 {
     QH_PACKAGE_AUTO(API::V3::Sync)
 
-public:
+    public:
+
+        /**
+         * @brief The Mode enum is shor description of the node sync
+         */
+    enum Mode {
+
+        Invalid         = 0x00,
+        Restrict        = 0x01,
+        Incremental     = 0x02,
+
+        UsersData       = 0x04,
+        Contacts        = 0x08
+    };
+
     Sync();
     bool isValid() const override;
 
@@ -38,9 +52,13 @@ public:
 
     const QH::PKG::DataPack<API::V3::Contacts> &contacts() const;
     void setContacts(const QH::PKG::DataPack<API::V3::Contacts> &newContacts);
+    Mode mode() const;
+    void setMode(Mode newMode);
 
-    const QByteArray &userKey() const;
-    void setUserKey(const QByteArray &newUserKey);
+    bool isRestrict() const;
+    bool isIncremental() const;
+    bool isContainsPermisionsInfo() const;
+    bool isContainsUsersDataInfo() const;
 
 protected:
     QDataStream &fromStream(QDataStream &stream) override;
@@ -49,8 +67,8 @@ protected:
 private:
     QH::PKG::DataPack<API::V3::UsersCards> _usersCards;
     QH::PKG::DataPack<API::V3::Contacts> _contacts;
-    QByteArray _userKey;
 
+    Mode _mode = Invalid;
 };
 
 }

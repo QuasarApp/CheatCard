@@ -15,13 +15,7 @@ namespace V3 {
 
 UsersCards::UsersCards() {}
 UsersCards::UsersCards(const QSharedPointer<Interfaces::iUsersCards>& obj) {
-
-    UsersCards::setUser(obj->getUser());
-    UsersCards::setCard(obj->getCard());
-    UsersCards::setPurchasesNumber(obj->getPurchasesNumber());
-    UsersCards::setReceived(obj->getReceived());
-    UsersCards::setCardVersion(obj->getCardVersion());
-    UsersCards::setTime(obj->getRawTime());
+    UsersCards::fromObject(obj);
 };
 
 UsersCards::UsersCards(const QByteArray &user, const QByteArray &card) {
@@ -103,6 +97,36 @@ void UsersCards::setTime(unsigned int newTime) {
 
 bool RC::API::V3::UsersCards::UsersCards::isValid() const {
     return user.size() && card.size();
+}
+
+QSharedPointer<Interfaces::iUsersCards>
+UsersCards::toObject(const QSharedPointer<Interfaces::iDB> &db) const {
+    if (!db)
+        return nullptr;
+
+
+    QSharedPointer<Interfaces::iUsersCards> result = db->makeEmptyUsersCard();
+    result->setCard(getCard());
+    result->setCardVersion(getCardVersion());
+    result->setPurchasesNumber(getPurchasesNumber());
+    result->setReceived(getReceived());
+    result->setTime(time());
+    result->setUser(getUser());
+
+    return result;
+}
+
+void UsersCards::fromObject(const QSharedPointer<Interfaces::iUsersCards> &obj) {
+
+    if (obj) {
+
+        UsersCards::setUser(obj->getUser());
+        UsersCards::setCard(obj->getCard());
+        UsersCards::setPurchasesNumber(obj->getPurchasesNumber());
+        UsersCards::setReceived(obj->getReceived());
+        UsersCards::setCardVersion(obj->getCardVersion());
+        UsersCards::setTime(obj->getRawTime());
+    }
 }
 
 }

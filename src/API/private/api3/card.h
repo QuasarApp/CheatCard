@@ -8,6 +8,7 @@
 #include "rci/core/idb.h"
 #include "rci/objects/icard.h"
 #include <abstractdata.h>
+#include <idataconvertor.h>
 
 #ifndef CARD_V3_H
 #define CARD_V3_H
@@ -19,7 +20,7 @@ namespace V3 {
 /**
  * @brief The Card class is network object of the card
  */
-class Card: public QH::PKG::AbstractData {
+class Card: public QH::PKG::AbstractData, public iDataConvertor<RC::Interfaces::iCard> {
     QH_PACKAGE_AUTO(API::V3::Card)
 public:
     Card();
@@ -75,7 +76,8 @@ public:
     void setOwnerSignature(const QByteArray &newOwnerSignature);
 
     QSharedPointer<RC::Interfaces::iCard>
-    toObject(const QSharedPointer<Interfaces::iDB>& db);
+    toObject(const QSharedPointer<Interfaces::iDB>& db) const override;
+    void fromObject(const QSharedPointer<RC::Interfaces::iCard>& obj) override;
 
     const QByteArray& id() const;
     void setId(const QByteArray &newKey);

@@ -21,13 +21,16 @@ Sync::Sync() {
 }
 
 bool Sync::isValid() const {
-    return _userKey.size() == 32;
+    // mode is not be Restrict and Incremental on one time
+    return _mode &&
+            !(_mode & Mode::Restrict & Mode::Incremental) &&
+            (_mode & (Mode::Restrict | Mode::Incremental));
 }
 
 QDataStream &Sync::fromStream(QDataStream &stream) {
     stream >> _usersCards;
     stream >> _contacts;
-    stream >> _userKey;
+    stream >> _mode;
 
     return stream;
 }
@@ -35,17 +38,33 @@ QDataStream &Sync::fromStream(QDataStream &stream) {
 QDataStream &Sync::toStream(QDataStream &stream) const {
     stream << _usersCards;
     stream << _contacts;
-    stream << _userKey;
+    stream << _mode;
 
     return stream;
 }
 
-const QByteArray &Sync::userKey() const {
-    return _userKey;
+Sync::Mode Sync::mode() const {
+    return _mode;
 }
 
-void Sync::setUserKey(const QByteArray &newUserKey) {
-    _userKey = newUserKey;
+void Sync::setMode(Mode newMode) {
+    _mode = newMode;
+}
+
+bool Sync::isRestrict() const {
+    return _mode & Mode::Restrict;
+}
+
+bool Sync::isIncremental() const {
+    return _mode & Mode::Restrict;
+}
+
+bool Sync::isContainsPermisionsInfo() const {
+    return _mode & Mode::Contacts;
+}
+
+bool Sync::isContainsUsersDataInfo() const {
+    return _mode & Mode::UsersData;
 }
 
 const QH::PKG::DataPack<API::V3::Contacts> &Sync::contacts() const {

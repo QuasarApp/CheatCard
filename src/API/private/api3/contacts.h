@@ -7,6 +7,7 @@
 
 #ifndef SALLERSUSERS_V3_H
 #define SALLERSUSERS_V3_H
+#include "idataconvertor.h"
 #include "rci/core/idb.h"
 #include <dbobject.h>
 #include <QSharedPointer>
@@ -19,7 +20,7 @@ namespace V3 {
 
 class User;
 
-class Contacts: public QH::PKG::AbstractData
+class Contacts: public QH::PKG::AbstractData, public iDataConvertor<RC::Interfaces::iContacts>
 {
     QH_PACKAGE_AUTO(RC::API::V3::Contacts)
 
@@ -39,7 +40,9 @@ public:
     void setUserKey(const QByteArray &newUserKey);
 
     virtual QSharedPointer<RC::Interfaces::iContacts>
-    toObject(const QSharedPointer<Interfaces::iDB> &db);
+    toObject(const QSharedPointer<Interfaces::iDB> &db) const override;
+    void fromObject(const QSharedPointer<RC::Interfaces::iContacts>& obj) override;
+
 protected:
     QDataStream &fromStream(QDataStream &stream) override;
     QDataStream &toStream(QDataStream &stream) const override;

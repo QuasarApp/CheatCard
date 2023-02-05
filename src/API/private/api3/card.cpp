@@ -18,25 +18,7 @@ Card::Card() {
 }
 
 Card::Card(const QSharedPointer<Interfaces::iCard> &obj) {
-
-    if (obj) {
-        _id = obj->cardId();
-        _title = obj->title();
-        _logo = obj->logo();
-        _seal = obj->seal();
-        _background = obj->background();
-        _phone = obj->phone();
-        _telegramm = obj->telegramm();
-        _instagramm = obj->instagramm();
-        _physicalAddress = obj->physicalAddress();
-        _webSite = obj->webSite();
-        freeIndex = obj->getFreeIndex();
-        color = obj->getColor();
-        fontColor = obj->getFontColor();
-        _freeItemName = obj->freeItemName();
-        cardVersion = obj->getCardVersion();
-        _ownerSignature = obj->ownerSignature();
-    }
+    Card::fromObject(obj);
 }
 
 QDataStream &Card::fromStream(QDataStream &stream) {
@@ -118,32 +100,6 @@ QString Card::toString() const {
     return result;
 }
 
-QSharedPointer<Interfaces::iCard>
-Card::toObject(const QSharedPointer<Interfaces::iDB> &db) {
-    if (!db)
-        return nullptr;
-
-    QSharedPointer<Interfaces::iCard> result = db->makeEmptyCard();
-    result->setCardId(_id);
-    result->setTitle(_title);
-    result->setLogo(_logo);
-    result->setSeal(_seal);
-    result->setBackground(_background);
-    result->setPhone(_phone);
-    result->setTelegramm(_telegramm);
-    result->setInstagramm(_instagramm);
-    result->setPhysicalAddress(_physicalAddress);
-    result->setWebSite(_webSite);
-    result->setFreeIndex(freeIndex);
-    result->setColor(color);
-    result->setFontColor(fontColor);
-    result->setFreeItemName(_freeItemName);
-    result->setCardVersion(cardVersion);
-    result->setOwnerSignature(_ownerSignature);
-
-    return result;
-}
-
 bool Card::isValid() const {
     return _id.size() == 32 && _ownerSignature.size() == 32;
 }
@@ -170,6 +126,53 @@ const QByteArray &Card::ownerSignature() const {
 
 void Card::setOwnerSignature(const QByteArray &newOwnerSignature) {
     _ownerSignature = newOwnerSignature;
+}
+
+QSharedPointer<Interfaces::iCard>
+Card::toObject(const QSharedPointer<Interfaces::iDB> &db) const {
+    if (!db)
+        return nullptr;
+
+    QSharedPointer<Interfaces::iCard> result = db->makeEmptyCard();
+    result->setCardId(_id);
+    result->setTitle(_title);
+    result->setLogo(_logo);
+    result->setSeal(_seal);
+    result->setBackground(_background);
+    result->setPhone(_phone);
+    result->setTelegramm(_telegramm);
+    result->setInstagramm(_instagramm);
+    result->setPhysicalAddress(_physicalAddress);
+    result->setWebSite(_webSite);
+    result->setFreeIndex(freeIndex);
+    result->setColor(color);
+    result->setFontColor(fontColor);
+    result->setFreeItemName(_freeItemName);
+    result->setCardVersion(cardVersion);
+    result->setOwnerSignature(_ownerSignature);
+
+    return result;
+}
+
+void Card::fromObject(const QSharedPointer<Interfaces::iCard> &obj) {
+    if (obj) {
+        _id = obj->cardId();
+        _title = obj->title();
+        _logo = obj->logo();
+        _seal = obj->seal();
+        _background = obj->background();
+        _phone = obj->phone();
+        _telegramm = obj->telegramm();
+        _instagramm = obj->instagramm();
+        _physicalAddress = obj->physicalAddress();
+        _webSite = obj->webSite();
+        freeIndex = obj->getFreeIndex();
+        color = obj->getColor();
+        fontColor = obj->getFontColor();
+        _freeItemName = obj->freeItemName();
+        cardVersion = obj->getCardVersion();
+        _ownerSignature = obj->ownerSignature();
+    }
 }
 
 unsigned int Card::getCardVersion() const {

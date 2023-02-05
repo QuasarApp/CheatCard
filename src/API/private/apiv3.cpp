@@ -1,5 +1,5 @@
 //#
-//# Copyright (C) 2021-2023 QuasarApp.
+//# Copyright (C) 2023-2023 QuasarApp.
 //# Distributed under the GPLv3 software license, see the accompanying
 //# Everyone is permitted to copy and distribute verbatim copies
 //# of this license document, but changing it is not allowed.
@@ -7,17 +7,15 @@
 
 
 #include "apiv3.h"
-#include "api0/carddatarequest.h"
-#include "api0/cardstatusrequest.h"
-#include "api0/contacts.h"
-#include "api2/cardupdated.h"
-#include "api2/changeuserscards.h"
-#include "api2/deletecardrequest.h"
-#include "api2/restoreresponce.h"
-#include "api2/statusafterchanges.h"
-#include "api2/updatecontactdata.h"
-#include "api2/updatecontactdataresponce.h"
+#include "api3/carddatarequest.h"
+#include "api3/contacts.h"
+#include "api3/cardupdated.h"
+#include "api3/changeuserscards.h"
+#include "api3/deletecardrequest.h"
+#include "api3/updatecontactdata.h"
+#include "api3/userscards.h"
 
+#include <api3/card.h>
 #include <cmath>
 #include <dbobjectsrequest.h>
 #include <rci/rcutils.h>
@@ -26,54 +24,41 @@
 namespace RC {
 namespace API {
 
-ApiV2::ApiV2(const QSharedPointer<Interfaces::iDB>& dataBase, QH::AbstractNode* mainNode):
-    ApiV1(dataBase, mainNode) {
+ApiV3::ApiV3(const QSharedPointer<Interfaces::iDB>& dataBase, QH::AbstractNode* mainNode):
+    APIBase(dataBase, mainNode) {
 
 }
 
-void ApiV2::initSupportedCommands() {
+void ApiV3::initSupportedCommands() {
     // for all nodes types.
-    registerPackageType<QH::PKG::DataPack<API::V0::Card>>();
-    registerPackageType<QH::PKG::DataPack<API::V1::UsersCards>>();
-    registerPackageType<QH::PKG::DataPack<API::V1::Card>>();
-    registerPackageType<QH::PKG::DataPack<API::V2::UsersCards>>();
+    registerPackageType<QH::PKG::DataPack<API::V3::Card>>();
+    registerPackageType<QH::PKG::DataPack<API::V3::UsersCards>>();
 
     switch (static_cast<NodeType>(node()->nodeType())) {
     case NodeType::Visitor: {
-        registerPackageType<QH::PKG::DataPack<API::V0::Contacts>>();
-        registerPackageType<API::V2::UpdateContactDataResponce>();
-        registerPackageType<API::V2::RestoreResponce>();
+        registerPackageType<QH::PKG::DataPack<API::V3::Contacts>>();
+        registerPackageType<API::V3::Sync>();
 
         break;
     }
 
     case NodeType::Seller: {
-        registerPackageType<API::V0::CardStatusRequest>();
-        registerPackageType<API::V0::CardDataRequest>();
-        registerPackageType<QH::PKG::DataPack<API::V0::Contacts>>();
-        registerPackageType<API::V2::ChangeUsersCards>();
-        registerPackageType<API::V2::StatusAfterChanges>();
-        registerPackageType<API::V2::CardUpdated>();
-        registerPackageType<API::V2::UpdateContactDataResponce>();
-        registerPackageType<API::V2::RestoreResponce>();
+        registerPackageType<API::V3::Sync>();
+        registerPackageType<API::V3::CardDataRequest>();
+        registerPackageType<QH::PKG::DataPack<API::V3::Contacts>>();
         break;
     }
 
     case NodeType::Server: {
-        registerPackageType<API::V0::Session>();
-        registerPackageType<API::V0::CardStatusRequest>();
-        registerPackageType<QH::PKG::DataPack<API::V0::UsersCards>>();
+        registerPackageType<QH::PKG::DataPack<API::V3::UsersCards>>();
 
-        registerPackageType<API::V0::CardDataRequest>();
-        registerPackageType<QH::PKG::DataPack<API::V0::Card>>();
-        registerPackageType<API::V1::RestoreDataRequest>();
+        registerPackageType<API::V3::CardDataRequest>();
+        registerPackageType<QH::PKG::DataPack<API::V3::Card>>();
 
-        registerPackageType<API::V2::ChangeUsersCards>();
-        registerPackageType<API::V2::StatusAfterChanges>();
-        registerPackageType<API::V2::CardUpdated>();
-        registerPackageType<API::V2::RestoreResponce>();
-        registerPackageType<API::V2::UpdateContactData>();
-        registerPackageType<API::V2::DeleteCardRequest>();
+        registerPackageType<API::V3::ChangeUsersCards>();
+        registerPackageType<API::V3::CardUpdated>();
+        registerPackageType<API::V3::UpdateContactData>();
+        registerPackageType<API::V3::DeleteCardRequest>();
         break;
     }
 
@@ -82,71 +67,52 @@ void ApiV2::initSupportedCommands() {
     }
 }
 
-int ApiV2::version() const {
-    return 2;
+int ApiV3::version() const {
+    return 3;
 }
 
-QH::ParserResult ApiV2::parsePackage(const QSharedPointer<QH::PKG::AbstractData> &pkg,
+QH::ParserResult ApiV3::parsePackage(const QSharedPointer<QH::PKG::AbstractData> &pkg,
                                      const QH::Header &pkgHeader,
                                      QH::AbstractNodeInfo *sender) {
 
-    auto result = commandHandler<API::V0::Session>(this, &ApiV2::processSession,
-                                                   pkg, sender, pkgHeader);
+
+    auto result = commandHandler<QH::PKG::DataPack<API::V3::UsersCards>>(this,
+                                                                         &ApiV3::processCardStatus,
+                                                                         pkg, sender, pkgHeader);
     if (result != QH::ParserResult::NotProcessed) {
         return result;
     }
 
-    result = commandHandler<API::V0::CardStatusRequest>(this, &ApiV2::processCardStatusRequest,
-                                                        pkg, sender, pkgHeader);
-    if (result != QH::ParserResult::NotProcessed) {
-        return result;
-    }
-
-    result = commandHandler<QH::PKG::DataPack<API::V2::UsersCards>>(this,
-                                                                    &ApiV2::processCardStatus,
-                                                                    pkg, sender, pkgHeader);
-    if (result != QH::ParserResult::NotProcessed) {
-        return result;
-    }
-
-    result = commandHandler<API::V0::CardDataRequest>(this, &ApiV2::processCardRequest,
+    result = commandHandler<API::V3::CardDataRequest>(this, &ApiV3::processCardRequest,
                                                       pkg, sender, pkgHeader);
     if (result != QH::ParserResult::NotProcessed) {
         return result;
     }
 
-    result = commandHandler<QH::PKG::DataPack<API::V1::Card>>(this, &ApiV2::processCardData,
+    result = commandHandler<QH::PKG::DataPack<API::V3::Card>>(this, &ApiV3::processCardData,
                                                               pkg, sender, pkgHeader);
     if (result != QH::ParserResult::NotProcessed) {
         return result;
     }
 
-    result = commandHandler<API::V1::RestoreDataRequest>(this,
-                                                         &ApiV2::processRestoreDataRequest,
-                                                         pkg, sender, pkgHeader);
-
-    if (result != QH::ParserResult::NotProcessed) {
-        return result;
-    }
-
-    result = commandHandler<API::V2::ChangeUsersCards>(this,
-                                                       &ApiV2::processChanges,
+    result = commandHandler<API::V3::ChangeUsersCards>(this,
+                                                       &ApiV3::processChanges,
                                                        pkg, sender, pkgHeader);
 
     if (result != QH::ParserResult::NotProcessed) {
         return result;
     }
 
-    result = commandHandler<API::V2::StatusAfterChanges>(this,
-                                                         &ApiV2::processStatusAfterChanged,
-                                                         pkg, sender, pkgHeader);
+    result = commandHandler<API::V3::Sync>(this,
+                                           &ApiV3::processSync,
+                                           pkg, sender, pkgHeader);
 
     if (result != QH::ParserResult::NotProcessed) {
         return result;
     }
 
-    result = commandHandler<API::V2::CardUpdated>(this,
-                                                  &ApiV2::processCardUpdate,
+    result = commandHandler<API::V3::CardUpdated>(this,
+                                                  &ApiV3::processCardUpdate,
                                                   pkg, sender, pkgHeader);
 
     if (result != QH::ParserResult::NotProcessed) {
@@ -154,33 +120,16 @@ QH::ParserResult ApiV2::parsePackage(const QSharedPointer<QH::PKG::AbstractData>
     }
 
 
-    result = commandHandler<API::V2::UpdateContactData>(this,
-                                                        &ApiV2::processContacts,
+    result = commandHandler<API::V3::UpdateContactData>(this,
+                                                        &ApiV3::processContacts,
                                                         pkg, sender, pkgHeader);
 
     if (result != QH::ParserResult::NotProcessed) {
         return result;
     }
 
-
-    result = commandHandler<API::V2::UpdateContactDataResponce>(this,
-                                                                &ApiV2::processContactsResponce,
-                                                                pkg, sender, pkgHeader);
-
-    if (result != QH::ParserResult::NotProcessed) {
-        return result;
-    }
-
-    result = commandHandler<API::V2::RestoreResponce>(this,
-                                                      &ApiV2::processRestoreResponce,
-                                                      pkg, sender, pkgHeader);
-
-    if (result != QH::ParserResult::NotProcessed) {
-        return result;
-    }
-
-    result = commandHandler<API::V2::DeleteCardRequest>(this,
-                                                        &ApiV2::processDeleteCardRequest,
+    result = commandHandler<API::V3::DeleteCardRequest>(this,
+                                                        &ApiV3::processDeleteCardRequest,
                                                         pkg, sender, pkgHeader);
 
     if (result != QH::ParserResult::NotProcessed) {
@@ -190,34 +139,34 @@ QH::ParserResult ApiV2::parsePackage(const QSharedPointer<QH::PKG::AbstractData>
     return QH::ParserResult::NotProcessed;
 }
 
-void ApiV2::sendCardStatusRequest(long long userSession, QH::AbstractNodeInfo *dist) {
-    V0::CardStatusRequest request;
-    request.setSessionId(userSession);
+//void ApiV3::sendCardStatusRequest(long long userSession, QH::AbstractNodeInfo *dist) {
+//    V3::CardStatusRequest request;
+//    request.setSessionId(userSession);
 
-    _checkUserRequestHash.clear();
-    if (auto pkghash = node()->sendData(&request, dist)) {
-        _checkUserRequestHash += pkghash;
-    }
-}
+//    _checkUserRequestHash.clear();
+//    if (auto pkghash = node()->sendData(&request, dist)) {
+//        _checkUserRequestHash += pkghash;
+//    }
+//}
 
-bool ApiV2::processCardStatus(const QSharedPointer<QH::PKG::DataPack<API::V2::UsersCards> > &cardStatuses,
+bool ApiV3::processCardStatus(const QSharedPointer<QH::PKG::DataPack<API::V3::UsersCards> > &cardStatuses,
                               const QH::AbstractNodeInfo *sender, const QH::Header &pkg) {
-    return ApiV2::processCardStatusImpl(*cardStatuses, sender, pkg);
+    return ApiV3::processCardStatusImpl(*cardStatuses, sender, pkg);
 }
 
-bool ApiV2::processCardStatusImpl(const QH::PKG::DataPack<API::V2::UsersCards> &cardStatuses,
+bool ApiV3::processCardStatusImpl(const QH::PKG::DataPack<API::V3::UsersCards> &cardStatuses,
                                   const QH::AbstractNodeInfo *sender,
                                   const QH::Header &pkg) {
-    V0::CardDataRequest request;
+    V3::CardDataRequest request;
 
     for (const auto& cardStatus : cardStatuses.packData()) {
-        unsigned int neededCardId = 0;
+        QByteArray neededCardId;
         if (!processCardStatusBase(cardStatus, cardStatuses.customData(),
                                    sender, pkg, neededCardId)) {
             break;
         }
 
-        if (neededCardId) {
+        if (neededCardId.size()) {
             request.push(neededCardId);
         }
     }
@@ -236,7 +185,7 @@ bool ApiV2::processCardStatusImpl(const QH::PKG::DataPack<API::V2::UsersCards> &
     return node()->removeNode(sender->networkAddress());
 }
 
-bool ApiV2::processDeleteCardRequest(const QSharedPointer<API::V2::DeleteCardRequest> &request,
+bool ApiV3::processDeleteCardRequest(const QSharedPointer<API::V3::DeleteCardRequest> &request,
                                      const QH::AbstractNodeInfo * sender,
                                      const QH::Header &) {
 
@@ -252,9 +201,8 @@ bool ApiV2::processDeleteCardRequest(const QSharedPointer<API::V2::DeleteCardReq
     }
 
     auto userKey = RCUtils::makeUserKey(request->secret());
-    auto userId = RCUtils::makeUserId(userKey);
     auto listOfUsers = db()->getAllActiveUserFromCard(request->card(),
-                                                      Interfaces::ACTIVE_USER_TIME_LIMIT, userId);
+                                                      Interfaces::ACTIVE_USER_TIME_LIMIT, userKey);
 
     if (listOfUsers.size()) {
         return false;
@@ -271,16 +219,16 @@ bool ApiV2::processDeleteCardRequest(const QSharedPointer<API::V2::DeleteCardReq
     return true;
 }
 
-bool ApiV2::processCardStatusBase(const QSharedPointer<V2::UsersCards> &cardStatus,
+bool ApiV3::processCardStatusBase(const QSharedPointer<V3::UsersCards> &cardStatus,
                                   const QByteArray& userSecreet,
                                   const QH::AbstractNodeInfo *sender,
                                   const QH::Header &pkg,
-                                  unsigned int& neededCardId) {
+                                  QByteArray& neededCardId) {
 
     auto dbCard = db()->getCard(cardStatus->getCard());
     auto dbUsersCards = db()->getUserCardData(
-        cardStatus->getUser(),
-        cardStatus->getCard());
+                cardStatus->getUser(),
+                cardStatus->getCard());
 
     if (!accessValidation(dbCard, userSecreet, true)) {
 
@@ -304,17 +252,42 @@ bool ApiV2::processCardStatusBase(const QSharedPointer<V2::UsersCards> &cardStat
     return true;
 }
 
-void ApiV2::processCardStatusWithoutCardRequests(
-    const QSharedPointer<QH::PKG::DataPack<API::V2::UsersCards> > &cardStatuses) {
+bool ApiV3::cardValidation(const QSharedPointer<Interfaces::iCard> &cardFromDB,
+                           const QByteArray &ownerSecret) const {
+
+    switch (static_cast<NodeType>(node()->nodeType())) {
+    case NodeType::Server: {
+        if (!(cardFromDB && cardFromDB->isValid()))
+            return true;
+
+        auto signature = cardFromDB->ownerSignature();
+
+        if (signature.isEmpty()) {
+            return true;
+        }
+
+        auto ownerSignature =  RCUtils::makeUserKey(ownerSecret);
+
+        return signature == ownerSignature;
+    }
+
+    default: {};
+    }
+
+    return true;
+}
+
+void ApiV3::processCardStatusWithoutCardRequests(
+        const QSharedPointer<QH::PKG::DataPack<API::V3::UsersCards> > &cardStatuses) {
 
     for (const auto& cardStatus : cardStatuses->packData()) {
         auto dbCard = db()->getCard(cardStatus->getCard());
         auto dbUsersCards = db()->getUserCardData(
-            cardStatus->getUser(),
-            cardStatus->getCard());
+                    cardStatus->getUser(),
+                    cardStatus->getCard());
 
         // ignore seels statuses that has a depricated time.
-        if (dbUsersCards && dbUsersCards->getRawTime() > cardStatus->getRawTime()) {
+        if (dbUsersCards && dbUsersCards->getRawTime() > cardStatus->time()) {
             continue;
         }
 
@@ -333,26 +306,88 @@ void ApiV2::processCardStatusWithoutCardRequests(
     return;
 }
 
-bool ApiV2::processCardRequest(const QSharedPointer<API::V0::CardDataRequest> &cardrequest,
+bool ApiV3::processCardRequest(const QSharedPointer<API::V3::CardDataRequest> &cardrequest,
                                const QH::AbstractNodeInfo *sender, const QH::Header &pkg) {
 
-    return ApiV1::processCardRequest(cardrequest, sender, pkg);
 
+    QH::PKG::DataPack<API::V3::Card> cards{};
+
+    QByteArray publicKey;
+    for (const auto& cardId : cardrequest->getCardIds()) {
+        auto card = db()->getCard(cardId);
+
+        if (!card) {
+            QuasarAppUtils::Params::log(QString("Failed to find card with id: %0").
+                                        arg(QString(cardId.toBase64(QByteArray::Base64UrlEncoding))),
+                                        QuasarAppUtils::Error);
+            continue;
+        }
+        cards.push(card);
+        publicKey = card->ownerSignature();
+    }
+
+    if (!cards.packData().size()) {
+        QuasarAppUtils::Params::log(QString("Failed to find any cards "),
+                                    QuasarAppUtils::Error);
+        return false;
+    }
+
+    cards.setCustomData(db()->getSecret(publicKey));
+
+    if (!node()->sendData(&cards, sender, &pkg)) {
+
+        QuasarAppUtils::Params::log("Failed to send responce", QuasarAppUtils::Error);
+        return false;
+    }
+
+    return true;
 }
 
-bool ApiV2::processCardData(const QSharedPointer<QH::PKG::DataPack<API::V1::Card>> &cards,
-                            const QH::AbstractNodeInfo *sender, const QH::Header &pkg) {
+bool ApiV3::processCardData(const QSharedPointer<QH::PKG::DataPack<API::V3::Card>> &cards,
+                            const QH::AbstractNodeInfo *sender, const QH::Header &) {
 
-    return ApiV1::processCardData(cards, sender, pkg);
+    if (!(cards && db())) {
+        return false;
+    }
 
+    for (const auto &card: qAsConst(cards->packData())) {
+
+        if (!card->isValid()) {
+            QuasarAppUtils::Params::log("Received invalid card data!",
+                                        QuasarAppUtils::Error);
+            continue;
+        }
+        auto dbCard = db()->getCard(card->id());
+        if (!cardValidation(dbCard, cards->customData())) {
+
+            QuasarAppUtils::Params::log("Receive not signed card",
+                                        QuasarAppUtils::Error);
+            return false;
+        }
+
+        if (dbCard && card->ownerSignature() != dbCard->ownerSignature()) {
+            QuasarAppUtils::Params::log("User try change the card owner signature!!!",
+                                        QuasarAppUtils::Error);
+            return false;
+        }
+
+        auto cardObj = card->toObject(db());
+        if (!db()->saveCard(cardObj)) {
+            continue;
+        }
+
+        emit sigCardReceived(cardObj);
+    }
+
+    return node()->removeNode(sender->networkAddress());
 }
 
-bool ApiV2::processCardUpdate(const QSharedPointer<API::V2::CardUpdated> &cardrequest,
+bool ApiV3::processCardUpdate(const QSharedPointer<API::V3::CardUpdated> &cardrequest,
                               const QH::AbstractNodeInfo *sender,
                               const QH::Header &hdr) {
 
     auto dbCard = db()->getCard(cardrequest->cardId());
-    V0::CardDataRequest request;
+    V3::CardDataRequest request;
 
     if (!dbCard || dbCard->getCardVersion() < cardrequest->cardVersion()) {
         request.push(cardrequest->cardId());
@@ -365,11 +400,9 @@ bool ApiV2::processCardUpdate(const QSharedPointer<API::V2::CardUpdated> &cardre
     return node()->removeNode(sender->networkAddress());
 }
 
-void ApiV2::collectDataOfuser(const QByteArray& userKey, QH::PKG::DataPack<API::V2::UsersCards>& responce) {
-    unsigned int userID = RCUtils::makeUserId(userKey);
+void ApiV3::collectDataOfuser(const QByteArray& userKey, QH::PKG::DataPack<API::V3::UsersCards>& responce) {
     auto masterUser = db()->getMasterKeys(userKey);
-
-    auto result = db()->getAllUserData(userID);
+    auto result = db()->getAllUserData(userKey);
 
     for (const auto &data : qAsConst(result)) {
         data->setCardVersion(db()->getCardVersion(data->getCard()));
@@ -385,83 +418,24 @@ void ApiV2::collectDataOfuser(const QByteArray& userKey, QH::PKG::DataPack<API::
     return;
 }
 
-bool ApiV2::processRestoreDataRequest(const QSharedPointer<API::V1::RestoreDataRequest> &cardrequest,
-                                      const QH::AbstractNodeInfo *sender, const QH::Header &hdr) {
+bool ApiV3::applayPurchases(const QSharedPointer<API::V3::UsersCards> &dbCard,
+                            const QH::AbstractNodeInfo *, bool alert) {
 
-    API::V2::RestoreResponce responce;
-    responce.setUserKey(cardrequest->userKey());
-    QH::PKG::DataPack<API::V2::UsersCards> usersData;
-
-    collectDataOfuser(cardrequest->userKey(), usersData);
-    responce.setUsersCards(usersData);
-
-    auto contacts = db()->getSlaveKeys(cardrequest->userKey());
-    contacts += db()->getMasterKeys(cardrequest->userKey());
-
-    QH::PKG::DataPack<API::V0::Contacts> contactsData;
-    for (const auto& contact : qAsConst(contacts)) {
-        contactsData.push(contact);
-    }
-
-    responce.setContacts(contactsData);
-
-    if (responce.isValid()) {
-        return node()->sendData(&responce, sender, &hdr);
-    }
-
-    return node()->removeNode(sender->networkAddress());
-}
-
-bool ApiV2::processStatusAfterChanged(const QSharedPointer<API::V2::StatusAfterChanges> &status,
-                                      const QH::AbstractNodeInfo * sender,
-                                      const QH::Header & hdr) {
-
-    auto cardStatus = QSharedPointer<QH::PKG::DataPack<API::V2::UsersCards>>::create(status->getLastStatus());
-
-    if (status->neededCard()) {
-        processCardStatusWithoutCardRequests(cardStatus);
-
-        auto card = db()->getCard(status->getCard());
-        QH::PKG::DataPack<API::V1::Card> responce;
-        responce.push(card);
-
-        return node()->sendData(&responce, sender, &hdr);
-    }
-
-    if (!processCardStatus(cardStatus, sender, hdr)) {
+    auto usersCard = dbCard->toObject(db());
+    if (!db()->saveUsersCard(usersCard)) {
+        QuasarAppUtils::Params::log("Failed to update data", QuasarAppUtils::Error);
         return false;
     }
 
-    emit sigSessionStatusResult(status->toObject(db()), status->status());
+    emit sigPurchaseWasSuccessful(usersCard, alert);
+
     return true;
+
 }
 
-void ApiV2::applayUpdateContactData(const QSharedPointer<RC::API::V2::UpdateContactData> &data,
-                                    bool success) {
-
-    if (success) {
-        if (data->getRemove()) {
-            db()->deleteContact(data->toObject(db()));
-        } else {
-            db()->saveContact(data->toObject(db()));
-        }
-    }
-
-    emit sigContactsStatusResult(data->toObject(db()),
-                                 success, data->getRemove());
-}
-
-void ApiV2::processContactsResponcePrivate(unsigned int requestId, bool result) {
-
-    if (auto object = _waitResponce.value(requestId)) {
-        applayUpdateContactData(object, result);
-        _waitResponce.remove(requestId);
-    }
-}
-
-QH::PKG::DataPack<API::V2::UsersCards>
-ApiV2::lastUserStatus(unsigned int cardId) {
-    QH::PKG::DataPack<API::V2::UsersCards> responce;
+QH::PKG::DataPack<API::V3::UsersCards>
+ApiV3::lastUserStatus(const QByteArray& cardId) {
+    QH::PKG::DataPack<API::V3::UsersCards> responce;
 
     auto result = db()->getAllUserFromCard(cardId);
 
@@ -473,36 +447,7 @@ ApiV2::lastUserStatus(unsigned int cardId) {
     return responce;
 }
 
-bool ApiV2::processCardStatusRequest(const QSharedPointer<API::V0::CardStatusRequest> &cardStatus,
-                                     const QH::AbstractNodeInfo *sender, const QH::Header &pkg) {
-
-    auto sessionId = cardStatus->getSessionId();
-
-    auto result = db()->getUsersCardsFromSession(sessionId);
-    if (result.isEmpty()) {
-        QuasarAppUtils::Params::log(QString("The session %0 is missing").
-                                    arg(sessionId),
-                                    QuasarAppUtils::Debug);
-        return node()->removeNode(sender->networkAddress());
-    }
-
-    QH::PKG::DataPack<API::V2::UsersCards> responce;
-
-    for (const auto &data : qAsConst(result)) {
-        data->setCardVersion(db()->getCardVersion(data->getCard()));
-        responce.push(data);
-    }
-
-    if (!node()->sendData(&responce, sender, &pkg)) {
-        return false;
-    }
-
-    sessionProcessed(sessionId);
-
-    return true;
-}
-
-bool ApiV2::processChanges(const QSharedPointer<API::V2::ChangeUsersCards> &message,
+bool ApiV3::processChanges(const QSharedPointer<API::V3::ChangeUsersCards> &message,
                            const QH::AbstractNodeInfo *sender, const QH::Header &hdr) {
 
     if (!message->isValid()) {
@@ -510,12 +455,12 @@ bool ApiV2::processChanges(const QSharedPointer<API::V2::ChangeUsersCards> &mess
     }
 
     auto dbUsersCards = db()->getUserCardData(
-        message->getUser(),
-        message->getCard());
+                message->getUser(),
+                message->getCard());
 
-    API::V2::StatusAfterChanges status;
-    status.setSessionId(message->getSessionId());
-    status.setUsercardId(message->getUsercardId());
+  //  API::V3::StatusAfterChanges status;
+  //  status.setSessionId(message->getSessionId());
+  //  status.setUsercardId(message->getUsercardId());
 
     if (dbUsersCards) {
         int availabelFreeItems = db()->getFreeItemsCount(dbUsersCards);
@@ -523,13 +468,13 @@ bool ApiV2::processChanges(const QSharedPointer<API::V2::ChangeUsersCards> &mess
             // return status false and new users statuses of this seller
 
             auto lastStatus = db()->
-                              getUserCardData(message->getUser(), message->getCard());
+                    getUserCardData(message->getUser(), message->getCard());
 
-            status.setStatus(false);
-            status.addLastStatus(QSharedPointer<API::V2::UsersCards>::create(lastStatus));
-            if (!node()->sendData(&status, sender, &hdr)){
-                return false;
-            }
+//            status.setStatus(false);
+//            status.addLastStatus(QSharedPointer<API::V3::UsersCards>::create(lastStatus));
+//            if (!node()->sendData(&status, sender, &hdr)){
+//                return false;
+//            }
         }
 
     } else {
@@ -538,56 +483,29 @@ bool ApiV2::processChanges(const QSharedPointer<API::V2::ChangeUsersCards> &mess
         dbUsersCards->setCard(message->getCard());
     }
 
-    db()->saveSession(message->toObject(db()));
+//    db()->saveSession(message->toObject(db()));
 
     dbUsersCards->setPurchasesNumber(dbUsersCards->getPurchasesNumber() + message->purchase());
     dbUsersCards->setTime(time(0));
     dbUsersCards->receive(message->receive());
 
-    unsigned int neededCardId = 0;
-    if (!processCardStatusBase(QSharedPointer<V2::UsersCards>::create(dbUsersCards),
+    QByteArray neededCardId;
+    if (!processCardStatusBase(QSharedPointer<V3::UsersCards>::create(dbUsersCards),
                                message->secret(), sender, hdr, neededCardId)) {
         return false;
     }
 
-    status.setNeededCard(neededCardId);
+//    status.setNeededCard(neededCardId);
 
     auto lastStatus = db()->
-                      getUserCardData(message->getUser(), message->getCard());
-    status.addLastStatus(QSharedPointer<API::V2::UsersCards>::create(lastStatus));
-    status.setStatus(true);
+            getUserCardData(message->getUser(), message->getCard());
+//    status.addLastStatus(QSharedPointer<API::V3::UsersCards>::create(lastStatus));
+//    status.setStatus(true);
 
-    return node()->sendData(&status, sender, &hdr);
+//    return node()->sendData(&status, sender, &hdr);
 }
 
-bool ApiV2::processSession(const QSharedPointer<API::V0::Session> &session,
-                           const QH::AbstractNodeInfo *sender,
-                           const QH::Header &pkg ) {
-
-    return ApiV1::processSession(session, sender, pkg);
-}
-
-bool ApiV2::processRestoreResponce(const QSharedPointer<API::V2::RestoreResponce> &message,
-                                   const QH::AbstractNodeInfo *sender,
-                                   const QH::Header &hdr) {
-
-    if (!db()->deleteContactsByChildUserKey(message->userKey())) {
-        return false;
-    }
-
-    for (const auto& contact: message->contacts().packData()) {
-        db()->saveContact(contact->toObject(db()));
-    }
-
-    if (!ApiV2::processCardStatusImpl(message->usersCards(), sender, hdr))
-        return false;
-
-    emit sigContactsListChanged();
-
-    return true;
-}
-
-bool ApiV2::accessValidation(const QSharedPointer<RC::Interfaces::iCard> &cardFromDB,
+bool ApiV3::accessValidation(const QSharedPointer<RC::Interfaces::iCard> &cardFromDB,
                              const QByteArray &ownerSecret,
                              bool allowWorkers) const {
     switch (static_cast<NodeType>(node()->nodeType())) {
@@ -615,14 +533,13 @@ bool ApiV2::accessValidation(const QSharedPointer<RC::Interfaces::iCard> &cardFr
     return true;
 }
 
-bool ApiV2::processContacts(const QSharedPointer<API::V2::UpdateContactData> &message,
+bool ApiV3::processContacts(const QSharedPointer<API::V3::UpdateContactData> &message,
                             const QH::AbstractNodeInfo * sender,
                             const QH::Header &hdr) {
 
     auto userKey = RCUtils::makeUserKey(message->userSecreet());
-    auto userId = RCUtils::makeUserId(userKey);
 
-    if (userId != message->getUser()) {
+    if (userKey != message->getUserKey()) {
         QuasarAppUtils::Params::log("User try change permission for another user.",
                                     QuasarAppUtils::Info);
         return false;
@@ -643,50 +560,20 @@ bool ApiV2::processContacts(const QSharedPointer<API::V2::UpdateContactData> &me
         }
     }
 
-    API::V2::UpdateContactDataResponce responce;
-    responce.setSuccessful(true);
+//    API::V3::UpdateContactDataResponce responce;
+//    responce.setSuccessful(true);
 
-    return node()->sendData(&responce, sender, &hdr);
+//    return node()->sendData(&responce, sender, &hdr);
 }
 
-bool ApiV2::processContactsResponce(
-    const QSharedPointer<API::V2::UpdateContactDataResponce> &message,
-    const QH::AbstractNodeInfo *sender,
-    const QH::Header & hdr) {
-
-    processContactsResponcePrivate(hdr.triggerHash, message->getSuccessful());
-    return node()->removeNode(sender->networkAddress());
-}
-
-void ApiV2::restoreOldDateRequest(const QByteArray &curentUserKey,
-                                  QH::AbstractNodeInfo *dist) {
-    ApiV1::restoreOldDateRequest(curentUserKey, dist);
-}
-
-void ApiV2::restoreOneCardRequest(unsigned int cardId, QH::AbstractNodeInfo *dist) {
-    ApiV1::restoreOneCardRequest(cardId, dist);
-
-}
-
-void ApiV2::sendSessions(const QHash<long long, QSharedPointer<Interfaces::iSession> > &sessions,
-                         QH::AbstractNodeInfo *dist) {
-
-    _checkUserRequestHash.clear();
-    for (const auto &session: qAsConst(sessions)) {
-        V0::Session srssionObj(session);
-        if (unsigned int pkgHash = node()->sendData(&srssionObj, dist)) {
-            _checkUserRequestHash += pkgHash;
-        }
-    }
-}
-
-bool ApiV2::sendContacts(const Interfaces::iContacts& contact,
+bool ApiV3::sendContacts(const Interfaces::iContacts& contact,
                          const QByteArray& secreet,
                          bool removeRequest,
-                         QH::AbstractNodeInfo *dist) {
+                         QH::AbstractNodeInfo *dist,
+                         const std::function<void(int err)>& cb) {
 
 
-    auto request = QSharedPointer<RC::API::V2::UpdateContactData>::create(contact);
+    auto request = QSharedPointer<RC::API::V3::UpdateContactData>::create(contact);
     request->setRemove(removeRequest);
     request->setUserSecreet(secreet);
 
@@ -705,10 +592,11 @@ bool ApiV2::sendContacts(const Interfaces::iContacts& contact,
     return true;
 }
 
-bool ApiV2::deleteCard(unsigned int cardId,
-                       const QByteArray &curentUserKey,
-                       QH::AbstractNodeInfo *dist) {
-    API::V2::DeleteCardRequest request;
+bool ApiV3::deleteCard(const QByteArray& cardId,
+                       const QByteArray& curentUserKey,
+                       QH::AbstractNodeInfo *dist,
+                       const std::function<void(int err)>& cb) {
+    API::V3::DeleteCardRequest request;
     request.setCard(cardId);
     auto secret = db()->getSecret(curentUserKey);
 
@@ -720,10 +608,11 @@ bool ApiV2::deleteCard(unsigned int cardId,
     return node()->sendData(&request, dist, nullptr);
 }
 
-bool ApiV2::sendUpdateCard(unsigned int cardId,
+bool ApiV3::sendUpdateCard(const QByteArray& cardId,
                            unsigned int version,
-                           QH::AbstractNodeInfo *dist) {
-    API::V2::CardUpdated request;
+                           QH::AbstractNodeInfo *dist,
+                           const std::function<void(int err)>& cb) {
+    API::V3::CardUpdated request;
     request.setCardVersion(version);
     request.setCardId(cardId);
 
@@ -731,18 +620,16 @@ bool ApiV2::sendUpdateCard(unsigned int cardId,
 
 }
 
-bool ApiV2::changeUsersData(const QByteArray& sellerUserKey,
-                            unsigned int cardId,
-                            unsigned int userId,
-                            unsigned long long session,
+bool ApiV3::changeUsersData(const QByteArray& sellerUserKey,
+                            const QByteArray& cardId,
+                            const QByteArray& userId,
                             unsigned int purchasesCount,
                             unsigned int receivedCount,
-                            QH::AbstractNodeInfo *dist) {
+                            QH::AbstractNodeInfo *dist,
+                            const std::function<void(int err, const QSharedPointer<Interfaces::iUsersCards>& currentState)>&  cb) {
 
-    API::V2::ChangeUsersCards changes;
+    API::V3::ChangeUsersCards changes;
 
-    changes.setUsercardId(RCUtils::makeUsersCardsId(userId, cardId));
-    changes.setSessionId(session);
     changes.setPurchase(purchasesCount);
     changes.setReceive(receivedCount);
     changes.setSecret(db()->getSecret(sellerUserKey));

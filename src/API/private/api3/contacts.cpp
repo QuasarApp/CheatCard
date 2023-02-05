@@ -14,9 +14,7 @@ namespace V3 {
 Contacts::Contacts(): QH::PKG::AbstractData() {}
 
 Contacts::Contacts(const QSharedPointer<Interfaces::iContacts> &contacts) {
-    userKey = contacts->getUserKey();
-    childUserKey = contacts->getChildUserKey();
-    info = contacts->getInfo();
+    Contacts::fromObject(contacts);
 }
 
 bool Contacts::isValid() const {
@@ -50,7 +48,7 @@ void Contacts::setUserKey(const QByteArray &newUserKey) {
 }
 
 QSharedPointer<Interfaces::iContacts>
-Contacts::toObject(const QSharedPointer<Interfaces::iDB> &db) {
+Contacts::toObject(const QSharedPointer<Interfaces::iDB> &db) const {
     if (!db)
         return nullptr;
 
@@ -61,6 +59,12 @@ Contacts::toObject(const QSharedPointer<Interfaces::iDB> &db) {
     result->setInfo(info);
 
     return result;
+}
+
+void Contacts::fromObject(const QSharedPointer<Interfaces::iContacts> &obj) {
+    userKey = obj->getUserKey();
+    childUserKey = obj->getChildUserKey();
+    info = obj->getInfo();
 }
 
 const QByteArray &Contacts::getChildUserKey() const {

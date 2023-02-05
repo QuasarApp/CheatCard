@@ -18,13 +18,13 @@ namespace API {
 
 namespace V3 {
 class ChangeUsersCards;
-class StatusAfterChanges;
 class CardUpdated;
 class UpdateContactData;
-class UpdateContactDataResponce;
 class DeleteCardRequest;
 class Sync;
 class UsersCards;
+class CardDataRequest;
+class Card;
 }
 
 
@@ -79,16 +79,13 @@ public:
                          const std::function<void(int err, const QSharedPointer<Interfaces::iUsersCards>& currentState)>& = {}) override;
 protected:
     bool processSync(const QSharedPointer<V3::Sync> &message,
-                            const QH::AbstractNodeInfo *sender, const QH::Header&) ;
+                     const QH::AbstractNodeInfo *sender, const QH::Header&) ;
 
     bool processChanges(const QSharedPointer<V3::ChangeUsersCards> &message,
                         const QH::AbstractNodeInfo *sender, const QH::Header&) ;
 
     bool processContacts(const QSharedPointer<V3::UpdateContactData> &message,
                          const QH::AbstractNodeInfo *sender, const QH::Header&);
-
-    bool processContactsResponce(const QSharedPointer<V3::UpdateContactDataResponce> &message,
-                                 const QH::AbstractNodeInfo *sender, const QH::Header&);
 
     bool processCardStatus(const QSharedPointer<QH::PKG::DataPack<V3::UsersCards>> &cardStatuses,
                            const QH::AbstractNodeInfo *sender, const QH::Header&pkg);
@@ -106,12 +103,6 @@ protected:
     bool processCardUpdate(const QSharedPointer<V3::CardUpdated> &cardrequest,
                            const QH::AbstractNodeInfo *sender, const QH::Header &) ;
 
-    bool processRestoreDataRequest(const QSharedPointer<V3::RestoreDataRequest> &cardrequest,
-                                   const QH::AbstractNodeInfo *sender, const QH::Header &) override;
-
-    bool processStatusAfterChanged(const QSharedPointer<V3::StatusAfterChanges> &cardrequest,
-                                   const QH::AbstractNodeInfo *sender, const QH::Header &);
-
     bool processCardStatusImpl(const QH::PKG::DataPack<V3::UsersCards> &cardStatuses,
                                const QH::AbstractNodeInfo *sender, const QH::Header &pkg);
 
@@ -128,20 +119,24 @@ protected:
 
 
 private:
-    void collectDataOfuser(const QByteArray &userKey, QH::PKG::DataPack<RC::API::V2::UsersCards> &responce);
+    void collectDataOfuser(const QByteArray &userKey,
+                           QH::PKG::DataPack<RC::API::V3::UsersCards> &responce);
 
-    void processContactsResponcePrivate(unsigned int requestId, bool result);
-    void applayUpdateContactData(const QSharedPointer<V3::UpdateContactData> &data,
-                                 bool success);
+    bool applayPurchases(const QSharedPointer<API::V3::UsersCards> &dbCard,
+                         const QH::AbstractNodeInfo *sender, bool alert = true);
 
-    QH::PKG::DataPack<V3::UsersCards>
-    lastUserStatus(unsigned int cardId);
+    QH::PKG::DataPack<API::V3::UsersCards>
+    lastUserStatus(const QByteArray &cardId);
+
 
     bool processCardStatusBase(const QSharedPointer<V3::UsersCards> &cardStatus,
                                const QByteArray &userSecreet,
                                const QH::AbstractNodeInfo *sender,
                                const QH::Header &pkg,
-                               unsigned int& neededCardId);
+                               QByteArray &neededCardId);
+
+    bool cardValidation(const QSharedPointer<RC::Interfaces::iCard> &cardFromDB,
+                               const QByteArray &ownerSecret) const;
 
     QSet<unsigned int> _checkUserRequestHash;
     QHash<unsigned int, QSharedPointer<V3::UpdateContactData>> _waitResponce ;
