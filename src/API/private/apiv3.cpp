@@ -16,6 +16,7 @@
 #include "api3/userscards.h"
 
 #include <api3/card.h>
+#include <api3/sync.h>
 #include <cmath>
 #include <dbobjectsrequest.h>
 #include <rci/rcutils.h>
@@ -642,6 +643,41 @@ bool ApiV3::changeUsersData(const QByteArray& sellerUserKey,
 
     return packageHash;
 
+}
+
+bool ApiV3::processSync(const QSharedPointer<V3::Sync> &message,
+                        const QH::AbstractNodeInfo *sender,
+                        const QH::Header &) {
+
+    if (message->isRestrict()) {
+        if (message->isContainsUsersDataInfo()) {
+            db()->clearUsersData();
+            for (const auto& usersData: message->usersCards().packData()) {
+                db()->saveUsersCard(usersData->toObject(db()));
+            }
+        }
+
+        if (message->isContainsPermisionsInfo()) {
+            db()->clearPermisions();
+            for (const auto& usersData: message->contacts().packData()) {
+                db()->saveContact(usersData->toObject(db()));
+            }
+        }
+    }
+
+    if (message->isIncremental()) {
+        if (message->isContainsUsersDataInfo()) {
+            for (const auto& usersData: message->usersCards().packData()) {
+                db()->saveUsersCard(usersData->toObject(db()));
+            }
+        }
+
+        if (message->isContainsPermisionsInfo()) {
+            for (const auto& usersData: message->contacts().packData()) {
+                db()->saveContact(usersData->toObject(db()));
+            }
+        }
+    }
 }
 
 }
