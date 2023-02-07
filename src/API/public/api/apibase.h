@@ -73,6 +73,7 @@ signals:
                                   bool alert) override;
     void sigCardReceived(QSharedPointer<RC::Interfaces::iCard>) override;
     void sigContactsListChanged()override;
+
 private:
     QSharedPointer<Interfaces::iDB> _db;
 

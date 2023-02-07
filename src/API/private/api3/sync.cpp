@@ -22,15 +22,14 @@ Sync::Sync() {
 
 bool Sync::isValid() const {
     // mode is not be Restrict and Incremental on one time
-    return _mode &&
-            !(_mode & Mode::Restrict & Mode::Incremental) &&
-            (_mode & (Mode::Restrict | Mode::Incremental));
+    return _mode && _syncedUserKey.size() == 32;
 }
 
 QDataStream &Sync::fromStream(QDataStream &stream) {
     stream >> _usersCards;
     stream >> _contacts;
     stream >> _mode;
+    stream >> _syncedUserKey;
 
     return stream;
 }
@@ -39,8 +38,17 @@ QDataStream &Sync::toStream(QDataStream &stream) const {
     stream << _usersCards;
     stream << _contacts;
     stream << _mode;
+    stream << _syncedUserKey;
 
     return stream;
+}
+
+QByteArray Sync::syncedUserKey() const {
+    return _syncedUserKey;
+}
+
+void Sync::setSyncedUserKey(const QByteArray &newSyncedUserKey) {
+    _syncedUserKey = newSyncedUserKey;
 }
 
 Sync::Mode Sync::mode() const {
@@ -49,14 +57,6 @@ Sync::Mode Sync::mode() const {
 
 void Sync::setMode(Mode newMode) {
     _mode = newMode;
-}
-
-bool Sync::isRestrict() const {
-    return _mode & Mode::Restrict;
-}
-
-bool Sync::isIncremental() const {
-    return _mode & Mode::Restrict;
 }
 
 bool Sync::isContainsPermisionsInfo() const {

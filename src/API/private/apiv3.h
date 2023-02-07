@@ -22,6 +22,7 @@ class CardUpdated;
 class UpdateContactData;
 class DeleteCardRequest;
 class Sync;
+class SyncIncremental;
 class UsersCards;
 class CardDataRequest;
 class Card;
@@ -81,6 +82,9 @@ protected:
     bool processSync(const QSharedPointer<V3::Sync> &message,
                      const QH::AbstractNodeInfo *sender, const QH::Header&) ;
 
+    bool processSyncIncremental(const QSharedPointer<V3::SyncIncremental> &message,
+                                const QH::AbstractNodeInfo *sender, const QH::Header&) ;
+
     bool processChanges(const QSharedPointer<V3::ChangeUsersCards> &message,
                         const QH::AbstractNodeInfo *sender, const QH::Header&) ;
 
@@ -136,7 +140,7 @@ private:
                                QByteArray &neededCardId);
 
     bool cardValidation(const QSharedPointer<RC::Interfaces::iCard> &cardFromDB,
-                               const QByteArray &ownerSecret) const;
+                        const QByteArray &ownerSecret) const;
 
     QSet<unsigned int> _checkUserRequestHash;
     QHash<unsigned int, QSharedPointer<V3::UpdateContactData>> _waitResponce ;

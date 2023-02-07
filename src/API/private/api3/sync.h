@@ -37,11 +37,9 @@ class Sync: public QH::PKG::AbstractData
     enum Mode {
 
         Invalid         = 0x00,
-        Restrict        = 0x01,
-        Incremental     = 0x02,
 
-        UsersData       = 0x04,
-        Contacts        = 0x08
+        UsersData       = 0x01,
+        Contacts        = 0x02
     };
 
     Sync();
@@ -55,10 +53,11 @@ class Sync: public QH::PKG::AbstractData
     Mode mode() const;
     void setMode(Mode newMode);
 
-    bool isRestrict() const;
-    bool isIncremental() const;
     bool isContainsPermisionsInfo() const;
     bool isContainsUsersDataInfo() const;
+
+    QByteArray syncedUserKey() const;
+    void setSyncedUserKey(const QByteArray &newSyncedUserKey);
 
 protected:
     QDataStream &fromStream(QDataStream &stream) override;
@@ -67,6 +66,7 @@ protected:
 private:
     QH::PKG::DataPack<API::V3::UsersCards> _usersCards;
     QH::PKG::DataPack<API::V3::Contacts> _contacts;
+    QByteArray _syncedUserKey;
 
     Mode _mode = Invalid;
 };

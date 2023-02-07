@@ -109,14 +109,16 @@ signals:
 
     /**
      * @brief sigCardReceived This signal will emit when client receive card information.
+     * @param card This is card object.
      */
-    virtual void sigCardReceived(QSharedPointer<RC::Interfaces::iCard>) = 0;
+    virtual void sigCardReceived(QSharedPointer<RC::Interfaces::iCard> card) = 0;
 
     /**
-     * @brief sigCardRemoved This signal will be envoked when card will be removed.
+     * @brief sigCardRemoved This signal will be invoked when usersData will be removed.
      * @param cardId This is sha256 card id.
+     * @param userId This is sha256 user id.
      */
-    virtual void sigCardRemoved(const QByteArray& cardId) = 0;
+    virtual void sigUserDataRemoved(const QByteArray& cardId, const QByteArray& userId) = 0;
 
     /**
      * @brief sigContactsListChanged This signal will emit when contacts list was changed.

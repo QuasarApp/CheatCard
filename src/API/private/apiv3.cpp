@@ -12,6 +12,7 @@
 #include "api3/cardupdated.h"
 #include "api3/changeuserscards.h"
 #include "api3/deletecardrequest.h"
+#include "api3/syncincremental.h"
 #include "api3/updatecontactdata.h"
 #include "api3/userscards.h"
 
@@ -39,12 +40,14 @@ void ApiV3::initSupportedCommands() {
     case NodeType::Visitor: {
         registerPackageType<QH::PKG::DataPack<API::V3::Contacts>>();
         registerPackageType<API::V3::Sync>();
+        registerPackageType<API::V3::SyncIncremental>();
 
         break;
     }
 
     case NodeType::Seller: {
         registerPackageType<API::V3::Sync>();
+        registerPackageType<API::V3::SyncIncremental>();
         registerPackageType<API::V3::CardDataRequest>();
         registerPackageType<QH::PKG::DataPack<API::V3::Contacts>>();
         break;
@@ -647,37 +650,55 @@ bool ApiV3::changeUsersData(const QByteArray& sellerUserKey,
 
 bool ApiV3::processSync(const QSharedPointer<V3::Sync> &message,
                         const QH::AbstractNodeInfo *sender,
-                        const QH::Header &) {
+                        const QH::Header & hdr) {
 
-    if (message->isRestrict()) {
-        if (message->isContainsUsersDataInfo()) {
-            db()->clearUsersData();
-            for (const auto& usersData: message->usersCards().packData()) {
-                db()->saveUsersCard(usersData->toObject(db()));
-            }
-        }
-
-        if (message->isContainsPermisionsInfo()) {
-            db()->clearPermisions();
-            for (const auto& usersData: message->contacts().packData()) {
-                db()->saveContact(usersData->toObject(db()));
-            }
-        }
+    if (message->isContainsUsersDataInfo() &&
+            !ApiV3::processCardStatusImpl(message->usersCards(), sender, hdr)) {
+        return false;
     }
 
-    if (message->isIncremental()) {
-        if (message->isContainsUsersDataInfo()) {
-            for (const auto& usersData: message->usersCards().packData()) {
-                db()->saveUsersCard(usersData->toObject(db()));
-            }
+    if (message->isContainsPermisionsInfo()) {
+        if (!db()->deleteContactsByChildUserKey(message->syncedUserKey())) {
+            return false;
         }
 
-        if (message->isContainsPermisionsInfo()) {
-            for (const auto& usersData: message->contacts().packData()) {
-                db()->saveContact(usersData->toObject(db()));
-            }
+        for (const auto& contact: message->contacts().packData()) {
+            db()->saveContact(contact->toObject(db()));
         }
+
+        emit sigContactsListChanged();
     }
+
+    return true;
+}
+
+bool ApiV3::processSyncIncremental(const QSharedPointer<V3::SyncIncremental> &message,
+                                   const QH::AbstractNodeInfo *sender,
+                                   const QH::Header &hdr) {
+
+    if (message->usersCardsToAdd().size() &&
+            !ApiV3::processCardStatusImpl(message->usersCardsToAdd(), sender, hdr)) {
+        return false;
+    }
+
+    for (const auto& userData: message->usersCardsToRemove().packData()) {
+        db()->deleteUserData(userData->getCard(), userData->getUser());
+        emit sigUserDataRemoved(userData->getCard(), userData->getUser());
+    }
+
+    for (const auto& permisionData: message->contactsToAdd().packData()) {
+        db()->saveContact(permisionData->toObject(db()));
+    }
+
+    for (const auto& permisionData: message->contactsToRemove().packData()) {
+        db()->deleteContact(permisionData->toObject(db()));
+    }
+
+    if (message->contactsToAdd().size() || message->usersCardsToRemove().size()) {
+        emit sigContactsListChanged();
+    }
+
+    return true;
 }
 
 }
