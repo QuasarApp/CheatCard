@@ -94,10 +94,6 @@ protected:
     bool processCardStatus(const QSharedPointer<QH::PKG::DataPack<V3::UsersCards>> &cardStatuses,
                            const QH::AbstractNodeInfo *sender, const QH::Header&pkg);
 
-    void processCardStatusWithoutCardRequests(
-            const QSharedPointer<QH::PKG::DataPack<V3::UsersCards>> &cardStatuses);
-
-
     bool processCardRequest(const QSharedPointer<V3::CardDataRequest> &cardStatus,
                             const QH::AbstractNodeInfo *sender, const QH::Header&);
 
@@ -123,15 +119,9 @@ protected:
 
 
 private:
-    void collectDataOfuser(const QByteArray &userKey,
-                           QH::PKG::DataPack<RC::API::V3::UsersCards> &responce);
 
     bool applayPurchases(const QSharedPointer<API::V3::UsersCards> &dbCard,
                          const QH::AbstractNodeInfo *sender, bool alert = true);
-
-    QH::PKG::DataPack<API::V3::UsersCards>
-    lastUserStatus(const QByteArray &cardId);
-
 
     bool processCardStatusBase(const QSharedPointer<V3::UsersCards> &cardStatus,
                                const QByteArray &userSecreet,

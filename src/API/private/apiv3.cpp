@@ -182,11 +182,9 @@ bool ApiV3::processCardStatusImpl(const QH::PKG::DataPack<API::V3::UsersCards> &
 
             return false;
         }
-
-        return true;
     }
 
-    return node()->removeNode(sender->networkAddress());
+    return true;
 }
 
 bool ApiV3::processDeleteCardRequest(const QSharedPointer<API::V3::DeleteCardRequest> &request,
@@ -281,35 +279,6 @@ bool ApiV3::cardValidation(const QSharedPointer<Interfaces::iCard> &cardFromDB,
     return true;
 }
 
-void ApiV3::processCardStatusWithoutCardRequests(
-        const QSharedPointer<QH::PKG::DataPack<API::V3::UsersCards> > &cardStatuses) {
-
-    for (const auto& cardStatus : cardStatuses->packData()) {
-        auto dbCard = db()->getCard(cardStatus->getCard());
-        auto dbUsersCards = db()->getUserCardData(
-                    cardStatus->getUser(),
-                    cardStatus->getCard());
-
-        // ignore seels statuses that has a depricated time.
-        if (dbUsersCards && dbUsersCards->getRawTime() > cardStatus->time()) {
-            continue;
-        }
-
-        if (!accessValidation(dbCard, cardStatuses->customData(), true)) {
-
-            QuasarAppUtils::Params::log("Receive not signed cards seal");
-            break;
-        }
-
-        // Disable alert if this packge is ansver to restore request
-        if (!applayPurchases(cardStatus, nullptr, false)) {
-            break;
-        }
-    }
-
-    return;
-}
-
 bool ApiV3::processCardRequest(const QSharedPointer<API::V3::CardDataRequest> &cardrequest,
                                const QH::AbstractNodeInfo *sender, const QH::Header &pkg) {
 
@@ -348,7 +317,7 @@ bool ApiV3::processCardRequest(const QSharedPointer<API::V3::CardDataRequest> &c
 }
 
 bool ApiV3::processCardData(const QSharedPointer<QH::PKG::DataPack<API::V3::Card>> &cards,
-                            const QH::AbstractNodeInfo *sender, const QH::Header &) {
+                            const QH::AbstractNodeInfo *, const QH::Header &) {
 
     if (!(cards && db())) {
         return false;
@@ -383,7 +352,7 @@ bool ApiV3::processCardData(const QSharedPointer<QH::PKG::DataPack<API::V3::Card
         emit sigCardReceived(cardObj);
     }
 
-    return node()->removeNode(sender->networkAddress());
+    return true;
 }
 
 bool ApiV3::processCardUpdate(const QSharedPointer<API::V3::CardUpdated> &cardrequest,
@@ -401,25 +370,7 @@ bool ApiV3::processCardUpdate(const QSharedPointer<API::V3::CardUpdated> &cardre
         return node()->sendData(&request, sender, &hdr);
     }
 
-    return node()->removeNode(sender->networkAddress());
-}
-
-void ApiV3::collectDataOfuser(const QByteArray& userKey, QH::PKG::DataPack<API::V3::UsersCards>& responce) {
-    auto masterUser = db()->getMasterKeys(userKey);
-    auto result = db()->getAllUserData(userKey);
-
-    for (const auto &data : qAsConst(result)) {
-        data->setCardVersion(db()->getCardVersion(data->getCard()));
-        responce.push(data);
-    }
-
-    const auto datalist = db()->getAllUserCardsData(userKey, masterUser);
-    for (const auto& item: datalist) {
-        item->setCardVersion(db()->getCardVersion(item->getCard()));
-        responce.push(item);
-    }
-
-    return;
+    return true;
 }
 
 bool ApiV3::applayPurchases(const QSharedPointer<API::V3::UsersCards> &dbCard,
@@ -435,20 +386,6 @@ bool ApiV3::applayPurchases(const QSharedPointer<API::V3::UsersCards> &dbCard,
 
     return true;
 
-}
-
-QH::PKG::DataPack<API::V3::UsersCards>
-ApiV3::lastUserStatus(const QByteArray& cardId) {
-    QH::PKG::DataPack<API::V3::UsersCards> responce;
-
-    auto result = db()->getAllUserFromCard(cardId);
-
-    for (const auto &data : qAsConst(result)) {
-        data->setCardVersion(db()->getCardVersion(cardId));
-        responce.push(data);
-    }
-
-    return responce;
 }
 
 bool ApiV3::processChanges(const QSharedPointer<API::V3::ChangeUsersCards> &message,
