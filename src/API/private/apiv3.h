@@ -26,6 +26,7 @@ class SyncIncremental;
 class UsersCards;
 class CardDataRequest;
 class Card;
+class SubscribeToUserChanges;
 }
 
 
@@ -79,6 +80,10 @@ public:
                          QH::AbstractNodeInfo *dist,
                          const std::function<void(int err, const QSharedPointer<Interfaces::iUsersCards>& currentState)>& = {}) override;
 protected:
+    bool processSubscribeRequest(const QSharedPointer<V3::SubscribeToUserChanges> &message,
+                                 QH::AbstractNodeInfo *sender, const QH::Header&) ;
+
+
     bool processSync(const QSharedPointer<V3::Sync> &message,
                      const QH::AbstractNodeInfo *sender, const QH::Header&) ;
 
@@ -119,6 +124,13 @@ protected:
 
 
 private:
+    void brodcast(const QByteArray& userId,
+                  const QH::PKG::AbstractData *data,
+                  const QH::Header *req);
+
+    void collectDataOfuser(const QByteArray &userKey,
+                           QH::PKG::DataPack<API::V3::UsersCards> &responce);
+
 
     bool applayPurchases(const QSharedPointer<API::V3::UsersCards> &dbCard,
                          const QH::AbstractNodeInfo *sender, bool alert = true);
@@ -127,14 +139,15 @@ private:
                                const QByteArray &userSecreet,
                                const QH::AbstractNodeInfo *sender,
                                const QH::Header &pkg,
-                               QByteArray &neededCardId);
+                               QByteArray *neededCardId = nullptr);
 
     bool cardValidation(const QSharedPointer<RC::Interfaces::iCard> &cardFromDB,
                         const QByteArray &ownerSecret) const;
 
+
     QSet<unsigned int> _checkUserRequestHash;
     QHash<unsigned int, QSharedPointer<V3::UpdateContactData>> _waitResponce ;
-
+    QHash<QByteArray, QSet<QH::AbstractNodeInfo*>> _subscribes;
 };
 }
 }

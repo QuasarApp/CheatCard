@@ -34,6 +34,7 @@ public:
 
     QH::PKG::DataPack<API::V3::UsersCards> usersCardsToAdd() const;
     void setUsersCardsToAdd(const QH::PKG::DataPack<API::V3::UsersCards> &newUsersCardsToAdd);
+    void addUsersCardsToAdd(const QSharedPointer<API::V3::UsersCards> &userData);
 
     QH::PKG::DataPack<API::V3::UsersCards> usersCardsToRemove() const;
     void setUsersCardsToRemove(const QH::PKG::DataPack<API::V3::UsersCards> &newUsersCardsToRemove);
@@ -41,8 +42,9 @@ public:
     void setContactsToRemove(const QH::PKG::DataPack<API::V3::Contacts> &newContactsToRemove);
     QH::PKG::DataPack<API::V3::Contacts> contactsToAdd() const;
     void setContactsToAdd(const QH::PKG::DataPack<API::V3::Contacts> &newContactsToAdd);
-    const QByteArray &syncedUserKey() const;
-    void setSyncedUserKey(const QByteArray &newSyncedUserKey);
+
+    bool getResult() const;
+    void setResult(bool newResult);
 
 protected:
     QDataStream &fromStream(QDataStream &stream) override;
@@ -52,12 +54,10 @@ private:
     QH::PKG::DataPack<API::V3::UsersCards> _usersCardsToAdd;
     QH::PKG::DataPack<API::V3::UsersCards> _usersCardsToRemove;
 
-
     QH::PKG::DataPack<API::V3::Contacts> _contactsToRemove;
     QH::PKG::DataPack<API::V3::Contacts> _contactsToAdd;
 
-    QByteArray _syncedUserKey;
-
+    bool result = false;
 };
 
 }

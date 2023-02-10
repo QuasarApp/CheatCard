@@ -26,7 +26,7 @@ QDataStream &SyncIncremental::fromStream(QDataStream &stream) {
     stream << _usersCardsToRemove;
     stream << _contactsToRemove;
     stream << _contactsToAdd;
-    stream << _syncedUserKey;
+    stream << result;
 
     return stream;
 }
@@ -37,9 +37,17 @@ QDataStream &SyncIncremental::toStream(QDataStream &stream) const {
     stream << _usersCardsToRemove;
     stream << _contactsToRemove;
     stream << _contactsToAdd;
-    stream << _syncedUserKey;
+    stream << result;
 
     return stream;
+}
+
+bool SyncIncremental::getResult() const {
+    return result;
+}
+
+void SyncIncremental::setResult(bool newResult) {
+    result = newResult;
 }
 
 QH::PKG::DataPack<API::V3::UsersCards> SyncIncremental::usersCardsToRemove() const {
@@ -66,20 +74,16 @@ void SyncIncremental::setContactsToAdd(const QH::PKG::DataPack<API::V3::Contacts
     _contactsToAdd = newContactsToAdd;
 }
 
-const QByteArray& SyncIncremental::syncedUserKey() const {
-    return _syncedUserKey;
-}
-
-void SyncIncremental::setSyncedUserKey(const QByteArray &newSyncedUserKey) {
-    _syncedUserKey = newSyncedUserKey;
-}
-
 QH::PKG::DataPack<API::V3::UsersCards> SyncIncremental::usersCardsToAdd() const {
     return _usersCardsToAdd;
 }
 
 void SyncIncremental::setUsersCardsToAdd(const QH::PKG::DataPack<API::V3::UsersCards> &newUsersCardsToAdd) {
     _usersCardsToAdd = newUsersCardsToAdd;
+}
+
+void SyncIncremental::addUsersCardsToAdd(const QSharedPointer<UsersCards> &userData) {
+    _usersCardsToAdd.push(userData);
 }
 
 }

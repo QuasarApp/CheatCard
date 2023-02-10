@@ -17,6 +17,7 @@
 #include "api3/userscards.h"
 
 #include <api3/card.h>
+#include <api3/subscribetouserchanges.h>
 #include <api3/sync.h>
 #include <cmath>
 #include <dbobjectsrequest.h>
@@ -58,11 +59,11 @@ void ApiV3::initSupportedCommands() {
 
         registerPackageType<API::V3::CardDataRequest>();
         registerPackageType<QH::PKG::DataPack<API::V3::Card>>();
-
         registerPackageType<API::V3::ChangeUsersCards>();
         registerPackageType<API::V3::CardUpdated>();
         registerPackageType<API::V3::UpdateContactData>();
         registerPackageType<API::V3::DeleteCardRequest>();
+        registerPackageType<API::V3::SubscribeToUserChanges>();
         break;
     }
 
@@ -140,18 +141,17 @@ QH::ParserResult ApiV3::parsePackage(const QSharedPointer<QH::PKG::AbstractData>
         return result;
     }
 
+    result = commandHandler<API::V3::SubscribeToUserChanges>(this,
+                                                        &ApiV3::processSubscribeRequest,
+                                                        pkg, sender, pkgHeader);
+
+    if (result != QH::ParserResult::NotProcessed) {
+        return result;
+    }
+
+
     return QH::ParserResult::NotProcessed;
 }
-
-//void ApiV3::sendCardStatusRequest(long long userSession, QH::AbstractNodeInfo *dist) {
-//    V3::CardStatusRequest request;
-//    request.setSessionId(userSession);
-
-//    _checkUserRequestHash.clear();
-//    if (auto pkghash = node()->sendData(&request, dist)) {
-//        _checkUserRequestHash += pkghash;
-//    }
-//}
 
 bool ApiV3::processCardStatus(const QSharedPointer<QH::PKG::DataPack<API::V3::UsersCards> > &cardStatuses,
                               const QH::AbstractNodeInfo *sender, const QH::Header &pkg) {
@@ -166,7 +166,7 @@ bool ApiV3::processCardStatusImpl(const QH::PKG::DataPack<API::V3::UsersCards> &
     for (const auto& cardStatus : cardStatuses.packData()) {
         QByteArray neededCardId;
         if (!processCardStatusBase(cardStatus, cardStatuses.customData(),
-                                   sender, pkg, neededCardId)) {
+                                   sender, pkg, &neededCardId)) {
             break;
         }
 
@@ -225,7 +225,7 @@ bool ApiV3::processCardStatusBase(const QSharedPointer<V3::UsersCards> &cardStat
                                   const QByteArray& userSecreet,
                                   const QH::AbstractNodeInfo *sender,
                                   const QH::Header &pkg,
-                                  QByteArray& neededCardId) {
+                                  QByteArray* neededCardId) {
 
     auto dbCard = db()->getCard(cardStatus->getCard());
     auto dbUsersCards = db()->getUserCardData(
@@ -245,10 +245,12 @@ bool ApiV3::processCardStatusBase(const QSharedPointer<V3::UsersCards> &cardStat
         return false;
     }
 
-    bool hasUpdate = !dbCard || dbCard->getCardVersion() < cardStatus->getCardVersion();
+    if (neededCardId) {
+        bool hasUpdate = !dbCard || dbCard->getCardVersion() < cardStatus->getCardVersion();
 
-    if (hasUpdate) {
-        neededCardId = cardStatus->getCard();
+        if (hasUpdate) {
+            *neededCardId = cardStatus->getCard();
+        }
     }
 
     return true;
@@ -399,51 +401,39 @@ bool ApiV3::processChanges(const QSharedPointer<API::V3::ChangeUsersCards> &mess
                 message->getUser(),
                 message->getCard());
 
-  //  API::V3::StatusAfterChanges status;
-  //  status.setSessionId(message->getSessionId());
-  //  status.setUsercardId(message->getUsercardId());
+    API::V3::SyncIncremental changesResponce;
+    changesResponce.setResult(true);
 
-    if (dbUsersCards) {
-        int availabelFreeItems = db()->getFreeItemsCount(dbUsersCards);
-        if (availabelFreeItems < message->receive()) {
-            // return status false and new users statuses of this seller
-
-            auto lastStatus = db()->
-                    getUserCardData(message->getUser(), message->getCard());
-
-//            status.setStatus(false);
-//            status.addLastStatus(QSharedPointer<API::V3::UsersCards>::create(lastStatus));
-//            if (!node()->sendData(&status, sender, &hdr)){
-//                return false;
-//            }
-        }
-
-    } else {
-        dbUsersCards = db()->makeEmptyUsersCard();
-        dbUsersCards->setUser(message->getUser());
-        dbUsersCards->setCard(message->getCard());
-    }
-
-//    db()->saveSession(message->toObject(db()));
-
-    dbUsersCards->setPurchasesNumber(dbUsersCards->getPurchasesNumber() + message->purchase());
-    dbUsersCards->setTime(time(0));
-    dbUsersCards->receive(message->receive());
-
-    QByteArray neededCardId;
-    if (!processCardStatusBase(QSharedPointer<V3::UsersCards>::create(dbUsersCards),
-                               message->secret(), sender, hdr, neededCardId)) {
+    if (!dbUsersCards) {
         return false;
     }
 
-//    status.setNeededCard(neededCardId);
+    int availabelFreeItems = db()->getFreeItemsCount(dbUsersCards);
+    if (availabelFreeItems < message->receive()) {
+        // return status false and new users statuses of this seller
+        changesResponce.setResult(false);
+    } else {
+
+        dbUsersCards->setPurchasesNumber(dbUsersCards->getPurchasesNumber() + message->purchase());
+        dbUsersCards->setTime(time(0));
+        dbUsersCards->receive(message->receive());
+
+        if (!processCardStatusBase(QSharedPointer<V3::UsersCards>::create(dbUsersCards),
+                                   message->secret(), sender, hdr)) {
+            return false;
+        }
+    }
+
+    // responce
 
     auto lastStatus = db()->
             getUserCardData(message->getUser(), message->getCard());
-//    status.addLastStatus(QSharedPointer<API::V3::UsersCards>::create(lastStatus));
-//    status.setStatus(true);
 
-//    return node()->sendData(&status, sender, &hdr);
+    changesResponce.addUsersCardsToAdd(QSharedPointer<API::V3::UsersCards>::create(lastStatus));
+
+    brodcast(message->getUser(), &changesResponce, &hdr);
+
+    return true;
 }
 
 bool ApiV3::accessValidation(const QSharedPointer<RC::Interfaces::iCard> &cardFromDB,
@@ -472,6 +462,20 @@ bool ApiV3::accessValidation(const QSharedPointer<RC::Interfaces::iCard> &cardFr
     }
 
     return true;
+}
+
+void ApiV3::brodcast(const QByteArray &userId,
+                     const QH::PKG::AbstractData *data,
+                     const QH::Header *req) {
+
+    const auto subscribers = _subscribes.value(userId);
+    for (const auto& subscriber: subscribers) {
+        if (subscriber->isConnected())
+            sendData(data, subscriber, req);
+        else {
+            _subscribes[userId].remove(subscriber);
+        }
+    }
 }
 
 bool ApiV3::processContacts(const QSharedPointer<API::V3::UpdateContactData> &message,
@@ -583,6 +587,55 @@ bool ApiV3::changeUsersData(const QByteArray& sellerUserKey,
 
     return packageHash;
 
+}
+
+void ApiV3::collectDataOfuser(const QByteArray& userKey,
+                              QH::PKG::DataPack<API::V3::UsersCards>& responce) {
+    auto masterUser = db()->getMasterKeys(userKey);
+
+    auto result = db()->getAllUserData(userKey);
+
+    for (const auto &data : qAsConst(result)) {
+        data->setCardVersion(db()->getCardVersion(data->getCard()));
+        responce.push(data);
+    }
+
+    const auto datalist = db()->getAllUserCardsData(userKey, masterUser);
+    for (const auto& item: datalist) {
+        item->setCardVersion(db()->getCardVersion(item->getCard()));
+        responce.push(item);
+    }
+
+    return;
+}
+
+bool ApiV3::processSubscribeRequest(const QSharedPointer<V3::SubscribeToUserChanges> &message,
+                                    QH::AbstractNodeInfo *sender, const QH::Header &hdr) {
+
+    _subscribes[message->userId()].insert(sender);
+
+    API::V3::Sync responce;
+    responce.setSyncedUserKey(message->userId());
+    QH::PKG::DataPack<API::V3::UsersCards> usersData;
+
+    collectDataOfuser(message->userId(), usersData);
+    responce.setUsersCards(usersData);
+
+    auto contacts = db()->getSlaveKeys(message->userId());
+    contacts += db()->getMasterKeys(message->userId());
+
+    QH::PKG::DataPack<API::V3::Contacts> contactsData;
+    for (const auto& contact : qAsConst(contacts)) {
+        contactsData.push(contact);
+    }
+
+    responce.setContacts(contactsData);
+
+    if (responce.isValid()) {
+        return node()->sendData(&responce, sender, &hdr);
+    }
+
+    return true;
 }
 
 bool ApiV3::processSync(const QSharedPointer<V3::Sync> &message,
