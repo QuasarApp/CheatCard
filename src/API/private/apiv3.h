@@ -78,7 +78,7 @@ public:
                          unsigned int purchasesCount,
                          unsigned int receivedCount,
                          QH::AbstractNodeInfo *dist,
-                         const std::function<void(int err, const QSharedPointer<Interfaces::iUsersCards>& currentState)>& = {}) override;
+                         const std::function<void(int err)>& = {}) override;
 protected:
     bool processSubscribeRequest(const QSharedPointer<V3::SubscribeToUserChanges> &message,
                                  QH::AbstractNodeInfo *sender, const QH::Header&) ;
@@ -144,9 +144,13 @@ private:
     bool cardValidation(const QSharedPointer<RC::Interfaces::iCard> &cardFromDB,
                         const QByteArray &ownerSecret) const;
 
+    struct RequestsData {
+        int time = 0;
+        std::function<void(int err)> _cb;
+    };
 
     QSet<unsigned int> _checkUserRequestHash;
-    QHash<unsigned int, QSharedPointer<V3::UpdateContactData>> _waitResponce ;
+    QHash<unsigned int, RequestsData> _waitResponce;
     QHash<QByteArray, QSet<QH::AbstractNodeInfo*>> _subscribes;
 };
 }

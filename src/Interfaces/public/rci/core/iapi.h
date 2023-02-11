@@ -97,7 +97,7 @@ public:
                                  unsigned int purchasesCount,
                                  unsigned int receivedCount,
                                  QH::AbstractNodeInfo *dist,
-                                 const std::function<void(int err, const QSharedPointer<Interfaces::iUsersCards>& currentState)>& = {}) = 0;
+                                 const std::function<void(int err)>& = {}) = 0;
 
 signals:
     /**

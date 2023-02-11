@@ -534,11 +534,7 @@ bool ApiV3::sendContacts(const Interfaces::iContacts& contact,
         return false;
     }
 
-    _waitResponce[pkgHash] = request;
-
-    QTimer::singleShot(10000, nullptr, [this, pkgHash]() {
-        processContactsResponcePrivate(pkgHash, false);
-    });
+    _waitResponce[pkgHash] = {static_cast<int>(time(0)), cb};
 
     return true;
 }
