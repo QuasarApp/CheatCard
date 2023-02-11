@@ -18,7 +18,7 @@ SyncIncremental::SyncIncremental(){}
 
 
 bool SyncIncremental::isValid() const {
-    return _syncedUserKey.size() == 32;
+    return true;
 }
 
 QDataStream &SyncIncremental::fromStream(QDataStream &stream) {
@@ -66,12 +66,20 @@ void SyncIncremental::setContactsToRemove(const QH::PKG::DataPack<API::V3::Conta
     _contactsToRemove = newContactsToRemove;
 }
 
+void SyncIncremental::addContactsToRemove(const QSharedPointer<Contacts> &newContactsToRemove) {
+    _contactsToRemove.push(newContactsToRemove);
+}
+
 QH::PKG::DataPack<API::V3::Contacts> SyncIncremental::contactsToAdd() const {
     return _contactsToAdd;
 }
 
 void SyncIncremental::setContactsToAdd(const QH::PKG::DataPack<API::V3::Contacts> &newContactsToAdd) {
     _contactsToAdd = newContactsToAdd;
+}
+
+void SyncIncremental::addContactsToAdd(const QSharedPointer<Contacts> &newContactsToAdd) {
+    _contactsToAdd.push(newContactsToAdd);
 }
 
 QH::PKG::DataPack<API::V3::UsersCards> SyncIncremental::usersCardsToAdd() const {

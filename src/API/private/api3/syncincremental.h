@@ -40,8 +40,11 @@ public:
     void setUsersCardsToRemove(const QH::PKG::DataPack<API::V3::UsersCards> &newUsersCardsToRemove);
     QH::PKG::DataPack<API::V3::Contacts> contactsToRemove() const;
     void setContactsToRemove(const QH::PKG::DataPack<API::V3::Contacts> &newContactsToRemove);
+    void addContactsToRemove(const QSharedPointer<API::V3::Contacts> &newContactsToAdd);
+
     QH::PKG::DataPack<API::V3::Contacts> contactsToAdd() const;
     void setContactsToAdd(const QH::PKG::DataPack<API::V3::Contacts> &newContactsToAdd);
+    void addContactsToAdd(const QSharedPointer<API::V3::Contacts> &newContactsToAdd);
 
     bool getResult() const;
     void setResult(bool newResult);

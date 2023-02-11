@@ -490,12 +490,15 @@ bool ApiV3::processContacts(const QSharedPointer<API::V3::UpdateContactData> &me
         return false;
     }
 
+    API::V3::SyncIncremental responce;
+
     if (message->getRemove()) {
         if (!db()->deleteContact(message->toObject(db()))) {
             QuasarAppUtils::Params::log("Fail to detele user permisiion",
                                         QuasarAppUtils::Error);
             return false;
         }
+        responce.addContactsToRemove(message);
 
     } else {
         if (!db()->saveContact(message->toObject(db()))) {
@@ -503,12 +506,15 @@ bool ApiV3::processContacts(const QSharedPointer<API::V3::UpdateContactData> &me
                                         QuasarAppUtils::Error);
             return false;
         }
+        responce.addContactsToAdd(message);
     }
 
-//    API::V3::UpdateContactDataResponce responce;
-//    responce.setSuccessful(true);
+    responce.setResult(true);
 
-//    return node()->sendData(&responce, sender, &hdr);
+    brodcast(message->getChildUserKey(), &responce, &hdr);
+    brodcast(message->getUserKey(), &responce, &hdr);
+
+    return true;
 }
 
 bool ApiV3::sendContacts(const Interfaces::iContacts& contact,
