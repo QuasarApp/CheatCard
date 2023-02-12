@@ -9,20 +9,16 @@
 #ifndef VISITOR_H
 #define VISITOR_H
 
-#include "basenode.h"
+#include "client.h"
 
 namespace RC {
 
 
-class CHEATCARD_CORE_EXPORT Visitor: public BaseNode
+class CHEATCARD_CORE_EXPORT Visitor: public Client
 {
     Q_OBJECT
 public:
     Visitor(const QSharedPointer<Interfaces::iDB> &db);
-    bool checkCardData(long long session,
-                       const QString& domain = "",
-                       int port = DEFAULT_CHEAT_CARD_PORT_SSL);
-
     NodeType nodeType() const override;
 
 protected:
@@ -38,14 +34,6 @@ private slots:
     void handleTick();
 private:
     bool sendRequestPrivate();
-
-    int _requestInterval = USERREQUEST_TIMEOUT;
-    QString _domain;
-    int _port;
-    long long _lastRequested = 0;
-
-    int _lastRequest = 0;
-    QTimer *_timer = nullptr;
 };
 
 }

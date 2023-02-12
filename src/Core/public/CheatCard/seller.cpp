@@ -11,7 +11,6 @@
 #include "rci/core/iapi.h"
 #include "usersnames.h"
 #include "seller.h"
-#include "nodeinfo.h"
 #include "userheader.h"
 #include <rci/rcutils.h>
 #include "api/apibase.h"
@@ -23,44 +22,9 @@ Seller::Seller(const QSharedPointer<Interfaces::iDB> &db): BaseNode(db) {
 
 }
 
-bool Seller::incrementPurchases(const QSharedPointer<Interfaces::iUsersCards> &usersCardsData,
-                                int purchasesCount) {
-
-    if (!usersCardsData)
-        return false;
-
-    if (purchasesCount < 0)
-        return false;
-
-    usersCardsData->setPurchasesNumber(usersCardsData->getPurchasesNumber() + purchasesCount);
-
-    if (!db()->saveUsersCard(usersCardsData)) {
-        return false;
-    }
-
-    emit sigPurchaseWasSuccessful(usersCardsData, true);
-
-    return true;
-}
-
-QSharedPointer<Interfaces::iSession>
-Seller::prepareSession(const UserHeader &userHeaderData,
-                       unsigned int cardId) const {
-
-    auto session = db()->makeEmptySession();
-    session->setSessionId(userHeaderData.getSessionId());
-    session->setUsercardId(RCUtils::makeUsersCardsId(userHeaderData.getUserId(), cardId));
-
-    if (!db()->saveSession(session)) {
-        return nullptr;
-    }
-
-    return session;
-}
-
 void RC::Seller::updateUsersData(const UserHeader &userHeaderData)
 {
-    auto dbUser = db()->getUser(userHeaderData.getUserId());
+    auto dbUser = db()->getUser(userHeaderData.userKey());
 
     if (dbUser && !dbUser->secret().isEmpty()) {
         return;
@@ -82,17 +46,17 @@ void RC::Seller::updateUsersData(const UserHeader &userHeaderData)
 
 QSharedPointer<Interfaces::iUsersCards>
 Seller::prepareData(const UserHeader &userHeaderData,
-                    unsigned int cardId) {
+                    const QByteArray& cardId) {
 
     if (!userHeaderData.isValid())
         return nullptr;
 
     updateUsersData(userHeaderData);
 
-    auto userCardsData = db()->getUserCardData(userHeaderData.getUserId(), cardId);
+    auto userCardsData = db()->getUserCardData(userHeaderData.userKey(), cardId);
     if (!userCardsData) {
         userCardsData = db()->makeEmptyUsersCard();
-        userCardsData->setUser(userHeaderData.getUserId());
+        userCardsData->setUser(userHeaderData.userKey());
         userCardsData->setPurchasesNumber(0);
         userCardsData->setCard(cardId);
     }
@@ -177,6 +141,10 @@ bool Seller::sentDataToServerReceive(const QSharedPointer<UserHeader> &userHeade
         };
 
     return sendDataPrivate(domain, port, action);
+}
+
+bool Seller::requestSubscribeToUser(const QByteArray &userId) {
+
 }
 
 bool Seller::cardUpdated(unsigned int cardId, unsigned int version,

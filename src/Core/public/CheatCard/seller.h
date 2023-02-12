@@ -29,7 +29,7 @@ public:
                                  const QString& domain = "",
                                  int port = DEFAULT_CHEAT_CARD_PORT_SSL);
 
-    bool requestAllDataFromUser();
+    bool requestSubscribeToUser(const QByteArray& userId);
     bool cardUpdated(unsigned int cardId, unsigned int version,
                      const QString& domain = "",
                      int port = DEFAULT_CHEAT_CARD_PORT_SSL);
@@ -47,19 +47,13 @@ public:
 protected:
     void nodeConnected(QH::AbstractNodeInfo *node) override;
     void nodeConfirmend(QH::AbstractNodeInfo *node) override;
-    bool incrementPurchases(const QSharedPointer<Interfaces::iUsersCards> &usersCardsData,
-                            int purchasesCount);
 
 private:
     using sendPrivateCB = std::function<bool(const QSharedPointer<Interfaces::iAPI>&,
                                              QH::AbstractNodeInfo *dist)>;
-
-    QSharedPointer<Interfaces::iSession>
-    prepareSession(const UserHeader &userHeaderData,
-                   unsigned int cardId) const;
     QSharedPointer<Interfaces::iUsersCards>
     prepareData(const UserHeader &userHeaderData,
-                unsigned int cardId);
+                const QByteArray &cardId);
     void updateUsersData(const UserHeader &userHeaderData);
 
     bool sendDataPrivate(const QString &domain, int port,

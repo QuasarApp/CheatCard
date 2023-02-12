@@ -634,28 +634,28 @@ QSharedPointer<BaseNode> initBackEndModel(const QSharedPointer<UserModel>& user,
     QSharedPointer<BaseNode> result;
     result = QSharedPointer<BaseNode>(new BackEndType(db), softRemove);
 
-    const auto apis = API::init({2}, db, result.data());
-    if (user) {
-        result->setCurrentUser(user->user());
-    }
+//    const auto apis = API::init({2}, db, result.data());
+//    if (user) {
+//        result->setCurrentUser(user->user());
+//    }
 
-    for (const auto & api: apis) {
-        MainModel::connect(api.data(), &API::APIBase::sigCardReceived,
-                           result.data(), &BaseNode::sigCardReceived, Qt::DirectConnection);
+//    for (const auto & api: apis) {
+//        MainModel::connect(api.data(), &API::APIBase::sigCardReceived,
+//                           result.data(), &BaseNode::sigCardReceived, Qt::DirectConnection);
 
-        MainModel::connect(api.data(), &API::APIBase::sigContactsStatusResult,
-                           result.data(), &BaseNode::sigContactsStatusResult, Qt::DirectConnection);
+//        MainModel::connect(api.data(), &API::APIBase::sigContactsStatusResult,
+//                           result.data(), &BaseNode::sigContactsStatusResult, Qt::DirectConnection);
 
-        MainModel::connect(api.data(), &API::APIBase::sigSessionStatusResult,
-                           result.data(), &BaseNode::sigSessionStatusResult, Qt::DirectConnection);
+//        MainModel::connect(api.data(), &API::APIBase::sigSessionStatusResult,
+//                           result.data(), &BaseNode::sigSessionStatusResult, Qt::DirectConnection);
 
-        MainModel::connect(api.data(), &API::APIBase::sigContactsListChanged,
-                           result.data(), &BaseNode::sigContactsListChanged, Qt::DirectConnection);
+//        MainModel::connect(api.data(), &API::APIBase::sigContactsListChanged,
+//                           result.data(), &BaseNode::sigContactsListChanged, Qt::DirectConnection);
 
-        MainModel::connect(api.data(), &API::APIBase::sigPurchaseWasSuccessful,
-                           result.data(), &BaseNode::sigPurchaseWasSuccessful, Qt::DirectConnection);
+//        MainModel::connect(api.data(), &API::APIBase::sigPurchaseWasSuccessful,
+//                           result.data(), &BaseNode::sigPurchaseWasSuccessful, Qt::DirectConnection);
 
-    }
+//    }
 
 
     return result;
