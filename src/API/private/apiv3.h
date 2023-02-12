@@ -128,6 +128,12 @@ private:
                   const QH::PKG::AbstractData *data,
                   const QH::Header *req);
 
+    bool sendAndRegisterCallBack(const QH::PKG::AbstractData *resp,
+                                 const QH::AbstractNodeInfo *address,
+                                 const std::function<void(int err)>& cb);
+
+    bool triggerCallBack(unsigned int hash, unsigned int err);
+
     void collectDataOfuser(const QByteArray &userKey,
                            QH::PKG::DataPack<API::V3::UsersCards> &responce);
 

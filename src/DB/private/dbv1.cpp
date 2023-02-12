@@ -81,6 +81,15 @@ bool DBv1::deleteContactsByChildUserKey(const QByteArray &childUser) const {
                          arg(QString(childUser.toBase64(QByteArray::Base64UrlEncoding))));
 }
 
+bool DBv1::deleteUserData(const QByteArray &cardId, const QByteArray &userId) {
+    DB::UsersCards(userId, cardId);
+
+    if (!db())
+        return false;
+
+    return db()->deleteObject(QSharedPointer<DB::UsersCards>::create(userId, cardId));
+}
+
 QSharedPointer<Interfaces::iContacts> DBv1::makeEmptyContact() const {
     return QSharedPointer<DB::Contacts>::create();
 }

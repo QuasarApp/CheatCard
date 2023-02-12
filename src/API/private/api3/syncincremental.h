@@ -32,17 +32,17 @@ public:
     SyncIncremental();
     bool isValid() const override;
 
-    QH::PKG::DataPack<API::V3::UsersCards> usersCardsToAdd() const;
+    const QH::PKG::DataPack<API::V3::UsersCards>& usersCardsToAdd() const;
     void setUsersCardsToAdd(const QH::PKG::DataPack<API::V3::UsersCards> &newUsersCardsToAdd);
     void addUsersCardsToAdd(const QSharedPointer<API::V3::UsersCards> &userData);
 
-    QH::PKG::DataPack<API::V3::UsersCards> usersCardsToRemove() const;
+    const QH::PKG::DataPack<API::V3::UsersCards>& usersCardsToRemove() const;
     void setUsersCardsToRemove(const QH::PKG::DataPack<API::V3::UsersCards> &newUsersCardsToRemove);
-    QH::PKG::DataPack<API::V3::Contacts> contactsToRemove() const;
+    const QH::PKG::DataPack<API::V3::Contacts>& contactsToRemove() const;
     void setContactsToRemove(const QH::PKG::DataPack<API::V3::Contacts> &newContactsToRemove);
     void addContactsToRemove(const QSharedPointer<API::V3::Contacts> &newContactsToAdd);
 
-    QH::PKG::DataPack<API::V3::Contacts> contactsToAdd() const;
+    const QH::PKG::DataPack<API::V3::Contacts>& contactsToAdd() const;
     void setContactsToAdd(const QH::PKG::DataPack<API::V3::Contacts> &newContactsToAdd);
     void addContactsToAdd(const QSharedPointer<API::V3::Contacts> &newContactsToAdd);
 

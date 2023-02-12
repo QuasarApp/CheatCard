@@ -6,7 +6,9 @@
 //# of this license document, but changing it is not allowed.
 //#
 
+#include "contacts.h"
 #include "syncincremental.h"
+#include "userscards.h"
 
 
 namespace RC {
@@ -50,7 +52,7 @@ void SyncIncremental::setResult(bool newResult) {
     result = newResult;
 }
 
-QH::PKG::DataPack<API::V3::UsersCards> SyncIncremental::usersCardsToRemove() const {
+const QH::PKG::DataPack<API::V3::UsersCards>& SyncIncremental::usersCardsToRemove() const {
     return _usersCardsToRemove;
 }
 
@@ -58,7 +60,7 @@ void SyncIncremental::setUsersCardsToRemove(const QH::PKG::DataPack<API::V3::Use
     _usersCardsToRemove = newUsersCardsToRemove;
 }
 
-QH::PKG::DataPack<API::V3::Contacts> SyncIncremental::contactsToRemove() const {
+const QH::PKG::DataPack<API::V3::Contacts>& SyncIncremental::contactsToRemove() const {
     return _contactsToRemove;
 }
 
@@ -70,7 +72,7 @@ void SyncIncremental::addContactsToRemove(const QSharedPointer<Contacts> &newCon
     _contactsToRemove.push(newContactsToRemove);
 }
 
-QH::PKG::DataPack<API::V3::Contacts> SyncIncremental::contactsToAdd() const {
+const QH::PKG::DataPack<API::V3::Contacts>& SyncIncremental::contactsToAdd() const {
     return _contactsToAdd;
 }
 
@@ -82,7 +84,7 @@ void SyncIncremental::addContactsToAdd(const QSharedPointer<Contacts> &newContac
     _contactsToAdd.push(newContactsToAdd);
 }
 
-QH::PKG::DataPack<API::V3::UsersCards> SyncIncremental::usersCardsToAdd() const {
+const QH::PKG::DataPack<API::V3::UsersCards>& SyncIncremental::usersCardsToAdd() const {
     return _usersCardsToAdd;
 }
 

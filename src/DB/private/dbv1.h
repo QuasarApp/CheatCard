@@ -33,6 +33,7 @@ public:
     bool deleteContact(const QSharedPointer<Interfaces::iContacts>& contact) const override;
     bool deleteCard(const QByteArray& cardId) const override;
     bool deleteContactsByChildUserKey(const QByteArray& childUser) const override;
+    bool deleteUserData(const QByteArray &cardId, const QByteArray &userId) override;
 
     QSharedPointer<Interfaces::iContacts> makeEmptyContact() const override;
     QSharedPointer<Interfaces::iUser> makeEmptyUser() const override;
@@ -93,6 +94,7 @@ private:
                           unsigned int freeIndex) const;
 
     int getCardFreeIndex(const QByteArray& cardId) const;
+
 
 };
 }

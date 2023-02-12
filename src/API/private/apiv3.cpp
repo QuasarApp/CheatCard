@@ -153,6 +153,21 @@ QH::ParserResult ApiV3::parsePackage(const QSharedPointer<QH::PKG::AbstractData>
     return QH::ParserResult::NotProcessed;
 }
 
+void ApiV3::syncRequest(const QByteArray &curentUserKey,
+                        QH::AbstractNodeInfo *dist,
+                        const std::function<void (bool)> &cb) {
+
+    V3::SubscribeToUserChanges request;
+    request.setUserId(curentUserKey);
+
+    if (!sendAndRegisterCallBack(&request, dist, cb)) {
+        QuasarAppUtils::Params::log("Failed to register user on server",
+                                    QuasarAppUtils::Error);
+
+    }
+
+}
+
 bool ApiV3::processCardStatus(const QSharedPointer<QH::PKG::DataPack<API::V3::UsersCards> > &cardStatuses,
                               const QH::AbstractNodeInfo *sender, const QH::Header &pkg) {
     return ApiV3::processCardStatusImpl(*cardStatuses, sender, pkg);
@@ -517,18 +532,28 @@ bool ApiV3::processContacts(const QSharedPointer<API::V3::UpdateContactData> &me
     return true;
 }
 
-bool ApiV3::sendContacts(const Interfaces::iContacts& contact,
-                         const QByteArray& secreet,
-                         bool removeRequest,
-                         QH::AbstractNodeInfo *dist,
-                         const std::function<void(int err)>& cb) {
+bool ApiV3::triggerCallBack(unsigned int hash, unsigned int err) {
+    auto cbData = _waitResponce.take(hash);
+    if (cbData._cb)
+        cbData._cb(err);
 
+    if (_waitResponce.size() > 100) {
+        for (auto it = _waitResponce.begin(); it != _waitResponce.end(); ++it) {
+            if (it->time > time(0) + 60) {
+                _waitResponce.erase(it);
+                it = std::prev(it);
+            }
+        }
+    }
 
-    auto request = QSharedPointer<RC::API::V3::UpdateContactData>::create(contact);
-    request->setRemove(removeRequest);
-    request->setUserSecreet(secreet);
+    return true;
+}
 
-    unsigned int pkgHash = node()->sendData(request.data(), dist);
+bool ApiV3::sendAndRegisterCallBack(const QH::PKG::AbstractData *resp,
+                                    const QH::AbstractNodeInfo *address,
+                                    const std::function<void(int err)>& cb) {
+
+    unsigned int pkgHash = sendData(resp, address);
 
     if (!pkgHash) {
         return false;
@@ -537,6 +562,21 @@ bool ApiV3::sendContacts(const Interfaces::iContacts& contact,
     _waitResponce[pkgHash] = {static_cast<int>(time(0)), cb};
 
     return true;
+}
+
+bool ApiV3::sendContacts(const Interfaces::iContacts& contact,
+                         const QByteArray& secreet,
+                         bool removeRequest,
+                         QH::AbstractNodeInfo *dist,
+                         const std::function<void(int err)>& cb) {
+
+
+    RC::API::V3::UpdateContactData request(contact);
+    request.setRemove(removeRequest);
+    request.setUserSecreet(secreet);
+
+    return sendAndRegisterCallBack(&request, dist, cb);
+
 }
 
 bool ApiV3::deleteCard(const QByteArray& cardId,
@@ -573,7 +613,7 @@ bool ApiV3::changeUsersData(const QByteArray& sellerUserKey,
                             unsigned int purchasesCount,
                             unsigned int receivedCount,
                             QH::AbstractNodeInfo *dist,
-                            const std::function<void(int err, const QSharedPointer<Interfaces::iUsersCards>& currentState)>&  cb) {
+                            const std::function<void(int err)>& cb) {
 
     API::V3::ChangeUsersCards changes;
 
@@ -661,7 +701,7 @@ bool ApiV3::processSync(const QSharedPointer<V3::Sync> &message,
         emit sigContactsListChanged();
     }
 
-    return true;
+    return triggerCallBack(hdr.triggerHash, 0);
 }
 
 bool ApiV3::processSyncIncremental(const QSharedPointer<V3::SyncIncremental> &message,
@@ -690,7 +730,7 @@ bool ApiV3::processSyncIncremental(const QSharedPointer<V3::SyncIncremental> &me
         emit sigContactsListChanged();
     }
 
-    return true;
+    return triggerCallBack(hdr.triggerHash, 0);
 }
 
 }

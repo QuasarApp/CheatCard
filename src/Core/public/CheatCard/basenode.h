@@ -12,7 +12,6 @@
 #include "rci/core/idb.h"
 #include "rci/objects/icard.h"
 #include "rci/objects/icontacts.h"
-#include "rci/objects/isession.h"
 #include "rci/objects/iuserscards.h"
 #include <QSharedPointer>
 #include <dbobject.h>
@@ -84,7 +83,6 @@ signals:
     void sigDataExchangingChanged(bool);
 
     void sigVersionNoLongerSupport(int minimumRequiredVersion);
-    void sigSessionStatusResult(QSharedPointer<RC::Interfaces::iSession>, bool succesed);
     void sigContactsStatusResult(QSharedPointer<RC::Interfaces::iContacts>, bool succesed, bool removed);
     void sigContactsListChanged();
 

@@ -308,18 +308,6 @@ public:
     virtual bool clearOldData(int duration) = 0;
 
     /**
-     * @brief clearUsersData This method clear all data of all cards.
-     * @return true if all data removed successfull else false.
-     */
-    virtual bool clearUsersData() = 0;
-
-    /**
-     * @brief clearPermisions This method clear all permisions information .
-     * @return true if all data removed successfull else false.
-     */
-    virtual bool clearPermisions() = 0;
-
-    /**
      * @brief initPills This method return requered pill of the database.
      * @param pillId This is required piil id.
      * @return list available pills of the database.
