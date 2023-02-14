@@ -14,53 +14,7 @@
 namespace RC {
 
 
-Visitor::Visitor(const QSharedPointer<Interfaces::iDB> &db): BaseNode(db) {
-
-    _timer = new QTimer(this);
-
-    connect(_timer, &QTimer::timeout, this, &Visitor::handleTick);
-
-}
-
-bool Visitor::sendRequestPrivate() {
-    auto action = [this](QH::AbstractNodeInfo *node) {
-        auto api = getApi(node);
-
-        if (!api)
-            return;
-
-        api->sendCardStatusRequest(_lastRequested, node);
-        _lastRequest = time(0);
-    };
-
-    return addNode(_domain, _port,
-                   action, QH::NodeCoonectionStatus::Confirmed);
-}
-
-bool Visitor::checkCardData(long long session,
-                            const QString &domain, int port) {
-    if (!session)
-        return false;
-
-    _lastRequested = session;
-
-    int currentTime = time(0);
-
-    if (domain.isEmpty()) {
-        _domain = getServerHost();
-    } else {
-        _domain = domain;
-    }
-    _port = port;
-
-
-    if (_lastRequest + _requestInterval > currentTime) {
-
-        _timer->start((_lastRequest + _requestInterval - currentTime) * 1000);
-        return true;
-    }
-
-    return sendRequestPrivate();
+Visitor::Visitor(const QSharedPointer<Interfaces::iDB> &db): Client(db) {
 }
 
 BaseNode::NodeType Visitor::nodeType() const {
@@ -68,24 +22,10 @@ BaseNode::NodeType Visitor::nodeType() const {
 }
 
 void Visitor::nodeConnected(QH::AbstractNodeInfo *node) {
-    BaseNode::nodeConnected(node);
+    Client::nodeConnected(node);
 }
 
 void Visitor::nodeConfirmend(QH::AbstractNodeInfo *node) {
-    BaseNode::nodeConfirmend(node);
+    Client::nodeConfirmend(node);
 }
-
-void Visitor::handleTick() {
-    _timer->stop();
-    sendRequestPrivate();
-}
-
-int Visitor::getRequestInterval() const {
-    return _requestInterval;
-}
-
-void Visitor::setRequestInterval(int newRequestInterval) {
-    _requestInterval = newRequestInterval;
-}
-
 }

@@ -24,16 +24,6 @@ public:
 protected:
     void nodeConnected(QH::AbstractNodeInfo *node) override;
     void nodeConfirmend(QH::AbstractNodeInfo *node) override;
-
-    int getRequestInterval() const;
-    void setRequestInterval(int newRequestInterval);
-
-
-private slots:
-
-    void handleTick();
-private:
-    bool sendRequestPrivate();
 };
 
 }

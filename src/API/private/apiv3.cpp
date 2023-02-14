@@ -37,24 +37,17 @@ void ApiV3::initSupportedCommands() {
     registerPackageType<QH::PKG::DataPack<API::V3::Card>>();
     registerPackageType<QH::PKG::DataPack<API::V3::UsersCards>>();
 
-    switch (static_cast<NodeType>(node()->nodeType())) {
-    case NodeType::Visitor: {
+    switch (node()->nodeType()) {
+    case QH::AbstractNode::NodeType::Client: {
         registerPackageType<QH::PKG::DataPack<API::V3::Contacts>>();
-        registerPackageType<API::V3::Sync>();
-        registerPackageType<API::V3::SyncIncremental>();
-
-        break;
-    }
-
-    case NodeType::Seller: {
         registerPackageType<API::V3::Sync>();
         registerPackageType<API::V3::SyncIncremental>();
         registerPackageType<API::V3::CardDataRequest>();
-        registerPackageType<QH::PKG::DataPack<API::V3::Contacts>>();
+
         break;
     }
 
-    case NodeType::Server: {
+    case QH::AbstractNode::NodeType::Server: {
         registerPackageType<QH::PKG::DataPack<API::V3::UsersCards>>();
 
         registerPackageType<API::V3::CardDataRequest>();
@@ -274,8 +267,8 @@ bool ApiV3::processCardStatusBase(const QSharedPointer<V3::UsersCards> &cardStat
 bool ApiV3::cardValidation(const QSharedPointer<Interfaces::iCard> &cardFromDB,
                            const QByteArray &ownerSecret) const {
 
-    switch (static_cast<NodeType>(node()->nodeType())) {
-    case NodeType::Server: {
+    switch (node()->nodeType()) {
+    case QH::AbstractNode::NodeType::Server: {
         if (!(cardFromDB && cardFromDB->isValid()))
             return true;
 
@@ -454,8 +447,8 @@ bool ApiV3::processChanges(const QSharedPointer<API::V3::ChangeUsersCards> &mess
 bool ApiV3::accessValidation(const QSharedPointer<RC::Interfaces::iCard> &cardFromDB,
                              const QByteArray &ownerSecret,
                              bool allowWorkers) const {
-    switch (static_cast<NodeType>(node()->nodeType())) {
-    case NodeType::Server: {
+    switch (node()->nodeType()) {
+    case  QH::AbstractNode::NodeType::Server: {
         if (!(cardFromDB && cardFromDB->isValid()))
             return true;
 
@@ -494,7 +487,7 @@ void ApiV3::brodcast(const QByteArray &userId,
 }
 
 bool ApiV3::processContacts(const QSharedPointer<API::V3::UpdateContactData> &message,
-                            const QH::AbstractNodeInfo * sender,
+                            const QH::AbstractNodeInfo *,
                             const QH::Header &hdr) {
 
     auto userKey = RCUtils::makeUserKey(message->userSecreet());

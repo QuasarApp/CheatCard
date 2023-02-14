@@ -11,6 +11,7 @@
 #define CLIENT_H
 
 #include "basenode.h"
+#include "userheader.h"
 
 namespace RC {
 
@@ -24,6 +25,24 @@ public:
     bool connectToServer();
     void disconectFromServer();
     bool isConncted() const;
+    bool subscribeToUser(const QByteArray &user) const;
+
+    bool updateCard(const QByteArray& cardId, unsigned int version);
+    bool deleteCard(const QByteArray& cardId);
+
+    NodeType nodeType() const override;
+
+    bool setPurchase(const UserHeader &userHeaderData,
+                     const QByteArray &cardId,
+                     int purchasesCount);
+
+    bool incrementPurchase(const QSharedPointer<UserHeader> &userHeaderData,
+                           unsigned int cardId,
+                           int purchasesCount = 1);
+
+    void setCurrntUser(const QSharedPointer<Interfaces::iUser> &newCurrntUser);
+
+    void setCurrntUserKey(const QByteArray &newCurrntUserKey);
 
 signals:
     void sigAvailableNetworkChanged(bool);
@@ -45,6 +64,7 @@ protected:
 private:
     void setFNetAvailable(bool newFNetAvailable);
 
+    QByteArray _currntUserKey;
     QSharedPointer<Interfaces::iAPI> _api;
     QH::AbstractNodeInfo *_server = nullptr;
     bool _fNetAvailable = false;

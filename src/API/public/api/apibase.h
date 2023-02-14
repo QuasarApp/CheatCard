@@ -30,26 +30,6 @@ class CHEATCARD_API_EXPORT APIBase: public QH::iParser, public RC::Interfaces::i
     Q_OBJECT
 public:
 
-         /**
-         * @brief The NodeType enum contains types of the nodes.
-         */
-        enum NodeType: int {
-            // Base types (first 4 bits)
-
-            /// This is unkonown node type (invalid node)
-            Unknown = 0x00,
-
-            /// This is client node that work in visitor mode (clients of the sellers)
-            Visitor = 0x01,
-
-            /// This is client node that work in seller mode
-            Seller  = 0x02,
-
-            /// This node work as a server.
-            Server  = 0x03,
-
-            };
-
     /**
      * @brief APIBase is main constructoe of the api object;
      * @param dataBase This is shared pointer of the main database connection.

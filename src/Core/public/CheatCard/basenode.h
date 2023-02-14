@@ -35,7 +35,7 @@ public:
     static QString libVersion();
     static void init();
 signals:
-    void sigNetworkError(QAbstractSocket::SocketError errorCode,
+    void sigNetworkError(unsigned int errorCode,
                          QSslError::SslError sslError);
 
 
