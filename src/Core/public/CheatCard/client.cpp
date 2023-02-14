@@ -118,7 +118,7 @@ bool Client::setPurchase(const UserHeader &userHeaderData,
         return false;
     }
 
-    return apiObject->deleteCard(cardId, _currntUserKey, _server, [](unsigned int err) {
+    return apiObject->(cardId, _currntUserKey, _server, [](unsigned int err) {
         if (err) {
             QuasarAppUtils::Params::log("deleteCard error ocurred");
         }
