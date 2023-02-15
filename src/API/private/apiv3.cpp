@@ -48,10 +48,8 @@ void ApiV3::initSupportedCommands() {
     }
 
     case QH::AbstractNode::NodeType::Server: {
-        registerPackageType<QH::PKG::DataPack<API::V3::UsersCards>>();
 
         registerPackageType<API::V3::CardDataRequest>();
-        registerPackageType<QH::PKG::DataPack<API::V3::Card>>();
         registerPackageType<API::V3::ChangeUsersCards>();
         registerPackageType<API::V3::CardUpdated>();
         registerPackageType<API::V3::UpdateContactData>();
@@ -542,7 +540,7 @@ bool ApiV3::triggerCallBack(unsigned int hash, unsigned int err) {
     return true;
 }
 
-bool ApiV3::sendAndRegisterCallBack(const QH::PKG::AbstractData *resp,
+unsigned int ApiV3::sendAndRegisterCallBack(const QH::PKG::AbstractData *resp,
                                     const QH::AbstractNodeInfo *address,
                                     const std::function<void(int err)>& cb) {
 
@@ -554,7 +552,7 @@ bool ApiV3::sendAndRegisterCallBack(const QH::PKG::AbstractData *resp,
 
     _waitResponce[pkgHash] = {static_cast<int>(time(0)), cb};
 
-    return true;
+    return pkgHash;
 }
 
 bool ApiV3::sendContacts(const Interfaces::iContacts& contact,
@@ -584,8 +582,8 @@ bool ApiV3::deleteCard(const QByteArray& cardId,
         return false;
 
     request.setSecret(secret);
+    return sendAndRegisterCallBack(&request, dist, cb);
 
-    return node()->sendData(&request, dist, nullptr);
 }
 
 bool ApiV3::sendUpdateCard(const QByteArray& cardId,
@@ -596,8 +594,7 @@ bool ApiV3::sendUpdateCard(const QByteArray& cardId,
     request.setCardVersion(version);
     request.setCardId(cardId);
 
-    return node()->sendData(&request, dist, nullptr);
-
+    return sendAndRegisterCallBack(&request, dist, cb);
 }
 
 bool ApiV3::changeUsersData(const QByteArray& sellerUserKey,
@@ -613,15 +610,15 @@ bool ApiV3::changeUsersData(const QByteArray& sellerUserKey,
     changes.setPurchase(purchasesCount);
     changes.setReceive(receivedCount);
     changes.setSecret(db()->getSecret(sellerUserKey));
-
+    changes.setUser(userId);
+    changes.setCard(cardId);
 
     _checkUserRequestHash.clear();
 
     auto packageHash = sendData(&changes, dist);
     _checkUserRequestHash += packageHash;
 
-    return packageHash;
-
+    return sendAndRegisterCallBack(&changes, dist, cb);
 }
 
 void ApiV3::collectDataOfuser(const QByteArray& userKey,

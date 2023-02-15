@@ -109,26 +109,47 @@ QH::AbstractNode::NodeType Client::nodeType() const {
     return QH::AbstractNode::NodeType::Client;
 }
 
-bool Client::setPurchase(const UserHeader &userHeaderData,
-                         const QByteArray &cardId,
-                         int purchasesCount) {
+bool Client::incrementPurchase(const QByteArray &userKey,
+                               const QByteArray &cardId,
+                               int purchasesCount) {
 
     auto apiObject = api();
     if (!apiObject) {
         return false;
     }
 
-    return apiObject->(cardId, _currntUserKey, _server, [](unsigned int err) {
+    return apiObject->changeUsersData(_currntUserKey,
+                                      cardId,
+                                      userKey,
+                                      purchasesCount,
+                                      0,
+                                      _server,
+                                      [](unsigned int err) {
         if (err) {
             QuasarAppUtils::Params::log("deleteCard error ocurred");
         }
     });
 }
 
-bool Client::incrementPurchase(const QSharedPointer<UserHeader> &userHeaderData,
-                               unsigned int cardId,
-                               int purchasesCount) {
+bool Client::incrementReceived(const QByteArray &userKey,
+                               const QByteArray &cardId,
+                               int received) {
+    auto apiObject = api();
+    if (!apiObject) {
+        return false;
+    }
 
+    return apiObject->changeUsersData(_currntUserKey,
+                                      cardId,
+                                      userKey,
+                                      0,
+                                      received,
+                                      _server,
+                                      [](unsigned int err) {
+        if (err) {
+            QuasarAppUtils::Params::log("deleteCard error ocurred");
+        }
+    });
 }
 
 QSharedPointer<Interfaces::iAPI> Client::api() const {
@@ -150,6 +171,13 @@ void Client::nodeDisconnected(QH::AbstractNodeInfo * node) {
     setFNetAvailable(confirmendCount());
     _server = nullptr;
 
+}
+
+void Client::nodeErrorOccured(QH::AbstractNodeInfo *nodeInfo,
+                              QAbstractSocket::SocketError errorCode,
+                              QString errorString) {
+    BaseNode::nodeErrorOccured(nodeInfo, errorCode, errorString);
+    connectToServer();
 }
 
 void Client::setFNetAvailable(bool newFNetAvailable) {

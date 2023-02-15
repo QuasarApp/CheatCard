@@ -6,13 +6,8 @@
 //#
 
 #include "server.h"
-
 #include <badrequest.h>
-
 #include <QCoreApplication>
-#include "api/apibase.h"
-
-
 
 namespace RC {
 
@@ -21,19 +16,14 @@ Server::Server(const QSharedPointer<Interfaces::iDB> &db): BaseNode(db) {
 }
 
 BaseNode::NodeType Server::nodeType() const {
-    return static_cast<BaseNode::NodeType>(API::APIBase::NodeType::Server);
+    return BaseNode::NodeType::Server;
 }
 
 void Server::nodeConnected(QH::AbstractNodeInfo *node) {
     BaseNode::nodeConnected(node);
-    auto address = node->networkAddress();
-    QTimer::singleShot(WAIT_CONFIRM_TIME, this, [this, address](){
-        removeNode(address);
-    });
 }
 
 void Server::nodeDisconnected(QH::AbstractNodeInfo *node) {
-
     BaseNode::nodeDisconnected(node);
 }
 

@@ -79,6 +79,7 @@ public:
                          unsigned int receivedCount,
                          QH::AbstractNodeInfo *dist,
                          const std::function<void(int err)>& = {}) override;
+
 protected:
     bool processSubscribeRequest(const QSharedPointer<V3::SubscribeToUserChanges> &message,
                                  QH::AbstractNodeInfo *sender, const QH::Header&) ;
@@ -128,9 +129,9 @@ private:
                   const QH::PKG::AbstractData *data,
                   const QH::Header *req);
 
-    bool sendAndRegisterCallBack(const QH::PKG::AbstractData *resp,
-                                 const QH::AbstractNodeInfo *address,
-                                 const std::function<void(int err)>& cb);
+    unsigned int sendAndRegisterCallBack(const QH::PKG::AbstractData *resp,
+                                         const QH::AbstractNodeInfo *address,
+                                         const std::function<void(int err)>& cb);
 
     bool triggerCallBack(unsigned int hash, unsigned int err);
 

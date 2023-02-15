@@ -11,7 +11,6 @@
 #define CLIENT_H
 
 #include "basenode.h"
-#include "userheader.h"
 
 namespace RC {
 
@@ -32,13 +31,14 @@ public:
 
     NodeType nodeType() const override;
 
-    bool setPurchase(const UserHeader &userHeaderData,
-                     const QByteArray &cardId,
-                     int purchasesCount);
-
-    bool incrementPurchase(const QSharedPointer<UserHeader> &userHeaderData,
-                           unsigned int cardId,
+    bool incrementPurchase(const QByteArray &userKey,
+                           const QByteArray &cardId,
                            int purchasesCount = 1);
+
+
+    bool incrementReceived(const QByteArray &userKey,
+                           const QByteArray &cardId,
+                           int received = 1);
 
     void setCurrntUser(const QSharedPointer<Interfaces::iUser> &newCurrntUser);
 
@@ -59,6 +59,12 @@ protected:
 
     void nodeConnected(QH::AbstractNodeInfo *node) override;
     void nodeDisconnected(QH::AbstractNodeInfo *node) override;
+
+    void nodeErrorOccured(QH::AbstractNodeInfo *nodeInfo,
+                          QAbstractSocket::SocketError errorCode,
+                          QString errorString) override;
+
+
     QString getServerHost() const;
 
 private:
