@@ -5,24 +5,24 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#ifndef TESTSELLER_H
-#define TESTSELLER_H
 
-#include <CheatCard/seller.h>
+#ifndef TESTCLIENT_H
+#define TESTCLIENT_H
 
+#include <CheatCard/client.h>
 
-class TestSeller: public RC::Seller
+class TestClient: public RC::Client
 {
     Q_OBJECT
 public:
-    TestSeller(const QSharedPointer<RC::Interfaces::iDB> &db);
+    TestClient(const QSharedPointer<RC::Interfaces::iDB> &db);
     void dropDB();
-    int getPurchaseCount(unsigned int userId, unsigned int cardId);
-    int getFreeItemsCount(unsigned int userId, unsigned int cardId);
-    QSharedPointer<RC::Interfaces::iCard> getCard(unsigned int cardId) const;
+    int getPurchaseCount(const QByteArray& userId, const QByteArray& cardId);
+    int getFreeItemsCount(const QByteArray& userId, const QByteArray& cardId);
+    QSharedPointer<RC::Interfaces::iCard> getCard(const QByteArray& cardId) const;
     unsigned char getLastErrrorCode();
     const QSharedPointer<RC::Interfaces::iDB>& getDBObject() const;
-    QSharedPointer<RC::Interfaces::iUser> getUser(unsigned int userId) const;
+    QSharedPointer<RC::Interfaces::iUser> getUser(const QByteArray& userId) const;
 
 private slots:
     void handleRequestError(unsigned char code, QString msg);
@@ -31,4 +31,4 @@ private:
     unsigned char lastErrrorCode = 0;
 };
 
-#endif // TESTSELLER_H
+#endif // TESTCLIENT_H

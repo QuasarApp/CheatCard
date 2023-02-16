@@ -15,9 +15,9 @@ class TestServer: public RC::Server
     Q_OBJECT
 public:
     TestServer(const QSharedPointer<RC::Interfaces::iDB> &db);
-    QSharedPointer<RC::Interfaces::iCard> getCard(unsigned int cardId) const;
-    int getPurchaseCount(unsigned int userId,unsigned int cardId);
-    int getFreeItemsCount(unsigned int userId, unsigned int cardId);
+    QSharedPointer<RC::Interfaces::iCard> getCard(const QByteArray& cardId) const;
+    int getPurchaseCount(const QByteArray& userId, const QByteArray& cardId);
+    int getFreeItemsCount(const QByteArray& userId, const QByteArray& cardId);
     bool containsContact(const QByteArray &userId, const QByteArray &childId);
     const QSharedPointer<RC::Interfaces::iDB>& getDBObject() const;
 

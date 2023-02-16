@@ -21,7 +21,7 @@ class CHEATCARD_CORE_EXPORT Client: public BaseNode
 {
 public:
     Client(const QSharedPointer<Interfaces::iDB> &db);
-    bool connectToServer();
+    bool connectToServer(QString host = {}, int port = 0);
     void disconectFromServer();
     bool isConncted() const;
     bool subscribeToUser(const QByteArray &user) const;
@@ -39,8 +39,6 @@ public:
     bool incrementReceived(const QByteArray &userKey,
                            const QByteArray &cardId,
                            int received = 1);
-
-    void setCurrntUser(const QSharedPointer<Interfaces::iUser> &newCurrntUser);
 
     void setCurrntUserKey(const QByteArray &newCurrntUserKey);
 

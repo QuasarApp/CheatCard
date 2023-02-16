@@ -37,7 +37,7 @@ QString Client::getServerHost() const {
     return settings->getStrValue("host", DEFAULT_CHEAT_CARD_HOST);
 }
 
-bool Client::connectToServer() {
+bool Client::connectToServer(QString host, int port) {
     if (connectionsCount() >= 1) {
         return false;
     }
@@ -50,7 +50,14 @@ bool Client::connectToServer() {
         }
     };
 
-    return addNode(getServerHost(), DEFAULT_CHEAT_CARD_PORT, action,
+    if (host.isEmpty())
+        host = getServerHost();
+
+    if (!port) {
+        port = DEFAULT_CHEAT_CARD_PORT;
+    }
+
+    return addNode(host, port, action,
                    QH::NodeCoonectionStatus::Confirmed);
 }
 

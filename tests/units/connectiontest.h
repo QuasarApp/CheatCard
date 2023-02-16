@@ -22,8 +22,7 @@ namespace Intefaces {
 class UserHeader;
 }
 
-class TestSeller;
-class TestVisitor;
+class TestClient;
 class TestServer;
 
 /**
@@ -39,18 +38,15 @@ public:
 
 protected:
 
-    void addSeal(const QSharedPointer<TestSeller> &seller,
-                 const QSharedPointer<TestVisitor> &client,
+    void addSeal(const QSharedPointer<TestClient> &seller,
+                 const QSharedPointer<TestClient> &client,
                  const QSharedPointer<TestServer> &server,
-                 const QSharedPointer<RC::Interfaces::iUser> &user,
-                 unsigned int cardId, int sealsCount,
-                 QSharedPointer<RC::UserHeader>&,
-                 const QString &host,
-                 int port);
+                 const QByteArray &userKey,
+                 const QByteArray &cardId, int sealsCount);
 private:
     void firstContact();
-    void apiTest(const QSharedPointer<TestSeller> &seller,
-                 const QSharedPointer<TestVisitor> &client,
+    void apiTest(const QSharedPointer<TestClient> &seller,
+                 const QSharedPointer<TestClient> &client,
                  const QSharedPointer<TestServer> &server);
 
 };

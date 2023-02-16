@@ -6,13 +6,13 @@ TestServer::TestServer(const QSharedPointer<RC::Interfaces::iDB> &db):
     RC::Server(db) {
 }
 
-QSharedPointer<RC::Interfaces::iCard> TestServer::getCard(unsigned int cardId) const {
+QSharedPointer<RC::Interfaces::iCard> TestServer::getCard(const QByteArray& cardId) const {
 
     auto cardObj = db()->getCard(cardId);
     return cardObj;
 }
 
-int TestServer::getPurchaseCount(unsigned int userId, unsigned int cardId) {
+int TestServer::getPurchaseCount(const QByteArray& userId, const QByteArray& cardId) {
     auto result = db()->getUserCardData(userId, cardId);
 
     if (!result)
@@ -25,7 +25,7 @@ bool TestServer::containsContact(const QByteArray &userId, const QByteArray &chi
     return db()->getContactFromChildId(userId, childId);
 }
 
-int TestServer::getFreeItemsCount(unsigned int userId, unsigned int cardId) {
+int TestServer::getFreeItemsCount(const QByteArray& userId, const QByteArray& cardId) {
     auto dbUsersCards = db()->getUserCardData(
         userId,
         cardId);

@@ -12,7 +12,7 @@
 #include <db.h>
 #include <QSharedPointer>
 
-#include <CheatCard/seller.h>
+#include <CheatCard/client.h>
 
 
 namespace RC {
@@ -45,8 +45,7 @@ public:
     static QSharedPointer<RC::Interfaces::iUser> makeUser();
     static QSharedPointer<RC::Interfaces::iContacts> makeContact();
 
-    static unsigned int testCardId();
-    static unsigned int testUserId();
+    static QByteArray testCardId();
     static QByteArray testUserPublicKey();
     static QByteArray testUserPrivKey();
 

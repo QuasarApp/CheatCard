@@ -18,12 +18,8 @@ QSharedPointer<RC::Interfaces::iContacts> CheatCardTestsHelper::makeContact() {
     return db->makeEmptyContact();
 }
 
-unsigned int CheatCardTestsHelper::testCardId() {
+QByteArray CheatCardTestsHelper::testCardId() {
     return 1990574875;
-}
-
-unsigned int CheatCardTestsHelper::testUserId() {
-    return 2936319662;
 }
 
 QByteArray CheatCardTestsHelper::testUserPublicKey() {

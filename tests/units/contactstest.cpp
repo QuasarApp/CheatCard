@@ -6,8 +6,7 @@
 //#
 
 
-#include <testseller.h>
-#include <testvisitor.h>
+#include <testclient.h>
 #include <CheatCard/userheader.h>
 #include "api.h"
 #include "contactstest.h"

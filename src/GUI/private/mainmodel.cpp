@@ -41,9 +41,8 @@
 #include "models/settingsmodel.h"
 #include <doctorpillgui.h>
 #include <qaglobalutils.h>
-#include <CheatCard/seller.h>
+#include <CheatCard/client.h>
 #include <CheatCard/usersnames.h>
-#include <CheatCard/visitor.h>
 #include <api/apibase.h>
 #include <api.h>
 
