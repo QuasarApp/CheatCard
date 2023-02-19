@@ -19,7 +19,7 @@ QSharedPointer<RC::Interfaces::iContacts> CheatCardTestsHelper::makeContact() {
 }
 
 QByteArray CheatCardTestsHelper::testCardId() {
-    return 1990574875;
+    return "1990574875";
 }
 
 QByteArray CheatCardTestsHelper::testUserPublicKey() {

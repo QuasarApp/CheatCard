@@ -1,6 +1,6 @@
 #include "apitest.h"
 #include "api.h"
-#include "testseller.h"
+#include "testclient.h"
 #include "testserver.h"
 #include "cheatcardtestshelper.h"
 
@@ -25,8 +25,8 @@ void APITest::test() {
 void APITest::testProcessDeleteCardRequest() {
     // intialization nodes.
     auto server = CheatCardTestsHelper::makeNode<TestServer>();
-    auto seller1 = CheatCardTestsHelper::makeNode<TestSeller>();
-    auto seller2 = CheatCardTestsHelper::makeNode<TestSeller>();
+    auto seller1 = CheatCardTestsHelper::makeNode<TestClient>();
+    auto seller2 = CheatCardTestsHelper::makeNode<TestClient>();
 
     // initialization api objects for nodes.
     RC::API::init({2}, server->getDBObject(), server.data());
@@ -36,12 +36,15 @@ void APITest::testProcessDeleteCardRequest() {
     // run server node.
     QVERIFY(server->run(TEST_CHEAT_HOST, TEST_CHEAT_PORT));
 
+    QVERIFY(seller1->connectToServer(TEST_CHEAT_HOST, TEST_CHEAT_PORT));
+    QVERIFY(seller2->connectToServer(TEST_CHEAT_HOST, TEST_CHEAT_PORT));
+
     // init meta objects. (create card)
     auto seller1DB = seller1->getDBObject();
     auto seller2DB = seller2->getDBObject();
 
     auto card = seller1DB->makeEmptyCard();
-    unsigned int cardId = card->cardId();
+    QByteArray cardId = card->cardId();
 
     // initialisation of the first user object.
     auto seller1User = seller1DB->makeEmptyUser();
@@ -63,7 +66,7 @@ void APITest::testProcessDeleteCardRequest() {
     QVERIFY(seller1DB->saveCard(card));
 
     // send card to server.
-    QVERIFY(seller1->cardUpdated(cardId, card->getCardVersion() + 1, TEST_CHEAT_HOST, TEST_CHEAT_PORT));
+    QVERIFY(seller1->updateCard(cardId, card->getCardVersion() + 1));
     QVERIFY(wait([server, cardId](){
         auto card = server->getCard(cardId);
         return card && card->isValid();
@@ -74,10 +77,10 @@ void APITest::testProcessDeleteCardRequest() {
     QVERIFY(seller2DB->saveUser(seller1User));
     QVERIFY(seller2DB->saveCard(card));
 
-    seller2->setCurrentUser(seller1User);
+    seller2->setCurrntUserKey(seller1User->getKey());
 
     // send request tu remove (shold be failed and client shld be receivve error message.)
-    QVERIFY(seller2->deleteCard(cardId, TEST_CHEAT_HOST, TEST_CHEAT_PORT));
+    QVERIFY(seller2->deleteCard(cardId));
     QVERIFY(wait([seller2](){
         auto err = seller2->getLastErrrorCode();
         return err == 1;
@@ -88,8 +91,8 @@ void APITest::testProcessDeleteCardRequest() {
     QVERIFY(server->getCard(cardId));
 
 
-    seller1->setCurrentUser(seller1User);
-    QVERIFY(seller1->deleteCard(cardId, TEST_CHEAT_HOST, TEST_CHEAT_PORT));
+    seller1->setCurrntUserKey(seller1User->getKey());
+    QVERIFY(seller1->deleteCard(cardId));
 
     // wait for delete card on server
     QVERIFY(wait([server, cardId](){
