@@ -28,31 +28,29 @@ ContactsTest::ContactsTest() {
 
 void ContactsTest::test() {
     // initialise test
-    QSharedPointer<TestSeller> seller;
-    QSharedPointer<TestVisitor> client;
+    QSharedPointer<TestClient> seller;
+    QSharedPointer<TestClient> client;
     QSharedPointer<TestServer> server;
 
-    qDebug() << "TEST COntacts V1";
+    qDebug() << "TEST COntacts";
 
-    seller = CheatCardTestsHelper::makeNode<TestSeller>(":/sql/units/sql/TestSallerDb.sql");
-    client = CheatCardTestsHelper::makeNode<TestVisitor>();
+    seller = CheatCardTestsHelper::makeNode<TestClient>(":/sql/units/sql/TestSallerDb.sql");
+    client = CheatCardTestsHelper::makeNode<TestClient>();
     server = CheatCardTestsHelper::makeNode<TestServer>();
-    auto sellerUser = seller->getUser(CheatCardTestsHelper::testUserId());
-    auto clientUser = CheatCardTestsHelper::makeUser();
-    unsigned int cardId = CheatCardTestsHelper::testCardId();
-    auto sellerUserKey = sellerUser->getKey();
+    QByteArray cardId = CheatCardTestsHelper::testCardId();
+    auto sellerUserKey = CheatCardTestsHelper::testUserPublicKey();
 
-    unsigned int clientUserId = clientUser->id();
-
-    seller->setCurrentUser(sellerUser);
+    seller->setCurrntUserKey(sellerUserKey);
 
     // tst only last api
-    RC::API::init({2}, seller->getDBObject(), seller.data());
-    RC::API::init({2}, client->getDBObject(), client.data());
-    RC::API::init({2}, server->getDBObject(), server.data());
+    RC::API::init({3}, seller->getDBObject(), seller.data());
+    RC::API::init({3}, client->getDBObject(), client.data());
+    RC::API::init({3}, server->getDBObject(), server.data());
 
     // run server
     QVERIFY(server->run(TEST_CHEAT_HOST, TEST_CHEAT_PORT));
+    QVERIFY(client->connectToServer(TEST_CHEAT_HOST, TEST_CHEAT_PORT));
+    QVERIFY(seller->connectToServer(TEST_CHEAT_HOST, TEST_CHEAT_PORT));
 
     auto obj = QSharedPointer<RC::UserHeader>::create();
 
