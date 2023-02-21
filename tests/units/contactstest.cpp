@@ -13,6 +13,7 @@
 
 #include "cheatcardtestshelper.h"
 #include "testserver.h"
+#include "rci/rcutils.h"
 
 #define TEST_CHEAT_PORT 15002
 #define TEST_CHEAT_HOST "localhost"
@@ -37,8 +38,17 @@ void ContactsTest::test() {
     seller = CheatCardTestsHelper::makeNode<TestClient>(":/sql/units/sql/TestSallerDb.sql");
     client = CheatCardTestsHelper::makeNode<TestClient>();
     server = CheatCardTestsHelper::makeNode<TestServer>();
+
     QByteArray cardId = CheatCardTestsHelper::testCardId();
     auto sellerUserKey = CheatCardTestsHelper::testUserPublicKey();
+    auto sellerUser = seller->getUser(sellerUserKey);
+    auto clientUser = CheatCardTestsHelper::makeUser();
+    auto clientUserKey = clientUser->getKey();
+
+    client->db()->saveUser(clientUser);
+    client->setCurrntUserKey(clientUserKey);
+
+    QVERIFY(sellerUser && sellerUser->isValid());
 
     seller->setCurrntUserKey(sellerUserKey);
 
@@ -52,20 +62,19 @@ void ContactsTest::test() {
     QVERIFY(client->connectToServer(TEST_CHEAT_HOST, TEST_CHEAT_PORT));
     QVERIFY(seller->connectToServer(TEST_CHEAT_HOST, TEST_CHEAT_PORT));
 
-    auto obj = QSharedPointer<RC::UserHeader>::create();
 
     auto childSeller = CheatCardTestsHelper::makeUser();
+    auto childUserKey = childSeller->getKey();
+
     childSeller->setName("child");
     auto contact = CheatCardTestsHelper::makeContact();
 
     // create child seller user
-    QVERIFY(seller->createContact(childSeller, contact));
+    QVERIFY(RC::RCUtils::createContact(sellerUser, childSeller, contact));
 
     QVERIFY(seller->updateContactData(contact,
                                       sellerUser->secret(),
-                                      false,
-                                      TEST_CHEAT_HOST,
-                                      TEST_CHEAT_PORT));
+                                      false));
 
     auto childKey = childSeller->getKey();
 
@@ -76,19 +85,19 @@ void ContactsTest::test() {
 
     WAIT_FOR_FINSISHED_CONNECTION
 
-    seller->setCurrentUser(childSeller);
+    seller->setCurrntUserKey(childSeller->getKey());
     seller->getDBObject()->saveUser(childSeller);
     // try add seals from child account
-    addSeal(seller, client, server, clientUser, cardId, 6, obj, TEST_CHEAT_HOST,  TEST_CHEAT_PORT);
+    addSeal(seller, client, server, clientUserKey, cardId, 6);
 
-    QVERIFY(wait([client, cardId, clientUserId]() {
-        return client->getFreeItemsCount(clientUserId, cardId) == 1;
+    QVERIFY(wait([client, cardId, clientUserKey]() {
+        return client->getFreeItemsCount(clientUserKey, cardId) == 1;
     }, WAIT_TIME));
 
-    QVERIFY(seller->sentDataToServerReceive(obj, cardId, 1, TEST_CHEAT_HOST, TEST_CHEAT_PORT));
+    QVERIFY(seller->incrementReceived(clientUserKey, cardId, 1));
 
-    QVERIFY(wait([server, cardId, clientUserId]() {
-        return server->getFreeItemsCount(clientUserId, cardId) == 0;
+    QVERIFY(wait([server, cardId, clientUserKey]() {
+        return server->getFreeItemsCount(clientUserKey, cardId) == 0;
     }, WAIT_TIME));
 
     // wait for finished last seesion
@@ -97,9 +106,7 @@ void ContactsTest::test() {
     // try remove additional permisions from another seller account
     QVERIFY(seller->updateContactData(contact,
                                       childSeller->secret(),
-                                      true,
-                                      TEST_CHEAT_HOST,
-                                      TEST_CHEAT_PORT));
+                                      true));
     QVERIFY(wait([seller]() {
         return seller->getLastErrrorCode() == 1;
     }, WAIT_TIME));
@@ -107,13 +114,11 @@ void ContactsTest::test() {
     // wait for finished last seesion
     WAIT_FOR_FINSISHED_CONNECTION
 
-    seller->setCurrentUser(sellerUser);
+    seller->setCurrntUserKey(sellerUserKey);
     // Remove right of child account
     QVERIFY(seller->updateContactData(contact,
                                       sellerUser->secret(),
-                                      true,
-                                      TEST_CHEAT_HOST,
-                                      TEST_CHEAT_PORT));
+                                      true));
 
     // Wait for removing additional acces to server
     QVERIFY(wait([server, childKey, sellerUserKey]() {
@@ -123,9 +128,9 @@ void ContactsTest::test() {
     // wait for finished last seesion
     WAIT_FOR_FINSISHED_CONNECTION
 
-    seller->setCurrentUser(childSeller);
+    seller->setCurrntUserKey(childUserKey);
 
-    QVERIFY(seller->incrementPurchase(obj, cardId, 1, TEST_CHEAT_HOST, TEST_CHEAT_PORT));
+    QVERIFY(seller->incrementPurchase(clientUserKey, cardId, 1));
 
     QVERIFY(wait([seller]() {
         return seller->getLastErrrorCode() == 1;

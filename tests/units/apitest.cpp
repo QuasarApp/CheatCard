@@ -29,9 +29,9 @@ void APITest::testProcessDeleteCardRequest() {
     auto seller2 = CheatCardTestsHelper::makeNode<TestClient>();
 
     // initialization api objects for nodes.
-    RC::API::init({2}, server->getDBObject(), server.data());
-    RC::API::init({2}, seller1->getDBObject(), seller1.data());
-    RC::API::init({2}, seller2->getDBObject(), seller2.data());
+    RC::API::init({3}, server->getDBObject(), server.data());
+    RC::API::init({3}, seller1->getDBObject(), seller1.data());
+    RC::API::init({3}, seller2->getDBObject(), seller2.data());
 
     // run server node.
     QVERIFY(server->run(TEST_CHEAT_HOST, TEST_CHEAT_PORT));

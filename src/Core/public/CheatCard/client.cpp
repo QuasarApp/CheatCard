@@ -10,16 +10,16 @@ Client::Client(const QSharedPointer<Interfaces::iDB>& db): BaseNode(db) {
 
     for (const auto & api: apis) {
         Client::connect(api.data(), &API::APIBase::sigCardReceived,
-                           this, &Client::sigCardReceived, Qt::DirectConnection);
+                        this, &Client::sigCardReceived, Qt::DirectConnection);
 
         Client::connect(api.data(), &API::APIBase::sigUserDataRemoved,
-                           this, &Client::sigUserDataRemoved, Qt::DirectConnection);
+                        this, &Client::sigUserDataRemoved, Qt::DirectConnection);
 
         Client::connect(api.data(), &API::APIBase::sigContactsListChanged,
-                           this, &Client::sigContactsListChanged, Qt::DirectConnection);
+                        this, &Client::sigContactsListChanged, Qt::DirectConnection);
 
         Client::connect(api.data(), &API::APIBase::sigPurchaseWasSuccessful,
-                           this, &Client::sigPurchaseWasSuccessful, Qt::DirectConnection);
+                        this, &Client::sigPurchaseWasSuccessful, Qt::DirectConnection);
 
     }
 }
@@ -132,10 +132,10 @@ bool Client::incrementPurchase(const QByteArray &userKey,
                                       0,
                                       _server,
                                       [](unsigned int err) {
-        if (err) {
-            QuasarAppUtils::Params::log("deleteCard error ocurred");
-        }
-    });
+                                          if (err) {
+                                              QuasarAppUtils::Params::log("deleteCard error ocurred");
+                                          }
+                                      });
 }
 
 bool Client::incrementReceived(const QByteArray &userKey,
@@ -153,10 +153,10 @@ bool Client::incrementReceived(const QByteArray &userKey,
                                       received,
                                       _server,
                                       [](unsigned int err) {
-        if (err) {
-            QuasarAppUtils::Params::log("deleteCard error ocurred");
-        }
-    });
+                                          if (err) {
+                                              QuasarAppUtils::Params::log("deleteCard error ocurred");
+                                          }
+                                      });
 }
 
 QSharedPointer<Interfaces::iAPI> Client::api() const {
@@ -203,6 +203,26 @@ void Client::setCurrntUserKey(const QByteArray &newCurrntUserKey) {
     if (_currntUserKey.size()) {
         subscribeToUser(_currntUserKey);
     }
+}
+
+bool RC::Client::updateContactData(const QSharedPointer<Interfaces::iContacts> &contact,
+                                   const QByteArray &secreet,
+                                   bool removeRequest) {
+
+    auto apiObject = api();
+    if (!apiObject) {
+        return false;
+    }
+
+    return apiObject->sendContacts(*contact,
+                                   secreet,
+                                   removeRequest,
+                                   _server,
+                                   [](unsigned int err) {
+                                       if (err) {
+                                           QuasarAppUtils::Params::log("updateContactData error ocurred");
+                                       }
+                                   });
 }
 
 }

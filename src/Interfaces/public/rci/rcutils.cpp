@@ -10,6 +10,8 @@
 #include <crc/crchash.h>
 #include <QCryptographicHash>
 #include <qaglobalutils.h>
+#include <rci/objects/icontacts.h>
+#include <rci/objects/iuser.h>
 
 namespace RC {
 
@@ -30,6 +32,23 @@ QByteArray RCUtils::randomSHA256() {
 QByteArray RCUtils::convrtOldIdToSHA256(unsigned int oldId) {
     return QCryptographicHash::hash(QByteArray::number(oldId, sizeof(oldId)),
                                     QCryptographicHash::Sha256);
+}
+
+bool RCUtils::createContact(const QSharedPointer<Interfaces::iUser> &baseUser,
+                            const QSharedPointer<Interfaces::iUser> &anotherUser,
+                            QSharedPointer<Interfaces::iContacts> &resultContact) {
+    if (!baseUser->isValid())
+        return false;
+
+    if (baseUser->getKey() == anotherUser->getKey()) {
+        return false;
+    }
+
+    resultContact->setUserKey(baseUser->getKey());
+    resultContact->setInfo(anotherUser->name());
+    resultContact->setChildUserKey(anotherUser->getKey());
+
+    return resultContact->isValid();
 }
 
 }

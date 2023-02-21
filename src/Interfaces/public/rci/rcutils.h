@@ -11,7 +11,16 @@
 
 #include "rci/global.h"
 
+#include <QSharedPointer>
+
 namespace RC {
+
+
+namespace Interfaces {
+class iUser;
+class iContacts;
+}
+
 /**
  * @brief The RCUtils class contais general functions for all application.
  */
@@ -39,6 +48,16 @@ public:
      */
     static QByteArray convrtOldIdToSHA256(unsigned int oldId);
 
+    /**
+     * @brief createContact This method fill a empty contact (@a resultContact) object
+     * @param baseUser This is user object that will create permision for the @a anotherUser object
+     * @param anotherUser This is user that receive access to cards of the @a baseUser object.
+     * @param resultContact This is result contact object.
+     * @return true if the contact created successful.
+     */
+    static bool createContact(const QSharedPointer<Interfaces::iUser> &baseUser,
+                              const QSharedPointer<Interfaces::iUser> &anotherUser,
+                              QSharedPointer<Interfaces::iContacts> &resultContact);
 };
 }
 #endif // RCUTILS_H

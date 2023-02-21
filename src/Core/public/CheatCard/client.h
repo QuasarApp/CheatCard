@@ -42,6 +42,11 @@ public:
 
     void setCurrntUserKey(const QByteArray &newCurrntUserKey);
 
+    bool updateContactData(const QSharedPointer<Interfaces::iContacts> &contact,
+                           const QByteArray& secreet,
+                           bool removeRequest);
+
+
 signals:
     void sigAvailableNetworkChanged(bool);
 
@@ -74,6 +79,7 @@ private:
     bool _fNetAvailable = false;
 
 };
+
 
 }
 #endif // CLIENT_H

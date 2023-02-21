@@ -8,28 +8,22 @@
 #ifndef RESTOREDATATEST_H
 #define RESTOREDATATEST_H
 
-
-#include "test.h"
-#include "testutils.h"
-
 #include <QtTest>
+#include <connectiontest.h>
 
-#include <CheatCard/basenode.h>
 
-
-class TestSeller;
-class TestVisitor;
+class TestClient;
 class TestServer;
 
-class RestoreDataTest: public Test, protected TestUtils
+class RestoreDataTest:  public ConnectionTest
 {
 public:
     RestoreDataTest();
     void test();
 
 private:
-    void restoreTest(const QSharedPointer<TestSeller> &seller,
-                     const QSharedPointer<TestVisitor> &client,
+    void restoreTest(const QSharedPointer<TestClient> &seller,
+                     const QSharedPointer<TestClient> &client,
                      const QSharedPointer<TestServer> &server);
 
 };
