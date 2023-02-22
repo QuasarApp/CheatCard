@@ -19,6 +19,7 @@ namespace RC {
 namespace Interfaces {
 class iUser;
 class iContacts;
+class iCard;
 }
 
 /**
@@ -58,6 +59,7 @@ public:
     static bool createContact(const QSharedPointer<Interfaces::iUser> &baseUser,
                               const QSharedPointer<Interfaces::iUser> &anotherUser,
                               QSharedPointer<Interfaces::iContacts> &resultContact);
+
 };
 }
 #endif // RCUTILS_H

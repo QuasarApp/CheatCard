@@ -197,6 +197,10 @@ void Client::setFNetAvailable(bool newFNetAvailable) {
     emit sigAvailableNetworkChanged(_fNetAvailable);
 }
 
+const QByteArray &Client::currntUserKey() const {
+    return _currntUserKey;
+}
+
 void Client::setCurrntUserKey(const QByteArray &newCurrntUserKey) {
     _currntUserKey = newCurrntUserKey;
 

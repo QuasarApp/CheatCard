@@ -46,6 +46,7 @@ public:
                            const QByteArray& secreet,
                            bool removeRequest);
 
+    const QByteArray& currntUserKey() const;
 
 signals:
     void sigAvailableNetworkChanged(bool);

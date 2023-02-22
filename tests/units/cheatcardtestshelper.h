@@ -14,6 +14,8 @@
 
 #include <CheatCard/client.h>
 
+class TestClient;
+class TestServer;
 
 namespace RC {
 namespace Interfaces {
@@ -22,6 +24,11 @@ class iUser;
 }
 
 void softDeleteWrapNode(RC::BaseNode* obj);
+
+struct NetworkResult {
+    QSharedPointer<TestServer> server;
+    QHash<QByteArray, QSharedPointer<TestClient>> clients;
+};
 
 class CheatCardTestsHelper
 {
@@ -34,20 +41,35 @@ public:
         QString randomNodeName = QByteArray::number(rand()).toHex() + typeid(NodeType).name();
 
         auto sallerDb = RC::DB::makeDb(1, randomNodeName, "", database);
+        auto user = makeUser();
+
 
         if (!sallerDb->init()) {
             return {};
         }
 
-        return QSharedPointer<NodeType>(new NodeType(sallerDb), softDeleteWrapNode);
+        if (!sallerDb->saveUser(user)) {
+            return false;
+        }
+
+        auto result = QSharedPointer<NodeType>(new NodeType(sallerDb), softDeleteWrapNode);
+        result->setCurrntUserKey(user->getKey());
+        return result;
     }
+
+    static NetworkResult deployNetwork(QString host, int port, unsigned int clientsCount = 2);
 
     static QSharedPointer<RC::Interfaces::iUser> makeUser();
     static QSharedPointer<RC::Interfaces::iContacts> makeContact();
+    static QSharedPointer<RC::Interfaces::iCard> makeCard(const QSharedPointer<TestClient> &owner, unsigned int freeItemCount);
+    static void makeSeals(const QSharedPointer<TestClient>& seller,
+                          const QSharedPointer<TestClient>& client,
+                          const QByteArray& card,
+                          unsigned int sealCount);
 
-    static QByteArray testCardId();
-    static QByteArray testUserPublicKey();
-    static QByteArray testUserPrivKey();
+private:
+    static const QSharedPointer<RC::Interfaces::iDB> &objectFactory();
+
 
 };
 

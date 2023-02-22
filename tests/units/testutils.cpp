@@ -15,7 +15,7 @@
 
 bool TestUtils::funcPrivateConnect(const std::function<bool()> &requestFunc,
                                    const std::function<bool()> &checkFunc,
-                                   const std::function<QMetaObject::Connection()> &connectFunction) const {
+                                   const std::function<QMetaObject::Connection()> &connectFunction) {
 
     QMetaObject::Connection m_connection = connectFunction();
     if (requestFunc && !requestFunc()) {
@@ -30,7 +30,7 @@ bool TestUtils::funcPrivateConnect(const std::function<bool()> &requestFunc,
 }
 
 bool TestUtils::funcPrivateConnect(const std::function<bool ()> &requestFunc,
-                                   const std::function<bool ()> &checkFunc) const {
+                                   const std::function<bool ()> &checkFunc) {
     return funcPrivateConnect(requestFunc, checkFunc, [](){return QMetaObject::Connection();});
 }
 
@@ -39,11 +39,7 @@ TestUtils::TestUtils()
 
 }
 
-TestUtils::~TestUtils() {
-
-}
-
-bool TestUtils::wait(const std::function<bool()> &forWait, int msec) const {
+bool TestUtils::wait(const std::function<bool()> &forWait, int msec) {
     auto curmsec = QDateTime::currentMSecsSinceEpoch() + msec;
     bool condition = forWait();
     while (curmsec > QDateTime::currentMSecsSinceEpoch() && !condition) {
