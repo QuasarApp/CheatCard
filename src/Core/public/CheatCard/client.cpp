@@ -66,7 +66,7 @@ void Client::disconectFromServer() {
 }
 
 bool Client::isConncted() const {
-    return confirmendCount();
+    return _server;
 }
 
 bool Client::subscribeToUser(const QByteArray& user) const {

@@ -121,7 +121,7 @@ void Card::idGen() {
 }
 
 QH::PKG::DBVariantMap Card::variantMap() const {
-    return {{"id",              {_id,             QH::PKG::MemberType::PrimaryKey}},
+    return {{"id",          {_id.toBase64(QByteArray::Base64UrlEncoding),             QH::PKG::MemberType::PrimaryKey}},
         {"title",           {_title,          QH::PKG::MemberType::InsertUpdate}},
         {"logo",            {_logo,           QH::PKG::MemberType::InsertUpdate}},
         {"seal",            {_seal,           QH::PKG::MemberType::InsertUpdate}},

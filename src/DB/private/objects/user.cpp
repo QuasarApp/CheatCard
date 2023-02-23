@@ -66,11 +66,11 @@ bool User::isAllKeysIsValid() const {
 }
 
 QString User::primaryKey() const {
-    return "id";
+    return "key";
 }
 
 QString User::primaryValue() const {
-    return _key;
+    return QString(_key.toBase64(QByteArray::Base64UrlEncoding));
 }
 
 QDataStream &User::fromStream(QDataStream &stream) {

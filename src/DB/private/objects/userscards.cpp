@@ -39,8 +39,8 @@ QH::PKG::DBObject *UsersCards::createDBObject() const {
 }
 
 QH::PKG::DBVariantMap UsersCards::variantMap() const {
-    return {{"user",           {user,            QH::PKG::MemberType::Insert}},
-            {"card",           {card,            QH::PKG::MemberType::Insert}},
+    return {{"user",           {user.toBase64(QByteArray::Base64UrlEncoding),            QH::PKG::MemberType::Insert}},
+            {"card",           {card.toBase64(QByteArray::Base64UrlEncoding),            QH::PKG::MemberType::Insert}},
             {"purchasesNumber",{purchasesNumber, QH::PKG::MemberType::InsertUpdate}},
             {"received",       {received,        QH::PKG::MemberType::InsertUpdate}},
             {"time",           {_time,           QH::PKG::MemberType::InsertUpdate}},
@@ -169,11 +169,16 @@ bool UsersCards::fromSqlRecord(const QSqlRecord &q) {
 }
 
 QString UsersCards::table() const {
-    return "UsersDara";
+    return "UsersData";
 }
 
 bool UsersCards::isValid() const {
     return user.size() && card.size();
+}
+
+QString UsersCards::condition() const {
+    return QString("user='%0' AND card='%1'").arg(user.toBase64(QByteArray::Base64UrlEncoding),
+                                                  card.toBase64(QByteArray::Base64UrlEncoding));
 }
 
 }

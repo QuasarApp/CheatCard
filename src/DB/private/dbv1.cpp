@@ -65,7 +65,7 @@ bool DBv1::deleteCard(const QByteArray &cardId) const {
         return false;
     }
 
-    if (!db()->doQuery(QString("DELETE FROM UsersCards WHERE card ='%0'").
+    if (!db()->doQuery(QString("DELETE FROM UsersData WHERE card ='%0'").
                        arg(base64Id))) {
         return false;
     }
@@ -181,7 +181,7 @@ QVariant DBv1::getCardField(const QByteArray &cardId, const QString &field) {
 QList<QSharedPointer<Interfaces::iUsersCards> >
 DBv1::getAllUserData(const QByteArray &userId) const {
     QH::PKG::DBObjectsRequest<DB::UsersCards>
-            request("UsersCards",
+            request("UsersData",
                     QString("user='%0'").
                     arg(QString(userId.toBase64(QByteArray::Base64UrlEncoding))));
 
@@ -217,7 +217,7 @@ DBv1::getAllUserFromCard(const QByteArray &cardId, const QByteArray &ignoreUserI
         where = QString("card=%0").arg(base64CardId);
     }
 
-    QH::PKG::DBObjectsRequest<DB::UsersCards> request("UsersCards",
+    QH::PKG::DBObjectsRequest<DB::UsersCards> request("UsersData",
                                                       where);
 
     auto result = db()->getObject(request);
@@ -246,7 +246,7 @@ DBv1::getAllPassiveUserFromCard(const QByteArray &cardId,
                 .arg(base64CardId).arg(timePoint);
     }
 
-    QH::PKG::DBObjectsRequest<DB::UsersCards> request("UsersCards",
+    QH::PKG::DBObjectsRequest<DB::UsersCards> request("UsersData",
                                                       where);
 
     auto result = db()->getObject(request);
@@ -275,7 +275,7 @@ DBv1::getAllActiveUserFromCard(const QByteArray &cardId,
                 .arg(base64CardId).arg(timePoint);
     }
 
-    QH::PKG::DBObjectsRequest<DB::UsersCards> request("UsersCards",
+    QH::PKG::DBObjectsRequest<DB::UsersCards> request("UsersData",
                                                       where);
 
     auto result = db()->getObject(request);
@@ -308,7 +308,7 @@ DBv1::getAllUserCardsData(const QByteArray &userKey,
     }
 
     QH::PKG::DBObjectsRequest<DB::UsersCards>
-            request("UsersCards", whereBlock.arg(where));
+            request("UsersData", whereBlock.arg(where));
 
     auto result = db()->getObject(request);
 
@@ -381,7 +381,7 @@ QList<QSharedPointer<Interfaces::iUser> >
 DBv1::getAllUserDataFromCard(const QByteArray& cardId) const {
     QString where = QString("card=%0").arg(QString(cardId.toBase64(QByteArray::Base64UrlEncoding)));
 
-    where = QString("id IN (select user from UsersCards where %0)").arg(where);
+    where = QString("id IN (select user from UsersData where %0)").arg(where);
 
     QH::PKG::DBObjectsRequest<DB::User> request("Users",
                                                 where);
@@ -506,7 +506,7 @@ bool DBv1::clearOldData(int duration) {
     QStringList tables = {
         "Cards",
         "Users",
-        "UsersCards"
+        "UsersData"
     };
     for (const QString& table : qAsConst(tables)) {
 

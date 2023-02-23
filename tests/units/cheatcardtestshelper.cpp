@@ -27,6 +27,12 @@ NetworkResult CheatCardTestsHelper::deployNetwork(QString host, int port, unsign
         auto node = makeNode<TestClient>();
         result.clients.insert(node->currntUserKey(), node);
         node->connectToServer(host, port);
+
+        if (!TestUtils::wait([node]() {
+                return node->isConncted();
+            }, WAIT_TIME)) {
+            return {};
+        }
     }
 
     return result;
@@ -67,7 +73,8 @@ void CheatCardTestsHelper::makeSeals(const QSharedPointer<TestClient> &seller,
     for ( unsigned int i = 0; i < sealCount; ++i ) {
         unsigned int count = seller->getPurchaseCount(client->currntUserKey(), cardId);
 
-        seller->incrementPurchase(clientKey, cardId);
+        QVERIFY(seller->incrementPurchase(clientKey, cardId));
+
         QVERIFY(TestUtils::wait([client, clientKey, cardId, count]() {
             unsigned int currentCount = client->getPurchaseCount(clientKey, cardId);
             return currentCount == count + 1;
@@ -89,7 +96,7 @@ void CheatCardTestsHelper::makeSealsFor(const QSharedPointer<TestClient> &seller
     for ( unsigned int i = 0; i < sealCount; ++i ) {
         unsigned int count = seller->getPurchaseCount(client, cardId);
 
-        seller->incrementPurchase(client, cardId);
+        QVERIFY(seller->incrementPurchase(client, cardId));
         QVERIFY(TestUtils::wait([client, seller, cardId, count]() {
             unsigned int currentCount = seller->getPurchaseCount(client, cardId);
             return currentCount == count + 1;
@@ -117,7 +124,7 @@ void CheatCardTestsHelper::checkAccess(const QSharedPointer<TestClient> &seller,
 
     seller->resetLastErrors();
 
-    seller->incrementPurchase(client, cardId);
+    QVERIFY(seller->incrementPurchase(client, cardId));
     QVERIFY(TestUtils::wait([shouldBe, cbTrue, cbFalse](){return (shouldBe)? cbTrue() : cbFalse();}, WAIT_TIME));
 }
 

@@ -52,6 +52,7 @@ public:
     QH::PKG::DBVariantMap variantMap() const override;
     QString toString() const override;
     bool isValid() const override;
+    QString condition() const override;
 protected:
     QDataStream &fromStream(QDataStream &stream) override;
     QDataStream &toStream(QDataStream &stream) const override;
