@@ -38,6 +38,8 @@ public:
 
     const QH::PKG::DataPack<API::V3::UsersCards>& usersCardsToRemove() const;
     void setUsersCardsToRemove(const QH::PKG::DataPack<API::V3::UsersCards> &newUsersCardsToRemove);
+    void addUsersCardsToRemove(const QSharedPointer<API::V3::UsersCards> &userData);
+
     const QH::PKG::DataPack<API::V3::Contacts>& contactsToRemove() const;
     void setContactsToRemove(const QH::PKG::DataPack<API::V3::Contacts> &newContactsToRemove);
     void addContactsToRemove(const QSharedPointer<API::V3::Contacts> &newContactsToAdd);
@@ -49,11 +51,17 @@ public:
     bool getResult() const;
     void setResult(bool newResult);
 
+    QHash<QByteArray, int> cardUpdated() const;
+    void setCardUpdated(const QHash<QByteArray, int> &newCardUpdated);
+    void addCardToUpdate(const QByteArray& cardId, int version);
+
 protected:
     QDataStream &fromStream(QDataStream &stream) override;
     QDataStream &toStream(QDataStream &stream) const override;
 
 private:
+    QHash<QByteArray, int> _cardUpdated;
+
     QH::PKG::DataPack<API::V3::UsersCards> _usersCardsToAdd;
     QH::PKG::DataPack<API::V3::UsersCards> _usersCardsToRemove;
 

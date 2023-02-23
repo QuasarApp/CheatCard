@@ -44,6 +44,18 @@ QDataStream &SyncIncremental::toStream(QDataStream &stream) const {
     return stream;
 }
 
+QHash<QByteArray, int> SyncIncremental::cardUpdated() const {
+    return _cardUpdated;
+}
+
+void SyncIncremental::setCardUpdated(const QHash<QByteArray, int> &newCardUpdated) {
+    _cardUpdated = newCardUpdated;
+}
+
+void SyncIncremental::addCardToUpdate(const QByteArray &cardId, int version) {
+    _cardUpdated[cardId] = version;
+}
+
 bool SyncIncremental::getResult() const {
     return result;
 }
@@ -58,6 +70,10 @@ const QH::PKG::DataPack<API::V3::UsersCards>& SyncIncremental::usersCardsToRemov
 
 void SyncIncremental::setUsersCardsToRemove(const QH::PKG::DataPack<API::V3::UsersCards> &newUsersCardsToRemove) {
     _usersCardsToRemove = newUsersCardsToRemove;
+}
+
+void SyncIncremental::addUsersCardsToRemove(const QSharedPointer<UsersCards> &userData) {
+    _usersCardsToRemove.push(userData);
 }
 
 const QH::PKG::DataPack<API::V3::Contacts>& SyncIncremental::contactsToRemove() const {

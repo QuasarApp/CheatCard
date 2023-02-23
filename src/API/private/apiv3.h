@@ -125,9 +125,16 @@ protected:
 
 
 private:
-    void brodcast(const QByteArray& userId,
+    void brodcastUserChanged(const QByteArray& userId,
                   const QH::PKG::AbstractData *data,
                   const QH::Header *req);
+
+    void brodcastCardChanged(const QByteArray& cardId,
+                             const QH::PKG::AbstractData *data,
+                             const QH::Header *req);
+
+    bool processCardUpdatePrivate(const QByteArray& card, unsigned int version,
+                                  const QH::AbstractNodeInfo *sender, const QH::Header &) ;
 
     unsigned int sendAndRegisterCallBack(const QH::PKG::AbstractData *resp,
                                          const QH::AbstractNodeInfo *address,
