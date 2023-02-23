@@ -18,10 +18,6 @@ APITest::APITest() {
 }
 
 void APITest::test() {
-    testProcessDeleteCardRequest();
-}
-
-void APITest::testProcessDeleteCardRequest() {
     auto network = CheatCardTestsHelper::deployNetwork(TEST_CHEAT_HOST, TEST_CHEAT_PORT);
     QVERIFY(network.clients.count() == 2);
 
@@ -36,5 +32,6 @@ void APITest::testProcessDeleteCardRequest() {
         return client->getFreeItemsCount(client->currntUserKey(), card->cardId()) == 1;
     }, WAIT_TIME));
 }
+
 
 

@@ -81,6 +81,46 @@ void CheatCardTestsHelper::makeSeals(const QSharedPointer<TestClient> &seller,
     }, WAIT_TIME));
 }
 
+void CheatCardTestsHelper::makeSealsFor(const QSharedPointer<TestClient> &seller,
+                                        const QByteArray &client,
+                                        const QByteArray &cardId,
+                                        unsigned int sealCount) {
+
+    for ( unsigned int i = 0; i < sealCount; ++i ) {
+        unsigned int count = seller->getPurchaseCount(client, cardId);
+
+        seller->incrementPurchase(client, cardId);
+        QVERIFY(TestUtils::wait([client, seller, cardId, count]() {
+            unsigned int currentCount = seller->getPurchaseCount(client, cardId);
+            return currentCount == count + 1;
+        }, WAIT_TIME));
+
+    }
+}
+
+void CheatCardTestsHelper::checkAccess(const QSharedPointer<TestClient> &seller,
+                                       const QByteArray &client,
+                                       const QByteArray &cardId,
+                                       bool shouldBe) {
+
+    unsigned int count = seller->getPurchaseCount(client, cardId);
+
+    auto cbTrue = [client, seller, cardId, count]() {
+        unsigned int currentCount = seller->getPurchaseCount(client, cardId);
+        return currentCount == count + 1 && !seller->getLastErrrorCode();
+    };
+
+    auto cbFalse = [client, seller, cardId, count]() {
+        unsigned int currentCount = seller->getPurchaseCount(client, cardId);
+        return currentCount == count && seller->getLastErrrorCode();
+    };
+
+    seller->resetLastErrors();
+
+    seller->incrementPurchase(client, cardId);
+    QVERIFY(TestUtils::wait([shouldBe, cbTrue, cbFalse](){return (shouldBe)? cbTrue() : cbFalse();}, WAIT_TIME));
+}
+
 const QSharedPointer<RC::Interfaces::iDB> &CheatCardTestsHelper::objectFactory() {
     static auto db = RC::DB::makeDb(1);
     return db;

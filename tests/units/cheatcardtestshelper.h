@@ -11,7 +11,7 @@
 
 #include <db.h>
 #include <QSharedPointer>
-
+#include <type_traits>
 #include <CheatCard/client.h>
 
 class TestClient;
@@ -49,11 +49,14 @@ public:
         }
 
         if (!sallerDb->saveUser(user)) {
-            return false;
+            return {};
         }
 
         auto result = QSharedPointer<NodeType>(new NodeType(sallerDb), softDeleteWrapNode);
-        result->setCurrntUserKey(user->getKey());
+        if constexpr (std::is_same_v<NodeType, TestClient>) {
+            result->setCurrntUserKey(user->getKey());
+        }
+
         return result;
     }
 
@@ -67,6 +70,15 @@ public:
                           const QByteArray& card,
                           unsigned int sealCount);
 
+    static void makeSealsFor(const QSharedPointer<TestClient>& seller,
+                             const QByteArray& client,
+                             const QByteArray& card,
+                             unsigned int sealCount);
+
+    static void checkAccess(const QSharedPointer<TestClient> &seller,
+                            const QByteArray &client,
+                            const QByteArray &cardId,
+                            bool shouldBe);
 private:
     static const QSharedPointer<RC::Interfaces::iDB> &objectFactory();
 

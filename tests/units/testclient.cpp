@@ -42,6 +42,10 @@ unsigned char TestClient::getLastErrrorCode() {
     return lastErr;
 }
 
+void TestClient::resetLastErrors() {
+    getLastErrrorCode();
+}
+
 const QSharedPointer<RC::Interfaces::iDB> &TestClient::getDBObject() const {
     return db();
 }
@@ -50,7 +54,7 @@ QSharedPointer<RC::Interfaces::iUser> TestClient::getUser(const QByteArray &user
     return db()->getUser(userId);
 }
 
-void TestClient::handleRequestError(unsigned char code, QString msg) {
+void TestClient::handleRequestError(unsigned char code, QString ) {
     lastErrrorCode = code;
 
 }

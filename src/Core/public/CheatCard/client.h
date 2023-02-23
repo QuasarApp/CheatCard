@@ -19,6 +19,7 @@ namespace RC {
  */
 class CHEATCARD_CORE_EXPORT Client: public BaseNode
 {
+    Q_OBJECT
 public:
     Client(const QSharedPointer<Interfaces::iDB> &db);
     bool connectToServer(QString host = {}, int port = 0);

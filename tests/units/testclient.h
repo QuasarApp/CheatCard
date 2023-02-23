@@ -21,6 +21,8 @@ public:
     int getFreeItemsCount(const QByteArray& userId, const QByteArray& cardId);
     QSharedPointer<RC::Interfaces::iCard> getCard(const QByteArray& cardId) const;
     unsigned char getLastErrrorCode();
+    void resetLastErrors();
+
     const QSharedPointer<RC::Interfaces::iDB>& getDBObject() const;
     QSharedPointer<RC::Interfaces::iUser> getUser(const QByteArray& userId) const;
 

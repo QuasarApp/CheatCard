@@ -1,9 +1,8 @@
-#include "api.h"
 #include "cheatcardtestshelper.h"
 #include "restoredatatest.h"
 #include "testclient.h"
-#include "testserver.h"
 #include <rci/rcutils.h>
+#include "testutils.h"
 
 #define TEST_CHEAT_PORT 15003
 #define TEST_CHEAT_HOST "localhost"
@@ -15,58 +14,24 @@ RestoreDataTest::RestoreDataTest() {
 void RestoreDataTest::test() {
 
 
-    qDebug() << "TEST RESTORE CARDS API";
+    auto network = CheatCardTestsHelper::deployNetwork(TEST_CHEAT_HOST, TEST_CHEAT_PORT);
+    QVERIFY(network.clients.count() == 2);
 
-    auto seller = CheatCardTestsHelper::makeNode<TestClient>(":/sql/units/sql/TestSallerDb.sql");
-    auto client = CheatCardTestsHelper::makeNode<TestClient>();
-    auto server = CheatCardTestsHelper::makeNode<TestServer>();
-    seller->setCurrntUserKey(CheatCardTestsHelper::testUserPublicKey());
+    auto card = CheatCardTestsHelper::makeCard(network.clients.begin().value(), 10);
+    auto seller = *network.clients.begin();
+    auto client = *std::next(network.clients.begin());
 
-    RC::API::init({3}, seller->getDBObject(), seller.data());
-    RC::API::init({3}, client->getDBObject(), client.data());
-    RC::API::init({3}, server->getDBObject(), server.data());
+    client->disconectFromServer();
 
-    restoreTest(seller, client, server);
-}
+    CheatCardTestsHelper::makeSealsFor(seller, client->currntUserKey(), card->cardId(), 30);
+    seller->incrementReceived(client->currntUserKey(), card->cardId(), 2);
 
-void RestoreDataTest::restoreTest(const QSharedPointer<TestClient> &seller,
-                                  const QSharedPointer<TestClient> &client,
-                                  const QSharedPointer<TestServer> &server) {
+    QVERIFY(client->getFreeItemsCount(client->currntUserKey(), card->cardId()) == 3);
 
-    // run server
-    QVERIFY(server->run(TEST_CHEAT_HOST, TEST_CHEAT_PORT));
-    QVERIFY(seller->connectToServer(TEST_CHEAT_HOST, TEST_CHEAT_PORT));
+    QVERIFY(client->connectToServer(TEST_CHEAT_HOST, TEST_CHEAT_PORT));
 
-    auto user = CheatCardTestsHelper::makeUser();
-
-    QByteArray cardId = CheatCardTestsHelper::testCardId();
-
-    addSeal(seller, client, server, user->getKey(), cardId, 6);
-
-    int sellerFreeItems = seller->getFreeItemsCount(user->getKey(), cardId);
-    int visitorFreeItems = client->getFreeItemsCount(user->getKey(), cardId);
-
-    QVERIFY(sellerFreeItems == visitorFreeItems);
-    QVERIFY(sellerFreeItems == 1);
-
-    auto userKey = CheatCardTestsHelper::testUserPublicKey();
-    auto testPrivKey = CheatCardTestsHelper::testUserPrivKey();
-
-    QVERIFY(RC::RCUtils::makeUserKey(testPrivKey) == userKey);
-
-    seller->dropDB();
-
-    // check card after clear. card should be removed
-    QVERIFY(wait([seller, cardId](){
-        auto cardSeller = seller->getCard(cardId);
-        return !cardSeller;
+    QVERIFY(TestUtils::wait([client, card]() {
+        return client->getFreeItemsCount(client->currntUserKey(), card->cardId()) == 1;
     }, WAIT_TIME));
 
-    QVERIFY(seller->subscribeToUser(user->getKey()));
-
-    // check card after restore. card should be exits
-    QVERIFY(wait([seller, cardId](){
-        auto cardSeller = seller->getCard(cardId);
-        return cardSeller && cardSeller->isValid();
-    }, WAIT_TIME));
 }

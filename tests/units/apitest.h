@@ -23,8 +23,6 @@ public:
     // Test interface
 public:
     void test() override;
-private:
-    void testProcessDeleteCardRequest();
 };
 
 #endif // APITEST_H
