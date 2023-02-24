@@ -59,14 +59,14 @@ bool DBv1::deleteCard(const QByteArray &cardId) const {
     if(!db())
         return false;
 
-    QString base64Id = cardId.toBase64(QByteArray::Base64UrlEncoding);
+    QString hexId = cardId.toBase64(QByteArray::Base64UrlEncoding);
     if (!db()->doQuery(QString("DELETE FROM Cards WHERE id ='%0'").
-                       arg(base64Id))) {
+                       arg(hexId))) {
         return false;
     }
 
     if (!db()->doQuery(QString("DELETE FROM UsersData WHERE card ='%0'").
-                       arg(base64Id))) {
+                       arg(hexId))) {
         return false;
     }
 
@@ -137,7 +137,7 @@ int DBv1::getFreeItemsCount(const DB::UsersCards &inputData, unsigned int freeIn
 
     int freeItems = std::floor(inputData.getPurchasesNumber() /
                                static_cast<double>(freeIndex)) -
-            inputData.getReceived();
+                    inputData.getReceived();
 
     return freeItems;
 }
@@ -181,9 +181,9 @@ QVariant DBv1::getCardField(const QByteArray &cardId, const QString &field) {
 QList<QSharedPointer<Interfaces::iUsersCards> >
 DBv1::getAllUserData(const QByteArray &userId) const {
     QH::PKG::DBObjectsRequest<DB::UsersCards>
-            request("UsersData",
-                    QString("user='%0'").
-                    arg(QString(userId.toBase64(QByteArray::Base64UrlEncoding))));
+        request("UsersData",
+                QString("user='%0'").
+                arg(QString(userId.toBase64(QByteArray::Base64UrlEncoding))));
 
     auto result = db()->getObject(request);
 
@@ -208,13 +208,13 @@ DBv1::getUserCardData(const QByteArray& userId, const QByteArray& cardId) const 
 QList<QSharedPointer<Interfaces::iUsersCards> >
 DBv1::getAllUserFromCard(const QByteArray &cardId, const QByteArray &ignoreUserId) const {
     QString where;
-    QString base64CardId = cardId.toBase64(QByteArray::Base64UrlEncoding);
+    QString hexCardId = cardId.toBase64(QByteArray::Base64UrlEncoding);
     if (ignoreUserId.size()) {
         where = QString("card=%0 AND user!=%1").
-                arg(base64CardId,
+                arg(hexCardId,
                     ignoreUserId.toBase64(QByteArray::Base64UrlEncoding));
     } else {
-        where = QString("card=%0").arg(base64CardId);
+        where = QString("card=%0").arg(hexCardId);
     }
 
     QH::PKG::DBObjectsRequest<DB::UsersCards> request("UsersData",
@@ -233,17 +233,17 @@ DBv1::getAllPassiveUserFromCard(const QByteArray &cardId,
                                 int unixTimeRange,
                                 const QByteArray &ignoreUserId) const {
     int timePoint = time(0) - unixTimeRange;
-    QString base64CardId = cardId.toBase64(QByteArray::Base64UrlEncoding);
+    QString hexCardId = cardId.toBase64(QByteArray::Base64UrlEncoding);
 
     QString where;
     if (ignoreUserId.size()) {
         where = QString("card=%0 AND time<%1 AND user!=%2").
-                arg(base64CardId).
+                arg(hexCardId).
                 arg(timePoint).
                 arg(QString(ignoreUserId.toBase64(QByteArray::Base64UrlEncoding)));
     } else {
         where = QString("card=%0 AND time<%1")
-                .arg(base64CardId).arg(timePoint);
+                    .arg(hexCardId).arg(timePoint);
     }
 
     QH::PKG::DBObjectsRequest<DB::UsersCards> request("UsersData",
@@ -262,17 +262,17 @@ DBv1::getAllActiveUserFromCard(const QByteArray &cardId,
                                int unixTimeRange,
                                const QByteArray &ignoreUserId) const {
     int timePoint = time(0) - unixTimeRange;
-    QString base64CardId = cardId.toBase64(QByteArray::Base64UrlEncoding);
+    QString hexCardId = cardId.toBase64(QByteArray::Base64UrlEncoding);
 
     QString where;
     if (ignoreUserId.size()) {
         where = QString("card=%0 AND time>%1 AND user!=%2").
-                arg(base64CardId).
+                arg(hexCardId).
                 arg(timePoint).
                 arg(QString(ignoreUserId.toBase64(QByteArray::Base64UrlEncoding)));
     } else {
         where = QString("card=%0 AND time>%1")
-                .arg(base64CardId).arg(timePoint);
+                    .arg(hexCardId).arg(timePoint);
     }
 
     QH::PKG::DBObjectsRequest<DB::UsersCards> request("UsersData",
@@ -308,7 +308,7 @@ DBv1::getAllUserCardsData(const QByteArray &userKey,
     }
 
     QH::PKG::DBObjectsRequest<DB::UsersCards>
-            request("UsersData", whereBlock.arg(where));
+        request("UsersData", whereBlock.arg(where));
 
     auto result = db()->getObject(request);
 
@@ -409,11 +409,11 @@ QSharedPointer<Interfaces::iContacts>
 DBv1::getContactFromChildId(const QByteArray& userKey, const QByteArray& childUserKey) {
 
     QString whereBlock = QString("userKey='%0' AND childUserKey='%1'").
-            arg(QString(userKey.toBase64(QByteArray::Base64UrlEncoding)),
-                QString(childUserKey.toBase64(QByteArray::Base64UrlEncoding)));
+                         arg(QString(userKey.toBase64(QByteArray::Base64UrlEncoding)),
+                             QString(childUserKey.toBase64(QByteArray::Base64UrlEncoding)));
 
     QH::PKG::DBObjectsRequest<DB::Contacts>
-            request("Contacts", whereBlock);
+        request("Contacts", whereBlock);
 
     auto result = db()->getObject(request);
 
@@ -426,10 +426,10 @@ DBv1::getContactFromChildId(const QByteArray& userKey, const QByteArray& childUs
 QList<QSharedPointer<Interfaces::iContacts> >
 DBv1::getMasterKeys(const QByteArray& childUserKey) {
     QString whereBlock = QString("childUserKey='%0'").
-            arg(QString(childUserKey.toBase64(QByteArray::Base64UrlEncoding)));
+                         arg(QString(childUserKey.toBase64(QByteArray::Base64UrlEncoding)));
 
     QH::PKG::DBObjectsRequest<DB::Contacts>
-            request("Contacts", whereBlock);
+        request("Contacts", whereBlock);
 
     auto result = db()->getObject(request);
 
@@ -441,10 +441,10 @@ DBv1::getMasterKeys(const QByteArray& childUserKey) {
 
 QList<QSharedPointer<Interfaces::iContacts> > DBv1::getSlaveKeys(const QByteArray &userKey) {
     QString whereBlock = QString("userKey='%0'").
-            arg(QString(userKey.toBase64(QByteArray::Base64UrlEncoding)));
+                         arg(QString(userKey.toBase64(QByteArray::Base64UrlEncoding)));
 
     QH::PKG::DBObjectsRequest<DB::Contacts>
-            request("Contacts", whereBlock);
+        request("Contacts", whereBlock);
 
     auto result = db()->getObject(request);
 
@@ -456,10 +456,10 @@ QList<QSharedPointer<Interfaces::iContacts> > DBv1::getSlaveKeys(const QByteArra
 
 QByteArray DBv1::getSecretOfCardOvner(const QByteArray& cardId) const {
     QString whereBlock = QString("key IN (SELECT ownerSignature FROM Cards WHERE id=%0)").
-            arg(QString(cardId.toBase64(QByteArray::Base64UrlEncoding)));
+                         arg(QString(cardId.toBase64(QByteArray::Base64UrlEncoding)));
 
     QH::PKG::DBObjectsRequest<DB::User>
-            request("Users", whereBlock);
+        request("Users", whereBlock);
 
     auto result = db()->getObject(request);
 
@@ -493,7 +493,7 @@ QSharedPointer<DP::iPill> DBv1::initPills(const QString& piilId) {
 QList<QSharedPointer<DP::iPill>> DBv1::initPills() {
     return {
         QSharedPointer<RC::InvalidCardIdPill>::create(this).dynamicCast<DP::iPill>(),
-                QSharedPointer<RC::InvalidUsersPill>::create(db()).dynamicCast<DP::iPill>(),
+        QSharedPointer<RC::InvalidUsersPill>::create(db()).dynamicCast<DP::iPill>(),
     };
 }
 

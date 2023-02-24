@@ -24,17 +24,20 @@ bool SyncIncremental::isValid() const {
 }
 
 QDataStream &SyncIncremental::fromStream(QDataStream &stream) {
-    stream << _usersCardsToAdd;
-    stream << _usersCardsToRemove;
-    stream << _contactsToRemove;
-    stream << _contactsToAdd;
-    stream << result;
+
+    stream >> _cardUpdated;
+    stream >> _usersCardsToAdd;
+    stream >> _usersCardsToRemove;
+    stream >> _contactsToRemove;
+    stream >> _contactsToAdd;
+    stream >> result;
 
     return stream;
 }
 
 QDataStream &SyncIncremental::toStream(QDataStream &stream) const {
 
+    stream << _cardUpdated;
     stream << _usersCardsToAdd;
     stream << _usersCardsToRemove;
     stream << _contactsToRemove;

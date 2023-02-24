@@ -20,7 +20,7 @@ namespace V3 {
  */
 class CardUpdated: public QH::PKG::AbstractData
 {
-    QH_PACKAGE(CardUpdated, "APIv3::CardUpdated")
+    QH_PACKAGE(CardUpdated, "API::V3::CardUpdated")
 
 public:
     CardUpdated();

@@ -39,7 +39,7 @@ public:
     template <class NodeType>
     static QSharedPointer<NodeType> makeNode(const QString database = "") {
         srand(time(0) + rand());
-        QString randomNodeName = QByteArray::number(rand()).toHex() + typeid(NodeType).name();
+        QString randomNodeName = QByteArray::number(rand()).toBase64(QByteArray::Base64UrlEncoding) + typeid(NodeType).name();
 
         auto sallerDb = RC::DB::makeDb(1, randomNodeName, "", database);
         auto user = makeUser();

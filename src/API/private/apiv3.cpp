@@ -36,22 +36,20 @@ void ApiV3::initSupportedCommands() {
     // for all nodes types.
     registerPackageType<QH::PKG::DataPack<API::V3::Card>>();
     registerPackageType<QH::PKG::DataPack<API::V3::UsersCards>>();
+    registerPackageType<API::V3::CardUpdated>();
+    registerPackageType<API::V3::CardDataRequest>();
 
     switch (node()->nodeType()) {
     case QH::AbstractNode::NodeType::Client: {
-        registerPackageType<QH::PKG::DataPack<API::V3::Contacts>>();
         registerPackageType<API::V3::Sync>();
         registerPackageType<API::V3::SyncIncremental>();
-        registerPackageType<API::V3::CardDataRequest>();
 
         break;
     }
 
     case QH::AbstractNode::NodeType::Server: {
 
-        registerPackageType<API::V3::CardDataRequest>();
         registerPackageType<API::V3::ChangeUsersCards>();
-        registerPackageType<API::V3::CardUpdated>();
         registerPackageType<API::V3::UpdateContactData>();
         registerPackageType<API::V3::DeleteCardRequest>();
         registerPackageType<API::V3::SubscribeToUserChanges>();
@@ -418,7 +416,9 @@ bool ApiV3::processChanges(const QSharedPointer<API::V3::ChangeUsersCards> &mess
     changesResponce.setResult(true);
 
     if (!dbUsersCards) {
-        return false;
+        dbUsersCards = db()->makeEmptyUsersCard();
+        dbUsersCards->setCard(message->getCard());
+        dbUsersCards->setUser(message->getUser());
     }
 
     int availabelFreeItems = db()->getFreeItemsCount(dbUsersCards);
@@ -431,9 +431,21 @@ bool ApiV3::processChanges(const QSharedPointer<API::V3::ChangeUsersCards> &mess
         dbUsersCards->setTime(time(0));
         dbUsersCards->receive(message->receive());
 
+        QByteArray neededCardId;
         if (!processCardStatusBase(QSharedPointer<V3::UsersCards>::create(dbUsersCards),
-                                   message->secret(), sender, hdr)) {
+                                   message->secret(), sender, hdr, &neededCardId)) {
             return false;
+        }
+
+        if (neededCardId.size()) {
+            V3::CardDataRequest request;
+            request.setCardIds({neededCardId});
+            if (!sendData(&request, sender, &hdr)) {
+                QuasarAppUtils::Params::log("Failed to sent card request.",
+                                            QuasarAppUtils::Error);
+                return false;
+            }
+
         }
     }
 
@@ -656,10 +668,10 @@ bool ApiV3::changeUsersData(const QByteArray& sellerUserKey,
 
     _checkUserRequestHash.clear();
 
-    auto packageHash = sendData(&changes, dist);
+    auto packageHash = sendAndRegisterCallBack(&changes, dist, cb);
     _checkUserRequestHash += packageHash;
 
-    return sendAndRegisterCallBack(&changes, dist, cb);
+    return packageHash;
 }
 
 void ApiV3::collectDataOfuser(const QByteArray& userKey,
