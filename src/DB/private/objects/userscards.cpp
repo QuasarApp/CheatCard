@@ -65,33 +65,6 @@ QString UsersCards::toString() const {
     return result;
 }
 
-QDataStream &UsersCards::fromStream(QDataStream &stream) {
-
-    DBObject::fromStream(stream); // clazy:exclude=skipped-base-method
-
-    stream >> user;
-    stream >> card;
-    stream >> purchasesNumber;
-    stream >> received;
-    stream >> cardVersion;
-    stream >> _time;
-
-    return stream;
-}
-
-QDataStream &UsersCards::toStream(QDataStream &stream) const {
-    DBObject::toStream(stream); // clazy:exclude=skipped-base-method
-
-    stream << user;
-    stream << card;
-    stream << purchasesNumber;
-    stream << received;
-    stream << cardVersion;
-    stream << _time;
-
-    return stream;
-}
-
 void UsersCards::setTime(unsigned int newTime) {
     _time = newTime;
 }
@@ -171,8 +144,8 @@ bool UsersCards::isValid() const {
 std::pair<QString, QMap<QString, QVariant> > UsersCards::condition() const {
 
     return {QString("user=:user AND card=:card"),
-            {{":user", user.toBase64(QByteArray::Base64UrlEncoding)},
-             {":card", card.toBase64(QByteArray::Base64UrlEncoding)}}};
+            {{":user", user},
+             {":card", card}}};
 }
 
 }

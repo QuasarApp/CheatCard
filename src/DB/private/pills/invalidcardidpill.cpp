@@ -36,13 +36,13 @@ int InvalidCardIdPill::id() const {
 
 bool InvalidCardIdPill::diagnostic() {
 
-    if (!(_db && _db->db()) && _db->db()->writer())
+    if (!(_db && _db->db() && _db->db()->writer()))
         return false;
 
     QString query("Select id from Cards");
 
     QSqlQuery result;
-    if (!_db->db()->doQuery(query, true, &result)) {
+    if (!_db->db()->doQuery(query, {}, true, &result)) {
         return false;
     }
 
@@ -61,7 +61,7 @@ bool InvalidCardIdPill::fix() {
     if (availableCards.isEmpty())
         return false;
 
-    if (!_db->db()->doQuery("DELETE FROM Cards WHERE id!='all'", true)) {
+    if (!_db->db()->doQuery("DELETE FROM Cards WHERE id!='all'", {}, true)) {
         return false;
     }
 

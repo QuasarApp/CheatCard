@@ -53,9 +53,6 @@ public:
     QString toString() const override;
     bool isValid() const override;
     std::pair<QString, QMap<QString, QVariant> > condition() const override;
-protected:
-    QDataStream &fromStream(QDataStream &stream) override;
-    QDataStream &toStream(QDataStream &stream) const override;
 
 private:
     QByteArray user;

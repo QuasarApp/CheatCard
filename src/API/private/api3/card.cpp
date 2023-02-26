@@ -22,7 +22,7 @@ Card::Card(const QSharedPointer<Interfaces::iCard> &obj) {
 }
 
 QDataStream &Card::fromStream(QDataStream &stream) {
-    stream << _id;
+    stream >> _id;
     stream >> _title;
     stream >> _logo;
     stream >> _seal;

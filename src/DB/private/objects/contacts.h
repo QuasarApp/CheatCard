@@ -46,9 +46,6 @@ public:
     toObject(const QSharedPointer<Interfaces::iDB> &db);
 
 protected:
-
-    QDataStream &fromStream(QDataStream &stream) override;
-    QDataStream &toStream(QDataStream &stream) const override;
     std::pair<QString, QMap<QString, QVariant>> condition() const override;
 
 private:

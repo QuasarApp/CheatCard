@@ -53,24 +53,6 @@ bool Contacts::isValid() const {
     return userKey.size() && childUserKey.size();
 }
 
-QDataStream &Contacts::fromStream(QDataStream &stream) {
-
-    stream >> userKey;
-    stream >> childUserKey;
-    stream >> info;
-
-    return stream;
-}
-
-QDataStream &Contacts::toStream(QDataStream &stream) const {
-
-    stream << userKey;
-    stream << childUserKey;
-    stream << info;
-
-    return stream;
-}
-
 std::pair<QString, QMap<QString, QVariant> > Contacts::condition() const {
     QString strUserKey(userKey.toBase64(QByteArray::Base64UrlEncoding));
     QString strChildUserKey(childUserKey.toBase64(QByteArray::Base64UrlEncoding));

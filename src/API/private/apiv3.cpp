@@ -358,7 +358,7 @@ bool ApiV3::processCardData(const QSharedPointer<QH::PKG::DataPack<API::V3::Card
             return false;
         }
 
-        if (dbCard->getCardVersion() >= card->getCardVersion()) {
+        if (dbCard && dbCard->getCardVersion() >= card->getCardVersion()) {
             QuasarAppUtils::Params::log("Received outdatedCard",
                                         QuasarAppUtils::Warning);
             continue;

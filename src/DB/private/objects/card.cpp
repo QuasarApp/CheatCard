@@ -41,50 +41,6 @@ QH::PKG::DBObject *Card::createDBObject() const {
     return new Card();
 }
 
-QDataStream &Card::fromStream(QDataStream &stream) {
-    stream >> _id;
-    stream >> _title;
-    stream >> _logo;
-    stream >> _seal;
-    stream >> _background;
-    stream >> _phone;
-    stream >> _telegramm;
-    stream >> _instagramm;
-    stream >> _physicalAddress;
-    stream >> _webSite;
-    stream >> freeIndex;
-    stream >> color;
-    stream >> fontColor;
-    stream >> _freeItemName;
-    stream >> cardVersion;
-    stream >> _ownerSignature;
-
-    return stream;
-}
-
-QDataStream &Card::toStream(QDataStream &stream) const {
-
-    stream << _id;
-
-    stream << _title;
-    stream << _logo;
-    stream << _seal;
-    stream << _background;
-    stream << _phone;
-    stream << _telegramm;
-    stream << _instagramm;
-    stream << _physicalAddress;
-    stream << _webSite;
-    stream << freeIndex;
-    stream << color;
-    stream << fontColor;
-    stream << _freeItemName;
-    stream << cardVersion;
-    stream << _ownerSignature;
-
-    return stream;
-}
-
 QString Card::toString() const {
     QString result("id: %0 \n"
                    "title: %1 \n"
@@ -139,7 +95,7 @@ QH::PKG::DBVariantMap Card::variantMap() const {
         {"freeIndex",       {freeIndex,       QH::PKG::MemberType::InsertUpdate}},
         {"time",            {static_cast<int>(time(0)),      QH::PKG::MemberType::InsertUpdate}},
         {"cardVersion",     {cardVersion,     QH::PKG::MemberType::InsertUpdate}},
-        {"ownerSignature",  {QString(_ownerSignature.toBase64(QByteArray::Base64UrlEncoding)), QH::PKG::MemberType::InsertUpdate}},
+        {"ownerSignature",  {_ownerSignature, QH::PKG::MemberType::InsertUpdate}},
 
     };
 }
@@ -193,8 +149,7 @@ bool Card::fromSqlRecord(const QSqlRecord &q) {
 
     setCardVersion(q.value("cardVersion").toUInt());
 
-    setOwnerSignature(QByteArray::fromBase64(q.value("ownerSignature").toByteArray(),
-                                             QByteArray::Base64UrlEncoding));
+    setOwnerSignature(q.value("ownerSignature").toByteArray());
 
     return true;
 }
