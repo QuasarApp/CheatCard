@@ -178,8 +178,8 @@ QString Card::primaryKey() const {
     return "id";
 }
 
-QString Card::primaryValue() const {
-    return QString::number(_id);
+QVariant Card::primaryValue() const {
+    return _id;
 }
 
 unsigned int Card::id() const {

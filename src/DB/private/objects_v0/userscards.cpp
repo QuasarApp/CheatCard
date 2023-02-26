@@ -37,8 +37,8 @@ QString UsersCards::primaryKey() const {
     return "id";
 }
 
-QString UsersCards::primaryValue() const {
-    return QString::number(id);
+QVariant UsersCards::primaryValue() const {
+    return id;
 }
 
 QString UsersCards::toString() const {

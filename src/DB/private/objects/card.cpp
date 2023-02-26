@@ -121,7 +121,7 @@ void Card::idGen() {
 }
 
 QH::PKG::DBVariantMap Card::variantMap() const {
-    return {{"id",          {_id.toBase64(QByteArray::Base64UrlEncoding),             QH::PKG::MemberType::PrimaryKey}},
+    return {{"id",          {_id,             QH::PKG::MemberType::PrimaryKey}},
         {"title",           {_title,          QH::PKG::MemberType::InsertUpdate}},
         {"logo",            {_logo,           QH::PKG::MemberType::InsertUpdate}},
         {"seal",            {_seal,           QH::PKG::MemberType::InsertUpdate}},
@@ -174,8 +174,7 @@ void Card::setFreeIndex(int newFreeIndex) {
 
 bool Card::fromSqlRecord(const QSqlRecord &q) {
 
-    setCardId(QByteArray::fromBase64(q.value("id").toByteArray(),
-                                 QByteArray::Base64UrlEncoding));
+    setCardId(q.value("id").toByteArray());
     setTitle(q.value("title").toString());
     setLogo(q.value("logo").toByteArray());
     setSeal(q.value("seal").toByteArray());
@@ -208,8 +207,8 @@ QString Card::primaryKey() const {
     return "id";
 }
 
-QString Card::primaryValue() const {
-    return _id.toBase64(QByteArray::Base64UrlEncoding);
+QVariant Card::primaryValue() const {
+    return _id;
 }
 
 const QByteArray &Card::ownerSignature() const {

@@ -93,16 +93,16 @@ CREATE TABLE IF NOT EXISTS "Contacts" (
 );
 
 CREATE UNIQUE INDEX IF NOT EXISTS "MemberPermisionsIndex" ON "MemberPermisions" (
-	"memberId",
-	"dbAddress"
+        "memberId",
+        "dbAddress"
 );
 
 CREATE UNIQUE INDEX IF NOT EXISTS "SessionsIndex" ON "Sessions" (
-	"id",
-	"usersCardsID"
+        "id",
+        "usersCardsID"
 );
 
 CREATE UNIQUE INDEX IF NOT EXISTS "ContactsIndex" ON "Contacts" (
-	"userKey",
-	"childUserKey"
+        "userKey",
+        "childUserKey"
 );

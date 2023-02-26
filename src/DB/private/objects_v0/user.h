@@ -65,7 +65,7 @@ public:
 
 protected:
     QString primaryKey() const override;
-    QString primaryValue() const override;
+    QVariant primaryValue() const override;
     QDataStream &fromStream(QDataStream &stream) override;
     QDataStream &toStream(QDataStream &stream) const override;
     QString table() const override;

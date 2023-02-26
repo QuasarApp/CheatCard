@@ -61,8 +61,8 @@ QString User::primaryKey() const {
     return "id";
 }
 
-QString User::primaryValue() const {
-    return QString::number(_id);
+QVariant User::primaryValue() const {
+    return _id;
 }
 
 QDataStream &User::fromStream(QDataStream &stream) {

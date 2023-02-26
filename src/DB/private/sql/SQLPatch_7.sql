@@ -15,10 +15,10 @@ INSERT INTO Users_old SELECT * FROM Users;
 DROP TABLE Users;
 
 CREATE TABLE "Users" (
-    "key"           VARCHAR(50) NOT NULL UNIQUE,
+    "key"           BLOB NOT NULL UNIQUE,
     "name"          TEXT NOT NULL DEFAULT "",
     "time"          INTEGER NOT NULL DEFAULT 0,
-    "secret"        VARCHAR(50) DEFAULT NULL,
+    "secret"        BLOB DEFAULT NULL,
     PRIMARY KEY("key")
 );
 
@@ -49,7 +49,7 @@ INSERT INTO Cards_old SELECT * FROM Cards;
 DROP TABLE Cards;
 
 CREATE TABLE IF NOT EXISTS "Cards" (
-        "id"	TEXT NOT NULL UNIQUE,
+        "id"	BLOB NOT NULL UNIQUE,
         "logo"	BLOB DEFAULT NULL,
         "seal"	BLOB DEFAULT NULL,
         "background"	BLOB DEFAULT NULL,
@@ -70,8 +70,8 @@ CREATE TABLE IF NOT EXISTS "Cards" (
 );
 
 CREATE TABLE IF NOT EXISTS "UsersData" (
-        "user"	VARCHAR(50) NOT NULL,
-        "card"	VARCHAR(50) NOT NULL,
+        "user"	BLOB NOT NULL,
+        "card"	BLOB NOT NULL,
         "purchasesNumber"	INTEGER DEFAULT 1,
         "received"	INTEGER DEFAULT 0,
         "time"	INTEGER NOT NULL DEFAULT 0,

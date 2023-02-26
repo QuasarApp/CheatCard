@@ -43,8 +43,8 @@ QH::PKG::DBObject *User::createDBObject() const {
 
 QH::PKG::DBVariantMap User::variantMap() const {
     return {{"name",        {_name,       QH::PKG::MemberType::InsertUpdate}},
-            {"key",         {QString(_key.toBase64(QByteArray::Base64UrlEncoding)),    QH::PKG::MemberType::InsertUpdate}},
-            {"secret",      {QString(_secret.toBase64(QByteArray::Base64UrlEncoding)), QH::PKG::MemberType::InsertUpdate}},
+            {"key",         {_key,    QH::PKG::MemberType::InsertUpdate}},
+            {"secret",      {_secret, QH::PKG::MemberType::InsertUpdate}},
             {"time",        {static_cast<int>(time(0)),      QH::PKG::MemberType::InsertUpdate}},
     };
 }
@@ -69,8 +69,8 @@ QString User::primaryKey() const {
     return "key";
 }
 
-QString User::primaryValue() const {
-    return QString(_key.toBase64(QByteArray::Base64UrlEncoding));
+QVariant User::primaryValue() const {
+    return _key;
 }
 
 QDataStream &User::fromStream(QDataStream &stream) {
@@ -132,10 +132,6 @@ const QByteArray &User::getKey() const {
     return _key;
 }
 
-const QString User::getSignature() const {
-    return getKey().toBase64(QByteArray::Base64UrlEncoding);
-}
-
 void User::setKey(const QByteArray &newKey){
     _key = newKey;
 }
@@ -163,10 +159,8 @@ void User::setName(const QString &newName) {
 bool User::fromSqlRecord(const QSqlRecord &q) {
 
     setName(q.value("name").toString());
-    setKey(QByteArray::fromBase64(q.value("key").toByteArray(),
-                                  QByteArray::Base64UrlEncoding));
-    setSecret(QByteArray::fromBase64(q.value("secret").toByteArray(),
-                                     QByteArray::Base64UrlEncoding));
+    setKey(q.value("key").toByteArray());
+    setSecret(q.value("secret").toByteArray());
 
     return true;
 }

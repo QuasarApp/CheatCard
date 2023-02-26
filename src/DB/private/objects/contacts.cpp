@@ -7,7 +7,6 @@
 //#
 
 #include "contacts.h"
-#include "rci/rcutils.h"
 
 namespace RC {
 namespace DB {
@@ -54,14 +53,6 @@ bool Contacts::isValid() const {
     return userKey.size() && childUserKey.size();
 }
 
-QString Contacts::primaryKey() const {
-    return "";
-}
-
-QString Contacts::primaryValue() const {
-    return QString(userKey.toBase64(QByteArray::Base64UrlEncoding));
-}
-
 QDataStream &Contacts::fromStream(QDataStream &stream) {
 
     stream >> userKey;
@@ -80,12 +71,13 @@ QDataStream &Contacts::toStream(QDataStream &stream) const {
     return stream;
 }
 
-QString Contacts::condition() const {
+std::pair<QString, QMap<QString, QVariant> > Contacts::condition() const {
     QString strUserKey(userKey.toBase64(QByteArray::Base64UrlEncoding));
     QString strChildUserKey(childUserKey.toBase64(QByteArray::Base64UrlEncoding));
 
-    return QString("userKey='%0' AND childUserKey='%1'").
-        arg(strUserKey, strChildUserKey);
+    return {QString("userKey=:userKey AND childUserKey=:childUserKey"),
+            {{":userKey", strUserKey},
+             {":childUserKey", strChildUserKey}}};
 }
 
 const QByteArray &Contacts::getUserKey() const {

@@ -55,7 +55,7 @@ protected:
     QDataStream &fromStream(QDataStream &stream) override;
     QDataStream &toStream(QDataStream &stream) const override;
     QString primaryKey() const override;
-    QString primaryValue() const override;
+    QVariant primaryValue() const override;
 
 private:
     long long id = 0;

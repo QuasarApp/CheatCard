@@ -39,20 +39,12 @@ QH::PKG::DBObject *UsersCards::createDBObject() const {
 }
 
 QH::PKG::DBVariantMap UsersCards::variantMap() const {
-    return {{"user",           {user.toBase64(QByteArray::Base64UrlEncoding),            QH::PKG::MemberType::Insert}},
-            {"card",           {card.toBase64(QByteArray::Base64UrlEncoding),            QH::PKG::MemberType::Insert}},
+    return {{"user",           {user,            QH::PKG::MemberType::Insert}},
+            {"card",           {card,            QH::PKG::MemberType::Insert}},
             {"purchasesNumber",{purchasesNumber, QH::PKG::MemberType::InsertUpdate}},
             {"received",       {received,        QH::PKG::MemberType::InsertUpdate}},
             {"time",           {_time,           QH::PKG::MemberType::InsertUpdate}},
             };
-}
-
-QString UsersCards::primaryKey() const {
-    return "";
-}
-
-QString UsersCards::primaryValue() const {
-    return "";
 }
 
 QString UsersCards::toString() const {
@@ -159,9 +151,9 @@ void UsersCards::setUser(const QByteArray& newUser) {
 
 bool UsersCards::fromSqlRecord(const QSqlRecord &q) {
 
-    user = QByteArray::fromBase64(q.value("user").toByteArray(), QByteArray::Base64UrlEncoding);
+    user = q.value("user").toByteArray();
     purchasesNumber = q.value("purchasesNumber").toUInt();
-    card = QByteArray::fromBase64(q.value("card").toByteArray(), QByteArray::Base64UrlEncoding);
+    card = q.value("card").toByteArray();
     received = q.value("received").toUInt();
     _time = q.value("time").toInt();
 
@@ -176,9 +168,11 @@ bool UsersCards::isValid() const {
     return user.size() && card.size();
 }
 
-QString UsersCards::condition() const {
-    return QString("user='%0' AND card='%1'").arg(user.toBase64(QByteArray::Base64UrlEncoding),
-                                                  card.toBase64(QByteArray::Base64UrlEncoding));
+std::pair<QString, QMap<QString, QVariant> > UsersCards::condition() const {
+
+    return {QString("user=:user AND card=:card"),
+            {{":user", user.toBase64(QByteArray::Base64UrlEncoding)},
+             {":card", card.toBase64(QByteArray::Base64UrlEncoding)}}};
 }
 
 }

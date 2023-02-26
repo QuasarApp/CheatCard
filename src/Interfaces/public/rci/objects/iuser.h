@@ -79,13 +79,6 @@ public:
     virtual void setKey(const QByteArray &newKey) = 0;
 
     /**
-     * @brief getSignature This method should be return user's signature. The signatur is base64 implementation of the user key.
-     * @return  user's signature
-     * @see iUser::getKey
-     */
-    virtual const QString getSignature() const = 0;
-
-    /**
      * @brief secret This method should be return user secret. The user secret is sha256 byte array
      * @return user secret
      */

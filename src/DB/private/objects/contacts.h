@@ -46,12 +46,10 @@ public:
     toObject(const QSharedPointer<Interfaces::iDB> &db);
 
 protected:
-    QString primaryKey() const override;
-    QString primaryValue() const override;
 
     QDataStream &fromStream(QDataStream &stream) override;
     QDataStream &toStream(QDataStream &stream) const override;
-    QString condition() const override;
+    std::pair<QString, QMap<QString, QVariant>> condition() const override;
 
 private:
     QByteArray childUserKey;
