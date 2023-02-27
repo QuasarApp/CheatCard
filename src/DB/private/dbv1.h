@@ -93,6 +93,11 @@ private:
     int getFreeItemsCount(const DB::UsersCards &inputData,
                           unsigned int freeIndex) const;
 
+    void prepareOwnerSignatureCondition(const QList<QByteArray> &signatureList,
+                                        const QString &operatorName,
+                                        QString &where,
+                                        QVariantMap &toBind);
+
     int getCardFreeIndex(const QByteArray& cardId) const;
 
 

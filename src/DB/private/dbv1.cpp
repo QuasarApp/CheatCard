@@ -8,6 +8,7 @@
 
 
 #include "dbv1.h"
+#include "deleteobject.h"
 #include "objects/card.h"
 #include "objects/contacts.h"
 #include "objects/user.h"
@@ -60,13 +61,9 @@ bool DBv1::deleteCard(const QByteArray &cardId) const {
         return false;
 
     QString hexId = cardId.toBase64(QByteArray::Base64UrlEncoding);
-    if (!db()->doQuery(QString("DELETE FROM Cards WHERE id ='%0'").
-                       arg(hexId))) {
-        return false;
-    }
-
-    if (!db()->doQuery(QString("DELETE FROM UsersData WHERE card ='%0'").
-                       arg(hexId))) {
+    auto deleterequest = QSharedPointer<DB::Card>::create();
+    deleterequest->setCardId(cardId);
+    if (!db()->deleteObject(deleterequest)) {
         return false;
     }
 
@@ -77,8 +74,10 @@ bool DBv1::deleteContactsByChildUserKey(const QByteArray &childUser) const {
     if(!db())
         return false;
 
-    return db()->doQuery(QString("DELETE FROM Contacts WHERE childUserKey= '%0'").
-                         arg(QString(childUser.toBase64(QByteArray::Base64UrlEncoding))));
+    auto request = QSharedPointer<QH::PKG::DeleteObject>::create(
+        QH::DbAddress{"Contacts", childUser}, "childUserKey");
+
+    return db()->deleteObject(request);
 }
 
 bool DBv1::deleteUserData(const QByteArray &cardId, const QByteArray &userId) {
@@ -140,6 +139,21 @@ int DBv1::getFreeItemsCount(const DB::UsersCards &inputData, unsigned int freeIn
                     inputData.getReceived();
 
     return freeItems;
+}
+
+void DBv1::prepareOwnerSignatureCondition(const QList<QByteArray>& signatureList,
+                                          const QString& operatorName,
+                                          QString &where,
+                                          QVariantMap& toBind) {
+    int signatureIndex = 0;
+    for (const QByteArray& key: signatureList) {
+        if (where.isEmpty()) {
+            where += QString{"ownerSignature= :ownerSignature%0"}.arg(signatureIndex);
+        } else {
+            where += QString{" %1 ownerSignature= :ownerSignature%0"}.arg(signatureIndex).arg(operatorName);
+        }
+        toBind.insert(QString(":ownerSignature%0").arg(signatureIndex), key);
+    }
 }
 
 int DBv1::getCountOfReceivedItems(const QByteArray &userId, const QByteArray &cardId) {
@@ -208,17 +222,17 @@ DBv1::getUserCardData(const QByteArray& userId, const QByteArray& cardId) const 
 QList<QSharedPointer<Interfaces::iUsersCards> >
 DBv1::getAllUserFromCard(const QByteArray &cardId, const QByteArray &ignoreUserId) const {
     QString where;
-    QString hexCardId = cardId.toBase64(QByteArray::Base64UrlEncoding);
+    QVariantMap toBind = {{":card", cardId}};
     if (ignoreUserId.size()) {
-        where = QString("card=%0 AND user!=%1").
-                arg(hexCardId,
-                    ignoreUserId.toBase64(QByteArray::Base64UrlEncoding));
+        toBind.insert(":user", ignoreUserId);
+        where = "card=:card AND user!=:user";
     } else {
-        where = QString("card=%0").arg(hexCardId);
+        where = "card=:card";
     }
 
     QH::PKG::DBObjectsRequest<DB::UsersCards> request("UsersData",
-                                                      where);
+                                                      where,
+                                                      toBind);
 
     auto result = db()->getObject(request);
 
@@ -233,21 +247,21 @@ DBv1::getAllPassiveUserFromCard(const QByteArray &cardId,
                                 int unixTimeRange,
                                 const QByteArray &ignoreUserId) const {
     int timePoint = time(0) - unixTimeRange;
-    QString hexCardId = cardId.toBase64(QByteArray::Base64UrlEncoding);
 
     QString where;
+    QVariantMap toBind = {{":card", cardId},
+                          {":time", timePoint}};
+
     if (ignoreUserId.size()) {
-        where = QString("card=%0 AND time<%1 AND user!=%2").
-                arg(hexCardId).
-                arg(timePoint).
-                arg(QString(ignoreUserId.toBase64(QByteArray::Base64UrlEncoding)));
+        toBind.insert(":user", ignoreUserId);
+        where = "card=:card AND time<:time AND user!=:user";
     } else {
-        where = QString("card=%0 AND time<%1")
-                    .arg(hexCardId).arg(timePoint);
+        where = "card=:card AND time<:time";
     }
 
     QH::PKG::DBObjectsRequest<DB::UsersCards> request("UsersData",
-                                                      where);
+                                                      where,
+                                                      toBind);
 
     auto result = db()->getObject(request);
 
@@ -262,21 +276,21 @@ DBv1::getAllActiveUserFromCard(const QByteArray &cardId,
                                int unixTimeRange,
                                const QByteArray &ignoreUserId) const {
     int timePoint = time(0) - unixTimeRange;
-    QString hexCardId = cardId.toBase64(QByteArray::Base64UrlEncoding);
 
     QString where;
+    QVariantMap toBind = {{":card", cardId},
+                          {":time", timePoint}};
     if (ignoreUserId.size()) {
-        where = QString("card=%0 AND time>%1 AND user!=%2").
-                arg(hexCardId).
-                arg(timePoint).
-                arg(QString(ignoreUserId.toBase64(QByteArray::Base64UrlEncoding)));
+        toBind.insert(":user", ignoreUserId);
+        where = "card=:card AND time>:time AND user!=:user";
+
     } else {
-        where = QString("card=%0 AND time>%1")
-                    .arg(hexCardId).arg(timePoint);
+        where = "card=:card AND time>:time";
     }
 
     QH::PKG::DBObjectsRequest<DB::UsersCards> request("UsersData",
-                                                      where);
+                                                      where,
+                                                      toBind);
 
     auto result = db()->getObject(request);
 
@@ -299,16 +313,11 @@ DBv1::getAllUserCardsData(const QByteArray &userKey,
 
     QString whereBlock = QString("card IN (SELECT id FROM Cards WHERE %0)");
     QString where;
-    for (const QByteArray& key: keys) {
-        if (where.isEmpty()) {
-            where += QString{"ownerSignature= '%0'"}.arg(QString(key.toBase64(QByteArray::Base64UrlEncoding)));
-        } else {
-            where += QString{" OR ownerSignature= '%0'"}.arg(QString(key.toBase64(QByteArray::Base64UrlEncoding)));
-        }
-    }
+    QVariantMap toBind;
+    prepareOwnerSignatureCondition(keys, "OR", where, toBind);
 
     QH::PKG::DBObjectsRequest<DB::UsersCards>
-        request("UsersData", whereBlock.arg(where));
+        request("UsersData", whereBlock.arg(where), toBind);
 
     auto result = db()->getObject(request);
 
@@ -339,24 +348,12 @@ DBv1::getAllUserCards(const QByteArray &userKey, bool restOf,
     keys.push_back(userKey);
 
     QString where;
+    QVariantMap toBind;
     if (restOf) {
-
-        for (const QByteArray& key: keys) {
-            if (where.isEmpty()) {
-                where += QString{"ownerSignature!= '%0'"}.arg(QString(key.toBase64(QByteArray::Base64UrlEncoding)));
-            } else {
-                where += QString{" AND ownerSignature!= '%0'"}.arg(QString(key.toBase64(QByteArray::Base64UrlEncoding)));
-            }
-        }
-
+        prepareOwnerSignatureCondition(keys, "AND", where, toBind);
     } else {
-        for (const QByteArray& key: keys) {
-            if (where.isEmpty()) {
-                where += QString{"ownerSignature= '%0'"}.arg(QString(key.toBase64(QByteArray::Base64UrlEncoding)));
-            } else {
-                where += QString{" OR ownerSignature= '%0'"}.arg(QString(key.toBase64(QByteArray::Base64UrlEncoding)));
-            }
-        }
+        prepareOwnerSignatureCondition(keys, "OR", where, toBind);
+
     }
 
     QH::PKG::DBObjectsRequest<DB::Card> cardRequest("Cards", where);
@@ -379,12 +376,14 @@ QSharedPointer<Interfaces::iUser> DBv1::getUser(const QByteArray& userId) const 
 
 QList<QSharedPointer<Interfaces::iUser> >
 DBv1::getAllUserDataFromCard(const QByteArray& cardId) const {
-    QString where = QString("card=%0").arg(QString(cardId.toBase64(QByteArray::Base64UrlEncoding)));
 
-    where = QString("id IN (select user from UsersData where %0)").arg(where);
+    auto where = QString("id IN (select user from UsersData where %0)").arg("card=:card");
+    QVariantMap toBind;
+    toBind.insert(":card", cardId);
 
     QH::PKG::DBObjectsRequest<DB::User> request("Users",
-                                                where);
+                                                where,
+                                                toBind);
 
     auto result = db()->getObject(request);
 
@@ -397,7 +396,8 @@ DBv1::getAllUserDataFromCard(const QByteArray& cardId) const {
 QList<QSharedPointer<Interfaces::iUser> >
 DBv1::getAllUserWithPrivateKeys() const {
     QH::PKG::DBObjectsRequest<DB::User> request("Users",
-                                                "secret IS NOT NULL AND secret != \"\"");
+                                                "LENGTH(secret) IS NOT NULL");
+
     auto result = db()->getObject(request);
     if (!result)
         return {};
