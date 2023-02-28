@@ -90,7 +90,7 @@ public:
 
 
 private:
-    int getFreeItemsCount(const DB::UsersCards &inputData,
+    int getFreeItemsCount(const QSharedPointer<Interfaces::iUsersCards> &inputData,
                           unsigned int freeIndex) const;
 
     void prepareOwnerSignatureCondition(const QList<QByteArray> &signatureList,

@@ -105,6 +105,14 @@ QH::ParserResult ApiV3::parsePackage(const QSharedPointer<QH::PKG::AbstractData>
         return result;
     }
 
+    result = commandHandler<API::V3::SyncIncremental>(this,
+                                           &ApiV3::processSyncIncremental,
+                                           pkg, sender, pkgHeader);
+
+    if (result != QH::ParserResult::NotProcessed) {
+        return result;
+    }
+
     result = commandHandler<API::V3::CardUpdated>(this,
                                                   &ApiV3::processCardUpdate,
                                                   pkg, sender, pkgHeader);

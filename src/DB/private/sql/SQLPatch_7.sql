@@ -79,6 +79,11 @@ CREATE TABLE IF NOT EXISTS "UsersData" (
         FOREIGN KEY("card") REFERENCES "Cards"("id") ON UPDATE CASCADE ON DELETE CASCADE
 );
 
+CREATE UNIQUE INDEX IF NOT EXISTS "UsersDataIndex" ON "UsersData" (
+        "user",
+        "card"
+);
+
 DROP TABLE Config;
 DROP TABLE NetworkMembers;
 DROP TABLE MemberPermisions;
