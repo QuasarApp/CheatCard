@@ -278,8 +278,7 @@ bool ApiV3::processCardStatusBase(const QSharedPointer<V3::UsersCards> &cardStat
 bool ApiV3::cardValidation(const QSharedPointer<Interfaces::iCard> &cardFromDB,
                            const QByteArray &ownerSecret) const {
 
-    switch (node()->nodeType()) {
-    case QH::AbstractNode::NodeType::Server: {
+    if (isServer()) {
         if (!(cardFromDB && cardFromDB->isValid()))
             return true;
 
@@ -292,9 +291,6 @@ bool ApiV3::cardValidation(const QSharedPointer<Interfaces::iCard> &cardFromDB,
         auto ownerSignature =  RCUtils::makeUserKey(ownerSecret);
 
         return signature == ownerSignature;
-    }
-
-    default: {};
     }
 
     return true;
@@ -311,9 +307,12 @@ bool ApiV3::processCardRequest(const QSharedPointer<API::V3::CardDataRequest> &c
         auto card = db()->getCard(cardId);
 
         if (!card) {
-            QuasarAppUtils::Params::log(QString("Failed to find card with id: %0").
-                                        arg(QString(cardId.toBase64(QByteArray::Base64UrlEncoding))),
-                                        QuasarAppUtils::Error);
+            if (isClient()) {
+                QuasarAppUtils::Params::log(QString("Failed to find card with id: %0").
+                                            arg(QString(cardId.toBase64(QByteArray::Base64UrlEncoding))),
+                                            QuasarAppUtils::Warning);
+            }
+
             continue;
         }
         cards.push(card);
@@ -321,9 +320,12 @@ bool ApiV3::processCardRequest(const QSharedPointer<API::V3::CardDataRequest> &c
     }
 
     if (!cards.packData().size()) {
-        QuasarAppUtils::Params::log(QString("Failed to find any cards "),
-                                    QuasarAppUtils::Error);
-        return false;
+        if (isClient()) {
+            QuasarAppUtils::Params::log(QString("Failed to find any cards "),
+                                        QuasarAppUtils::Error);
+            return false;
+        }
+        return true;
     }
 
     cards.setCustomData(db()->getSecret(publicKey));
@@ -377,9 +379,11 @@ bool ApiV3::processCardData(const QSharedPointer<QH::PKG::DataPack<API::V3::Card
             continue;
         }
 
-        API::V3::SyncIncremental changesResponce;
-        changesResponce.addCardToUpdate(cardObj->cardId(), cardObj->getCardVersion());
-        brodcastCardChanged(cardObj->cardId(), &changesResponce, &hdr);
+        if (isServer()) {
+            API::V3::SyncIncremental changesResponce;
+            changesResponce.addCardToUpdate(cardObj->cardId(), cardObj->getCardVersion());
+            brodcastCardChanged(cardObj->cardId(), &changesResponce, &hdr);
+        }
 
         emit sigCardReceived(cardObj);
     }
@@ -462,18 +466,19 @@ bool ApiV3::processChanges(const QSharedPointer<API::V3::ChangeUsersCards> &mess
     auto lastStatus = db()->
             getUserCardData(message->getUser(), message->getCard());
 
+    // message for all subscribers.
     changesResponce.addUsersCardsToAdd(QSharedPointer<API::V3::UsersCards>::create(lastStatus));
-
     brodcastUserChanged(message->getUser(), &changesResponce, &hdr);
 
-    return true;
+    // responce for the sender.
+    return sendData(&changesResponce, sender, &hdr);
 }
 
 bool ApiV3::accessValidation(const QSharedPointer<RC::Interfaces::iCard> &cardFromDB,
                              const QByteArray &ownerSecret,
                              bool allowWorkers) const {
-    switch (node()->nodeType()) {
-    case  QH::AbstractNode::NodeType::Server: {
+
+    if (isServer()) {
         if (!(cardFromDB && cardFromDB->isValid()))
             return true;
 
@@ -489,9 +494,6 @@ bool ApiV3::accessValidation(const QSharedPointer<RC::Interfaces::iCard> &cardFr
         // check additional access
         auto contact = db()->getContactFromChildId(signature, ownerSignature);
         return contact;
-    }
-
-    default: {};
     }
 
     return true;
@@ -723,6 +725,7 @@ bool ApiV3::processSubscribeRequest(const QSharedPointer<V3::SubscribeToUserChan
     }
 
     responce.setContacts(contactsData);
+    responce.setMode(V3::Sync::All);
 
     if (responce.isValid()) {
         return node()->sendData(&responce, sender, &hdr);
@@ -772,7 +775,7 @@ bool ApiV3::processSyncIncremental(const QSharedPointer<V3::SyncIncremental> &me
     for (const auto& userData: message->usersCardsToRemove().packData()) {
         db()->deleteUserData(userData->getCard(), userData->getUser());
 
-        if (node()->nodeType() == QH::AbstractNode::NodeType::Client) {
+        if (isClient()) {
             db()->deleteCard(userData->getCard());
         }
 

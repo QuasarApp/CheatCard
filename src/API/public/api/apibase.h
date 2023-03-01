@@ -48,6 +48,18 @@ public:
     // iParser interface
     QString parserId() const override final;
 
+    /**
+     * @brief isServer check api object to server type
+     * @return true if this pai object works on the server side.
+     */
+    bool isServer() const;
+
+    /**
+     * @brief isClient check api object to client type
+     * @return true if this pai object works on the client side.
+     */
+    bool isClient() const;
+
 signals:
     void sigPurchaseWasSuccessful(QSharedPointer<RC::Interfaces::iUsersCards> userData,
                                   bool alert) override;

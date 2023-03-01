@@ -39,7 +39,9 @@ class Sync: public QH::PKG::AbstractData
         Invalid         = 0x00,
 
         UsersData       = 0x01,
-        Contacts        = 0x02
+        Contacts        = 0x02,
+        All             = UsersData | Contacts
+
     };
 
     Sync();

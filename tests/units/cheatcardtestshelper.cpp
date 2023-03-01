@@ -76,17 +76,19 @@ void CheatCardTestsHelper::makeSeals(const QSharedPointer<TestClient> &seller,
 
         QVERIFY(seller->incrementPurchase(clientKey, cardId));
 
-        QVERIFY(TestUtils::wait([client, clientKey, cardId, count]() {
-            unsigned int currentCount = client->getPurchaseCount(clientKey, cardId);
+        QVERIFY(TestUtils::wait([seller, clientKey, cardId, count]() {
+            unsigned int currentCount = seller->getPurchaseCount(clientKey, cardId);
             return currentCount == count + 1;
         }, WAIT_TIME));
 
     }
 
     qInfo() << "cheack mooving card ";
-    QVERIFY(TestUtils::wait([client, cardId]() {
+    QVERIFY(TestUtils::wait([client, cardId, clientKey, sealCount]() {
         auto card = client->getCard(cardId);
-        return card && card->isValid();
+        unsigned int currentCount = client->getPurchaseCount(clientKey, cardId);
+
+        return card && card->isValid() && currentCount == sealCount;
     }, WAIT_TIME));
 
     qInfo() << "makeSeals finished successfull ";

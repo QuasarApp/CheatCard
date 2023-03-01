@@ -25,5 +25,13 @@ QString APIBase::parserId() const {
     return API_BASE_PARSE_IS;
 }
 
+bool APIBase::isServer() const {
+    return node()->nodeType() == QH::AbstractNode::Server;
+}
+
+bool APIBase::isClient() const {
+    return node()->nodeType() == QH::AbstractNode::Client;
+}
+
 }
 }
