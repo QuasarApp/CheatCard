@@ -141,11 +141,16 @@ void CheatCardTestsHelper::makeSealsFor(const QSharedPointer<TestClient> &seller
 
 
 void CheatCardTestsHelper::checkAccess(const QSharedPointer<TestClient> &seller,
+                                       const QSharedPointer<TestServer> &server,
                                        const QByteArray &client,
                                        const QByteArray &cardId,
                                        bool shouldBe) {
 
     unsigned int count = seller->getPurchaseCount(client, cardId);
+    unsigned int serverCount = server->getPurchaseCount(client, cardId);
+
+    // do not check access of the not synced nodes.
+    QVERIFY(count == serverCount);
 
     auto cbTrue = [client, seller, cardId, count]() {
         unsigned int currentCount = seller->getPurchaseCount(client, cardId);

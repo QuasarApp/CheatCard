@@ -229,4 +229,32 @@ bool RC::Client::updateContactData(const QSharedPointer<Interfaces::iContacts> &
                                    });
 }
 
+bool Client::grantAccess(const QSharedPointer<Interfaces::iUser> &parent,
+                         const QByteArray &child,
+                         const QString& name) {
+    if (!db())
+        return false;
+
+    auto contact = db()->makeEmptyContact();
+
+    contact->setChildUserKey(child);
+    contact->setUserKey(parent->getKey());
+    contact->setInfo(name);
+
+    return updateContactData(contact, parent->secret(), false);
+}
+
+bool Client::dropAccess(const QSharedPointer<Interfaces::iUser> &parent,
+                        const QByteArray &child) {
+    if (!db())
+        return false;
+
+    auto contact = db()->makeEmptyContact();
+
+    contact->setChildUserKey(child);
+    contact->setUserKey(parent->getKey());
+
+    return updateContactData(contact, parent->secret(), true);
+}
+
 }

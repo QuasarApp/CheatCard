@@ -42,8 +42,8 @@ QSharedPointer<Interfaces::iContacts> Contacts::toObject(const QSharedPointer<In
 }
 
 QH::PKG::DBVariantMap Contacts::variantMap() const {
-    return {{"userKey",      {QString(userKey.toBase64(QByteArray::Base64UrlEncoding)),      QH::PKG::MemberType::Insert}},
-            {"childUserKey", {QString(childUserKey.toBase64(QByteArray::Base64UrlEncoding)), QH::PKG::MemberType::Insert}},
+    return {{"userKey",      {userKey,      QH::PKG::MemberType::Insert}},
+            {"childUserKey", {childUserKey, QH::PKG::MemberType::Insert}},
             {"info",         {info,         QH::PKG::MemberType::InsertUpdate}},
 
             };
@@ -54,12 +54,10 @@ bool Contacts::isValid() const {
 }
 
 std::pair<QString, QMap<QString, QVariant> > Contacts::condition() const {
-    QString strUserKey(userKey.toBase64(QByteArray::Base64UrlEncoding));
-    QString strChildUserKey(childUserKey.toBase64(QByteArray::Base64UrlEncoding));
 
     return {QString("userKey=:userKey AND childUserKey=:childUserKey"),
-            {{":userKey", strUserKey},
-             {":childUserKey", strChildUserKey}}};
+            {{":userKey", userKey},
+             {":childUserKey", childUserKey}}};
 }
 
 const QByteArray &Contacts::getUserKey() const {
@@ -88,10 +86,8 @@ void Contacts::setInfo(const QString &newInfo) {
 
 bool Contacts::fromSqlRecord(const QSqlRecord &q) {
 
-    childUserKey = QByteArray::fromBase64(q.value("childUserKey").toByteArray(),
-                                          QByteArray::Base64UrlEncoding);
-    userKey = QByteArray::fromBase64(q.value("userKey").toByteArray(),
-                                     QByteArray::Base64UrlEncoding);
+    childUserKey = q.value("childUserKey").toByteArray();
+    userKey = q.value("userKey").toByteArray();
     info = q.value("info").toString();
 
     return true;

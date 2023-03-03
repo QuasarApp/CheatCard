@@ -81,6 +81,7 @@ public:
                              unsigned int sealCount);
 
     static void checkAccess(const QSharedPointer<TestClient> &seller,
+                            const QSharedPointer<TestServer> &server,
                             const QByteArray &client,
                             const QByteArray &cardId,
                             bool shouldBe);

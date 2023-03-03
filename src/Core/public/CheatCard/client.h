@@ -47,6 +47,12 @@ public:
                            const QByteArray& secreet,
                            bool removeRequest);
 
+    bool grantAccess(const QSharedPointer<Interfaces::iUser> &parent,
+                     const QByteArray& child, const QString &name = "");
+
+    bool dropAccess(const QSharedPointer<Interfaces::iUser> &parent,
+                    const QByteArray& child);
+
     const QByteArray& currntUserKey() const;
 
 signals:

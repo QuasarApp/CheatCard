@@ -25,6 +25,11 @@ int TestClient::getPurchaseCount(const QByteArray &userId, const QByteArray &car
     return result->getPurchasesNumber();
 }
 
+QSharedPointer<RC::Interfaces::iContacts> TestClient::getContact(const QByteArray &parentUser,
+                                                                 const QByteArray &childUser) {
+    return db()->getContactFromChildId(parentUser, childUser);
+}
+
 int TestClient::getFreeItemsCount(const QByteArray &userId, const QByteArray &cardId) {
     auto dbUsersCards = db()->getUserCardData(
         userId,
@@ -52,6 +57,10 @@ const QSharedPointer<RC::Interfaces::iDB> &TestClient::getDBObject() const {
 
 QSharedPointer<RC::Interfaces::iUser> TestClient::getUser(const QByteArray &userId) const {
     return db()->getUser(userId);
+}
+
+QSharedPointer<RC::Interfaces::iUser> TestClient::getCurrentUser() const {
+    return getUser(currntUserKey());
 }
 
 void TestClient::handleRequestError(unsigned char code, QString ) {
