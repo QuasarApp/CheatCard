@@ -56,7 +56,7 @@ public:
                      const std::function<void(bool successful)>& = {}) override;
 
 
-    bool sendContacts(const Interfaces::iContacts& conntact,
+    bool sendContacts(const QSharedPointer<Interfaces::iContacts> &conntact,
                       const QByteArray& secreet,
                       bool removeRequest,
                       QH::AbstractNodeInfo *dist,

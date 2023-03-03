@@ -555,35 +555,46 @@ bool ApiV3::processContacts(const QSharedPointer<API::V3::UpdateContactData> &me
 
     auto userKey = RCUtils::makeUserKey(message->userSecreet());
 
-    if (userKey != message->getUserKey()) {
-        QuasarAppUtils::Params::log("User try change permission for another user.",
-                                    QuasarAppUtils::Info);
-        return false;
-    }
+    QSet<QByteArray> _brodcastFilter;
 
-    API::V3::SyncIncremental responce;
+    auto  brodcastChanges = [&_brodcastFilter, &hdr, this](const QByteArray& _key, const API::V3::SyncIncremental& resp){
+        if (!_brodcastFilter.contains(_key)) {
+            brodcastUserChanged(_key, &resp, &hdr);
+        }
+        _brodcastFilter += _key;
+    };
 
-    if (message->getRemove()) {
-        if (!db()->deleteContact(message->toObject(db()))) {
-            QuasarAppUtils::Params::log("Fail to detele user permisiion",
-                                        QuasarAppUtils::Error);
+    for (const auto & contact: message->contacts().packData()) {
+        if (userKey != contact->getUserKey()) {
+            QuasarAppUtils::Params::log("User try change permission for another user.",
+                                        QuasarAppUtils::Info);
             return false;
         }
-        responce.addContactsToRemove(message);
 
-    } else {
-        if (!db()->saveContact(message->toObject(db()))) {
-            QuasarAppUtils::Params::log("Fail to save user permisiion",
-                                        QuasarAppUtils::Error);
-            return false;
+        API::V3::SyncIncremental responce;
+
+        if (message->getRemove()) {
+            if (!db()->deleteContact(contact->toObject(db()))) {
+                QuasarAppUtils::Params::log("Fail to detele user permisiion",
+                                            QuasarAppUtils::Error);
+                return false;
+            }
+            responce.addContactsToRemove(contact);
+
+        } else {
+            if (!db()->saveContact(contact->toObject(db()))) {
+                QuasarAppUtils::Params::log("Fail to save user permisiion",
+                                            QuasarAppUtils::Error);
+                return false;
+            }
+            responce.addContactsToAdd(contact);
         }
-        responce.addContactsToAdd(message);
+
+        responce.setResult(true);
+
+        brodcastChanges(contact->getChildUserKey(), responce);
+        brodcastChanges(contact->getUserKey(), responce);
     }
-
-    responce.setResult(true);
-
-    brodcastUserChanged(message->getChildUserKey(), &responce, &hdr);
-    brodcastUserChanged(message->getUserKey(), &responce, &hdr);
 
     return true;
 }
@@ -620,14 +631,15 @@ unsigned int ApiV3::sendAndRegisterCallBack(const QH::PKG::AbstractData *resp,
     return pkgHash;
 }
 
-bool ApiV3::sendContacts(const Interfaces::iContacts& contact,
+bool ApiV3::sendContacts(const QSharedPointer<Interfaces::iContacts>& contact,
                          const QByteArray& secreet,
                          bool removeRequest,
                          QH::AbstractNodeInfo *dist,
                          const std::function<void(int err)>& cb) {
 
 
-    RC::API::V3::UpdateContactData request(contact);
+    RC::API::V3::UpdateContactData request;
+    request.addContact(QSharedPointer<API::V3::Contacts>::create(contact));
     request.setRemove(removeRequest);
     request.setUserSecreet(secreet);
 

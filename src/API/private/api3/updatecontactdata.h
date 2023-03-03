@@ -8,7 +8,7 @@
 #ifndef UPDATECONTACTDATA_V3_H
 #define UPDATECONTACTDATA_V3_H
 
-#include "rci/objects/icontacts.h"
+#include "datapack.h"
 #include "contacts.h"
 #include <packages/abstractdata.h>
 
@@ -18,13 +18,12 @@ namespace V3 {
 /**
  * @brief The UpdateContactData class sendt to server new permssion data.
  */
-class UpdateContactData: public Contacts
+class UpdateContactData: public QH::PKG::AbstractData
 {
     QH_PACKAGE_AUTO(API::V3::UpdateContactData)
 
 public:
     UpdateContactData();
-    UpdateContactData(const Interfaces::iContacts& contact);
     bool isValid() const override;
 
     const QByteArray &userSecreet() const;
@@ -33,11 +32,16 @@ public:
     bool getRemove() const;
     void setRemove(bool newRemove);
 
+    QH::PKG::DataPack<API::V3::Contacts> contacts() const;
+    void setContacts(const QH::PKG::DataPack<API::V3::Contacts> &newContacts);
+    void addContact(const QSharedPointer<API::V3::Contacts> &newContacts);
+
 protected:
     QDataStream &fromStream(QDataStream &stream) override;
     QDataStream &toStream(QDataStream &stream) const override;
 
 private:
+    QH::PKG::DataPack<API::V3::Contacts> _contacts;
     QByteArray _userSecreet;
     bool remove = false;
 };

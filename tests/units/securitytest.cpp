@@ -51,6 +51,7 @@ SecurityTest::SecurityTest() {
 
     CheatCardTestsHelper::checkAccess(childSeller, network.server, client->currntUserKey(), card->cardId(), false);
 
+    QVERIFY(client->getPurchaseCount(client->currntUserKey(), card->cardId()) == 32);
 }
 
 SecurityTest::~SecurityTest() {

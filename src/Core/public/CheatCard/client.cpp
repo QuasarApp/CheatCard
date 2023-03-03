@@ -218,7 +218,7 @@ bool RC::Client::updateContactData(const QSharedPointer<Interfaces::iContacts> &
         return false;
     }
 
-    return apiObject->sendContacts(*contact,
+    return apiObject->sendContacts(contact,
                                    secreet,
                                    removeRequest,
                                    _server,

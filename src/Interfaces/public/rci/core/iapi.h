@@ -50,7 +50,7 @@ public:
      * @param dist This is distanation node.
      * @return true if request created and sent successful else false.
      */
-    virtual bool sendContacts(const iContacts& conntact,
+    virtual bool sendContacts(const QSharedPointer<Interfaces::iContacts>& conntact,
                               const QByteArray& secreet,
                               bool removeRequest,
                               QH::AbstractNodeInfo *dist,

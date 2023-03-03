@@ -18,27 +18,31 @@ UpdateContactData::UpdateContactData() {
 
 }
 
-UpdateContactData::UpdateContactData(const Interfaces::iContacts &contact) {
-    setInfo(contact.getInfo());
-    setUserKey(contact.getUserKey());
-    setChildUserKey(contact.getChildUserKey());
-}
-
 QDataStream &UpdateContactData::fromStream(QDataStream &stream) {
-    API::V3::Contacts::fromStream(stream);
-
+    stream >> _contacts;
     stream >> _userSecreet;
     stream >> remove;
     return stream;
 }
 
 QDataStream &UpdateContactData::toStream(QDataStream &stream) const {
-    API::V3::Contacts::toStream(stream);
-
+    stream << _contacts;
     stream << _userSecreet;
     stream << remove;
 
     return stream;
+}
+
+QH::PKG::DataPack<API::V3::Contacts> UpdateContactData::contacts() const {
+    return _contacts;
+}
+
+void UpdateContactData::setContacts(const QH::PKG::DataPack<API::V3::Contacts> &newContacts) {
+    _contacts = newContacts;
+}
+
+void UpdateContactData::addContact(const QSharedPointer<Contacts> &newContacts) {
+    _contacts.push(newContacts);
 }
 
 bool UpdateContactData::getRemove() const {
@@ -50,7 +54,7 @@ void UpdateContactData::setRemove(bool newRemove) {
 }
 
 bool UpdateContactData::isValid() const {
-    return API::V3::Contacts::isValid() && _userSecreet.size();
+    return _contacts.isValid() && _userSecreet.size();
 }
 
 const QByteArray &UpdateContactData::userSecreet() const {
