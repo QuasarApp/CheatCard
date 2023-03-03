@@ -15,7 +15,7 @@
 
 namespace RC {
 
-InvalidUsersPill::InvalidUsersPill(QH::ISqlDB *db) {
+InvalidUsersPill::InvalidUsersPill(const QSharedPointer<Interfaces::iDB> &db) {
     _db = db;
 }
 
@@ -41,19 +41,14 @@ bool InvalidUsersPill::doFix() {
 
 bool InvalidUsersPill::diagnostic() {
 
-    if (!(_db && _db->writer()))
+    if (!_db )
         return false;
 
-
-    QH::PKG::DBObjectsRequest<DB::User> request("Users",
-                                            "secret != \"\"");
-
-    auto users = _db->getObject(request);
-
-    if (!users)
+    auto users = _db->getAllUserWithPrivateKeys();
+    if (users.isEmpty())
         return false;
 
-    for (const auto &i : users->data()) {
+    for (const auto &i : users) {
         if (!(i->isValid() && i->isAllKeysIsValid())) {
             _brokenUsers.push_back(i);
         }
@@ -71,9 +66,9 @@ bool InvalidUsersPill::fix() {
 
         if (user && user->isValid()) {
             user->setSecret({});
-            result = result && _db->updateObject(user, true);
+            result = result && _db->saveUser(user);
         } else {
-            result = result && _db->deleteObject(user);
+            result = result && _db->deleteUser(user->getKey());
         }
     }
 

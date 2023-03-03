@@ -61,6 +61,13 @@ public:
     virtual bool deleteCard(const QByteArray& cardId) const = 0;
 
     /**
+     * @brief deleteUser This method remove the user.
+     * @param userId This is id of user
+     * @return true if user removed successful else false.
+     */
+    virtual bool deleteUser(const QByteArray& userId) const = 0;
+
+    /**
      * @brief deleteUserData This method delete data use the user
      * @param cardId This is card id
      * @param userId This is user id

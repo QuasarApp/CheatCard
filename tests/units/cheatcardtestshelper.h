@@ -63,7 +63,9 @@ public:
         return result;
     }
 
-    static NetworkResult deployNetwork(QString host, int port, unsigned int clientsCount = 2);
+    static NetworkResult deployNetwork(QString host, int port,
+                                       unsigned int clientsCount = 2,
+                                       bool connectToServer = true);
 
     static QSharedPointer<RC::Interfaces::iUser> makeUser();
     static QSharedPointer<RC::Interfaces::iContacts> makeContact();

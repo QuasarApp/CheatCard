@@ -7,7 +7,6 @@
 
 #include <QtTest>
 #include "restoredatatest.h"
-#include "fixdbidspilltest.h"
 #include "securitytest.h"
 #include "fixbrokenuserstest.h"
 #include "apitest.h"
@@ -38,7 +37,6 @@ private slots:
     // BEGIN TESTS CASES
     TestCase(apiTest, APITest)
     TestCase(securityTest, SecurityTest)
-    TestCase(fixDBIdsPillTest, FixDBIdsPillTest)
     TestCase(restoreDataTest, RestoreDataTest)
     TestCase(fixBrokenUsersTest, FixBrokenUsersTest)
     // END TEST CASES

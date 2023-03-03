@@ -10,14 +10,11 @@
 #define INVALIDUSERSPILL_H
 
 
+#include "rci/core/idb.h"
 #include "rci/objects/iuser.h"
 #include <QSharedPointer>
 
 #include <DoctorPillCore/ipill.h>
-
-namespace QH {
-class ISqlDB;
-}
 
 namespace RC {
 
@@ -28,7 +25,7 @@ namespace RC {
 class InvalidUsersPill: public DP::iPill
 {
 public:
-    InvalidUsersPill(QH::ISqlDB* db);
+    InvalidUsersPill(const QSharedPointer<Interfaces::iDB>& db);
 
     // iPill interface
 public:
@@ -44,7 +41,7 @@ protected:
 
 private:
     QList<QSharedPointer<Interfaces::iUser>> _brokenUsers;
-    QH::ISqlDB * _db = nullptr;
+    QSharedPointer<Interfaces::iDB> _db = nullptr;
 
 
 };

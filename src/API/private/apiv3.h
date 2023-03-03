@@ -165,6 +165,8 @@ private:
 
     QSet<unsigned int> _checkUserRequestHash;
     QHash<unsigned int, RequestsData> _waitResponce;
+
+    QMutex _subscribesMutex;
     QHash<QByteArray, QSet<QH::AbstractNodeInfo*>> _subscribes;
 };
 }

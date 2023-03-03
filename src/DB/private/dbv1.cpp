@@ -16,7 +16,6 @@
 #include <dbobjectsrequest.h>
 #include <getsinglevalue.h>
 #include <objects/userscards.h>
-#include <pills/invalidcardidpill.h>
 #include <pills/invaliduserspill.h>
 #include <rci/rcutils.h>
 
@@ -62,6 +61,19 @@ bool DBv1::deleteCard(const QByteArray &cardId) const {
 
     auto deleterequest = QSharedPointer<DB::Card>::create();
     deleterequest->setCardId(cardId);
+    if (!db()->deleteObject(deleterequest)) {
+        return false;
+    }
+
+    return true;
+}
+
+bool DBv1::deleteUser(const QByteArray &userId) const {
+    if(!db())
+        return false;
+
+    auto deleterequest = QSharedPointer<DB::User>::create();
+    deleterequest->setKey(userId);
     if (!db()->deleteObject(deleterequest)) {
         return false;
     }
@@ -475,10 +487,8 @@ QByteArray DBv1::getSecret(const QByteArray &userKey) const {
 
 QSharedPointer<DP::iPill> DBv1::initPills(const QString& piilId) {
 
-    if (piilId == "InvalidCardIdPill") {
-        return QSharedPointer<RC::InvalidCardIdPill>::create(this).dynamicCast<DP::iPill>();
-    } else if (piilId == "InvalidUsersPill") {
-        return QSharedPointer<RC::InvalidUsersPill>::create(db()).dynamicCast<DP::iPill>();
+    if (piilId == "InvalidUsersPill") {
+        return QSharedPointer<RC::InvalidUsersPill>::create(sharedFromThis()).dynamicCast<DP::iPill>();
     }
 
     return nullptr;
@@ -486,8 +496,7 @@ QSharedPointer<DP::iPill> DBv1::initPills(const QString& piilId) {
 
 QList<QSharedPointer<DP::iPill>> DBv1::initPills() {
     return {
-        QSharedPointer<RC::InvalidCardIdPill>::create(this).dynamicCast<DP::iPill>(),
-        QSharedPointer<RC::InvalidUsersPill>::create(db()).dynamicCast<DP::iPill>(),
+        QSharedPointer<RC::InvalidUsersPill>::create(sharedFromThis()).dynamicCast<DP::iPill>(),
     };
 }
 

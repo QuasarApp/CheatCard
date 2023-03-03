@@ -503,6 +503,8 @@ void ApiV3::brodcastUserChanged(const QByteArray &userId,
                      const QH::PKG::AbstractData *data,
                      const QH::Header *req) {
 
+    QMutexLocker lock(&_subscribesMutex);
+
     const auto subscribers = _subscribes.value(userId);
     for (const auto& subscriber: subscribers) {
         if (subscriber->isConnected())
@@ -707,7 +709,9 @@ void ApiV3::collectDataOfuser(const QByteArray& userKey,
 bool ApiV3::processSubscribeRequest(const QSharedPointer<V3::SubscribeToUserChanges> &message,
                                     QH::AbstractNodeInfo *sender, const QH::Header &hdr) {
 
+    _subscribesMutex.lock();
     _subscribes[message->userId()].insert(sender);
+    _subscribesMutex.unlock();
 
     API::V3::Sync responce;
     responce.setSyncedUserKey(message->userId());

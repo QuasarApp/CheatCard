@@ -16,7 +16,9 @@ CheatCardTestsHelper::CheatCardTestsHelper() {
 
 }
 
-NetworkResult CheatCardTestsHelper::deployNetwork(QString host, int port, unsigned int clientsCount) {
+NetworkResult CheatCardTestsHelper::deployNetwork(QString host, int port,
+                                                  unsigned int clientsCount,
+                                                  bool connectToServer) {
     NetworkResult result;
     result.server = makeNode<TestServer>();
 
@@ -26,12 +28,15 @@ NetworkResult CheatCardTestsHelper::deployNetwork(QString host, int port, unsign
     for (unsigned int i = 0; i < clientsCount; ++i) {
         auto node = makeNode<TestClient>();
         result.clients.insert(node->currntUserKey(), node);
-        node->connectToServer(host, port);
 
-        if (!TestUtils::wait([node]() {
-                return node->isConncted();
-            }, WAIT_TIME)) {
-            return {};
+        if (connectToServer) {
+            node->connectToServer(host, port);
+
+            if (!TestUtils::wait([node]() {
+                    return node->isConncted();
+                }, WAIT_TIME)) {
+                return {};
+            }
         }
     }
 
@@ -71,7 +76,10 @@ void CheatCardTestsHelper::makeSeals(const QSharedPointer<TestClient> &seller,
 
     auto clientKey = client->currntUserKey();
     for ( unsigned int i = 0; i < sealCount; ++i ) {
+
+#ifdef QT_DEBUG
         qInfo() << "add seal N " << i + 1;
+#endif
         unsigned int count = seller->getPurchaseCount(client->currntUserKey(), cardId);
 
         QVERIFY(seller->incrementPurchase(clientKey, cardId));
@@ -83,7 +91,10 @@ void CheatCardTestsHelper::makeSeals(const QSharedPointer<TestClient> &seller,
 
     }
 
+#ifdef QT_DEBUG
     qInfo() << "cheack mooving card ";
+#endif
+
     QVERIFY(TestUtils::wait([client, cardId, clientKey, sealCount]() {
         auto card = client->getCard(cardId);
         unsigned int currentCount = client->getPurchaseCount(clientKey, cardId);
@@ -91,7 +102,10 @@ void CheatCardTestsHelper::makeSeals(const QSharedPointer<TestClient> &seller,
         return card && card->isValid() && currentCount == sealCount;
     }, WAIT_TIME));
 
+#ifdef QT_DEBUG
     qInfo() << "makeSeals finished successfull ";
+#endif
+
 }
 
 void CheatCardTestsHelper::makeSealsFor(const QSharedPointer<TestClient> &seller,
@@ -100,6 +114,10 @@ void CheatCardTestsHelper::makeSealsFor(const QSharedPointer<TestClient> &seller
                                         unsigned int sealCount) {
 
     for ( unsigned int i = 0; i < sealCount; ++i ) {
+#ifdef QT_DEBUG
+        qInfo() << "add seal N " << i + 1;
+#endif
+
         unsigned int count = seller->getPurchaseCount(client, cardId);
 
         QVERIFY(seller->incrementPurchase(client, cardId));
@@ -109,7 +127,18 @@ void CheatCardTestsHelper::makeSealsFor(const QSharedPointer<TestClient> &seller
         }, WAIT_TIME));
 
     }
+
+    QVERIFY(TestUtils::wait([client, cardId, seller, sealCount]() {
+        unsigned int currentCount = seller->getPurchaseCount(client, cardId);
+        return currentCount == sealCount;
+    }, WAIT_TIME));
+
+#ifdef QT_DEBUG
+    qInfo() << "makeSeals finished successfull ";
+#endif
+
 }
+
 
 void CheatCardTestsHelper::checkAccess(const QSharedPointer<TestClient> &seller,
                                        const QByteArray &client,

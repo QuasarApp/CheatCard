@@ -12,7 +12,7 @@
 
 #include "rci/core/idb.h"
 #include "appdatabase.h"
-
+ #include <QEnableSharedFromThis>
 
 namespace RC {
 
@@ -20,7 +20,7 @@ namespace DB {
     class UsersCards;
 }
 
-class DBv1: public Interfaces::iDB, public DB::AppDataBase
+class DBv1: public Interfaces::iDB, public DB::AppDataBase, public QEnableSharedFromThis<DBv1>
 {
 public:
     DBv1(const QString& name = "",
@@ -32,6 +32,7 @@ public:
 
     bool deleteContact(const QSharedPointer<Interfaces::iContacts>& contact) const override;
     bool deleteCard(const QByteArray& cardId) const override;
+    bool deleteUser(const QByteArray& userId) const override;
     bool deleteContactsByChildUserKey(const QByteArray& childUser) const override;
     bool deleteUserData(const QByteArray &cardId, const QByteArray &userId) override;
 

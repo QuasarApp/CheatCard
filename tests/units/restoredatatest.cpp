@@ -14,19 +14,22 @@ RestoreDataTest::RestoreDataTest() {
 void RestoreDataTest::test() {
 
 
-    auto network = CheatCardTestsHelper::deployNetwork(TEST_CHEAT_HOST, TEST_CHEAT_PORT);
+    auto network = CheatCardTestsHelper::deployNetwork(TEST_CHEAT_HOST, TEST_CHEAT_PORT, 2, false);
     QVERIFY(network.clients.count() == 2);
 
     auto card = CheatCardTestsHelper::makeCard(network.clients.begin().value(), 10);
     auto seller = *network.clients.begin();
     auto client = *std::next(network.clients.begin());
 
-    client->disconectFromServer();
+    QVERIFY(seller->connectToServer(TEST_CHEAT_HOST, TEST_CHEAT_PORT));
+    QVERIFY(TestUtils::wait([seller]() {
+            return seller->isConncted();
+    }, WAIT_TIME));
 
     CheatCardTestsHelper::makeSealsFor(seller, client->currntUserKey(), card->cardId(), 30);
     seller->incrementReceived(client->currntUserKey(), card->cardId(), 2);
 
-    QVERIFY(client->getFreeItemsCount(client->currntUserKey(), card->cardId()) == 3);
+    QVERIFY(client->getFreeItemsCount(client->currntUserKey(), card->cardId()) == 0);
 
     QVERIFY(client->connectToServer(TEST_CHEAT_HOST, TEST_CHEAT_PORT));
 
