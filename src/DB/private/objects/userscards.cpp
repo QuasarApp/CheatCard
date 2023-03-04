@@ -56,8 +56,8 @@ QString UsersCards::toString() const {
                    "time: %4 \n ");
 
     result = result.
-             arg(user.toBase64(QByteArray::Base64UrlEncoding),
-                 card.toBase64(QByteArray::Base64UrlEncoding)).
+             arg(user.toBase64(),
+                 card.toBase64()).
              arg(purchasesNumber).
              arg(received).
              arg(_time);

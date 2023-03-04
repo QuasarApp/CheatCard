@@ -309,7 +309,7 @@ bool ApiV3::processCardRequest(const QSharedPointer<API::V3::CardDataRequest> &c
         if (!card) {
             if (isClient()) {
                 QuasarAppUtils::Params::log(QString("Failed to find card with id: %0").
-                                            arg(QString(cardId.toBase64(QByteArray::Base64UrlEncoding))),
+                                            arg(QString(cardId.toBase64())),
                                             QuasarAppUtils::Warning);
             }
 

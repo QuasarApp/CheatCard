@@ -83,7 +83,7 @@ QString Card::toString() const {
                    "freeIndex: %8 \n "
                    "cardVersion: %9 \n ");
 
-    result = result.arg(QString(_id.toBase64(QByteArray::Base64UrlEncoding))).
+    result = result.arg(QString(_id.toBase64())).
             arg(_title,
                 _phone,
                 _telegramm,
@@ -95,7 +95,7 @@ QString Card::toString() const {
             arg(cardVersion);
 
     result += ("ownerId: %0 \n");
-    result = result.arg(QString(_ownerSignature.toBase64(QByteArray::Base64UrlEncoding)));
+    result = result.arg(QString(_ownerSignature.toBase64()));
 
     return result;
 }

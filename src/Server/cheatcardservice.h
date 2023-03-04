@@ -28,8 +28,8 @@ public:
     void onPause() override;
 private:
 
-    QVariantMap prepareStatistic(unsigned int card) const;
-    QVariantMap cardList(unsigned int user = 0) const;
+    QVariantMap prepareStatistic(const QByteArray &card) const;
+    QVariantMap cardList(const QByteArray& user = 0) const;
 
     RC::Server *_server = nullptr;
     QString dbBackPath;

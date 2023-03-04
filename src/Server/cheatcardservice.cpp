@@ -53,7 +53,7 @@ bool CheatCardService::onStart() {
 
     if (!_server) {
         _server = new RC::Server(_db);
-        RC::API::init({2}, _db, _server);
+        RC::API::init({3}, _db, _server);
     }
 
     if (!_server->run({}, DEFAULT_CHEAT_CARD_PORT_SSL)) {
@@ -101,11 +101,11 @@ bool CheatCardService::handleReceive(const Patronum::Feature &data) {
             sendResuylt("Failed to make backup of data base");
         }
     } else if (data.cmd() == "statistic") {
-         unsigned int card = data.arg().toUInt();
+        auto card = QByteArray::fromBase64(data.arg().toLatin1());
          sendResuylt(prepareStatistic(card));
 
     } else if (data.cmd() == "cardsList") {
-        unsigned int user = data.arg().toUInt();
+        auto user = QByteArray::fromBase64(data.arg().toLatin1());
         sendResuylt(cardList(user));
     }
 
@@ -134,35 +134,39 @@ void CheatCardService::onPause() {
     sendResuylt("Server stopped successful. (paused)");
 }
 
-QVariantMap CheatCardService::prepareStatistic(unsigned int card) const {
+QVariantMap CheatCardService::prepareStatistic(const QByteArray& card) const {
 
     QVariantMap result;
 
     const auto users = _db->getAllUserFromCard(card);
 
-    for (const auto &user : users) {
-        result[QString::number(user->getUser())]  = user->toString();
+    for (int i = 0; i < users.size(); ++i) {
+        if (auto user = users[i]) {
+            result[QString::number(i)] = user->toString();
+        }
     }
 
     return result;
 }
 
-QVariantMap CheatCardService::cardList(unsigned int user) const {
+QVariantMap CheatCardService::cardList(const QByteArray& user) const {
     QVariantMap result;
     QList<QSharedPointer<RC::Interfaces::iCard>> cards;
-    if (user) {
+    if (user.size()) {
         auto userObj = _db->getUser(user);
 
         if (!userObj) {
-            result ["Result"] = "Fail to find user with id :" + QString::number(user);
+            result ["Result"] = "Fail to find user with id : " + user.toBase64();
             return result;
         }
 
         auto masterKeys = _db->getMasterKeys(userObj->getKey());
         cards = _db->getAllUserCards(userObj->getKey(), false, masterKeys);
 
-        for (const auto &card : qAsConst(cards)) {
-            result[QString::number(RC::RCUtils::makeUserId(card->ownerSignature()))] = card->toString();
+        for (int i = 0; i < cards.size(); i++) {
+            if (auto card = cards[i]) {
+                result[QString::number(i)] = card->toString();
+            }
         }
 
         return result;
@@ -170,11 +174,13 @@ QVariantMap CheatCardService::cardList(unsigned int user) const {
     }
 
     cards = _db->getAllUserCards("all", true, {});
-
-    for (const auto &card : qAsConst(cards)) {
-        QString cardShortString = QString("card id: %0 title: %1").
-                arg(card->cardId()).arg(card->title());
-        result[QString::number(RC::RCUtils::makeUserId(card->ownerSignature()))] = cardShortString;
+    result["User key"] = " Card id card name";
+    for (int i = 0; i < cards.size(); i++) {
+        if (auto card = cards[i]) {
+            QString cardShortString = QString("card id: %0 title: %1").
+                                      arg(card->cardId().toBase64(), card->title());
+            result[card->ownerSignature().toBase64()] = cardShortString;
+        }
     }
 
     return result;

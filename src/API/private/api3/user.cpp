@@ -75,10 +75,6 @@ const QByteArray &User::getKey() const {
     return _key;
 }
 
-const QString User::getSignature() const {
-    return getKey().toBase64(QByteArray::Base64UrlEncoding);
-}
-
 void User::setKey(const QByteArray &newKey){
     _key = newKey;
 }
