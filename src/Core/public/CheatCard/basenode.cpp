@@ -52,8 +52,4 @@ const QSharedPointer<Interfaces::iDB> &BaseNode::db() const {
     return _db;
 }
 
-void BaseNode::init() {
-    initCheatCardBaseResources();
-}
-
 }

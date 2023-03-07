@@ -6,6 +6,7 @@
 //#
 
 #include "modelsstorage.h"
+#include "softdelete.h"
 
 namespace RC {
 
@@ -19,6 +20,10 @@ QSharedPointer<Interfaces::iModel> ModelsStorage::get(int id) const {
 
 QSharedPointer<Interfaces::iDB> ModelsStorage::db() const {
     return _db;
+}
+
+void ModelsStorage::softRemove(QH::SoftDelete *obj) {
+    obj->softDelete();
 }
 
 }

@@ -444,6 +444,21 @@
     </message>
 </context>
 <context>
+    <name>IncomeView</name>
+    <message>
+        <source>Select the number of purchases that the customer has made.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Seal</source>
+        <translation type="unfinished">Seal</translation>
+    </message>
+    <message>
+        <source>Check</source>
+        <translation type="unfinished">Check</translation>
+    </message>
+</context>
+<context>
     <name>ItemsView</name>
     <message>
         <source>Add</source>
@@ -715,6 +730,17 @@
     </message>
 </context>
 <context>
+    <name>RC::IncomeModel</name>
+    <message>
+        <source>We Have trouble</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>RC::MainModel</name>
     <message>
         <source>Your customers already using this card!</source>
@@ -921,17 +947,6 @@
     </message>
 </context>
 <context>
-    <name>RC::WaitConnectionModel</name>
-    <message>
-        <source>We Have trouble</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
-        <translation></translation>
-    </message>
-</context>
-<context>
     <name>RegistrationFinishedPage</name>
     <message>
         <source>Go to use</source>
@@ -1054,21 +1069,6 @@
     <name>UsersListView</name>
     <message>
         <source>Import new user</source>
-        <translation></translation>
-    </message>
-</context>
-<context>
-    <name>WaitConnectView</name>
-    <message>
-        <source>Seal</source>
-        <translation>Seal</translation>
-    </message>
-    <message>
-        <source>Check</source>
-        <translation>Check</translation>
-    </message>
-    <message>
-        <source>Select the number of purchases that the customer has made.</source>
         <translation></translation>
     </message>
 </context>

@@ -7,9 +7,7 @@
 
 #include "CheatCard/userheader.h"
 #include "iplatformtools.h"
-#include "rci/objects/isession.h"
-#include "waitconfirmmodel.h"
-#include "waitconnectionmodel.h"
+#include "incomemodel.h"
 #include <QQmlEngine>
 
 #include <QTimer>
@@ -17,20 +15,17 @@
 
 namespace RC {
 
-WaitConnectionModel::WaitConnectionModel() {
-    _waitModel = new WaitConfirmModel();
-    QQmlEngine::setObjectOwnership(_waitModel, QQmlEngine::CppOwnership);
+IncomeModel::IncomeModel() {
 }
 
-WaitConnectionModel::~WaitConnectionModel() {
-    delete _waitModel;
+IncomeModel::~IncomeModel() {
 }
 
-QObject* WaitConnectionModel::card() const {
+QObject* IncomeModel::card() const {
     return _card.data();
 }
 
-void WaitConnectionModel::setCard(const QSharedPointer<CardModel> &newCard) {
+void IncomeModel::setCard(const QSharedPointer<CardModel> &newCard) {
 
     if (_card == newCard)
         return;
@@ -38,18 +33,18 @@ void WaitConnectionModel::setCard(const QSharedPointer<CardModel> &newCard) {
     emit cardChanged();
 }
 
-int WaitConnectionModel::purchaseCount() const {
+int IncomeModel::purchaseCount() const {
     return _purchaseCount;
 }
 
-void WaitConnectionModel::setPurchaseCount(int newPurchaseCount) {
+void IncomeModel::setPurchaseCount(int newPurchaseCount) {
     if (_purchaseCount == newPurchaseCount)
         return;
     _purchaseCount = newPurchaseCount;
     emit purchaseCountChanged();
 }
 
-void WaitConnectionModel::begin() {
+void IncomeModel::begin() {
 
     auto header = QSharedPointer<UserHeader>::create();
     header->fromBytes(QByteArray::fromHex(_extraData.toLatin1()));
@@ -58,32 +53,28 @@ void WaitConnectionModel::begin() {
         return;
     }
 
-    if (!_waitModel->wait(header->getSessionId())) {
-        return;
-    }
-
     emit purchaseTaskCompleted(purchaseCount(), _card, header);
 }
 
-void WaitConnectionModel::cancel() {
+void IncomeModel::cancel() {
 }
 
-const QString &WaitConnectionModel::extraData() const {
+const QString &IncomeModel::extraData() const {
     return _extraData;
 }
 
-void WaitConnectionModel::setExtraData(const QString &newExtraData) {
+void IncomeModel::setExtraData(const QString &newExtraData) {
     if (_extraData == newExtraData)
         return;
     _extraData = newExtraData;
     emit extraDataChanged();
 }
 
-bool WaitConnectionModel::allowScreenDim() const {
+bool IncomeModel::allowScreenDim() const {
     return _allowScreenDim;
 }
 
-void WaitConnectionModel::setAllowScreenDim(bool newAllowScreenDim) {
+void IncomeModel::setAllowScreenDim(bool newAllowScreenDim) {
     if (_allowScreenDim == newAllowScreenDim)
         return;
     _allowScreenDim = newAllowScreenDim;
@@ -93,7 +84,7 @@ void WaitConnectionModel::setAllowScreenDim(bool newAllowScreenDim) {
     emit allowScreenDimChanged();
 }
 
-void WaitConnectionModel::handleSessionServerResult(QSharedPointer<RC::Interfaces::iSession> session,
+void IncomeModel::handleSessionServerResult(QSharedPointer<RC::Interfaces::iSession> session,
                                                     bool succesed) {
 
 
@@ -109,10 +100,6 @@ void WaitConnectionModel::handleSessionServerResult(QSharedPointer<RC::Interface
                            "", QmlNotificationService::NotificationData::Error);
 
     }
-}
-
-QObject *WaitConnectionModel::waitModel() const {
-    return _waitModel;
 }
 
 }

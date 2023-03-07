@@ -76,10 +76,6 @@ void CheatCardTestsHelper::makeSeals(const QSharedPointer<TestClient> &seller,
 
     auto clientKey = client->currntUserKey();
     for ( unsigned int i = 0; i < sealCount; ++i ) {
-
-#ifdef QT_DEBUG
-        qInfo() << "add seal N " << i + 1;
-#endif
         unsigned int count = seller->getPurchaseCount(client->currntUserKey(), cardId);
 
         QVERIFY(seller->incrementPurchase(clientKey, cardId));
@@ -114,10 +110,6 @@ void CheatCardTestsHelper::makeSealsFor(const QSharedPointer<TestClient> &seller
                                         unsigned int sealCount) {
 
     for ( unsigned int i = 0; i < sealCount; ++i ) {
-#ifdef QT_DEBUG
-        qInfo() << "add seal N " << i + 1;
-#endif
-
         unsigned int count = seller->getPurchaseCount(client, cardId);
 
         QVERIFY(seller->incrementPurchase(client, cardId));

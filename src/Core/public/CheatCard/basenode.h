@@ -15,10 +15,6 @@
 #include <QSslError>
 #include <rci/objects/iuser.h>
 
-inline void initCheatCardBaseResources() {
-    Q_INIT_RESOURCE(CheatCard);
-}
-
 namespace RC {
 
 namespace Interfaces{
@@ -33,7 +29,6 @@ public:
     const QSharedPointer<Interfaces::iDB>& db() const;
 
     static QString libVersion();
-    static void init();
 signals:
     void sigNetworkError(unsigned int errorCode,
                          QSslError::SslError sslError);

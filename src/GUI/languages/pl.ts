@@ -445,6 +445,21 @@
     </message>
 </context>
 <context>
+    <name>IncomeView</name>
+    <message>
+        <source>Select the number of purchases that the customer has made.</source>
+        <translation type="unfinished">Wybierz liczbę zakupów dokonanych przez klienta.</translation>
+    </message>
+    <message>
+        <source>Seal</source>
+        <translation type="unfinished">Foka</translation>
+    </message>
+    <message>
+        <source>Check</source>
+        <translation type="unfinished">Sprawdzać</translation>
+    </message>
+</context>
+<context>
     <name>ItemsView</name>
     <message>
         <source>Add</source>
@@ -716,6 +731,17 @@
     </message>
 </context>
 <context>
+    <name>RC::IncomeModel</name>
+    <message>
+        <source>We Have trouble</source>
+        <translation type="unfinished">Mamy kłopoty</translation>
+    </message>
+    <message>
+        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
+        <translation type="unfinished">Nie udało się wystawić premii lub pieczątki. Być może Twoje dane lokalne są przestarzałe, już zaktualizowaliśmy Twoje dane lokalne. Spróbuj ponownie, aby wystawić premię lub pieczątkę.</translation>
+    </message>
+</context>
+<context>
     <name>RC::MainModel</name>
     <message>
         <source>Your customers already using this card!</source>
@@ -922,17 +948,6 @@
     </message>
 </context>
 <context>
-    <name>RC::WaitConnectionModel</name>
-    <message>
-        <source>We Have trouble</source>
-        <translation>Mamy kłopoty</translation>
-    </message>
-    <message>
-        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
-        <translation>Nie udało się wystawić premii lub pieczątki. Być może Twoje dane lokalne są przestarzałe, już zaktualizowaliśmy Twoje dane lokalne. Spróbuj ponownie, aby wystawić premię lub pieczątkę.</translation>
-    </message>
-</context>
-<context>
     <name>RegistrationFinishedPage</name>
     <message>
         <source>Go to use</source>
@@ -1056,21 +1071,6 @@
     <message>
         <source>Import new user</source>
         <translation>Importuj nowego użytkownika</translation>
-    </message>
-</context>
-<context>
-    <name>WaitConnectView</name>
-    <message>
-        <source>Seal</source>
-        <translation>Foka</translation>
-    </message>
-    <message>
-        <source>Check</source>
-        <translation>Sprawdzać</translation>
-    </message>
-    <message>
-        <source>Select the number of purchases that the customer has made.</source>
-        <translation>Wybierz liczbę zakupów dokonanych przez klienta.</translation>
     </message>
 </context>
 </TS>

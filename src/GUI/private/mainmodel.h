@@ -34,8 +34,9 @@ class AboutModel;
 class CardsListModel;
 class UserModel;
 class ItemsModel;
-class WaitConnectionModel;
-class BaseNode;
+class IncomeModel;
+class WaitModel;
+class Client;
 class IBilling;
 class CardProxyModel;
 class SellerStatisticModel;
@@ -63,7 +64,9 @@ class MainModel : public QObject, public QuasarAppUtils::SettingsListner
 
     Q_PROPERTY(QObject * defaultLogosModel READ defaultLogosModel NOTIFY defaultLogosModelChanged)
     Q_PROPERTY(QObject * defaultBackgroundsModel READ defaultBackgroundsModel NOTIFY defaultBackgroundsModelChanged)
+    Q_PROPERTY(QObject * incomeModel READ incomeModel NOTIFY incomeModelChanged)
     Q_PROPERTY(QObject * waitModel READ waitModel NOTIFY waitModelChanged)
+
     Q_PROPERTY(QObject * statisticModel READ statisticModel NOTIFY statisticModelChanged)
     Q_PROPERTY(QObject * exportImportModel READ exportImportModel NOTIFY exportImportModelChanged)
     Q_PROPERTY(QObject * doctorModel READ doctorModel NOTIFY doctorModelChanged)
@@ -98,7 +101,7 @@ public:
     int getMode() const;
     void setMode(int newMode);
 
-    QObject *waitModel() const;
+    QObject *incomeModel() const;
 
     void initBilling(IBilling* billingObject);
 
@@ -107,12 +110,6 @@ public:
      */
     void flush();
 
-    /**
-     * @brief getReceivedItemsCount This method return count of all purches of @a cardId nad current user.
-     * @param cardId This is card id.
-     * @return count of of all purches of @a cardId nad current user. Else return 0
-     */
-    Q_INVOKABLE int getReceivedItemsCount(int cardId) const;
     Q_INVOKABLE bool fBillingAwailable() const;
     Q_INVOKABLE QString storeLink() const;
     Q_INVOKABLE void reload() const;
@@ -128,6 +125,8 @@ public:
 
     QObject *usersListModel() const;
     QObject *permisionsModel() const;
+
+    QObject *waitModel() const;
 
 public slots:
     void setCurrentUser(const QSharedPointer<RC::UserModel> &newCurrentUser);
@@ -147,7 +146,7 @@ signals:
 
     void modeChanged();
 
-    void waitModelChanged();
+    void incomeModelChanged();
     void statisticModelChanged();
 
     void exportImportModelChanged();
@@ -161,6 +160,8 @@ signals:
 
     void usersListModelChanged();
     void fFirstChanged();
+
+    void waitModelChanged();
 
 protected:
     void handleSettingsChanged(const QString &key, const QVariant &value) override;
@@ -201,7 +202,6 @@ private:
     const QSharedPointer<Interfaces::iDB>& db() const;
 
     void initModels();
-    void setBackEndModel(const QSharedPointer<BaseNode> &newModel);
 
     void configureCardsList();
 
@@ -216,11 +216,11 @@ private:
                                 int purchasesCount,
                                 bool receive);
 
-    CardsListModel* getCurrentListModel() const;    
-    void syncWithServer() const;
+    CardsListModel* getCurrentListModel() const;
     void setFirst(bool ffirst);
     void initCardsListModels();
     void initImagesModels();
+
     bool _firstRun = true;
 
     QSharedPointer<Interfaces::iDB> _db;
@@ -239,10 +239,6 @@ private:
     QSharedPointer<ModelsStorage> _modelStorage;
 
     IBilling *_billing = nullptr;
-
-    QSharedPointer<BaseNode> _backEndModel = nullptr;
-    QSharedPointer<BaseNode> _sellerbackEndModel = nullptr;
-    QSharedPointer<BaseNode> _visitorbackEndModel = nullptr;
 
     QSharedPointer<UserHeader> _lastUserHeader;
 

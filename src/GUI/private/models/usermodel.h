@@ -63,7 +63,7 @@ public:
 
     Q_INVOKABLE QString userBackUpData() const;
 
-    int userId() const;
+    QString userId() const;
     UserHeader getHelloPackage() const;
 
 signals:

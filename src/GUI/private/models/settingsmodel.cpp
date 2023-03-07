@@ -27,11 +27,11 @@ QuasarAppUtils::ISettings *SettingsModel::init() {
     return SettingsModel::initService<RC::SettingsModel>();
 }
 
-unsigned int SettingsModel::getCurrUser() {
-    return getValue(P_CURRENT_USER).toInt();
+QByteArray SettingsModel::getCurrUser() {
+    return getValue(P_CURRENT_USER).toByteArray();
 }
 
-void SettingsModel::setCurrUser(unsigned int id) {
+void SettingsModel::setCurrUser(const QByteArray &id) {
     setValue(P_CURRENT_USER, id);
     forceReloadCache();
 }
@@ -48,7 +48,7 @@ QVariant SettingsModel::getValueImplementation(const QString &key, const QVarian
 
     auto currentUser = getCurrUser();
     return QuasarAppUtils::Settings::getValueImplementation(
-                QString("%0-%1").arg(currentUser).arg(key), def);
+                QString("%0-%1").arg(currentUser, key), def);
 
 }
 
@@ -60,7 +60,7 @@ void SettingsModel::setValueImplementation(const QString key, const QVariant &va
 
     auto currentUser = getCurrUser();
     QuasarAppUtils::Settings::setValueImplementation(
-                QString("%0-%1").arg(currentUser).arg(key), value);
+                QString("%0-%1").arg(currentUser, key), value);
 }
 
 QHash<QString, QVariant> SettingsModel::defaultSettings() {

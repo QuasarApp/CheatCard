@@ -445,6 +445,21 @@
     </message>
 </context>
 <context>
+    <name>IncomeView</name>
+    <message>
+        <source>Select the number of purchases that the customer has made.</source>
+        <translation type="unfinished">შეარჩიეთ შესყიდვების რაოდენობა, რაც გააკეთა მომხმარებელმა.</translation>
+    </message>
+    <message>
+        <source>Seal</source>
+        <translation type="unfinished">ბეჭდვა</translation>
+    </message>
+    <message>
+        <source>Check</source>
+        <translation type="unfinished">ჩეკი</translation>
+    </message>
+</context>
+<context>
     <name>ItemsView</name>
     <message>
         <source>Add</source>
@@ -712,6 +727,17 @@
     </message>
 </context>
 <context>
+    <name>RC::IncomeModel</name>
+    <message>
+        <source>We Have trouble</source>
+        <translation type="unfinished">პრობლემები გვაქვს</translation>
+    </message>
+    <message>
+        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
+        <translation type="unfinished">ბონუსის ან შტამპის გაცემა ვერ მოხერხდა. შესაძლოა, თქვენი ადგილობრივი მონაცემები მოძველებულია, ჩვენ უკვე ვაახლებთ თქვენს ლოკალურ მონაცემებს. გთხოვთ, სცადოთ ხელახლა გამოუშვათ ბონუსი ან შტამპი.</translation>
+    </message>
+</context>
+<context>
     <name>RC::MainModel</name>
     <message>
         <source>We Have trouble</source>
@@ -918,17 +944,6 @@
     </message>
 </context>
 <context>
-    <name>RC::WaitConnectionModel</name>
-    <message>
-        <source>We Have trouble</source>
-        <translation>პრობლემები გვაქვს</translation>
-    </message>
-    <message>
-        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
-        <translation>ბონუსის ან შტამპის გაცემა ვერ მოხერხდა.შესაძლოა, თქვენი ადგილობრივი მონაცემები მოძველებულია, ჩვენ უკვე ვაახლებთ თქვენს ლოკალურ მონაცემებს.გთხოვთ, სცადოთ ხელახლა გამოუშვათ ბონუსი ან  შტამპი.</translation>
-    </message>
-</context>
-<context>
     <name>RegistrationFinishedPage</name>
     <message>
         <source>Done!</source>
@@ -1052,21 +1067,6 @@
     <message>
         <source>Import new user</source>
         <translation>ახალი მომხმარებლის იმპორტი</translation>
-    </message>
-</context>
-<context>
-    <name>WaitConnectView</name>
-    <message>
-        <source>Select the number of purchases that the customer has made.</source>
-        <translation>შეარჩიეთ შესყიდვების რაოდენობა, რაც გააკეთა მომხმარებელმა.</translation>
-    </message>
-    <message>
-        <source>Seal</source>
-        <translation>ბეჭდვა</translation>
-    </message>
-    <message>
-        <source>Check</source>
-        <translation>ჩეკი</translation>
     </message>
 </context>
 </TS>

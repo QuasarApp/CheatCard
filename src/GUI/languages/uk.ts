@@ -444,6 +444,21 @@
     </message>
 </context>
 <context>
+    <name>IncomeView</name>
+    <message>
+        <source>Select the number of purchases that the customer has made.</source>
+        <translation type="unfinished">Виберіть кількість покупок, які зробив клієнт.</translation>
+    </message>
+    <message>
+        <source>Seal</source>
+        <translation type="unfinished">Печатка</translation>
+    </message>
+    <message>
+        <source>Check</source>
+        <translation type="unfinished">Перевірте</translation>
+    </message>
+</context>
+<context>
     <name>ItemsView</name>
     <message>
         <source>Add</source>
@@ -715,6 +730,17 @@
     </message>
 </context>
 <context>
+    <name>RC::IncomeModel</name>
+    <message>
+        <source>We Have trouble</source>
+        <translation type="unfinished">У нас проблеми</translation>
+    </message>
+    <message>
+        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
+        <translation type="unfinished">Не вдалося надати бонус або штамп. Можливо, ваші локальні дані застаріли, ми вже оновлюємо ваші локальні дані. Будь ласка, спробуйте ще раз зробити видачу бонусом або печаткою.</translation>
+    </message>
+</context>
+<context>
     <name>RC::MainModel</name>
     <message>
         <source>Your customers already using this card!</source>
@@ -921,17 +947,6 @@
     </message>
 </context>
 <context>
-    <name>RC::WaitConnectionModel</name>
-    <message>
-        <source>We Have trouble</source>
-        <translation>У нас проблеми</translation>
-    </message>
-    <message>
-        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
-        <translation>Не вдалося надати бонус або штамп. Можливо, ваші локальні дані застаріли, ми вже оновлюємо ваші локальні дані. Будь ласка, спробуйте ще раз зробити видачу бонусом або печаткою.</translation>
-    </message>
-</context>
-<context>
     <name>RegistrationFinishedPage</name>
     <message>
         <source>Go to use</source>
@@ -1055,21 +1070,6 @@
     <message>
         <source>Import new user</source>
         <translation>Імпорт нового користувача</translation>
-    </message>
-</context>
-<context>
-    <name>WaitConnectView</name>
-    <message>
-        <source>Seal</source>
-        <translation>Печатка</translation>
-    </message>
-    <message>
-        <source>Check</source>
-        <translation>Перевірте</translation>
-    </message>
-    <message>
-        <source>Select the number of purchases that the customer has made.</source>
-        <translation>Виберіть кількість покупок, які зробив клієнт.</translation>
     </message>
 </context>
 </TS>

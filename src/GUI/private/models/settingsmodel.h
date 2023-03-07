@@ -59,8 +59,8 @@ public:
     */
     static ISettings* init();
 
-    unsigned int getCurrUser();
-    void setCurrUser(unsigned int id);
+    QByteArray getCurrUser();
+    void setCurrUser(const QByteArray& id);
 
 protected:
     void syncImplementation() override;

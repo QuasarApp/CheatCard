@@ -142,10 +142,8 @@ QString UserModel::userBackUpData() const {
     return _user->secret().toBase64(QByteArray::Base64UrlEncoding);
 }
 
-int UserModel::userId() const {
-    if (!_user)
-        return 0;
-    return _user->id();
+QString UserModel::userId() const {
+    return _user->getKey().toBase64();
 }
 
 

@@ -444,6 +444,21 @@
     </message>
 </context>
 <context>
+    <name>IncomeView</name>
+    <message>
+        <source>Select the number of purchases that the customer has made.</source>
+        <translation type="unfinished">Выберыце колькасць пакупак, зробленых кліентам.</translation>
+    </message>
+    <message>
+        <source>Seal</source>
+        <translation type="unfinished">Пячатка</translation>
+    </message>
+    <message>
+        <source>Check</source>
+        <translation type="unfinished">Праверыць</translation>
+    </message>
+</context>
+<context>
     <name>ItemsView</name>
     <message>
         <source>Add</source>
@@ -711,6 +726,17 @@
     </message>
 </context>
 <context>
+    <name>RC::IncomeModel</name>
+    <message>
+        <source>We Have trouble</source>
+        <translation type="unfinished">У нас праблемы</translation>
+    </message>
+    <message>
+        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
+        <translation type="unfinished">Не ўдалося выдаць бонус ці штамп. Магчыма, вашы лакальныя даныя састарэлі, мы ўжо абнаўляем вашы лакальныя даныя. Калі ласка, паспрабуйце яшчэ раз, каб выдаць бонус ці штамп.</translation>
+    </message>
+</context>
+<context>
     <name>RC::MainModel</name>
     <message>
         <source>We Have trouble</source>
@@ -917,17 +943,6 @@
     </message>
 </context>
 <context>
-    <name>RC::WaitConnectionModel</name>
-    <message>
-        <source>We Have trouble</source>
-        <translation>У нас праблемы</translation>
-    </message>
-    <message>
-        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
-        <translation>Не ўдалося выдаць бонус ці штамп. Магчыма, вашы лакальныя даныя састарэлі, мы ўжо абнаўляем вашы лакальныя даныя. Калі ласка, паспрабуйце яшчэ раз, каб выдаць бонус ці штамп.</translation>
-    </message>
-</context>
-<context>
     <name>RegistrationFinishedPage</name>
     <message>
         <source>Done!</source>
@@ -1051,21 +1066,6 @@
     <message>
         <source>Import new user</source>
         <translation>Імпартаваць новага карыстальніка</translation>
-    </message>
-</context>
-<context>
-    <name>WaitConnectView</name>
-    <message>
-        <source>Select the number of purchases that the customer has made.</source>
-        <translation>Выберыце колькасць пакупак, зробленых кліентам.</translation>
-    </message>
-    <message>
-        <source>Seal</source>
-        <translation>Пячатка</translation>
-    </message>
-    <message>
-        <source>Check</source>
-        <translation>Праверыць</translation>
     </message>
 </context>
 </TS>
