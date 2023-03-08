@@ -792,10 +792,6 @@
         <translation>Karta została zresetowana do domyślnej pomyślnie, ale wczytanie karty domyślnej z serwera nie powiodło się, więc otrzymasz kartę po nowym zakupie w instytucji, która ją wydała.</translation>
     </message>
     <message>
-        <source>We Have trouble</source>
-        <translation>Mamy kłopoty</translation>
-    </message>
-    <message>
         <source> You&apos;re trying to change the bonus rules. These changes will be saved as a new card. The old card continues to work correctly and all customers data will be saved. Do you want to continue?</source>
         <translation> Próbujesz zmienić zasady bonusów. Te zmiany zostaną zapisane jako nowa karta. Stara karta będzie nadal działać poprawnie, a wszystkie dane klientów zostaną zapisane. Czy chcesz kontynuować?</translation>
     </message>
@@ -810,10 +806,6 @@
     <message>
         <source>This client does not have any bonuses. Sorry... </source>
         <translation>Ten klient nie ma żadnych bonusów. Przepraszam... </translation>
-    </message>
-    <message>
-        <source>Failed to sync data with server. Please check your internet connection and try to restore your data again</source>
-        <translation>Nie udało się zsynchronizować danych z serwerem. Sprawdź połączenie internetowe i spróbuj ponownie przywrócić dane</translation>
     </message>
     <message>
         <source>We Have trouble: trouble code is %0</source>

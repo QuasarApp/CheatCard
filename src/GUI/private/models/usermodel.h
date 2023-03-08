@@ -31,10 +31,8 @@ class UserModel: public QObject, public QuasarAppUtils::SettingsListner, public 
     Q_OBJECT
 
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY objChanged)
-    Q_PROPERTY(int userId READ userId NOTIFY objChanged)
 
     Q_PROPERTY(bool fSaller READ fSaller NOTIFY objChanged)
-    Q_PROPERTY(long long sessinon READ getSessinon NOTIFY sessinonChanged)
     Q_PROPERTY(QString sessionCode READ sessionCode NOTIFY sessinonCodeChanged)
 
     QML_ELEMENT
@@ -50,8 +48,8 @@ public:
     QSharedPointer<Interfaces::iUser> user() const;
     void setUser(const QSharedPointer<Interfaces::iUser> &newUser);
 
-    long long getSessinon() const;
     const QString &sessionCode() const;
+    QByteArray userKey() const;
 
     Q_INVOKABLE void becomeSellerRequest();
     Q_INVOKABLE QString userBackUpPath() const;
@@ -59,29 +57,23 @@ public:
     const QByteArray &sellerToken() const;
     void setSellerToken(const QByteArray &newSellerToken);
 
-    void regenerateSessionKey();
-
     Q_INVOKABLE QString userBackUpData() const;
 
-    QString userId() const;
     UserHeader getHelloPackage() const;
 
 signals:
     void objChanged();
     void sigBecomeSeller();
-    void sessinonChanged();
 
     void sessinonCodeChanged();
 
 protected:
-    void setSessinon(long long newSessinon);
     void handleSettingsChanged(const QString& key, const QVariant& value) override;
 
 private:
     void setSessionCode(const QString& code);
 
     QSharedPointer<Interfaces::iUser> _user;
-    long long sessinon;
     QString _sessionCode;
     QByteArray _sellerToken;
 };

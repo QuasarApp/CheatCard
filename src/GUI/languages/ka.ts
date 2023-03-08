@@ -740,10 +740,6 @@
 <context>
     <name>RC::MainModel</name>
     <message>
-        <source>We Have trouble</source>
-        <translation>პრობლემები გვაქვს</translation>
-    </message>
-    <message>
         <source>Wow shit</source>
         <translation></translation>
     </message>
@@ -758,10 +754,6 @@
     <message>
         <source>Yor secret key are imported</source>
         <translation>თქვენი საიდუმლო გასაღები იმპორტირებულია</translation>
-    </message>
-    <message>
-        <source>Failed to sync data with server. Please check your internet connection and try to restore your data again</source>
-        <translation>სერვერთან მონაცემების სინქრონიზაცია ვერ მოხერხდა. გთხოვთ, შეამოწმოთ თქვენი ინტერნეტ კავშირი და ხელახლა სცადოთ თქვენი მონაცემების აღდგენა</translation>
     </message>
     <message>
         <source>Your customers already using this card!</source>

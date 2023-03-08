@@ -739,10 +739,6 @@
 <context>
     <name>RC::MainModel</name>
     <message>
-        <source>We Have trouble</source>
-        <translation>У нас праблемы</translation>
-    </message>
-    <message>
         <source>Wow shit</source>
         <translation>Во дзярмо</translation>
     </message>
@@ -757,10 +753,6 @@
     <message>
         <source>Yor secret key are imported</source>
         <translation>Ваш сакрэтны ключ імпартаваны</translation>
-    </message>
-    <message>
-        <source>Failed to sync data with server. Please check your internet connection and try to restore your data again</source>
-        <translation>Не ўдалося сінхранізаваць даныя з серверам. Калі ласка, праверце падключэнне да Інтэрнэту і паспрабуйце аднавіць дадзеныя яшчэ раз</translation>
     </message>
     <message>
         <source>Your customers already using this card!</source>

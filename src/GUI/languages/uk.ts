@@ -791,10 +791,6 @@
         <translation>Скидання картки за замовчуванням успішне, але завантажити картку за замовчуванням із сервера не вдалося, тому ви отримаєте картку після нової покупки в установі, яка видала цю картку.</translation>
     </message>
     <message>
-        <source>We Have trouble</source>
-        <translation>У нас проблеми</translation>
-    </message>
-    <message>
         <source> You&apos;re trying to change the bonus rules. These changes will be saved as a new card. The old card continues to work correctly and all customers data will be saved. Do you want to continue?</source>
         <translation> Ви намагаєтеся змінити правила бонусів. Ці зміни будуть збережені як нова картка. Стара картка продовжує працювати правильно, і всі дані клієнтів будуть збережені. Ви хочете продовжити?</translation>
     </message>
@@ -809,10 +805,6 @@
     <message>
         <source>This client does not have any bonuses. Sorry... </source>
         <translation>У цього клієнта немає бонусів. вибачте... </translation>
-    </message>
-    <message>
-        <source>Failed to sync data with server. Please check your internet connection and try to restore your data again</source>
-        <translation>Не вдалося синхронізувати дані із сервером. Перевірте підключення до Інтернету та спробуйте відновити дані ще раз</translation>
     </message>
     <message>
         <source>We Have trouble: trouble code is %0</source>

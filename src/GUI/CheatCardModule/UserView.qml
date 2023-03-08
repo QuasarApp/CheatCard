@@ -15,7 +15,7 @@ Page {
 
     id: root
     property var model: null
-    property string userDefaultAvatar: ""
+    property string userAvatar: ""
     property bool fCurrent: false;
 
     signal click(var mouse);
@@ -45,12 +45,12 @@ Page {
 
                 Image {
 
-                    id: userAvatar
+                    id: userAvatarView
                     asynchronous: true
                     fillMode: Image.PreserveAspectFit
 
-                    source: (userDefaultAvatar.length)?
-                                userDefaultAvatar:
+                    source: (userAvatar.length)?
+                                userAvatar:
                                 ":/images/private/resources/Logo/CheatCard_Logo1.png"
                     anchors.fill: parent
 
@@ -60,29 +60,12 @@ Page {
 
             GridLayout {
 
-                columns: 2
-                rows: 2
-
-                Label {
-                    text: qsTr("Id:");
-                }
-
-                Label {
-
-                    text: (root.model)? root.model.userId: ""
-                    horizontalAlignment: Label.AlignHCenter
-                    Layout.alignment: Qt.AlignHCenter
-
-                }
-
-                Label {
-                    text: qsTr("Name:");
-
-                }
+                columns: 1
+                rows: 1
 
                 Label {
                     id: nameEditor
-                    text: (root.model)? root.model.name: ""
+                    text: (root.model)? root.model.name: qsTr("User")
                 }
 
             }

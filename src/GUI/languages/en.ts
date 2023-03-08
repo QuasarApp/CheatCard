@@ -791,10 +791,6 @@
         <translation></translation>
     </message>
     <message>
-        <source>We Have trouble</source>
-        <translation></translation>
-    </message>
-    <message>
         <source> You&apos;re trying to change the bonus rules. These changes will be saved as a new card. The old card continues to work correctly and all customers data will be saved. Do you want to continue?</source>
         <translation></translation>
     </message>
@@ -808,10 +804,6 @@
     </message>
     <message>
         <source>This client does not have any bonuses. Sorry... </source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Failed to sync data with server. Please check your internet connection and try to restore your data again</source>
         <translation></translation>
     </message>
     <message>

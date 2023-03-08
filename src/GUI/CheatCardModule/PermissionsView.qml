@@ -98,9 +98,9 @@ CPage {
                         Layout.fillWidth: true
                         height: implicitHeight
                         model: userObject
-                        userDefaultAvatar: (root.model)?
-                                               root.model.userDefaultAvatar(userID):
-                                               ""
+                        userAvatar: (root.model)?
+                                        root.model.userDefaultAvatar(userID):
+                                        ""
                         fCurrent: list.model && userID === list.model.currentUserId
                         onClick: {
                             if (list.model) {
@@ -131,7 +131,7 @@ CPage {
                         font.pointSize: 14
 
                         onClicked: () => {
-                                        list.model.removePermision(rowNumber)
+                                       list.model.removePermision(rowNumber)
                                    }
                     }
                 }

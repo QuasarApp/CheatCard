@@ -131,7 +131,7 @@ bool MainModel::handleImportUser(const QString &base64UserData) {
     if (!userData->isValid()) {
         if (service) {
 
-            service->setNotify(tr("Wow shit"),
+            service->setNotify(tr("Wow"),
                                tr("This qr code is invalid. Sorry... "),
                                "", QmlNotificationService::NotificationData::Error);
         }
@@ -150,7 +150,10 @@ bool MainModel::handleImportUser(const QString &base64UserData) {
                        "", QmlNotificationService::NotificationData::Normal);
 
 
-    syncWithServer();
+    if (auto backEndModel = _modelStorage->get<ClientModel>()) {
+        backEndModel->subscribeToUser(userData->getKey());
+    };
+
     return true;
 }
 

@@ -39,8 +39,8 @@ public:
 
     enum Roles {
         UserObjectRole = Qt::UserRole,
-        UserId,
-        Row
+        Row,
+        DefaultAvatar
 
     };
 
@@ -48,23 +48,21 @@ public:
     int rowCount(const QModelIndex &parent = {}) const override;
     QVariant data(const QModelIndex &index, int role) const override;
 
-    Q_INVOKABLE QString userDefaultAvatar(int userId);
-
     QHash<int, QByteArray> roleNames() const override;
 
     void setUsers(const QList<QSharedPointer<Interfaces::iUser>>& list);
 
     QSharedPointer<UserModel>
     importUser(const QSharedPointer<Interfaces::iUser>& user);
-    void removeUser(int userId);
+    void removeUser(const QByteArray &userId);
 
-    const QHash<unsigned int, QSharedPointer<UserModel> > &
+    const QHash<QByteArray, QSharedPointer<UserModel> > &
     cache() const;
     QSharedPointer<UserModel> currentUser() const;
 
-    void setCurrentUser(unsigned int newCurrentUser);
+    void setCurrentUser(const QByteArray& newCurrentUser);
 
-    int currentUserId() const;
+    const QByteArray &currentUserId() const;
 
     QObject *currentUserModel() const;
 
@@ -85,9 +83,9 @@ private:
     QSharedPointer<UserModel>
     updateUser(const QSharedPointer<Interfaces::iUser>& user);
 
-    unsigned int _currentUser = 0;
-    QHash<unsigned int, QSharedPointer<UserModel>> _cache;
-    QList<unsigned int> _users;
+    QByteArray _currentUser;
+    QHash<QByteArray, QSharedPointer<UserModel>> _cache;
+    QList<QByteArray> _users;
     QSharedPointer<ImagesStorageModel> _defaultAvatars;
 
 };
