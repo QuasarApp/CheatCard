@@ -58,7 +58,6 @@ class MainModel : public QObject, public QuasarAppUtils::SettingsListner
     Q_OBJECT
     Q_PROPERTY(bool fFirst READ fFirst NOTIFY fFirstChanged)
 
-    Q_PROPERTY(QObject * currentUser READ currentUser NOTIFY currentUserChanged)
     Q_PROPERTY(QObject * cardsList READ cardsList NOTIFY cardsListChanged)
     Q_PROPERTY(int mode READ getMode WRITE setMode NOTIFY modeChanged)
 
@@ -90,9 +89,6 @@ public:
     Q_INVOKABLE void configureFinished();
     Q_INVOKABLE QObject *getAboutModel();
     Q_INVOKABLE QObject *getNetIndicatorModel() const;
-    QObject *currentUser() const;
-
-    const QSharedPointer<UserModel>& getCurrentUser() const;
 
     QObject *cardsList() const;
     QObject *defaultLogosModel() const;
@@ -112,7 +108,6 @@ public:
 
     Q_INVOKABLE bool fBillingAwailable() const;
     Q_INVOKABLE QString storeLink() const;
-    Q_INVOKABLE void reload() const;
 
     QObject *statisticModel() const;
 
@@ -129,7 +124,7 @@ public:
     QObject *waitModel() const;
 
 public slots:
-    void setCurrentUser(const QSharedPointer<RC::UserModel> &newCurrentUser);
+    void handleCurrentUserChanged(const QSharedPointer<RC::UserModel> &newCurrentUser);
 
     void handleFirstDataSendet();
     void handleBonusGivOut(int userId, int cardId, int givOutcount);
@@ -196,7 +191,6 @@ private slots:
     void handleSerrverSentError(unsigned char code, QString);
 
 private:
-    void saveUser();
     void lastStatusRequest();
 
     const QSharedPointer<Interfaces::iDB>& db() const;
@@ -224,12 +218,10 @@ private:
     bool _firstRun = true;
 
     QSharedPointer<Interfaces::iDB> _db;
-    QSharedPointer<UserModel> _currentUser;
     SettingsModel* _config = nullptr;
 
     QSharedPointer<CardsListModel> _cardsListModel;
     QSharedPointer<CardsListModel> _ownCardsListModel;
-
     QSharedPointer<CardProxyModel> _currentCardsListModel;
 
     SoundPlayback *_soundEffect = nullptr;
@@ -244,6 +236,7 @@ private:
 
     Mode _mode = Mode::Client;
     bool _fShowEmptyBonuspackaMessage = false;
+    QByteArray _currentUserKey;
     friend class ImageProvider;
 };
 

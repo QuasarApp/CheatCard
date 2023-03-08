@@ -93,8 +93,6 @@ void MainModel::configureFinished() {
     // First run setiing id.
     saveUser();
     setFirst(false);
-
-    _currentUser->regenerateSessionKey();
 }
 
 QObject *MainModel::getAboutModel() {
@@ -271,44 +269,41 @@ const QSharedPointer<UserModel>& MainModel::getCurrentUser() const {
     return _currentUser;
 }
 
-void MainModel::setCurrentUser(const QSharedPointer<RC::UserModel>& value) {
+void MainModel::handleCurrentUserChanged(const QSharedPointer<UserModel> &newCurrentUser) {
 
-    if (_currentUser == value)
+    if (!newCurrentUser)
         return;
 
-    _currentUser = value;
+    if (_currentUserKey == newCurrentUser->userKey())
+        return;
 
-    if (_currentUser) {
-        QByteArray userKey = _currentUser->user()->getKey();
+    _currentUserKey = newCurrentUser->userKey();
 
-        if (auto backEndModel = _modelStorage->get<ClientModel>()) {
-            backEndModel->setCurrntUserKey(userKey);
-        }
+    if (auto backEndModel = _modelStorage->get<ClientModel>()) {
+        backEndModel->setCurrntUserKey(_currentUserKey);
+    }
 
-        _config->setCurrUser(userKey);
+    _config->setCurrUser(_currentUserKey);
 
-        _currentUser->regenerateSessionKey();
+    // get list of owned cards
+    auto masterKeys = _db->getMasterKeys(_currentUserKey);
+    _ownCardsListModel->setCards(_db->getAllUserCards(_currentUserKey,
+                                                      false,
+                                                      masterKeys));
 
-        // get list of owned cards
-        auto masterKeys = _db->getMasterKeys(userKey);
-        _ownCardsListModel->setCards(_db->getAllUserCards(userKey,
-                                                          false,
-                                                          masterKeys));
+    // get list of included cards
+    _cardsListModel->setCards(_db->getAllUserCards(_currentUserKey,
+                                                   true,
+                                                   masterKeys));
 
-        // get list of included cards
-        _cardsListModel->setCards(_db->getAllUserCards(userKey,
-                                                       true,
-                                                       masterKeys));
+    _cardsListModel->updateMetaData(_db->getAllUserData(_currentUserKey));
+    auto model = _modelStorage->get<PermisionsModel>();
+    model->setPermissions(_db->getSlaveKeys(_currentUserKey));
 
-        _cardsListModel->updateMetaData(_db->getAllUserData(userKey));
-        auto model = _modelStorage->get<PermisionsModel>();
-        model->setPermissions(_db->getSlaveKeys(userKey));
-
-        if (_billing) {
-            connect(_currentUser.data(), &UserModel::sigBecomeSeller,
-                    _billing, &IBilling::becomeSeller);
-            _billing->init();
-        }
+    if (_billing) {
+        connect(newCurrentUser.data(), &UserModel::sigBecomeSeller,
+                _billing, &IBilling::becomeSeller);
+        _billing->init();
     }
 
     emit currentUserChanged();
@@ -526,15 +521,6 @@ QString MainModel::storeLink() const {
     return "";
 }
 
-void MainModel::reload() const {
-    auto netIdicatorModel = _modelStorage->getRaw<NetIndicatorModel>();
-    if (netIdicatorModel->dataExchanging()) {
-        return;
-    }
-
-    syncWithServer();
-}
-
 QObject *MainModel::statisticModel() const {
     return _modelStorage->getRaw<SellerStatisticModel>();
 }
@@ -545,8 +531,6 @@ int MainModel::getMode() const {
 
 void RC::MainModel::configureCardsList() {
     auto netIdicatorModel = _modelStorage->getRaw<NetIndicatorModel>();
-    auto permissionsModel = _modelStorage->getRaw<PermisionsModel>();
-    auto incomeModel = _modelStorage->getRaw<IncomeModel>();
     auto backEndModel = _modelStorage->getRaw<ClientModel>();
 
 
@@ -554,11 +538,6 @@ void RC::MainModel::configureCardsList() {
             &Client::sigAvailableNetworkChanged,
             netIdicatorModel,
             &NetIndicatorModel::handleEndaleNetworkChanged);
-
-    connect(backEndModel,
-            &Client::sigDataExchangingChanged,
-            netIdicatorModel,
-            &NetIndicatorModel::setDataExchanging);
 
     connect(backEndModel, &Client::sigPurchaseWasSuccessful,
             this, &MainModel::handlePurchaseWasSuccessful);
@@ -568,12 +547,6 @@ void RC::MainModel::configureCardsList() {
 
     connect(backEndModel, &BaseNode::sigNoLongerSupport,
             this, &MainModel::handleAppOutdated);
-
-    connect(backEndModel, &Client::sigSessionStatusResult,
-            incomeModel, &IncomeModel::handleSessionServerResult);
-
-    connect(backEndModel, &Client::sigContactsStatusResult,
-            permissionsModel, &PermisionsModel::handleServerResult);
 
     connect(backEndModel, &Client::sigContactsListChanged,
             this, &MainModel::handleContactsListChanged);
@@ -609,7 +582,7 @@ QObject *MainModel::cardsList() const {
 
 void MainModel::handleCardReceived(QSharedPointer<RC::Interfaces::iCard> card) {
 
-    if (card->isOvner(_currentUser->user()->id())) {
+    if (card->isOvner(_currentUser->user()->getKey())) {
         _ownCardsListModel->importCard(card);
 
     } else {
