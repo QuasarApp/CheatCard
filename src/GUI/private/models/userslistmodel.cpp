@@ -6,6 +6,7 @@
 
 #include <qaglobalutils.h>
 #include "imagesstoragemodel.h"
+#include <rci/core/idb.h>
 
 namespace RC {
 
@@ -58,7 +59,7 @@ QHash<int, QByteArray> RC::UsersListModel::roleNames() const {
 }
 
 void UsersListModel::setUsers(const QList<QSharedPointer<Interfaces::iUser> >
-                              &newUsers) {
+                                  &newUsers) {
     beginResetModel();
 
     _cache.clear();
@@ -140,34 +141,82 @@ void UsersListModel::init(const QSharedPointer<Interfaces::iDB> &db,
     _defaultAvatars = global->get(typeid(ImageLogoModel).hash_code()).staticCast<ImagesStorageModel>();
 }
 
+void UsersListModel::saveCurrentUser() {
+    handleUserEditFinished();
+}
+
+void UsersListModel::handleUserEditFinished() {
+    if (auto _db = db()) {
+        auto user = static_cast<UserModel*>(sender())->user();
+        _db->saveUser(user);
+    }
+}
+
 void UsersListModel::setCurrentUser(const QByteArray &newCurrentUser) {
 
-    if (_currentUser.size() && newCurrentUser == _currentUser) {
+    if (_currentUser && newCurrentUser == _currentUser->userKey()) {
         return;
     }
 
-    if (_cache.contains(newCurrentUser)) {
-        _currentUser = newCurrentUser;
-    } else if (_cache.size()) {
-        _currentUser = _cache.begin().key();
+    auto user = _cache.value(newCurrentUser);
+    if (!user) {
+        user = *_cache.begin();
     } else {
         return;
     }
 
+    setCurrentUserPrivate(user);
+}
+
+void UsersListModel::setCurrentUser(const QSharedPointer<Interfaces::iUser> &newCurrentUser) {
+
+    if (!_cache.contains(newCurrentUser->getKey())) {
+        setCurrentUserPrivate(importUser(newCurrentUser));
+    } else {
+        setCurrentUserPrivate(_cache.value(newCurrentUser->getKey()));
+    }
+}
+
+void UsersListModel::setCurrentUserPrivate(const QSharedPointer<UserModel> &newCurrentUser) {
+
+    if (_currentUser) {
+        disconnect(_currentUser.data(), &UserModel::objChanged,
+                   this, &UsersListModel::handleUserEditFinished);
+    }
+
+    _currentUser = newCurrentUser;
+
+    if (_currentUser) {
+        connect(_currentUser.data(), &UserModel::objChanged,
+                this, &UsersListModel::handleUserEditFinished);
+    }
+
     emit sigUserChanged(currentUser());
-    emit currentUserIdChanged();
+    emit currentUserKeyChanged(currentUser()->userKey());
 }
 
 const QHash<QByteArray, QSharedPointer<UserModel> > &UsersListModel::cache() const {
     return _cache;
 }
 
-QSharedPointer<UserModel> UsersListModel::currentUser() const {
-    return _cache.value(_currentUser, nullptr);
+const QSharedPointer<UserModel> &UsersListModel::currentUser() const {
+    return _currentUser;
 }
 
-const QByteArray& UsersListModel::currentUserId() const {
-    return _currentUser;
+QByteArray UsersListModel::currentUserKey() const {
+    if (_currentUser && _currentUser->user()) {
+        return _currentUser->user()->getKey();
+    }
+
+    return {};
+}
+
+QByteArray UsersListModel::currentUserSecret() const {
+    if (_currentUser && _currentUser->user()) {
+        return _currentUser->user()->secret();
+    }
+
+    return {};
 }
 
 QObject *UsersListModel::currentUserModel() const {

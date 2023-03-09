@@ -9,6 +9,7 @@
 #include <QBuffer>
 #include <QPixmap>
 #include <cmath>
+#include "qqmlengine.h"
 #include "rci/objects/icard.h"
 #include "rci/objects/iuserscards.h"
 #include "settingsmodel.h"
@@ -19,7 +20,8 @@
 
 namespace RC {
 CardModel::CardModel() {
-
+    QQmlEngine::setObjectOwnership(this,
+                                   QQmlEngine::CppOwnership);
 }
 
 CardModel::CardModel(QSharedPointer<Interfaces::iCard> card) {

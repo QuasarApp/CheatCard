@@ -28,9 +28,7 @@ class UsersListModel: public QAbstractListModel, public BaseModel
 {
     Q_OBJECT
     Q_PROPERTY(int usersCount READ usersCount NOTIFY usersCountChanged)
-
-    Q_PROPERTY(unsigned int currentUserId READ currentUserId WRITE setCurrentUser NOTIFY currentUserIdChanged)
-    Q_PROPERTY(QObject* currentUserModel READ currentUserModel NOTIFY currentUserIdChanged)
+    Q_PROPERTY(QObject* currentUserModel READ currentUserModel NOTIFY currentUserKeyChanged)
 
 public:
 
@@ -58,11 +56,13 @@ public:
 
     const QHash<QByteArray, QSharedPointer<UserModel> > &
     cache() const;
-    QSharedPointer<UserModel> currentUser() const;
+    const QSharedPointer<UserModel>& currentUser() const;
 
     void setCurrentUser(const QByteArray& newCurrentUser);
+    void setCurrentUser(const QSharedPointer<Interfaces::iUser> &newCurrentUser);
 
-    const QByteArray &currentUserId() const;
+    QByteArray currentUserKey() const;
+    QByteArray currentUserSecret() const;
 
     QObject *currentUserModel() const;
 
@@ -71,19 +71,24 @@ public:
     void init(const QSharedPointer<Interfaces::iDB> &db,
               const QSharedPointer<Interfaces::iModelsStorage> &global) override;
 
+    void saveCurrentUser();
+
 
 signals:
     void sigUserChanged(const QSharedPointer<RC::UserModel>& newUser);
-
-    void currentUserIdChanged();
-
+    void currentUserKeyChanged(const QByteArray& key);
     void usersCountChanged();
+
+private slots:
+    void handleUserEditFinished();
 
 private:
     QSharedPointer<UserModel>
     updateUser(const QSharedPointer<Interfaces::iUser>& user);
+    void setCurrentUserPrivate(const QSharedPointer<UserModel> &newCurrentUser);
 
-    QByteArray _currentUser;
+    QSharedPointer<UserModel> _currentUser;
+
     QHash<QByteArray, QSharedPointer<UserModel>> _cache;
     QList<QByteArray> _users;
     QSharedPointer<ImagesStorageModel> _defaultAvatars;

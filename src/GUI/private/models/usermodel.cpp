@@ -7,6 +7,7 @@
 
 #include "usermodel.h"
 #include "CheatCard/userheader.h"
+#include "qqmlengine.h"
 #include "rci/objects/iuser.h"
 #include "settingsmodel.h"
 
@@ -16,6 +17,8 @@ namespace RC {
 
 UserModel::UserModel(QSharedPointer<Interfaces::iUser> user) {
     setUser(user);
+    QQmlEngine::setObjectOwnership(this,
+                                   QQmlEngine::CppOwnership);
 }
 
 bool UserModel::fSaller() const {

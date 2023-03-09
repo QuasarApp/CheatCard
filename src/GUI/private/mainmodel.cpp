@@ -91,7 +91,10 @@ bool MainModel::fFirst() const {
 
 void MainModel::configureFinished() {
     // First run setiing id.
-    saveUser();
+    if (auto usersListModel = _modelStorage->get<UsersListModel>()) {
+        usersListModel->saveCurrentUser();
+    }
+
     setFirst(false);
 }
 
@@ -101,10 +104,6 @@ QObject *MainModel::getAboutModel() {
 
 QObject *MainModel::getNetIndicatorModel() const {
     return _modelStorage->getRaw<NetIndicatorModel>();
-}
-
-QObject *MainModel::currentUser() const {
-    return _currentUser.data();
 }
 
 bool MainModel::handleImportUser(const QString &base64UserData) {
@@ -138,10 +137,10 @@ bool MainModel::handleImportUser(const QString &base64UserData) {
     }
 
     auto usersListModel = _modelStorage->get<UsersListModel>();
+    if (!usersListModel)
+        return false;
 
-    auto newUser = usersListModel->importUser(userData);
-    usersListModel->setCurrentUser(userData->getKey());
-    saveUser();
+    usersListModel->setCurrentUser(userData);
 
     service->setNotify(tr("I managed to do it !"),
                        tr("Yor secret key are imported"),
@@ -193,34 +192,36 @@ void MainModel::handleAppOutdated(int) {
 }
 
 void MainModel::handlePermissionChanged(const QSharedPointer<Interfaces::iContacts> &permision) {
-    if (!_currentUser || !_currentUser->user()) {
-        return;
-    }
+    auto backEndModel = _modelStorage->get<ClientModel>();
+    auto usersModel = _modelStorage->get<UsersListModel>();
 
-    if (auto backEndModel = _modelStorage->get<ClientModel>()) {
+    if (backEndModel && usersModel) {
         backEndModel->updateContactData(permision,
-                                         _currentUser->user()->secret(),
+                                         usersModel->currentUserSecret(),
                                          false);
     }
 }
 
 void MainModel::handlePermissionRemoved(QSharedPointer<Interfaces::iContacts> permision) {
-    if (!_currentUser || !_currentUser->user()) {
-        return;
-    }
+    auto backEndModel = _modelStorage->get<ClientModel>();
+    auto usersModel = _modelStorage->get<UsersListModel>();
 
-    if (auto backEndModel = _modelStorage->get<ClientModel>()) {
+    if (backEndModel && usersModel) {
         backEndModel->updateContactData(permision,
-                                        _currentUser->user()->secret(),
+                                        usersModel->currentUserSecret(),
                                         true);
     }
 }
 
 void MainModel::handlePermissionAdded(QSharedPointer<UserHeader> childUserName) {
 
-    if (!_currentUser || !_currentUser->user()) {
+    auto usersModel = _modelStorage->get<UsersListModel>();
+    if (!usersModel)
         return;
-    }
+
+    auto currentUserModel = usersModel->currentUser();
+    if (!currentUserModel)
+        return;
 
     auto childUser = _db->makeEmptyUser();
     childUserName->toUser(childUser);
@@ -231,20 +232,27 @@ void MainModel::handlePermissionAdded(QSharedPointer<UserHeader> childUserName) 
     }
 
     auto contacts = _db->makeEmptyContact();
-    if (!RCUtils::createContact(_currentUser->user(), childUser, contacts)) {
+    if (!RCUtils::createContact(currentUserModel->user(), childUser, contacts)) {
         return;
     }
 
     if (auto backEndModel = _modelStorage->get<ClientModel>()) {
         backEndModel->updateContactData(contacts,
-                                        _currentUser->user()->secret(),
+                                        currentUserModel->user()->secret(),
                                         false);
     }
-
 }
 
 void MainModel::handleContactsListChanged() {
-    QByteArray userKey = _currentUser->user()->getKey();
+    auto usersModel = _modelStorage->get<UsersListModel>();
+    if (!usersModel)
+        return;
+
+    auto currentUserModel = usersModel->currentUser();
+    if (!currentUserModel)
+        return;
+
+    QByteArray userKey = currentUserModel->userKey();
 
     auto masterKeys = _db->getMasterKeys(userKey);
     _ownCardsListModel->setCards(_db->getAllUserCards(userKey,
@@ -263,10 +271,6 @@ void MainModel::handleSerrverSentError(unsigned char code,
                           " Message: \"%0.\" "
                           " Sorry ;)").arg(errorMessage),
                        "", QmlNotificationService::NotificationData::Error);
-}
-
-const QSharedPointer<UserModel>& MainModel::getCurrentUser() const {
-    return _currentUser;
 }
 
 void MainModel::handleCurrentUserChanged(const QSharedPointer<UserModel> &newCurrentUser) {
@@ -307,15 +311,6 @@ void MainModel::handleCurrentUserChanged(const QSharedPointer<UserModel> &newCur
     }
 
     emit currentUserChanged();
-}
-
-void MainModel::saveUser() {
-
-    if (_currentUser->user()->secret().isEmpty())
-        return;
-
-    _db->saveUser(_currentUser->user());
-    _config->setCurrUser(_currentUser->user()->getKey());
 }
 
 void MainModel::initCardsListModels() {
@@ -434,15 +429,6 @@ void MainModel::initModels() {
         return true;
     });
 
-    _modelStorage->add<ClientModel>([this](auto model, auto ) {
-        if (_currentUser) {
-            model->setCurrntUserKey(_currentUser->user()->getKey());
-        }
-        return true;
-    }, db());
-
-    configureCardsList();
-
     _modelStorage->add<UsersListModel>([this](auto model, auto) {
 
         auto result = _db->getAllUserWithPrivateKeys();
@@ -451,7 +437,7 @@ void MainModel::initModels() {
         setFirst(!result.size());
 
         connect(model.data(), &UsersListModel::sigUserChanged,
-                this, &MainModel::setCurrentUser);
+                this, &MainModel::handleCurrentUserChanged);
 
         if (!model->rowCount()) {
             model->importUser(_db->makeEmptyUser());
@@ -462,6 +448,24 @@ void MainModel::initModels() {
         return true;
 
     });
+
+    _modelStorage->add<ClientModel>([](auto model, auto storage) {
+        auto usersModel = storage.template get<UsersListModel>();
+        if (!usersModel)
+            return false;
+
+        auto currentUser = usersModel->currentUser();
+        if (currentUser) {
+            model->setCurrntUserKey(currentUser->user()->getKey());
+        }
+
+        connect(usersModel.data(), &UsersListModel::currentUserKeyChanged,
+                model.data(), &ClientModel::setCurrntUserKey);
+
+        return true;
+    }, db());
+
+    configureCardsList();
 }
 
 QObject *MainModel::incomeModel() const {
