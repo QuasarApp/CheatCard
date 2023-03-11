@@ -28,8 +28,7 @@ QVariant CardsListModel::data(const QModelIndex &index, int role) const {
         return {};
     }
 
-    int cardId = _cards[index.row()];
-
+    const QByteArray& cardId = _cards[index.row()];
     auto cacheData = _cache.value(cardId, {});
 
     if (cacheData) {
@@ -58,7 +57,7 @@ QHash<int, QByteArray> CardsListModel::roleNames() const {
     return roles;
 }
 
-const QList<int> &CardsListModel::cards() const {
+const QList<QByteArray> &CardsListModel::cards() const {
     return _cards;
 }
 
@@ -122,7 +121,7 @@ void CardsListModel::updateMetaData(const QList<QSharedPointer<Interfaces::iUser
     }
 }
 
-void CardsListModel::removeCard(int cardId) {
+void CardsListModel::removeCard(const QByteArray& cardId) {
 
     int index = _cards.indexOf(cardId);
 
@@ -139,7 +138,7 @@ void CardsListModel::removeCard(int cardId) {
     emit sigCardRemoved(cardId);
 }
 
-void CardsListModel::activateCard(int cardId) {
+void CardsListModel::activateCard(const QByteArray& cardId) {
     auto card = _cache.value(cardId);
     if (card) {
         handleActivate(card->card());
@@ -150,7 +149,7 @@ void CardsListModel::activateCardByIndex(int index) {
     activateCard(_cards.value(index));
 }
 
-const QHash<int, QSharedPointer<CardModel> > &CardsListModel::cache() const {
+const QHash<QByteArray, QSharedPointer<CardModel> > &CardsListModel::cache() const {
     return _cache;
 }
 

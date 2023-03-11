@@ -28,6 +28,8 @@ public:
     bool subscribeToUser(const QByteArray &user) const;
 
     bool updateCard(const QByteArray& cardId, unsigned int version);
+    bool requestCard(const QByteArray& cardId);
+
     bool deleteCard(const QByteArray& cardId);
 
     NodeType nodeType() const override;

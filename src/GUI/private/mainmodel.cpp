@@ -244,18 +244,8 @@ void MainModel::handlePermissionAdded(QSharedPointer<UserHeader> childUserName) 
 }
 
 void MainModel::handleContactsListChanged() {
-    auto usersModel = _modelStorage->get<UsersListModel>();
-    if (!usersModel)
-        return;
-
-    auto currentUserModel = usersModel->currentUser();
-    if (!currentUserModel)
-        return;
-
-    QByteArray userKey = currentUserModel->userKey();
-
-    auto masterKeys = _db->getMasterKeys(userKey);
-    _ownCardsListModel->setCards(_db->getAllUserCards(userKey,
+    auto masterKeys = _db->getMasterKeys(_currentUserKey);
+    _ownCardsListModel->setCards(_db->getAllUserCards(_currentUserKey,
                                                       false,
                                                       masterKeys));
 
@@ -478,7 +468,12 @@ QObject *MainModel::waitModel() const {
 
 void MainModel::initBilling(IBilling *billingObject) {
 
-    if (!_currentUser) {
+    auto usersModel = _modelStorage->get<UsersListModel>();
+    if (!usersModel)
+        return;
+
+    auto currentUser = usersModel->currentUser();
+    if (!currentUser) {
         QuasarAppUtils::Params::log("You try init billing before initialize user."
                                     " Please invoke the initBilling method after initialize user model.",
                                     QuasarAppUtils::Error);
@@ -490,7 +485,7 @@ void MainModel::initBilling(IBilling *billingObject) {
         disconnect(_billing, &IBilling::sigPurchaseReceived,
                    this, &MainModel::handlePurchaseReceived);
 
-        disconnect(_currentUser.data(), &UserModel::sigBecomeSeller,
+        disconnect(currentUser.data(), &UserModel::sigBecomeSeller,
                    _billing, &IBilling::becomeSeller);
     }
 
@@ -500,7 +495,7 @@ void MainModel::initBilling(IBilling *billingObject) {
         connect(_billing, &IBilling::sigPurchaseReceived,
                 this, &MainModel::handlePurchaseReceived);
 
-        connect(_currentUser.data(), &UserModel::sigBecomeSeller,
+        connect(currentUser.data(), &UserModel::sigBecomeSeller,
                 _billing, &IBilling::becomeSeller);
 
         _billing->init();
@@ -509,7 +504,9 @@ void MainModel::initBilling(IBilling *billingObject) {
 }
 
 void MainModel::flush() {
-    saveUser();
+    if (auto usersModel = _modelStorage->get<UsersListModel>())
+        usersModel->saveCurrentUser();
+
 }
 
 bool MainModel::fBillingAwailable() const {
@@ -585,8 +582,7 @@ QObject *MainModel::cardsList() const {
 }
 
 void MainModel::handleCardReceived(QSharedPointer<RC::Interfaces::iCard> card) {
-
-    if (card->isOvner(_currentUser->user()->getKey())) {
+    if (card->isOvner(_currentUserKey)) {
         _ownCardsListModel->importCard(card);
 
     } else {
@@ -595,7 +591,7 @@ void MainModel::handleCardReceived(QSharedPointer<RC::Interfaces::iCard> card) {
 
         _cardsListModel->importCard(card);
         if (_db) {
-            auto metaData = _db->getUserCardData(_currentUser->user()->id(), card->cardId());
+            auto metaData = _db->getUserCardData(_currentUserKey, card->cardId());
 
             if (metaData) {
                 _cardsListModel->updateMetaData({metaData});
@@ -615,25 +611,19 @@ void RC::MainModel::saveCard(const QSharedPointer<Interfaces::iCard>& card) {
     _db->saveCard(card);
 
     // send notification about updates to server
-    auto currentUserId  = _currentUser->userId();
-    if (card->isOvner(currentUserId)) {
-
-        auto seller = _backEndModel.dynamicCast<Seller>();
-        if (!seller)
+    if (card->isOvner(_currentUserKey)) {
+        auto backend = _modelStorage->get<ClientModel>();
+        if (!backend)
             return;
 
-        auto header = _currentUser->getHelloPackage();
-
-        seller->setPurchase(header,
-                            card->cardId(),
-                            0);
+        backend->updateCard(card->cardId(),
+                            card->getCardVersion());
 
     }
 }
 
 void MainModel::handleCardEditFinished(const QSharedPointer<Interfaces::iCard>& card) {
-
-    card->setOwnerSignature(getCurrentUser()->user()->getKey());
+    card->setOwnerSignature(_currentUserKey);
 
     auto localCard = _db->getCard(card->cardId());
 
@@ -642,7 +632,7 @@ void MainModel::handleCardEditFinished(const QSharedPointer<Interfaces::iCard>& 
     }
 
     auto listOfUsers = _db->getAllUserFromCard(card->cardId(),
-                                               _currentUser->userId());
+                                               _currentUserKey);
 
     if (localCard && listOfUsers.size() && localCard->getFreeIndex() != card->getFreeIndex()) {
 
@@ -655,8 +645,10 @@ void MainModel::handleCardEditFinished(const QSharedPointer<Interfaces::iCard>& 
                 saveCard(localCard);
 
                 if (accepted) {
+                    QByteArray newId;
+                    randomArray(32, newId);
 
-                    card->setId(rand());
+                    card->setCardId(newId);
                     getCurrentListModel()->importCard(card);
                     saveCard(card);
                 }
@@ -684,9 +676,14 @@ void MainModel::handleResetCardModel(const QSharedPointer<Interfaces::iCard> &ca
     card->setCardVersion(0);
     _db->saveCard(card);
 
-    auto service = QmlNotificationService::NotificationService::getService();
 
-    if (!_backEndModel->restoreOneCard(cardId)) {
+    auto backend = _modelStorage->get<ClientModel>();
+    if (!backend)
+        return;
+
+    if (!backend->requestCard(cardId)) {
+        auto service = QmlNotificationService::NotificationService::getService();
+
         service->setNotify(tr("We seem to have problems"),
                            tr("The card reset to default successful but load default card from server failed, "
                               "so you receive your card after new purchase in institution that has give out this card."),
@@ -713,7 +710,7 @@ void MainModel::handleRemoveRequest(const QSharedPointer<Interfaces::iCard> &car
         if (getMode()) {
             auto listOfUsers = _db->getAllActiveUserFromCard(card->cardId(),
                                                              Interfaces::ACTIVE_USER_TIME_LIMIT,
-                                                             _currentUser->userId());
+                                                             _currentUserKey);
 
             if (listOfUsers.size()) {
                 service->setNotify(tr("Operation not permitted"),
@@ -726,8 +723,8 @@ void MainModel::handleRemoveRequest(const QSharedPointer<Interfaces::iCard> &car
             listner(true);
 
             // only owners can remove the card on server
-            if (card->isOvner(_currentUser->userId()) ) {
-                if (auto backEnd = _backEndModel.dynamicCast<Seller>())
+            if (card->isOvner(_currentUserKey) ) {
+                if (auto backEnd = _modelStorage->get<ClientModel>())
                     backEnd->deleteCard(card->cardId());
             }
             return;
@@ -757,7 +754,7 @@ void MainModel::handleCardSelectedForWork(const QSharedPointer<CardModel> &card)
 void MainModel::handleCardSelectedForStatistic(const QSharedPointer<CardModel> &card) {
 
     if (auto statisticModel = _modelStorage->get<SellerStatisticModel>()) {
-        auto usersList = _db->getAllUserFromCard(card->card()->cardId(), _currentUser->userId());
+        auto usersList = _db->getAllUserFromCard(card->card()->cardId(), _currentUserKey);
         auto usersDataList = _db->getAllUserDataFromCard(card->card()->cardId());
 
         statisticModel->setDataList(card, usersList, usersDataList);
@@ -774,7 +771,6 @@ void MainModel::handlePurchaseWasSuccessful(QSharedPointer<RC::Interfaces::iUser
     if (alert)
         soundEffectPlayback("Seal");
 
-    auto cardModel = getCurrentListModel()->cache().value(card->getCard());
 
     if (_mode == Mode::Client) {
         getCurrentListModel()->updateMetaData({card});
@@ -785,14 +781,15 @@ void MainModel::handlePurchaseWasSuccessful(QSharedPointer<RC::Interfaces::iUser
 
     if (freeItems > 0) {
         if (alert) {
+            auto cardModel = getCurrentListModel()->cache().value(card->getCard());
+
             auto apModel = _modelStorage->get<ActivityProcessorModel>();
             if (!(apModel && apModel->freeItem(cardModel.data(), card->getUser(), freeItems))) {
                 QuasarAppUtils::Params::log("Fail to show bonus page.",
                                             QuasarAppUtils::Error);
             }
 
-            if (alert)
-                soundEffectPlayback("Bonus");
+            soundEffectPlayback("Bonus");
         }
 
     } else {
@@ -813,7 +810,7 @@ void MainModel::handleListenStart(int purchasesCount,
                                   QSharedPointer<RC::CardModel> model,
                                   QSharedPointer<UserHeader> header) {
 
-    _lastUserHeader = header;
+    _lastUserKey = header->userKey();
 
     QSharedPointer<Interfaces::iUser> client = _db->makeEmptyUser();
     if (!header->toUser(client) || !client->isValid()) {
@@ -826,7 +823,7 @@ void MainModel::handleListenStart(int purchasesCount,
         return;
     }
 
-    auto dbClientData = _db->getUser(header->getUserId());
+    auto dbClientData = _db->getUser(_lastUserKey);
     if (client->name().isEmpty()) {
         if (!dbClientData || dbClientData->name().isEmpty()) {
             client->setName(UsersNames::randomUserName());
@@ -840,27 +837,26 @@ void MainModel::handleListenStart(int purchasesCount,
         db()->saveUser(client);
     }
 
-    sendSellerDataToServer(header, model->card()->cardId(), purchasesCount, false);
+    sendSellerDataToServer(_lastUserKey, model->card()->cardId(), purchasesCount, false);
 }
 
-bool MainModel::sendSellerDataToServer(const QSharedPointer<UserHeader> &header,
-                                       unsigned int cardId,
+bool MainModel::sendSellerDataToServer(const QByteArray& userKey,
+                                       const QByteArray& cardId,
                                        int purchasesCount,
                                        bool receive) {
 
-    auto seller = _backEndModel.dynamicCast<Seller>();
-
+    auto seller = _modelStorage->get<ClientModel>();
     if (!seller)
         return false;
 
     bool sendResult = false;
     if (receive) {
-        sendResult = seller->sentDataToServerReceive(header, cardId, purchasesCount);
+        sendResult = seller->incrementReceived(userKey, cardId, purchasesCount);
     } else {
 
         // show message about users bonuses. see handlePurchaseWasSuccessful function.
         _fShowEmptyBonuspackaMessage = !purchasesCount;
-        sendResult = seller->incrementPurchase(header,
+        sendResult = seller->incrementPurchase(userKey,
                                                cardId,
                                                purchasesCount);
     }
@@ -911,42 +907,33 @@ void MainModel::handlePurchaseReceived(Purchase purchase) {
     if (purchase.token.isEmpty())
         return;
 
-    if (!_currentUser) {
+    auto usersModel = _modelStorage->get<UsersListModel>();
+    if (!usersModel) {
         return;
     }
 
-    _currentUser->setSellerToken(QByteArray::fromBase64(purchase.token.toLatin1(),
+    auto currentUser = usersModel->currentUser();
+    if (!currentUser) {
+        return;
+    }
+
+    currentUser->setSellerToken(QByteArray::fromBase64(purchase.token.toLatin1(),
                                                         QByteArray::Base64UrlEncoding));
 
-    initMode(_currentUser);
+    initMode(currentUser);
 
 }
 
-void MainModel::handleFirstDataSendet() {
-    if (_mode != Mode::Client) {
-        return;
-    }
+void MainModel::handleBonusGivOut(QByteArray userId, QByteArray cardId, int count) {
 
-    auto visitor = _backEndModel.dynamicCast<Visitor>();
-
-    if (!(visitor && _currentUser)) {
-        return;
-    }
-
-    visitor->checkCardData(_currentUser->getSessinon());
-}
-
-void MainModel::handleBonusGivOut(int userId, int cardId, int count) {
-
-    debug_assert(static_cast<unsigned int>(userId) == _lastUserHeader->getUserId(),
+    debug_assert(userId == _lastUserKey,
                  "handleBonusGivOut function should be works with one user!");
 
-    sendSellerDataToServer(_lastUserHeader, cardId, count, true);
+    sendSellerDataToServer(_lastUserKey, cardId, count, true);
 
 }
 
-void MainModel::handleSettingsChanged(const QString &, const QVariant &) {
-}
+void MainModel::handleSettingsChanged(const QString &, const QVariant &) {}
 
 QObject *MainModel::defaultLogosModel() const {
     return _defaultLogosModel.data();

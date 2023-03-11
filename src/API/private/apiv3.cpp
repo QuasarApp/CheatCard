@@ -663,6 +663,15 @@ bool ApiV3::deleteCard(const QByteArray& cardId,
 
 }
 
+bool ApiV3::requestCard(const QByteArray &cardId,
+                        QH::AbstractNodeInfo *dist,
+                        const std::function<void (int)> &cb) {
+    V3::CardDataRequest request;
+    request.setCardIds({cardId});
+
+    return sendAndRegisterCallBack(&request, dist, cb);
+}
+
 bool ApiV3::sendUpdateCard(const QByteArray& cardId,
                            unsigned int version,
                            QH::AbstractNodeInfo *dist,

@@ -68,6 +68,17 @@ public:
                             QH::AbstractNodeInfo *dist,
                             const std::function<void(int err)>& = {}) = 0;
 
+
+    /**
+     * @brief requestCard This is get card request
+     * @param cardId card id
+     * @param dist This is distanation node.
+     * @return true if request created and sent successful else false.
+     */
+    virtual bool requestCard(const QByteArray &cardId,
+                             QH::AbstractNodeInfo *dist,
+                             const std::function<void(int err)>& = {}) = 0;
+
     /**
      * @brief sendUpdateCard This request send new updated information about the card.
      * @param cardId card id

@@ -98,6 +98,19 @@ bool Client::updateCard(const QByteArray &cardId, unsigned int version) {
     });
 }
 
+bool Client::requestCard(const QByteArray &cardId) {
+    auto apiObject = api();
+    if (!apiObject) {
+        return false;
+    }
+
+    return apiObject->requestCard(cardId, _server, [](unsigned int err) {
+        if (err) {
+            QuasarAppUtils::Params::log("updateCard error ocurred");
+        }
+    });
+}
+
 bool Client::deleteCard(const QByteArray &cardId) {
 
     auto apiObject = api();

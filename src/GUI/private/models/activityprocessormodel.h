@@ -39,12 +39,12 @@ public:
      * @param freeItemsCount This is count of the free bonuses
      * @return true if bonus page showed successfull
      */
-    bool freeItem(QObject *card, int userId,
+    bool freeItem(QObject *card, const QByteArray &userId,
                   int freeItemsCount);
 
 signals:
     void sigNewActivity(QString qmlView, QObject* model);
-    void sigFreeItem(QObject *cardId, int userId,
+    void sigFreeItem(QObject *cardId, QByteArray userId,
                      int freeItemsCount);
 
 };

@@ -125,9 +125,7 @@ public:
 
 public slots:
     void handleCurrentUserChanged(const QSharedPointer<RC::UserModel> &newCurrentUser);
-
-    void handleFirstDataSendet();
-    void handleBonusGivOut(int userId, int cardId, int givOutcount);
+    void handleBonusGivOut(QByteArray userId, QByteArray cardId, int givOutcount);
 
 signals:
 
@@ -205,8 +203,8 @@ private:
 
     void soundEffectPlayback(const QString &soundName);
 
-    bool sendSellerDataToServer(const QSharedPointer<UserHeader> &header,
-                                unsigned int cardId,
+    bool sendSellerDataToServer(const QByteArray &userKey,
+                                const QByteArray &cardId,
                                 int purchasesCount,
                                 bool receive);
 
@@ -232,7 +230,7 @@ private:
 
     IBilling *_billing = nullptr;
 
-    QSharedPointer<UserHeader> _lastUserHeader;
+    QByteArray _lastUserKey;
 
     Mode _mode = Mode::Client;
     bool _fShowEmptyBonuspackaMessage = false;

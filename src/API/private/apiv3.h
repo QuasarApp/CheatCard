@@ -67,6 +67,10 @@ public:
                     QH::AbstractNodeInfo *dist,
                     const std::function<void(int err)>& = {}) override;
 
+    bool requestCard(const QByteArray &cardId,
+                    QH::AbstractNodeInfo *dist,
+                    const std::function<void(int err)>& = {}) override;
+
     bool sendUpdateCard(const QByteArray &cardId,
                         unsigned int version,
                         QH::AbstractNodeInfo *dist,

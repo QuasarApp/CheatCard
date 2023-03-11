@@ -45,19 +45,19 @@ public:
 
     QHash<int, QByteArray> roleNames() const override;
 
-    const QList<int> &cards() const;
+    const QList<QByteArray> &cards() const;
     void setCards(const QList<QSharedPointer<Interfaces::iCard>> &newCards);
     QSharedPointer<CardModel> importCard(const QSharedPointer<Interfaces::iCard> & card);
     void updateMetaData(const QList<QSharedPointer<RC::Interfaces::iUsersCards> > &purchasesNumbers);
 
-    Q_INVOKABLE void removeCard(int cardId) override;
-    Q_INVOKABLE void activateCard(int cardId) override;
+    void removeCard(const QByteArray& cardId) override;
+    void activateCard(const QByteArray& cardId) override;
     Q_INVOKABLE void activateCardByIndex(int index) override;
 
-    const QHash<int, QSharedPointer<CardModel>> &cache() const;
+    const QHash<QByteArray, QSharedPointer<CardModel> > &cache() const;
 
 signals:
-    void sigCardRemoved(unsigned int cardName);
+    void sigCardRemoved(QByteArray cardId);
     void sigRemoveRequest(const QSharedPointer<Interfaces::iCard>& card);
 
     void sigEditFinished(const QSharedPointer<Interfaces::iCard>& card);
@@ -74,9 +74,8 @@ private:
 
     void configureModel(const QSharedPointer<CardModel>& cardModel);
 
-    QHash<int, QSharedPointer<CardModel>> _cache;
-
-    QList<int> _cards;
+    QList<QSharedPointer<CardModel>> _cards;
+    QHash<QByteArray, QSharedPointer<CardModel>> _cache;
 };
 
 }
