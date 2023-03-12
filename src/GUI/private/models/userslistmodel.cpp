@@ -147,8 +147,10 @@ void UsersListModel::saveCurrentUser() {
 
 void UsersListModel::handleUserEditFinished() {
     if (auto _db = db()) {
-        auto user = static_cast<UserModel*>(sender())->user();
-        _db->saveUser(user);
+        if (auto userModel = static_cast<UserModel*>(sender())) {
+            auto user = userModel->user();
+            _db->saveUser(user);
+        }
     }
 }
 
@@ -159,11 +161,11 @@ void UsersListModel::setCurrentUser(const QByteArray &newCurrentUser) {
     }
 
     auto user = _cache.value(newCurrentUser);
-    if (!user) {
+    if (!user)
         user = *_cache.begin();
-    } else {
+
+    if (!user)
         return;
-    }
 
     setCurrentUserPrivate(user);
 }

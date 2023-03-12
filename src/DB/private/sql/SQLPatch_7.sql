@@ -84,9 +84,9 @@ CREATE UNIQUE INDEX IF NOT EXISTS "UsersDataIndex" ON "UsersData" (
         "card"
 );
 
-DROP TABLE Config;
-DROP TABLE NetworkMembers;
-DROP TABLE MemberPermisions;
-DROP TABLE DefaultPermissions;
+DROP TABLE IF EXISTS Config;
+DROP TABLE IF EXISTS NetworkMembers;
+DROP TABLE IF EXISTS MemberPermisions;
+DROP TABLE IF EXISTS DefaultPermissions;
 
 COMMIT;
