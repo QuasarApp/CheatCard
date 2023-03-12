@@ -49,9 +49,6 @@ public:
 
 public slots:
 
-    void handleServerResult(const QSharedPointer<RC::Interfaces::iContacts>& contact,
-                            bool succesed, bool removed);
-
 signals:
     void sigPermisionUpdated(const QSharedPointer<RC::Interfaces::iContacts>& permision);
     void sigPermisionRemoved(QSharedPointer<RC::Interfaces::iContacts> permision);
@@ -64,7 +61,7 @@ private:
     QSharedPointer<Interfaces::iUser>
     toUser(const QSharedPointer<Interfaces::iContacts> &contact);
 
-    QHash<unsigned int, QSharedPointer<RC::Interfaces::iContacts>> _data;
+    QHash<QByteArray, QSharedPointer<RC::Interfaces::iContacts>> _data;
     QSharedPointer<RC::UserModel> _currentUserModel;
     WaitConfirmModel *_waitModel = nullptr;
     QRCodeDecoder *_codeProcessor = nullptr;

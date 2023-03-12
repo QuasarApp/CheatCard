@@ -74,7 +74,7 @@ private:
 
     void configureModel(const QSharedPointer<CardModel>& cardModel);
 
-    QList<QSharedPointer<CardModel>> _cards;
+    QList<QByteArray> _cards;
     QHash<QByteArray, QSharedPointer<CardModel>> _cache;
 };
 

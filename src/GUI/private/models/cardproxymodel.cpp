@@ -13,13 +13,13 @@ CardProxyModel::CardProxyModel() {
 
 }
 
-void CardProxyModel::removeCard(int cardId) {
+void CardProxyModel::removeCard(const QByteArray& cardId) {
     if (auto source = dynamic_cast<iCardListModel*>(sourceModel())) {
         source->removeCard(cardId);
     }
 }
 
-void CardProxyModel::activateCard(int cardId) {
+void CardProxyModel::activateCard(const QByteArray &cardId) {
     if (auto source = dynamic_cast<iCardListModel*>(sourceModel())) {
         source->activateCard(cardId);
     }

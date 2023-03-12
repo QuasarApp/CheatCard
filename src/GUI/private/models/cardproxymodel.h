@@ -21,8 +21,8 @@ class CardProxyModel: public QSortFilterProxyModel, public iCardListModel
 public:
     CardProxyModel();
 
-    Q_INVOKABLE void removeCard(int cardId) override;
-    Q_INVOKABLE void activateCard(int cardId) override;
+    void removeCard(const QByteArray& cardId) override;
+    void activateCard(const QByteArray& cardId) override;
     Q_INVOKABLE void activateCardByIndex(int index) override;
 
 protected:

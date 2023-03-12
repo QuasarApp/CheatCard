@@ -84,22 +84,4 @@ void IncomeModel::setAllowScreenDim(bool newAllowScreenDim) {
     emit allowScreenDimChanged();
 }
 
-void IncomeModel::handleSessionServerResult(QSharedPointer<RC::Interfaces::iSession> session,
-                                                    bool succesed) {
-
-
-    _waitModel->confirm(session->getSessionId(), succesed);
-
-    if (!succesed) {
-        auto service = QmlNotificationService::NotificationService::getService();
-        service->setNotify(tr("We Have trouble"),
-                           tr("Failed to issue a bonus or stamp."
-                              " Maybe your local data is deprecated, "
-                              " we already update your local data. "
-                              " Please try again make issue a bonus or stamp."),
-                           "", QmlNotificationService::NotificationData::Error);
-
-    }
-}
-
 }

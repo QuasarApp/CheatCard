@@ -181,7 +181,7 @@ private slots:
     void handlePurchaseReceived(RC::Purchase purchase);
     void saveCard(const QSharedPointer<RC::Interfaces::iCard> &card);
     void handleCardCreated(const QSharedPointer<RC::Interfaces::iCard> &card);
-    void handleAppOutdated(int minimumRequiredVersion);
+    void handleAppOutdated(const QString &, unsigned short);
     void handlePermissionChanged(const QSharedPointer<RC::Interfaces::iContacts>& permision);
     void handlePermissionRemoved(QSharedPointer<RC::Interfaces::iContacts> permision);
     void handlePermissionAdded(QSharedPointer<RC::UserHeader> childUserName);

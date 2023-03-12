@@ -59,7 +59,7 @@ QImage ImageResponse::prepareImage(const QString &id, const QSize &size) {
     }
 
     if (_db) {
-        unsigned int id = request.value(1).toUInt();
+        QByteArray id = QByteArray::fromBase64(request.value(1).toLatin1());
         auto dbObj = _db->getCardField(id, type);
 
         if (dbObj.isNull()) {

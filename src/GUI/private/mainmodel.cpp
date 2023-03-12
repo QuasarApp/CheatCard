@@ -186,7 +186,7 @@ void MainModel::handleCardCreated(const QSharedPointer<Interfaces::iCard>& card)
     handleCardEditFinished(card);
 }
 
-void MainModel::handleAppOutdated(int) {
+void MainModel::handleAppOutdated(const QString& , unsigned short ) {
     auto model = _modelStorage->get<ActivityProcessorModel>();
     model->newActivity("qrc:/CheatCardModule/UpdateRequestPage.qml");
 }

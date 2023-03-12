@@ -41,7 +41,7 @@ void PermisionsModel::setPermissions(const QList<QSharedPointer<Interfaces::iCon
 
 
     for (const QSharedPointer<Interfaces::iContacts>& permision : newData) {
-        _data.insert(permision->getChildUserId(),
+        _data.insert(permision->getChildUserKey(),
                      permision
                      );
 
@@ -55,7 +55,6 @@ PermisionsModel::toUser(const QSharedPointer<Interfaces::iContacts>& contact) {
         auto result = _db->makeEmptyUser();
 
         result->setKey(contact->getChildUserKey());
-        result->setId(RCUtils::makeUserId(contact->getChildUserKey()));
         result->setName(contact->getInfo());
 
         return result;
@@ -66,20 +65,6 @@ PermisionsModel::toUser(const QSharedPointer<Interfaces::iContacts>& contact) {
 
 QObject *PermisionsModel::waitModel() const {
     return _waitModel;
-}
-
-void PermisionsModel::handleServerResult(const QSharedPointer<Interfaces::iContacts>& contact,
-                                         bool succesed, bool removed) {
-
-    _waitModel->confirm(1, succesed);
-
-    if (removed) {
-        _data.remove(contact->getChildUserId());
-        removeUser(contact->getChildUserId());
-    } else {
-        _data[contact->getChildUserId()] = contact;
-        importUser(toUser(contact));
-    }
 }
 
 void PermisionsModel::handleImageDecodet(const QString &data) {
@@ -102,12 +87,12 @@ void PermisionsModel::setNewDescription(int row, const QString &description) {
 
     userModel->setName(description);
 
-    if (_data.contains(userModel->userId())) {
-        _data[userModel->userId()]->setInfo(description);
+    if (_data.contains(userModel->userKey())) {
+        _data[userModel->userKey()]->setInfo(description);
 
         _waitModel->wait(1);
 
-        emit sigPermisionUpdated(_data[userModel->userId()]);
+        emit sigPermisionUpdated(_data[userModel->userKey()]);
     }
 }
 
@@ -143,14 +128,14 @@ void PermisionsModel::removePermision(int row) {
         return;
     }
 
-    if (_data.contains(userModel->userId())) {
+    if (_data.contains(userModel->userKey())) {
         auto service = QmlNotificationService::NotificationService::getService();
 
 
         QmlNotificationService::Listner listner = [userModel, this] (bool accepted) {
             if (accepted) {
                 _waitModel->wait(1);
-                emit sigPermisionRemoved(_data[userModel->userId()]);
+                emit sigPermisionRemoved(_data[userModel->userKey()]);
             }
         };
 

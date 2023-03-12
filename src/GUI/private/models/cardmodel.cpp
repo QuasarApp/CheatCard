@@ -6,13 +6,14 @@
 //#
 
 #include "cardmodel.h"
+#include "rci/core/imodelsstorage.h"
+#include "userslistmodel.h"
 #include <QBuffer>
 #include <QPixmap>
 #include <cmath>
 #include "qqmlengine.h"
 #include "rci/objects/icard.h"
 #include "rci/objects/iuserscards.h"
-#include "settingsmodel.h"
 #include <QDesktopServices>
 #include <rci/rcutils.h>
 
@@ -28,10 +29,14 @@ CardModel::CardModel(QSharedPointer<Interfaces::iCard> card) {
     setCard(card);
 }
 
-unsigned int CardModel::cardId() const {
+QByteArray CardModel::cardId() const {
     if (!_card)
-        return -1;
+        return {};
     return _card->cardId();
+}
+
+QString CardModel::cardIdBase64() const {
+    return _base64;
 }
 
 int CardModel::purchasesNumber() const {
@@ -56,6 +61,7 @@ void CardModel::setCard(const QSharedPointer<Interfaces::iCard> &newCard) {
         return;
 
     _card = newCard;
+    _base64 = _card->cardId().toBase64();
 
     emit objChanged();
 }
@@ -348,12 +354,11 @@ int CardModel::availableItems(const QSharedPointer<Interfaces::iUsersCards> &dat
 
 bool CardModel::isMaster() const {
 
-    auto config = dynamic_cast<RC::SettingsModel*>(QuasarAppUtils::ISettings::instance());
-
-    if (!config)
+    auto usersModel = storage()->get<UsersListModel>();
+    if (!usersModel)
         return false;
 
-    return RCUtils::makeUserId(_card->ownerSignature()) != config->getCurrUser();
+    return _card->ownerSignature() != usersModel->currentUserKey();
 }
 
 void CardModel::openTelegram() const {
