@@ -439,7 +439,7 @@ void MainModel::initModels() {
 
     });
 
-    _modelStorage->add<ClientModel>([](auto model, auto storage) {
+    _modelStorage->add<ClientModel>([this](auto model, auto storage) {
         auto usersModel = storage.template get<UsersListModel>();
         if (!usersModel)
             return false;
