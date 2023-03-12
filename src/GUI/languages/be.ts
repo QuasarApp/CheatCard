@@ -726,22 +726,7 @@
     </message>
 </context>
 <context>
-    <name>RC::IncomeModel</name>
-    <message>
-        <source>We Have trouble</source>
-        <translation type="unfinished">У нас праблемы</translation>
-    </message>
-    <message>
-        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
-        <translation type="unfinished">Не ўдалося выдаць бонус ці штамп. Магчыма, вашы лакальныя даныя састарэлі, мы ўжо абнаўляем вашы лакальныя даныя. Калі ласка, паспрабуйце яшчэ раз, каб выдаць бонус ці штамп.</translation>
-    </message>
-</context>
-<context>
     <name>RC::MainModel</name>
-    <message>
-        <source>Wow shit</source>
-        <translation>Во дзярмо</translation>
-    </message>
     <message>
         <source>This qr code is invalid. Sorry... </source>
         <translation>Гэты QR-код несапраўдны. Прабач... </translation>
@@ -818,6 +803,10 @@
         <source>It is still works, but in the next releases the support of this qr code will be dropped. Please. Create the new recovery Qr code.</source>
         <translation>Ён усё яшчэ працуе, але ў наступных выпусках падтрымка гэтага qr-кода будзе адменена. Калі ласка. Стварыце новы Qr-код аднаўлення.</translation>
     </message>
+    <message>
+        <source>Wow</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RC::NetIndicatorModel</name>
@@ -873,10 +862,6 @@
     <message>
         <source>Name</source>
         <translation>Імя</translation>
-    </message>
-    <message>
-        <source>Id</source>
-        <translation></translation>
     </message>
     <message>
         <source>Purchases</source>
@@ -1045,12 +1030,8 @@
 <context>
     <name>UserView</name>
     <message>
-        <source>Id:</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Name:</source>
-        <translation>Імя:</translation>
+        <source>User</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

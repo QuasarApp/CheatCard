@@ -449,7 +449,7 @@ void MainModel::initModels() {
             model->setCurrntUserKey(currentUser->user()->getKey());
         }
 
-        connect(usersModel.data(), &UsersListModel::currentUserKeyChanged,
+        this->connect(usersModel.data(), &UsersListModel::currentUserKeyChanged,
                 model.data(), &ClientModel::setCurrntUserKey);
 
         return true;
@@ -926,7 +926,7 @@ void MainModel::handlePurchaseReceived(Purchase purchase) {
 
 void MainModel::handleBonusGivOut(QByteArray userId, QByteArray cardId, int count) {
 
-    debug_assert(userId == _lastUserKey,
+    debug_assert((userId == _lastUserKey),
                  "handleBonusGivOut function should be works with one user!");
 
     sendSellerDataToServer(_lastUserKey, cardId, count, true);

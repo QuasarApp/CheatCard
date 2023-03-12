@@ -731,17 +731,6 @@
     </message>
 </context>
 <context>
-    <name>RC::IncomeModel</name>
-    <message>
-        <source>We Have trouble</source>
-        <translation type="unfinished">Mamy kłopoty</translation>
-    </message>
-    <message>
-        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
-        <translation type="unfinished">Nie udało się wystawić premii lub pieczątki. Być może Twoje dane lokalne są przestarzałe, już zaktualizowaliśmy Twoje dane lokalne. Spróbuj ponownie, aby wystawić premię lub pieczątkę.</translation>
-    </message>
-</context>
-<context>
     <name>RC::MainModel</name>
     <message>
         <source>Your customers already using this card!</source>
@@ -758,10 +747,6 @@
     <message>
         <source>Sorry but not</source>
         <translation>Przepraszam, ale nie</translation>
-    </message>
-    <message>
-        <source>Wow shit</source>
-        <translation>Wow cholera</translation>
     </message>
     <message>
         <source>This qr code is invalid. Sorry... </source>
@@ -823,6 +808,10 @@
         <source>It is still works, but in the next releases the support of this qr code will be dropped. Please. Create the new recovery Qr code.</source>
         <translation>Nadal działa, ale w następnych wydaniach obsługa tego kodu qr zostanie usunięta. Proszę. Utwórz nowy kod Qr odzyskiwania.</translation>
     </message>
+    <message>
+        <source>Wow</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RC::NetIndicatorModel</name>
@@ -882,10 +871,6 @@
     <message>
         <source>Last visit</source>
         <translation>Ostatnia wizyta</translation>
-    </message>
-    <message>
-        <source>Id</source>
-        <translation></translation>
     </message>
     <message>
         <source>Purchases</source>
@@ -1050,12 +1035,8 @@
 <context>
     <name>UserView</name>
     <message>
-        <source>Id:</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Name:</source>
-        <translation>Nazwa:</translation>
+        <source>User</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
