@@ -9,6 +9,7 @@
 #include "restoredatatest.h"
 #include "securitytest.h"
 #include "fixbrokenuserstest.h"
+#include "upgradedatabasetest.h"
 #include "apitest.h"
 
 // Use This macros for initialize your own test classes.
@@ -39,6 +40,8 @@ private slots:
     TestCase(securityTest, SecurityTest)
     TestCase(restoreDataTest, RestoreDataTest)
     TestCase(fixBrokenUsersTest, FixBrokenUsersTest)
+    TestCase(upgradeDataBaseTest, UpgradeDataBaseTest)
+
     // END TEST CASES
 
 private:

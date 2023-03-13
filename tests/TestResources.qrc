@@ -1,3 +1,5 @@
 <RCC>
-    <qresource prefix="/sql"/>
+    <qresource prefix="/sql">
+        <file>sql/DBv6.db.sql</file>
+    </qresource>
 </RCC>
