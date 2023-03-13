@@ -273,13 +273,6 @@ ApplicationWindow {
         id: userPanel
         y: header.height
         height: mainWindow.height - toolBar.height
-        property int isOpen: position
-        onIsOpenChanged: {
-            if (mainModel && !isOpen) {
-                mainModel.handleFirstDataSendet();
-            }
-        }
-
         contentItem: EditUserView {
             model: mainModel
             maximuWidth:  mainWindow.width - leftPadding - rightPadding

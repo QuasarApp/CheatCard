@@ -194,15 +194,10 @@ private:
     const QSharedPointer<Interfaces::iDB>& db() const;
 
     void initModels();
-
     void configureCardsList();
-
     void setCardListModel(const QSharedPointer<CardsListModel>& model);
-
     void initMode(const QSharedPointer<UserModel>& user);
-
     void soundEffectPlayback(const QString &soundName);
-
     bool sendSellerDataToServer(const QByteArray &userKey,
                                 const QByteArray &cardId,
                                 int purchasesCount,

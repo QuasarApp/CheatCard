@@ -21,12 +21,6 @@ StackView {
         }
     }
 
-    onDepthChanged: {
-        if (depth <= 1 && mainModel) {
-            mainModel.handleFirstDataSendet();
-        }
-    }
-
     function newActivityFromComponent(component, activityModel) {
         var activity = component.createObject(root);
         if (activity === null) {

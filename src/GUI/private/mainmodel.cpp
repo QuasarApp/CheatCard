@@ -441,7 +441,9 @@ void MainModel::initModels() {
 
     _modelStorage->add<ClientModel>([this](auto model, auto storage) {
         auto usersModel = storage.template get<UsersListModel>();
-        if (!usersModel)
+        auto netIdicatorModel = _modelStorage->getRaw<NetIndicatorModel>();
+
+        if (!(usersModel && netIdicatorModel))
             return false;
 
         auto currentUser = usersModel->currentUser();
@@ -449,13 +451,33 @@ void MainModel::initModels() {
             model->setCurrntUserKey(currentUser->user()->getKey());
         }
 
-        this->connect(usersModel.data(), &UsersListModel::currentUserKeyChanged,
+        connect(model.data(),
+                &Client::sigAvailableNetworkChanged,
+                netIdicatorModel,
+                &NetIndicatorModel::handleEndaleNetworkChanged);
+
+        connect(model.data(), &Client::sigPurchaseWasSuccessful,
+                this, &MainModel::handlePurchaseWasSuccessful);
+
+        connect(model.data(), &Client::sigCardReceived,
+                this, &MainModel::handleCardReceived);
+
+        connect(model.data(), &BaseNode::sigNoLongerSupport,
+                this, &MainModel::handleAppOutdated);
+
+        connect(model.data(), &Client::sigContactsListChanged,
+                this, &MainModel::handleContactsListChanged);
+
+        connect(model.data(), &BaseNode::requestError,
+                this, &MainModel::handleSerrverSentError);
+
+        connect(usersModel.data(), &UsersListModel::currentUserKeyChanged,
                 model.data(), &ClientModel::setCurrntUserKey);
 
         return true;
     }, db());
-
     configureCardsList();
+
 }
 
 QObject *MainModel::incomeModel() const {
@@ -531,29 +553,11 @@ int MainModel::getMode() const {
 }
 
 void RC::MainModel::configureCardsList() {
-    auto netIdicatorModel = _modelStorage->getRaw<NetIndicatorModel>();
-    auto backEndModel = _modelStorage->getRaw<ClientModel>();
-
-
-    connect(backEndModel,
-            &Client::sigAvailableNetworkChanged,
-            netIdicatorModel,
-            &NetIndicatorModel::handleEndaleNetworkChanged);
-
-    connect(backEndModel, &Client::sigPurchaseWasSuccessful,
-            this, &MainModel::handlePurchaseWasSuccessful);
-
-    connect(backEndModel, &Client::sigCardReceived,
-            this, &MainModel::handleCardReceived);
-
-    connect(backEndModel, &BaseNode::sigNoLongerSupport,
-            this, &MainModel::handleAppOutdated);
-
-    connect(backEndModel, &Client::sigContactsListChanged,
-            this, &MainModel::handleContactsListChanged);
-
-    connect(backEndModel, &BaseNode::requestError,
-            this, &MainModel::handleSerrverSentError);
+    if (_mode == Mode::Client) {
+        setCardListModel(_cardsListModel);
+    } else {
+        setCardListModel(_ownCardsListModel);
+    }
 }
 
 void MainModel::setFirst(bool ffirst) {
@@ -575,6 +579,8 @@ void MainModel::setMode(int newMode) {
     emit modeChanged();
 
     _config->setValue(P_FSELLER, static_cast<bool>(newMode));
+    configureCardsList();
+
 }
 
 QObject *MainModel::cardsList() const {
