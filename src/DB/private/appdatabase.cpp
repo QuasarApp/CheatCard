@@ -96,6 +96,8 @@ void AppDataBase::localdbPatches() {
                                for (const auto& object: result->data()) {
                                    auto newCard = QSharedPointer<DB::Card>::create();
                                    newCard->setCardId(RCUtils::convrtOldIdToSHA256(object->cardId()));
+                                   newCard->setTitle(object->title());
+
                                    newCard->setCardVersion(object->getCardVersion());
                                    newCard->setBackground(object->background());
                                    newCard->setColor(object->getColor());
@@ -126,7 +128,7 @@ void AppDataBase::localdbPatches() {
                                for (const auto& object: result->data()) {
                                    auto newCard = QSharedPointer<DB::UsersCards>::create();
                                    newCard->setCard(RCUtils::convrtOldIdToSHA256(object->getCard()));
-                                   newCard->setUser(usersKeysPairs.value(object->getUser(), 0));
+                                   newCard->setUser(usersKeysPairs.value(object->getUser(), 0)); // usualy database do not contains full information about user struct. so Current database can't upgrade to latest version
                                    newCard->setCardVersion(object->getCardVersion());
                                    newCard->setPurchasesNumber(object->getPurchasesNumber());
                                    newCard->setReceived(object->getReceived());
