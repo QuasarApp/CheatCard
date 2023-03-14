@@ -36,6 +36,15 @@ public:
      */
     static QByteArray makeUserKey(const QByteArray &secret);
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    /**
+     * @brief makeOlduserId This method create a public old user id from user key.
+     * @param secret This is user public key.
+     * @return old  user id.
+     */
+    static unsigned int makeOlduserId(const QByteArray &keys);
+#endif
+
     /**
      * @brief randomSHA256 This method create a random sha256 hash.
      * @return random sha256 hash

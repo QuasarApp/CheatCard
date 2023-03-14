@@ -23,6 +23,12 @@ QByteArray RCUtils::makeUserKey(const QByteArray &secret) {
     return QCryptographicHash::hash(secret, QCryptographicHash::Sha256);
 }
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+unsigned int RCUtils::makeOlduserId(const QByteArray &keys) {
+    return qHash(keys);
+}
+#endif
+
 QByteArray RCUtils::randomSHA256() {
     QByteArray result;
     randomArray(32, result);

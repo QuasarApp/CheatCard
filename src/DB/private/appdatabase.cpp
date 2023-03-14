@@ -126,15 +126,27 @@ void AppDataBase::localdbPatches() {
                            auto result = database->getObject(query);
                            if (result && result->data().size()) {
                                for (const auto& object: result->data()) {
+                                   auto userKey = usersKeysPairs.value(object->getUser(), 0);
+
+                                   // usualy database do not contains full information about user struct.
+                                   // so Current database can't upgrade to latest version.
+                                   // Data that can't migrate at now will migrate after receive information about user from client.
+                                   if (userKey.isEmpty())
+                                       continue;
+
                                    auto newCard = QSharedPointer<DB::UsersCards>::create();
                                    newCard->setCard(RCUtils::convrtOldIdToSHA256(object->getCard()));
-                                   newCard->setUser(usersKeysPairs.value(object->getUser(), 0)); // usualy database do not contains full information about user struct. so Current database can't upgrade to latest version
+                                   newCard->setUser(userKey);
                                    newCard->setCardVersion(object->getCardVersion());
                                    newCard->setPurchasesNumber(object->getPurchasesNumber());
                                    newCard->setReceived(object->getReceived());
                                    newCard->setTime(object->getRawTime());
 
                                    if (!database->insertObject(newCard, true)) {
+                                       return false;
+                                   }
+
+                                   if (!database->deleteObject(object, true)) {
                                        return false;
                                    }
                                }

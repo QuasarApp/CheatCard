@@ -16,6 +16,7 @@
 #include <dbobjectsrequest.h>
 #include <getsinglevalue.h>
 #include <objects/userscards.h>
+#include <objects_v0/userscards.h>
 #include <pills/invaliduserspill.h>
 #include <rci/rcutils.h>
 
@@ -532,5 +533,41 @@ bool DBv1::clearOldData(int duration) {
 
 QString DBv1::backUp(const QString &path) const {
     return DB::AppDataBase::backUp(0, path);
+}
+
+bool DBv1::migrateUsersCardsToUsersData(const QByteArray &userKey) const {
+    if (!db())
+        return false;
+
+    if (userKey.isEmpty())
+        return false;
+
+    unsigned int oldUserId = RCUtils::makeOlduserId(userKey);
+
+    QH::PKG::DBObjectsRequest<DBv0::UsersCards> query("UsersCards",
+                                                      "user=:user",
+                                                      {{"user", oldUserId}});
+    auto result = db()->getObject(query);
+    if (result && result->data().size()) {
+        for (const auto& object: result->data()) {
+            auto newCard = QSharedPointer<DB::UsersCards>::create();
+            newCard->setCard(RCUtils::convrtOldIdToSHA256(object->getCard()));
+            newCard->setUser(userKey);
+            newCard->setCardVersion(object->getCardVersion());
+            newCard->setPurchasesNumber(object->getPurchasesNumber());
+            newCard->setReceived(object->getReceived());
+            newCard->setTime(object->getRawTime());
+
+            if (!db()->insertObject(newCard, true)) {
+                return false;
+            }
+
+            if (!db()->deleteObject(object, true)) {
+                return false;
+            }
+        }
+    }
+
+    return true;
 }
 }

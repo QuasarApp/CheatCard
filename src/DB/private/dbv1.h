@@ -88,6 +88,7 @@ public:
 
     bool clearOldData(int duration) override;
     QString backUp(const QString &path) const override;
+    bool migrateUsersCardsToUsersData(const QByteArray& userKey) const override;
 
 
 private:

@@ -337,6 +337,15 @@ public:
      * @see AppDataBase::setBackUpPath
      */
     virtual QString backUp(const QString& backUpPath = "") const= 0;
+
+    /**
+     * @brief migrateUsersCardsToUsersData This method get all data of the user with @a userKey from old usersData table
+     * and convert to new users data structure and save it in the new table.
+     * @param userKey This is id of the migrated user
+     * @return true if migration finished successful else false
+     * @note This method need only for the apiv3
+     */
+    virtual bool migrateUsersCardsToUsersData(const QByteArray& userKey) const = 0;
 };
 
 

@@ -734,6 +734,12 @@ bool ApiV3::processSubscribeRequest(const QSharedPointer<V3::SubscribeToUserChan
     _subscribes[message->userId()].insert(sender);
     _subscribesMutex.unlock();
 
+    if (auto database = db()) {
+        if (!database->migrateUsersCardsToUsersData(message->userId())) {
+            return false;
+        }
+    }
+
     API::V3::Sync responce;
     responce.setSyncedUserKey(message->userId());
     QH::PKG::DataPack<API::V3::UsersCards> usersData;
