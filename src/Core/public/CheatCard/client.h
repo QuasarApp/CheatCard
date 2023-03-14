@@ -22,6 +22,7 @@ class CHEATCARD_CORE_EXPORT Client: public BaseNode
     Q_OBJECT
 public:
     Client(const QSharedPointer<Interfaces::iDB> &db);
+    ~Client() override;
     bool connectToServer(QString host = {}, int port = 0);
     void disconectFromServer();
     bool isConncted() const;
@@ -87,6 +88,7 @@ private:
     QSharedPointer<Interfaces::iAPI> _api;
     QH::AbstractNodeInfo *_server = nullptr;
     bool _fNetAvailable = false;
+    QTimer* _reconnetTimer = nullptr;
 
 };
 

@@ -83,7 +83,17 @@ void AppDataBase::localdbPatches() {
                            auto result = database->getObject(query);
                            if (result && result->data().size()) {
                                for (const auto& user: result->data()) {
-                                   usersKeysPairs[user->id()] = user->getKey();
+                                   auto newUser = QSharedPointer<DB::User>::create();
+                                   newUser->setKey(user->getKey());
+                                   newUser->setSecret(user->secret());
+                                   newUser->setFSaller(user->fSaller());
+                                   newUser->setName(user->name());
+
+                                   if (!database->insertObject(newUser, true)) {
+                                       return false;
+                                   }
+
+                                   usersKeysPairs[user->id()] = newUser->getKey();
                                }
                            }
                        }

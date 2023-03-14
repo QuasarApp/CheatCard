@@ -22,7 +22,6 @@ CREATE TABLE "Users" (
     PRIMARY KEY("key")
 );
 
-INSERT INTO Users SELECT key,name,time,secret FROM Users_old;
 
 CREATE TABLE IF NOT EXISTS "Cards_old" (
         "id"	INTEGER NOT NULL,

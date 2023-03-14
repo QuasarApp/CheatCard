@@ -474,7 +474,7 @@ void MainModel::initModels() {
         connect(usersModel.data(), &UsersListModel::currentUserKeyChanged,
                 model.data(), &ClientModel::setCurrntUserKey);
 
-        return true;
+        return model->connectToServer();
     }, db());
     configureCardsList();
 

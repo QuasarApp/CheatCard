@@ -56,7 +56,7 @@ bool CheatCardService::onStart() {
         RC::API::init({3}, _db, _server);
     }
 
-    if (!_server->run({}, DEFAULT_CHEAT_CARD_PORT_SSL)) {
+    if (!_server->run({}, DEFAULT_CHEAT_CARD_PORT)) {
         QuasarAppUtils::Params::log("Failed to start ssl server!");
         return false;
     }

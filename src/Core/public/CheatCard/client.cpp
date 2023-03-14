@@ -24,6 +24,14 @@ Client::Client(const QSharedPointer<Interfaces::iDB>& db): BaseNode(db) {
     }
 }
 
+Client::~Client() {
+    if (_reconnetTimer) {
+        _reconnetTimer->stop();
+        delete _reconnetTimer;
+        _reconnetTimer = nullptr;
+    }
+}
+
 QString Client::getServerHost() const {
     auto settings = QuasarAppUtils::ISettings::instance();
 
@@ -63,6 +71,9 @@ bool Client::connectToServer(QString host, int port) {
 
 void Client::disconectFromServer() {
     removeNode(_server);
+    if (_reconnetTimer) {
+        _reconnetTimer->stop();
+    }
 }
 
 bool Client::isConncted() const {
@@ -197,7 +208,14 @@ void Client::nodeErrorOccured(QH::AbstractNodeInfo *nodeInfo,
                               QAbstractSocket::SocketError errorCode,
                               QString errorString) {
     BaseNode::nodeErrorOccured(nodeInfo, errorCode, errorString);
-    connectToServer();
+
+    if (!_reconnetTimer) {
+        _reconnetTimer = new QTimer();
+    }
+
+    _reconnetTimer->singleShot(2000, this, [this](){
+        connectToServer();
+    });
 }
 
 void Client::setFNetAvailable(bool newFNetAvailable) {
