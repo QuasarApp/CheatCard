@@ -192,8 +192,11 @@ QH::AbstractNodeInfo *Client::server() const {
 }
 
 void Client::nodeConnected(QH::AbstractNodeInfo *node) {
-
     BaseNode::nodeConnected(node);
+}
+
+void Client::nodeConfirmend(QH::AbstractNodeInfo *node){
+    BaseNode::nodeConfirmend(node);
     setFNetAvailable(confirmendCount());
 }
 

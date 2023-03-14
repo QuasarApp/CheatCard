@@ -96,6 +96,10 @@ void MainModel::configureFinished() {
     }
 
     setFirst(false);
+
+    if (auto usersModel = _modelStorage->get<ClientModel>()) {
+        usersModel->connectToServer();
+    }
 }
 
 QObject *MainModel::getAboutModel() {
@@ -474,10 +478,14 @@ void MainModel::initModels() {
         connect(usersModel.data(), &UsersListModel::currentUserKeyChanged,
                 model.data(), &ClientModel::setCurrntUserKey);
 
-        return model->connectToServer();
-    }, db());
-    configureCardsList();
+        if (!fFirst()) {
+            model->connectToServer();
+        }
 
+        return true;
+    }, db());
+
+    configureCardsList();
 }
 
 QObject *MainModel::incomeModel() const {

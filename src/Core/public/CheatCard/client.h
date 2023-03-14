@@ -72,6 +72,8 @@ protected:
     QH::AbstractNodeInfo *server() const;
 
     void nodeConnected(QH::AbstractNodeInfo *node) override;
+    void nodeConfirmend(QH::AbstractNodeInfo *node) override;
+
     void nodeDisconnected(QH::AbstractNodeInfo *node) override;
 
     void nodeErrorOccured(QH::AbstractNodeInfo *nodeInfo,

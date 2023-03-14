@@ -151,7 +151,7 @@ CPage {
                                 if (!root.model)
                                     return;
 
-                                const object = root.model.currentUser;
+                                const object = root.model.usersListModel.currentUserModel;
 
                                 object.name = name.text;
 
@@ -164,7 +164,7 @@ CPage {
 
                                 if (backUp) {
                                     activityProcessor.newActivity("qrc:/CheatCardModule/ExportUserKeyPage.qml",
-                                                                  mainModel.currentUser);
+                                                                  object);
 
                                 }
 

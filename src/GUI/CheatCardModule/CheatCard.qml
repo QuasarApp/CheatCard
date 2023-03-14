@@ -218,7 +218,7 @@ ApplicationWindow {
             icon.source: "qrc:/images/private/resources/Interface_icons/key_push.svg"
             onClicked:  () => {
                             activityProcessor.newActivity("qrc:/CheatCardModule/ExportUserKeyPage.qml",
-                                                          mainModel.currentUser);
+                                                          user);
                         }
         }
     }
