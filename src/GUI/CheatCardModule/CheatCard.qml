@@ -21,8 +21,8 @@ ApplicationWindow {
     font.pointSize: 13
 
     //  Vertical mode
-    height: 640
-    width: 350
+    height: 800
+    width: 600
 
     SettingsKeys {
         id: settingsKeys

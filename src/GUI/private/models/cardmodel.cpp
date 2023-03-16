@@ -354,6 +354,9 @@ int CardModel::availableItems(const QSharedPointer<Interfaces::iUsersCards> &dat
 
 bool CardModel::isMaster() const {
 
+    if (!storage())
+        return false;
+
     auto usersModel = storage()->get<UsersListModel>();
     if (!usersModel)
         return false;

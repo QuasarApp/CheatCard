@@ -97,6 +97,7 @@ private:
 
     void prepareOwnerSignatureCondition(const QList<QByteArray> &signatureList,
                                         const QString &operatorName,
+                                        const QString &comparatorName,
                                         QString &where,
                                         QVariantMap &toBind);
 

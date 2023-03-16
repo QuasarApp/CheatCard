@@ -158,14 +158,15 @@ int DBv1::getFreeItemsCount(const QSharedPointer<Interfaces::iUsersCards> &input
 
 void DBv1::prepareOwnerSignatureCondition(const QList<QByteArray>& signatureList,
                                           const QString& operatorName,
+                                          const QString& comparatorName,
                                           QString &where,
                                           QVariantMap& toBind) {
     int signatureIndex = 0;
     for (const QByteArray& key: signatureList) {
         if (where.isEmpty()) {
-            where += QString{"ownerSignature= :ownerSignature%0"}.arg(signatureIndex);
+            where += QString{"ownerSignature%1 :ownerSignature%0"}.arg(signatureIndex).arg(comparatorName);
         } else {
-            where += QString{" %1 ownerSignature= :ownerSignature%0"}.arg(signatureIndex).arg(operatorName);
+            where += QString{" %2 ownerSignature%1 :ownerSignature%0"}.arg(signatureIndex).arg(comparatorName, operatorName);
         }
         toBind.insert(QString(":ownerSignature%0").arg(signatureIndex), key);
     }
@@ -329,7 +330,7 @@ DBv1::getAllUserCardsData(const QByteArray &userKey,
     QString whereBlock = QString("card IN (SELECT id FROM Cards WHERE %0)");
     QString where;
     QVariantMap toBind;
-    prepareOwnerSignatureCondition(keys, "OR", where, toBind);
+    prepareOwnerSignatureCondition(keys, "OR", "=", where, toBind);
 
     QH::PKG::DBObjectsRequest<DB::UsersCards>
         request("UsersData", whereBlock.arg(where), toBind);
@@ -365,13 +366,13 @@ DBv1::getAllUserCards(const QByteArray &userKey, bool restOf,
     QString where;
     QVariantMap toBind;
     if (restOf) {
-        prepareOwnerSignatureCondition(keys, "AND", where, toBind);
+        prepareOwnerSignatureCondition(keys, "AND", "!=", where, toBind);
     } else {
-        prepareOwnerSignatureCondition(keys, "OR", where, toBind);
+        prepareOwnerSignatureCondition(keys, "OR", "=", where, toBind);
 
     }
 
-    QH::PKG::DBObjectsRequest<DB::Card> cardRequest("Cards", where);
+    QH::PKG::DBObjectsRequest<DB::Card> cardRequest("Cards", where, toBind);
 
     auto result = db()->getObject(cardRequest);
 

@@ -101,11 +101,24 @@ QH::PKG::DBVariantMap Card::variantMap() const {
 }
 
 bool Card::compare(const QSharedPointer<iCard> &other) {
-    auto obj = other.dynamicCast<Card>();
-    if (!obj)
-        return false;
 
-    return QH::PKG::DBObject::compare(*obj);
+    return
+        _id == other->cardId() &&
+        _title == other->title() &&
+        _logo == other->logo() &&
+        _seal == other->seal() &&
+        _background == other->background() &&
+        _phone == other->phone() &&
+        _telegramm == other->telegramm() &&
+        _instagramm == other->instagramm() &&
+        _physicalAddress == other->physicalAddress() &&
+        _webSite == other->webSite() &&
+        freeIndex == other->getFreeIndex() &&
+        color == other->getColor() &&
+        fontColor == other->getFontColor() &&
+        _freeItemName == other->freeItemName() &&
+        cardVersion == other->getCardVersion() &&
+        _ownerSignature == other->ownerSignature();
 }
 
 bool Card::isValid() const {
