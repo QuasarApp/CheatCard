@@ -283,6 +283,10 @@ ApplicationWindow {
         anchors.fill: parent;
     }
 
+    WaitView {
+        model: mainModel.waitModel
+    }
+
     Item {
         id: flowChecker
 

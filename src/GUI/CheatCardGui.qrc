@@ -52,6 +52,7 @@
         <file>CheatCardModule/UsersListView.qml</file>
         <file>CheatCardModule/UserView.qml</file>
         <file>CheatCardModule/PermissionsView.qml</file>
+        <file>CheatCardModule/WaitView.qml</file>
     </qresource>
     <qresource prefix="/CheatCardTr">
         <file>languages/en.qm</file>

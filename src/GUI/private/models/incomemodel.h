@@ -52,15 +52,11 @@ public:
 signals:
     void cardChanged();
     void purchaseCountChanged();
-    void timeOutChanged();
     void purchaseTaskCompleted(int purchasesCount,
                                QSharedPointer<RC::CardModel> card,
                                QSharedPointer<RC::UserHeader>);
 
     void extraDataChanged();
-
-    void cameraIdChanged();
-
     void allowScreenDimChanged();
 
 private:

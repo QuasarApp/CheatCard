@@ -142,7 +142,8 @@ QH::AbstractNode::NodeType Client::nodeType() const {
 
 bool Client::incrementPurchase(const QByteArray &userKey,
                                const QByteArray &cardId,
-                               int purchasesCount) {
+                               int purchasesCount,
+                               const std::function<void (int)> &cb) {
 
     auto apiObject = api();
     if (!apiObject) {
@@ -155,16 +156,19 @@ bool Client::incrementPurchase(const QByteArray &userKey,
                                       purchasesCount,
                                       0,
                                       _server,
-                                      [](unsigned int err) {
+                                      [cb](unsigned int err) {
                                           if (err) {
                                               QuasarAppUtils::Params::log("deleteCard error ocurred");
                                           }
+
+                                          cb(err);
                                       });
 }
 
 bool Client::incrementReceived(const QByteArray &userKey,
                                const QByteArray &cardId,
-                               int received) {
+                               int received,
+                               const std::function<void(int err)>& cb) {
     auto apiObject = api();
     if (!apiObject) {
         return false;
@@ -176,10 +180,11 @@ bool Client::incrementReceived(const QByteArray &userKey,
                                       0,
                                       received,
                                       _server,
-                                      [](unsigned int err) {
+                                      [cb](unsigned int err) {
                                           if (err) {
                                               QuasarAppUtils::Params::log("deleteCard error ocurred");
                                           }
+                                          cb(err);
                                       });
 }
 

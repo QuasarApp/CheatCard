@@ -37,12 +37,14 @@ public:
 
     bool incrementPurchase(const QByteArray &userKey,
                            const QByteArray &cardId,
-                           int purchasesCount = 1);
+                           int purchasesCount = 1,
+                           const std::function<void (int)> &cb = {});
 
 
     bool incrementReceived(const QByteArray &userKey,
                            const QByteArray &cardId,
-                           int received = 1);
+                           int received = 1,
+                           const std::function<void (int)> &cb = {});
 
     void setCurrntUserKey(const QByteArray &newCurrntUserKey);
 

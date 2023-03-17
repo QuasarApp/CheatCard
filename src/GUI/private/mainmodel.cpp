@@ -759,7 +759,7 @@ void MainModel::handleCardSelectedForWork(const QSharedPointer<CardModel> &card)
         incomeModel->setCard(card);
 
         if (auto activityModel = _modelStorage->get<ActivityProcessorModel>()) {
-            activityModel->newActivity("qrc:/CheatCardModule/WaitConnectView.qml",
+            activityModel->newActivity("qrc:/CheatCardModule/IncomeView.qml",
                                        incomeModel.data());
         }
     }
@@ -863,16 +863,28 @@ bool MainModel::sendSellerDataToServer(const QByteArray& userKey,
     if (!seller)
         return false;
 
+    int waitId = rand();
+
+    auto cb = [this, waitId](int err){
+        if (auto waitModel = _modelStorage->get<WaitConfirmModel>()) {
+            waitModel->confirm(waitId, !err);
+        }
+    };
+
     bool sendResult = false;
     if (receive) {
-        sendResult = seller->incrementReceived(userKey, cardId, purchasesCount);
+        sendResult = seller->incrementReceived(userKey,
+                                               cardId,
+                                               purchasesCount,
+                                               cb);
     } else {
 
         // show message about users bonuses. see handlePurchaseWasSuccessful function.
         _fShowEmptyBonuspackaMessage = !purchasesCount;
         sendResult = seller->incrementPurchase(userKey,
                                                cardId,
-                                               purchasesCount);
+                                               purchasesCount,
+                                               cb);
     }
 
     if (!sendResult) {
@@ -887,6 +899,10 @@ bool MainModel::sendSellerDataToServer(const QByteArray& userKey,
                            "", QmlNotificationService::NotificationData::Warning);
 
         return false;
+    }
+
+    if (auto waitModel = _modelStorage->get<WaitConfirmModel>()) {
+        waitModel->wait(waitId);
     }
 
     return true;

@@ -16,7 +16,6 @@ import "Style"
 CPage {
     id: root
     property var model: null
-    waitModel: (model)? model.waitModel: null
 
     implicitHeight: 0x0    // disable resize by content
 
