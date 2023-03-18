@@ -20,8 +20,6 @@ class iSession;
 }
 class UserHeader;
 
-class WaitConfirmModel;
-
 class IncomeModel: public QObject, public BaseModel
 {
     Q_OBJECT

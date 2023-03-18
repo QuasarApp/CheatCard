@@ -10,7 +10,6 @@
 #include "qrcodedecoder.h"
 #include "rci/objects/icontacts.h"
 #include "usermodel.h"
-#include "waitconfirmmodel.h"
 #include <QQmlEngine>
 #include <qmlnotifyservice.h>
 #include <rci/core/idb.h>
@@ -19,10 +18,8 @@
 namespace RC {
 
 PermisionsModel::PermisionsModel() {
-    _waitModel = new WaitConfirmModel();
     _codeProcessor = new QRCodeDecoder();
 
-    QQmlEngine::setObjectOwnership(_waitModel, QQmlEngine::CppOwnership);
     QQmlEngine::setObjectOwnership(_codeProcessor, QQmlEngine::CppOwnership);
 
     connect(_codeProcessor, &QRCodeDecoder::decodeFinished,
@@ -30,7 +27,6 @@ PermisionsModel::PermisionsModel() {
 }
 
 PermisionsModel::~PermisionsModel() {
-    delete _waitModel;
     delete _codeProcessor;
 }
 
@@ -63,10 +59,6 @@ PermisionsModel::toUser(const QSharedPointer<Interfaces::iContacts>& contact) {
     return nullptr;
 }
 
-QObject *PermisionsModel::waitModel() const {
-    return _waitModel;
-}
-
 void PermisionsModel::handleImageDecodet(const QString &data) {
     addNewPermision(data);
 }
@@ -89,9 +81,6 @@ void PermisionsModel::setNewDescription(int row, const QString &description) {
 
     if (_data.contains(userModel->userKey())) {
         _data[userModel->userKey()]->setInfo(description);
-
-        _waitModel->wait(1);
-
         emit sigPermisionUpdated(_data[userModel->userKey()]);
     }
 }
@@ -109,9 +98,6 @@ void PermisionsModel::addNewPermision(const QString& rawUserHeaderdata) {
 
         return;
     }
-
-    _waitModel->wait(1);
-
     emit sigPermisionAdded(header);
 }
 
@@ -134,7 +120,6 @@ void PermisionsModel::removePermision(int row) {
 
         QmlNotificationService::Listner listner = [userModel, this] (bool accepted) {
             if (accepted) {
-                _waitModel->wait(1);
                 emit sigPermisionRemoved(_data[userModel->userKey()]);
             }
         };

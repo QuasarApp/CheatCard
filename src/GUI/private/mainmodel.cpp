@@ -485,6 +485,10 @@ void MainModel::initModels() {
         return true;
     }, db());
 
+    _modelStorage->add<WaitConfirmModel>([](auto , auto) {
+        return true;
+    });
+
     configureCardsList();
 }
 

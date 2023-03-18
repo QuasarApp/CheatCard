@@ -13,7 +13,6 @@
 
 namespace RC {
 class UserModel;
-class WaitConfirmModel;
 class QRCodeDecoder;
 class UserHeader;
 
@@ -27,7 +26,6 @@ class iDB;
 class PermisionsModel: public UsersListModel
 {
     Q_OBJECT
-    Q_PROPERTY(QObject* waitModel READ waitModel CONSTANT)
 
 public:
     PermisionsModel();
@@ -44,9 +42,6 @@ public:
     Q_INVOKABLE void removePermision(int row);
 
     void setPermissions(const QList<QSharedPointer<Interfaces::iContacts> > &newData);
-
-    QObject *waitModel() const;
-
 public slots:
 
 signals:
@@ -63,7 +58,6 @@ private:
 
     QHash<QByteArray, QSharedPointer<RC::Interfaces::iContacts>> _data;
     QSharedPointer<RC::UserModel> _currentUserModel;
-    WaitConfirmModel *_waitModel = nullptr;
     QRCodeDecoder *_codeProcessor = nullptr;
 
 

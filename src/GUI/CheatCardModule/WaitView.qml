@@ -23,8 +23,7 @@ Popup {
     modal: true
     focus: true
     closePolicy: Popup.NoAutoClose
-
-    visible: model && model.waitConfirm
+    visible:  model && model.waitConfirm
 
     contentItem:
     Pane {
