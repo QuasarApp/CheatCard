@@ -50,13 +50,16 @@ public:
 
     bool updateContactData(const QSharedPointer<Interfaces::iContacts> &contact,
                            const QByteArray& secreet,
-                           bool removeRequest);
+                           bool removeRequest,
+                           const std::function<void (int)> &cb = {});
 
     bool grantAccess(const QSharedPointer<Interfaces::iUser> &parent,
-                     const QByteArray& child, const QString &name = "");
+                     const QByteArray& child, const QString &name = "",
+                     const std::function<void (int)> &cb = {});
 
     bool dropAccess(const QSharedPointer<Interfaces::iUser> &parent,
-                    const QByteArray& child);
+                    const QByteArray& child,
+                    const std::function<void (int)> &cb = {});
 
     const QByteArray& currntUserKey() const;
 

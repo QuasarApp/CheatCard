@@ -69,6 +69,20 @@ public:
                               const QSharedPointer<Interfaces::iUser> &anotherUser,
                               QSharedPointer<Interfaces::iContacts> &resultContact);
 
+    /**
+     * @brief createContact This method fill a empty contact (@a resultContact) object
+     * @param baseUser This is user object that will create permision for the @a anotherUser object
+     * @param anotherUser This is user that receive access to cards of the @a baseUser object.
+     * @param info This is descriptions of the contact.
+
+     * @param resultContact This is result contact object.
+     * @return true if the contact created successful.
+     */
+    static bool createContact(const QByteArray &baseUser,
+                              const QByteArray &anotherUser,
+                              const QString& info,
+                              QSharedPointer<Interfaces::iContacts> &resultContact);
+
 };
 }
 #endif // RCUTILS_H

@@ -23,7 +23,7 @@ class iDB;
 /**
  * @brief The PermisioonsModel class
  */
-class PermisionsModel: public UsersListModel
+class PermisionsModel:  public QAbstractListModel, public BaseModel
 {
     Q_OBJECT
 
@@ -32,33 +32,44 @@ public:
     ~PermisionsModel() override;
 
     enum Roles {
-        PermisionRole = Qt::UserRole
+        PermisionDescriptionRole = Qt::UserRole,
+        DefaultAvatar,
+
     };
 
-    Q_INVOKABLE void setNewDescription(int row, const QString& description);
+    int rowCount(const QModelIndex &parent = {}) const override;
+    QVariant data(const QModelIndex &index, int role) const override;
+
+    QHash<int, QByteArray> roleNames() const override;
+
+    Q_INVOKABLE void setNewDescription(QByteArray userKey, const QString& description);
     Q_INVOKABLE void addNewPermision(const QString &rawUserHeaderData);
     Q_INVOKABLE void addNewPermisionFromImage(const QString &rawUserHeaderData);
 
-    Q_INVOKABLE void removePermision(int row);
+    Q_INVOKABLE void removePermision(QByteArray userKey);
 
-    void setPermissions(const QList<QSharedPointer<Interfaces::iContacts> > &newData);
+    void init(const QSharedPointer<Interfaces::iDB> &db,
+              const QSharedPointer<Interfaces::iModelsStorage> &global) override;
+
 public slots:
-
-signals:
-    void sigPermisionUpdated(const QSharedPointer<RC::Interfaces::iContacts>& permision);
-    void sigPermisionRemoved(QSharedPointer<RC::Interfaces::iContacts> permision);
-    void sigPermisionAdded(QSharedPointer<RC::UserHeader> userHeader);
+    void setPermissions(const QList<QSharedPointer<Interfaces::iContacts> > &newData);
 
 private slots:
     void handleImageDecodet(const QString &data);
+    void refreshTable(QByteArray userKey);
 
 private:
+    void removePermisionPrivate(QByteArray permision);
+    void addNewPermisionPrivate(QSharedPointer<RC::Interfaces::iContacts> permision);
+
     QSharedPointer<Interfaces::iUser>
     toUser(const QSharedPointer<Interfaces::iContacts> &contact);
 
+    QList<QByteArray> _permissions;
     QHash<QByteArray, QSharedPointer<RC::Interfaces::iContacts>> _data;
     QSharedPointer<RC::UserModel> _currentUserModel;
     QRCodeDecoder *_codeProcessor = nullptr;
+    QSharedPointer<ImagesStorageModel> _defaultAvatars;
 
 
 };

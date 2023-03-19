@@ -51,7 +51,7 @@ Page {
 
                     source: (userAvatar.length)?
                                 userAvatar:
-                                ":/images/private/resources/Logo/CheatCard_Logo1.png"
+                                "qrc:/images/private/resources/Logo/CheatCard_Logo1.png"
                     anchors.fill: parent
 
                 }

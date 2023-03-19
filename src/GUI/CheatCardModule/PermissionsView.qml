@@ -91,22 +91,41 @@ CPage {
                     width: list.width
                     height: implicitHeight
 
-                    UserView {
-                        id: userView
-                        Layout.alignment: Qt.AlignHCenter
-                        Layout.fillWidth: true
-                        height: implicitHeight
-                        model: userObject
-                        userAvatar: (root.model)?
-                                        root.model.userDefaultAvatar(userID):
-                                        ""
-                        fCurrent: list.model && userID === list.model.currentUserId
-                        onClick: {
-                            if (list.model) {
-                                list.model.currentUserId = userID
+                    RowLayout {
+
+                                Item {
+                                    Layout.fillWidth: true
+                                }
+
+                                Item {
+                                    id: imagePlace
+
+                                    Layout.rowSpan: 2
+                                    Layout.fillHeight: true
+                                    Layout.fillWidth: true
+
+                                    Image {
+
+                                        id: userAvatarView
+                                        asynchronous: true
+                                        fillMode: Image.PreserveAspectFit
+
+                                        source: defaultAvatar
+                                        anchors.fill: parent
+
+                                    }
+
+                                }
+
+                                Label {
+                                    id: nameEditor
+                                    text: permisionDescription
+                                }
+
+                                Item {
+                                    Layout.fillWidth: true
+                                }
                             }
-                        }
-                    }
 
                     ToolButton {
                         icon.source: "qrc:/images/private/resources/Interface_icons/Right_topmenu.svg"

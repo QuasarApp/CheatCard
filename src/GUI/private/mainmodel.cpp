@@ -195,58 +195,6 @@ void MainModel::handleAppOutdated(const QString& , unsigned short ) {
     model->newActivity("qrc:/CheatCardModule/UpdateRequestPage.qml");
 }
 
-void MainModel::handlePermissionChanged(const QSharedPointer<Interfaces::iContacts> &permision) {
-    auto backEndModel = _modelStorage->get<ClientModel>();
-    auto usersModel = _modelStorage->get<UsersListModel>();
-
-    if (backEndModel && usersModel) {
-        backEndModel->updateContactData(permision,
-                                         usersModel->currentUserSecret(),
-                                         false);
-    }
-}
-
-void MainModel::handlePermissionRemoved(QSharedPointer<Interfaces::iContacts> permision) {
-    auto backEndModel = _modelStorage->get<ClientModel>();
-    auto usersModel = _modelStorage->get<UsersListModel>();
-
-    if (backEndModel && usersModel) {
-        backEndModel->updateContactData(permision,
-                                        usersModel->currentUserSecret(),
-                                        true);
-    }
-}
-
-void MainModel::handlePermissionAdded(QSharedPointer<UserHeader> childUserName) {
-
-    auto usersModel = _modelStorage->get<UsersListModel>();
-    if (!usersModel)
-        return;
-
-    auto currentUserModel = usersModel->currentUser();
-    if (!currentUserModel)
-        return;
-
-    auto childUser = _db->makeEmptyUser();
-    childUserName->toUser(childUser);
-
-    childUser->setName(childUserName->userName());
-    if (childUser->name().isEmpty()) {
-        childUser->setName(UsersNames::randomUserName());
-    }
-
-    auto contacts = _db->makeEmptyContact();
-    if (!RCUtils::createContact(currentUserModel->user(), childUser, contacts)) {
-        return;
-    }
-
-    if (auto backEndModel = _modelStorage->get<ClientModel>()) {
-        backEndModel->updateContactData(contacts,
-                                        currentUserModel->user()->secret(),
-                                        false);
-    }
-}
-
 void MainModel::handleContactsListChanged() {
     auto masterKeys = _db->getMasterKeys(_currentUserKey);
     _ownCardsListModel->setCards(_db->getAllUserCards(_currentUserKey,
@@ -410,16 +358,7 @@ void MainModel::initModels() {
         return true;
     });
 
-    _modelStorage->add<PermisionsModel>([this](auto model, auto ) {
-
-        connect(model.data(), &PermisionsModel::sigPermisionUpdated,
-                this, &MainModel::handlePermissionChanged);
-
-        connect(model.data(), &PermisionsModel::sigPermisionRemoved,
-                this, &MainModel::handlePermissionRemoved);
-
-        connect(model.data(), &PermisionsModel::sigPermisionAdded,
-                this, &MainModel::handlePermissionAdded);
+    _modelStorage->add<PermisionsModel>([](auto , auto ) {
         return true;
     });
 

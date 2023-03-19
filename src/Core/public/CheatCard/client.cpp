@@ -250,7 +250,8 @@ void Client::setCurrntUserKey(const QByteArray &newCurrntUserKey) {
 
 bool RC::Client::updateContactData(const QSharedPointer<Interfaces::iContacts> &contact,
                                    const QByteArray &secreet,
-                                   bool removeRequest) {
+                                   bool removeRequest,
+                                   const std::function<void(int err)>& cb) {
 
     auto apiObject = api();
     if (!apiObject) {
@@ -261,16 +262,19 @@ bool RC::Client::updateContactData(const QSharedPointer<Interfaces::iContacts> &
                                    secreet,
                                    removeRequest,
                                    _server,
-                                   [](unsigned int err) {
+                                   [cb](unsigned int err) {
                                        if (err) {
                                            QuasarAppUtils::Params::log("updateContactData error ocurred");
                                        }
+                                       cb(err);
+
                                    });
 }
 
 bool Client::grantAccess(const QSharedPointer<Interfaces::iUser> &parent,
                          const QByteArray &child,
-                         const QString& name) {
+                         const QString& name,
+                         const std::function<void(int err)>& cb) {
     if (!db())
         return false;
 
@@ -280,11 +284,12 @@ bool Client::grantAccess(const QSharedPointer<Interfaces::iUser> &parent,
     contact->setUserKey(parent->getKey());
     contact->setInfo(name);
 
-    return updateContactData(contact, parent->secret(), false);
+    return updateContactData(contact, parent->secret(), false, cb);
 }
 
 bool Client::dropAccess(const QSharedPointer<Interfaces::iUser> &parent,
-                        const QByteArray &child) {
+                        const QByteArray &child,
+                        const std::function<void(int err)>& cb) {
     if (!db())
         return false;
 
@@ -293,7 +298,7 @@ bool Client::dropAccess(const QSharedPointer<Interfaces::iUser> &parent,
     contact->setChildUserKey(child);
     contact->setUserKey(parent->getKey());
 
-    return updateContactData(contact, parent->secret(), true);
+    return updateContactData(contact, parent->secret(), true, cb);
 }
 
 }

@@ -46,13 +46,21 @@ bool RCUtils::createContact(const QSharedPointer<Interfaces::iUser> &baseUser,
     if (!baseUser->isValid())
         return false;
 
-    if (baseUser->getKey() == anotherUser->getKey()) {
+    return createContact(baseUser->getKey(), anotherUser->getKey(), anotherUser->getKey(), resultContact);
+}
+
+bool RCUtils::createContact(const QByteArray &baseUser,
+                            const QByteArray &anotherUser,
+                            const QString &info,
+                            QSharedPointer<Interfaces::iContacts> &resultContact) {
+
+    if (baseUser == anotherUser) {
         return false;
     }
 
-    resultContact->setUserKey(baseUser->getKey());
-    resultContact->setInfo(anotherUser->name());
-    resultContact->setChildUserKey(anotherUser->getKey());
+    resultContact->setUserKey(baseUser);
+    resultContact->setInfo(info);
+    resultContact->setChildUserKey(anotherUser);
 
     return resultContact->isValid();
 }
