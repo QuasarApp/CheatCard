@@ -28,7 +28,8 @@ class iUsersCards;
 class CardModel: public QObject, public BaseModel
 {
     Q_OBJECT
-    Q_PROPERTY(QString id READ cardIdBase64 NOTIFY objChanged)
+    Q_PROPERTY(QByteArray idRaw READ cardId NOTIFY objChanged)
+    Q_PROPERTY(QString idbase64 READ cardIdBase64 NOTIFY objChanged)
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY objChanged)
 
     Q_PROPERTY(int purchasesNumber READ purchasesNumber NOTIFY sigUserDataChanged)

@@ -31,6 +31,7 @@ class UserModel: public QObject, public QuasarAppUtils::SettingsListner, public 
     Q_OBJECT
 
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY objChanged)
+    Q_PROPERTY(QByteArray key READ userKey NOTIFY objChanged)
 
     Q_PROPERTY(bool fSaller READ fSaller NOTIFY objChanged)
     Q_PROPERTY(QString sessionCode READ sessionCode NOTIFY sessinonCodeChanged)

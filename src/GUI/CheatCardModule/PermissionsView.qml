@@ -19,7 +19,6 @@ CPage {
 
     id: root
     property var model: null
-    waitModel: (model)? model.waitModel: null
 
     contentItem:
         ColumnLayout {

@@ -67,13 +67,6 @@
     </message>
 </context>
 <context>
-    <name>CPage</name>
-    <message>
-        <source>Please wait for response from server</source>
-        <translation>გთხოვთ დაელოდოთ პასუხს სერვერისგან</translation>
-    </message>
-</context>
-<context>
     <name>CardsListView</name>
     <message>
         <source>Don&apos;t have any cards yet? </source>
@@ -1040,6 +1033,13 @@
     <message>
         <source>Import new user</source>
         <translation>ახალი მომხმარებლის იმპორტი</translation>
+    </message>
+</context>
+<context>
+    <name>WaitView</name>
+    <message>
+        <source>Please wait for response from server</source>
+        <translation type="unfinished">გთხოვთ დაელოდოთ პასუხს სერვერისგან</translation>
     </message>
 </context>
 </TS>

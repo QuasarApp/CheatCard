@@ -1,4 +1,5 @@
 #include "imageresponse.h"
+#include "params.h"
 
 #include <asynclauncher.h>
 #include <thread>
@@ -59,10 +60,13 @@ QImage ImageResponse::prepareImage(const QString &id, const QSize &size) {
     }
 
     if (_db) {
-        QByteArray id = QByteArray::fromBase64(request.value(1).toLatin1());
-        auto dbObj = _db->getCardField(id, type);
+        QByteArray rawid = QByteArray::fromBase64(request.value(1).toLatin1());
+        auto dbObj = _db->getCardField(rawid, type);
 
         if (dbObj.isNull()) {
+            QuasarAppUtils::Params::log("Image provider can't find image,"
+                                        " and use default image. Request: " + id,
+                                        QuasarAppUtils::Debug);
             getDefaultImage(type, result);
             return result;
         }

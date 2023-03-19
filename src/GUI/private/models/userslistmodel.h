@@ -28,6 +28,7 @@ class UsersListModel: public QAbstractListModel, public BaseModel
 {
     Q_OBJECT
     Q_PROPERTY(int usersCount READ usersCount NOTIFY usersCountChanged)
+    Q_PROPERTY(QByteArray currentUserKey READ currentUserKey WRITE setCurrentUser NOTIFY currentUserKeyChanged)
     Q_PROPERTY(QObject* currentUserModel READ currentUserModel NOTIFY currentUserKeyChanged)
 
 public:
@@ -38,7 +39,8 @@ public:
     enum Roles {
         UserObjectRole = Qt::UserRole,
         Row,
-        DefaultAvatar
+        DefaultAvatar,
+        IsCurrent
 
     };
 

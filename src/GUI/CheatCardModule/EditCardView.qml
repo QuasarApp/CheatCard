@@ -89,7 +89,7 @@ Page {
                 Binding {
                     target: cardBackground
                     property: "source"
-                    value: "image://cards/background:" + ((root.model)? root.model.id  + ":" + root.model.cardVersion: "0")
+                    value: "image://cards/background:" + ((root.model)? root.model.idbase64  + ":" + root.model.cardVersion: "0")
                 }
 
                 layer.enabled: true
@@ -169,7 +169,7 @@ Page {
                     Binding {
                         target: cardLogoIamge
                         property: "source"
-                        value: "image://cards/logo:" + ((root.model)? root.model.id  + ":" + root.model.cardVersion : "0")
+                        value: "image://cards/logo:" + ((root.model)? root.model.idbase64  + ":" + root.model.cardVersion : "0")
 
                     }
                     Layout.alignment: Qt.AlignHCenter
@@ -423,7 +423,7 @@ Page {
                                         target: seelImage
                                         property: "source"
                                         value: "image://cards/seal:" +
-                                               ((root.model)? root.model.id  + ":" + root.model.cardVersion: "0")
+                                               ((root.model)? root.model.idbase64  + ":" + root.model.cardVersion: "0")
 
                                     }
 

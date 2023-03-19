@@ -42,6 +42,11 @@ QVariant RC::UsersListModel::data(const QModelIndex &index, int role) const {
         return QVariant::fromValue(_cache.value(userKey).data());
     }
 
+    case IsCurrent: {
+        auto userKey = _users.value(index.row());
+        return userKey == currentUserKey();
+    }
+
     default:
         return {};
     }
@@ -53,6 +58,7 @@ QHash<int, QByteArray> RC::UsersListModel::roleNames() const {
     roles[UserObjectRole] = "userObject";
     roles[Row] = "rowNumber";
     roles[DefaultAvatar] = "defaultAvatar";
+    roles[IsCurrent] = "isCurrent";
 
     return roles;
 

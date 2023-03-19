@@ -67,13 +67,6 @@
     </message>
 </context>
 <context>
-    <name>CPage</name>
-    <message>
-        <source>Please wait for response from server</source>
-        <translation></translation>
-    </message>
-</context>
-<context>
     <name>CardsListView</name>
     <message>
         <source>Don&apos;t have any cards yet? </source>
@@ -1043,6 +1036,13 @@
     <message>
         <source>Import new user</source>
         <translation></translation>
+    </message>
+</context>
+<context>
+    <name>WaitView</name>
+    <message>
+        <source>Please wait for response from server</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

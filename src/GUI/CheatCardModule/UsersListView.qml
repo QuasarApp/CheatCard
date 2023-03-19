@@ -44,12 +44,12 @@ CPage {
                     height: implicitHeight
                     model: userObject
                     userAvatar: (root.model)?
-                                    root.model.userDefaultAvatar(userID):
+                                    defaultAvatar:
                                     ""
-                    fCurrent: list.model && userID === list.model.currentUserId
+                    fCurrent: userObject === list.model.currentUserModel
                     onClick: {
                         if (list.model) {
-                            list.model.currentUserId = userID
+                            list.model.currentUserKey = model.key
                         }
                     }
                 }
