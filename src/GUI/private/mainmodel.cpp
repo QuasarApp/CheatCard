@@ -243,8 +243,6 @@ void MainModel::handleCurrentUserChanged(const QSharedPointer<UserModel> &newCur
                                                    masterKeys));
 
     _cardsListModel->updateMetaData(_db->getAllUserData(_currentUserKey));
-    auto model = _modelStorage->get<PermisionsModel>();
-    model->setPermissions(_db->getSlaveKeys(_currentUserKey));
 
     if (_billing) {
         connect(newCurrentUser.data(), &UserModel::sigBecomeSeller,
@@ -358,19 +356,23 @@ void MainModel::initModels() {
         return true;
     });
 
-    _modelStorage->add<PermisionsModel>([](auto , auto ) {
+    _modelStorage->add<PermisionsModel>([](auto, auto ) {
         return true;
     });
 
-    _modelStorage->add<UsersListModel>([this](auto model, auto) {
+    _modelStorage->add<UsersListModel>([this](auto model, auto storage) {
 
         auto result = _db->getAllUserWithPrivateKeys();
+        auto permisionModel = storage.template getRaw<PermisionsModel>();
 
         model->setUsers(result);
         setFirst(!result.size());
 
         connect(model.data(), &UsersListModel::sigUserChanged,
                 this, &MainModel::handleCurrentUserChanged);
+
+        connect(model.data(), &UsersListModel::sigUserChanged,
+                permisionModel, &PermisionsModel::handleCurrentUserChanged);
 
         if (!model->rowCount()) {
             model->importUser(_db->makeEmptyUser());

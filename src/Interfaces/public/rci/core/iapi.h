@@ -110,6 +110,12 @@ public:
                                  QH::AbstractNodeInfo *dist,
                                  const std::function<void(int err)>& = {}) = 0;
 
+    /**
+     * @brief sendOldVersionPackage This method used for sending update message to the old apps
+     * @param dist This is distanation node.
+     */
+    virtual void sendOldVersionPackage(QH::AbstractNodeInfo *dist) = 0;
+
 signals:
     /**
      * @brief sigPurchaseWasSuccessful This signal will emit when user receive update.

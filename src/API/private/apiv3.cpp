@@ -19,6 +19,7 @@
 #include <api3/card.h>
 #include <api3/subscribetouserchanges.h>
 #include <api3/sync.h>
+#include <api3/versionforoldapp.h>
 #include <cmath>
 #include <dbobjectsrequest.h>
 #include <rci/rcutils.h>
@@ -705,6 +706,11 @@ bool ApiV3::changeUsersData(const QByteArray& sellerUserKey,
     _checkUserRequestHash += packageHash;
 
     return packageHash;
+}
+
+void ApiV3::sendOldVersionPackage(QH::AbstractNodeInfo *dist) {
+    V3::VersionForOldApp oldVersionData;
+    sendData(&oldVersionData, dist);
 }
 
 void ApiV3::collectDataOfuser(const QByteArray& userKey,

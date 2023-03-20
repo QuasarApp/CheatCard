@@ -134,10 +134,8 @@ CPage {
                         font.pointSize: 14
 
                         onClicked: () => {
-                                       if (userObject) {
-                                           workerName.text = userObject.name
-                                       }
-                                       enternameDalog.currentRow = rowNumber
+                                       workerName.text = permisionDescription
+                                       enternameDalog.editableKey = permisionKey
                                        enternameDalog.open()
                                    }
                     }
@@ -149,7 +147,7 @@ CPage {
                         font.pointSize: 14
 
                         onClicked: () => {
-                                       list.model.removePermision(rowNumber)
+                                       list.model.removePermision(permisionKey)
                                    }
                     }
                 }
@@ -230,7 +228,7 @@ CPage {
     Dialog {
         id: enternameDalog
 
-        property int currentRow: 0
+        property var editableKey: null
 
         x: parent.width / 2 - enternameDalog.width / 2
         y: parent.height / 2 - enternameDalog.height / 2
@@ -240,7 +238,7 @@ CPage {
 
         onAccepted: {
             if (root.model) {
-                root.model.setNewDescription(currentRow, workerName.text);
+                root.model.setNewDescription(editableKey, workerName.text);
             }
 
         }

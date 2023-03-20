@@ -815,18 +815,6 @@
 <context>
     <name>RC::PermisionsModel</name>
     <message>
-        <source>Remove access for %0 </source>
-        <translation>Выдаліць доступ для %0 </translation>
-    </message>
-    <message>
-        <source>If You remove access for the %0 user, he cannot be use your cards anymore.</source>
-        <translation>Калі вы выдаліце доступ для карыстальніка %0, ён больш не зможа карыстацца вашымі карткамі.</translation>
-    </message>
-    <message>
-        <source> Do you want to continue?</source>
-        <translation> Вы хочаце працягнуць?</translation>
-    </message>
-    <message>
         <source>Oops</source>
         <translation>Ой</translation>
     </message>

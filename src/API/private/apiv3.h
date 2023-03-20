@@ -84,6 +84,9 @@ public:
                          QH::AbstractNodeInfo *dist,
                          const std::function<void(int err)>& = {}) override;
 
+    void sendOldVersionPackage(QH::AbstractNodeInfo *dist) override;
+
+
 protected:
     bool processSubscribeRequest(const QSharedPointer<V3::SubscribeToUserChanges> &message,
                                  QH::AbstractNodeInfo *sender, const QH::Header&) ;

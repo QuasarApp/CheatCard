@@ -54,6 +54,10 @@ QVariant PermisionsModel::data(const QModelIndex &index, int role) const {
         return _defaultAvatars->getImageByHash(userKey);
     }
 
+    case PermisionKey: {
+        return _permissions.value(index.row());
+    }
+
     case PermisionDescriptionRole: {
         auto userKey = _permissions.value(index.row());
         return _data.value(userKey)->getInfo();
@@ -69,6 +73,7 @@ QHash<int, QByteArray> PermisionsModel::roleNames() const {
 
     roles[PermisionDescriptionRole] = "permisionDescription";
     roles[DefaultAvatar] = "defaultAvatar";
+    roles[PermisionKey] = "permisionKey";
 
     return roles;
 }
@@ -88,6 +93,12 @@ void PermisionsModel::setPermissions(const QList<QSharedPointer<Interfaces::iCon
     }
 
     endResetModel();
+}
+
+void PermisionsModel::handleCurrentUserChanged(const QSharedPointer<UserModel> &user) {
+    _currentUserModel = user;
+    setPermissions(db()->getSlaveKeys(user->userKey()));
+
 }
 
 QSharedPointer<Interfaces::iUser>
@@ -119,13 +130,14 @@ void PermisionsModel::setNewDescription(QByteArray userKey, const QString &descr
 
     if (backEndModel && usersModel && waitModel) {
         int watCode = rand();
+        permision->setInfo(description);
+
         backEndModel->updateContactData(permision,
                                         usersModel->currentUserSecret(),
                                         false,
                                         [waitModel, watCode, usersModel, permision, description, userKey, this](auto err){
                                             waitModel->confirm(watCode, !err);
                                             if (!err) {
-                                                permision->setInfo(description);
                                                 int row = _permissions.indexOf(userKey);
                                                 emit dataChanged(index(row, 0), index(row, 0), {PermisionDescriptionRole});
                                             }
@@ -173,7 +185,7 @@ void PermisionsModel::addNewPermision(const QString& rawUserHeaderdata) {
                                                 QMetaObject::invokeMethod(this,
                                                                           "addNewPermisionPrivate",
                                                                           Qt::QueuedConnection,
-                                                                          Q_ARG(QSharedPointer<Interfaces::iContacts>,
+                                                                          Q_ARG(QSharedPointer<RC::Interfaces::iContacts>,
                                                                                 permision));
                                             }
 
@@ -228,11 +240,6 @@ void PermisionsModel::addNewPermisionPrivate(QSharedPointer<Interfaces::iContact
     _permissions.push_back(permision->getChildUserKey());
 
     endInsertRows();
-}
-
-void PermisionsModel::refreshTable(QByteArray userKey) {
-    setPermissions(db()->getSlaveKeys(userKey));
-
 }
 
 void PermisionsModel::removePermisionPrivate(QByteArray permision) {

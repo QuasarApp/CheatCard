@@ -816,18 +816,6 @@
 <context>
     <name>RC::PermisionsModel</name>
     <message>
-        <source>Remove access for %0 </source>
-        <translation>ამოიღეთ წვდომა %0-ისთვის </translation>
-    </message>
-    <message>
-        <source>If You remove access for the %0 user, he cannot be use your cards anymore.</source>
-        <translation>თუ თქვენ გაუქმებთ წვდომას %0 მომხმარებლისთვის, ის ვეღარ გამოიყენებს თქვენს ბარათებს.</translation>
-    </message>
-    <message>
-        <source> Do you want to continue?</source>
-        <translation> ინდა გააგრძელო?</translation>
-    </message>
-    <message>
         <source>Oops</source>
         <translation>უი</translation>
     </message>

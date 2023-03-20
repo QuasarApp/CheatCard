@@ -33,6 +33,7 @@ public:
 
     enum Roles {
         PermisionDescriptionRole = Qt::UserRole,
+        PermisionKey,
         DefaultAvatar,
 
     };
@@ -53,14 +54,14 @@ public:
 
 public slots:
     void setPermissions(const QList<QSharedPointer<Interfaces::iContacts> > &newData);
+    void handleCurrentUserChanged(const QSharedPointer<RC::UserModel> &user);
 
 private slots:
     void handleImageDecodet(const QString &data);
-    void refreshTable(QByteArray userKey);
-
-private:
     void removePermisionPrivate(QByteArray permision);
     void addNewPermisionPrivate(QSharedPointer<RC::Interfaces::iContacts> permision);
+
+private:
 
     QSharedPointer<Interfaces::iUser>
     toUser(const QSharedPointer<Interfaces::iContacts> &contact);

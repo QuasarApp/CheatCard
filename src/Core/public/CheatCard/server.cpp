@@ -8,6 +8,7 @@
 #include "server.h"
 #include <badrequest.h>
 #include <QCoreApplication>
+#include <api/apibase.h>
 
 namespace RC {
 
@@ -21,6 +22,10 @@ BaseNode::NodeType Server::nodeType() const {
 
 void Server::nodeConnected(QH::AbstractNodeInfo *node) {
     BaseNode::nodeConnected(node);
+
+    if (auto api = selectParser(API_BASE_PARSE_IS, 3).dynamicCast<Interfaces::iAPI>()) {
+        api->sendOldVersionPackage(node);
+    }
 }
 
 void Server::nodeDisconnected(QH::AbstractNodeInfo *node) {
