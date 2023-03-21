@@ -30,6 +30,10 @@ bool VersionForOldApp::isValid() const {
     return true;
 }
 
+bool VersionForOldApp::isOldPackage() const {
+    return true;
+}
+
 QDataStream &VersionForOldApp::fromStream(QDataStream &stream) {
     return stream;
 }

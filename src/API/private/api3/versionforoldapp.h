@@ -24,7 +24,7 @@ public:
     unsigned short cmd() const override;
     QString cmdString() const override;
     bool isValid() const override;
-
+    bool isOldPackage() const override;
 protected:
     unsigned int localCode() const override;
 
