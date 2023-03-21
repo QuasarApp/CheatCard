@@ -36,3 +36,7 @@ int TestServer::getFreeItemsCount(const QByteArray& userId, const QByteArray& ca
 const QSharedPointer<RC::Interfaces::iDB> &TestServer::getDBObject() const {
     return db();
 }
+
+void TestServer::TestServer::nodeConnected(QH::AbstractNodeInfo *node) {
+    BaseNode::nodeConnected(node);
+}

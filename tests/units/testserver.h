@@ -21,6 +21,8 @@ public:
     bool containsContact(const QByteArray &userId, const QByteArray &childId);
     const QSharedPointer<RC::Interfaces::iDB>& getDBObject() const;
 
+    void nodeConnected(QH::AbstractNodeInfo *node) override;
+
 };
 
 #endif // TESTSERVER_H
