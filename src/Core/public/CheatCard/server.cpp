@@ -21,11 +21,12 @@ BaseNode::NodeType Server::nodeType() const {
 }
 
 void Server::nodeConnected(QH::AbstractNodeInfo *node) {
-    BaseNode::nodeConnected(node);
 
     if (auto api = selectParser(API_BASE_PARSE_IS, 3).dynamicCast<Interfaces::iAPI>()) {
         api->sendOldVersionPackage(node);
     }
+
+    BaseNode::nodeConnected(node);
 }
 
 void Server::nodeDisconnected(QH::AbstractNodeInfo *node) {
