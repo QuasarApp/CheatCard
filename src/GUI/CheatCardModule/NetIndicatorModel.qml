@@ -39,10 +39,6 @@ ToolButton {
         }
     }
 
-    onClicked: {
-        mainModel.reload()
-    }
-
     Item {
         id: privateRoot
         property bool dataExchanging: model && model.dataExchanging

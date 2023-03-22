@@ -10,9 +10,14 @@
 
 #include <QHash>
 #include <QSharedPointer>
+#include <softdelete.h>
 #include "params.h"
 #include <QQmlEngine>
 #include <rci/core/imodelsstorage.h>
+
+namespace QH {
+class SoftDelete;
+}
 
 namespace RC {
 
@@ -55,10 +60,10 @@ public:
         return static_cast<Model*>(get(typeid(Model).hash_code()).data());
     };
 
-    QSharedPointer<Interfaces::iModel> get(int id) const override;;
+    QSharedPointer<Interfaces::iModel> get(int id) const override;
 
     /**
-     * @brief initAndGet This method return shared pointer to the reqered model, if Model is not exists it try to initialize the default model object.
+     * @brief addAndGet This method return shared pointer to the reqered model, if Model is not exists it try to initialize the default model object.
      * @param cb This is call back lamdba function.
      * @param args This arguments packs of the @a Model consturctor..
      * @tparam Model This is model type.
@@ -69,7 +74,7 @@ public:
      * @see ModelsStorage::add
      */
     template<class Model, class... Args>
-    QSharedPointer<Model> initAndGet(
+    QSharedPointer<Model> addAndGet(
         const std::function<bool(const QSharedPointer<Model>&, const ModelsStorage& )>& cb,
         Args &&...args) {
         if (!contains<Model>()) {
@@ -80,7 +85,7 @@ public:
     };
 
     /**
-     * @brief initAndGetRaw This method return raw pointer to the reqered model, if Model is not exists it try to initialize the default model object.
+     * @brief addAndGetRaw This method return raw pointer to the reqered model, if Model is not exists it try to initialize the default model object.
      * @param cb This is call back lamdba function.
      * @param args This arguments packs of the @a Model consturctor..
      * @tparam Model This is model type.
@@ -91,7 +96,7 @@ public:
      * @see ModelsStorage::add
      */
     template<class Model, class... Args>
-    Model* initAndGetRaw(
+    Model* addAndGetRaw(
         const std::function<bool(const QSharedPointer<Model>&, const ModelsStorage& )>& cb,
         Args &&...args) {
         if (!contains<Model>() && add<Model>(cb, std::forward<Args>(args)...)) {
@@ -110,7 +115,7 @@ public:
      * @return true if the model added successful else false.
      * @see ModelsStorage::contains
      * @see ModelsStorage::get
-     * @see ModelsStorage::initAndGet
+     * @see ModelsStorage::addAndGet
      */
     template<class Model, class... Args>
     bool add(
@@ -152,8 +157,12 @@ public:
         static_assert(std::is_base_of_v<Interfaces::iModel, Model> &&
                       "The Model should based on the Interfaces::iModel.");
 
-
-        auto model = QSharedPointer<Model>::create(std::forward<Args>(args)...);
+        QSharedPointer<Model> model;
+        if constexpr (std::is_base_of_v<QH::SoftDelete, Model>) {
+            model.reset(new Model(std::forward<Args>(args)...), softRemove);
+        } else {
+            model.reset(new Model(std::forward<Args>(args)...));
+        }
 
         if constexpr(std::is_base_of_v<QObject, Model>) {
             QQmlEngine::setObjectOwnership(model.data(),
@@ -171,7 +180,7 @@ public:
      * @tparam Model This is model type.
      * @see ModelsStorage::get
      * @see ModelsStorage::add
-     * @see ModelsStorage::initAndGet
+     * @see ModelsStorage::addAndGet
      */
     template<typename Model>
     bool contains() const {
@@ -185,6 +194,9 @@ public:
     QSharedPointer<Interfaces::iDB> db() const;
 
 private:
+
+    static void softRemove(QH::SoftDelete * obj);
+
     QHash<int, QSharedPointer<Interfaces::iModel>> _storage;
     QSharedPointer<Interfaces::iDB> _db;
 

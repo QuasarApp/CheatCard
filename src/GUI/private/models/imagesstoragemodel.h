@@ -23,7 +23,7 @@ public:
     ImagesStorageModel();
     virtual ~ImagesStorageModel();
 
-    const QString& getImageByHash(const QString& anyString);
+    const QString& getImageByHash(const QByteArray& anyData);
     const QString& getImageByHash(int anyNumber);
 
     const QStringList& getImages();

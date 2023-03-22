@@ -10,43 +10,59 @@
 #include <crc/crchash.h>
 #include <QCryptographicHash>
 #include <qaglobalutils.h>
+#include <rci/objects/icontacts.h>
+#include <rci/objects/iuser.h>
 
 namespace RC {
 
-#pragma pack(push, 1)
-struct UserCardId {
-    unsigned int cardId;
-    unsigned int userId;
-};
-#pragma pack(pop)
+RCUtils::RCUtils() {
 
-RCUtils::RCUtils()
-{
-
-}
-
-unsigned int RCUtils::makeUserId(const QByteArray &userKey) {
-    return qHash(userKey);
-}
-
-unsigned long long RCUtils::makeUsersCardsId(unsigned int user, unsigned int card) {
-    long long id = user;
-    id = id << 32;
-    id = id | card ;
-
-    return id;
-}
-
-unsigned int RCUtils::getUserIdFromUsrsCards(long long userscard) {
-    return reinterpret_cast<UserCardId*>(&userscard)->userId;
-}
-
-unsigned int RCUtils::getCardIdFromUsrsCards(long long userscard) {
-    return reinterpret_cast<UserCardId*>(&userscard)->cardId;
 }
 
 QByteArray RCUtils::makeUserKey(const QByteArray &secret) {
     return QCryptographicHash::hash(secret, QCryptographicHash::Sha256);
+}
+
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+unsigned int RCUtils::makeOlduserId(const QByteArray &keys) {
+    return qHash(keys);
+}
+#endif
+
+QByteArray RCUtils::randomSHA256() {
+    QByteArray result;
+    randomArray(32, result);
+    return result;
+}
+
+QByteArray RCUtils::convrtOldIdToSHA256(unsigned int oldId) {
+    return QCryptographicHash::hash(QByteArray::number(oldId, sizeof(oldId)),
+                                    QCryptographicHash::Sha256);
+}
+
+bool RCUtils::createContact(const QSharedPointer<Interfaces::iUser> &baseUser,
+                            const QSharedPointer<Interfaces::iUser> &anotherUser,
+                            QSharedPointer<Interfaces::iContacts> &resultContact) {
+    if (!baseUser->isValid())
+        return false;
+
+    return createContact(baseUser->getKey(), anotherUser->getKey(), anotherUser->getKey(), resultContact);
+}
+
+bool RCUtils::createContact(const QByteArray &baseUser,
+                            const QByteArray &anotherUser,
+                            const QString &info,
+                            QSharedPointer<Interfaces::iContacts> &resultContact) {
+
+    if (baseUser == anotherUser) {
+        return false;
+    }
+
+    resultContact->setUserKey(baseUser);
+    resultContact->setInfo(info);
+    resultContact->setChildUserKey(anotherUser);
+
+    return resultContact->isValid();
 }
 
 }

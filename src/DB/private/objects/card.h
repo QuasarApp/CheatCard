@@ -27,8 +27,8 @@ public:
     Card();
     Card(const QSharedPointer<Interfaces::iCard> &obj);
 
-    unsigned int id() const;
-    void setId(unsigned int newId) override;
+    const QByteArray& cardId() const override;
+    void setCardId(const QByteArray& newId) override;
     QH::PKG::DBObject *createDBObject() const override;
     const QByteArray &logo() const override;
     void setLogo(const QByteArray &newImage) override;
@@ -54,7 +54,6 @@ public:
     void setTitle(const QString &newTitle) override;
     const QByteArray &background() const override;
     void setBackground(const QByteArray &newBackground) override;
-    unsigned int cardId() const override;
     const QString &freeItemName() const override;
     void setFreeItemName(const QString &newFreeItemName) override;
     unsigned int getCardVersion() const override;
@@ -62,7 +61,7 @@ public:
     void idGen();
     const QByteArray &ownerSignature() const override;
     void setOwnerSignature(const QByteArray &newOwnerSignature) override;
-    bool isOvner(const unsigned int userId) const override;
+    bool isOvner(const QByteArray &userId) const override;
 
     QString toString() const override;
     bool fromSqlRecord(const QSqlRecord &q) override;
@@ -73,15 +72,13 @@ public:
     bool compare(const QSharedPointer<iCard> &other) override;
 
 protected:
-    QDataStream &fromStream(QDataStream &stream) override;
-    QDataStream &toStream(QDataStream &stream) const override;
 
     QString primaryKey() const override;
-    QString primaryValue() const override;
+    QVariant primaryValue() const override;
 
 private:
 
-    unsigned int _id = 0;
+    QByteArray _id;
     QString _title;
     QByteArray _logo;
     QByteArray _seal;

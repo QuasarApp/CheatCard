@@ -13,7 +13,6 @@
 
 namespace RC {
 class UserModel;
-class WaitConfirmModel;
 class QRCodeDecoder;
 class UserHeader;
 
@@ -24,50 +23,54 @@ class iDB;
 /**
  * @brief The PermisioonsModel class
  */
-class PermisionsModel: public UsersListModel
+class PermisionsModel:  public QAbstractListModel, public BaseModel
 {
     Q_OBJECT
-    Q_PROPERTY(QObject* waitModel READ waitModel CONSTANT)
 
 public:
     PermisionsModel();
     ~PermisionsModel() override;
 
     enum Roles {
-        PermisionRole = Qt::UserRole
+        PermisionDescriptionRole = Qt::UserRole,
+        PermisionKey,
+        DefaultAvatar,
+
     };
 
-    Q_INVOKABLE void setNewDescription(int row, const QString& description);
+    int rowCount(const QModelIndex &parent = {}) const override;
+    QVariant data(const QModelIndex &index, int role) const override;
+
+    QHash<int, QByteArray> roleNames() const override;
+
+    Q_INVOKABLE void setNewDescription(QByteArray userKey, const QString& description);
     Q_INVOKABLE void addNewPermision(const QString &rawUserHeaderData);
     Q_INVOKABLE void addNewPermisionFromImage(const QString &rawUserHeaderData);
 
-    Q_INVOKABLE void removePermision(int row);
+    Q_INVOKABLE void removePermision(QByteArray userKey);
 
-    void setPermissions(const QList<QSharedPointer<Interfaces::iContacts> > &newData);
-
-    QObject *waitModel() const;
+    void init(const QSharedPointer<Interfaces::iDB> &db,
+              const QSharedPointer<Interfaces::iModelsStorage> &global) override;
 
 public slots:
-
-    void handleServerResult(const QSharedPointer<RC::Interfaces::iContacts>& contact,
-                            bool succesed, bool removed);
-
-signals:
-    void sigPermisionUpdated(const QSharedPointer<RC::Interfaces::iContacts>& permision);
-    void sigPermisionRemoved(QSharedPointer<RC::Interfaces::iContacts> permision);
-    void sigPermisionAdded(QSharedPointer<RC::UserHeader> userHeader);
+    void setPermissions(const QList<QSharedPointer<Interfaces::iContacts> > &newData);
+    void handleCurrentUserChanged(const QSharedPointer<RC::UserModel> &user);
 
 private slots:
     void handleImageDecodet(const QString &data);
+    void removePermisionPrivate(QByteArray permision);
+    void addNewPermisionPrivate(QSharedPointer<RC::Interfaces::iContacts> permision);
 
 private:
+
     QSharedPointer<Interfaces::iUser>
     toUser(const QSharedPointer<Interfaces::iContacts> &contact);
 
-    QHash<unsigned int, QSharedPointer<RC::Interfaces::iContacts>> _data;
+    QList<QByteArray> _permissions;
+    QHash<QByteArray, QSharedPointer<RC::Interfaces::iContacts>> _data;
     QSharedPointer<RC::UserModel> _currentUserModel;
-    WaitConfirmModel *_waitModel = nullptr;
     QRCodeDecoder *_codeProcessor = nullptr;
+    QSharedPointer<ImagesStorageModel> _defaultAvatars;
 
 
 };

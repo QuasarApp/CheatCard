@@ -52,8 +52,8 @@ public:
     QObject *currentCard() const;
     void setCurrentCard(const QSharedPointer<CardModel> &newCurrentCard);
 
-    const QHash<unsigned int, QSharedPointer<RC::Interfaces::iUser> > &users() const;
-    void setUsers(const QHash<unsigned int, QSharedPointer<RC::Interfaces::iUser> > &newUsers);
+    const QHash<QByteArray, QSharedPointer<RC::Interfaces::iUser> > &users() const;
+    void setUsers(const QHash<QByteArray, QSharedPointer<RC::Interfaces::iUser> > &newUsers);
 
     Q_INVOKABLE void chouseRow(int row);
     Q_INVOKABLE double totalValue(int col) const;
@@ -66,7 +66,7 @@ private:
 
     QList<QSharedPointer<RC::Interfaces::iUsersCards>> _data;
     QSharedPointer<RC::CardModel> _card;
-    QHash<unsigned int, QSharedPointer<RC::Interfaces::iUser>> _users;
+    QHash<QByteArray, QSharedPointer<RC::Interfaces::iUser>> _users;
 
     // where an index of item is column number
     QVector<double> _total;

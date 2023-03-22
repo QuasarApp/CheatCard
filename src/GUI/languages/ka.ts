@@ -67,13 +67,6 @@
     </message>
 </context>
 <context>
-    <name>CPage</name>
-    <message>
-        <source>Please wait for response from server</source>
-        <translation>გთხოვთ დაელოდოთ პასუხს სერვერისგან</translation>
-    </message>
-</context>
-<context>
     <name>CardsListView</name>
     <message>
         <source>Don&apos;t have any cards yet? </source>
@@ -445,6 +438,21 @@
     </message>
 </context>
 <context>
+    <name>IncomeView</name>
+    <message>
+        <source>Select the number of purchases that the customer has made.</source>
+        <translation type="unfinished">შეარჩიეთ შესყიდვების რაოდენობა, რაც გააკეთა მომხმარებელმა.</translation>
+    </message>
+    <message>
+        <source>Seal</source>
+        <translation type="unfinished">ბეჭდვა</translation>
+    </message>
+    <message>
+        <source>Check</source>
+        <translation type="unfinished">ჩეკი</translation>
+    </message>
+</context>
+<context>
     <name>ItemsView</name>
     <message>
         <source>Add</source>
@@ -714,14 +722,6 @@
 <context>
     <name>RC::MainModel</name>
     <message>
-        <source>We Have trouble</source>
-        <translation>პრობლემები გვაქვს</translation>
-    </message>
-    <message>
-        <source>Wow shit</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>This qr code is invalid. Sorry... </source>
         <translation>ეს qr კოდი არასწორია... </translation>
     </message>
@@ -732,10 +732,6 @@
     <message>
         <source>Yor secret key are imported</source>
         <translation>თქვენი საიდუმლო გასაღები იმპორტირებულია</translation>
-    </message>
-    <message>
-        <source>Failed to sync data with server. Please check your internet connection and try to restore your data again</source>
-        <translation>სერვერთან მონაცემების სინქრონიზაცია ვერ მოხერხდა. გთხოვთ, შეამოწმოთ თქვენი ინტერნეტ კავშირი და ხელახლა სცადოთ თქვენი მონაცემების აღდგენა</translation>
     </message>
     <message>
         <source>Your customers already using this card!</source>
@@ -801,6 +797,10 @@
         <source>It is still works, but in the next releases the support of this qr code will be dropped. Please. Create the new recovery Qr code.</source>
         <translation>ის ჯერ კიდევ მუშაობს, მაგრამ შემდეგ გამოშვებებში ამ qr კოდის მხარდაჭერა გაუქმდება. გთხოვთ. შექმენით ახალი აღდგენის Qr კოდი.</translation>
     </message>
+    <message>
+        <source>Wow</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RC::NetIndicatorModel</name>
@@ -815,18 +815,6 @@
 </context>
 <context>
     <name>RC::PermisionsModel</name>
-    <message>
-        <source>Remove access for %0 </source>
-        <translation>ამოიღეთ წვდომა %0-ისთვის </translation>
-    </message>
-    <message>
-        <source>If You remove access for the %0 user, he cannot be use your cards anymore.</source>
-        <translation>თუ თქვენ გაუქმებთ წვდომას %0 მომხმარებლისთვის, ის ვეღარ გამოიყენებს თქვენს ბარათებს.</translation>
-    </message>
-    <message>
-        <source> Do you want to continue?</source>
-        <translation> ინდა გააგრძელო?</translation>
-    </message>
     <message>
         <source>Oops</source>
         <translation>უი</translation>
@@ -856,10 +844,6 @@
     <message>
         <source>Name</source>
         <translation>სახელი</translation>
-    </message>
-    <message>
-        <source>Id</source>
-        <translation></translation>
     </message>
     <message>
         <source>Purchases</source>
@@ -915,17 +899,6 @@
     <message>
         <source>Hmm, maybe you have a super slow internet connection... Try again</source>
         <translation>Hmm, შესაძლოა სუპერ ნელი ინტერნეტ კავშირი გაქვთ... სცადეთ ხელახლა</translation>
-    </message>
-</context>
-<context>
-    <name>RC::WaitConnectionModel</name>
-    <message>
-        <source>We Have trouble</source>
-        <translation>პრობლემები გვაქვს</translation>
-    </message>
-    <message>
-        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
-        <translation>ბონუსის ან შტამპის გაცემა ვერ მოხერხდა.შესაძლოა, თქვენი ადგილობრივი მონაცემები მოძველებულია, ჩვენ უკვე ვაახლებთ თქვენს ლოკალურ მონაცემებს.გთხოვთ, სცადოთ ხელახლა გამოუშვათ ბონუსი ან  შტამპი.</translation>
     </message>
 </context>
 <context>
@@ -1039,12 +1012,8 @@
 <context>
     <name>UserView</name>
     <message>
-        <source>Id:</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Name:</source>
-        <translation>სახელი:</translation>
+        <source>User</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1055,18 +1024,10 @@
     </message>
 </context>
 <context>
-    <name>WaitConnectView</name>
+    <name>WaitView</name>
     <message>
-        <source>Select the number of purchases that the customer has made.</source>
-        <translation>შეარჩიეთ შესყიდვების რაოდენობა, რაც გააკეთა მომხმარებელმა.</translation>
-    </message>
-    <message>
-        <source>Seal</source>
-        <translation>ბეჭდვა</translation>
-    </message>
-    <message>
-        <source>Check</source>
-        <translation>ჩეკი</translation>
+        <source>Please wait for response from server</source>
+        <translation type="unfinished">გთხოვთ დაელოდოთ პასუხს სერვერისგან</translation>
     </message>
 </context>
 </TS>

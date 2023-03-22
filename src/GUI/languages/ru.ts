@@ -67,13 +67,6 @@
     </message>
 </context>
 <context>
-    <name>CPage</name>
-    <message>
-        <source>Please wait for response from server</source>
-        <translation>Пожалуйста, дождитесь ответа от сервера</translation>
-    </message>
-</context>
-<context>
     <name>CardsListView</name>
     <message>
         <source>Don&apos;t have any cards yet? </source>
@@ -444,6 +437,21 @@
     </message>
 </context>
 <context>
+    <name>IncomeView</name>
+    <message>
+        <source>Select the number of purchases that the customer has made.</source>
+        <translation type="unfinished">Выберите количество покупок, которые совершил клиент.</translation>
+    </message>
+    <message>
+        <source>Seal</source>
+        <translation type="unfinished">Печать</translation>
+    </message>
+    <message>
+        <source>Check</source>
+        <translation type="unfinished">Проверить</translation>
+    </message>
+</context>
+<context>
     <name>ItemsView</name>
     <message>
         <source>Add</source>
@@ -733,10 +741,6 @@
         <translation>Прости, но нет</translation>
     </message>
     <message>
-        <source>Wow shit</source>
-        <translation>Воу чё за хрень</translation>
-    </message>
-    <message>
         <source>This qr code is invalid. Sorry... </source>
         <translation>Этот qr-код недействителен. Сорян... </translation>
     </message>
@@ -765,10 +769,6 @@
         <translation>Сброс карты на значение по умолчанию выполнен успешно, но загрузить карту по умолчанию с сервера не удалось, поэтому вы получите карту после новой покупки в учреждении, выдавшем эту карту.</translation>
     </message>
     <message>
-        <source>We Have trouble</source>
-        <translation>У нас проблемы</translation>
-    </message>
-    <message>
         <source> You&apos;re trying to change the bonus rules. These changes will be saved as a new card. The old card continues to work correctly and all customers data will be saved. Do you want to continue?</source>
         <translation> Вы пытаетесь изменить правила бонусов . Эти изменения будут сохранены как новая карта. Старая карта продолжает работать корректно и все данные клиентов будут сохранены. Вы хотите продолжить?</translation>
     </message>
@@ -783,10 +783,6 @@
     <message>
         <source>This client does not have any bonuses. Sorry... </source>
         <translation>Этот клиент не имеет никаких бонусов. сорян... </translation>
-    </message>
-    <message>
-        <source>Failed to sync data with server. Please check your internet connection and try to restore your data again</source>
-        <translation>Не удалось синхронизировать данные с сервером. Проверьте подключение к Интернету и попробуйте снова восстановить данные</translation>
     </message>
     <message>
         <source>We Have trouble: trouble code is %0</source>
@@ -804,6 +800,10 @@
         <source>It is still works, but in the next releases the support of this qr code will be dropped. Please. Create the new recovery Qr code.</source>
         <translation>Он все еще работает, но в следующих версиях поддержка этого qr-кода будет прекращена. Пожалуйста. Создайте новый Qr-код восстановления.</translation>
     </message>
+    <message>
+        <source>Wow</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RC::NetIndicatorModel</name>
@@ -818,18 +818,6 @@
 </context>
 <context>
     <name>RC::PermisionsModel</name>
-    <message>
-        <source>Remove access for %0 </source>
-        <translation>Удалить доступ для %0 </translation>
-    </message>
-    <message>
-        <source>If You remove access for the %0 user, he cannot be use your cards anymore.</source>
-        <translation>Если Вы отключите доступ для пользователя %0, он больше не сможет пользоваться вашими картами.</translation>
-    </message>
-    <message>
-        <source> Do you want to continue?</source>
-        <translation> Вы хотите продолжить?</translation>
-    </message>
     <message>
         <source>Oops</source>
         <translation>Упс</translation>
@@ -863,10 +851,6 @@
     <message>
         <source>Last visit</source>
         <translation>Последний визит</translation>
-    </message>
-    <message>
-        <source>Id</source>
-        <translation>Id</translation>
     </message>
     <message>
         <source>Purchases</source>
@@ -918,17 +902,6 @@
     <message>
         <source>Hmm, maybe you have a super slow internet connection... Try again</source>
         <translation>Хм, возможно, у вас очень медленное интернет-соединение... Попробуйте еще раз</translation>
-    </message>
-</context>
-<context>
-    <name>RC::WaitConnectionModel</name>
-    <message>
-        <source>We Have trouble</source>
-        <translation>У нас проблемы</translation>
-    </message>
-    <message>
-        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
-        <translation>Не удалось выдать бонус или штамп. Возможно, ваши локальные данные устарели, мы уже обновляем ваши локальные данные. Пожалуйста, попробуйте еще раз оформить бонус или штамп.</translation>
     </message>
 </context>
 <context>
@@ -1042,12 +1015,8 @@
 <context>
     <name>UserView</name>
     <message>
-        <source>Id:</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Name:</source>
-        <translation>Имя:</translation>
+        <source>User</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1058,18 +1027,10 @@
     </message>
 </context>
 <context>
-    <name>WaitConnectView</name>
+    <name>WaitView</name>
     <message>
-        <source>Seal</source>
-        <translation>Печать</translation>
-    </message>
-    <message>
-        <source>Check</source>
-        <translation>Проверить</translation>
-    </message>
-    <message>
-        <source>Select the number of purchases that the customer has made.</source>
-        <translation>Выберите количество покупок, которые совершил клиент.</translation>
+        <source>Please wait for response from server</source>
+        <translation type="unfinished">Пожалуйста, дождитесь ответа от сервера</translation>
     </message>
 </context>
 </TS>

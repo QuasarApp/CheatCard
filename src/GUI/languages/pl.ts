@@ -67,13 +67,6 @@
     </message>
 </context>
 <context>
-    <name>CPage</name>
-    <message>
-        <source>Please wait for response from server</source>
-        <translation>Proszę czekać na odpowiedź z serwera</translation>
-    </message>
-</context>
-<context>
     <name>CardsListView</name>
     <message>
         <source>Don&apos;t have any cards yet? </source>
@@ -445,6 +438,21 @@
     </message>
 </context>
 <context>
+    <name>IncomeView</name>
+    <message>
+        <source>Select the number of purchases that the customer has made.</source>
+        <translation type="unfinished">Wybierz liczbę zakupów dokonanych przez klienta.</translation>
+    </message>
+    <message>
+        <source>Seal</source>
+        <translation type="unfinished">Foka</translation>
+    </message>
+    <message>
+        <source>Check</source>
+        <translation type="unfinished">Sprawdzać</translation>
+    </message>
+</context>
+<context>
     <name>ItemsView</name>
     <message>
         <source>Add</source>
@@ -734,10 +742,6 @@
         <translation>Przepraszam, ale nie</translation>
     </message>
     <message>
-        <source>Wow shit</source>
-        <translation>Wow cholera</translation>
-    </message>
-    <message>
         <source>This qr code is invalid. Sorry... </source>
         <translation>Ten kod QR jest nieprawidłowy. Przepraszam... </translation>
     </message>
@@ -766,10 +770,6 @@
         <translation>Karta została zresetowana do domyślnej pomyślnie, ale wczytanie karty domyślnej z serwera nie powiodło się, więc otrzymasz kartę po nowym zakupie w instytucji, która ją wydała.</translation>
     </message>
     <message>
-        <source>We Have trouble</source>
-        <translation>Mamy kłopoty</translation>
-    </message>
-    <message>
         <source> You&apos;re trying to change the bonus rules. These changes will be saved as a new card. The old card continues to work correctly and all customers data will be saved. Do you want to continue?</source>
         <translation> Próbujesz zmienić zasady bonusów. Te zmiany zostaną zapisane jako nowa karta. Stara karta będzie nadal działać poprawnie, a wszystkie dane klientów zostaną zapisane. Czy chcesz kontynuować?</translation>
     </message>
@@ -784,10 +784,6 @@
     <message>
         <source>This client does not have any bonuses. Sorry... </source>
         <translation>Ten klient nie ma żadnych bonusów. Przepraszam... </translation>
-    </message>
-    <message>
-        <source>Failed to sync data with server. Please check your internet connection and try to restore your data again</source>
-        <translation>Nie udało się zsynchronizować danych z serwerem. Sprawdź połączenie internetowe i spróbuj ponownie przywrócić dane</translation>
     </message>
     <message>
         <source>We Have trouble: trouble code is %0</source>
@@ -805,6 +801,10 @@
         <source>It is still works, but in the next releases the support of this qr code will be dropped. Please. Create the new recovery Qr code.</source>
         <translation>Nadal działa, ale w następnych wydaniach obsługa tego kodu qr zostanie usunięta. Proszę. Utwórz nowy kod Qr odzyskiwania.</translation>
     </message>
+    <message>
+        <source>Wow</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RC::NetIndicatorModel</name>
@@ -819,18 +819,6 @@
 </context>
 <context>
     <name>RC::PermisionsModel</name>
-    <message>
-        <source>Remove access for %0 </source>
-        <translation>Usuń dostęp dla %0 </translation>
-    </message>
-    <message>
-        <source>If You remove access for the %0 user, he cannot be use your cards anymore.</source>
-        <translation>Jeśli usuniesz dostęp dla użytkownika %0, nie będzie on mógł już używać twoich kart.</translation>
-    </message>
-    <message>
-        <source> Do you want to continue?</source>
-        <translation> Czy chcesz kontynuować?</translation>
-    </message>
     <message>
         <source>Oops</source>
         <translation>Ups</translation>
@@ -864,10 +852,6 @@
     <message>
         <source>Last visit</source>
         <translation>Ostatnia wizyta</translation>
-    </message>
-    <message>
-        <source>Id</source>
-        <translation></translation>
     </message>
     <message>
         <source>Purchases</source>
@@ -919,17 +903,6 @@
     <message>
         <source>Hmm, maybe you have a super slow internet connection... Try again</source>
         <translation>Hmm, może masz bardzo wolne połączenie internetowe... Spróbuj ponownie</translation>
-    </message>
-</context>
-<context>
-    <name>RC::WaitConnectionModel</name>
-    <message>
-        <source>We Have trouble</source>
-        <translation>Mamy kłopoty</translation>
-    </message>
-    <message>
-        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
-        <translation>Nie udało się wystawić premii lub pieczątki. Być może Twoje dane lokalne są przestarzałe, już zaktualizowaliśmy Twoje dane lokalne. Spróbuj ponownie, aby wystawić premię lub pieczątkę.</translation>
     </message>
 </context>
 <context>
@@ -1043,12 +1016,8 @@
 <context>
     <name>UserView</name>
     <message>
-        <source>Id:</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Name:</source>
-        <translation>Nazwa:</translation>
+        <source>User</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1059,18 +1028,10 @@
     </message>
 </context>
 <context>
-    <name>WaitConnectView</name>
+    <name>WaitView</name>
     <message>
-        <source>Seal</source>
-        <translation>Foka</translation>
-    </message>
-    <message>
-        <source>Check</source>
-        <translation>Sprawdzać</translation>
-    </message>
-    <message>
-        <source>Select the number of purchases that the customer has made.</source>
-        <translation>Wybierz liczbę zakupów dokonanych przez klienta.</translation>
+        <source>Please wait for response from server</source>
+        <translation type="unfinished">Proszę czekać na odpowiedź z serwera</translation>
     </message>
 </context>
 </TS>

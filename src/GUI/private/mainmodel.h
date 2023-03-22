@@ -34,8 +34,9 @@ class AboutModel;
 class CardsListModel;
 class UserModel;
 class ItemsModel;
-class WaitConnectionModel;
-class BaseNode;
+class IncomeModel;
+class WaitModel;
+class Client;
 class IBilling;
 class CardProxyModel;
 class SellerStatisticModel;
@@ -57,13 +58,14 @@ class MainModel : public QObject, public QuasarAppUtils::SettingsListner
     Q_OBJECT
     Q_PROPERTY(bool fFirst READ fFirst NOTIFY fFirstChanged)
 
-    Q_PROPERTY(QObject * currentUser READ currentUser NOTIFY currentUserChanged)
     Q_PROPERTY(QObject * cardsList READ cardsList NOTIFY cardsListChanged)
     Q_PROPERTY(int mode READ getMode WRITE setMode NOTIFY modeChanged)
 
     Q_PROPERTY(QObject * defaultLogosModel READ defaultLogosModel NOTIFY defaultLogosModelChanged)
     Q_PROPERTY(QObject * defaultBackgroundsModel READ defaultBackgroundsModel NOTIFY defaultBackgroundsModelChanged)
+    Q_PROPERTY(QObject * incomeModel READ incomeModel NOTIFY incomeModelChanged)
     Q_PROPERTY(QObject * waitModel READ waitModel NOTIFY waitModelChanged)
+
     Q_PROPERTY(QObject * statisticModel READ statisticModel NOTIFY statisticModelChanged)
     Q_PROPERTY(QObject * exportImportModel READ exportImportModel NOTIFY exportImportModelChanged)
     Q_PROPERTY(QObject * doctorModel READ doctorModel NOTIFY doctorModelChanged)
@@ -87,9 +89,6 @@ public:
     Q_INVOKABLE void configureFinished();
     Q_INVOKABLE QObject *getAboutModel();
     Q_INVOKABLE QObject *getNetIndicatorModel() const;
-    QObject *currentUser() const;
-
-    const QSharedPointer<UserModel>& getCurrentUser() const;
 
     QObject *cardsList() const;
     QObject *defaultLogosModel() const;
@@ -98,7 +97,7 @@ public:
     int getMode() const;
     void setMode(int newMode);
 
-    QObject *waitModel() const;
+    QObject *incomeModel() const;
 
     void initBilling(IBilling* billingObject);
 
@@ -107,15 +106,8 @@ public:
      */
     void flush();
 
-    /**
-     * @brief getReceivedItemsCount This method return count of all purches of @a cardId nad current user.
-     * @param cardId This is card id.
-     * @return count of of all purches of @a cardId nad current user. Else return 0
-     */
-    Q_INVOKABLE int getReceivedItemsCount(int cardId) const;
     Q_INVOKABLE bool fBillingAwailable() const;
     Q_INVOKABLE QString storeLink() const;
-    Q_INVOKABLE void reload() const;
 
     QObject *statisticModel() const;
 
@@ -129,11 +121,11 @@ public:
     QObject *usersListModel() const;
     QObject *permisionsModel() const;
 
-public slots:
-    void setCurrentUser(const QSharedPointer<RC::UserModel> &newCurrentUser);
+    QObject *waitModel() const;
 
-    void handleFirstDataSendet();
-    void handleBonusGivOut(int userId, int cardId, int givOutcount);
+public slots:
+    void handleCurrentUserChanged(const QSharedPointer<RC::UserModel> &newCurrentUser);
+    void handleBonusGivOut(QByteArray userId, QByteArray cardId, int givOutcount);
 
 signals:
 
@@ -147,7 +139,7 @@ signals:
 
     void modeChanged();
 
-    void waitModelChanged();
+    void incomeModelChanged();
     void statisticModelChanged();
 
     void exportImportModelChanged();
@@ -161,6 +153,8 @@ signals:
 
     void usersListModelChanged();
     void fFirstChanged();
+
+    void waitModelChanged();
 
 protected:
     void handleSettingsChanged(const QString &key, const QVariant &value) override;
@@ -187,49 +181,37 @@ private slots:
     void handlePurchaseReceived(RC::Purchase purchase);
     void saveCard(const QSharedPointer<RC::Interfaces::iCard> &card);
     void handleCardCreated(const QSharedPointer<RC::Interfaces::iCard> &card);
-    void handleAppOutdated(int minimumRequiredVersion);
-    void handlePermissionChanged(const QSharedPointer<RC::Interfaces::iContacts>& permision);
-    void handlePermissionRemoved(QSharedPointer<RC::Interfaces::iContacts> permision);
-    void handlePermissionAdded(QSharedPointer<RC::UserHeader> childUserName);
+    void handleAppOutdated(const QString &, unsigned short);
     void handleContactsListChanged();
     void handleSerrverSentError(unsigned char code, QString);
 
 private:
-    void saveUser();
     void lastStatusRequest();
 
     const QSharedPointer<Interfaces::iDB>& db() const;
 
     void initModels();
-    void setBackEndModel(const QSharedPointer<BaseNode> &newModel);
-
     void configureCardsList();
-
     void setCardListModel(const QSharedPointer<CardsListModel>& model);
-
     void initMode(const QSharedPointer<UserModel>& user);
-
     void soundEffectPlayback(const QString &soundName);
-
-    bool sendSellerDataToServer(const QSharedPointer<UserHeader> &header,
-                                unsigned int cardId,
+    bool sendSellerDataToServer(const QByteArray &userKey,
+                                const QByteArray &cardId,
                                 int purchasesCount,
                                 bool receive);
 
-    CardsListModel* getCurrentListModel() const;    
-    void syncWithServer() const;
+    CardsListModel* getCurrentListModel() const;
     void setFirst(bool ffirst);
     void initCardsListModels();
     void initImagesModels();
+
     bool _firstRun = true;
 
     QSharedPointer<Interfaces::iDB> _db;
-    QSharedPointer<UserModel> _currentUser;
     SettingsModel* _config = nullptr;
 
     QSharedPointer<CardsListModel> _cardsListModel;
     QSharedPointer<CardsListModel> _ownCardsListModel;
-
     QSharedPointer<CardProxyModel> _currentCardsListModel;
 
     SoundPlayback *_soundEffect = nullptr;
@@ -240,14 +222,11 @@ private:
 
     IBilling *_billing = nullptr;
 
-    QSharedPointer<BaseNode> _backEndModel = nullptr;
-    QSharedPointer<BaseNode> _sellerbackEndModel = nullptr;
-    QSharedPointer<BaseNode> _visitorbackEndModel = nullptr;
-
-    QSharedPointer<UserHeader> _lastUserHeader;
+    QByteArray _lastUserKey;
 
     Mode _mode = Mode::Client;
     bool _fShowEmptyBonuspackaMessage = false;
+    QByteArray _currentUserKey;
     friend class ImageProvider;
 };
 

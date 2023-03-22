@@ -16,16 +16,15 @@ class TestUtils
 {
 public:
     TestUtils();
-    virtual ~TestUtils();
-    bool wait(const std::function<bool()> &forWait, int msec) const;
+    static bool wait(const std::function<bool()> &forWait, int msec);
 
 
-    bool funcPrivateConnect(const std::function<bool ()> &requestFunc,
+    static bool funcPrivateConnect(const std::function<bool ()> &requestFunc,
                             const std::function<bool ()> &checkFunc,
-                            const std::function<QMetaObject::Connection ()> &connectFunction) const;
+                            const std::function<QMetaObject::Connection ()> &connectFunction);
 
-    bool funcPrivateConnect(const std::function<bool ()> &requestFunc,
-                            const std::function<bool ()> &checkFunc) const;
+    static bool funcPrivateConnect(const std::function<bool ()> &requestFunc,
+                            const std::function<bool ()> &checkFunc);
 
 };
 

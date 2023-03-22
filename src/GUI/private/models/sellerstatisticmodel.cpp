@@ -13,7 +13,6 @@ SellerStatisticModel::SellerStatisticModel(QObject *parent):
 
     setHHeders(QStringList() <<
                tr("Name") <<
-               tr("Id") <<
                tr("Purchases") <<
                tr("Available") <<
                tr("Issued") <<
@@ -50,29 +49,25 @@ QVariant SellerStatisticModel::data(const QModelIndex &index, int role) const {
         }
 
         case 1 : {
-            return QString("id:%0").arg(item->getUser());
-        }
-
-        case 2 : {
             return item->getPurchasesNumber();
         }
 
-        case 3 : {
+        case 2 : {
             return CardModel::availableItems(item, _card->card());
         }
 
-        case 4 : {
+        case 3 : {
             return item->getReceived();
         }
 
-        case 5 : {
+        case 4 : {
             if (role == SortRole) {
                 return item->getRawTime();
             }
             return QDateTime::fromSecsSinceEpoch(item->getRawTime());
         }
 
-        case 6 : {
+        case 5 : {
             if (item->isActive()) {
                 return tr("Active");
             }
@@ -100,7 +95,7 @@ void SellerStatisticModel::setDataList(const QSharedPointer<CardModel> &cardData
     _data = newData;
 
     for (const auto &user: qAsConst(userData)) {
-        _users[user->id()] = user;
+        _users[user->getKey()] = user;
     }
 
     recalcTotalValues();
@@ -123,11 +118,11 @@ void SellerStatisticModel::setCurrentCard(const QSharedPointer<CardModel> &newCu
     emit currentCardChanged();
 }
 
-const QHash<unsigned int, QSharedPointer<RC::Interfaces::iUser> > &SellerStatisticModel::users() const {
+const QHash<QByteArray, QSharedPointer<RC::Interfaces::iUser> > &SellerStatisticModel::users() const {
     return _users;
 }
 
-void SellerStatisticModel::setUsers(const QHash<unsigned int, QSharedPointer<RC::Interfaces::iUser> > &newUsers) {
+void SellerStatisticModel::setUsers(const QHash<QByteArray, QSharedPointer<Interfaces::iUser> > &newUsers) {
     _users = newUsers;
 }
 

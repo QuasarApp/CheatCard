@@ -21,13 +21,14 @@ file(GLOB SOURCE_CPP
     "private/pills/*.h"
     "private/*.h"
     "private/objects/*.h"
+    "private/objects*/*.h"
 
     "public/rcdb/*.cpp"
     "public/*.cpp"
 
     "private/*.cpp"
     "private/pills/*.cpp"
-    "private/objects/*.cpp"
+    "private/objects*/*.cpp"
 
     "*.qrc"
 )

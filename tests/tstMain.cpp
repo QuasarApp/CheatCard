@@ -6,13 +6,10 @@
 //#
 
 #include <QtTest>
-#include "connectiontest.h"
 #include "restoredatatest.h"
-#include "fixdbidspilltest.h"
-#include "userscardstest.h"
 #include "securitytest.h"
-#include "contactstest.h"
 #include "fixbrokenuserstest.h"
+#include "upgradedatabasetest.h"
 #include "apitest.h"
 
 // Use This macros for initialize your own test classes.
@@ -40,13 +37,11 @@ private slots:
 
     // BEGIN TESTS CASES
     TestCase(apiTest, APITest)
-    TestCase(usersCardsTest, UsersCardsTest)
-    TestCase(connectionTest, ConnectionTest)
     TestCase(securityTest, SecurityTest)
-    TestCase(fixDBIdsPillTest, FixDBIdsPillTest)
     TestCase(restoreDataTest, RestoreDataTest)
-    TestCase(contactsTest, ContactsTest)
     TestCase(fixBrokenUsersTest, FixBrokenUsersTest)
+    TestCase(upgradeDataBaseTest, UpgradeDataBaseTest)
+
     // END TEST CASES
 
 private:

@@ -1,0 +1,7 @@
+-- changes on the database after refactoring
+
+BEGIN TRANSACTION;
+DROP TABLE IF EXISTS Users_old;
+DROP TABLE IF EXISTS Cards_old;
+
+COMMIT;

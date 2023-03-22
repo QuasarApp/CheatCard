@@ -25,28 +25,20 @@ public:
     UserHeader();
     bool isValid() const override;
 
-    unsigned int getUserId() const;
-    void setUserId(unsigned int newUserId);
-
-    long long getSessionId() const;
-    void setSessionId(long long newSessionId);
-
-    const QByteArray &token() const;
-    void setToken(const QByteArray &newToken);
-
     const QString &userName() const;
     void setUserName(const QString &newUserName);
 
     bool toUser(QSharedPointer<Interfaces::iUser>& out) const;
+
+    const QByteArray& userKey() const;
+    void setUserKey(const QByteArray &newUserKey);
 
 protected:
     QDataStream &fromStream(QDataStream &stream) override;
     QDataStream &toStream(QDataStream &stream) const override;
 
 private:
-    unsigned int _userId = 0;
-    long long _sessionId;
-    QByteArray _token;
+    QByteArray _userKey;
     QString _userName;
 };
 }

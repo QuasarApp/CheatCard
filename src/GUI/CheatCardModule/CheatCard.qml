@@ -21,8 +21,8 @@ ApplicationWindow {
     font.pointSize: 13
 
     //  Vertical mode
-    height: 640
-    width: 350
+    height: 800
+    width: 600
 
     SettingsKeys {
         id: settingsKeys
@@ -218,7 +218,7 @@ ApplicationWindow {
             icon.source: "qrc:/images/private/resources/Interface_icons/key_push.svg"
             onClicked:  () => {
                             activityProcessor.newActivity("qrc:/CheatCardModule/ExportUserKeyPage.qml",
-                                                          mainModel.currentUser);
+                                                          user);
                         }
         }
     }
@@ -273,13 +273,6 @@ ApplicationWindow {
         id: userPanel
         y: header.height
         height: mainWindow.height - toolBar.height
-        property int isOpen: position
-        onIsOpenChanged: {
-            if (mainModel && !isOpen) {
-                mainModel.handleFirstDataSendet();
-            }
-        }
-
         contentItem: EditUserView {
             model: mainModel
             maximuWidth:  mainWindow.width - leftPadding - rightPadding
@@ -288,6 +281,10 @@ ApplicationWindow {
 
     NotificationServiceView {
         anchors.fill: parent;
+    }
+
+    WaitView {
+        model: mainModel.waitModel
     }
 
     Item {

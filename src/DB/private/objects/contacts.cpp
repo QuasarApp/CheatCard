@@ -7,7 +7,6 @@
 //#
 
 #include "contacts.h"
-#include "rci/rcutils.h"
 
 namespace RC {
 namespace DB {
@@ -43,8 +42,8 @@ QSharedPointer<Interfaces::iContacts> Contacts::toObject(const QSharedPointer<In
 }
 
 QH::PKG::DBVariantMap Contacts::variantMap() const {
-    return {{"userKey",      {QString(userKey.toBase64(QByteArray::Base64UrlEncoding)),      QH::PKG::MemberType::Insert}},
-            {"childUserKey", {QString(childUserKey.toBase64(QByteArray::Base64UrlEncoding)), QH::PKG::MemberType::Insert}},
+    return {{"userKey",      {userKey,      QH::PKG::MemberType::Insert}},
+            {"childUserKey", {childUserKey, QH::PKG::MemberType::Insert}},
             {"info",         {info,         QH::PKG::MemberType::InsertUpdate}},
 
             };
@@ -54,38 +53,11 @@ bool Contacts::isValid() const {
     return userKey.size() && childUserKey.size();
 }
 
-QString Contacts::primaryKey() const {
-    return "";
-}
+std::pair<QString, QMap<QString, QVariant> > Contacts::condition() const {
 
-QString Contacts::primaryValue() const {
-    return QString(userKey.toBase64(QByteArray::Base64UrlEncoding));
-}
-
-QDataStream &Contacts::fromStream(QDataStream &stream) {
-
-    stream >> userKey;
-    stream >> childUserKey;
-    stream >> info;
-
-    return stream;
-}
-
-QDataStream &Contacts::toStream(QDataStream &stream) const {
-
-    stream << userKey;
-    stream << childUserKey;
-    stream << info;
-
-    return stream;
-}
-
-QString Contacts::condition() const {
-    QString strUserKey(userKey.toBase64(QByteArray::Base64UrlEncoding));
-    QString strChildUserKey(childUserKey.toBase64(QByteArray::Base64UrlEncoding));
-
-    return QString("userKey='%0' AND childUserKey='%1'").
-        arg(strUserKey, strChildUserKey);
+    return {QString("userKey=:userKey AND childUserKey=:childUserKey"),
+            {{":userKey", userKey},
+             {":childUserKey", childUserKey}}};
 }
 
 const QByteArray &Contacts::getUserKey() const {
@@ -104,14 +76,6 @@ void Contacts::setChildUserKey(const QByteArray &newChildUserKey) {
     childUserKey = newChildUserKey;
 }
 
-unsigned int Contacts::getChildUserId() const {
-    return RC::RCUtils::makeUserId(childUserKey);
-}
-
-unsigned int Contacts::getUser() const {
-    return RC::RCUtils::makeUserId(userKey);
-}
-
 const QString &Contacts::getInfo() const {
     return info;
 }
@@ -122,10 +86,8 @@ void Contacts::setInfo(const QString &newInfo) {
 
 bool Contacts::fromSqlRecord(const QSqlRecord &q) {
 
-    childUserKey = QByteArray::fromBase64(q.value("childUserKey").toByteArray(),
-                                          QByteArray::Base64UrlEncoding);
-    userKey = QByteArray::fromBase64(q.value("userKey").toByteArray(),
-                                     QByteArray::Base64UrlEncoding);
+    childUserKey = q.value("childUserKey").toByteArray();
+    userKey = q.value("userKey").toByteArray();
     info = q.value("info").toString();
 
     return true;

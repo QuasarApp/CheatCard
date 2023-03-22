@@ -176,16 +176,16 @@ public:
     virtual void setBackground(const QByteArray &newBackground) = 0;
 
     /**
-     * @brief cardId This method should be return unique id of the card item.
-     * @return unique id of the card item.
+     * @brief cardId This is sha256 value. This id using as a main indentificator of the card item.
+     * @return sha256 key of the card.
      */
-    virtual unsigned int cardId() const = 0;
+    virtual const QByteArray &cardId() const = 0;
 
     /**
-     * @brief setId This method sets id for object.
-     * @param id this is new object id
+     * @brief setCardId This method update cards ids (key and shord id).
+     * @param newKey This is new value of the card key.
      */
-    virtual void setId(unsigned int id) = 0;
+    virtual void setCardId(const QByteArray& newKey) = 0;
 
     /**
      * @brief freeItemName This method should be return a bonus name of the card
@@ -228,7 +228,7 @@ public:
      * @param userId This is id of the checked user.
      * @return true if the @a userId is real card's ovner.
      */
-    virtual bool isOvner(const unsigned int userId) const = 0;
+    virtual bool isOvner(const QByteArray& userId) const = 0;
 
     /**
      * @brief compare This method compare currnet object with the @a othe object.

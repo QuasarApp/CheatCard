@@ -19,11 +19,9 @@ namespace DB {
 UsersCards::UsersCards() {
 }
 
-UsersCards::UsersCards(unsigned int user, unsigned int card) {
+UsersCards::UsersCards(const QByteArray& user, const QByteArray& card) {
     UsersCards::setUser(user);
     UsersCards::setCard(card);
-    id = RCUtils::makeUsersCardsId(user, card);
-
 }
 
 UsersCards::UsersCards(const QSharedPointer<Interfaces::iUsersCards> &obj) {
@@ -33,7 +31,6 @@ UsersCards::UsersCards(const QSharedPointer<Interfaces::iUsersCards> &obj) {
     UsersCards::setReceived(obj->getReceived());
     UsersCards::setCardVersion(obj->getCardVersion());
     UsersCards::setTime(obj->getRawTime());
-    id = RC::RCUtils::makeUsersCardsId(user, card);
 
 }
 
@@ -44,66 +41,28 @@ QH::PKG::DBObject *UsersCards::createDBObject() const {
 QH::PKG::DBVariantMap UsersCards::variantMap() const {
     return {{"user",           {user,            QH::PKG::MemberType::Insert}},
             {"card",           {card,            QH::PKG::MemberType::Insert}},
-            {"id",             {id,              QH::PKG::MemberType::PrimaryKey}},
             {"purchasesNumber",{purchasesNumber, QH::PKG::MemberType::InsertUpdate}},
             {"received",       {received,        QH::PKG::MemberType::InsertUpdate}},
             {"time",           {_time,           QH::PKG::MemberType::InsertUpdate}},
             };
 }
 
-QString UsersCards::primaryKey() const {
-    return "id";
-}
-
-QString UsersCards::primaryValue() const {
-    return QString::number(id);
-}
-
 QString UsersCards::toString() const {
-    QString result("id: %0 \n"
-                   "user: %1 \n"
-                   "card: %2 \n"
-                   "purchasesNumber: %3 \n"
-                   "received: %4 \n"
-                   "time: %5 \n ");
+    QString result(
+                   "user: %0 \n"
+                   "card: %1 \n"
+                   "purchasesNumber: %2 \n"
+                   "received: %3 \n"
+                   "time: %4 \n ");
 
-    result = result.arg(id).
-             arg(user).
-             arg(card).
+    result = result.
+             arg(user.toBase64(),
+                 card.toBase64()).
              arg(purchasesNumber).
              arg(received).
              arg(_time);
 
     return result;
-}
-
-QDataStream &UsersCards::fromStream(QDataStream &stream) {
-
-    DBObject::fromStream(stream); // clazy:exclude=skipped-base-method
-
-    stream >> user;
-    stream >> card;
-    stream >> id;
-    stream >> purchasesNumber;
-    stream >> received;
-    stream >> cardVersion;
-    stream >> _time;
-
-    return stream;
-}
-
-QDataStream &UsersCards::toStream(QDataStream &stream) const {
-    DBObject::toStream(stream); // clazy:exclude=skipped-base-method
-
-    stream << user;
-    stream << card;
-    stream << id;
-    stream << purchasesNumber;
-    stream << received;
-    stream << cardVersion;
-    stream << _time;
-
-    return stream;
 }
 
 void UsersCards::setTime(unsigned int newTime) {
@@ -127,10 +86,6 @@ unsigned int UsersCards::getRawTime() const {
     return _time;
 }
 
-long long UsersCards::getId() const {
-    return id;
-}
-
 unsigned int UsersCards::getReceived() const {
     return received;
 }
@@ -151,30 +106,27 @@ void UsersCards::setPurchasesNumber(unsigned int newPurchasesNumber) {
     purchasesNumber = newPurchasesNumber;
 }
 
-unsigned int UsersCards::getCard() const {
+const QByteArray& UsersCards::getCard() const {
     return card;
 }
 
-void UsersCards::setCard(unsigned int newCard) {
+void UsersCards::setCard(const QByteArray& newCard) {
     card = newCard;
-    id = RCUtils::makeUsersCardsId(user, card);
 }
 
-unsigned int UsersCards::getUser() const {
+const QByteArray& UsersCards::getUser() const {
     return user;
 }
 
-void UsersCards::setUser(unsigned int newUser) {
+void UsersCards::setUser(const QByteArray& newUser) {
     user = newUser;
-    id = RCUtils::makeUsersCardsId(user, card);
 }
 
 bool UsersCards::fromSqlRecord(const QSqlRecord &q) {
 
-    id = q.value("id").toLongLong();
-    user = q.value("user").toUInt();
+    user = q.value("user").toByteArray();
     purchasesNumber = q.value("purchasesNumber").toUInt();
-    card = q.value("card").toUInt();
+    card = q.value("card").toByteArray();
     received = q.value("received").toUInt();
     _time = q.value("time").toInt();
 
@@ -182,11 +134,18 @@ bool UsersCards::fromSqlRecord(const QSqlRecord &q) {
 }
 
 QString UsersCards::table() const {
-    return "UsersCards";
+    return "UsersData";
 }
 
 bool UsersCards::isValid() const {
-    return user && card && id;
+    return user.size() && card.size();
+}
+
+std::pair<QString, QMap<QString, QVariant> > UsersCards::condition() const {
+
+    return {QString("user=:user AND card=:card"),
+            {{":user", user},
+             {":card", card}}};
 }
 
 }

@@ -51,7 +51,6 @@ public:
     void setFSaller(bool newFSaller) override;
 
     const QByteArray &getKey() const override;
-    const QString getSignature() const override;
     void setKey(const QByteArray &newKey) override;
 
     const QByteArray &secret() const override;
@@ -59,21 +58,15 @@ public:
 
     void regenerateKeys(const QByteArray& newSecret = {}) override;
 
-    unsigned int id() const override;
-    void setId(unsigned int newId) override;
     QString toString() const override;
 
 protected:
     QString primaryKey() const override;
-    QString primaryValue() const override;
-    QDataStream &fromStream(QDataStream &stream) override;
-    QDataStream &toStream(QDataStream &stream) const override;
+    QVariant primaryValue() const override;
     QString table() const override;
 
 private:
     QByteArray randomArray() const;
-
-    unsigned int _id = 0;
 
     QByteArray _key;
     QByteArray _secret;

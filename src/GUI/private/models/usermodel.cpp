@@ -7,6 +7,7 @@
 
 #include "usermodel.h"
 #include "CheatCard/userheader.h"
+#include "qqmlengine.h"
 #include "rci/objects/iuser.h"
 #include "settingsmodel.h"
 
@@ -14,12 +15,10 @@
 
 namespace RC {
 
-void RC::UserModel::regenerateSessionKey() {
-    setSessinon(static_cast<long long >(rand()) * rand());
-}
-
 UserModel::UserModel(QSharedPointer<Interfaces::iUser> user) {
     setUser(user);
+    QQmlEngine::setObjectOwnership(this,
+                                   QQmlEngine::CppOwnership);
 }
 
 bool UserModel::fSaller() const {
@@ -76,9 +75,7 @@ void UserModel::setUser(const QSharedPointer<Interfaces::iUser>& newUser) {
 
 UserHeader UserModel::getHelloPackage() const {
     UserHeader header;
-    header.setSessionId(getSessinon());
-    header.setUserId(user()->id());
-    header.setToken(user()->getKey());
+    header.setUserKey(user()->getKey());
 
     auto settings = SettingsModel::instance();
     if (settings && settings->getValue("shareName", true).toBool()) {
@@ -112,21 +109,14 @@ void UserModel::setSellerToken(const QByteArray &newSellerToken) {
     setFSaller(newSellerToken.size());
 }
 
-long long UserModel::getSessinon() const {
-    return sessinon;
-}
-
-void UserModel::setSessinon(long long newSessinon) {
-    if (sessinon == newSessinon)
-        return;
-    sessinon = newSessinon;
-    setSessionCode(getHelloPackage().toBytes().toHex());
-
-    emit sessinonChanged();
-}
-
 const QString &UserModel::sessionCode() const {
     return _sessionCode;
+}
+
+QByteArray UserModel::userKey() const {
+    if (!_user)
+        return {};
+    return _user->getKey();
 }
 
 void UserModel::becomeSellerRequest() {
@@ -141,12 +131,5 @@ QString UserModel::userBackUpPath() const {
 QString UserModel::userBackUpData() const {
     return _user->secret().toBase64(QByteArray::Base64UrlEncoding);
 }
-
-int UserModel::userId() const {
-    if (!_user)
-        return 0;
-    return _user->id();
-}
-
 
 }

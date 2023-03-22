@@ -67,13 +67,6 @@
     </message>
 </context>
 <context>
-    <name>CPage</name>
-    <message>
-        <source>Please wait for response from server</source>
-        <translation></translation>
-    </message>
-</context>
-<context>
     <name>CardsListView</name>
     <message>
         <source>Don&apos;t have any cards yet? </source>
@@ -444,6 +437,21 @@
     </message>
 </context>
 <context>
+    <name>IncomeView</name>
+    <message>
+        <source>Select the number of purchases that the customer has made.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Seal</source>
+        <translation type="unfinished">Seal</translation>
+    </message>
+    <message>
+        <source>Check</source>
+        <translation type="unfinished">Check</translation>
+    </message>
+</context>
+<context>
     <name>ItemsView</name>
     <message>
         <source>Add</source>
@@ -733,10 +741,6 @@
         <translation></translation>
     </message>
     <message>
-        <source>Wow shit</source>
-        <translation>Wow shit</translation>
-    </message>
-    <message>
         <source>This qr code is invalid. Sorry... </source>
         <translation>This qr code is invalid. Sorry... </translation>
     </message>
@@ -765,10 +769,6 @@
         <translation></translation>
     </message>
     <message>
-        <source>We Have trouble</source>
-        <translation></translation>
-    </message>
-    <message>
         <source> You&apos;re trying to change the bonus rules. These changes will be saved as a new card. The old card continues to work correctly and all customers data will be saved. Do you want to continue?</source>
         <translation></translation>
     </message>
@@ -782,10 +782,6 @@
     </message>
     <message>
         <source>This client does not have any bonuses. Sorry... </source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Failed to sync data with server. Please check your internet connection and try to restore your data again</source>
         <translation></translation>
     </message>
     <message>
@@ -804,6 +800,10 @@
         <source>It is still works, but in the next releases the support of this qr code will be dropped. Please. Create the new recovery Qr code.</source>
         <translation></translation>
     </message>
+    <message>
+        <source>Wow</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RC::NetIndicatorModel</name>
@@ -818,18 +818,6 @@
 </context>
 <context>
     <name>RC::PermisionsModel</name>
-    <message>
-        <source>Remove access for %0 </source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>If You remove access for the %0 user, he cannot be use your cards anymore.</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source> Do you want to continue?</source>
-        <translation></translation>
-    </message>
     <message>
         <source>Oops</source>
         <translation></translation>
@@ -863,10 +851,6 @@
     <message>
         <source>Last visit</source>
         <translation>Last visit</translation>
-    </message>
-    <message>
-        <source>Id</source>
-        <translation>Id</translation>
     </message>
     <message>
         <source>Purchases</source>
@@ -917,17 +901,6 @@
     </message>
     <message>
         <source>Hmm, maybe you have a super slow internet connection... Try again</source>
-        <translation></translation>
-    </message>
-</context>
-<context>
-    <name>RC::WaitConnectionModel</name>
-    <message>
-        <source>We Have trouble</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
         <translation></translation>
     </message>
 </context>
@@ -1042,12 +1015,8 @@
 <context>
     <name>UserView</name>
     <message>
-        <source>Id:</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Name:</source>
-        <translation></translation>
+        <source>User</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1058,18 +1027,10 @@
     </message>
 </context>
 <context>
-    <name>WaitConnectView</name>
+    <name>WaitView</name>
     <message>
-        <source>Seal</source>
-        <translation>Seal</translation>
-    </message>
-    <message>
-        <source>Check</source>
-        <translation>Check</translation>
-    </message>
-    <message>
-        <source>Select the number of purchases that the customer has made.</source>
-        <translation></translation>
+        <source>Please wait for response from server</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

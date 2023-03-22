@@ -19,8 +19,8 @@ ImagesStorageModel::~ImagesStorageModel() {
 
 }
 
-const QString &ImagesStorageModel::getImageByHash(const QString &anyString) {
-    return getImageByHash(qHash(anyString));
+const QString &ImagesStorageModel::getImageByHash(const QByteArray &anyData) {
+    return getImageByHash(qHash(anyData));
 }
 
 const QString& ImagesStorageModel::getImageByHash(int anyNumber) {

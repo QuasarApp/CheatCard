@@ -28,7 +28,8 @@ class iUsersCards;
 class CardModel: public QObject, public BaseModel
 {
     Q_OBJECT
-    Q_PROPERTY(unsigned int id READ cardId NOTIFY objChanged)
+    Q_PROPERTY(QByteArray idRaw READ cardId NOTIFY objChanged)
+    Q_PROPERTY(QString idbase64 READ cardIdBase64 NOTIFY objChanged)
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY objChanged)
 
     Q_PROPERTY(int purchasesNumber READ purchasesNumber NOTIFY sigUserDataChanged)
@@ -53,7 +54,9 @@ public:
     CardModel();
     CardModel(QSharedPointer<Interfaces::iCard> card);
 
-    unsigned int cardId() const;
+    QByteArray cardId() const;
+    QString cardIdBase64() const;
+
     int purchasesNumber() const;
     int freeIndex() const;
 
@@ -135,6 +138,7 @@ private:
 
     QByteArray convert(const QString& imagePath);
 
+    QString _base64;
     QSharedPointer<Interfaces::iCard> _card = nullptr;
     QSharedPointer<Interfaces::iUsersCards> _userData = nullptr;
 };

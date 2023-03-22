@@ -18,8 +18,8 @@ class iCardListModel: public BaseModel
 public:
     iCardListModel();
 
-    virtual void removeCard(int cardId) = 0;
-    virtual void activateCard(int cardId) = 0;
+    virtual void removeCard(const QByteArray& cardId) = 0;
+    virtual void activateCard(const QByteArray& cardId) = 0;
     virtual void activateCardByIndex(int index) = 0;
 };
 }

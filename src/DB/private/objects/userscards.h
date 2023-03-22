@@ -26,19 +26,18 @@ class UsersCards: public RC::Interfaces::iUsersCards, public QH::PKG::DBObject
 
 public:
     UsersCards();
-    UsersCards(unsigned int user, unsigned int card);
+    UsersCards(const QByteArray &user, const QByteArray &card);
     UsersCards(const QSharedPointer<Interfaces::iUsersCards> &obj);
 
-    unsigned int getUser() const override;
-    void setUser(unsigned int newUser) override;
-    unsigned int getCard() const override;
-    void setCard(unsigned int newCard) override;
+    const QByteArray& getUser() const override;
+    void setUser(const QByteArray& newUser) override;
+    const QByteArray& getCard() const override;
+    void setCard(const QByteArray& newCard) override;
     unsigned int getPurchasesNumber() const override;
     void setPurchasesNumber(unsigned int newPurchasesNumber) override;
     unsigned int getReceived() const override;
     void setReceived(unsigned int newReceived) override;
     void receive(unsigned int receiveFreItemsCount) override;
-    long long getId() const override;
     unsigned int getCardVersion() const override;
     void setCardVersion(unsigned int newCardVersion) override;
     unsigned int getRawTime() const override;
@@ -53,16 +52,11 @@ public:
     QH::PKG::DBVariantMap variantMap() const override;
     QString toString() const override;
     bool isValid() const override;
-protected:
-    QDataStream &fromStream(QDataStream &stream) override;
-    QDataStream &toStream(QDataStream &stream) const override;
-    QString primaryKey() const override;
-    QString primaryValue() const override;
+    std::pair<QString, QMap<QString, QVariant> > condition() const override;
 
 private:
-    long long id = 0;
-    unsigned int user = 0;
-    unsigned int card = 0;
+    QByteArray user;
+    QByteArray card;
     unsigned int cardVersion = 0;
     unsigned int purchasesNumber = 0;
     unsigned int received = 0;

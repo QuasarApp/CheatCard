@@ -8,8 +8,8 @@ import com.scythestudio.scodes 1.0
 Frame {
     id: root
     property var model: null
-    property var userModel: (model)? model.currentUser : null
-    property bool fBillingAwailable: mainModel && mainModel.fBillingAwailable()
+    property var userModel: (root.model)? root.model.usersListModel.currentUserModel : null
+    property bool fBillingAwailable: root.model && root.model.fBillingAwailable()
     property bool editable: true
     property int  maximuWidth: -1
 
@@ -108,9 +108,9 @@ Frame {
                 visible:!becomeaseller.visible && fBillingAwailable && root.model.mode
 
                 onClicked: {
-                    if (mainModel) {
+                    if (root.model) {
                         activityProcessor.newActivity("qrc:/CheatCardModule/PermissionsView.qml",
-                                                      mainModel.permisionsModel);
+                                                      root.model.permisionsModel);
                         userPanel.close()
                     }
                 }

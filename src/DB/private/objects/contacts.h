@@ -35,10 +35,6 @@ public:
     const QString &getInfo() const override;
     void setInfo(const QString &newInfo) override;
 
-    unsigned int getUser() const override;
-
-    unsigned int getChildUserId() const override;
-
     const QByteArray &getChildUserKey() const override;
     void setChildUserKey(const QByteArray &newChildUserKey) override;
 
@@ -50,12 +46,7 @@ public:
     toObject(const QSharedPointer<Interfaces::iDB> &db);
 
 protected:
-    QString primaryKey() const override;
-    QString primaryValue() const override;
-
-    QDataStream &fromStream(QDataStream &stream) override;
-    QDataStream &toStream(QDataStream &stream) const override;
-    QString condition() const override;
+    std::pair<QString, QMap<QString, QVariant>> condition() const override;
 
 private:
     QByteArray childUserKey;

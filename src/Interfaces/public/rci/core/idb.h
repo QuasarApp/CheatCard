@@ -16,7 +16,6 @@
 #include <rci/objects/iuser.h>
 #include <rci/objects/iuserscards.h>
 #include "rci/global.h"
-#include "rci/objects/isession.h"
 
 namespace DP {
 class iPill;
@@ -50,23 +49,31 @@ public:
     /**
      * @brief deleteContact This method remove contact object from database.
      * @param contact This is contact object that will be removeed
-     * @return true if session removed successful.
+     * @return true if contact removed successful.
      */
     virtual bool deleteContact(const QSharedPointer<iContacts>& contact) const = 0;
 
     /**
-     * @brief deleteSessuon This method remove the session object from database.
-     * @param sessionId This is id of session
-     * @return true if session removed successful.
-     */
-    virtual bool deleteSessuon(long long sessionId) const = 0;
-
-    /**
      * @brief deleteCard This method remove the card and card data.
      * @param cardId This is id of card
-     * @return true if session removed successful.
+     * @return true if card removed successful.
      */
-    virtual bool deleteCard(unsigned int cardId) const = 0;
+    virtual bool deleteCard(const QByteArray& cardId) const = 0;
+
+    /**
+     * @brief deleteUser This method remove the user.
+     * @param userId This is id of user
+     * @return true if user removed successful else false.
+     */
+    virtual bool deleteUser(const QByteArray& userId) const = 0;
+
+    /**
+     * @brief deleteUserData This method delete data use the user
+     * @param cardId This is card id
+     * @param userId This is user id
+     * @return true if the remove finished successul else false
+     */
+    virtual bool deleteUserData(const QByteArray& cardId, const QByteArray& userId) = 0;
 
     /**
      * @brief deleteContactsByChildUserKey This method delete contacts with selected childUser.
@@ -100,12 +107,6 @@ public:
     virtual QSharedPointer<iUsersCards> makeEmptyUsersCard() const = 0;
 
     /**
-     * @brief makeEmptyUser This method create session data object
-     * @return  empty session object
-     */
-    virtual QSharedPointer<iSession> makeEmptySession() const = 0;
-
-    /**
      * @brief saveUser This method save user object into database.
      * @param user This is user object
      * @return true if saving finsihed successful else false
@@ -127,13 +128,6 @@ public:
     virtual bool saveUsersCard(const QSharedPointer<iUsersCards>& userData) const = 0;
 
     /**
-     * @brief saveSession This method save session object into database.
-     * @param session This is session object.
-     * @return true if saving finsihed successful else false
-     */
-    virtual bool saveSession(const QSharedPointer<iSession>& session) const = 0;
-
-    /**
      * @brief saveContact This method save contact object into database.
      * @param contact This is caontact object.
      * @return true if saving finsihed successful else false
@@ -145,7 +139,7 @@ public:
      * @param cardId This is card id
      * @return version of the card in database.
      */
-    virtual unsigned int getCardVersion(unsigned int cardId) const = 0;
+    virtual unsigned int getCardVersion(const QByteArray& cardId) const = 0;
 
     /**
      * @brief getCardField This method return any field from the card data.
@@ -153,15 +147,7 @@ public:
      * @param field This is needed filed of the card.
      * @return card's field value.
      */
-    virtual QVariant getCardField(unsigned int cardId, const QString& field) = 0;
-
-    /**
-     * @brief getUsersCardsFromSession This method return list of users data from session object.
-     * @param sessionId This is id of the nedded session.
-     * @return list of users data from session object.
-     */
-    virtual QList<QSharedPointer<iUsersCards>>
-    getUsersCardsFromSession(long long sessionId) = 0;
+    virtual QVariant getCardField(const QByteArray& cardId, const QString& field) = 0;
 
     /**
      * @brief getUser This method return object of use from db
@@ -169,7 +155,7 @@ public:
      * @return object of use from db
      */
     virtual QSharedPointer<iUser>
-    getUser(unsigned int userId) const = 0;
+    getUser(const QByteArray& userId) const = 0;
 
     /**
      * @brief getAllUserData This method return all user's data from db
@@ -177,7 +163,7 @@ public:
      * @return all user's data from db
      */
     virtual QList<QSharedPointer<iUsersCards>>
-    getAllUserData(unsigned int userId) const = 0;
+    getAllUserData(const QByteArray& userId) const = 0;
 
     /**
      * @brief getUserCardData This method return shared data between user with @a userId and card with @a cardId
@@ -186,8 +172,8 @@ public:
      * @return shared data between user with @a userId and card with @a cardId
      */
     virtual QSharedPointer<iUsersCards>
-    getUserCardData(unsigned int userId,
-                    unsigned int cardId) const = 0;
+    getUserCardData(const QByteArray& userId,
+                    const QByteArray& cardId) const = 0;
 
     /**
      * @brief getAllUserFromCard This method return all data of the card @a cardId.
@@ -197,8 +183,8 @@ public:
      * @return  all data of the card @a cardId.
      */
     virtual QList<QSharedPointer<iUsersCards>>
-    getAllUserFromCard(unsigned int cardId,
-                       unsigned int ignoreUserId = 0) const = 0;
+    getAllUserFromCard(const QByteArray& cardId,
+                       const QByteArray& ignoreUserId = {}) const = 0;
 
     /**
      * @brief getAllActiveUserFromCard This method return all a data of all active users on the card @a cardId.
@@ -209,8 +195,8 @@ public:
      * @see IDB::getAllPassiveUserFromCard
      */
     virtual QList<QSharedPointer<iUsersCards>>
-    getAllActiveUserFromCard(unsigned int cardId, int unixTimeRange,
-                             unsigned int ignoreUserId = 0) const = 0;
+    getAllActiveUserFromCard(const QByteArray& cardId, int unixTimeRange,
+                             const QByteArray& ignoreUserId = {}) const = 0;
 
     /**
      * @brief getAllPassiveUserFromCard This method return all a data of all passive users on the card @a cardId.
@@ -221,8 +207,8 @@ public:
      * @see IDB::getAllActiveUserFromCard
      */
     virtual QList<QSharedPointer<iUsersCards>>
-    getAllPassiveUserFromCard(unsigned int cardId, int unixTimeRange,
-                              unsigned int ignoreUserId = 0) const = 0;
+    getAllPassiveUserFromCard(const QByteArray& cardId, int unixTimeRange,
+                              const QByteArray& ignoreUserId = {}) const = 0;
 
     /**
      * @brief getAllUserDataFromCard This method return list of users that use card @a cardId
@@ -230,7 +216,7 @@ public:
      * @return list of users that use card @a cardId
      */
     virtual QList<QSharedPointer<iUser>>
-    getAllUserDataFromCard(unsigned int cardId) const = 0;
+    getAllUserDataFromCard(const QByteArray& cardId) const = 0;
 
     /**
      * @brief getAllUserWithPrivateKeys This method return list of users that has private keys. (not guest users records)
@@ -245,7 +231,7 @@ public:
      * @return card by id.
      */
     virtual QSharedPointer<iCard>
-    getCard(unsigned int cardId) = 0;
+    getCard(const QByteArray& cardId) = 0;
 
     /**
      * @brief getAllUserCards This method will return list of available cards of the user with @a userKey key
@@ -303,7 +289,7 @@ public:
      * @param userKey This is public user key
      * @return secret key by the user key
      */
-    virtual QByteArray getSecretOfCardOvner(unsigned int cardId) const = 0;
+    virtual QByteArray getSecretOfCardOvner(const QByteArray& cardId) const = 0;
 
     /**
      * @brief getFreeItemsCount This method return coun of free items by user data
@@ -318,8 +304,8 @@ public:
      * @param cardId This is card id.
      * @return count of the received bonuses of the user with @a userId in a card with @a cardId
      */
-    virtual int getCountOfReceivedItems(unsigned int userId,
-                                        unsigned int cardId) = 0;
+    virtual int getCountOfReceivedItems(const QByteArray& userId,
+                                        const QByteArray& cardId) = 0;
 
     /**
      * @brief clearOldData This method remove all date that oldly of the duration time.
@@ -351,6 +337,15 @@ public:
      * @see AppDataBase::setBackUpPath
      */
     virtual QString backUp(const QString& backUpPath = "") const= 0;
+
+    /**
+     * @brief migrateUsersCardsToUsersData This method get all data of the user with @a userKey from old usersData table
+     * and convert to new users data structure and save it in the new table.
+     * @param userKey This is id of the migrated user
+     * @return true if migration finished successful else false
+     * @note This method need only for the apiv3
+     */
+    virtual bool migrateUsersCardsToUsersData(const QByteArray& userKey) const = 0;
 };
 
 

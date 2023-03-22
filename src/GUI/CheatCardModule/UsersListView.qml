@@ -43,13 +43,13 @@ CPage {
                     width: list.width
                     height: implicitHeight
                     model: userObject
-                    userDefaultAvatar: (root.model)?
-                                           root.model.userDefaultAvatar(userID):
-                                           ""
-                    fCurrent: list.model && userID === list.model.currentUserId
+                    userAvatar: (root.model)?
+                                    defaultAvatar:
+                                    ""
+                    fCurrent: userObject === list.model.currentUserModel
                     onClick: {
                         if (list.model) {
-                            list.model.currentUserId = userID
+                            list.model.currentUserKey = model.key
                         }
                     }
                 }
@@ -72,7 +72,7 @@ CPage {
                                         const model = mainModel.exportImportModel
 
                                         if (model)
-                                            model.handleDecodeFinished(data);
+                                        model.handleDecodeFinished(data);
 
                                         activityProcessor.popItem();
 

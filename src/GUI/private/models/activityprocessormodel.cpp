@@ -19,8 +19,8 @@ bool ActivityProcessorModel::newActivity(const QString &qmlView, QObject *model)
     return true;
 }
 
-bool ActivityProcessorModel::freeItem(QObject *card, int userId, int freeItemsCount) {
-    if (!(card && userId))
+bool ActivityProcessorModel::freeItem(QObject *card, const QByteArray& userId, int freeItemsCount) {
+    if (!(card && userId.size()))
         return false;
 
     emit sigFreeItem(card, userId, freeItemsCount);
