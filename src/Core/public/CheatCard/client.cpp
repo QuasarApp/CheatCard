@@ -1,5 +1,6 @@
 #include "client.h"
 #include "api.h"
+#include <QCoreApplication>
 #include <params.h>
 #include <settings.h>
 
@@ -22,6 +23,12 @@ Client::Client(const QSharedPointer<Interfaces::iDB>& db): BaseNode(db) {
                         this, &Client::sigPurchaseWasSuccessful, Qt::DirectConnection);
 
     }
+
+    QH::SslSrtData sslData;
+    sslData.commonName = getServerHost();
+    sslData.organization = QCoreApplication::organizationName();
+
+    useSelfSignedSslConfiguration(sslData);
 }
 
 Client::~Client() {
@@ -30,19 +37,6 @@ Client::~Client() {
         delete _reconnetTimer;
         _reconnetTimer = nullptr;
     }
-}
-
-QString Client::getServerHost() const {
-    auto settings = QuasarAppUtils::ISettings::instance();
-
-    if (!settings)
-        return DEFAULT_CHEAT_CARD_HOST;
-
-    if (!settings->getValue("devSettingEnable", false).toBool()) {
-        return DEFAULT_CHEAT_CARD_HOST;
-    }
-
-    return settings->getStrValue("host", DEFAULT_CHEAT_CARD_HOST);
 }
 
 bool Client::connectToServer(QString host, int port) {

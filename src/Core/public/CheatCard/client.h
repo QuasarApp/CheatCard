@@ -85,9 +85,6 @@ protected:
                           QAbstractSocket::SocketError errorCode,
                           QString errorString) override;
 
-
-    QString getServerHost() const;
-
 private:
     void setFNetAvailable(bool newFNetAvailable);
 

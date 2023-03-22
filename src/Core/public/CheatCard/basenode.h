@@ -42,6 +42,7 @@ protected slots:
 
     void handleSslErrorOcurred(QH::SslSocket *scket, const QSslError &error) override;
 
+    QString getServerHost() const;
 private:
 
     QSharedPointer<Interfaces::iDB> _db = nullptr;

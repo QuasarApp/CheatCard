@@ -12,6 +12,7 @@
 #include <cmath>
 #include <dbobjectsrequest.h>
 #include <QCryptographicHash>
+#include <settings.h>
 
 namespace RC {
 
@@ -42,6 +43,19 @@ void BaseNode::handleSslErrorOcurred(QH::SslSocket *scket, const QSslError &erro
     QH::AbstractNode::handleSslErrorOcurred(scket, error);
     emit sigNetworkError(QAbstractSocket::SocketError::SslInternalError,
                          error.error());
+}
+
+QString BaseNode::getServerHost() const {
+    auto settings = QuasarAppUtils::ISettings::instance();
+
+    if (!settings)
+        return DEFAULT_CHEAT_CARD_HOST;
+
+    if (!settings->getValue("devSettingEnable", false).toBool()) {
+        return DEFAULT_CHEAT_CARD_HOST;
+    }
+
+    return settings->getStrValue("host", DEFAULT_CHEAT_CARD_HOST);
 }
 
 QString BaseNode::libVersion() {

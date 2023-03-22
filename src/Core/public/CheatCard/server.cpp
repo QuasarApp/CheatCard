@@ -13,7 +13,11 @@
 namespace RC {
 
 Server::Server(const QSharedPointer<Interfaces::iDB> &db): BaseNode(db) {
+    QH::SslSrtData sslData;
+    sslData.commonName = getServerHost();
+    sslData.organization = QCoreApplication::organizationName();
 
+    useSelfSignedSslConfiguration(sslData);
 }
 
 BaseNode::NodeType Server::nodeType() const {
