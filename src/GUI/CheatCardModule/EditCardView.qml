@@ -746,9 +746,10 @@ Page {
                                 return
                             };
 
-                            cardBackground.source = selectdeItem
-                            root.model.setNewBackGround(selectdeItem);
+                            cardLogoIamge.source = selectdeItem
+                            root.model.setNewLogo(selectdeItem);
                             activityProcessor.popItem();
+
                         }
         }
     }
@@ -759,23 +760,15 @@ Page {
             toolBarTitle: qsTr("Select card seal")
             id: sourceSeels
             model: (mainModel)? mainModel.defaultLogosModel: null
+            onSelected: (selectdeItem) => {
+                            if (!root.model) {
+                                return
+                            };
 
-            footer: DialogButtonBox {
-                onAccepted: () => {
-                                if (!root.model) {
-                                    return
-                                };
-
-                                const selectdeItem = sourceSeels.currentSelectedItem;
-
-                                cardRectangle.seelTmpImage = selectdeItem
-                                root.model.setNewSeel(selectdeItem);
-                                activityProcessor.popItem();
-
-                            }
-
-                standardButtons: Dialog.Open
-            }
+                            cardRectangle.seelTmpImage = selectdeItem
+                            root.model.setNewSeel(selectdeItem);
+                            activityProcessor.popItem();
+                        }
         }
     }
 
