@@ -15,6 +15,10 @@
         <source>Developed by Quasar App Core team</source>
         <translation>Developed by Quasar App Core team</translation>
     </message>
+    <message>
+        <source>About application</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AdditionalInformationForSeller</name>
@@ -46,6 +50,10 @@
         <source>Watch help video</source>
         <translation></translation>
     </message>
+    <message>
+        <source>Additional information</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AppearanceCustomPage</name>
@@ -64,6 +72,10 @@
     <message>
         <source>Please choose a color</source>
         <translation>Please choose a color</translation>
+    </message>
+    <message>
+        <source>Appeearance page</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -156,6 +168,17 @@
     <message>
         <source>Go to discussions. There you will get extended help.</source>
         <translation></translation>
+    </message>
+    <message>
+        <source>Contact with developers</source>
+        <translation type="unfinished">Contact with devs</translation>
+    </message>
+</context>
+<context>
+    <name>CreateCardView</name>
+    <message>
+        <source>Create new card</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -468,6 +491,14 @@
         <source>Search a card</source>
         <translation></translation>
     </message>
+    <message>
+        <source>Hello </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> (work mode)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PageHelpSeller</name>
@@ -591,6 +622,10 @@
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**IMPORTANT:** After you put at least one seal to the customer, the card cannot be edited. Instead, you can create a new map based on the old one. All customer data and their statistics will be automatically transferred to the corrected card.</source>
         <translation></translation>
     </message>
+    <message>
+        <source>Help page</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PageHelpVisitor</name>
@@ -642,12 +677,20 @@
         <source>* Receive seal to card.</source>
         <translation></translation>
     </message>
+    <message>
+        <source>Help page</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PageShareApp</name>
     <message>
         <source>To get a cheat card, scan the QR code and follow the link.</source>
         <translation>To get a cheat card, scan the QR code and follow the link.</translation>
+    </message>
+    <message>
+        <source>Share Application</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -991,6 +1034,10 @@
     <message>
         <source>Work rules</source>
         <translation></translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation type="unfinished">Settings</translation>
     </message>
 </context>
 <context>

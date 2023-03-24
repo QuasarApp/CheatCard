@@ -15,6 +15,10 @@
         <source>Developed by Quasar App Core team</source>
         <translation>Opracowany przez zespół Quasar App Core</translation>
     </message>
+    <message>
+        <source>About application</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AdditionalInformationForSeller</name>
@@ -46,6 +50,10 @@
         <source>Watch help video</source>
         <translation>Obejrzyj wideo pomocy</translation>
     </message>
+    <message>
+        <source>Additional information</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AppearanceCustomPage</name>
@@ -64,6 +72,10 @@
     <message>
         <source>Please choose a color</source>
         <translation>Proszę wybrać kolor</translation>
+    </message>
+    <message>
+        <source>Appeearance page</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -157,6 +169,17 @@
     <message>
         <source>Go to discussions. There you will get extended help.</source>
         <translation>Przejdź do dyskusji. Tam uzyskasz rozszerzoną pomoc.</translation>
+    </message>
+    <message>
+        <source>Contact with developers</source>
+        <translation type="unfinished">Kontakt z programistami</translation>
+    </message>
+</context>
+<context>
+    <name>CreateCardView</name>
+    <message>
+        <source>Create new card</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -469,6 +492,14 @@
         <source>Search a card</source>
         <translation>Wyszukaj kartę</translation>
     </message>
+    <message>
+        <source>Hello </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> (work mode)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PageHelpSeller</name>
@@ -592,6 +623,10 @@
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**IMPORTANT:** After you put at least one seal to the customer, the card cannot be edited. Instead, you can create a new map based on the old one. All customer data and their statistics will be automatically transferred to the corrected card.</source>
         <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**WAŻNE:** Po nałożeniu co najmniej jednej pieczęci klientowi nie można edytować karty. Zamiast tego możesz utworzyć nową mapę na podstawie starej. Wszystkie dane klientów i ich statystyki zostaną automatycznie przeniesione na poprawioną kartę.</translation>
     </message>
+    <message>
+        <source>Help page</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PageHelpVisitor</name>
@@ -643,12 +678,20 @@
         <source>* Receive seal to card.</source>
         <translation>* Odbierz pieczęć na kartę.</translation>
     </message>
+    <message>
+        <source>Help page</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PageShareApp</name>
     <message>
         <source>To get a cheat card, scan the QR code and follow the link.</source>
         <translation>Aby otrzymać oszukaną kartę, zeskanuj kod QR i skorzystaj z linku.</translation>
+    </message>
+    <message>
+        <source>Share Application</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -992,6 +1035,10 @@
     <message>
         <source>Work rules</source>
         <translation>Zasady pracy</translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation type="unfinished">Ustawienia</translation>
     </message>
 </context>
 <context>

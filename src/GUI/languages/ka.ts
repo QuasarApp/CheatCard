@@ -15,6 +15,10 @@
         <source>Developed by Quasar App Core team</source>
         <translation>შექმნილია Quasar App Core გუნდის მიერ</translation>
     </message>
+    <message>
+        <source>About application</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AdditionalInformationForSeller</name>
@@ -46,6 +50,10 @@
         <source>* Or You can contact with developers here:</source>
         <translation>* ან შეგიძლიათ დაუკავშირდეთ დეველოპერებს აქ:</translation>
     </message>
+    <message>
+        <source>Additional information</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AppearanceCustomPage</name>
@@ -64,6 +72,10 @@
     <message>
         <source>Please choose a color</source>
         <translation>გთხოვთ აირჩიოთ ფერი</translation>
+    </message>
+    <message>
+        <source>Appeearance page</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -156,6 +168,17 @@
     <message>
         <source>Go to discussions. There you will get extended help.</source>
         <translation>გადადით დისკუსიებზე. იქ მიიღებთ გაფართოებულ დახმარებას.</translation>
+    </message>
+    <message>
+        <source>Contact with developers</source>
+        <translation type="unfinished">დაუკავშირდით დეველოპერებს</translation>
+    </message>
+</context>
+<context>
+    <name>CreateCardView</name>
+    <message>
+        <source>Create new card</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -469,6 +492,14 @@
         <source>Search a card</source>
         <translation>მოძებნეთ ბარათი</translation>
     </message>
+    <message>
+        <source>Hello </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> (work mode)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PageHelpSeller</name>
@@ -588,6 +619,10 @@
         <source>* Bonuses can be accumulated by the client, if the client has accumulated several bonuses, then on the issuance screen you can choose how many bonuses to issue, after which they will be written off from the category of available ones and will be transferred to the category received on the client&apos;s card.</source>
         <translation>* ბონუსების დაგროვება შესაძლებელია კლიენტის მიერ, თუ კლიენტმა დააგროვა რამდენიმე ბონუსი, მაშინ გაცემის ეკრანზე შეგიძლიათ აირჩიოთ რამდენი ბონუსი უნდა გასცეს, რის შემდეგაც ისინი ჩამოიწერება ხელმისაწვდომი კატეგორიიდან და გადაირიცხება კლიენტის ბარათზე მიღებული კატეგორია.</translation>
     </message>
+    <message>
+        <source>Help page</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PageHelpVisitor</name>
@@ -639,12 +674,20 @@
         <source> </source>
         <translation></translation>
     </message>
+    <message>
+        <source>Help page</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PageShareApp</name>
     <message>
         <source>To get a cheat card, scan the QR code and follow the link.</source>
         <translation>cheat card-ის მისაღებად, დაასკანირეთ QR კოდი და მიჰყევით ბმულს.</translation>
+    </message>
+    <message>
+        <source>Share Application</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -988,6 +1031,10 @@
     <message>
         <source>Reset all settings</source>
         <translation>ყველა პარამეტრის გადატვირთვა</translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation type="unfinished">პარამეტრები</translation>
     </message>
 </context>
 <context>

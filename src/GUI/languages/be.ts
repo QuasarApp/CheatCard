@@ -15,6 +15,10 @@
         <source>Developed by Quasar App Core team</source>
         <translation>Распрацавана асноўнай камандай Quasar App</translation>
     </message>
+    <message>
+        <source>About application</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AdditionalInformationForSeller</name>
@@ -46,6 +50,10 @@
         <source>* Or You can contact with developers here:</source>
         <translation>* Вы можаце звязацца з распрацоўшчыкамі тут:</translation>
     </message>
+    <message>
+        <source>Additional information</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AppearanceCustomPage</name>
@@ -64,6 +72,10 @@
     <message>
         <source>Please choose a color</source>
         <translation>Калі ласка, абярыце колер</translation>
+    </message>
+    <message>
+        <source>Appeearance page</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -156,6 +168,17 @@
     <message>
         <source>Go to discussions. There you will get extended help.</source>
         <translation>Перайсці да абмеркаванняў. Там вы атрымаеце пашыраную дапамогу.</translation>
+    </message>
+    <message>
+        <source>Contact with developers</source>
+        <translation type="unfinished">Кантакт з распрацоўшчыкамі</translation>
+    </message>
+</context>
+<context>
+    <name>CreateCardView</name>
+    <message>
+        <source>Create new card</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -468,6 +491,14 @@
         <source>Search a card</source>
         <translation>Пошук карты</translation>
     </message>
+    <message>
+        <source>Hello </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> (work mode)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PageHelpSeller</name>
@@ -587,6 +618,10 @@
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**IMPORTANT:** After you put at least one seal to the customer, the card cannot be edited. Instead, you can create a new map based on the old one. All customer data and their statistics will be automatically transferred to the corrected card.</source>
         <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**ВАЖНА:** Пасля таго, як вы паставіце хаця б адну пячатку  кліенту, картку нельга будзе рэдагаваць. Замест гэтага вы можаце стварыць новую картку на аснове старой. Усе дадзеныя кліентаў і іх статыстыка будуць аўтаматычна перанесены на выпраўленую картку.</translation>
     </message>
+    <message>
+        <source>Help page</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PageHelpVisitor</name>
@@ -638,12 +673,20 @@
         <source>* Receive seal to card.</source>
         <translation>* Атрымайце пячатку на картку.</translation>
     </message>
+    <message>
+        <source>Help page</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PageShareApp</name>
     <message>
         <source>To get a cheat card, scan the QR code and follow the link.</source>
         <translation>Каб атрымаць cheat card, адсканіруйце QR-код і перайдзіце па спасылцы.</translation>
+    </message>
+    <message>
+        <source>Share Application</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -987,6 +1030,10 @@
     <message>
         <source>Reset all settings</source>
         <translation>Скінуць усе налады</translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation type="unfinished">Налады</translation>
     </message>
 </context>
 <context>
