@@ -15,7 +15,7 @@ import "Style"
 
 CPage {
     id: root;
-    title: qsTr("Import your cards data")
+    toolBarTitle: qsTr("Import your cards data")
 
     property var model: null
     property bool onlyScaner: false

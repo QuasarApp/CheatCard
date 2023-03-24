@@ -5,6 +5,8 @@ import QtQuick.Layouts 1.15
 StackView {
     id: root
     property var model: null
+    property string cuurentActivityTitle: (currentItem && currentItem.toolBarTitle)?
+                                              currentItem.toolBarTitle: ""
 
     Connections {
         target: model

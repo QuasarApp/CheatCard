@@ -5,6 +5,7 @@ import QtQuick.Layouts 1.15
 import "Style"
 
 Control {
+    property string toolBarTitle: qsTr("Additional information")
 
     id: root;
     contentItem: Flickable {

@@ -37,7 +37,7 @@ CPage {
                 implicitWidth: 0x0
 
                 id: selectTypePage
-                title: qsTr("Who are you?");
+                toolBarTitle: qsTr("Who are you?");
 
                 contentItem: Item {
                     ButtonGroup {
@@ -106,7 +106,7 @@ CPage {
 
                 focus: true
 
-                title: (!fSaller.checked)? qsTr("What is your name?") :
+                toolBarTitle: (!fSaller.checked)? qsTr("What is your name?") :
                                            qsTr("What is the name of your company?");
 
                 contentItem: Item {
@@ -142,7 +142,7 @@ CPage {
             }
 
             AppearanceCustomPage {
-                title: qsTr("Customize the appearance of your application.")
+                toolBarTitle: qsTr("Customize the appearance of your application.")
             }
 
             RegistrationFinishedPage {

@@ -21,4 +21,11 @@ void ItemsModel::addCustomItem(const QString &path) {
     insertRow(newDataIndex);
     setData(index(newDataIndex), path);
 }
+
+void ItemsModel::setStringList(const QStringList &strings) {
+
+    QStringListModel::setStringList(QStringList() << "clear" << strings);
+    // see imageProvider
+    addCustomItem("add");
+}
 }

@@ -18,7 +18,7 @@ import "Style"
 CPage {
 
     id : root
-    title: qsTr("Export user account")
+    toolBarTitle: qsTr("Export user account")
     implicitHeight: 0x0
     implicitWidth: 0x0
 

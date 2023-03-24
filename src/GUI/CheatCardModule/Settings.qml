@@ -13,10 +13,11 @@ import QtMultimedia 5.15
 
 import QtQuick.Controls.Material 2.15
 
+import "Style"
 
-Page {
+CPage {
     id: rootSettins
-
+    toolBarTitle: qsTr("Settings")
     contentItem: Flickable {
         id: flickable
         ScrollBar.vertical: ScrollBar {}
@@ -131,7 +132,7 @@ Page {
                             id: colorPick
                             currentlyColor: Material.primary
                             implicitHeight: 0x0
-                            title: qsTr("Please choose a color")
+                            toolBarTitle: qsTr("Please choose a color")
 
                             footer: DialogButtonBox {
                                 onAccepted: () => {

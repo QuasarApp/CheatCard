@@ -42,7 +42,9 @@ ApplicationWindow {
     }
 
     property var model: mainModel
-    property var user: (mainModel)? mainModel.currentUser: null
+    property var user: (model && model.usersListModel)?
+                           model.usersListModel.currentUserModel: null
+
     Material.primary: config.getStrValue(settingsKeys.COLOR_THEME)
     Material.accent: Material.primary
     Material.theme: (config.getValue(settingsKeys.DARK_THEME))? Material.Dark : Material.Light
@@ -110,10 +112,7 @@ ApplicationWindow {
             }
 
             Label {
-                text: (user)?
-                          qsTr("Hello ") + user.name +
-                          ((mainModel && mainModel.mode)? qsTr(" (work mode)"):"")
-                        : ""
+                text: activityProcessor.cuurentActivityTitle
 
                 font.pointSize: 14
                 elide: Label.ElideRight
@@ -231,6 +230,7 @@ ApplicationWindow {
         initialItem: MainActivity {
             id: mainActivity
             model: mainModel
+            user: mainWindow.user
         }
     }
 

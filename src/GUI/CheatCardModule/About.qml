@@ -14,6 +14,8 @@ import QuasarAppCreditsModule 1.0
 
 Credits {
     property var model: null
+    property string toolBarTitle: qsTr("About application")
+
     state: "about"
     iconWidth: 150
     iconLogo: "qrc:/images/private/resources/Logo/CheatCard_Logo1.png"

@@ -104,10 +104,6 @@
 <context>
     <name>CheatCard</name>
     <message>
-        <source>Hello </source>
-        <translation>Приветствуем </translation>
-    </message>
-    <message>
         <source>Contact with developers</source>
         <translation>Связаться с нами</translation>
     </message>
@@ -126,10 +122,6 @@
     <message>
         <source>Share application</source>
         <translation>Поделиться</translation>
-    </message>
-    <message>
-        <source> (work mode)</source>
-        <translation> (Рабочий режим)</translation>
     </message>
     <message>
         <source>Create a card</source>
@@ -454,16 +446,20 @@
 <context>
     <name>ItemsView</name>
     <message>
-        <source>Add</source>
-        <translation>Добавить</translation>
-    </message>
-    <message>
         <source>Images</source>
         <translation>Изображения</translation>
     </message>
     <message>
         <source>Do you want to put your picture? You can choose but the picture must be in png format!</source>
         <translation>Хотите разместить свою картинку? Вы можете выбрать, но картинка должна быть в формате png!</translation>
+    </message>
+    <message>
+        <source>Gallery</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

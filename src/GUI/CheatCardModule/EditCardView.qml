@@ -718,57 +718,45 @@ Page {
     Component {
         id: selectImage
         ItemsView {
-            title: qsTr("Select Image")
+            toolBarTitle: qsTr("Select Image")
             id: sourceImages
             model: (mainModel)? mainModel.defaultBackgroundsModel: null
 
-            footer: DialogButtonBox {
-                onAccepted: () => {
-                                if (!root.model) {
-                                    return
-                                };
+            onSelected: (selectdeItem) => {
+                            if (!root.model) {
+                                return
+                            };
 
-                                const selectdeItem = sourceImages.currentSelectedItem;
-
-                                cardBackground.source = selectdeItem
-                                root.model.setNewBackGround(selectdeItem);
-                                activityProcessor.popItem();
-                            }
-
-                standardButtons: Dialog.Open
-            }
+                            cardBackground.source = selectdeItem
+                            root.model.setNewBackGround(selectdeItem);
+                            activityProcessor.popItem();
+                        }
         }
     }
 
     Component {
         id: defaultLogos
         ItemsView {
-            title: qsTr("Select card logo")
+            toolBarTitle: qsTr("Select card logo")
             id: sourceLogos
             model: (mainModel)? mainModel.defaultLogosModel: null
 
-            footer: DialogButtonBox {
-                onAccepted: () => {
-                                if (!root.model) {
-                                    return
-                                };
+            onSelected: (selectdeItem) => {
+                            if (!root.model) {
+                                return
+                            };
 
-                                const selectdeItem = sourceLogos.currentSelectedItem;
-                                cardLogoIamge.source = selectdeItem
-                                root.model.setNewLogo(selectdeItem);
-                                activityProcessor.popItem();
-
-                            }
-
-                standardButtons: Dialog.Open
-            }
+                            cardBackground.source = selectdeItem
+                            root.model.setNewBackGround(selectdeItem);
+                            activityProcessor.popItem();
+                        }
         }
     }
 
     Component {
         id: defaultSeels
         ItemsView {
-            title: qsTr("Select card seal")
+            toolBarTitle: qsTr("Select card seal")
             id: sourceSeels
             model: (mainModel)? mainModel.defaultLogosModel: null
 
@@ -799,7 +787,7 @@ Page {
             id: colorPick
             currentlyColor: (root.model)? root.model.color: "#000000"
             implicitHeight: 0x0
-            title: qsTr("Please choose a color")
+            toolBarTitle: qsTr("Please choose a color")
 
 
             footer: DialogButtonBox {
@@ -823,7 +811,7 @@ Page {
             id: colorPickFont
             currentlyColor: (root.model)? root.model.fontColor: "#000000"
 
-            title: qsTr("Please choose a color")
+            toolBarTitle: qsTr("Please choose a color")
 
             footer: DialogButtonBox {
                 onAccepted: () => {

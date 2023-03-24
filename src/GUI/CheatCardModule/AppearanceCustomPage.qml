@@ -7,6 +7,7 @@ import "Style"
 
 CPage {
     id: customUiPage
+    toolBarTitle: qsTr("Appeearance page")
     contentItem: Item {
 
         ColumnLayout {
@@ -86,7 +87,7 @@ CPage {
                             id: colorPick
                             currentlyColor: Material.primary
                             implicitHeight: 0x0
-                            title: qsTr("Please choose a color")
+                            toolBarTitle: qsTr("Please choose a color")
 
                             footer: DialogButtonBox {
                                 onAccepted: () => {

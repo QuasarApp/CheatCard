@@ -21,6 +21,7 @@ class ItemsModel : public QStringListModel, public BaseModel
 public:
     ItemsModel();
     Q_INVOKABLE void addCustomItem(const QString& path);
+    void setStringList(const QStringList &strings);
 };
 }
 #endif // ITEMSMODEL_H

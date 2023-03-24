@@ -104,14 +104,6 @@
 <context>
     <name>CheatCard</name>
     <message>
-        <source>Hello </source>
-        <translation>გამარჯობა </translation>
-    </message>
-    <message>
-        <source> (work mode)</source>
-        <translation> (სამუშაო რეჟიმი)</translation>
-    </message>
-    <message>
         <source>Create a card</source>
         <translation>შექმენით ბარათი</translation>
     </message>
@@ -455,16 +447,20 @@
 <context>
     <name>ItemsView</name>
     <message>
-        <source>Add</source>
-        <translation>დამატება</translation>
-    </message>
-    <message>
         <source>Images</source>
         <translation>სურათები</translation>
     </message>
     <message>
         <source>Do you want to put your picture? You can choose but the picture must be in png format!</source>
         <translation>შენი სურათის დადება გინდა? თქვენ შეგიძლიათ აირჩიოთ, მაგრამ სურათი უნდა იყოს png ფორმატში!</translation>
+    </message>
+    <message>
+        <source>Gallery</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

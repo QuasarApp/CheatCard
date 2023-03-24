@@ -104,14 +104,6 @@
 <context>
     <name>CheatCard</name>
     <message>
-        <source>Hello </source>
-        <translation>Добры дзень </translation>
-    </message>
-    <message>
-        <source> (work mode)</source>
-        <translation> (рэжым працы)</translation>
-    </message>
-    <message>
         <source>Create a card</source>
         <translation>Стварыце картку</translation>
     </message>
@@ -454,16 +446,20 @@
 <context>
     <name>ItemsView</name>
     <message>
-        <source>Add</source>
-        <translation>Дадаць</translation>
-    </message>
-    <message>
         <source>Images</source>
         <translation>Малюнкі</translation>
     </message>
     <message>
         <source>Do you want to put your picture? You can choose but the picture must be in png format!</source>
         <translation>Вы хочаце размясціць сваю фатаграфію? Вы можаце выбраць, але малюнак павінен быць у фармаце png!</translation>
+    </message>
+    <message>
+        <source>Gallery</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
