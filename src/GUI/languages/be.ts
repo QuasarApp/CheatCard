@@ -154,6 +154,14 @@
         <source>Random collor</source>
         <translation>Выпадковы колер</translation>
     </message>
+    <message>
+        <source>Color values</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>#HTML</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Contacts</name>
