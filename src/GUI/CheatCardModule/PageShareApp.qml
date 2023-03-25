@@ -11,12 +11,14 @@ import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
 
+import "Style"
 
-Page {
+CPage {
     id: root
 
     implicitHeight: 0x0
     implicitWidth: 0x0
+    toolBarTitle: qsTr("Share Application")
 
     property int imageSize: 80
 

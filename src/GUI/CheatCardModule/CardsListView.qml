@@ -11,7 +11,7 @@ import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
 import "Style"
 
-Page {
+CPage {
     id: root
     property var model: null
     property bool editable: true
@@ -143,10 +143,12 @@ Page {
 
             }
 
+            property int maximumItemWidth: bottomButton.height * 15
+
             property int itemHeight: (itemWidth * 0.75)
-            property int itemWidth: (root.editable)?
+            property int itemWidth: Math.min(maximumItemWidth,(root.editable)?
                                         Math.min(list.width, bottomButton.y / 0.75) :
-                                        Math.min(list.width, list.height / 0.75)
+                                        Math.min(list.width, list.height / 0.75))
 
 
             delegate: Component {

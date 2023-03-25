@@ -9,14 +9,15 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
+import "Style"
 
-
-Page {
+CPage {
     id: rootContacts
 
     property int imageSize: 80
 
     implicitHeight: listContacts.height
+    toolBarTitle: qsTr("Contact with developers")
 
     contentItem: Flickable {
         id: flickable

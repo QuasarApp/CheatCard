@@ -17,6 +17,12 @@ ColumnLayout {
     property var model: null
     property alias mainList: mainListView
 
+    property var user: null
+    property string toolBarTitle: (user)?
+                      qsTr("Hello ") + user.name +
+                      ((model && model.mode)? qsTr(" (work mode)"):"")
+                    : "fdf"
+
     CardsListView {
         id: mainListView
         Layout.fillHeight: true
@@ -139,7 +145,7 @@ ColumnLayout {
 
         Layout.fillHeight: true
         Layout.fillWidth: true
-        model: mainModel
+        model: root.model
 
     }
 }

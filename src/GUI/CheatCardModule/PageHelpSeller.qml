@@ -14,6 +14,7 @@ import QuasarAppCreditsModule 1.0
 
 Credits {
     state: "about"
+    property string toolBarTitle: qsTr("Help page")
     iconWidth: 150
     listCustomInfo: [
         {

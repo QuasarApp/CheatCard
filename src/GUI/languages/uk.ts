@@ -15,6 +15,10 @@
         <source>Developed by Quasar App Core team</source>
         <translation>Розроблено командою Quasar App Core</translation>
     </message>
+    <message>
+        <source>About application</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AdditionalInformationForSeller</name>
@@ -46,6 +50,10 @@
         <source>Watch help video</source>
         <translation>Перегляньте довідкове відео</translation>
     </message>
+    <message>
+        <source>Additional information</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AppearanceCustomPage</name>
@@ -64,6 +72,10 @@
     <message>
         <source>Please choose a color</source>
         <translation>Будь ласка, виберіть колір</translation>
+    </message>
+    <message>
+        <source>Appeearance page</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -104,10 +116,6 @@
 <context>
     <name>CheatCard</name>
     <message>
-        <source>Hello </source>
-        <translation>Здравствуйте </translation>
-    </message>
-    <message>
         <source>Contact with developers</source>
         <translation>Зв&apos;язатися</translation>
     </message>
@@ -128,10 +136,6 @@
         <translation>Поділіться програмою</translation>
     </message>
     <message>
-        <source> (work mode)</source>
-        <translation> (режим роботи)</translation>
-    </message>
-    <message>
         <source>Create a card</source>
         <translation>Створіть картку</translation>
     </message>
@@ -150,6 +154,14 @@
         <source>Random collor</source>
         <translation>Випадковий колір</translation>
     </message>
+    <message>
+        <source>Color values</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>#HTML</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Contacts</name>
@@ -164,6 +176,17 @@
     <message>
         <source>Go to discussions. There you will get extended help.</source>
         <translation>Переходьте до обговорень. Там ви отримаєте розширену допомогу.</translation>
+    </message>
+    <message>
+        <source>Contact with developers</source>
+        <translation type="unfinished">Зв&apos;язатися</translation>
+    </message>
+</context>
+<context>
+    <name>CreateCardView</name>
+    <message>
+        <source>Create new card</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -454,10 +477,6 @@
 <context>
     <name>ItemsView</name>
     <message>
-        <source>Add</source>
-        <translation>Додати</translation>
-    </message>
-    <message>
         <source>Images</source>
         <translation>Зображення</translation>
     </message>
@@ -465,12 +484,28 @@
         <source>Do you want to put your picture? You can choose but the picture must be in png format!</source>
         <translation>Хочеш поставити свою картинку? Ви можете вибрати, але зображення має бути у форматі png!</translation>
     </message>
+    <message>
+        <source>Gallery</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainActivity</name>
     <message>
         <source>Search a card</source>
         <translation>Пошук карти</translation>
+    </message>
+    <message>
+        <source>Hello </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> (work mode)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -595,6 +630,10 @@
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**IMPORTANT:** After you put at least one seal to the customer, the card cannot be edited. Instead, you can create a new map based on the old one. All customer data and their statistics will be automatically transferred to the corrected card.</source>
         <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**ВАЖЛИВО:** Після того, як ви поставите хоча б одну печатку клієнту, картку неможливо редагувати. Замість цього ви можете створити нову карту на основі старої. Усі дані клієнтів та їх статистика будуть автоматично перенесені на виправлену картку.</translation>
     </message>
+    <message>
+        <source>Help page</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PageHelpVisitor</name>
@@ -646,12 +685,20 @@
         <source>* Receive seal to card.</source>
         <translation>* Отримайте печатку на картку.</translation>
     </message>
+    <message>
+        <source>Help page</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PageShareApp</name>
     <message>
         <source>To get a cheat card, scan the QR code and follow the link.</source>
         <translation>Щоб отримати чит-карту, відскануйте QR-код і перейдіть за посиланням.</translation>
+    </message>
+    <message>
+        <source>Share Application</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -995,6 +1042,10 @@
     <message>
         <source>Work rules</source>
         <translation>Правила роботи</translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation type="unfinished">Налаштування</translation>
     </message>
 </context>
 <context>

@@ -15,7 +15,7 @@ import "Style"
 
 CPage {
 
-    title: qsTr("Your Workers")
+    toolBarTitle: qsTr("Your Workers")
 
     id: root
     property var model: null

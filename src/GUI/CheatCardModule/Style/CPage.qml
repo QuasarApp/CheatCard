@@ -13,14 +13,7 @@ import QtQuick.Layouts 1.15
 Page {
     id: root
 
+    property string toolBarTitle: title
+
     padding: 10
-
-    header: Label {
-        horizontalAlignment: Label.AlignHCenter
-        text: title
-        font.pointSize: 20
-        color: (Material.theme === Material.Light)? "#424242" : "#aaaaaa"
-        wrapMode: Label.WordWrap
-
-    }
 }
