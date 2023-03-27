@@ -74,7 +74,7 @@
         <translation>Proszę wybrać kolor</translation>
     </message>
     <message>
-        <source>Appeearance page</source>
+        <source>Appeearance</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
