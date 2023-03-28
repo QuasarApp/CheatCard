@@ -141,11 +141,11 @@
     </message>
     <message>
         <source>Import Account</source>
-        <translation type="unfinished">Увези налог </translation>
+        <translation>Увези налог</translation>
     </message>
     <message>
         <source>Export Account</source>
-        <translation type="unfinished">Извези налог </translation>
+        <translation>Извези налог</translation>
     </message>
 </context>
 <context>
@@ -217,15 +217,15 @@
     </message>
     <message>
         <source>Enter bonus name</source>
-        <translation type="unfinished"></translation>
+        <translation>Назив бонуса</translation>
     </message>
     <message>
         <source>Detail of </source>
-        <translation type="unfinished"></translation>
+        <translation>Детаљи о </translation>
     </message>
     <message>
         <source>Purchases count: </source>
-        <translation type="unfinished"></translation>
+        <translation>Број куповина: </translation>
     </message>
     <message>
         <source>Available %0: </source>
@@ -233,11 +233,11 @@
     </message>
     <message>
         <source>Received %0: </source>
-        <translation type="unfinished"></translation>
+        <translation>Примљено %0: </translation>
     </message>
     <message>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation>Подразумевано</translation>
     </message>
     <message>
         <source>Save</source>
@@ -257,11 +257,11 @@
     </message>
     <message>
         <source>Please choose a color</source>
-        <translation type="unfinished">Молим вас, изаберите боју</translation>
+        <translation>Молимо изаберите боју</translation>
     </message>
     <message>
         <source>Edit card</source>
-        <translation type="unfinished"></translation>
+        <translation>Уредити</translation>
     </message>
     <message>
         <source>Remove card</source>
@@ -273,7 +273,7 @@
     </message>
     <message>
         <source>Hide statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Сакриј статистику</translation>
     </message>
     <message>
         <source>Statistics</source>
@@ -304,70 +304,70 @@
     <name>EditUserView</name>
     <message>
         <source>About your profile</source>
-        <translation type="unfinished"></translation>
+        <translation>О вашем профилу</translation>
     </message>
     <message>
         <source>No user selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Корисник није изабран</translation>
     </message>
     <message>
         <source>User Id:</source>
-        <translation type="unfinished"></translation>
+        <translation>ID корисника:</translation>
     </message>
     <message>
         <source>Its my name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Моје име:</translation>
     </message>
     <message>
         <source>Start integration with business</source>
-        <translation type="unfinished"></translation>
+        <translation>Започните интеграцију са пословањем</translation>
     </message>
     <message>
         <source>Work mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Радни режим</translation>
     </message>
     <message>
         <source>Workers management</source>
-        <translation type="unfinished"></translation>
+        <translation>Управљање радницима</translation>
     </message>
     <message>
         <source>To receive a card or a seal, as well as to receive an already accumulated bonus, show this Qr code to the seller.</source>
-        <translation type="unfinished"></translation>
+        <translation>Да бисте добили картицу или печат, као и да бисте добили већ акумулирани бонус, покажите овај Qr код продавцу.</translation>
     </message>
 </context>
 <context>
     <name>ExportUserKeyPage</name>
     <message>
         <source>Export user account</source>
-        <translation type="unfinished"></translation>
+        <translation>Молимо сачекајте одговор са сервера</translation>
     </message>
     <message>
         <source>**For what this use**</source>
-        <translation type="unfinished"></translation>
+        <translation>**За шта се користи**</translation>
     </message>
     <message>
         <source>**Sharing access to your account**</source>
-        <translation type="unfinished"></translation>
+        <translation>** Дељење налога**</translation>
     </message>
     <message>
         <source>Some times you can drop your application data or your device. Therefore you can create a backup qr code that can recovery your application data after dropping</source>
-        <translation type="unfinished"></translation>
+        <translation>Ако се деси тако да изгубите податке апликације или свој уређај. Можете да креирате резервни qr код који ће вратити податке ваше апликације након што се изгуби</translation>
     </message>
     <message>
         <source>Scan This Qr code using the &apos;import user&apos; button on the bottom of a user&apos;s list page on another device to export this user account to another device.</source>
-        <translation type="unfinished"></translation>
+        <translation>Скенирајте овај Qr код помоћу дугмета &quot;Увези корисника&quot; на дну странице листе корисника на другом уређају да бисте тај кориснички налог извезли на други уређај.</translation>
     </message>
     <message>
         <source>Save and open in files</source>
-        <translation type="unfinished"></translation>
+        <translation>Сачувај и прикажи</translation>
     </message>
     <message>
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation>Спремно</translation>
     </message>
     <message>
         <source>Backup code exported successful. The Backup Code Available in your documents&apos; folder. See &lt;b&gt;%0&lt;/b&gt; path</source>
-        <translation type="unfinished"></translation>
+        <translation>Резервни код је успешно извезен. Резервни код је доступан у фасцикли докумената. Погледајте пут &lt;b&gt;%0&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -755,14 +755,14 @@
     <name>QrScanner</name>
     <message>
         <source>switch camera</source>
-        <translation type="unfinished"></translation>
+        <translation>Пребаците камеру</translation>
     </message>
 </context>
 <context>
     <name>RC::AbstrcattableModelWithHeaders</name>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Непознато</translation>
     </message>
 </context>
 <context>
@@ -970,7 +970,7 @@
     <name>ScannerOverlay</name>
     <message>
         <source>Scan QR code</source>
-        <translation type="unfinished"></translation>
+        <translation>Скенирање QR кода</translation>
     </message>
 </context>
 <context>
@@ -1048,36 +1048,36 @@
     <name>UpdateRequestPage</name>
     <message>
         <source>Outdated!</source>
-        <translation type="unfinished"></translation>
+        <translation>Застарело!</translation>
     </message>
     <message>
         <source>Sorry but your application version no longer support. Please upgrade your application!</source>
-        <translation type="unfinished"></translation>
+        <translation>Жао нам је, али ваша верзија апликације више није подржана. Ажурирајте апликацију!</translation>
     </message>
     <message>
         <source>Upgrade</source>
-        <translation type="unfinished"></translation>
+        <translation>Ажурирање</translation>
     </message>
 </context>
 <context>
     <name>UserView</name>
     <message>
         <source>User</source>
-        <translation type="unfinished"></translation>
+        <translation>Корисник</translation>
     </message>
 </context>
 <context>
     <name>UsersListView</name>
     <message>
         <source>Import new user</source>
-        <translation type="unfinished"></translation>
+        <translation>Увоз новог корисника</translation>
     </message>
 </context>
 <context>
     <name>WaitView</name>
     <message>
         <source>Please wait for response from server</source>
-        <translation type="unfinished"></translation>
+        <translation>Молимо сачекајте одговор са сервера</translation>
     </message>
 </context>
 </TS>
