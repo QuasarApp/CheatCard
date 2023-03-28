@@ -558,7 +558,7 @@ bool ApiV3::processContacts(const QSharedPointer<API::V3::UpdateContactData> &me
 
     QSet<QByteArray> _brodcastFilter;
 
-    auto  brodcastChanges = [&_brodcastFilter, &hdr, this](const QByteArray& _key, const API::V3::SyncIncremental& resp){
+    auto brodcastChanges = [&_brodcastFilter, &hdr, this](const QByteArray& _key, const API::V3::SyncIncremental& resp){
         if (!_brodcastFilter.contains(_key)) {
             brodcastUserChanged(_key, &resp, &hdr);
         }
@@ -827,7 +827,7 @@ bool ApiV3::processSyncIncremental(const QSharedPointer<V3::SyncIncremental> &me
         db()->deleteContact(permisionData->toObject(db()));
     }
 
-    if (message->contactsToAdd().size() || message->usersCardsToRemove().size()) {
+    if (message->contactsToAdd().size() || message->contactsToRemove().size()) {
         emit sigContactsListChanged();
     }
 
