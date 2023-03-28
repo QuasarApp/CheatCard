@@ -201,6 +201,9 @@ void MainModel::handleContactsListChanged() {
                                                       false,
                                                       masterKeys));
 
+    _cardsListModel->setCards(_db->getAllUserCards(_currentUserKey,
+                                                   true,
+                                                   masterKeys));
 
 }
 

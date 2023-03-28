@@ -169,6 +169,7 @@ void DBv1::prepareOwnerSignatureCondition(const QList<QByteArray>& signatureList
             where += QString{" %2 ownerSignature%1 :ownerSignature%0"}.arg(signatureIndex).arg(comparatorName, operatorName);
         }
         toBind.insert(QString(":ownerSignature%0").arg(signatureIndex), key);
+        signatureIndex++;
     }
 }
 
