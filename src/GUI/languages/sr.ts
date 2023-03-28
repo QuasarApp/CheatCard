@@ -9,7 +9,7 @@
     </message>
     <message>
         <source>**Third party libraries**</source>
-        <translation>**Spoljne biblioteke**</translation>
+        <translation>**Библиотеке трећих страна**</translation>
     </message>
     <message>
         <source>Developed by Quasar App Core team</source>
@@ -24,7 +24,7 @@
     <name>AdditionalInformationForSeller</name>
     <message>
         <source>Have any questions?</source>
-        <translation>Да ли имате питања?</translation>
+        <translation>Имате питања?</translation>
     </message>
     <message>
         <source>Get CheatCard Banners</source>
@@ -86,15 +86,15 @@
     </message>
     <message>
         <source>Let&apos;s go create the first card! Press &quot;Add Card &quot; button</source>
-        <translation>Да направимо прву карту! Притисните дугме &quot;Додај карту&quot; (на сербском језику)</translation>
+        <translation>Да направимо прву картицу! Притисните дугме &quot;Додај картицу&quot;</translation>
     </message>
     <message>
         <source>Activate card</source>
-        <translation>Активирати карту</translation>
+        <translation>Активирати картицу</translation>
     </message>
     <message>
         <source>Add card</source>
-        <translation>Додај карту</translation>
+        <translation>Додај картицу</translation>
     </message>
     <message>
         <source>* At the time of purchase, tell the seller that you have a cheat card</source>
@@ -137,15 +137,15 @@
     </message>
     <message>
         <source>Create a card</source>
-        <translation>Направи карту</translation>
+        <translation>Направи картицу</translation>
     </message>
     <message>
         <source>Import Account</source>
-        <translation>Увези налог</translation>
+        <translation type="unfinished">Увези налог </translation>
     </message>
     <message>
         <source>Export Account</source>
-        <translation>Извези налог</translation>
+        <translation type="unfinished">Извези налог </translation>
     </message>
 </context>
 <context>
@@ -156,7 +156,7 @@
     </message>
     <message>
         <source>Color values</source>
-        <translation>Засићење боје</translation>
+        <translation>Засићеност боја</translation>
     </message>
     <message>
         <source>#HTML</source>
@@ -171,7 +171,7 @@
     </message>
     <message>
         <source>Join to our Instagram channel to get support and see the last changes.</source>
-        <translation>Придружите се нашем Инстаграм каналу да бисте добили подршку и видели последње измене.</translation>
+        <translation>Придружите се нашем Instagram каналу да бисте добили подршку и видели најновије промене.</translation>
     </message>
     <message>
         <source>Go to discussions. There you will get extended help.</source>
@@ -186,34 +186,34 @@
     <name>CreateCardView</name>
     <message>
         <source>Create new card</source>
-        <translation>Створити карту</translation>
+        <translation>Створити картицу</translation>
     </message>
 </context>
 <context>
     <name>EditCardView</name>
     <message>
         <source>Enter card title</source>
-        <translation>Унесите наслов картице</translation>
+        <translation>Унесите назив картице</translation>
     </message>
     <message>
         <source>Your telegramm</source>
-        <translation type="unfinished"></translation>
+        <translation>Ваш telegramm</translation>
     </message>
     <message>
         <source>Your instagramm</source>
-        <translation type="unfinished"></translation>
+        <translation>Ваш telegramm</translation>
     </message>
     <message>
         <source>Your physical address</source>
-        <translation type="unfinished"></translation>
+        <translation>Локација</translation>
     </message>
     <message>
         <source>Your web site</source>
-        <translation type="unfinished"></translation>
+        <translation>Ваш сајт</translation>
     </message>
     <message>
         <source>Your phone number</source>
-        <translation type="unfinished"></translation>
+        <translation>Ваш број</translation>
     </message>
     <message>
         <source>Enter bonus name</source>
@@ -229,7 +229,7 @@
     </message>
     <message>
         <source>Available %0: </source>
-        <translation type="unfinished"></translation>
+        <translation>Доступан %0: </translation>
     </message>
     <message>
         <source>Received %0: </source>
@@ -241,19 +241,19 @@
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Сачувај</translation>
     </message>
     <message>
         <source>Select Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Изаберите слику</translation>
     </message>
     <message>
         <source>Select card logo</source>
-        <translation type="unfinished"></translation>
+        <translation>Изаберите логотип картице</translation>
     </message>
     <message>
         <source>Select card seal</source>
-        <translation type="unfinished"></translation>
+        <translation>Изаберите штампање картице</translation>
     </message>
     <message>
         <source>Please choose a color</source>
@@ -265,11 +265,11 @@
     </message>
     <message>
         <source>Remove card</source>
-        <translation type="unfinished"></translation>
+        <translation>Избришите картицу</translation>
     </message>
     <message>
         <source>Activate card</source>
-        <translation type="unfinished">Активирати карту</translation>
+        <translation>Активирај</translation>
     </message>
     <message>
         <source>Hide statistics</source>
@@ -277,27 +277,27 @@
     </message>
     <message>
         <source>Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Статистика</translation>
     </message>
     <message>
         <source>Background color</source>
-        <translation type="unfinished"></translation>
+        <translation>Боја позадине</translation>
     </message>
     <message>
         <source>Foreground color</source>
-        <translation type="unfinished"></translation>
+        <translation>Основна боја</translation>
     </message>
     <message>
         <source>Background image</source>
-        <translation type="unfinished"></translation>
+        <translation>Позадинска слика</translation>
     </message>
     <message>
         <source>Card logo</source>
-        <translation type="unfinished"></translation>
+        <translation>Лого картице</translation>
     </message>
     <message>
         <source>Card seal</source>
-        <translation type="unfinished"></translation>
+        <translation>Штампа на картици</translation>
     </message>
 </context>
 <context>
