@@ -374,66 +374,66 @@
     <name>FirstRunPage</name>
     <message>
         <source>Who are you?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ко си ти?</translation>
     </message>
     <message>
         <source>I am client</source>
-        <translation type="unfinished"></translation>
+        <translation>Ја сам клијент</translation>
     </message>
     <message>
         <source>I am a business representative</source>
-        <translation type="unfinished"></translation>
+        <translation>Ја сам пословни представник</translation>
     </message>
     <message>
         <source>I just want to recover data</source>
-        <translation type="unfinished"></translation>
+        <translation>Само желим да опоравим податке</translation>
     </message>
     <message>
         <source>Сhoose a language:</source>
-        <translation type="unfinished"></translation>
+        <translation>Изаберите језик:</translation>
     </message>
     <message>
         <source>What is your name?</source>
-        <translation type="unfinished"></translation>
+        <translation>Како се зовеш?</translation>
     </message>
     <message>
         <source>What is the name of your company?</source>
-        <translation type="unfinished"></translation>
+        <translation>Како се зове ваша компанија?</translation>
     </message>
     <message>
         <source>Please enter your name here</source>
-        <translation type="unfinished"></translation>
+        <translation>Овде унесите своје име</translation>
     </message>
     <message>
         <source>Customize the appearance of your application.</source>
-        <translation type="unfinished"></translation>
+        <translation>Прилагодите изглед апликације.</translation>
     </message>
     <message>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Назад</translation>
     </message>
     <message>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation>Даље</translation>
     </message>
     <message>
         <source>Done!</source>
-        <translation type="unfinished"></translation>
+        <translation>Спремно!</translation>
     </message>
 </context>
 <context>
     <name>FreeItemsView</name>
     <message>
         <source>Wooooh seems like someone has available %0 %1 !!!</source>
-        <translation type="unfinished"></translation>
+        <translation>Вау чини се да неко има на располагању %0 %1 !!!</translation>
     </message>
     <message>
         <source>Don`t give out</source>
-        <translation type="unfinished"></translation>
+        <translation>Немојте давати</translation>
     </message>
     <message>
         <source>Give out</source>
-        <translation type="unfinished"></translation>
+        <translation>Издати</translation>
     </message>
 </context>
 <context>
@@ -863,107 +863,107 @@
     <name>RC::PermisionsModel</name>
     <message>
         <source>Oops</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>The Selected image does not contains a valid qr code. Try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Изабрана слика не садржи важећи qr код. Покушајте поново.</translation>
     </message>
 </context>
 <context>
     <name>RC::QRCodeDecoder</name>
     <message>
         <source>Oh shit</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Permission denied to selected file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Приступ је одбијен за изабрану датотеку.</translation>
     </message>
     <message>
         <source>It looks like the file you selected does not contain a qr code</source>
-        <translation type="unfinished"></translation>
+        <translation>Изгледа да датотека коју сте изабрали не садржи qr код</translation>
     </message>
 </context>
 <context>
     <name>RC::SellerStatisticModel</name>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Име</translation>
     </message>
     <message>
         <source>Purchases</source>
-        <translation type="unfinished"></translation>
+        <translation>Куповина</translation>
     </message>
     <message>
         <source>Available</source>
-        <translation type="unfinished"></translation>
+        <translation>Доступно</translation>
     </message>
     <message>
         <source>Issued</source>
-        <translation type="unfinished"></translation>
+        <translation>Издата</translation>
     </message>
     <message>
         <source>Last visit</source>
-        <translation type="unfinished"></translation>
+        <translation>Последња посета</translation>
     </message>
     <message>
         <source>Status</source>
-        <translation type="unfinished"></translation>
+        <translation>Статус</translation>
     </message>
     <message>
         <source>Active</source>
-        <translation type="unfinished"></translation>
+        <translation>Активна</translation>
     </message>
     <message>
         <source>Passive</source>
-        <translation type="unfinished"></translation>
+        <translation>Пасивна</translation>
     </message>
 </context>
 <context>
     <name>RC::WaitConfirmModel</name>
     <message>
         <source>Not so fast!</source>
-        <translation type="unfinished"></translation>
+        <translation>Не тако брзо!</translation>
     </message>
     <message>
         <source>Please wait for finished of a previous request</source>
-        <translation type="unfinished"></translation>
+        <translation>Сачекајте да се претходни упит заврши</translation>
     </message>
     <message>
         <source>We Have trouble</source>
-        <translation type="unfinished"></translation>
+        <translation>Имамо проблема</translation>
     </message>
     <message>
         <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
-        <translation type="unfinished"></translation>
+        <translation>Није било могуће издати бонус или печат. Можда су ваши локални подаци застарели, већ ажурирамо ваше локалне податке. Покушајте поново да формализујете бонус или печат.</translation>
     </message>
     <message>
         <source>Server not responds</source>
-        <translation type="unfinished"></translation>
+        <translation>Сервер не реагује</translation>
     </message>
     <message>
         <source>Hmm, maybe you have a super slow internet connection... Try again</source>
-        <translation type="unfinished"></translation>
+        <translation>Хмм, можда имате врло спору интернет везу... Покушајте поново</translation>
     </message>
 </context>
 <context>
     <name>RegistrationFinishedPage</name>
     <message>
         <source>Done!</source>
-        <translation type="unfinished"></translation>
+        <translation>Спремно!</translation>
     </message>
     <message>
         <source>All Done! &lt;b&gt;But If you drop your application data, then all your cards will be removed&lt;/b&gt;. For save, itself of these situations, we recommend creating a back-up of your master key.</source>
-        <translation type="unfinished"></translation>
+        <translation>Све урађено! &lt;b&gt;али ако избришете податке апликације, све ваше картице ће бити избрисане&lt;/b&gt;. Да бисте избегли такве ситуације, препоручујемо вам да направите резервну копију главног кључа.</translation>
     </message>
     <message>
         <source>Create a backup of master key to save data of my account.</source>
-        <translation type="unfinished"></translation>
+        <translation>Направите резервну копију главног кључа да бисте сачували податке о мом налогу.</translation>
     </message>
     <message>
         <source>Go to use</source>
-        <translation type="unfinished"></translation>
+        <translation>Идите на употребу</translation>
     </message>
 </context>
 <context>
@@ -977,71 +977,71 @@
     <name>Settings</name>
     <message>
         <source>Settings</source>
-        <translation type="unfinished">Подешавања</translation>
+        <translation>Подешавања</translation>
     </message>
     <message>
         <source>Appearance</source>
-        <translation type="unfinished"></translation>
+        <translation>Изглед</translation>
     </message>
     <message>
         <source>Select application color</source>
-        <translation type="unfinished">Изаберите боју апликације</translation>
+        <translation>Изаберите боју апликације</translation>
     </message>
     <message>
         <source>Select</source>
-        <translation type="unfinished">Изаберите</translation>
+        <translation>Изаберите</translation>
     </message>
     <message>
         <source>Dark Theme</source>
-        <translation type="unfinished">Тамна тема</translation>
+        <translation>Тамна тема</translation>
     </message>
     <message>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation>Језик</translation>
     </message>
     <message>
         <source>Please choose a color</source>
-        <translation type="unfinished">Молим вас, изаберите боју</translation>
+        <translation>Молим вас, изаберите боју</translation>
     </message>
     <message>
         <source>Privacy</source>
-        <translation type="unfinished"></translation>
+        <translation>Приватност</translation>
     </message>
     <message>
         <source>Share name with seller</source>
-        <translation type="unfinished"></translation>
+        <translation>Дељење имена са продавцем</translation>
     </message>
     <message>
         <source>Work rules</source>
-        <translation type="unfinished"></translation>
+        <translation>Правила рада</translation>
     </message>
     <message>
         <source>Select work camera</source>
-        <translation type="unfinished"></translation>
+        <translation>Изаберите радну камеру</translation>
     </message>
     <message>
         <source>Developer settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Подешавања програмера</translation>
     </message>
     <message>
         <source>Diagnostic the application</source>
-        <translation type="unfinished"></translation>
+        <translation>Дијагностика апликације</translation>
     </message>
     <message>
         <source>Use custom server</source>
-        <translation type="unfinished"></translation>
+        <translation>Користите свој сервер</translation>
     </message>
     <message>
         <source>Host</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Default settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Подразумевана подешавања</translation>
     </message>
     <message>
         <source>Reset all settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Ресетујте сва подешавања</translation>
     </message>
 </context>
 <context>
