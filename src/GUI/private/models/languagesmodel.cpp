@@ -20,6 +20,8 @@ LanguagesModel::LanguagesModel() {
     addLang("",   "Auto");
     addLang("en", "English");
     addLang("ru", "Русский");
+    addLang("sr", "Srpski");
+    addLang("sr_ME", "Сrnogorski");
     addLang("pl", "Polski");
     addLang("uk", "Ukrainian");
     addLang("be", "Беларуский");
