@@ -74,7 +74,7 @@
         <translation>გთხოვთ აირჩიოთ ფერი</translation>
     </message>
     <message>
-        <source>Appeearance page</source>
+        <source>Appeearance</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -548,10 +548,6 @@
         <translation>* მის შესავსებად დააწკაპუნეთ ბარათზე ღილაკზე „რედაქტირება“.</translation>
     </message>
     <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help3.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>* Enter the contact and other details of your establishment. In the item &quot;Bonus name&quot; it is necessary to indicate what the client will receive in the form of a bonus (product / service / discount / etc.).</source>
         <translation>* შეიყვანეთ თქვენი დაწესებულების საკონტაქტო და სხვა დეტალები. პუნქტში „ბონუსის სახელი“ აუცილებელია მიეთითოს რას მიიღებს კლიენტი ბონუსის სახით (პროდუქტი/მომსახურება/ფასდაკლება/ა.შ.).</translation>
     </message>
@@ -562,10 +558,6 @@
     <message>
         <source>* Customize the design of the card by clicking on this element at the bottom left of the card.</source>
         <translation>* ბარათის დიზაინის მორგება ამ ელემენტზე დაწკაპუნებით ბარათის ქვედა მარცხენა მხარეს.</translation>
-    </message>
-    <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help2.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
-        <translation></translation>
     </message>
     <message>
         <source>* A menu with design settings (background and text colors, logo, as well as printing) will open</source>
@@ -665,10 +657,6 @@
     <message>
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;In order to open the QR code, click on the item in the upper left corner of the screen. </source>
         <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp; &amp; NBSP;იმისათვის, რომ გახსნათ QR კოდი, დააჭირეთ ნივთს ეკრანის ზედა მარცხენა კუთხეში. </translation>
-    </message>
-    <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help1.jpg&quot; alt=&quot;tt&quot; width=&quot;100&quot;/&gt;</source>
-        <translation></translation>
     </message>
     <message>
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;A sidebar will open at the bottom of which there will be a QR code, you can click on it to enlarge it.</source>

@@ -74,7 +74,7 @@
         <translation>Proszę wybrać kolor</translation>
     </message>
     <message>
-        <source>Appeearance page</source>
+        <source>Appeearance</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -532,14 +532,6 @@
         <translation>### Jak używać?</translation>
     </message>
     <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help3.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help2.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>### Create a card for your establishment</source>
         <translation>### Utwórz kartę dla swojego zakładu</translation>
     </message>
@@ -677,10 +669,6 @@
     <message>
         <source>### How to use?</source>
         <translation>### Jak używać?</translation>
-    </message>
-    <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help1.jpg&quot; alt=&quot;tt&quot; width=&quot;100&quot;/&gt;</source>
-        <translation></translation>
     </message>
     <message>
         <source>* Receive seal to card.</source>

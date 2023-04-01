@@ -58,7 +58,7 @@ Credits {
             align: Label.AlignLeft
         },
         {
-            text: qsTr("<img src=\"qrc:/private/resources/help/Help3.jpg\" alt=\"tt\" width=\"300\"/>"),
+            text: ("<img src=\"qrc:/private/resources/help/Help3.jpg\" alt=\"tt\" width=\"300\"/>"),
             align: Label.AlignHCenter
         },
         {
@@ -74,7 +74,7 @@ Credits {
             align: Label.AlignLeft
         },
         {
-            text: qsTr("<img src=\"qrc:/private/resources/help/Help2.jpg\" alt=\"tt\" width=\"300\"/>"),
+            text: ("<img src=\"qrc:/private/resources/help/Help2.jpg\" alt=\"tt\" width=\"300\"/>"),
             align: Label.AlignHCenter
         },
         {
