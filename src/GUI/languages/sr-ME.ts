@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="sr_ME">
+<TS version="2.1" language="sr-ME">
 <context>
     <name>About</name>
     <message>
@@ -540,544 +540,532 @@
     </message>
     <message>
         <source>* In order to create a map, click the &quot;Add Map&quot; button at the bottom of the screen.</source>
-        <translation type="unfinished">* Да бисте креирали картицу, кликните на дугме &quot;Додај картицу&quot; на дну екрана.</translation>
+        <translation>* Da biste kreirali karticu, kliknite na dugme &quot;Dodaj karticu&quot; na dnu ekrana.</translation>
     </message>
     <message>
         <source>* An empty card will be created.</source>
-        <translation type="unfinished">* Stvoriće se prazna kartica.</translation>
+        <translation>* Stvoriće se prazna kartica.</translation>
     </message>
     <message>
         <source>* In order to fill it out, click the &quot;Edit&quot; button on the card.</source>
-        <translation type="unfinished">* Da biste ga popunili, kliknite na dugme &quot;Uredi&quot; na kartici.</translation>
-    </message>
-    <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help3.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>* Da biste ga popunili, kliknite na dugme &quot;Uredi&quot; na kartici.</translation>
     </message>
     <message>
         <source>* Enter the contact and other details of your establishment. In the item &quot;Bonus name&quot; it is necessary to indicate what the client will receive in the form of a bonus (product / service / discount / etc.).</source>
-        <translation type="unfinished">* Унесите контакт и друге податке ваше установе. У ставци &quot;назив бонуса&quot; потребно је навести шта ће купац добити у облику бонуса (роба/услуга/попуст/ и т.д.).</translation>
+        <translation>* Unesite kontakt i druge podatke vaše ustanove. U stavci &quot;naziv bonusa&quot; potrebno je navesti šta će kupac dobiti u obliku bonusa (roba/usluga/popust/ i t.d.).</translation>
     </message>
     <message>
         <source>* Indicate how many purchases the client must make to receive the bonus you previously specified.</source>
-        <translation type="unfinished">* Наведите колико куповина клијент мора да обави да би добио бонус који сте раније навели.</translation>
+        <translation>* Navedite koliko kupovina klijent mora da obavi da bi dobio bonus koji ste ranije naveli.</translation>
     </message>
     <message>
         <source>* Customize the design of the card by clicking on this element at the bottom left of the card.</source>
-        <translation type="unfinished">* Прилагодите дизајн картице кликом на овај елемент одоздо лево од картице.</translation>
-    </message>
-    <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help2.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>* Prilagodite dizajn kartice klikom na ovaj element odozdo levo od kartice.</translation>
     </message>
     <message>
         <source>* A menu with design settings (background and text colors, logo, as well as printing) will open</source>
-        <translation type="unfinished">* * Отвориће се мени са подешавањима дизајна(боје позадине и текста, логотип и штампање)</translation>
+        <translation>* * Otvoriće se meni sa podešavanjima dizajna(boje pozadine i teksta, logotip i štampanje)</translation>
     </message>
     <message>
         <source>* Optionally upload your logo or card print background design by clicking the add button in the appropriate sections, the image must be in png format.</source>
-        <translation type="unfinished">* Опционо, отпремите дизајн позадине логотипа или штампање картице кликом на дугме за додавање у релевантним одељцима, слика мора бити у png формату.</translation>
+        <translation>* Opciono, otpremite dizajn pozadine logotipa ili štampanje kartice klikom na dugme za dodavanje u relevantnim odeljcima, slika mora biti u png formatu.</translation>
     </message>
     <message>
         <source>* After completing all the settings, click the &quot;Save&quot; button which is located at the bottom of the map.</source>
-        <translation type="unfinished">* Када завршите сва подешавања, кликните на дугме &quot;Сачувај&quot; која се налази на дну картице.</translation>
+        <translation>* Kada završite sva podešavanja, kliknite na dugme &quot;Sačuvaj&quot; koja se nalazi na dnu kartice.</translation>
     </message>
     <message>
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**IMPORTANT:** After you put at least one seal to the customer, the card cannot be edited. Instead, you can create a new map based on the old one. All customer data and their statistics will be automatically transferred to the corrected card.</source>
-        <translation type="unfinished">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**ВАЖНО:** након што купцу дате најмање један печат, картица се не може уређивати. Уместо тога, можете створити нову картицу засновану на старој. Сви подаци о купцима и њихова статистика аутоматски ће се пренети на исправљену картицу.</translation>
+        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**VAŽNO:** nakon što kupcu date najmanje jedan pečat, kartica se ne može uređivati. Umesto toga, možete stvoriti novu karticu zasnovanu na staroj. Svi podaci o kupcima i njihova statistika automatski će se preneti na ispravljenu karticu.</translation>
     </message>
     <message>
         <source>### Issue a card to a client:</source>
-        <translation type="unfinished">### Дајте картицу клијенту:</translation>
+        <translation>### Dajte karticu klijentu:</translation>
     </message>
     <message>
         <source>* The created map will be displayed on the main screen of the application.</source>
-        <translation type="unfinished">* * Креирана картица ће се појавити на главном екрану апликације.</translation>
+        <translation>* * Kreirana kartica će se pojaviti na glavnom ekranu aplikacije.</translation>
     </message>
     <message>
         <source>* In order to issue the card to the client, press and hold on it.</source>
-        <translation type="unfinished">* Да бисте издали картицу клијенту, морате је притиснути и задржати.</translation>
+        <translation>* Da biste izdali karticu klijentu, morate je pritisnuti i zadržati.</translation>
     </message>
     <message>
         <source>* A screen will open where you can specify how many stamps to put to the client, then click &quot;seal&quot;.</source>
-        <translation type="unfinished">* Отвориће се екран на којем можете одредити колико печата треба ставити клијенту, а затим кликнути на &quot;принт&quot;.</translation>
+        <translation>* Otvoriće se ekran na kojem možete odrediti koliko pečata treba staviti klijentu, a zatim kliknuti na &quot;print&quot;.</translation>
     </message>
     <message>
         <source>* Scan the visitor&apos;s QR code.</source>
-        <translation type="unfinished">* Скенирајте QR код посетиоца.</translation>
+        <translation>* Skenirajte QR kod posetioca.</translation>
     </message>
     <message>
         <source>* The client will have a card with the number of stamps that you specified.</source>
-        <translation type="unfinished">* Клијент ће имати картицу са бројем печата које сте навели.</translation>
+        <translation>* Klijent će imati karticu sa brojem pečata koje ste naveli.</translation>
     </message>
     <message>
         <source>* Repeat this algorithm in order to put in the future seals to the client when purchasing a product.</source>
-        <translation type="unfinished">* Поновите овај алгоритам како бисте у даљем штампању ставили купца приликом куповине производа.</translation>
+        <translation>* Ponovite ovaj algoritam kako biste u daljem štampanju stavili kupca prilikom kupovine proizvoda.</translation>
     </message>
     <message>
         <source>### Issue bonus:</source>
-        <translation type="unfinished">### Издајте бонус:</translation>
+        <translation>### Izdajte bonus:</translation>
     </message>
     <message>
         <source>* When the client has collected a sufficient number of stamps, you can give him a bonus, the application itself will notify you that the client has made a sufficient number of purchases.</source>
-        <translation type="unfinished">* Када је купац сакупио довољно печата можете му дати бонус, апликација ће вас само обавестити да је купац обавио довољно куповина.</translation>
+        <translation>* Kada je kupac sakupio dovoljno pečata možete mu dati bonus, aplikacija će vas samo obavestiti da je kupac obavio dovoljno kupovina.</translation>
     </message>
     <message>
         <source>* On the bonus screen, you can click the &quot;Issue&quot; button, or if the client can ask to save this bonus, then just click the back button.</source>
-        <translation type="unfinished">* На екрану за издавање бонуса, можете кликнути на дугме „Затражи“, или ако клијент може да затражи да задржите овај бонус, онда само кликните на дугме за повратак.</translation>
+        <translation>* Na ekranu za izdavanje bonusa, možete kliknuti na dugme „Zatraži“, ili ako klijent može da zatraži da zadržite ovaj bonus, onda samo kliknite na dugme za povratak.</translation>
     </message>
     <message>
         <source>* Bonuses can be accumulated by the client, if the client has accumulated several bonuses, then on the issuance screen you can choose how many bonuses to issue, after which they will be written off from the category of available ones and will be transferred to the category received on the client&apos;s card.</source>
-        <translation type="unfinished">* Бонуси се могу акумулирати код купца, ако је купац акумулирао неколико бонуса, онда на екрану за издавање можете одабрати колико бонуса ћете издати, након чега ће се повући из категорије доступних и прећи у категорију примљених на картици купца.</translation>
+        <translation>* Bonusi se mogu akumulirati kod kupca, ako je kupac akumulirao nekoliko bonusa, onda na ekranu za izdavanje možete odabrati koliko bonusa ćete izdati, nakon čega će se povući iz kategorije dostupnih i preći u kategoriju primljenih na kartici kupca.</translation>
     </message>
 </context>
 <context>
     <name>PageHelpVisitor</name>
     <message>
         <source>Help page</source>
-        <translation type="unfinished">Помоћ</translation>
+        <translation>Pomoć</translation>
     </message>
     <message>
         <source>### How to use?</source>
-        <translation type="unfinished">### Како користити?</translation>
+        <translation>### Kako koristiti?</translation>
     </message>
     <message>
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;The algorithm of actions for the buyer works according to the system:</source>
-        <translation type="unfinished">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Алгоритам акције за купца ради на систему:</translation>
+        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Algoritam akcije za kupca radi na sistemu:</translation>
     </message>
     <message>
         <source>* Came to the establishment.</source>
-        <translation type="unfinished">* Дошао у установу.</translation>
+        <translation>* Došao u ustanovu.</translation>
     </message>
     <message>
         <source>* Made an order.</source>
-        <translation type="unfinished">* Наручио сам.</translation>
+        <translation>* Naručio sam.</translation>
     </message>
     <message>
         <source>* Showed the QR code in the application at the checkout.</source>
-        <translation type="unfinished">* Показао QR код у апликацији на благајни.</translation>
+        <translation>* Pokazao QR kod u aplikaciji na blagajni.</translation>
     </message>
     <message>
         <source>* Receive seal to card.</source>
-        <translation type="unfinished">* Набавите печат на картици.</translation>
+        <translation>* Nabavite pečat na kartici.</translation>
     </message>
     <message>
         <source>* Repeated this procedure several times and received the bonus set by the seller.</source>
-        <translation type="unfinished">* Поновио овај поступак неколико пута и добио бонус који је одредио продавац.</translation>
+        <translation>* Ponovio ovaj postupak nekoliko puta i dobio bonus koji je odredio prodavac.</translation>
     </message>
     <message>
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;In order to open the QR code, click on the item in the upper left corner of the screen. </source>
-        <translation type="unfinished">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Да бисте отворили QR код, додирните ставку у горњем левом углу екрана. </translation>
-    </message>
-    <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help1.jpg&quot; alt=&quot;tt&quot; width=&quot;100&quot;/&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Da biste otvorili QR kod, dodirnite stavku u gornjem levom uglu ekrana. </translation>
     </message>
     <message>
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;A sidebar will open at the bottom of which there will be a QR code, you can click on it to enlarge it.</source>
-        <translation type="unfinished">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Отвориће се бочна трака на дну које ће бити QR код, можете га додирнути да бисте га увећали.</translation>
+        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Otvoriće se bočna traka na dnu koje će biti QR kod, možete ga dodirnuti da biste ga uvećali.</translation>
     </message>
     <message>
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;After receiving the card, you can view additional information about the card by clicking on it.</source>
-        <translation type="unfinished">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Када добијете картицу, можете погледати више информација о картици кликом на њу.</translation>
+        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Kada dobijete karticu, možete pogledati više informacija o kartici klikom na nju.</translation>
     </message>
     <message>
         <source> </source>
-        <translation type="unfinished"> </translation>
+        <translation> </translation>
     </message>
 </context>
 <context>
     <name>PageShareApp</name>
     <message>
         <source>Share Application</source>
-        <translation type="unfinished">Делите апликацију</translation>
+        <translation>Delite aplikaciju</translation>
     </message>
     <message>
         <source>To get a cheat card, scan the QR code and follow the link.</source>
-        <translation type="unfinished">Да бисте добили cheat card, скенирајте QR код.</translation>
+        <translation>Da biste dobili cheat card, skenirajte QR kod.</translation>
     </message>
 </context>
 <context>
     <name>PermissionsView</name>
     <message>
         <source>Your Workers</source>
-        <translation type="unfinished">Ваши радници</translation>
+        <translation>Vaši radnici</translation>
     </message>
     <message>
         <source>If you want to add access to your cards, you can add workers.</source>
-        <translation type="unfinished">Ако желите да додате приступ својим картицама, можете додати раднике.</translation>
+        <translation>Ako želite da dodate pristup svojim karticama, možete dodati radnike.</translation>
     </message>
     <message>
         <source>How to manage your workers:</source>
-        <translation type="unfinished">Како управљати својим радницима:</translation>
+        <translation>Kako upravljati svojim radnicima:</translation>
     </message>
     <message>
         <source>* Click the &apos;Scan QR code of your worker&apos; button and scan a qr code from the sidebar of your worker&apos;s device.</source>
-        <translation type="unfinished">* Кликните на дугме „Скенирај QR код вашег радника“ и скенирајте QR код са стране уређаја вашег радника.</translation>
+        <translation>* Kliknite na dugme „Skeniraj QR kod vašeg radnika“ i skenirajte QR kod sa strane uređaja vašeg radnika.</translation>
     </message>
     <message>
         <source>* Your worker will get access to all your cards</source>
-        <translation type="unfinished">* Ваш радник ће добити приступ свим вашим картицама</translation>
+        <translation>* Vaš radnik će dobiti pristup svim vašim karticama</translation>
     </message>
     <message>
         <source>* If you want to remove access of your cards, just remove the worker record on the bottom workers list menu.</source>
-        <translation type="unfinished">* Ако желите да зауставите приступ својим картицама, само избришите унос радника у доњем менију листе радника.</translation>
+        <translation>* Ako želite da zaustavite pristup svojim karticama, samo izbrišite unos radnika u donjem meniju liste radnika.</translation>
     </message>
     <message>
         <source>Select image with qr code of your worker</source>
-        <translation type="unfinished">Изаберите слику са qr кодом вашег радника</translation>
+        <translation>Izaberite sliku sa qr kodom vašeg radnika</translation>
     </message>
     <message>
         <source>Edit worker&apos;s name</source>
-        <translation type="unfinished">Промените име радника</translation>
+        <translation>Promenite ime radnika</translation>
     </message>
     <message>
         <source>Enter your worker name.</source>
-        <translation type="unfinished">Унесите име свог радника.</translation>
+        <translation>Unesite ime svog radnika.</translation>
     </message>
 </context>
 <context>
     <name>QrCodeView</name>
     <message>
         <source>It looks like this code should be shown to the seller!</source>
-        <translation type="unfinished">Али овај код треба показати продавцу!</translation>
+        <translation>Ali ovaj kod treba pokazati prodavcu!</translation>
     </message>
     <message>
         <source>Show your phone to the seller, so that the drawn QR code gets into the scanning area.</source>
-        <translation type="unfinished">Покажите свој телефон продавцу како би нацртани QR код ушао у област скенирања.</translation>
+        <translation>Pokažite svoj telefon prodavcu kako bi nacrtani QR kod ušao u oblast skeniranja.</translation>
     </message>
     <message>
         <source>When all passed is successful, the Seller&apos;s device will complete the scan, and you will receive your bonuses as soon as you hide the Qr code.</source>
-        <translation type="unfinished">Када све буде успешно, уређај трговца ће завршити скенирање и добићете своје бонусе чим сакријете Qr код.</translation>
+        <translation>Kada sve bude uspešno, uređaj trgovca će završiti skeniranje i dobićete svoje bonuse čim sakrijete Qr kod.</translation>
     </message>
 </context>
 <context>
     <name>QrScanner</name>
     <message>
         <source>switch camera</source>
-        <translation type="unfinished">Пребаците камеру</translation>
+        <translation>Prebacite kameru</translation>
     </message>
 </context>
 <context>
     <name>RC::AbstrcattableModelWithHeaders</name>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished">Непознато</translation>
+        <translation>Nepoznato</translation>
     </message>
 </context>
 <context>
     <name>RC::MainModel</name>
     <message>
         <source>Your reserve QR code is deprecated</source>
-        <translation type="unfinished">Ваш резервни QR код је застарео</translation>
+        <translation>Vaš rezervni QR kod je zastareo</translation>
     </message>
     <message>
         <source>It is still works, but in the next releases the support of this qr code will be dropped. Please. Create the new recovery Qr code.</source>
-        <translation type="unfinished">И даље ради, али овај qr код ће бити застарео у будућим верзијама. Молимо вас. Направите нови Qr код за опоравак.</translation>
+        <translation>I dalje radi, ali ovaj qr kod će biti zastareo u budućim verzijama. Molimo vas. Napravite novi Qr kod za oporavak.</translation>
     </message>
     <message>
         <source>Wow</source>
-        <translation type="unfinished">Вау</translation>
+        <translation>Vau</translation>
     </message>
     <message>
         <source>This qr code is invalid. Sorry... </source>
-        <translation type="unfinished">Овај qr код је неважећи. Сориан... </translation>
+        <translation>Ovaj qr kod je nevažeći. Sorian... </translation>
     </message>
     <message>
         <source>I managed to do it !</source>
-        <translation type="unfinished">Успео сам!</translation>
+        <translation>Uspeo sam!</translation>
     </message>
     <message>
         <source>Yor secret key are imported</source>
-        <translation type="unfinished">Ваш приватни кључ је увезен</translation>
+        <translation>Vaš privatni ključ je uvezen</translation>
     </message>
     <message>
         <source>We Have trouble: trouble code is %0</source>
-        <translation type="unfinished">Имамо проблем: код грешке %0</translation>
+        <translation>Imamo problem: kod greške %0</translation>
     </message>
     <message>
         <source>Server sent the error message. Message: &quot;%0.&quot;  Sorry ;)</source>
-        <translation type="unfinished">Сервер је послао поруку о грешци. Порука:&quot;%0&quot;. Извини ;)</translation>
+        <translation>Server je poslao poruku o grešci. Poruka:&quot;%0&quot;. Izvini ;)</translation>
     </message>
     <message>
         <source>Your customers already using this card!</source>
-        <translation type="unfinished">Ваши клијенти већ користе ову картицу!</translation>
+        <translation>Vaši klijenti već koriste ovu karticu!</translation>
     </message>
     <message>
         <source> You&apos;re trying to change the bonus rules. These changes will be saved as a new card. The old card continues to work correctly and all customers data will be saved. Do you want to continue?</source>
-        <translation type="unfinished"> Покушавате да промените правила бонуса . Ове промене ће бити сачуване као нова картица. Стара картица наставља да ради исправно и сви подаци о клијентима ће бити сачувани. Да ли желите да наставите?</translation>
+        <translation> Pokušavate da promenite pravila bonusa . Ove promene će biti sačuvane kao nova kartica. Stara kartica nastavlja da radi ispravno i svi podaci o klijentima će biti sačuvani. Da li želite da nastavite?</translation>
     </message>
     <message>
         <source>We seem to have problems</source>
-        <translation type="unfinished">Имамо проблема</translation>
+        <translation>Imamo problema</translation>
     </message>
     <message>
         <source>The card reset to default successful but load default card from server failed, so you receive your card after new purchase in institution that has give out this card.</source>
-        <translation type="unfinished">Ресетовање картице на подразумевано је било успешно, али подразумевана картица није могла да се преузме са сервера, тако да ћете картицу добити након нове куповине од институције која је издала картицу.</translation>
+        <translation>Resetovanje kartice na podrazumevano je bilo uspešno, ali podrazumevana kartica nije mogla da se preuzme sa servera, tako da ćete karticu dobiti nakon nove kupovine od institucije koja je izdala karticu.</translation>
     </message>
     <message>
         <source>Operation not permitted</source>
-        <translation type="unfinished">Операција није дозвољена</translation>
+        <translation>Operacija nije dozvoljena</translation>
     </message>
     <message>
         <source>This card has active clients, so you can&apos;t to remove this card.</source>
-        <translation type="unfinished">Ова картица има активне клијенте, тако да не можете избрисати ову картицу.</translation>
+        <translation>Ova kartica ima aktivne klijente, tako da ne možete izbrisati ovu karticu.</translation>
     </message>
     <message>
         <source>Remove Card</source>
-        <translation type="unfinished">Избриши картицу</translation>
+        <translation>Izbriši karticu</translation>
     </message>
     <message>
         <source>You trying to delete this card, do not worry a seller that has give out this card save all bonuses locally,  so after repeat visit you will be get all your removed bonuses again. Do you want to continue?</source>
-        <translation type="unfinished">Покушавате да избришете ову картицу, не брините, трговац који је издао ову картицу ће сачувати све бонусе локално, тако да ћете након поновне посете поново добити све своје избрисане бонусе. Да ли желите да наставите?</translation>
+        <translation>Pokušavate da izbrišete ovu karticu, ne brinite, trgovac koji je izdao ovu karticu će sačuvati sve bonuse lokalno, tako da ćete nakon ponovne posete ponovo dobiti sve svoje izbrisane bonuse. Da li želite da nastavite?</translation>
     </message>
     <message>
         <source>Sorry but not</source>
-        <translation type="unfinished">Извини али не</translation>
+        <translation>Izvini ali ne</translation>
     </message>
     <message>
         <source>This client does not have any bonuses. Sorry... </source>
-        <translation type="unfinished">Овај клијент нема никакве бонусе. извињавам се... </translation>
+        <translation>Ovaj klijent nema nikakve bonuse. izvinjavam se... </translation>
     </message>
     <message>
         <source>Oops</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Some kind of garbage happened when reading the qr code. Try again</source>
-        <translation type="unfinished">Нешто је пошло наопако при читању qr кода. Покушајте поново</translation>
+        <translation>Nešto je pošlo naopako pri čitanju qr koda. Pokušajte ponovo</translation>
     </message>
 </context>
 <context>
     <name>RC::NetIndicatorModel</name>
     <message>
         <source>Oops</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>No internet connection.</source>
-        <translation type="unfinished">Нема везе са интернетом.</translation>
+        <translation>Nema veze sa internetom.</translation>
     </message>
 </context>
 <context>
     <name>RC::PermisionsModel</name>
     <message>
         <source>Oops</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>The Selected image does not contains a valid qr code. Try again.</source>
-        <translation type="unfinished">Изабрана слика не садржи важећи qr код. Покушајте поново.</translation>
+        <translation>Izabrana slika ne sadrži važeći qr kod. Pokušajte ponovo.</translation>
     </message>
 </context>
 <context>
     <name>RC::QRCodeDecoder</name>
     <message>
         <source>Oh shit</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Permission denied to selected file.</source>
-        <translation type="unfinished">Приступ је одбијен за изабрану датотеку.</translation>
+        <translation>Pristup je odbijen za izabranu datoteku.</translation>
     </message>
     <message>
         <source>It looks like the file you selected does not contain a qr code</source>
-        <translation type="unfinished">Изгледа да датотека коју сте изабрали не садржи qr код</translation>
+        <translation>Izgleda da datoteka koju ste izabrali ne sadrži qr kod</translation>
     </message>
 </context>
 <context>
     <name>RC::SellerStatisticModel</name>
     <message>
         <source>Name</source>
-        <translation type="unfinished">Име</translation>
+        <translation>Ime</translation>
     </message>
     <message>
         <source>Purchases</source>
-        <translation type="unfinished">Куповина</translation>
+        <translation>Kupovina</translation>
     </message>
     <message>
         <source>Available</source>
-        <translation type="unfinished">Доступно</translation>
+        <translation>Dostupno</translation>
     </message>
     <message>
         <source>Issued</source>
-        <translation type="unfinished">Издата</translation>
+        <translation>Izdata</translation>
     </message>
     <message>
         <source>Last visit</source>
-        <translation type="unfinished">Последња посета</translation>
+        <translation>Poslednja poseta</translation>
     </message>
     <message>
         <source>Status</source>
-        <translation type="unfinished">Статус</translation>
+        <translation>Status</translation>
     </message>
     <message>
         <source>Active</source>
-        <translation type="unfinished">Активна</translation>
+        <translation>Aktivna</translation>
     </message>
     <message>
         <source>Passive</source>
-        <translation type="unfinished">Пасивна</translation>
+        <translation>Pasivna</translation>
     </message>
 </context>
 <context>
     <name>RC::WaitConfirmModel</name>
     <message>
         <source>Not so fast!</source>
-        <translation type="unfinished">Не тако брзо!</translation>
+        <translation>Ne tako brzo!</translation>
     </message>
     <message>
         <source>Please wait for finished of a previous request</source>
-        <translation type="unfinished">Сачекајте да се претходни упит заврши</translation>
+        <translation>Sačekajte da se prethodni upit završi</translation>
     </message>
     <message>
         <source>We Have trouble</source>
-        <translation type="unfinished">Имамо проблема</translation>
+        <translation>Imamo problema</translation>
     </message>
     <message>
         <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
-        <translation type="unfinished">Није било могуће издати бонус или печат. Можда су ваши локални подаци застарели, већ ажурирамо ваше локалне податке. Покушајте поново да формализујете бонус или печат.</translation>
+        <translation>Nije bilo moguće izdati bonus ili pečat. Možda su vaši lokalni podaci zastareli, već ažuriramo vaše lokalne podatke. Pokušajte ponovo da formalizujete bonus ili pečat.</translation>
     </message>
     <message>
         <source>Server not responds</source>
-        <translation type="unfinished">Сервер не реагује</translation>
+        <translation>Server ne reaguje</translation>
     </message>
     <message>
         <source>Hmm, maybe you have a super slow internet connection... Try again</source>
-        <translation type="unfinished">Хмм, можда имате врло спору интернет везу... Покушајте поново</translation>
+        <translation>Hmm, možda imate vrlo sporu internet vezu... Pokušajte ponovo</translation>
     </message>
 </context>
 <context>
     <name>RegistrationFinishedPage</name>
     <message>
         <source>Done!</source>
-        <translation type="unfinished">Спремно!</translation>
+        <translation>Spremno!</translation>
     </message>
     <message>
         <source>All Done! &lt;b&gt;But If you drop your application data, then all your cards will be removed&lt;/b&gt;. For save, itself of these situations, we recommend creating a back-up of your master key.</source>
-        <translation type="unfinished">Све урађено! &lt;b&gt;али ако избришете податке апликације, све ваше картице ће бити избрисане&lt;/b&gt;. Да бисте избегли такве ситуације, препоручујемо вам да направите резервну копију главног кључа.</translation>
+        <translation>Sve urađeno! &lt;b&gt;ali ako izbrišete podatke aplikacije, sve vaše kartice će biti izbrisane&lt;/b&gt;. Da biste izbegli takve situacije, preporučujemo vam da napravite rezervnu kopiju glavnog ključa.</translation>
     </message>
     <message>
         <source>Create a backup of master key to save data of my account.</source>
-        <translation type="unfinished">Направите резервну копију главног кључа да бисте сачували податке о мом налогу.</translation>
+        <translation>Napravite rezervnu kopiju glavnog ključa da biste sačuvali podatke o mom nalogu.</translation>
     </message>
     <message>
         <source>Go to use</source>
-        <translation type="unfinished">Идите на употребу</translation>
+        <translation>Idite na upotrebu</translation>
     </message>
 </context>
 <context>
     <name>ScannerOverlay</name>
     <message>
         <source>Scan QR code</source>
-        <translation type="unfinished">Скенирање QR кода</translation>
+        <translation>Skeniranje QR koda</translation>
     </message>
 </context>
 <context>
     <name>Settings</name>
     <message>
         <source>Settings</source>
-        <translation type="unfinished">Подешавања</translation>
+        <translation>Podešavanja</translation>
     </message>
     <message>
         <source>Appearance</source>
-        <translation type="unfinished">Изглед</translation>
+        <translation>Izgled</translation>
     </message>
     <message>
         <source>Select application color</source>
-        <translation type="unfinished">Изаберите боју апликације</translation>
+        <translation>Izaberite boju aplikacije</translation>
     </message>
     <message>
         <source>Select</source>
-        <translation type="unfinished">Изаберите</translation>
+        <translation>Izaberite</translation>
     </message>
     <message>
         <source>Dark Theme</source>
-        <translation type="unfinished">Тамна тема</translation>
+        <translation>Tamna tema</translation>
     </message>
     <message>
         <source>Language</source>
-        <translation type="unfinished">Језик</translation>
+        <translation>Jezik</translation>
     </message>
     <message>
         <source>Please choose a color</source>
-        <translation type="unfinished">Молим вас, изаберите боју</translation>
+        <translation>Molim vas, izaberite boju</translation>
     </message>
     <message>
         <source>Privacy</source>
-        <translation type="unfinished">Приватност</translation>
+        <translation>Privatnost</translation>
     </message>
     <message>
         <source>Share name with seller</source>
-        <translation type="unfinished">Дељење имена са продавцем</translation>
+        <translation>Deljenje imena sa prodavcem</translation>
     </message>
     <message>
         <source>Work rules</source>
-        <translation type="unfinished">Правила рада</translation>
+        <translation>Pravila rada</translation>
     </message>
     <message>
         <source>Select work camera</source>
-        <translation type="unfinished">Изаберите радну камеру</translation>
+        <translation>Izaberite radnu kameru</translation>
     </message>
     <message>
         <source>Developer settings</source>
-        <translation type="unfinished">Подешавања програмера</translation>
+        <translation>Podešavanja programera</translation>
     </message>
     <message>
         <source>Diagnostic the application</source>
-        <translation type="unfinished">Дијагностика апликације</translation>
+        <translation>Dijagnostika aplikacije</translation>
     </message>
     <message>
         <source>Use custom server</source>
-        <translation type="unfinished">Користите свој сервер</translation>
+        <translation>Koristite svoj server</translation>
     </message>
     <message>
         <source>Host</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Default settings</source>
-        <translation type="unfinished">Подразумевана подешавања</translation>
+        <translation>Podrazumevana podešavanja</translation>
     </message>
     <message>
         <source>Reset all settings</source>
-        <translation type="unfinished">Ресетујте сва подешавања</translation>
+        <translation>Resetujte sva podešavanja</translation>
     </message>
 </context>
 <context>
     <name>UpdateRequestPage</name>
     <message>
         <source>Outdated!</source>
-        <translation type="unfinished">Застарело!</translation>
+        <translation>Zastarelo!</translation>
     </message>
     <message>
         <source>Sorry but your application version no longer support. Please upgrade your application!</source>
-        <translation type="unfinished">Жао нам је, али ваша верзија апликације више није подржана. Ажурирајте апликацију!</translation>
+        <translation>Žao nam je, ali vaša verzija aplikacije više nije podržana. Ažurirajte aplikaciju!</translation>
     </message>
     <message>
         <source>Upgrade</source>
-        <translation type="unfinished">Ажурирање</translation>
+        <translation>Ažuriranje</translation>
     </message>
 </context>
 <context>
     <name>UserView</name>
     <message>
         <source>User</source>
-        <translation type="unfinished">Корисник</translation>
+        <translation>Korisnik</translation>
     </message>
 </context>
 <context>
     <name>UsersListView</name>
     <message>
         <source>Import new user</source>
-        <translation type="unfinished">Увоз новог корисника</translation>
+        <translation>Uvoz novog korisnika</translation>
     </message>
 </context>
 <context>
     <name>WaitView</name>
     <message>
         <source>Please wait for response from server</source>
-        <translation type="unfinished">Молимо сачекајте одговор са сервера</translation>
+        <translation>Molimo sačekajte odgovor sa servera</translation>
     </message>
 </context>
 </TS>

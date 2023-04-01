@@ -551,10 +551,6 @@
         <translation>* Да бисте га попунили, кликните на дугме &quot;Уреди&quot; на картици.</translation>
     </message>
     <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help3.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>* Enter the contact and other details of your establishment. In the item &quot;Bonus name&quot; it is necessary to indicate what the client will receive in the form of a bonus (product / service / discount / etc.).</source>
         <translation>* Унесите контакт и друге податке ваше установе. У ставци &quot;назив бонуса&quot; потребно је навести шта ће купац добити у облику бонуса (роба/услуга/попуст/ и т.д.).</translation>
     </message>
@@ -565,10 +561,6 @@
     <message>
         <source>* Customize the design of the card by clicking on this element at the bottom left of the card.</source>
         <translation>* Прилагодите дизајн картице кликом на овај елемент одоздо лево од картице.</translation>
-    </message>
-    <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help2.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
-        <translation></translation>
     </message>
     <message>
         <source>* A menu with design settings (background and text colors, logo, as well as printing) will open</source>
@@ -668,10 +660,6 @@
     <message>
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;In order to open the QR code, click on the item in the upper left corner of the screen. </source>
         <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Да бисте отворили QR код, додирните ставку у горњем левом углу екрана. </translation>
-    </message>
-    <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help1.jpg&quot; alt=&quot;tt&quot; width=&quot;100&quot;/&gt;</source>
-        <translation></translation>
     </message>
     <message>
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;A sidebar will open at the bottom of which there will be a QR code, you can click on it to enlarge it.</source>

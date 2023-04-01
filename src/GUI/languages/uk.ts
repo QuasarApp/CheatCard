@@ -531,14 +531,6 @@
         <translation>### Як використовувати?</translation>
     </message>
     <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help3.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help2.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>### Create a card for your establishment</source>
         <translation>### Створіть картку для свого закладу</translation>
     </message>
@@ -676,10 +668,6 @@
     <message>
         <source>### How to use?</source>
         <translation>### Як використовувати?</translation>
-    </message>
-    <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help1.jpg&quot; alt=&quot;tt&quot; width=&quot;100&quot;/&gt;</source>
-        <translation></translation>
     </message>
     <message>
         <source>* Receive seal to card.</source>
