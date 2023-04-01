@@ -593,8 +593,8 @@ void MainModel::handleCardEditFinished(const QSharedPointer<Interfaces::iCard>& 
         return;
     }
 
-    auto listOfUsers = _db->getAllUserFromCard(card->cardId(),
-                                               _currentUserKey);
+    auto listOfUsers = _db->getAllUserDataFromCard(card->cardId(),
+                                                   _currentUserKey);
 
     if (localCard && listOfUsers.size() && localCard->getFreeIndex() != card->getFreeIndex()) {
 
@@ -716,10 +716,10 @@ void MainModel::handleCardSelectedForWork(const QSharedPointer<CardModel> &card)
 void MainModel::handleCardSelectedForStatistic(const QSharedPointer<CardModel> &card) {
 
     if (auto statisticModel = _modelStorage->get<SellerStatisticModel>()) {
-        auto usersList = _db->getAllUserFromCard(card->card()->cardId(), _currentUserKey);
-        auto usersDataList = _db->getAllUserDataFromCard(card->card()->cardId());
+        auto usersDataList  = _db->getAllUserDataFromCard(card->card()->cardId(), _currentUserKey);
+        auto usersList = _db->getAllUserFromCard(card->card()->cardId());
 
-        statisticModel->setDataList(card, usersList, usersDataList);
+        statisticModel->setDataList(card, usersDataList, usersList);
 
         if (auto activityModel = _modelStorage->get<ActivityProcessorModel>()) {
             activityModel->newActivity("qrc:/CheatCardModule/SellerStatistic.qml",

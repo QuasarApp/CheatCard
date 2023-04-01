@@ -176,14 +176,14 @@ public:
                     const QByteArray& cardId) const = 0;
 
     /**
-     * @brief getAllUserFromCard This method return all data of the card @a cardId.
+     * @brief getAllUserDataFromCard This method return all data of the card @a cardId.
      * @param cardId This is id of checked card.
      * @param ignoreUserId this is id of ignored user.
      * @note The @a ignoreUserId argument can be used for fetch all data for owner. because owner set one seal itself.
      * @return  all data of the card @a cardId.
      */
     virtual QList<QSharedPointer<iUsersCards>>
-    getAllUserFromCard(const QByteArray& cardId,
+    getAllUserDataFromCard(const QByteArray& cardId,
                        const QByteArray& ignoreUserId = {}) const = 0;
 
     /**
@@ -211,12 +211,12 @@ public:
                               const QByteArray& ignoreUserId = {}) const = 0;
 
     /**
-     * @brief getAllUserDataFromCard This method return list of users that use card @a cardId
+     * @brief getAllUserFromCard This method return list of users that use card @a cardId
      * @param cardId This is card id
      * @return list of users that use card @a cardId
      */
     virtual QList<QSharedPointer<iUser>>
-    getAllUserDataFromCard(const QByteArray& cardId) const = 0;
+    getAllUserFromCard(const QByteArray& cardId) const = 0;
 
     /**
      * @brief getAllUserWithPrivateKeys This method return list of users that has private keys. (not guest users records)

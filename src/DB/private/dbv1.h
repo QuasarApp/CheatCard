@@ -58,13 +58,13 @@ public:
     QSharedPointer<Interfaces::iUsersCards>
     getUserCardData(const QByteArray &userId, const QByteArray &cardId) const override;
     QList<QSharedPointer<Interfaces::iUsersCards> >
-    getAllUserFromCard(const QByteArray& cardId, const QByteArray& ignoreUserId) const override;
+    getAllUserDataFromCard(const QByteArray& cardId, const QByteArray& ignoreUserId) const override;
     QList<QSharedPointer<Interfaces::iUsersCards> >
     getAllActiveUserFromCard(const QByteArray& cardId, int unixTimeRange, const QByteArray& ignoreUserId) const override;
     QList<QSharedPointer<Interfaces::iUsersCards> >
     getAllPassiveUserFromCard(const QByteArray& cardId, int unixTimeRange, const QByteArray& ignoreUserId) const override;
     QList<QSharedPointer<Interfaces::iUser> >
-    getAllUserDataFromCard(const QByteArray &cardId) const override;
+    getAllUserFromCard(const QByteArray &cardId) const override;
     QList<QSharedPointer<Interfaces::iUser> >
     getAllUserWithPrivateKeys() const override;
     QSharedPointer<Interfaces::iCard>
