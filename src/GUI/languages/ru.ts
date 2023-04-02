@@ -839,6 +839,14 @@
         <source>Wow</source>
         <translation>Ого</translation>
     </message>
+    <message>
+        <source>You have bonuses!!!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On the %0 card you have %2 bonus (&quot;%1&quot;)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RC::NetIndicatorModel</name>
