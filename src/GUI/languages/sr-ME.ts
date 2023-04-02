@@ -835,6 +835,14 @@
         <source>Some kind of garbage happened when reading the qr code. Try again</source>
         <translation>Nešto je pošlo naopako pri čitanju qr koda. Pokušajte ponovo</translation>
     </message>
+    <message>
+        <source>You have bonuses!!!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On the %0 card you have %2 bonus (&quot;%1&quot;)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RC::NetIndicatorModel</name>

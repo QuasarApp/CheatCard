@@ -143,17 +143,7 @@ int DBv1::getFreeItemsCount(const QSharedPointer<Interfaces::iUsersCards> &input
 }
 
 int DBv1::getFreeItemsCount(const QSharedPointer<Interfaces::iUsersCards> &inputData, unsigned int freeIndex) const {
-    if (freeIndex <= 0)
-        return 0;
-
-    if (!inputData)
-        return 0;
-
-    int freeItems = std::floor(inputData->getPurchasesNumber() /
-                               static_cast<double>(freeIndex)) -
-                    inputData->getReceived();
-
-    return freeItems;
+    return RCUtils::calcFreeItemsCount(inputData->getReceived(), inputData->getPurchasesNumber(), freeIndex);
 }
 
 void DBv1::prepareOwnerSignatureCondition(const QList<QByteArray>& signatureList,

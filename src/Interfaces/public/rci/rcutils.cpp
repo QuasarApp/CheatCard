@@ -65,4 +65,18 @@ bool RCUtils::createContact(const QByteArray &baseUser,
     return resultContact->isValid();
 }
 
+unsigned int RCUtils::calcFreeItemsCount(unsigned int received, unsigned int purchasesNumber, unsigned int freeIndex) {
+    if (freeIndex <= 0)
+        return 0;
+
+    if (!(received && purchasesNumber))
+        return 0;
+
+    int freeItems = std::floor(purchasesNumber /
+                               static_cast<double>(freeIndex)) -
+                    received;
+
+    return freeItems;
+}
+
 }

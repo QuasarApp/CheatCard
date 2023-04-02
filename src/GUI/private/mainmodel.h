@@ -228,6 +228,7 @@ private:
     bool _fShowEmptyBonuspackaMessage = false;
     QByteArray _currentUserKey;
     friend class ImageProvider;
+    void refreshCardsData();
 };
 
 }
