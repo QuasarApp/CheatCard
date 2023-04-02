@@ -861,6 +861,14 @@
         <source>The Selected image does not contains a valid qr code. Try again.</source>
         <translation>Вибране зображення не містить дійсного qr-коду. Спробуйте знову.</translation>
     </message>
+    <message>
+        <source>Remove access</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do you want to remove access to your cards for %0 user ?</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RC::QRCodeDecoder</name>

@@ -524,7 +524,7 @@ void ApiV3::brodcastCardChanged(const QByteArray &cardId,
 
     auto usersData = db()->getAllUserDataFromCard(cardId);
     for (const auto& user: usersData) {
-        brodcastUserChanged(user->getKey(), data, req);
+        brodcastUserChanged(user->getUser(), data, req);
     }
 }
 

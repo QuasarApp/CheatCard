@@ -237,7 +237,7 @@ DBv1::getUserCardData(const QByteArray& userId, const QByteArray& cardId) const 
 }
 
 QList<QSharedPointer<Interfaces::iUsersCards> >
-DBv1::getAllUserFromCard(const QByteArray &cardId, const QByteArray &ignoreUserId) const {
+DBv1::getAllUserDataFromCard(const QByteArray &cardId, const QByteArray &ignoreUserId) const {
     QString where;
     QVariantMap toBind = {{":card", cardId}};
     if (ignoreUserId.size()) {
@@ -392,7 +392,7 @@ QSharedPointer<Interfaces::iUser> DBv1::getUser(const QByteArray& userId) const 
 }
 
 QList<QSharedPointer<Interfaces::iUser> >
-DBv1::getAllUserDataFromCard(const QByteArray& cardId) const {
+DBv1::getAllUserFromCard(const QByteArray& cardId) const {
 
     QH::PKG::DBObjectsRequest<DB::User> request("Users",
                                                 "key IN (select user from UsersData where card=:card)",
