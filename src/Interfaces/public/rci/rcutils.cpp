@@ -69,7 +69,7 @@ unsigned int RCUtils::calcFreeItemsCount(unsigned int received, unsigned int pur
     if (freeIndex <= 0)
         return 0;
 
-    if (!(received && purchasesNumber))
+    if (!purchasesNumber)
         return 0;
 
     int freeItems = std::floor(purchasesNumber /
