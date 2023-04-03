@@ -242,6 +242,12 @@ bool ApiV3::processDeleteCardRequest(const QSharedPointer<API::V3::DeleteCardReq
         brodcastCardChanged(request->card(), &changesResponce, &hdr);
 
     } else {
+        auto dbData = db()->getUserCardData(userKey, request->card());
+
+        // fix ddos attacks
+        if (!dbData)
+            return false;
+
         // remove only for the selected client
         db()->deleteUserData(request->card(), userKey);
     }
