@@ -231,6 +231,7 @@ bool ApiV3::processDeleteCardRequest(const QSharedPointer<API::V3::DeleteCardReq
     QH::PKG::DataPack<API::V3::UsersCards> toRemove;
     for (const auto& data: usersDataToRemove) {
         toRemove.push({data});
+        db()->deleteUserData(data->getCard(), data->getUser());
     }
 
     API::V3::SyncIncremental changesResponce;
@@ -553,9 +554,7 @@ bool ApiV3::processCardUpdatePrivate(const QByteArray &card,
     auto dbCard = db()->getCard(card);
     V3::CardDataRequest request;
 
-    // card needed for server if is a new card and if version updated. For client only for new version and onle for exists cards.
-    bool fNeeded = node()->nodeType() == QH::AbstractNode::NodeType::Server && !dbCard;
-    fNeeded = fNeeded || (dbCard && dbCard->getCardVersion() < version);
+    bool fNeeded = !dbCard || (dbCard && dbCard->getCardVersion() < version);
 
     if (fNeeded) {
         request.push(card);
@@ -793,11 +792,6 @@ bool ApiV3::processSync(const QSharedPointer<V3::Sync> &message,
                         const QH::AbstractNodeInfo *sender,
                         const QH::Header & hdr) {
 
-    if (message->isContainsUsersDataInfo() &&
-            !ApiV3::processCardStatusImpl(message->usersCards(), sender, hdr)) {
-        return false;
-    }
-
     if (message->isContainsPermisionsInfo()) {
         if (!db()->deleteContactsByChildUserKey(message->syncedUserKey())) {
             return false;
@@ -807,8 +801,21 @@ bool ApiV3::processSync(const QSharedPointer<V3::Sync> &message,
             db()->saveContact(contact->toObject(db()));
         }
 
-        emit sigContactsListChanged();
     }
+
+    if (message->isContainsUsersDataInfo()) {
+        if (!db()->deleteUserDataForAllCards(message->syncedUserKey())) {
+            return false;
+        }
+
+        if (!ApiV3::processCardStatusImpl(message->usersCards(), sender, hdr)) {
+            return false;
+        }
+
+        return db()->deleteEmptyCards();
+    }
+
+    emit sigSyncReceivedChanged();
 
     return triggerCallBack(hdr.triggerHash, 0);
 }
@@ -846,7 +853,7 @@ bool ApiV3::processSyncIncremental(const QSharedPointer<V3::SyncIncremental> &me
     }
 
     if (message->contactsToAdd().size() || message->contactsToRemove().size()) {
-        emit sigContactsListChanged();
+        emit sigSyncReceivedChanged();
     }
 
     return triggerCallBack(hdr.triggerHash, 0);

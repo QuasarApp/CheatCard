@@ -68,7 +68,7 @@ signals:
 
     void sigPurchaseWasSuccessful(QSharedPointer<RC::Interfaces::iUsersCards> data, bool alert);
     void sigCardReceived(QSharedPointer<RC::Interfaces::iCard> card);
-    void sigContactsListChanged();
+    void sigSyncReceivedChanged();
     void sigUserDataRemoved(const QByteArray& cardId, const QByteArray& userId);
 
 protected:

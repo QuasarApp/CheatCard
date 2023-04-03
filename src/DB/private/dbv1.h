@@ -35,6 +35,8 @@ public:
     bool deleteUser(const QByteArray& userId) const override;
     bool deleteContactsByChildUserKey(const QByteArray& childUser) const override;
     bool deleteUserData(const QByteArray &cardId, const QByteArray &userId) override;
+    bool deleteEmptyCards() const override;
+    bool deleteUserDataForAllCards(const QByteArray &userId) override;
 
     QSharedPointer<Interfaces::iContacts> makeEmptyContact() const override;
     QSharedPointer<Interfaces::iUser> makeEmptyUser() const override;
@@ -102,7 +104,6 @@ private:
                                         QVariantMap &toBind);
 
     int getCardFreeIndex(const QByteArray& cardId) const;
-
 
 };
 }

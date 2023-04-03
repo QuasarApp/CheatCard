@@ -138,9 +138,9 @@ signals:
     virtual void sigUserDataRemoved(const QByteArray& cardId, const QByteArray& userId) = 0;
 
     /**
-     * @brief sigContactsListChanged This signal will emit when contacts list was changed.
+     * @brief sigSyncReceivedChanged This signal will emit when sync with server object received.
      */
-    virtual void sigContactsListChanged() = 0;
+    virtual void sigSyncReceivedChanged() = 0;
 };
 
 }

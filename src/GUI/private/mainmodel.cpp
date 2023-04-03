@@ -409,7 +409,7 @@ void MainModel::initModels() {
         connect(model.data(), &BaseNode::sigNoLongerSupport,
                 this, &MainModel::handleAppOutdated);
 
-        connect(model.data(), &Client::sigContactsListChanged,
+        connect(model.data(), &Client::sigSyncReceivedChanged,
                 this, &MainModel::handleContactsListChanged);
 
         connect(model.data(), &BaseNode::requestError,
@@ -540,7 +540,16 @@ QObject *MainModel::cardsList() const {
 }
 
 void MainModel::handleCardReceived(QSharedPointer<RC::Interfaces::iCard> card) {
-    if (card->isOvner(_currentUserKey)) {
+    bool isOwner = card->isOvner(_currentUserKey);
+
+    if (!isOwner) {
+        const auto masters = db()->getMasterKeys(_currentUserKey);
+        for (const auto &master: masters) {
+            isOwner = isOwner || card->isOvner(master->getUserKey());
+        }
+    }
+
+    if (isOwner) {
         _ownCardsListModel->importCard(card);
 
     } else {

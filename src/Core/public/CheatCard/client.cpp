@@ -16,8 +16,8 @@ Client::Client(const QSharedPointer<Interfaces::iDB>& db): BaseNode(db) {
         Client::connect(api.data(), &API::APIBase::sigUserDataRemoved,
                         this, &Client::sigUserDataRemoved, Qt::DirectConnection);
 
-        Client::connect(api.data(), &API::APIBase::sigContactsListChanged,
-                        this, &Client::sigContactsListChanged, Qt::DirectConnection);
+        Client::connect(api.data(), &API::APIBase::sigSyncReceivedChanged,
+                        this, &Client::sigSyncReceivedChanged, Qt::DirectConnection);
 
         Client::connect(api.data(), &API::APIBase::sigPurchaseWasSuccessful,
                         this, &Client::sigPurchaseWasSuccessful, Qt::DirectConnection);
