@@ -661,6 +661,8 @@ void MainModel::handleRemoveRequest(const QSharedPointer<Interfaces::iCard> &car
 
             if (accepted) {
                 _db->deleteCard(card->cardId());
+                _db->deleteUserData(card->cardId(), _currentUserKey);
+
                 _currentCardsListModel->removeCard(card->cardId());
             }
         };
