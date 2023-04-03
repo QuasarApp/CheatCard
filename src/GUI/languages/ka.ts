@@ -797,10 +797,6 @@
         <translation>ბარათის ამოღება</translation>
     </message>
     <message>
-        <source>You trying to delete this card, do not worry a seller that has give out this card save all bonuses locally,  so after repeat visit you will be get all your removed bonuses again. Do you want to continue?</source>
-        <translation>თქვენ ცდილობთ წაშალოთ ეს ბარათი, არ ინერვიულოთ, გამყიდველი, რომელმაც გასცა ეს ბარათი, დაზოგავს ყველა ბონუსს ადგილობრივად, ასე რომ, როდესაც კვლავ მოინახულებთ, კვლავ მიიღებთ ყველა წაშლილ პრემიას. გსურთ გააგრძელოთ?</translation>
-    </message>
-    <message>
         <source>Sorry but not</source>
         <translation>ვწუხვარ, მაგრამ არ არსებობს</translation>
     </message>
@@ -842,6 +838,10 @@
     </message>
     <message>
         <source>On the %0 card you have %2 bonus (&quot;%1&quot;)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You&apos;re trying to delete the %0 card, All your data, your purchase and available bonuses will be removed! Do you want to continue?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

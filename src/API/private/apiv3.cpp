@@ -208,37 +208,52 @@ bool ApiV3::processDeleteCardRequest(const QSharedPointer<API::V3::DeleteCardReq
     if (!dbCard)
         return true;
 
-    if (!accessValidation(dbCard, request->secret(), false)) {
-
-        QuasarAppUtils::Params::log("Receive not signed delete request",
-                                    QuasarAppUtils::Info);
-        return false;
-    }
-
     auto userKey = RCUtils::makeUserKey(request->secret());
-    auto listOfUsers = db()->getAllActiveUserFromCard(request->card(),
-                                                      Interfaces::ACTIVE_USER_TIME_LIMIT, userKey);
+    // remove card on the server for all users.
+    if (dbCard->isOvner(userKey)) {
+        if (!accessValidation(dbCard, request->secret(), false)) {
 
-    if (listOfUsers.size()) {
-        return false;
+            QuasarAppUtils::Params::log("Receive not signed delete request",
+                                        QuasarAppUtils::Info);
+            return false;
+        }
+
+        auto userKey = RCUtils::makeUserKey(request->secret());
+        auto listOfUsers = db()->getAllActiveUserFromCard(request->card(),
+                                                          Interfaces::ACTIVE_USER_TIME_LIMIT, userKey);
+
+        if (listOfUsers.size()) {
+            return false;
+        }
+
+        if (!db()->deleteCard(request->card())) {
+            return false;
+        }
+
+        const auto usersDataToRemove = db()->getAllPassiveUserFromCard(request->card(), 0);
+        QH::PKG::DataPack<API::V3::UsersCards> toRemove;
+        for (const auto& data: usersDataToRemove) {
+            toRemove.push({data});
+        }
+
+        API::V3::SyncIncremental changesResponce;
+        changesResponce.setUsersCardsToRemove(toRemove);
+
+        brodcastCardChanged(request->card(), &changesResponce, &hdr);
+
+    } else {
+        auto dbData = db()->getUserCardData(userKey, request->card());
+
+        // fix ddos attacks
+        if (!dbData)
+            return false;
+
+        // remove only for the selected client
+        db()->deleteUserData(request->card(), userKey);
     }
-
-    if (!db()->deleteCard(request->card())) {
-        return false;
-    }
-
-    const auto usersDataToRemove = db()->getAllPassiveUserFromCard(request->card(), 0);
-    QH::PKG::DataPack<API::V3::UsersCards> toRemove;
-    for (const auto& data: usersDataToRemove) {
-        toRemove.push({data});
-    }
-
-    API::V3::SyncIncremental changesResponce;
-    changesResponce.setUsersCardsToRemove(toRemove);
-
-    brodcastCardChanged(request->card(), &changesResponce, &hdr);
 
     return true;
+
 }
 
 bool ApiV3::processCardStatusBase(const QSharedPointer<V3::UsersCards> &cardStatus,

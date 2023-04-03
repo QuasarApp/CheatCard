@@ -68,7 +68,7 @@ public:
     virtual bool deleteUser(const QByteArray& userId) const = 0;
 
     /**
-     * @brief deleteUserData This method delete data use the user
+     * @brief deleteUserData This method delete data of the user with @a userId
      * @param cardId This is card id
      * @param userId This is user id
      * @return true if the remove finished successul else false
