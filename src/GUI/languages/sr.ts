@@ -816,10 +816,6 @@
         <translation>Избриши картицу</translation>
     </message>
     <message>
-        <source>You trying to delete this card, do not worry a seller that has give out this card save all bonuses locally,  so after repeat visit you will be get all your removed bonuses again. Do you want to continue?</source>
-        <translation>Покушавате да избришете ову картицу, не брините, трговац који је издао ову картицу ће сачувати све бонусе локално, тако да ћете након поновне посете поново добити све своје избрисане бонусе. Да ли желите да наставите?</translation>
-    </message>
-    <message>
         <source>Sorry but not</source>
         <translation>Извини али не</translation>
     </message>
@@ -841,6 +837,10 @@
     </message>
     <message>
         <source>On the %0 card you have %2 bonus (&quot;%1&quot;)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You&apos;re trying to delete the %0 card, All your data, your purchase and available bonuses will be removed! Do you want to continue?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

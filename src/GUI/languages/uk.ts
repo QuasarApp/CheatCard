@@ -796,10 +796,6 @@
         <translation>Видалити картку</translation>
     </message>
     <message>
-        <source>You trying to delete this card, do not worry a seller that has give out this card save all bonuses locally,  so after repeat visit you will be get all your removed bonuses again. Do you want to continue?</source>
-        <translation>Ви намагаєтеся видалити цю картку, не хвилюйтеся, що продавець, який видав цю картку, збереже всі бонуси локально, тому після повторного відвідування ви знову отримаєте всі вилучені бонуси. Ви хочете продовжити?</translation>
-    </message>
-    <message>
         <source>The card reset to default successful but load default card from server failed, so you receive your card after new purchase in institution that has give out this card.</source>
         <translation>Скидання картки за замовчуванням успішне, але завантажити картку за замовчуванням із сервера не вдалося, тому ви отримаєте картку після нової покупки в установі, яка видала цю картку.</translation>
     </message>
@@ -845,6 +841,10 @@
     </message>
     <message>
         <source>On the %0 card you have %2 bonus (&quot;%1&quot;)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You&apos;re trying to delete the %0 card, All your data, your purchase and available bonuses will be removed! Do you want to continue?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
