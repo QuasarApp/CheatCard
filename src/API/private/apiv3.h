@@ -137,6 +137,7 @@ private:
                   const QH::Header *req);
 
     void brodcastCardChanged(const QByteArray& cardId,
+                             const QByteArray &ownerId,
                              const QH::PKG::AbstractData *data,
                              const QH::Header *req);
 

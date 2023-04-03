@@ -236,7 +236,7 @@ bool ApiV3::processDeleteCardRequest(const QSharedPointer<API::V3::DeleteCardReq
     API::V3::SyncIncremental changesResponce;
     changesResponce.setUsersCardsToRemove(toRemove);
 
-    brodcastCardChanged(request->card(), &changesResponce, &hdr);
+    brodcastCardChanged(request->card(), dbCard->ownerSignature(), &changesResponce, &hdr);
 
     return true;
 }
@@ -383,7 +383,7 @@ bool ApiV3::processCardData(const QSharedPointer<QH::PKG::DataPack<API::V3::Card
         if (isServer()) {
             API::V3::SyncIncremental changesResponce;
             changesResponce.addCardToUpdate(cardObj->cardId(), cardObj->getCardVersion());
-            brodcastCardChanged(cardObj->cardId(), &changesResponce, &hdr);
+            brodcastCardChanged(cardObj->cardId(), cardObj->ownerSignature(), &changesResponce, &hdr);
         }
 
         emit sigCardReceived(cardObj);
@@ -466,10 +466,18 @@ bool ApiV3::processChanges(const QSharedPointer<API::V3::ChangeUsersCards> &mess
 
     auto lastStatus = db()->
             getUserCardData(message->getUser(), message->getCard());
+    changesResponce.addUsersCardsToAdd(QSharedPointer<API::V3::UsersCards>::create(lastStatus));
 
     // message for all subscribers.
-    changesResponce.addUsersCardsToAdd(QSharedPointer<API::V3::UsersCards>::create(lastStatus));
     brodcastUserChanged(message->getUser(), &changesResponce, &hdr);
+
+    auto owner = db()->getCardField(message->getCard(), "ownerSignature").toByteArray();
+    if (!owner.isEmpty()) {
+        const auto workers = db()->getSlaveKeys(owner);
+        for (const auto& worker: workers) {
+            brodcastUserChanged(worker->getChildUserKey(), &changesResponce, &hdr);
+        }
+    }
 
     // responce for the sender.
     return sendData(&changesResponce, sender, &hdr);
@@ -517,15 +525,25 @@ void ApiV3::brodcastUserChanged(const QByteArray &userId,
 }
 
 void ApiV3::brodcastCardChanged(const QByteArray &cardId,
+                                const QByteArray &ownerId,
                                 const QH::PKG::AbstractData *data,
                                 const QH::Header *req) {
     if (!db())
         return;
 
     auto usersData = db()->getAllUserDataFromCard(cardId);
+    auto workersUsers = db()->getSlaveKeys(ownerId);
+
     for (const auto& user: usersData) {
         brodcastUserChanged(user->getUser(), data, req);
     }
+
+    for (const auto& user: workersUsers) {
+        brodcastUserChanged(user->getChildUserKey(), data, req);
+    }
+
+    if (ownerId.size())
+        brodcastUserChanged(ownerId, data, req);
 }
 
 bool ApiV3::processCardUpdatePrivate(const QByteArray &card,
