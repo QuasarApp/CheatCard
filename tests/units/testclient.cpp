@@ -41,6 +41,11 @@ QSharedPointer<RC::Interfaces::iCard> TestClient::getCard(const QByteArray &card
     return db()->getCard(cardId);
 }
 
+QSharedPointer<RC::Interfaces::iUsersCards> TestClient::getUserData(const QByteArray &userId,
+                                                                    const QByteArray &cardId) const {
+    return db()->getUserCardData(userId, cardId);
+}
+
 unsigned char TestClient::getLastErrrorCode() {
     unsigned char lastErr = lastErrrorCode;
     lastErrrorCode = 0;

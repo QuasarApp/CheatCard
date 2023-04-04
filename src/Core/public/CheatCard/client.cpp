@@ -89,16 +89,13 @@ bool Client::subscribeToUser(const QByteArray& user) const {
     return true;
 }
 
-bool Client::updateCard(const QByteArray &cardId, unsigned int version) {
-
-    auto apiObject = api();
-    if (!apiObject) {
+bool Client::cardWasUpdated(const QByteArray &cardId) {
+    if (!_currntUserKey.size())
         return false;
-    }
 
-    return apiObject->sendUpdateCard(cardId, version, _server, [](unsigned int err) {
+    return incrementPurchase(_currntUserKey, cardId, 0, [](unsigned int err) {
         if (err) {
-            QuasarAppUtils::Params::log("updateCard error ocurred");
+            QuasarAppUtils::Params::log("update card error ocurred");
         }
     });
 }

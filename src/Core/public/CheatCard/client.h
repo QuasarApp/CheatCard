@@ -28,7 +28,7 @@ public:
     bool isConncted() const;
     bool subscribeToUser(const QByteArray &user) const;
 
-    bool updateCard(const QByteArray& cardId, unsigned int version);
+    bool cardWasUpdated(const QByteArray& cardId);
     bool requestCard(const QByteArray& cardId);
 
     bool deleteCard(const QByteArray& cardId);
@@ -62,6 +62,8 @@ public:
                     const std::function<void (int)> &cb = {});
 
     const QByteArray& currntUserKey() const;
+
+    QSharedPointer<RC::Interfaces::iCard> makeCard();
 
 signals:
     void sigAvailableNetworkChanged(bool);

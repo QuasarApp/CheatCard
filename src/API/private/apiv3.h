@@ -68,8 +68,8 @@ public:
                     const std::function<void(int err)>& = {}) override;
 
     bool requestCard(const QByteArray &cardId,
-                    QH::AbstractNodeInfo *dist,
-                    const std::function<void(int err)>& = {}) override;
+                     QH::AbstractNodeInfo *dist,
+                     const std::function<void(int err)>& = {}) override;
 
     bool sendUpdateCard(const QByteArray &cardId,
                         unsigned int version,
@@ -132,14 +132,36 @@ protected:
 
 
 private:
-    void brodcastUserChanged(const QByteArray& userId,
-                  const QH::PKG::AbstractData *data,
-                  const QH::Header *req);
 
+    /**
+     * @brief brodcastUserChanged This method sent message to all subcribed nodes that connect write now.
+     * @param userId this is id of the user that data is changed.
+     * @param data This is changes of the data.
+     * @param sender this is node that trigger this changed - neede for the filtering
+     * @param req This is req header of the trigger node.
+     * @param alredySentNodes This is set of the nodes that alredy get this changes.
+     */
+    void brodcastUserChanged(const QByteArray& userId,
+                             const QH::PKG::AbstractData *data,
+                             const QH::AbstractNodeInfo *sender,
+                             const QH::Header *req,
+                             QSet<const QH::AbstractNodeInfo *> &alredySentNodes);
+
+    /**
+     * @brief brodcastUserChanged This method sent message to all subcribed nodes that connect write now.
+     * @param cardId this is id of the card that data is changed.
+     * @param ownerId this is id of the card owner.
+     * @param data This is changes of the data.
+     * @param sender this is node that trigger this changed - neede for the filtering
+     * @param req This is req header of the trigger node.
+     * @param alredySentNodes This is set of the nodes that alredy get this changes.
+     */
     void brodcastCardChanged(const QByteArray& cardId,
                              const QByteArray &ownerId,
                              const QH::PKG::AbstractData *data,
-                             const QH::Header *req);
+                             const QH::AbstractNodeInfo *sender,
+                             const QH::Header *req,
+                             QSet<const QH::AbstractNodeInfo *> &alredySentNodes);
 
     bool processCardUpdatePrivate(const QByteArray& card, unsigned int version,
                                   const QH::AbstractNodeInfo *sender, const QH::Header &) ;

@@ -583,9 +583,7 @@ void RC::MainModel::saveCard(const QSharedPointer<Interfaces::iCard>& card) {
         if (!backend)
             return;
 
-        backend->updateCard(card->cardId(),
-                            card->getCardVersion());
-
+        backend->cardWasUpdated(card->cardId());
     }
 }
 

@@ -65,6 +65,14 @@ CheatCardTestsHelper::makeCard(const QSharedPointer<TestClient> &owner, unsigned
         return nullptr;
     }
 
+    if (owner->cardWasUpdated(card->cardId())) {
+        // wait responce from the server about adding new card.
+        TestUtils::wait([card, owner]() {
+            return bool(owner->getUserData(card->ownerSignature(), card->cardId()));
+        }, WAIT_TIME);
+    }
+
+
     return card;
 
 }
