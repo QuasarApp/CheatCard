@@ -16,8 +16,8 @@ Client::Client(const QSharedPointer<Interfaces::iDB>& db): BaseNode(db) {
         Client::connect(api.data(), &API::APIBase::sigUserDataRemoved,
                         this, &Client::sigUserDataRemoved, Qt::DirectConnection);
 
-        Client::connect(api.data(), &API::APIBase::sigSyncReceivedChanged,
-                        this, &Client::sigSyncReceivedChanged, Qt::DirectConnection);
+        Client::connect(api.data(), &API::APIBase::sigSyncReceived,
+                        this, &Client::sigSyncReceived, Qt::DirectConnection);
 
         Client::connect(api.data(), &API::APIBase::sigPurchaseWasSuccessful,
                         this, &Client::sigPurchaseWasSuccessful, Qt::DirectConnection);
@@ -74,7 +74,7 @@ bool Client::isConncted() const {
     return _server;
 }
 
-bool Client::subscribeToUser(const QByteArray& user) const {
+bool Client::subscribeToUser(const QByteArray& user) {
     auto apiObject = api();
     if (!apiObject) {
         return false;

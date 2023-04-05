@@ -409,7 +409,7 @@ void MainModel::initModels() {
         connect(model.data(), &BaseNode::sigNoLongerSupport,
                 this, &MainModel::handleAppOutdated);
 
-        connect(model.data(), &Client::sigSyncReceivedChanged,
+        connect(model.data(), &Client::sigSyncReceived,
                 this, &MainModel::handleContactsListChanged);
 
         connect(model.data(), &BaseNode::requestError,

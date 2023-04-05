@@ -1,9 +1,11 @@
 #include "testserver.h"
 
 #include <QCoreApplication>
+#include "api.h"
 
 TestServer::TestServer(const QSharedPointer<RC::Interfaces::iDB> &db):
     RC::Server(db) {
+    RC::API::init({3}, db, this);
 }
 
 QSharedPointer<RC::Interfaces::iCard> TestServer::getCard(const QByteArray& cardId) const {

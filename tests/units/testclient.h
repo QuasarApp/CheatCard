@@ -27,15 +27,17 @@ public:
 
     unsigned char getLastErrrorCode();
     void resetLastErrors();
+    bool isSynced() const;
 
     const QSharedPointer<RC::Interfaces::iDB>& getDBObject() const;
     QSharedPointer<RC::Interfaces::iUser> getUser(const QByteArray& userId) const;
     QSharedPointer<RC::Interfaces::iUser> getCurrentUser() const;
 
 private slots:
+    void handleSyncReceived();
     void handleRequestError(unsigned char code, QString msg);
 private:
-
+    bool _synced = false;
     unsigned char lastErrrorCode = 0;
 };
 

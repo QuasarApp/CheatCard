@@ -33,7 +33,7 @@ NetworkResult CheatCardTestsHelper::deployNetwork(QString host, int port,
             node->connectToServer(host, port);
 
             if (!TestUtils::wait([node]() {
-                    return node->isConncted();
+                    return node->isSynced();
                 }, WAIT_TIME)) {
                 return {};
             }
@@ -61,17 +61,18 @@ CheatCardTestsHelper::makeCard(const QSharedPointer<TestClient> &owner, unsigned
     card->setFreeItemName("bonus");
     card->setFreeIndex(freeItemCount);
 
+    if (!owner->cardWasUpdated(card->cardId())) {
+        return nullptr;
+    }
+
     if (!owner->db()->saveCard(card)) {
         return nullptr;
     }
 
-    if (owner->cardWasUpdated(card->cardId())) {
-        // wait responce from the server about adding new card.
-        TestUtils::wait([card, owner]() {
-            return bool(owner->getUserData(card->ownerSignature(), card->cardId()));
-        }, WAIT_TIME);
-    }
-
+    // wait responce from the server about adding new card.
+    TestUtils::wait([card, owner]() {
+        return bool(owner->getUserData(card->ownerSignature(), card->cardId()));
+    }, WAIT_TIME);
 
     return card;
 

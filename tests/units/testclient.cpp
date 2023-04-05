@@ -3,8 +3,8 @@
 #include <CheatCard/clearolddata.h>
 
 TestClient::TestClient(const QSharedPointer<RC::Interfaces::iDB> &db): RC::Client(db)  {
-    connect (this, &Client::requestError, this, &TestClient::handleRequestError);
-
+    connect(this, &Client::requestError, this, &TestClient::handleRequestError);
+    connect(this, &Client::sigSyncReceived, this, &TestClient::handleSyncReceived);
 }
 
 void TestClient::dropDB() {
@@ -54,6 +54,14 @@ unsigned char TestClient::getLastErrrorCode() {
 
 void TestClient::resetLastErrors() {
     getLastErrrorCode();
+}
+
+void TestClient::handleSyncReceived() {
+    _synced = true;
+}
+
+bool TestClient::isSynced() const {
+    return _synced;
 }
 
 const QSharedPointer<RC::Interfaces::iDB> &TestClient::getDBObject() const {

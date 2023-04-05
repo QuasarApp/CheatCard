@@ -55,7 +55,6 @@ public:
         }
 
         auto result = QSharedPointer<NodeType>(new NodeType(sallerDb), softDeleteWrapNode);
-        RC::API::init({3}, sallerDb, result.data());
 
         if constexpr (std::is_same_v<NodeType, TestClient>) {
             result->setCurrntUserKey(user->getKey());

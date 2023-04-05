@@ -836,7 +836,7 @@ bool ApiV3::processSync(const QSharedPointer<V3::Sync> &message,
         }
     }
 
-    emit sigSyncReceivedChanged();
+    emit sigSyncReceived();
 
     return triggerCallBack(hdr.triggerHash, 0);
 }
@@ -874,7 +874,7 @@ bool ApiV3::processSyncIncremental(const QSharedPointer<V3::SyncIncremental> &me
     }
 
     if (message->contactsToAdd().size() || message->contactsToRemove().size()) {
-        emit sigSyncReceivedChanged();
+        emit sigSyncReceived();
     }
 
     return triggerCallBack(hdr.triggerHash, 0);
