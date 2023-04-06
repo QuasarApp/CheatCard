@@ -56,6 +56,7 @@ QDataStream &ChangeUsersCards::fromStream(QDataStream &stream) {
     stream >> _secret;
     stream >> _user;
     stream >> _card;
+    stream >> _cardVersion;
 
     return stream;
 }
@@ -67,8 +68,17 @@ QDataStream &ChangeUsersCards::toStream(QDataStream &stream) const {
     stream << _secret;
     stream << _user;
     stream << _card;
+    stream << _cardVersion;
 
     return stream;
+}
+
+int ChangeUsersCards::cardVersion() const {
+    return _cardVersion;
+}
+
+void ChangeUsersCards::setCardVersion(int newCardVersion) {
+    _cardVersion = newCardVersion;
 }
 
 void ChangeUsersCards::setUser(const QByteArray &newUser) {

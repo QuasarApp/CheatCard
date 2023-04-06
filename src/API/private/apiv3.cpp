@@ -453,6 +453,7 @@ bool ApiV3::processChanges(const QSharedPointer<API::V3::ChangeUsersCards> &mess
         dbUsersCards->setPurchasesNumber(dbUsersCards->getPurchasesNumber() + message->purchase());
         dbUsersCards->setTime(time(0));
         dbUsersCards->receive(message->receive());
+        dbUsersCards->setCardVersion(message->cardVersion());
 
         QByteArray neededCardId;
         if (!processCardStatusBase(QSharedPointer<V3::UsersCards>::create(dbUsersCards),
@@ -695,6 +696,7 @@ bool ApiV3::changeUsersData(const QByteArray& sellerUserKey,
     changes.setSecret(db()->getSecret(sellerUserKey));
     changes.setUser(userId);
     changes.setCard(cardId);
+    changes.setCardVersion(db()->getCardVersion(cardId));
 
     _checkUserRequestHash.clear();
 
