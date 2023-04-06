@@ -227,7 +227,6 @@ bool ApiV3::processDeleteCardRequest(const QSharedPointer<API::V3::DeleteCardReq
     changesResponce.setUsersCardsToRemove(toRemove);
 
     QSet<const QH::AbstractNodeInfo *> filter;
-    brodcastUserChanged(request->card(), &changesResponce, sender, &hdr, filter);
     brodcastUserChanged(dbCard->ownerSignature(), &changesResponce, sender, &hdr, filter);
 
     return true;
@@ -482,14 +481,6 @@ bool ApiV3::processChanges(const QSharedPointer<API::V3::ChangeUsersCards> &mess
     // message for all subscribers.
     QSet<const QH::AbstractNodeInfo *> filter;
     brodcastUserChanged(message->getUser(), &changesResponce, sender, &hdr, filter);
-
-    auto owner = db()->getCardField(message->getCard(), "ownerSignature").toByteArray();
-    if (!owner.isEmpty()) {
-        const auto workers = db()->getSlaveKeys(owner);
-        for (const auto& worker: workers) {
-            brodcastUserChanged(worker->getChildUserKey(), &changesResponce, sender, &hdr, filter);
-        }
-    }
 
     // responce for the sender.
     return sendData(&changesResponce, sender, &hdr);
