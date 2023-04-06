@@ -229,7 +229,8 @@ bool ApiV3::processDeleteCardRequest(const QSharedPointer<API::V3::DeleteCardReq
         API::V3::SyncIncremental changesResponce;
         changesResponce.setUsersCardsToRemove(toRemove);
 
-        brodcastCardChanged(request->card(), &changesResponce, &hdr);
+        QSet<const QH::AbstractNodeInfo *> filter;
+        brodcastUserChanged(dbCard->ownerSignature(), &changesResponce, sender, &hdr, filter);
 
     } else {
         auto dbData = db()->getUserCardData(userKey, request->card());
