@@ -796,10 +796,6 @@
         <translation>Выдаліць картку</translation>
     </message>
     <message>
-        <source>You trying to delete this card, do not worry a seller that has give out this card save all bonuses locally,  so after repeat visit you will be get all your removed bonuses again. Do you want to continue?</source>
-        <translation>Калі вы спрабуеце выдаліць гэту картку, не хвалюйцеся, прадавец, які выдаў гэтую картку, захавайце ўсе бонусы лакальна, так што пасля паўторнага наведвання вы зноў атрымаеце ўсе выдаленыя бонусы. Вы хочаце працягнуць?</translation>
-    </message>
-    <message>
         <source>Sorry but not</source>
         <translation>Выбачайце, але не</translation>
     </message>
@@ -841,6 +837,10 @@
     </message>
     <message>
         <source>On the %0 card you have %2 bonus (&quot;%1&quot;)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You&apos;re trying to delete the %0 card, All your data, your purchase and available bonuses will be removed! Do you want to continue?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

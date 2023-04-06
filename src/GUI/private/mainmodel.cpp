@@ -668,6 +668,8 @@ void MainModel::handleRemoveRequest(const QSharedPointer<Interfaces::iCard> &car
 
             if (accepted) {
                 _db->deleteCard(card->cardId());
+                _db->deleteUserData(card->cardId(), _currentUserKey);
+
                 _currentCardsListModel->removeCard(card->cardId());
             }
         };
@@ -697,9 +699,8 @@ void MainModel::handleRemoveRequest(const QSharedPointer<Interfaces::iCard> &car
 
 
         service->setQuestion(listner, tr("Remove Card"),
-                             tr("You trying to delete this card, do not worry a seller that has give out this card save all bonuses locally, "
-                                " so after repeat visit you will be get all your removed bonuses again."
-                                " Do you want to continue?"));
+                             tr("You're trying to delete the %0 card, All your data, your purchase and available bonuses will be removed!"
+                                " Do you want to continue?").arg(card->title()));
 
 
     }
