@@ -554,9 +554,12 @@ void ApiV3::brodcastUserChanged(const QByteArray &objId,
 
 void ApiV3::subscribePrivete(const QByteArray &objectId,
                              const QH::AbstractNodeInfo *subscriber) {
-    _subscribesMutex.lock();
-    _subscribes[objectId].insert(subscriber);
-    _subscribesMutex.unlock();
+    if (isServer()) {
+        _subscribesMutex.lock();
+        _subscribes[objectId].insert(subscriber);
+        _subscribesMutex.unlock();
+    }
+
 }
 
 bool ApiV3::processCardUpdatePrivate(const QByteArray &card,
