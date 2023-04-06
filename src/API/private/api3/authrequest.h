@@ -6,8 +6,8 @@
 //#
 
 
-#ifndef SUBSCRIBETOUSERCHANGES_H
-#define SUBSCRIBETOUSERCHANGES_H
+#ifndef AUTHREQUEST_H
+#define AUTHREQUEST_H
 
 #include "abstractdata.h"
 namespace RC {
@@ -15,14 +15,14 @@ namespace API {
 namespace V3 {
 
 /**
- * @brief The SubscribeToUserChanges class is command that can subscribe to changes of the users
+ * @brief The AuthRequest class is command that can subscribe to changes of the users
  */
-class SubscribeToUserChanges: public QH::PKG::AbstractData
+class AuthRequest: public QH::PKG::AbstractData
 {
-    QH_PACKAGE_AUTO(RC::API::V3::SubscribeToUserChanges)
+    QH_PACKAGE_AUTO(RC::API::V3::AuthRequest)
 
 public:
-    SubscribeToUserChanges();
+    AuthRequest();
     bool isValid() const override;
 
     const QByteArray& userId() const;
@@ -39,4 +39,4 @@ private:
 }
 }
 }
-#endif // SUBSCRIBETOUSERCHANGES_H
+#endif // AUTHREQUEST_H

@@ -21,7 +21,8 @@ class CHEATCARD_CORE_EXPORT Client: public BaseNode
 {
     Q_OBJECT
 public:
-    Client(const QSharedPointer<Interfaces::iDB> &db);
+    Client(const QSharedPointer<Interfaces::iDB> &db,
+           const QVector<unsigned short> &apiVesions);
     ~Client() override;
     bool connectToServer(QString host = {}, int port = 0);
     void disconectFromServer();

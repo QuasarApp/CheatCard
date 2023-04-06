@@ -15,7 +15,8 @@ class TestClient: public RC::Client
 {
     Q_OBJECT
 public:
-    TestClient(const QSharedPointer<RC::Interfaces::iDB> &db);
+    TestClient(const QSharedPointer<RC::Interfaces::iDB> &db,
+               const QVector<unsigned short> &apiVesions);
     void dropDB();
     int getPurchaseCount(const QByteArray& userId, const QByteArray& cardId);
     QSharedPointer<RC::Interfaces::iContacts> getContact(const QByteArray& parentUser,

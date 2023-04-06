@@ -2,7 +2,10 @@
 
 #include <CheatCard/clearolddata.h>
 
-TestClient::TestClient(const QSharedPointer<RC::Interfaces::iDB> &db): RC::Client(db)  {
+TestClient::TestClient(const QSharedPointer<RC::Interfaces::iDB> &db,
+                       const QVector<unsigned short> &apiVesions):
+    RC::Client(db, apiVesions)  {
+
     connect(this, &Client::requestError, this, &TestClient::handleRequestError);
     connect(this, &Client::sigSyncReceived, this, &TestClient::handleSyncReceived);
 }

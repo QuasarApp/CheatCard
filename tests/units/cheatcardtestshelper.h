@@ -37,7 +37,8 @@ public:
     CheatCardTestsHelper();
 
     template <class NodeType>
-    static QSharedPointer<NodeType> makeNode(const QString database = "") {
+    static QSharedPointer<NodeType> makeNode(const QVector<unsigned short> &apiVesions,
+                                             const QString database = "") {
         srand(time(0) + rand());
         QString randomNodeName = QByteArray::number(rand() % 0xffff).
                                  toBase64(QByteArray::Base64UrlEncoding) + typeid(NodeType).name();
@@ -54,7 +55,7 @@ public:
             return {};
         }
 
-        auto result = QSharedPointer<NodeType>(new NodeType(sallerDb), softDeleteWrapNode);
+        auto result = QSharedPointer<NodeType>(new NodeType(sallerDb, apiVesions), softDeleteWrapNode);
 
         if constexpr (std::is_same_v<NodeType, TestClient>) {
             result->setCurrntUserKey(user->getKey());

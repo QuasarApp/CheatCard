@@ -20,13 +20,13 @@ NetworkResult CheatCardTestsHelper::deployNetwork(QString host, int port,
                                                   unsigned int clientsCount,
                                                   bool connectToServer) {
     NetworkResult result;
-    result.server = makeNode<TestServer>();
+    result.server = makeNode<TestServer>({3});
 
     if (!result.server->run(host, port))
         return {};
 
     for (unsigned int i = 0; i < clientsCount; ++i) {
-        auto node = makeNode<TestClient>();
+        auto node = makeNode<TestClient>({3});
         result.clients.insert(node->currntUserKey(), node);
 
         if (connectToServer) {

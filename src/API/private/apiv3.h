@@ -26,7 +26,7 @@ class SyncIncremental;
 class UsersCards;
 class CardDataRequest;
 class Card;
-class SubscribeToUserChanges;
+class AuthRequest;
 }
 
 
@@ -71,11 +71,6 @@ public:
                      QH::AbstractNodeInfo *dist,
                      const std::function<void(int err)>& = {}) override;
 
-    bool sendUpdateCard(const QByteArray &cardId,
-                        unsigned int version,
-                        QH::AbstractNodeInfo *dist,
-                        const std::function<void(int err)>& = {}) override;
-
     bool changeUsersData(const QByteArray &sellerUserKey,
                          const QByteArray &cardId,
                          const QByteArray &userId,
@@ -88,7 +83,7 @@ public:
 
 
 protected:
-    bool processSubscribeRequest(const QSharedPointer<V3::SubscribeToUserChanges> &message,
+    bool processAuthRequest(const QSharedPointer<V3::AuthRequest> &message,
                                  QH::AbstractNodeInfo *sender, const QH::Header&) ;
 
 
@@ -113,9 +108,6 @@ protected:
     bool processCardData(const QSharedPointer<QH::PKG::DataPack<V3::Card> > &cardrequest,
                          const QH::AbstractNodeInfo *sender, const QH::Header &) ;
 
-    bool processCardUpdate(const QSharedPointer<V3::CardUpdated> &cardrequest,
-                           const QH::AbstractNodeInfo *sender, const QH::Header &) ;
-
     bool processCardStatusImpl(const QH::PKG::DataPack<V3::UsersCards> &cardStatuses,
                                const QH::AbstractNodeInfo *sender, const QH::Header &pkg);
 
@@ -135,33 +127,25 @@ private:
 
     /**
      * @brief brodcastUserChanged This method sent message to all subcribed nodes that connect write now.
-     * @param userId this is id of the user that data is changed.
+     * @param objId this is id of the user or card that data is changed.
      * @param data This is changes of the data.
      * @param sender this is node that trigger this changed - neede for the filtering
      * @param req This is req header of the trigger node.
      * @param alredySentNodes This is set of the nodes that alredy get this changes.
      */
-    void brodcastUserChanged(const QByteArray& userId,
+    void brodcastUserChanged(const QByteArray& objId,
                              const QH::PKG::AbstractData *data,
                              const QH::AbstractNodeInfo *sender,
                              const QH::Header *req,
                              QSet<const QH::AbstractNodeInfo *> &alredySentNodes);
 
     /**
-     * @brief brodcastUserChanged This method sent message to all subcribed nodes that connect write now.
-     * @param cardId this is id of the card that data is changed.
-     * @param ownerId this is id of the card owner.
-     * @param data This is changes of the data.
-     * @param sender this is node that trigger this changed - neede for the filtering
-     * @param req This is req header of the trigger node.
-     * @param alredySentNodes This is set of the nodes that alredy get this changes.
+     * @brief subscribePrivete This method subscribe user to changes of the object.
+     * @param objectId This is object id.
+     * @param subscriber this is subscriber that need to subscribe to object
      */
-    void brodcastCardChanged(const QByteArray& cardId,
-                             const QByteArray &ownerId,
-                             const QH::PKG::AbstractData *data,
-                             const QH::AbstractNodeInfo *sender,
-                             const QH::Header *req,
-                             QSet<const QH::AbstractNodeInfo *> &alredySentNodes);
+    void subscribePrivete(const QByteArray& objectId,
+                          const QH::AbstractNodeInfo *subscriber);
 
     bool processCardUpdatePrivate(const QByteArray& card, unsigned int version,
                                   const QH::AbstractNodeInfo *sender, const QH::Header &) ;
@@ -188,6 +172,9 @@ private:
     bool cardValidation(const QSharedPointer<RC::Interfaces::iCard> &cardFromDB,
                         const QByteArray &ownerSecret) const;
 
+    QH::AbstractNodeInfo *getUser(const QByteArray& userId);
+    void auth(const QByteArray& userId, QH::AbstractNodeInfo *userNode);
+
     struct RequestsData {
         int time = 0;
         std::function<void(int err)> _cb;
@@ -197,7 +184,11 @@ private:
     QHash<unsigned int, RequestsData> _waitResponce;
 
     QMutex _subscribesMutex;
-    QHash<QByteArray, QSet<QH::AbstractNodeInfo*>> _subscribes;
+    QHash<QByteArray, QSet<const QH::AbstractNodeInfo*>> _subscribes;
+
+    QMutex _usersMutex;
+    QHash<QByteArray, QH::AbstractNodeInfo*> _users;
+
 };
 }
 }

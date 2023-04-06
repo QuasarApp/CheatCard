@@ -6,8 +6,9 @@
 
 namespace RC {
 
-Client::Client(const QSharedPointer<Interfaces::iDB>& db): BaseNode(db) {
-    auto apis = API::init({3}, db, this);
+Client::Client(const QSharedPointer<Interfaces::iDB>& db,
+               const QVector<unsigned short> &apiVesions): BaseNode(db) {
+    auto apis = API::init(apiVesions, db, this);
 
     for (const auto & api: apis) {
         Client::connect(api.data(), &API::APIBase::sigCardReceived,
