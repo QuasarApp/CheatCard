@@ -6,34 +6,34 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#include "subscribetouserchanges.h"
+#include "authrequest.h"
 
 namespace RC {
 namespace API {
 namespace V3 {
 
-SubscribeToUserChanges::SubscribeToUserChanges() {
+AuthRequest::AuthRequest() {
 
 }
 
-bool SubscribeToUserChanges::isValid() const {
+bool AuthRequest::isValid() const {
     return _userId.size() == 32;
 }
 
-const QByteArray& SubscribeToUserChanges::userId() const {
+const QByteArray& AuthRequest::userId() const {
     return _userId;
 }
 
-void SubscribeToUserChanges::setUserId(const QByteArray &newUserId) {
+void AuthRequest::setUserId(const QByteArray &newUserId) {
     _userId = newUserId;
 }
 
-QDataStream &SubscribeToUserChanges::fromStream(QDataStream &stream) {
+QDataStream &AuthRequest::fromStream(QDataStream &stream) {
     stream >> _userId;
     return stream;
 }
 
-QDataStream &SubscribeToUserChanges::toStream(QDataStream &stream) const {
+QDataStream &AuthRequest::toStream(QDataStream &stream) const {
     stream << _userId;
     return stream;
 }

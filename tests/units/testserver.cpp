@@ -2,8 +2,9 @@
 
 #include <QCoreApplication>
 
-TestServer::TestServer(const QSharedPointer<RC::Interfaces::iDB> &db):
-    RC::Server(db) {
+TestServer::TestServer(const QSharedPointer<RC::Interfaces::iDB> &db,
+                       const QVector<unsigned short> &apiVesions):
+    RC::Server(db, apiVesions) {
 }
 
 QSharedPointer<RC::Interfaces::iCard> TestServer::getCard(const QByteArray& cardId) const {

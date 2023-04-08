@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS "Cards" (
         "freeIndex"	INTEGER DEFAULT 0,
         "time"	INTEGER NOT NULL DEFAULT 0,
         "cardVersion"	INT DEFAULT 0,
-        "ownerSignature"	VARCHAR(50) DEFAULT NULL,
+        "ownerSignature" BLOB DEFAULT NULL,
         PRIMARY KEY("id")
 );
 

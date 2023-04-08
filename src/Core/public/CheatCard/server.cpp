@@ -6,13 +6,16 @@
 //#
 
 #include "server.h"
+#include "api.h"
 #include <badrequest.h>
 #include <QCoreApplication>
 #include <api/apibase.h>
 
 namespace RC {
 
-Server::Server(const QSharedPointer<Interfaces::iDB> &db): BaseNode(db) {
+Server::Server(const QSharedPointer<Interfaces::iDB> &db, const QVector<unsigned short> &apiVesions): BaseNode(db) {
+    API::init(apiVesions, db, this);
+
     QH::SslSrtData sslData;
     sslData.commonName = getServerHost();
     sslData.organization = QCoreApplication::organizationName();

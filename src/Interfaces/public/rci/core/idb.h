@@ -61,6 +61,12 @@ public:
     virtual bool deleteCard(const QByteArray& cardId) const = 0;
 
     /**
+     * @brief deleteEmptyCards This method remove all cards withot usersDates.
+     * @return true if card removed successful.
+     */
+    virtual bool deleteEmptyCards() const = 0;
+
+    /**
      * @brief deleteUser This method remove the user.
      * @param userId This is id of user
      * @return true if user removed successful else false.
@@ -68,7 +74,14 @@ public:
     virtual bool deleteUser(const QByteArray& userId) const = 0;
 
     /**
-     * @brief deleteUserData This method delete data of the user with @a userId
+     * @brief deleteUserDataForAllCards This method delete data for all cards of the @a userId user
+     * @param userId This is user id
+     * @return true if the remove finished successul else false
+     */
+    virtual bool deleteUserDataForAllCards(const QByteArray& userId) = 0;
+
+    /**
+     * @brief deleteUserData This method delete data use the user
      * @param cardId This is card id
      * @param userId This is user id
      * @return true if the remove finished successul else false
@@ -260,6 +273,14 @@ public:
      */
     virtual QSharedPointer<iContacts>
     getContactFromChildId(const QByteArray& userKey, const QByteArray& childUserId) = 0;
+
+
+    /**
+     * @brief getContactFromChildId This method return all contacts saved on db.
+     * @return list of the contacts
+     */
+    virtual QList<QSharedPointer<iContacts>>
+    getAllContact() = 0;
 
     /**
      * @brief getMasterKeys This method return list of master contacts of the child user.

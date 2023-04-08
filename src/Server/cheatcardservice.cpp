@@ -52,8 +52,7 @@ bool CheatCardService::onStart() {
     }
 
     if (!_server) {
-        _server = new RC::Server(_db);
-        RC::API::init({3}, _db, _server);
+        _server = new RC::Server(_db, {3});
     }
 
     if (!_server->run({}, DEFAULT_CHEAT_CARD_PORT)) {
