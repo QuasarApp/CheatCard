@@ -274,6 +274,14 @@ public:
     virtual QSharedPointer<iContacts>
     getContactFromChildId(const QByteArray& userKey, const QByteArray& childUserId) = 0;
 
+
+    /**
+     * @brief getContactFromChildId This method return all contacts saved on db.
+     * @return list of the contacts
+     */
+    virtual QList<QSharedPointer<iContacts>>
+    getAllContact() = 0;
+
     /**
      * @brief getMasterKeys This method return list of master contacts of the child user.
      * @param childUserId This is id of child user.

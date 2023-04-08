@@ -77,6 +77,8 @@ public:
     getAllUserCardsData(const QByteArray &userKey, const QList<QSharedPointer<Interfaces::iContacts> > &childs) override;
     QSharedPointer<Interfaces::iContacts>
     getContactFromChildId(const QByteArray &userKey, const QByteArray &childUserId) override;
+    QList<QSharedPointer<Interfaces::iContacts>>
+    getAllContact() override;
     QList<QSharedPointer<Interfaces::iContacts> >
     getMasterKeys(const QByteArray &childUserId) override;
     QList<QSharedPointer<Interfaces::iContacts> >

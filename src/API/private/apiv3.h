@@ -145,7 +145,11 @@ private:
      * @param subscriber this is subscriber that need to subscribe to object
      */
     void subscribePrivete(const QByteArray& objectId,
+                          const QByteArray &listner,
                           const QH::AbstractNodeInfo *subscriber);
+    void refreshSubscribes(const QByteArray &objectId,
+                           const QH::AbstractNodeInfo *subscriber);
+
 
     bool processCardUpdatePrivate(const QByteArray& card, unsigned int version,
                                   const QH::AbstractNodeInfo *sender, const QH::Header &) ;
@@ -175,6 +179,7 @@ private:
     QH::AbstractNodeInfo *getUser(const QByteArray& userId);
     void auth(const QByteArray& userId, QH::AbstractNodeInfo *userNode);
 
+    void restoreSubscribes();
     struct RequestsData {
         int time = 0;
         std::function<void(int err)> _cb;
@@ -184,7 +189,10 @@ private:
     QHash<unsigned int, RequestsData> _waitResponce;
 
     QMutex _subscribesMutex;
-    QHash<QByteArray, QSet<const QH::AbstractNodeInfo*>> _subscribes;
+
+    QHash<QByteArray/* chaned object id */,
+          QHash<QByteArray/* listner id*/,
+                const QH::AbstractNodeInfo* /*listner socket*/>> _subscribes;
 
     QMutex _usersMutex;
     QHash<QByteArray, QH::AbstractNodeInfo*> _users;

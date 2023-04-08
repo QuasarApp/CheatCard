@@ -29,7 +29,7 @@ namespace API {
 
 ApiV3::ApiV3(const QSharedPointer<Interfaces::iDB>& dataBase, QH::AbstractNode* mainNode):
     APIBase(dataBase, mainNode) {
-
+    restoreSubscribes();
 }
 
 void ApiV3::initSupportedCommands() {
@@ -272,8 +272,8 @@ bool ApiV3::processCardStatusBase(const QSharedPointer<V3::UsersCards> &cardStat
     }
 
     if (dbCard) {
-        subscribePrivete(dbCard->ownerSignature(), sender);
-        subscribePrivete(dbCard->ownerSignature(), getUser(cardStatus->getUser()));
+        subscribePrivete(dbCard->ownerSignature(), dbCard->ownerSignature(), sender);
+        subscribePrivete(dbCard->ownerSignature(), cardStatus->getUser(), getUser(cardStatus->getUser()));
     }
 
     if (neededCardId) {
@@ -323,6 +323,19 @@ QH::AbstractNodeInfo *ApiV3::getUser(const QByteArray &userId) {
 void ApiV3::auth(const QByteArray &userId, QH::AbstractNodeInfo *userNode) {
     QMutexLocker lock(&_usersMutex);
     _users.insert(userId, userNode);
+}
+
+void ApiV3::restoreSubscribes() {
+    if (!isServer()) {
+        return;
+    }
+
+    const auto contacts = db()->getAllContact();
+    for (const auto& contact: contacts ) {
+        subscribePrivete(contact->getUserKey(),
+                         contact->getChildUserKey(),
+                         getUser(contact->getChildUserKey()));
+    }
 }
 
 bool ApiV3::processCardRequest(const QSharedPointer<API::V3::CardDataRequest> &cardrequest,
@@ -414,7 +427,7 @@ bool ApiV3::processCardData(const QSharedPointer<QH::PKG::DataPack<API::V3::Card
 
             QSet<const QH::AbstractNodeInfo *> filter;
 
-            brodcastUserChanged(cardObj->cardId(), &changesResponce, sender, &hdr, filter);
+            brodcastUserChanged(cardObj->ownerSignature(), &changesResponce, sender, &hdr, filter);
         }
 
         emit sigCardReceived(cardObj);
@@ -536,27 +549,41 @@ void ApiV3::brodcastUserChanged(const QByteArray &objId,
     QMutexLocker lock(&_subscribesMutex);
 
     const auto subscribers = _subscribes.value(objId);
-    for (const auto& subscriber: subscribers) {
-        if (!subscriber->isConnected()) {
-            _subscribes[objId].remove(subscriber);
+    for (auto it = subscribers.begin(); it != subscribers.end(); ++it) {
+        if (!it.value()->isConnected()) {
+            _subscribes[objId].remove(it.key());
             continue;
         }
 
-        if (alredySentNodes.contains(subscriber)) {
+        if (alredySentNodes.contains(it.value())) {
             continue;
         }
 
-        if (subscriber != sender && sendData(data, subscriber, req)) {
-            alredySentNodes.insert(subscriber);
+        if (it.value() != sender && sendData(data, it.value(), req)) {
+            alredySentNodes.insert(it.value());
+        }
+    }
+}
+
+void RC::API::ApiV3::refreshSubscribes(const QByteArray &objectId,
+                                       const QH::AbstractNodeInfo *subscriber) {
+    QMutexLocker lock(&_subscribesMutex);
+
+    for (auto it = _subscribes.begin(); it != _subscribes.end(); ++it) {
+        for (auto subData = it->begin(); subData != it->end(); ++subData) {
+            if (subData.key() == objectId) {
+                (*it)[objectId] = subscriber;
+            }
         }
     }
 }
 
 void ApiV3::subscribePrivete(const QByteArray &objectId,
+                             const QByteArray &listner,
                              const QH::AbstractNodeInfo *subscriber) {
     if (isServer()) {
         _subscribesMutex.lock();
-        _subscribes[objectId].insert(subscriber);
+        _subscribes[objectId][listner] = subscriber;
         _subscribesMutex.unlock();
     }
 
@@ -614,7 +641,9 @@ bool ApiV3::processContacts(const QSharedPointer<API::V3::UpdateContactData> &me
                 return false;
             }
             responce.addContactsToAdd(contact);
-            subscribePrivete(contact->getUserKey(), getUser(contact->getChildUserKey()));
+            subscribePrivete(contact->getUserKey(),
+                             contact->getChildUserKey(),
+                             getUser(contact->getChildUserKey()));
         }
 
         responce.setResult(true);
@@ -753,7 +782,8 @@ bool ApiV3::processAuthRequest(const QSharedPointer<V3::AuthRequest> &message,
                                QH::AbstractNodeInfo *sender, const QH::Header &hdr) {
 
     auth(message->userId(), sender);
-    subscribePrivete(message->userId(), sender);
+    refreshSubscribes(message->userId(), sender);
+    subscribePrivete(message->userId(), message->userId(), sender);
 
     if (auto database = db()) {
         if (!database->migrateUsersCardsToUsersData(message->userId())) {

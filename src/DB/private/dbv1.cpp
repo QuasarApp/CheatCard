@@ -461,6 +461,19 @@ DBv1::getContactFromChildId(const QByteArray& userKey, const QByteArray& childUs
     return *result->data().begin();
 }
 
+QList<QSharedPointer<Interfaces::iContacts>> DBv1::getAllContact() {
+
+    QH::PKG::DBObjectsRequest<DB::Contacts>
+        request("Contacts", {}, {});
+
+    auto result = db()->getObject(request);
+
+    if (!result || result->data().isEmpty())
+        return {};
+
+    return {result->data().begin(), result->data().end()} ;
+}
+
 QList<QSharedPointer<Interfaces::iContacts> >
 DBv1::getMasterKeys(const QByteArray& childUserKey) {
 
