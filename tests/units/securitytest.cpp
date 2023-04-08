@@ -11,11 +11,20 @@
 #define TEST_CHEAT_HOST "localhost"
 
 SecurityTest::SecurityTest() {
+
+}
+
+SecurityTest::~SecurityTest() {
+
+}
+
+void SecurityTest::test() {
     auto network = CheatCardTestsHelper::deployNetwork(TEST_CHEAT_HOST, TEST_CHEAT_PORT, 4);
     QVERIFY(network.clients.count() == 4);
 
-    auto card = CheatCardTestsHelper::makeCard(network.clients.begin().value(), 10);
     auto seller = *network.clients.begin();
+    auto card = CheatCardTestsHelper::makeCard(seller, 10);
+
     auto client = *std::next(network.clients.begin());
     auto badseller = *std::next(network.clients.begin(), 2);
     auto childSeller = *std::next(network.clients.begin(), 3);
@@ -52,12 +61,4 @@ SecurityTest::SecurityTest() {
     CheatCardTestsHelper::checkAccess(childSeller, network.server, client->currntUserKey(), card->cardId(), false);
 
     QVERIFY(client->getPurchaseCount(client->currntUserKey(), card->cardId()) == 32);
-}
-
-SecurityTest::~SecurityTest() {
-
-}
-
-void SecurityTest::test() {
-
 }

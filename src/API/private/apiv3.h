@@ -129,13 +129,11 @@ private:
      * @brief brodcastUserChanged This method sent message to all subcribed nodes that connect write now.
      * @param objId this is id of the user or card that data is changed.
      * @param data This is changes of the data.
-     * @param sender this is node that trigger this changed - neede for the filtering
      * @param req This is req header of the trigger node.
      * @param alredySentNodes This is set of the nodes that alredy get this changes.
      */
-    void brodcastUserChanged(const QByteArray& objId,
+    bool brodcastUserChanged(const QSet<QByteArray>& objId,
                              const QH::PKG::AbstractData *data,
-                             const QH::AbstractNodeInfo *sender,
                              const QH::Header *req,
                              QSet<const QH::AbstractNodeInfo *> &alredySentNodes);
 
@@ -171,7 +169,8 @@ private:
                                const QByteArray &userSecreet,
                                const QH::AbstractNodeInfo *sender,
                                const QH::Header &pkg,
-                               QByteArray *neededCardId = nullptr);
+                               QByteArray *neededCardId = nullptr,
+                               QSharedPointer<Interfaces::iCard> *changedCard = nullptr);
 
     bool cardValidation(const QSharedPointer<RC::Interfaces::iCard> &cardFromDB,
                         const QByteArray &ownerSecret) const;
@@ -192,7 +191,7 @@ private:
 
     QHash<QByteArray/* chaned object id */,
           QHash<QByteArray/* listner id*/,
-                const QH::AbstractNodeInfo* /*listner socket*/>> _subscribes;
+                QSet<const QH::AbstractNodeInfo*> /*listner sockets*/>> _subscribes;
 
     QMutex _usersMutex;
     QHash<QByteArray, QH::AbstractNodeInfo*> _users;
