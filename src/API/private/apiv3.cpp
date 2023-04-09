@@ -250,7 +250,7 @@ bool ApiV3::processDeleteCardRequest(const QSharedPointer<API::V3::DeleteCardReq
         changesResponce.addUsersCardsToRemove(toRemove);
 
         QSet<const QH::AbstractNodeInfo *> filter;
-        brodcastUserChanged({dbCard->ownerSignature()}, &changesResponce, &hdr, filter);
+        brodcastUserChanged({dbCard->ownerSignature(), userKey}, &changesResponce, &hdr, filter);
 
     }
 
@@ -860,7 +860,7 @@ bool ApiV3::processSync(const QSharedPointer<V3::Sync> &message,
     }
 
     if (message->isContainsUsersDataInfo()) {
-        if (!db()->deleteUserDataForAllCards(message->syncedUserKey())) {
+        if (!db()->deleteAllUserData()) {
             return false;
         }
 

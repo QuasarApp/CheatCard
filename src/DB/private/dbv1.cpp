@@ -113,25 +113,12 @@ bool DBv1::deleteEmptyCards() const {
     return db()->deleteObject(request, true);
 }
 
-bool DBv1::deleteUserDataForAllCards(const QByteArray &userId) {
+bool DBv1::deleteAllUserData() {
     if(!db())
         return false;
 
-    QList<QByteArray> keys = {userId};
-    const auto masterKeys = getMasterKeys(userId);
-    for (const auto& key: masterKeys) {
-        keys += key->getUserKey();
-    }
-
-    QString whereBlock = QString("card IN (SELECT id FROM Cards WHERE %0)");
-    QString where;
-    QVariantMap toBind;
-    prepareOwnerSignatureCondition(keys, "OR", "=", where, toBind);
-
     auto request = QSharedPointer<QH::PKG::DBObjectsRequest<DB::UsersCards>>::create(
-        "UsersData",
-        whereBlock.arg(where),
-        toBind);
+        "UsersData");
 
     return db()->deleteObject(request, true);
 }
@@ -380,23 +367,21 @@ DBv1::getCard(const QByteArray& cardId) {
 }
 
 QList<QSharedPointer<Interfaces::iCard> >
-DBv1::getAllUserCards(const QByteArray &userKey, bool restOf,
-                      const QList<QSharedPointer<Interfaces::iContacts> > &childs) {
+DBv1::getAllCards() {
+    QH::PKG::DBObjectsRequest<DB::Card> cardRequest("Cards");
 
-    QList<QByteArray> keys;
-    for (const auto& key: childs) {
-        keys.push_back(key->getUserKey());
-    }
-    keys.push_back(userKey);
+    auto result = db()->getObject(cardRequest);
 
-    QString where;
-    QVariantMap toBind;
-    if (restOf) {
-        prepareOwnerSignatureCondition(keys, "AND", "!=", where, toBind);
-    } else {
-        prepareOwnerSignatureCondition(keys, "OR", "=", where, toBind);
+    if (!result)
+        return {};
 
-    }
+    return {result->data().begin(), result->data().end()};
+}
+
+QList<QSharedPointer<Interfaces::iCard> >
+DBv1::getAllUserCards(const QByteArray &userKey) {
+    QString where = "id IN (SELECT card FROM UsersData WHERE user=:user)";
+    QVariantMap toBind = {{":user", userKey}};
 
     QH::PKG::DBObjectsRequest<DB::Card> cardRequest("Cards", where, toBind);
 
@@ -406,7 +391,30 @@ DBv1::getAllUserCards(const QByteArray &userKey, bool restOf,
         return {};
 
     return {result->data().begin(), result->data().end()};
+}
 
+QList<QSharedPointer<Interfaces::iCard> >
+DBv1::getAllUserOwnCards(const QByteArray &userKey,
+                         const QList<QSharedPointer<Interfaces::iContacts> > &masters) {
+
+    QList<QByteArray> keys;
+    for (const auto& key: masters) {
+        keys.push_back(key->getUserKey());
+    }
+    keys.push_back(userKey);
+
+    QString where;
+    QVariantMap toBind;
+    prepareOwnerSignatureCondition(keys, "OR", "=", where, toBind);
+
+    QH::PKG::DBObjectsRequest<DB::Card> cardRequest("Cards", where, toBind);
+
+    auto result = db()->getObject(cardRequest);
+
+    if (!result)
+        return {};
+
+    return {result->data().begin(), result->data().end()};
 }
 
 QSharedPointer<Interfaces::iUser> DBv1::getUser(const QByteArray& userId) const {
