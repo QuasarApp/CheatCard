@@ -212,14 +212,11 @@ void MainModel::handleSerrverSentError(unsigned char code,
 
 void RC::MainModel::refreshCardsData() {
     auto masterKeys = _db->getMasterKeys(_currentUserKey);
-    _ownCardsListModel->setCards(_db->getAllUserCards(_currentUserKey,
-                                                      false,
+    _ownCardsListModel->setCards(_db->getAllUserOwnCards(_currentUserKey,
                                                       masterKeys));
 
     // get list of included cards
-    _cardsListModel->setCards(_db->getAllUserCards(_currentUserKey,
-                                                   true,
-                                                   masterKeys));
+    _cardsListModel->setCards(_db->getAllUserCards(_currentUserKey));
 
     _cardsListModel->updateMetaData(_db->getAllUserData(_currentUserKey));
 }
@@ -667,10 +664,8 @@ void MainModel::handleRemoveRequest(const QSharedPointer<Interfaces::iCard> &car
         QmlNotificationService::Listner listner = [card, this] (bool accepted) {
 
             if (accepted) {
-                _db->deleteCard(card->cardId());
-                _db->deleteUserData(card->cardId(), _currentUserKey);
-
-                _currentCardsListModel->removeCard(card->cardId());
+                if (auto backEnd = _modelStorage->get<ClientModel>())
+                    backEnd->deleteCard(card->cardId());
             }
         };
 

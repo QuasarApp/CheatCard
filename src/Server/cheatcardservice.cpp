@@ -160,7 +160,7 @@ QVariantMap CheatCardService::cardList(const QByteArray& user) const {
         }
 
         auto masterKeys = _db->getMasterKeys(userObj->getKey());
-        cards = _db->getAllUserCards(userObj->getKey(), false, masterKeys);
+        cards = _db->getAllUserOwnCards(userObj->getKey(), masterKeys);
 
         for (int i = 0; i < cards.size(); i++) {
             if (auto card = cards[i]) {
@@ -172,7 +172,7 @@ QVariantMap CheatCardService::cardList(const QByteArray& user) const {
 
     }
 
-    cards = _db->getAllUserCards("all", true, {});
+    cards = _db->getAllCards();
     result["User key"] = " Card id card name";
     for (int i = 0; i < cards.size(); i++) {
         if (auto card = cards[i]) {

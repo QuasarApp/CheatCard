@@ -241,6 +241,17 @@ bool ApiV3::processDeleteCardRequest(const QSharedPointer<API::V3::DeleteCardReq
 
         // remove only for the selected client
         db()->deleteUserData(request->card(), userKey);
+
+        auto toRemove = QSharedPointer<API::V3::UsersCards>::create();
+        toRemove->setCard(request->card());
+        toRemove->setUser(userKey);
+
+        API::V3::SyncIncremental changesResponce;
+        changesResponce.addUsersCardsToRemove(toRemove);
+
+        QSet<const QH::AbstractNodeInfo *> filter;
+        brodcastUserChanged({dbCard->ownerSignature(), userKey}, &changesResponce, &hdr, filter);
+
     }
 
     return true;
@@ -849,7 +860,7 @@ bool ApiV3::processSync(const QSharedPointer<V3::Sync> &message,
     }
 
     if (message->isContainsUsersDataInfo()) {
-        if (!db()->deleteUserDataForAllCards(message->syncedUserKey())) {
+        if (!db()->deleteAllUserData()) {
             return false;
         }
 
