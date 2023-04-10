@@ -681,23 +681,11 @@ void MainModel::handleRemoveRequest(const QSharedPointer<Interfaces::iCard> &car
                                    QmlNotificationService::NotificationData::Error);
                 return;
             }
-
-            listner(true);
-
-            // only owners can remove the card on server
-            if (card->isOvner(_currentUserKey) ) {
-                if (auto backEnd = _modelStorage->get<ClientModel>())
-                    backEnd->deleteCard(card->cardId());
-            }
-            return;
         }
-
 
         service->setQuestion(listner, tr("Remove Card"),
                              tr("You're trying to delete the %0 card, All your data, your purchase and available bonuses will be removed!"
                                 " Do you want to continue?").arg(card->title()));
-
-
     }
 }
 
@@ -715,7 +703,7 @@ void MainModel::handleCardSelectedForWork(const QSharedPointer<CardModel> &card)
 void MainModel::handleCardSelectedForStatistic(const QSharedPointer<CardModel> &card) {
 
     if (auto statisticModel = _modelStorage->get<SellerStatisticModel>()) {
-        auto usersDataList  = _db->getAllUserDataFromCard(card->card()->cardId(), _currentUserKey);
+        auto usersDataList  = _db->getAllUserDataFromCard(card->card()->cardId(), card->card()->ownerSignature());
         auto usersList = _db->getAllUserFromCard(card->card()->cardId());
 
         statisticModel->setDataList(card, usersDataList, usersList);
