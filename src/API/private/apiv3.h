@@ -125,6 +125,8 @@ protected:
 
 private:
 
+    bool sendFullSync(const QByteArray &userId, const QH::AbstractNodeInfo *sender, const QH::Header &hdr);
+
     /**
      * @brief brodcastUserChanged This method sent message to all subcribed nodes that connect write now.
      * @param objId this is id of the user or card that data is changed.
@@ -142,9 +144,14 @@ private:
      * @param objectId This is object id.
      * @param subscriber this is subscriber that need to subscribe to object
      */
-    void subscribePrivete(const QByteArray& objectId,
+    void subscribePrivete(const QByteArray &objectIds,
                           const QByteArray &listner,
                           const QH::AbstractNodeInfo *subscriber);
+
+    void subscribePrivete(const QH::PKG::DataPack<API::V3::UsersCards> &objectIds,
+                          const QByteArray &listner,
+                          const QH::AbstractNodeInfo *subscriber);
+
     void refreshSubscribes(const QByteArray &objectId,
                            const QH::AbstractNodeInfo *subscriber);
 
