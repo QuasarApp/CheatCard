@@ -563,6 +563,11 @@ bool ApiV3::accessValidation(const QSharedPointer<RC::Interfaces::iCard> &cardFr
 bool ApiV3::sendFullSync(const QByteArray& userId,
                          const QH::AbstractNodeInfo *sender,
                          const QH::Header &hdr) {
+
+    if (!isServer()) {
+        return false;
+    }
+
     API::V3::Sync responce;
     responce.setSyncedUserKey(userId);
     QH::PKG::DataPack<API::V3::UsersCards> usersData;
