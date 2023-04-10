@@ -25,11 +25,7 @@ Client::Client(const QSharedPointer<Interfaces::iDB>& db,
 
     }
 
-    QH::SslSrtData sslData;
-    sslData.commonName = getServerHost();
-    sslData.organization = QCoreApplication::organizationName();
-
-    useSelfSignedSslConfiguration(sslData);
+    useSystemSslConfiguration();
 }
 
 Client::~Client() {

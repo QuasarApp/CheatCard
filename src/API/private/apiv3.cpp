@@ -590,7 +590,6 @@ bool ApiV3::sendFullSync(const QByteArray& userId,
         return false;
     }
 
-    refreshSubscribes(userId, sender);
     // subsribe to itself (for receive changes on another nodes.)
     subscribePrivete(userId, userId, sender);
     // subscribe to all received cards from the sellers.
@@ -727,7 +726,7 @@ bool ApiV3::processContacts(const QSharedPointer<API::V3::UpdateContactData> &me
 
         // Send full sync for changed workers nodes that connected at now .
         if (auto userNode = getUser(contact->getChildUserKey())) {
-            sendFullSync(contact->getUserKey(), userNode, hdr);
+            sendFullSync(contact->getChildUserKey(), userNode, hdr);
         }
     }
 
@@ -868,6 +867,7 @@ bool ApiV3::processAuthRequest(const QSharedPointer<V3::AuthRequest> &message,
         }
     }
 
+    refreshSubscribes(message->userId(), sender);
     return sendFullSync(message->userId(), sender, hdr);
 }
 

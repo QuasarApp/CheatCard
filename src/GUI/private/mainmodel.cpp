@@ -703,7 +703,7 @@ void MainModel::handleCardSelectedForWork(const QSharedPointer<CardModel> &card)
 void MainModel::handleCardSelectedForStatistic(const QSharedPointer<CardModel> &card) {
 
     if (auto statisticModel = _modelStorage->get<SellerStatisticModel>()) {
-        auto usersDataList  = _db->getAllUserDataFromCard(card->card()->cardId(), _currentUserKey);
+        auto usersDataList  = _db->getAllUserDataFromCard(card->card()->cardId(), card->card()->ownerSignature());
         auto usersList = _db->getAllUserFromCard(card->card()->cardId());
 
         statisticModel->setDataList(card, usersDataList, usersList);
