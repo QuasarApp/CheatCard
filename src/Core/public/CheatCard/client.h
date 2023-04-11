@@ -21,14 +21,15 @@ class CHEATCARD_CORE_EXPORT Client: public BaseNode
 {
     Q_OBJECT
 public:
-    Client(const QSharedPointer<Interfaces::iDB> &db);
+    Client(const QSharedPointer<Interfaces::iDB> &db,
+           const QVector<unsigned short> &apiVesions);
     ~Client() override;
     bool connectToServer(QString host = {}, int port = 0);
     void disconectFromServer();
     bool isConncted() const;
-    bool subscribeToUser(const QByteArray &user) const;
+    bool subscribeToUser(const QByteArray &user);
 
-    bool updateCard(const QByteArray& cardId, unsigned int version);
+    bool cardWasUpdated(const QByteArray& cardId);
     bool requestCard(const QByteArray& cardId);
 
     bool deleteCard(const QByteArray& cardId);
@@ -63,12 +64,15 @@ public:
 
     const QByteArray& currntUserKey() const;
 
+    QSharedPointer<RC::Interfaces::iCard> makeCard();
+
+
 signals:
     void sigAvailableNetworkChanged(bool);
 
     void sigPurchaseWasSuccessful(QSharedPointer<RC::Interfaces::iUsersCards> data, bool alert);
     void sigCardReceived(QSharedPointer<RC::Interfaces::iCard> card);
-    void sigContactsListChanged();
+    void sigSyncReceived();
     void sigUserDataRemoved(const QByteArray& cardId, const QByteArray& userId);
 
 protected:
@@ -92,6 +96,7 @@ private:
     QSharedPointer<Interfaces::iAPI> _api;
     QH::AbstractNodeInfo *_server = nullptr;
     bool _fNetAvailable = false;
+
     QTimer* _reconnetTimer = nullptr;
 
 };

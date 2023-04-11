@@ -24,7 +24,8 @@ SettingsModel::~SettingsModel() {
 }
 
 QuasarAppUtils::ISettings *SettingsModel::init() {
-    return SettingsModel::initService<RC::SettingsModel>();
+    initService(std::make_unique<SettingsModel>());
+    return instance();
 }
 
 QByteArray SettingsModel::getCurrUser() {

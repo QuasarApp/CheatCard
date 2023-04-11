@@ -74,7 +74,7 @@
         <translation>Proszę wybrać kolor</translation>
     </message>
     <message>
-        <source>Appeearance page</source>
+        <source>Appeearance</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -532,14 +532,6 @@
         <translation>### Jak używać?</translation>
     </message>
     <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help3.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help2.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>### Create a card for your establishment</source>
         <translation>### Utwórz kartę dla swojego zakładu</translation>
     </message>
@@ -679,10 +671,6 @@
         <translation>### Jak używać?</translation>
     </message>
     <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help1.jpg&quot; alt=&quot;tt&quot; width=&quot;100&quot;/&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>* Receive seal to card.</source>
         <translation>* Odbierz pieczęć na kartę.</translation>
     </message>
@@ -809,10 +797,6 @@
         <translation>Usuń kartę</translation>
     </message>
     <message>
-        <source>You trying to delete this card, do not worry a seller that has give out this card save all bonuses locally,  so after repeat visit you will be get all your removed bonuses again. Do you want to continue?</source>
-        <translation>Próbujesz usunąć tę kartę, nie martw się sprzedawcą, który ją rozdał, zapisz wszystkie bonusy lokalnie, więc po powtórnej wizycie ponownie otrzymasz wszystkie usunięte bonusy. Czy chcesz kontynuować?</translation>
-    </message>
-    <message>
         <source>The card reset to default successful but load default card from server failed, so you receive your card after new purchase in institution that has give out this card.</source>
         <translation>Karta została zresetowana do domyślnej pomyślnie, ale wczytanie karty domyślnej z serwera nie powiodło się, więc otrzymasz kartę po nowym zakupie w instytucji, która ją wydała.</translation>
     </message>
@@ -852,6 +836,18 @@
         <source>Wow</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>You have bonuses!!!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On the %0 card you have %2 bonus (&quot;%1&quot;)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You&apos;re trying to delete the %0 card, All your data, your purchase and available bonuses will be removed! Do you want to continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RC::NetIndicatorModel</name>
@@ -873,6 +869,14 @@
     <message>
         <source>The Selected image does not contains a valid qr code. Try again.</source>
         <translation>Wybrany obraz nie zawiera prawidłowego kodu QR. Spróbuj ponownie.</translation>
+    </message>
+    <message>
+        <source>Remove access</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do you want to remove access to your cards for %0 user ?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

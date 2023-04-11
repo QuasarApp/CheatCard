@@ -14,7 +14,7 @@ class TestServer: public RC::Server
 {
     Q_OBJECT
 public:
-    TestServer(const QSharedPointer<RC::Interfaces::iDB> &db);
+    TestServer(const QSharedPointer<RC::Interfaces::iDB> &db, const QVector<unsigned short> &apiVesions);
     QSharedPointer<RC::Interfaces::iCard> getCard(const QByteArray& cardId) const;
     int getPurchaseCount(const QByteArray& userId, const QByteArray& cardId);
     int getFreeItemsCount(const QByteArray& userId, const QByteArray& cardId);

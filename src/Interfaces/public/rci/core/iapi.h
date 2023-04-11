@@ -80,18 +80,6 @@ public:
                              const std::function<void(int err)>& = {}) = 0;
 
     /**
-     * @brief sendUpdateCard This request send new updated information about the card.
-     * @param cardId card id
-     * @param version verson of update (should be incremented for apply changes)
-     * @param dist This is distanation node.
-     * @return true if request created and sent successful else false.
-     */
-    virtual bool sendUpdateCard(const QByteArray& cardId,
-                                unsigned int version,
-                                QH::AbstractNodeInfo *dist,
-                                const std::function<void(int err)>& = {}) = 0;
-
-    /**
      * @brief changeUsersData This request send new updated information about users purcheses.
      * @param sellerUserKey This is a public key of the user that make a seal on the card.
      * This user must have a access to card.
@@ -138,9 +126,9 @@ signals:
     virtual void sigUserDataRemoved(const QByteArray& cardId, const QByteArray& userId) = 0;
 
     /**
-     * @brief sigContactsListChanged This signal will emit when contacts list was changed.
+     * @brief sigSyncReceived This signal will emit when sync with server object received.
      */
-    virtual void sigContactsListChanged() = 0;
+    virtual void sigSyncReceived() = 0;
 };
 
 }

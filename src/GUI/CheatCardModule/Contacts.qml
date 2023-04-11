@@ -83,7 +83,7 @@ CPage {
                         icon.width: imageSize
                         icon.color: "transparent"
                         icon.source: "qrc:/images/private/resources/platformsIcon/telegram.svg"
-                        onClicked: Qt.openUrlExternally("https://t.me/cheatcardru")
+                        onClicked: Qt.openUrlExternally("https://t.me/cheatcard")
                     }
 
                     Label {

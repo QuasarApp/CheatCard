@@ -196,12 +196,7 @@ void MainModel::handleAppOutdated(const QString& , unsigned short ) {
 }
 
 void MainModel::handleContactsListChanged() {
-    auto masterKeys = _db->getMasterKeys(_currentUserKey);
-    _ownCardsListModel->setCards(_db->getAllUserCards(_currentUserKey,
-                                                      false,
-                                                      masterKeys));
-
-
+    refreshCardsData();
 }
 
 void MainModel::handleSerrverSentError(unsigned char code,
@@ -213,6 +208,17 @@ void MainModel::handleSerrverSentError(unsigned char code,
                           " Message: \"%0.\" "
                           " Sorry ;)").arg(errorMessage),
                        "", QmlNotificationService::NotificationData::Error);
+}
+
+void RC::MainModel::refreshCardsData() {
+    auto masterKeys = _db->getMasterKeys(_currentUserKey);
+    _ownCardsListModel->setCards(_db->getAllUserOwnCards(_currentUserKey,
+                                                      masterKeys));
+
+    // get list of included cards
+    _cardsListModel->setCards(_db->getAllUserCards(_currentUserKey));
+
+    _cardsListModel->updateMetaData(_db->getAllUserData(_currentUserKey));
 }
 
 void MainModel::handleCurrentUserChanged(const QSharedPointer<UserModel> &newCurrentUser) {
@@ -232,17 +238,7 @@ void MainModel::handleCurrentUserChanged(const QSharedPointer<UserModel> &newCur
     _config->setCurrUser(_currentUserKey);
 
     // get list of owned cards
-    auto masterKeys = _db->getMasterKeys(_currentUserKey);
-    _ownCardsListModel->setCards(_db->getAllUserCards(_currentUserKey,
-                                                      false,
-                                                      masterKeys));
-
-    // get list of included cards
-    _cardsListModel->setCards(_db->getAllUserCards(_currentUserKey,
-                                                   true,
-                                                   masterKeys));
-
-    _cardsListModel->updateMetaData(_db->getAllUserData(_currentUserKey));
+    refreshCardsData();
 
     if (_billing) {
         connect(newCurrentUser.data(), &UserModel::sigBecomeSeller,
@@ -410,7 +406,7 @@ void MainModel::initModels() {
         connect(model.data(), &BaseNode::sigNoLongerSupport,
                 this, &MainModel::handleAppOutdated);
 
-        connect(model.data(), &Client::sigContactsListChanged,
+        connect(model.data(), &Client::sigSyncReceived,
                 this, &MainModel::handleContactsListChanged);
 
         connect(model.data(), &BaseNode::requestError,
@@ -541,7 +537,16 @@ QObject *MainModel::cardsList() const {
 }
 
 void MainModel::handleCardReceived(QSharedPointer<RC::Interfaces::iCard> card) {
-    if (card->isOvner(_currentUserKey)) {
+    bool isOwner = card->isOvner(_currentUserKey);
+
+    if (!isOwner) {
+        const auto masters = db()->getMasterKeys(_currentUserKey);
+        for (const auto &master: masters) {
+            isOwner = isOwner || card->isOvner(master->getUserKey());
+        }
+    }
+
+    if (isOwner) {
         _ownCardsListModel->importCard(card);
 
     } else {
@@ -575,9 +580,7 @@ void RC::MainModel::saveCard(const QSharedPointer<Interfaces::iCard>& card) {
         if (!backend)
             return;
 
-        backend->updateCard(card->cardId(),
-                            card->getCardVersion());
-
+        backend->cardWasUpdated(card->cardId());
     }
 }
 
@@ -590,8 +593,8 @@ void MainModel::handleCardEditFinished(const QSharedPointer<Interfaces::iCard>& 
         return;
     }
 
-    auto listOfUsers = _db->getAllUserFromCard(card->cardId(),
-                                               _currentUserKey);
+    auto listOfUsers = _db->getAllUserDataFromCard(card->cardId(),
+                                                   _currentUserKey);
 
     if (localCard && listOfUsers.size() && localCard->getFreeIndex() != card->getFreeIndex()) {
 
@@ -661,8 +664,8 @@ void MainModel::handleRemoveRequest(const QSharedPointer<Interfaces::iCard> &car
         QmlNotificationService::Listner listner = [card, this] (bool accepted) {
 
             if (accepted) {
-                _db->deleteCard(card->cardId());
-                _currentCardsListModel->removeCard(card->cardId());
+                if (auto backEnd = _modelStorage->get<ClientModel>())
+                    backEnd->deleteCard(card->cardId());
             }
         };
 
@@ -678,24 +681,11 @@ void MainModel::handleRemoveRequest(const QSharedPointer<Interfaces::iCard> &car
                                    QmlNotificationService::NotificationData::Error);
                 return;
             }
-
-            listner(true);
-
-            // only owners can remove the card on server
-            if (card->isOvner(_currentUserKey) ) {
-                if (auto backEnd = _modelStorage->get<ClientModel>())
-                    backEnd->deleteCard(card->cardId());
-            }
-            return;
         }
 
-
         service->setQuestion(listner, tr("Remove Card"),
-                             tr("You trying to delete this card, do not worry a seller that has give out this card save all bonuses locally, "
-                                " so after repeat visit you will be get all your removed bonuses again."
-                                " Do you want to continue?"));
-
-
+                             tr("You're trying to delete the %0 card, All your data, your purchase and available bonuses will be removed!"
+                                " Do you want to continue?").arg(card->title()));
     }
 }
 
@@ -713,10 +703,10 @@ void MainModel::handleCardSelectedForWork(const QSharedPointer<CardModel> &card)
 void MainModel::handleCardSelectedForStatistic(const QSharedPointer<CardModel> &card) {
 
     if (auto statisticModel = _modelStorage->get<SellerStatisticModel>()) {
-        auto usersList = _db->getAllUserFromCard(card->card()->cardId(), _currentUserKey);
-        auto usersDataList = _db->getAllUserDataFromCard(card->card()->cardId());
+        auto usersDataList  = _db->getAllUserDataFromCard(card->card()->cardId(), card->card()->ownerSignature());
+        auto usersList = _db->getAllUserFromCard(card->card()->cardId());
 
-        statisticModel->setDataList(card, usersList, usersDataList);
+        statisticModel->setDataList(card, usersDataList, usersList);
 
         if (auto activityModel = _modelStorage->get<ActivityProcessorModel>()) {
             activityModel->newActivity("qrc:/CheatCardModule/SellerStatistic.qml",
@@ -727,20 +717,20 @@ void MainModel::handleCardSelectedForStatistic(const QSharedPointer<CardModel> &
 
 void MainModel::handlePurchaseWasSuccessful(QSharedPointer<RC::Interfaces::iUsersCards> card, bool alert){
 
-    if (alert)
-        soundEffectPlayback("Seal");
-
-
     if (_mode == Mode::Client) {
         getCurrentListModel()->updateMetaData({card});
     }
 
-    int freeItems = _db->getFreeItemsCount(card);
-    _db->saveUsersCard(card);
+    if (alert)
+        soundEffectPlayback("Seal");
 
+    int freeItems = _db->getFreeItemsCount(card);
     if (freeItems > 0) {
+        auto cardModel = getCurrentListModel()->cache().value(card->getCard());
+        if (!cardModel)
+            return;
+
         if (alert) {
-            auto cardModel = getCurrentListModel()->cache().value(card->getCard());
 
             auto apModel = _modelStorage->get<ActivityProcessorModel>();
             if (!(apModel && apModel->freeItem(cardModel.data(), card->getUser(), freeItems))) {
@@ -751,11 +741,25 @@ void MainModel::handlePurchaseWasSuccessful(QSharedPointer<RC::Interfaces::iUser
             soundEffectPlayback("Bonus");
         }
 
+        if (_mode == Mode::Client) {
+            auto service = QmlNotificationService::NotificationService::getService();
+            if(!service)
+                return;
+
+            service->setNotify(tr("You have bonuses!!!"),
+                               tr("On the %0 card you have %2 bonus (\"%1\")")
+                                   .arg(cardModel->title(), cardModel->getFreeItem())
+                                   .arg(freeItems),
+                               "", QmlNotificationService::NotificationData::Normal);
+        }
+
     } else {
         if (_mode == Mode::Seller && _fShowEmptyBonuspackaMessage && alert) {
             _fShowEmptyBonuspackaMessage = false;
 
             auto service = QmlNotificationService::NotificationService::getService();
+            if(!service)
+                return;
 
             service->setNotify(tr("Sorry but not"),
                                tr("This client does not have any bonuses. Sorry... "),

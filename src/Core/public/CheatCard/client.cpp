@@ -6,8 +6,9 @@
 
 namespace RC {
 
-Client::Client(const QSharedPointer<Interfaces::iDB>& db): BaseNode(db) {
-    auto apis = API::init({3}, db, this);
+Client::Client(const QSharedPointer<Interfaces::iDB>& db,
+               const QVector<unsigned short> &apiVesions): BaseNode(db) {
+    auto apis = API::init(apiVesions, db, this);
 
     for (const auto & api: apis) {
         Client::connect(api.data(), &API::APIBase::sigCardReceived,
@@ -16,19 +17,15 @@ Client::Client(const QSharedPointer<Interfaces::iDB>& db): BaseNode(db) {
         Client::connect(api.data(), &API::APIBase::sigUserDataRemoved,
                         this, &Client::sigUserDataRemoved, Qt::DirectConnection);
 
-        Client::connect(api.data(), &API::APIBase::sigContactsListChanged,
-                        this, &Client::sigContactsListChanged, Qt::DirectConnection);
+        Client::connect(api.data(), &API::APIBase::sigSyncReceived,
+                        this, &Client::sigSyncReceived, Qt::DirectConnection);
 
         Client::connect(api.data(), &API::APIBase::sigPurchaseWasSuccessful,
                         this, &Client::sigPurchaseWasSuccessful, Qt::DirectConnection);
 
     }
 
-    QH::SslSrtData sslData;
-    sslData.commonName = getServerHost();
-    sslData.organization = QCoreApplication::organizationName();
-
-    useSelfSignedSslConfiguration(sslData);
+    useSystemSslConfiguration();
 }
 
 Client::~Client() {
@@ -74,7 +71,7 @@ bool Client::isConncted() const {
     return _server;
 }
 
-bool Client::subscribeToUser(const QByteArray& user) const {
+bool Client::subscribeToUser(const QByteArray& user) {
     auto apiObject = api();
     if (!apiObject) {
         return false;
@@ -89,16 +86,13 @@ bool Client::subscribeToUser(const QByteArray& user) const {
     return true;
 }
 
-bool Client::updateCard(const QByteArray &cardId, unsigned int version) {
-
-    auto apiObject = api();
-    if (!apiObject) {
+bool Client::cardWasUpdated(const QByteArray &cardId) {
+    if (!_currntUserKey.size())
         return false;
-    }
 
-    return apiObject->sendUpdateCard(cardId, version, _server, [](unsigned int err) {
+    return incrementPurchase(_currntUserKey, cardId, 0, [](unsigned int err) {
         if (err) {
-            QuasarAppUtils::Params::log("updateCard error ocurred");
+            QuasarAppUtils::Params::log("update card error ocurred");
         }
     });
 }

@@ -7,6 +7,7 @@
 
 
 #include "basenode.h"
+#include "rcdb/settingskeys.h"
 
 #include <getsinglevalue.h>
 #include <cmath>
@@ -51,11 +52,11 @@ QString BaseNode::getServerHost() const {
     if (!settings)
         return DEFAULT_CHEAT_CARD_HOST;
 
-    if (!settings->getValue("devSettingEnable", false).toBool()) {
+    if (!settings->getValue(P_DEV_SETTINGS_ENABLE, false).toBool()) {
         return DEFAULT_CHEAT_CARD_HOST;
     }
 
-    return settings->getStrValue("host", DEFAULT_CHEAT_CARD_HOST);
+    return settings->getStrValue(P_HOST, DEFAULT_CHEAT_CARD_HOST);
 }
 
 QString BaseNode::libVersion() {

@@ -35,6 +35,8 @@ public:
     bool deleteUser(const QByteArray& userId) const override;
     bool deleteContactsByChildUserKey(const QByteArray& childUser) const override;
     bool deleteUserData(const QByteArray &cardId, const QByteArray &userId) override;
+    bool deleteEmptyCards() const override;
+    bool deleteAllUserData() override;
 
     QSharedPointer<Interfaces::iContacts> makeEmptyContact() const override;
     QSharedPointer<Interfaces::iUser> makeEmptyUser() const override;
@@ -58,23 +60,30 @@ public:
     QSharedPointer<Interfaces::iUsersCards>
     getUserCardData(const QByteArray &userId, const QByteArray &cardId) const override;
     QList<QSharedPointer<Interfaces::iUsersCards> >
-    getAllUserFromCard(const QByteArray& cardId, const QByteArray& ignoreUserId) const override;
+    getAllUserDataFromCard(const QByteArray& cardId, const QByteArray& ignoreUserId) const override;
     QList<QSharedPointer<Interfaces::iUsersCards> >
     getAllActiveUserFromCard(const QByteArray& cardId, int unixTimeRange, const QByteArray& ignoreUserId) const override;
     QList<QSharedPointer<Interfaces::iUsersCards> >
     getAllPassiveUserFromCard(const QByteArray& cardId, int unixTimeRange, const QByteArray& ignoreUserId) const override;
     QList<QSharedPointer<Interfaces::iUser> >
-    getAllUserDataFromCard(const QByteArray &cardId) const override;
+    getAllUserFromCard(const QByteArray &cardId) const override;
     QList<QSharedPointer<Interfaces::iUser> >
     getAllUserWithPrivateKeys() const override;
     QSharedPointer<Interfaces::iCard>
     getCard(const QByteArray &cardId) override;
-    QList<QSharedPointer<Interfaces::iCard> >
-    getAllUserCards(const QByteArray &userKey, bool restOf, const QList<QSharedPointer<Interfaces::iContacts> > &childs) override;
+    QList<QSharedPointer<Interfaces::iCard>>
+    getAllCards() override;
+    QList<QSharedPointer<Interfaces::iCard>>
+    getAllUserCards(const QByteArray &userKey) override;
+    QList<QSharedPointer<Interfaces::iCard>>
+    getAllUserOwnCards(const QByteArray &userKey,
+                       const QList<QSharedPointer<Interfaces::iContacts>>& masters = {}) override;
     QList<QSharedPointer<Interfaces::iUsersCards> >
     getAllUserCardsData(const QByteArray &userKey, const QList<QSharedPointer<Interfaces::iContacts> > &childs) override;
     QSharedPointer<Interfaces::iContacts>
     getContactFromChildId(const QByteArray &userKey, const QByteArray &childUserId) override;
+    QList<QSharedPointer<Interfaces::iContacts>>
+    getAllContact() override;
     QList<QSharedPointer<Interfaces::iContacts> >
     getMasterKeys(const QByteArray &childUserId) override;
     QList<QSharedPointer<Interfaces::iContacts> >
@@ -102,7 +111,6 @@ private:
                                         QVariantMap &toBind);
 
     int getCardFreeIndex(const QByteArray& cardId) const;
-
 
 };
 }

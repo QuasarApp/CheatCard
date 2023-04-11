@@ -61,11 +61,23 @@ public:
     virtual bool deleteCard(const QByteArray& cardId) const = 0;
 
     /**
+     * @brief deleteEmptyCards This method remove all cards withot usersDates.
+     * @return true if card removed successful.
+     */
+    virtual bool deleteEmptyCards() const = 0;
+
+    /**
      * @brief deleteUser This method remove the user.
      * @param userId This is id of user
      * @return true if user removed successful else false.
      */
     virtual bool deleteUser(const QByteArray& userId) const = 0;
+
+    /**
+     * @brief deleteAllUserData This method delete data all users Data
+     * @return true if the remove finished successul else false
+     */
+    virtual bool deleteAllUserData() = 0;
 
     /**
      * @brief deleteUserData This method delete data use the user
@@ -176,15 +188,15 @@ public:
                     const QByteArray& cardId) const = 0;
 
     /**
-     * @brief getAllUserFromCard This method return all data of the card @a cardId.
+     * @brief getAllUserDataFromCard This method return all data of the card @a cardId.
      * @param cardId This is id of checked card.
      * @param ignoreUserId this is id of ignored user.
      * @note The @a ignoreUserId argument can be used for fetch all data for owner. because owner set one seal itself.
      * @return  all data of the card @a cardId.
      */
     virtual QList<QSharedPointer<iUsersCards>>
-    getAllUserFromCard(const QByteArray& cardId,
-                       const QByteArray& ignoreUserId = {}) const = 0;
+    getAllUserDataFromCard(const QByteArray& cardId,
+                           const QByteArray& ignoreUserId = {}) const = 0;
 
     /**
      * @brief getAllActiveUserFromCard This method return all a data of all active users on the card @a cardId.
@@ -211,12 +223,12 @@ public:
                               const QByteArray& ignoreUserId = {}) const = 0;
 
     /**
-     * @brief getAllUserDataFromCard This method return list of users that use card @a cardId
+     * @brief getAllUserFromCard This method return list of users that use card @a cardId
      * @param cardId This is card id
      * @return list of users that use card @a cardId
      */
     virtual QList<QSharedPointer<iUser>>
-    getAllUserDataFromCard(const QByteArray& cardId) const = 0;
+    getAllUserFromCard(const QByteArray& cardId) const = 0;
 
     /**
      * @brief getAllUserWithPrivateKeys This method return list of users that has private keys. (not guest users records)
@@ -234,15 +246,29 @@ public:
     getCard(const QByteArray& cardId) = 0;
 
     /**
-     * @brief getAllUserCards This method will return list of available cards of the user with @a userKey key
-     * @param userKey user key
-     * @param restOf This option force return list of not ovned cards.
+     * @brief getAllCards This method will return list of all cards
      * @return cards list;
      */
     virtual QList<QSharedPointer<iCard>>
-    getAllUserCards(const QByteArray &userKey,
-                    bool restOf = false,
-                    const QList<QSharedPointer<iContacts>>& childs = {}) = 0;
+    getAllCards() = 0;
+
+    /**
+     * @brief getAllUserCards This method will return list of available cards of the user with @a userKey key
+     * @param userKey user key
+     * @return cards list;
+     */
+    virtual QList<QSharedPointer<iCard>>
+    getAllUserCards(const QByteArray &userKey) = 0;
+    /**
+     * @brief getAllUserCards This method will return list of available cards of the user with @a userKey key
+     * @param userKey user key
+     * @param masters this is list of eployers of the user @a userKey.
+     * @return cards list;
+     */
+    virtual QList<QSharedPointer<iCard>>
+    getAllUserOwnCards(const QByteArray &userKey,
+                       const QList<QSharedPointer<iContacts>>& masters = {}) = 0;
+
     /**
      * @brief getAllUserCardsData This method will return list of available userscards data of the user with @a userKey key
      * @param userKey user key
@@ -260,6 +286,14 @@ public:
      */
     virtual QSharedPointer<iContacts>
     getContactFromChildId(const QByteArray& userKey, const QByteArray& childUserId) = 0;
+
+
+    /**
+     * @brief getContactFromChildId This method return all contacts saved on db.
+     * @return list of the contacts
+     */
+    virtual QList<QSharedPointer<iContacts>>
+    getAllContact() = 0;
 
     /**
      * @brief getMasterKeys This method return list of master contacts of the child user.

@@ -20,20 +20,20 @@ NetworkResult CheatCardTestsHelper::deployNetwork(QString host, int port,
                                                   unsigned int clientsCount,
                                                   bool connectToServer) {
     NetworkResult result;
-    result.server = makeNode<TestServer>();
+    result.server = makeNode<TestServer>({3});
 
     if (!result.server->run(host, port))
         return {};
 
     for (unsigned int i = 0; i < clientsCount; ++i) {
-        auto node = makeNode<TestClient>();
+        auto node = makeNode<TestClient>({3});
         result.clients.insert(node->currntUserKey(), node);
 
         if (connectToServer) {
             node->connectToServer(host, port);
 
             if (!TestUtils::wait([node]() {
-                    return node->isConncted();
+                    return node->isSynced();
                 }, WAIT_TIME)) {
                 return {};
             }
@@ -61,9 +61,18 @@ CheatCardTestsHelper::makeCard(const QSharedPointer<TestClient> &owner, unsigned
     card->setFreeItemName("bonus");
     card->setFreeIndex(freeItemCount);
 
+    if (!owner->cardWasUpdated(card->cardId())) {
+        return nullptr;
+    }
+
     if (!owner->db()->saveCard(card)) {
         return nullptr;
     }
+
+    // wait responce from the server about adding new card.
+    TestUtils::wait([card, owner]() {
+        return bool(owner->getUserData(card->ownerSignature(), card->cardId()));
+    }, WAIT_TIME);
 
     return card;
 
@@ -138,20 +147,16 @@ void CheatCardTestsHelper::checkAccess(const QSharedPointer<TestClient> &seller,
                                        const QByteArray &cardId,
                                        bool shouldBe) {
 
-    unsigned int count = seller->getPurchaseCount(client, cardId);
     unsigned int serverCount = server->getPurchaseCount(client, cardId);
 
-    // do not check access of the not synced nodes.
-    QVERIFY(count == serverCount);
-
-    auto cbTrue = [client, seller, cardId, count]() {
-        unsigned int currentCount = seller->getPurchaseCount(client, cardId);
-        return currentCount == count + 1 && !seller->getLastErrrorCode();
+    auto cbTrue = [client, server, seller, cardId, serverCount]() {
+        unsigned int currentCount = server->getPurchaseCount(client, cardId);
+        return currentCount == serverCount + 1 && !seller->getLastErrrorCode();
     };
 
-    auto cbFalse = [client, seller, cardId, count]() {
-        unsigned int currentCount = seller->getPurchaseCount(client, cardId);
-        return currentCount == count && seller->getLastErrrorCode();
+    auto cbFalse = [client, server, seller, cardId, serverCount]() {
+        unsigned int currentCount = server->getPurchaseCount(client, cardId);
+        return currentCount == serverCount && seller->getLastErrrorCode();
     };
 
     seller->resetLastErrors();

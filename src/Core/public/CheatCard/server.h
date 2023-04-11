@@ -18,7 +18,8 @@ class CHEATCARD_CORE_EXPORT Server: public BaseNode
 {
     Q_OBJECT
 public:
-    Server(const QSharedPointer<Interfaces::iDB> &db);
+    Server(const QSharedPointer<Interfaces::iDB> &db,
+           const QVector<unsigned short> &apiVesions);
     NodeType nodeType() const override;
 
     // AbstractNode interface

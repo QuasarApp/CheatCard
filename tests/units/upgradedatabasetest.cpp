@@ -20,7 +20,7 @@ UpgradeDataBaseTest::UpgradeDataBaseTest()
 }
 
 void UpgradeDataBaseTest::test(){
-    auto server = CheatCardTestsHelper::makeNode<TestServer>(":/sql/sql/DBv6.db.sql");
+    auto server = CheatCardTestsHelper::makeNode<TestServer>({3}, ":/sql/sql/DBv6.db.sql");
     QVERIFY(server);
 
     QVERIFY(server->run(TEST_CHEAT_HOST, TEST_CHEAT_PORT));

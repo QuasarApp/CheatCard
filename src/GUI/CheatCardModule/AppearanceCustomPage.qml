@@ -7,7 +7,7 @@ import "Style"
 
 CPage {
     id: customUiPage
-    toolBarTitle: qsTr("Appeearance page")
+    toolBarTitle: qsTr("Appeearance")
     contentItem: Item {
 
         ColumnLayout {
