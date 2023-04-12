@@ -27,6 +27,20 @@ BaseNode::NodeType Server::nodeType() const {
     return BaseNode::NodeType::Server;
 }
 
+void Server::nodeConfirmend(QH::AbstractNodeInfo *node) {
+    BaseNode::nodeConfirmend(node);
+
+    auto count = connectionsCount();
+
+    if (maxCountConnections < count) {
+        maxCountConnections = count;
+        QuasarAppUtils::Params::log(
+            QString("Detected new record of server loading! connection count = %0").arg(maxCountConnections),
+            QuasarAppUtils::Info);
+    }
+
+}
+
 void Server::nodeConnected(QH::AbstractNodeInfo *node) {
 
     if (auto api = selectParser(API_BASE_PARSE_IS, 3).dynamicCast<Interfaces::iAPI>()) {
@@ -45,6 +59,10 @@ void Server::nodeErrorOccured(QH::AbstractNodeInfo *nodeInfo, QAbstractSocket::S
     if (errorCode != QAbstractSocket::SocketError::RemoteHostClosedError) {
         BaseNode::nodeErrorOccured(nodeInfo, errorCode, errorString);
     }
+}
+
+int Server::getMaxCountConnections() const {
+    return maxCountConnections;
 }
 
 }
