@@ -23,7 +23,10 @@ public:
     NodeType nodeType() const override;
 
     // AbstractNode interface
+    int getMaxCountConnections() const;
+
 protected:
+    void nodeConfirmend(QH::AbstractNodeInfo *node) override;
     void nodeConnected(QH::AbstractNodeInfo *node) override;
     void nodeDisconnected(QH::AbstractNodeInfo *node) override;
     void nodeErrorOccured(QH::AbstractNodeInfo *nodeInfo,
@@ -32,6 +35,9 @@ protected:
 
 
     friend class ClearOldData;
+
+private:
+    int maxCountConnections = 0;
 };
 }
 #endif // SERVER_H

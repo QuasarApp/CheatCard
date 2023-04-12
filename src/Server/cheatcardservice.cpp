@@ -74,10 +74,11 @@ bool CheatCardService::handleReceive(const Patronum::Feature &data) {
     } else if (data.cmd() == "state") {
         QVariantMap result;
         result["01. Status"] = _server->getWorkState().toString();
-        result["02. Log file available"] = QuasarAppUtils::Params::getArg("fileLog", "Not used");
-        result["03. Core lib version"] = _server->libVersion();
-        result["04. Heart lib version"] = QH::heartLibVersion();
-        result["05. Patronum lib version"] = Patronum::patronumLibVersion();
+        result["02. Maximum connections count: "] = _server->getMaxCountConnections();
+        result["03. Log file available"] = QuasarAppUtils::Params::getArg("fileLog", "Not used");
+        result["04. Core lib version"] = _server->libVersion();
+        result["05. Heart lib version"] = QH::heartLibVersion();
+        result["06. Patronum lib version"] = Patronum::patronumLibVersion();
 
         sendResuylt(result);
     } else if (data.cmd() == "setVerbose") {
