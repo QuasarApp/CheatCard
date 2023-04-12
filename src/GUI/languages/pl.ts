@@ -17,7 +17,7 @@
     </message>
     <message>
         <source>About application</source>
-        <translation type="unfinished"></translation>
+        <translation>O aplikacji</translation>
     </message>
 </context>
 <context>
@@ -52,7 +52,7 @@
     </message>
     <message>
         <source>Additional information</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodatkowe informacje</translation>
     </message>
 </context>
 <context>
@@ -75,7 +75,7 @@
     </message>
     <message>
         <source>Appeearance</source>
-        <translation type="unfinished"></translation>
+        <translation>Wygląd</translation>
     </message>
 </context>
 <context>
@@ -157,11 +157,11 @@
     </message>
     <message>
         <source>Color values</source>
-        <translation type="unfinished"></translation>
+        <translation>Wartości kolorów</translation>
     </message>
     <message>
         <source>#HTML</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -180,14 +180,14 @@
     </message>
     <message>
         <source>Contact with developers</source>
-        <translation type="unfinished">Kontakt z programistami</translation>
+        <translation>Kontakt z programistami</translation>
     </message>
 </context>
 <context>
     <name>CreateCardView</name>
     <message>
         <source>Create new card</source>
-        <translation type="unfinished"></translation>
+        <translation>Utwórz nową kartę</translation>
     </message>
 </context>
 <context>
@@ -464,15 +464,15 @@
     <name>IncomeView</name>
     <message>
         <source>Select the number of purchases that the customer has made.</source>
-        <translation type="unfinished">Wybierz liczbę zakupów dokonanych przez klienta.</translation>
+        <translation>Wybierz liczbę zakupów dokonanych przez klienta.</translation>
     </message>
     <message>
         <source>Seal</source>
-        <translation type="unfinished">Foka</translation>
+        <translation>Foka</translation>
     </message>
     <message>
         <source>Check</source>
-        <translation type="unfinished">Sprawdzać</translation>
+        <translation>Sprawdzać</translation>
     </message>
 </context>
 <context>
@@ -487,11 +487,11 @@
     </message>
     <message>
         <source>Gallery</source>
-        <translation type="unfinished"></translation>
+        <translation>Galeria</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyczyść</translation>
     </message>
 </context>
 <context>
@@ -502,11 +502,11 @@
     </message>
     <message>
         <source>Hello </source>
-        <translation type="unfinished"></translation>
+        <translation>Cześć </translation>
     </message>
     <message>
         <source> (work mode)</source>
-        <translation type="unfinished"></translation>
+        <translation> (Tryb pracy)</translation>
     </message>
 </context>
 <context>
@@ -625,7 +625,7 @@
     </message>
     <message>
         <source>Help page</source>
-        <translation type="unfinished"></translation>
+        <translation>Pomoc</translation>
     </message>
 </context>
 <context>
@@ -676,7 +676,7 @@
     </message>
     <message>
         <source>Help page</source>
-        <translation type="unfinished"></translation>
+        <translation>Pomoc</translation>
     </message>
 </context>
 <context>
@@ -687,7 +687,7 @@
     </message>
     <message>
         <source>Share Application</source>
-        <translation type="unfinished"></translation>
+        <translation>Udostępnij aplikację</translation>
     </message>
 </context>
 <context>
@@ -834,19 +834,19 @@
     </message>
     <message>
         <source>Wow</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>You have bonuses!!!</source>
-        <translation type="unfinished"></translation>
+        <translation>Masz bonusy!!!</translation>
     </message>
     <message>
         <source>On the %0 card you have %2 bonus (&quot;%1&quot;)</source>
-        <translation type="unfinished"></translation>
+        <translation>Na karcie %0 masz bonus w wysokości %2 (&quot;%1&quot;)</translation>
     </message>
     <message>
         <source>You&apos;re trying to delete the %0 card, All your data, your purchase and available bonuses will be removed! Do you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>Próbujesz usunąć kartę %0. Wszystkie Twoje dane, zakupy i dostępne bonusy zostaną usunięte! Czy na pewno chcesz kontynuować?</translation>
     </message>
 </context>
 <context>
@@ -872,11 +872,11 @@
     </message>
     <message>
         <source>Remove access</source>
-        <translation type="unfinished"></translation>
+        <translation>Usuń dostęp</translation>
     </message>
     <message>
         <source>Do you want to remove access to your cards for %0 user ?</source>
-        <translation type="unfinished"></translation>
+        <translation>Czy chcesz usunąć dostęp do Twoich kart dla użytkownika %0 ?</translation>
     </message>
 </context>
 <context>
@@ -1050,7 +1050,7 @@
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished">Ustawienia</translation>
+        <translation>Ustawienia</translation>
     </message>
 </context>
 <context>
@@ -1072,7 +1072,7 @@
     <name>UserView</name>
     <message>
         <source>User</source>
-        <translation type="unfinished"></translation>
+        <translation>Użytkownik</translation>
     </message>
 </context>
 <context>
@@ -1086,7 +1086,7 @@
     <name>WaitView</name>
     <message>
         <source>Please wait for response from server</source>
-        <translation type="unfinished">Proszę czekać na odpowiedź z serwera</translation>
+        <translation>Proszę czekać na odpowiedź z serwera</translation>
     </message>
 </context>
 </TS>

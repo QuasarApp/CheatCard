@@ -17,7 +17,7 @@
     </message>
     <message>
         <source>About application</source>
-        <translation type="unfinished"></translation>
+        <translation>Аб прыкладанні</translation>
     </message>
 </context>
 <context>
@@ -52,7 +52,7 @@
     </message>
     <message>
         <source>Additional information</source>
-        <translation type="unfinished"></translation>
+        <translation>Дадатковая інфармацыя</translation>
     </message>
 </context>
 <context>
@@ -75,7 +75,7 @@
     </message>
     <message>
         <source>Appeearance</source>
-        <translation type="unfinished"></translation>
+        <translation>Знешні выгляд</translation>
     </message>
 </context>
 <context>
@@ -156,11 +156,11 @@
     </message>
     <message>
         <source>Color values</source>
-        <translation type="unfinished"></translation>
+        <translation>Значэнні каляровай гамы</translation>
     </message>
     <message>
         <source>#HTML</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -179,14 +179,14 @@
     </message>
     <message>
         <source>Contact with developers</source>
-        <translation type="unfinished">Кантакт з распрацоўшчыкамі</translation>
+        <translation>Кантакт з распрацоўшчыкамі</translation>
     </message>
 </context>
 <context>
     <name>CreateCardView</name>
     <message>
         <source>Create new card</source>
-        <translation type="unfinished"></translation>
+        <translation>Стварыць новую картку</translation>
     </message>
 </context>
 <context>
@@ -463,15 +463,15 @@
     <name>IncomeView</name>
     <message>
         <source>Select the number of purchases that the customer has made.</source>
-        <translation type="unfinished">Выберыце колькасць пакупак, зробленых кліентам.</translation>
+        <translation>Выберыце колькасць пакупак, зробленых кліентам.</translation>
     </message>
     <message>
         <source>Seal</source>
-        <translation type="unfinished">Пячатка</translation>
+        <translation>Пячатка</translation>
     </message>
     <message>
         <source>Check</source>
-        <translation type="unfinished">Праверыць</translation>
+        <translation>Праверыць</translation>
     </message>
 </context>
 <context>
@@ -486,11 +486,11 @@
     </message>
     <message>
         <source>Gallery</source>
-        <translation type="unfinished"></translation>
+        <translation>Галерэя</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation>Ачысціць</translation>
     </message>
 </context>
 <context>
@@ -501,11 +501,11 @@
     </message>
     <message>
         <source>Hello </source>
-        <translation type="unfinished"></translation>
+        <translation>Прывітанне </translation>
     </message>
     <message>
         <source> (work mode)</source>
-        <translation type="unfinished"></translation>
+        <translation> (Рэжым працы)</translation>
     </message>
 </context>
 <context>
@@ -620,7 +620,7 @@
     </message>
     <message>
         <source>Help page</source>
-        <translation type="unfinished"></translation>
+        <translation>Дапамога</translation>
     </message>
 </context>
 <context>
@@ -671,7 +671,7 @@
     </message>
     <message>
         <source>Help page</source>
-        <translation type="unfinished"></translation>
+        <translation>Дапамога</translation>
     </message>
 </context>
 <context>
@@ -682,7 +682,7 @@
     </message>
     <message>
         <source>Share Application</source>
-        <translation type="unfinished"></translation>
+        <translation>Падзяліцца прыкладаннем</translation>
     </message>
 </context>
 <context>
@@ -829,19 +829,19 @@
     </message>
     <message>
         <source>Wow</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>You have bonuses!!!</source>
-        <translation type="unfinished"></translation>
+        <translation>У вас бонусы!</translation>
     </message>
     <message>
         <source>On the %0 card you have %2 bonus (&quot;%1&quot;)</source>
-        <translation type="unfinished"></translation>
+        <translation>На картцы %0 у вас ёсць %2 (&quot;%1&quot;)</translation>
     </message>
     <message>
         <source>You&apos;re trying to delete the %0 card, All your data, your purchase and available bonuses will be removed! Do you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы хочаце выдаліць картку %0. Усе вашы даныя, пакупкі і даступныя бонусы будуць выдаленыя! Вы сапраўды хочаце працягнуць?</translation>
     </message>
 </context>
 <context>
@@ -867,11 +867,11 @@
     </message>
     <message>
         <source>Remove access</source>
-        <translation type="unfinished"></translation>
+        <translation>Адмяніць доступ</translation>
     </message>
     <message>
         <source>Do you want to remove access to your cards for %0 user ?</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы хочаце адмяніць доступ да вашых картак для карыстальніка %0?</translation>
     </message>
 </context>
 <context>
@@ -1045,7 +1045,7 @@
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished">Налады</translation>
+        <translation>Налады</translation>
     </message>
 </context>
 <context>
@@ -1067,7 +1067,7 @@
     <name>UserView</name>
     <message>
         <source>User</source>
-        <translation type="unfinished"></translation>
+        <translation>Карыстальнік</translation>
     </message>
 </context>
 <context>
@@ -1081,7 +1081,7 @@
     <name>WaitView</name>
     <message>
         <source>Please wait for response from server</source>
-        <translation type="unfinished">Дачакайцеся адказу ад сервера</translation>
+        <translation>Дачакайцеся адказу ад сервера</translation>
     </message>
 </context>
 </TS>

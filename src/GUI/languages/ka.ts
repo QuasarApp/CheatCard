@@ -17,7 +17,7 @@
     </message>
     <message>
         <source>About application</source>
-        <translation type="unfinished"></translation>
+        <translation>პროგრამის შესახებ</translation>
     </message>
 </context>
 <context>
@@ -52,7 +52,7 @@
     </message>
     <message>
         <source>Additional information</source>
-        <translation type="unfinished"></translation>
+        <translation>დამატებითი ინფორმაცია</translation>
     </message>
 </context>
 <context>
@@ -75,7 +75,7 @@
     </message>
     <message>
         <source>Appeearance</source>
-        <translation type="unfinished"></translation>
+        <translation>გარეგნობა</translation>
     </message>
 </context>
 <context>
@@ -156,11 +156,11 @@
     </message>
     <message>
         <source>Color values</source>
-        <translation type="unfinished"></translation>
+        <translation>ფერის მნიშვნელობები</translation>
     </message>
     <message>
         <source>#HTML</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -179,14 +179,14 @@
     </message>
     <message>
         <source>Contact with developers</source>
-        <translation type="unfinished">დაუკავშირდით დეველოპერებს</translation>
+        <translation>დაუკავშირდით დეველოპერებს</translation>
     </message>
 </context>
 <context>
     <name>CreateCardView</name>
     <message>
         <source>Create new card</source>
-        <translation type="unfinished"></translation>
+        <translation>ახალი ბარათის შექმნა</translation>
     </message>
 </context>
 <context>
@@ -464,15 +464,15 @@
     <name>IncomeView</name>
     <message>
         <source>Select the number of purchases that the customer has made.</source>
-        <translation type="unfinished">შეარჩიეთ შესყიდვების რაოდენობა, რაც გააკეთა მომხმარებელმა.</translation>
+        <translation>შეარჩიეთ შესყიდვების რაოდენობა, რაც გააკეთა მომხმარებელმა.</translation>
     </message>
     <message>
         <source>Seal</source>
-        <translation type="unfinished">ბეჭდვა</translation>
+        <translation>ბეჭდვა</translation>
     </message>
     <message>
         <source>Check</source>
-        <translation type="unfinished">ჩეკი</translation>
+        <translation>ჩეკი</translation>
     </message>
 </context>
 <context>
@@ -487,11 +487,11 @@
     </message>
     <message>
         <source>Gallery</source>
-        <translation type="unfinished"></translation>
+        <translation>გალერეა</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation>გასუფთავება</translation>
     </message>
 </context>
 <context>
@@ -502,11 +502,11 @@
     </message>
     <message>
         <source>Hello </source>
-        <translation type="unfinished"></translation>
+        <translation>გამარჯობა </translation>
     </message>
     <message>
         <source> (work mode)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -621,7 +621,7 @@
     </message>
     <message>
         <source>Help page</source>
-        <translation type="unfinished"></translation>
+        <translation>დახმარება</translation>
     </message>
 </context>
 <context>
@@ -672,7 +672,7 @@
     </message>
     <message>
         <source>Help page</source>
-        <translation type="unfinished"></translation>
+        <translation>დახმარება</translation>
     </message>
 </context>
 <context>
@@ -683,7 +683,7 @@
     </message>
     <message>
         <source>Share Application</source>
-        <translation type="unfinished"></translation>
+        <translation>აპლიკაციის გაზიარება</translation>
     </message>
 </context>
 <context>
@@ -830,19 +830,19 @@
     </message>
     <message>
         <source>Wow</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>You have bonuses!!!</source>
-        <translation type="unfinished"></translation>
+        <translation>თქვენ გაქვთ ბონუსები!</translation>
     </message>
     <message>
         <source>On the %0 card you have %2 bonus (&quot;%1&quot;)</source>
-        <translation type="unfinished"></translation>
+        <translation>ბარათზე %0 თქვენ გაქვთ %2 ბონუსი (&quot;%1&quot;)</translation>
     </message>
     <message>
         <source>You&apos;re trying to delete the %0 card, All your data, your purchase and available bonuses will be removed! Do you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>თქვენ ცდილობთ წაშლა %0 ბარათის, ყველა თქვენი მონაცემი, შესყიდვანი და ხელმისაწვდომი ბონუსები წაიშალება! გსურთ გაგრძელება?</translation>
     </message>
 </context>
 <context>
@@ -868,11 +868,11 @@
     </message>
     <message>
         <source>Remove access</source>
-        <translation type="unfinished"></translation>
+        <translation>წვდომის მოხსნა</translation>
     </message>
     <message>
         <source>Do you want to remove access to your cards for %0 user ?</source>
-        <translation type="unfinished"></translation>
+        <translation>გსურთ წვდომის მოხსნა თქვენს ბარათებზე %0 მომხმარებელისთვის?</translation>
     </message>
 </context>
 <context>
@@ -1046,7 +1046,7 @@
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished">პარამეტრები</translation>
+        <translation>პარამეტრები</translation>
     </message>
 </context>
 <context>
@@ -1068,7 +1068,7 @@
     <name>UserView</name>
     <message>
         <source>User</source>
-        <translation type="unfinished"></translation>
+        <translation>მომხმარებელი</translation>
     </message>
 </context>
 <context>
@@ -1082,7 +1082,7 @@
     <name>WaitView</name>
     <message>
         <source>Please wait for response from server</source>
-        <translation type="unfinished">გთხოვთ დაელოდოთ პასუხს სერვერისგან</translation>
+        <translation>გთხოვთ დაელოდოთ პასუხს სერვერისგან</translation>
     </message>
 </context>
 </TS>

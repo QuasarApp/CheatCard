@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="sr-ME">
+<TS version="2.1" language="sr_ME">
 <context>
     <name>About</name>
     <message>
@@ -833,15 +833,15 @@
     </message>
     <message>
         <source>You have bonuses!!!</source>
-        <translation type="unfinished"></translation>
+        <translation>Imate bonuse!!!</translation>
     </message>
     <message>
         <source>On the %0 card you have %2 bonus (&quot;%1&quot;)</source>
-        <translation type="unfinished"></translation>
+        <translation>Na kartici %0 imate %2 (&quot;%1&quot;)</translation>
     </message>
     <message>
         <source>You&apos;re trying to delete the %0 card, All your data, your purchase and available bonuses will be removed! Do you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokušajte da izbrišete karticu %0, svi vaši podaci, vaša kupovina i dostupni bonusi biće uklonjeni! Da li želite da nastavite?</translation>
     </message>
 </context>
 <context>
@@ -867,11 +867,11 @@
     </message>
     <message>
         <source>Remove access</source>
-        <translation type="unfinished"></translation>
+        <translation>Uklonite pristup</translation>
     </message>
     <message>
         <source>Do you want to remove access to your cards for %0 user ?</source>
-        <translation type="unfinished"></translation>
+        <translation>Da li želite da uklonite pristup vašim karticama za %0 korisnika?</translation>
     </message>
 </context>
 <context>
