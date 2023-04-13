@@ -220,6 +220,14 @@ ApplicationWindow {
                                                           user);
                         }
         }
+
+        MenuItem {
+            text: qsTr("Show History")
+            icon.source: "qrc:/images/private/resources/Interface_icons/Activate.svg"
+            onClicked:  () => {
+                            notificationService.showHistory();
+                        }
+        }
     }
 
     ActivityProcessor {
