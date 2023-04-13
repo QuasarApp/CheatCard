@@ -837,15 +837,15 @@
     </message>
     <message>
         <source>You have bonuses!!!</source>
-        <translation type="unfinished"></translation>
+        <translation>У вас есть бонусы!!!</translation>
     </message>
     <message>
         <source>On the %0 card you have %2 bonus (&quot;%1&quot;)</source>
-        <translation type="unfinished"></translation>
+        <translation>На карте %0 у вас есть бонус %2 (&quot;%1&quot;)</translation>
     </message>
     <message>
         <source>You&apos;re trying to delete the %0 card, All your data, your purchase and available bonuses will be removed! Do you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы пытаетесь удалить карту %0. Все ваши данные, ваша покупка и доступные бонусы будут удалены! Вы хотите продолжать?</translation>
     </message>
 </context>
 <context>
@@ -871,11 +871,11 @@
     </message>
     <message>
         <source>Remove access</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалить доступ</translation>
     </message>
     <message>
         <source>Do you want to remove access to your cards for %0 user ?</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы хотите закрыть доступ к своим картам для пользователя %0?</translation>
     </message>
 </context>
 <context>

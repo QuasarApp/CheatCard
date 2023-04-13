@@ -83,9 +83,25 @@ CREATE UNIQUE INDEX IF NOT EXISTS "UsersDataIndex" ON "UsersData" (
         "card"
 );
 
+CREATE TABLE "Contacts_old" (
+        "userKey"	VARCHAR(44) NOT NULL,
+        "childUserKey"	VARCHAR(44) NOT NULL,
+        "info"	TEXT DEFAULT ''
+);
+
+INSERT INTO Contacts_old SELECT * FROM Contacts;
+DROP TABLE Contacts;
+
+CREATE TABLE "Contacts" (
+        "userKey"	BLOB NOT NULL,
+        "childUserKey"	BLOB NOT NULL,
+        "info"	TEXT DEFAULT ''
+);
+
 DROP TABLE IF EXISTS Config;
 DROP TABLE IF EXISTS NetworkMembers;
 DROP TABLE IF EXISTS MemberPermisions;
 DROP TABLE IF EXISTS DefaultPermissions;
+DROP TABLE IF EXISTS Sessions;
 
 COMMIT;

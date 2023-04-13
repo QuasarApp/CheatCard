@@ -6,6 +6,7 @@
 //#
 
 #include "appdatabase.h"
+#include "objects/contacts.h"
 #include "objects/userscards.h"
 #include <sqldbwriter.h>
 
@@ -124,6 +125,32 @@ void AppDataBase::localdbPatches() {
                                    newCard->setWebSite(object->webSite());
 
                                    if (!database->insertObject(newCard, true)) {
+                                       return false;
+                                   }
+                               }
+                           }
+                       }
+
+                       // port of the contacts table
+                       {
+                           QH::PKG::DBObjectsRequest<DBv0::Contacts> query("Contacts_old");
+                           auto result = database->getObject(query);
+                           if (result && result->data().size()) {
+                               for (const auto& object: result->data()) {
+                                   auto newContact = QSharedPointer<DB::Contacts>::create();
+                                   auto childId = object->getChildUserKey();
+                                   unsigned int oldChildId = RCUtils::makeOlduserId(childId);
+                                   newContact->setChildUserKey(childId);
+                                   usersKeysPairs[oldChildId] = childId;
+
+                                   auto masterId = object->getUserKey();
+                                   unsigned int oldMasterId = RCUtils::makeOlduserId(masterId);
+                                   newContact->setUserKey(masterId);
+                                   usersKeysPairs[oldMasterId] = masterId;
+
+                                   newContact->setInfo(object->getInfo());
+
+                                   if (!database->insertObject(newContact, true)) {
                                        return false;
                                    }
                                }
