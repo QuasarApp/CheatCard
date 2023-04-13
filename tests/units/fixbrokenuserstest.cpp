@@ -10,7 +10,7 @@ FixBrokenUsersTest::FixBrokenUsersTest() {
 }
 
 void FixBrokenUsersTest::test() {
-    auto app = CheatCardTestsHelper::makeNode<TestClient>();
+    auto app = CheatCardTestsHelper::makeNode<TestClient>({3});
     QVERIFY(app);
 
     auto db = app->getDBObject();

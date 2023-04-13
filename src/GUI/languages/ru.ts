@@ -17,7 +17,7 @@
     </message>
     <message>
         <source>About application</source>
-        <translation type="unfinished"></translation>
+        <translation>О приложении</translation>
     </message>
 </context>
 <context>
@@ -52,7 +52,7 @@
     </message>
     <message>
         <source>Additional information</source>
-        <translation type="unfinished"></translation>
+        <translation>Дополнительная информация</translation>
     </message>
 </context>
 <context>
@@ -74,8 +74,8 @@
         <translation>Пожалуйста, выберите цвет</translation>
     </message>
     <message>
-        <source>Appeearance page</source>
-        <translation type="unfinished"></translation>
+        <source>Appeearance</source>
+        <translation>Внешний вид</translation>
     </message>
 </context>
 <context>
@@ -156,11 +156,11 @@
     </message>
     <message>
         <source>Color values</source>
-        <translation type="unfinished"></translation>
+        <translation>Насыщенность цвета</translation>
     </message>
     <message>
         <source>#HTML</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -179,14 +179,14 @@
     </message>
     <message>
         <source>Contact with developers</source>
-        <translation type="unfinished">Связаться с нами</translation>
+        <translation>Связаться с нами</translation>
     </message>
 </context>
 <context>
     <name>CreateCardView</name>
     <message>
         <source>Create new card</source>
-        <translation type="unfinished"></translation>
+        <translation>Создать карту</translation>
     </message>
 </context>
 <context>
@@ -463,15 +463,15 @@
     <name>IncomeView</name>
     <message>
         <source>Select the number of purchases that the customer has made.</source>
-        <translation type="unfinished">Выберите количество покупок, которые совершил клиент.</translation>
+        <translation>Выберите количество покупок, которые совершил клиент.</translation>
     </message>
     <message>
         <source>Seal</source>
-        <translation type="unfinished">Печать</translation>
+        <translation>Поставить штамп</translation>
     </message>
     <message>
         <source>Check</source>
-        <translation type="unfinished">Проверить</translation>
+        <translation>Проверить</translation>
     </message>
 </context>
 <context>
@@ -486,11 +486,11 @@
     </message>
     <message>
         <source>Gallery</source>
-        <translation type="unfinished"></translation>
+        <translation>Галлерея</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation>Сбросить</translation>
     </message>
 </context>
 <context>
@@ -501,11 +501,11 @@
     </message>
     <message>
         <source>Hello </source>
-        <translation type="unfinished"></translation>
+        <translation>Привет </translation>
     </message>
     <message>
         <source> (work mode)</source>
-        <translation type="unfinished"></translation>
+        <translation> (Рабочий режим)</translation>
     </message>
 </context>
 <context>
@@ -529,14 +529,6 @@
     <message>
         <source>### How to use?</source>
         <translation>### Как использовать?</translation>
-    </message>
-    <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help3.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help2.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
-        <translation></translation>
     </message>
     <message>
         <source>### Create a card for your establishment</source>
@@ -632,7 +624,7 @@
     </message>
     <message>
         <source>Help page</source>
-        <translation type="unfinished"></translation>
+        <translation>Помощь</translation>
     </message>
 </context>
 <context>
@@ -678,16 +670,12 @@
         <translation>### Как использовать?</translation>
     </message>
     <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help1.jpg&quot; alt=&quot;tt&quot; width=&quot;100&quot;/&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>* Receive seal to card.</source>
         <translation>* Получите печать на карту.</translation>
     </message>
     <message>
         <source>Help page</source>
-        <translation type="unfinished"></translation>
+        <translation>Помощь</translation>
     </message>
 </context>
 <context>
@@ -698,7 +686,7 @@
     </message>
     <message>
         <source>Share Application</source>
-        <translation type="unfinished"></translation>
+        <translation>Поделится приложением</translation>
     </message>
 </context>
 <context>
@@ -808,10 +796,6 @@
         <translation>Удалить карту</translation>
     </message>
     <message>
-        <source>You trying to delete this card, do not worry a seller that has give out this card save all bonuses locally,  so after repeat visit you will be get all your removed bonuses again. Do you want to continue?</source>
-        <translation>Вы пытаетесь удалить эту карту, не беспокойтесь, продавец, который выдал эту карту, сохранит все бонусы локально, поэтому после повторного посещения вы снова получите все ваши удаленные бонусы. Вы хотите продолжить?</translation>
-    </message>
-    <message>
         <source>The card reset to default successful but load default card from server failed, so you receive your card after new purchase in institution that has give out this card.</source>
         <translation>Сброс карты на значение по умолчанию выполнен успешно, но загрузить карту по умолчанию с сервера не удалось, поэтому вы получите карту после новой покупки в учреждении, выдавшем эту карту.</translation>
     </message>
@@ -849,6 +833,18 @@
     </message>
     <message>
         <source>Wow</source>
+        <translation>Ого</translation>
+    </message>
+    <message>
+        <source>You have bonuses!!!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On the %0 card you have %2 bonus (&quot;%1&quot;)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You&apos;re trying to delete the %0 card, All your data, your purchase and available bonuses will be removed! Do you want to continue?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -872,6 +868,14 @@
     <message>
         <source>The Selected image does not contains a valid qr code. Try again.</source>
         <translation>Выбранное изображение не содержит действительного qr-кода. Попробуйте еще раз.</translation>
+    </message>
+    <message>
+        <source>Remove access</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do you want to remove access to your cards for %0 user ?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1045,7 +1049,7 @@
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished">Настройки</translation>
+        <translation>Настройки</translation>
     </message>
 </context>
 <context>
@@ -1067,7 +1071,7 @@
     <name>UserView</name>
     <message>
         <source>User</source>
-        <translation type="unfinished"></translation>
+        <translation>Пользователь</translation>
     </message>
 </context>
 <context>
@@ -1081,7 +1085,7 @@
     <name>WaitView</name>
     <message>
         <source>Please wait for response from server</source>
-        <translation type="unfinished">Пожалуйста, дождитесь ответа от сервера</translation>
+        <translation>Пожалуйста, дождитесь ответа от сервера</translation>
     </message>
 </context>
 </TS>

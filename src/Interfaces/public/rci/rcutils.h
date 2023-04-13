@@ -10,7 +10,7 @@
 #define RCUTILS_H
 
 #include "rci/global.h"
-
+#include <cmath>
 #include <QSharedPointer>
 
 namespace RC {
@@ -82,6 +82,15 @@ public:
                               const QByteArray &anotherUser,
                               const QString& info,
                               QSharedPointer<Interfaces::iContacts> &resultContact);
+
+    /**
+     * @brief calcFreeItemsCount This method calc available free items for the card.
+     * @param received This is received items on this card
+     * @param purchasesNumber This is all purchases count
+     * @param freeIndex This is target for receive one bonus item.
+     * @return available items count.
+     */
+    static unsigned int calcFreeItemsCount(unsigned int received, unsigned int purchasesNumber, unsigned int freeIndex);
 
 };
 }

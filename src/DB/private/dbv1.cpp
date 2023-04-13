@@ -53,7 +53,7 @@ bool DBv1::deleteContact(const QSharedPointer<Interfaces::iContacts> &contact) c
     if(!db())
         return false;
 
-    return db()->deleteObject(QSharedPointer<DB::Contacts>::create(contact));
+    return db()->deleteObject(QSharedPointer<DB::Contacts>::create(contact), true);
 }
 
 bool DBv1::deleteCard(const QByteArray &cardId) const {
@@ -62,7 +62,7 @@ bool DBv1::deleteCard(const QByteArray &cardId) const {
 
     auto deleterequest = QSharedPointer<DB::Card>::create();
     deleterequest->setCardId(cardId);
-    if (!db()->deleteObject(deleterequest)) {
+    if (!db()->deleteObject(deleterequest, true)) {
         return false;
     }
 
@@ -75,7 +75,7 @@ bool DBv1::deleteUser(const QByteArray &userId) const {
 
     auto deleterequest = QSharedPointer<DB::User>::create();
     deleterequest->setKey(userId);
-    if (!db()->deleteObject(deleterequest)) {
+    if (!db()->deleteObject(deleterequest, true)) {
         return false;
     }
 
@@ -89,7 +89,7 @@ bool DBv1::deleteContactsByChildUserKey(const QByteArray &childUser) const {
     auto request = QSharedPointer<QH::PKG::DeleteObject>::create(
         QH::DbAddress{"Contacts", childUser}, "childUserKey");
 
-    return db()->deleteObject(request);
+    return db()->deleteObject(request, true);
 }
 
 bool DBv1::deleteUserData(const QByteArray &cardId, const QByteArray &userId) {
@@ -98,7 +98,29 @@ bool DBv1::deleteUserData(const QByteArray &cardId, const QByteArray &userId) {
     if (!db())
         return false;
 
-    return db()->deleteObject(QSharedPointer<DB::UsersCards>::create(userId, cardId));
+    return db()->deleteObject(QSharedPointer<DB::UsersCards>::create(userId, cardId), true);
+}
+
+bool DBv1::deleteEmptyCards() const {
+    if(!db())
+        return false;
+
+    auto request = QSharedPointer<QH::PKG::DBObjectsRequest<DB::Card>>::create(
+        "Cards",
+        QString("id NOT IN (SELECT card FROM UsersData)"),
+        QVariantMap{});
+
+    return db()->deleteObject(request, true);
+}
+
+bool DBv1::deleteAllUserData() {
+    if(!db())
+        return false;
+
+    auto request = QSharedPointer<QH::PKG::DBObjectsRequest<DB::UsersCards>>::create(
+        "UsersData");
+
+    return db()->deleteObject(request, true);
 }
 
 QSharedPointer<Interfaces::iContacts> DBv1::makeEmptyContact() const {
@@ -143,17 +165,7 @@ int DBv1::getFreeItemsCount(const QSharedPointer<Interfaces::iUsersCards> &input
 }
 
 int DBv1::getFreeItemsCount(const QSharedPointer<Interfaces::iUsersCards> &inputData, unsigned int freeIndex) const {
-    if (freeIndex <= 0)
-        return 0;
-
-    if (!inputData)
-        return 0;
-
-    int freeItems = std::floor(inputData->getPurchasesNumber() /
-                               static_cast<double>(freeIndex)) -
-                    inputData->getReceived();
-
-    return freeItems;
+    return RCUtils::calcFreeItemsCount(inputData->getReceived(), inputData->getPurchasesNumber(), freeIndex);
 }
 
 void DBv1::prepareOwnerSignatureCondition(const QList<QByteArray>& signatureList,
@@ -169,6 +181,7 @@ void DBv1::prepareOwnerSignatureCondition(const QList<QByteArray>& signatureList
             where += QString{" %2 ownerSignature%1 :ownerSignature%0"}.arg(signatureIndex).arg(comparatorName, operatorName);
         }
         toBind.insert(QString(":ownerSignature%0").arg(signatureIndex), key);
+        signatureIndex++;
     }
 }
 
@@ -236,7 +249,7 @@ DBv1::getUserCardData(const QByteArray& userId, const QByteArray& cardId) const 
 }
 
 QList<QSharedPointer<Interfaces::iUsersCards> >
-DBv1::getAllUserFromCard(const QByteArray &cardId, const QByteArray &ignoreUserId) const {
+DBv1::getAllUserDataFromCard(const QByteArray &cardId, const QByteArray &ignoreUserId) const {
     QString where;
     QVariantMap toBind = {{":card", cardId}};
     if (ignoreUserId.size()) {
@@ -354,23 +367,21 @@ DBv1::getCard(const QByteArray& cardId) {
 }
 
 QList<QSharedPointer<Interfaces::iCard> >
-DBv1::getAllUserCards(const QByteArray &userKey, bool restOf,
-                      const QList<QSharedPointer<Interfaces::iContacts> > &childs) {
+DBv1::getAllCards() {
+    QH::PKG::DBObjectsRequest<DB::Card> cardRequest("Cards");
 
-    QList<QByteArray> keys;
-    for (const auto& key: childs) {
-        keys.push_back(key->getUserKey());
-    }
-    keys.push_back(userKey);
+    auto result = db()->getObject(cardRequest);
 
-    QString where;
-    QVariantMap toBind;
-    if (restOf) {
-        prepareOwnerSignatureCondition(keys, "AND", "!=", where, toBind);
-    } else {
-        prepareOwnerSignatureCondition(keys, "OR", "=", where, toBind);
+    if (!result)
+        return {};
 
-    }
+    return {result->data().begin(), result->data().end()};
+}
+
+QList<QSharedPointer<Interfaces::iCard> >
+DBv1::getAllUserCards(const QByteArray &userKey) {
+    QString where = "id IN (SELECT card FROM UsersData WHERE user=:user)";
+    QVariantMap toBind = {{":user", userKey}};
 
     QH::PKG::DBObjectsRequest<DB::Card> cardRequest("Cards", where, toBind);
 
@@ -380,7 +391,30 @@ DBv1::getAllUserCards(const QByteArray &userKey, bool restOf,
         return {};
 
     return {result->data().begin(), result->data().end()};
+}
 
+QList<QSharedPointer<Interfaces::iCard> >
+DBv1::getAllUserOwnCards(const QByteArray &userKey,
+                         const QList<QSharedPointer<Interfaces::iContacts> > &masters) {
+
+    QList<QByteArray> keys;
+    for (const auto& key: masters) {
+        keys.push_back(key->getUserKey());
+    }
+    keys.push_back(userKey);
+
+    QString where;
+    QVariantMap toBind;
+    prepareOwnerSignatureCondition(keys, "OR", "=", where, toBind);
+
+    QH::PKG::DBObjectsRequest<DB::Card> cardRequest("Cards", where, toBind);
+
+    auto result = db()->getObject(cardRequest);
+
+    if (!result)
+        return {};
+
+    return {result->data().begin(), result->data().end()};
 }
 
 QSharedPointer<Interfaces::iUser> DBv1::getUser(const QByteArray& userId) const {
@@ -391,7 +425,7 @@ QSharedPointer<Interfaces::iUser> DBv1::getUser(const QByteArray& userId) const 
 }
 
 QList<QSharedPointer<Interfaces::iUser> >
-DBv1::getAllUserDataFromCard(const QByteArray& cardId) const {
+DBv1::getAllUserFromCard(const QByteArray& cardId) const {
 
     QH::PKG::DBObjectsRequest<DB::User> request("Users",
                                                 "key IN (select user from UsersData where card=:card)",
@@ -433,6 +467,19 @@ DBv1::getContactFromChildId(const QByteArray& userKey, const QByteArray& childUs
         return {};
 
     return *result->data().begin();
+}
+
+QList<QSharedPointer<Interfaces::iContacts>> DBv1::getAllContact() {
+
+    QH::PKG::DBObjectsRequest<DB::Contacts>
+        request("Contacts", {}, {});
+
+    auto result = db()->getObject(request);
+
+    if (!result || result->data().isEmpty())
+        return {};
+
+    return {result->data().begin(), result->data().end()} ;
 }
 
 QList<QSharedPointer<Interfaces::iContacts> >

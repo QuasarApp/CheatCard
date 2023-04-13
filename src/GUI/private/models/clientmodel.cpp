@@ -3,7 +3,7 @@
 namespace RC {
 
 ClientModel::ClientModel(const QSharedPointer<Interfaces::iDB>& db):
-    Client(db) {
+    Client(db, {3}) {
 
 }
 }

@@ -204,28 +204,44 @@ void PermisionsModel::removePermision(QByteArray userKey) {
     if (!permision)
         return;
 
-    auto backEndModel = storage()->get<ClientModel>();
-    auto usersModel = storage()->get<UsersListModel>();
-    auto waitModel = storage()->get<WaitConfirmModel>();
+    auto service = QmlNotificationService::NotificationService::getService();
+    if (!service)
+        return;
 
-    if (backEndModel && usersModel && waitModel) {
-        int watCode = rand();
-        backEndModel->updateContactData(permision,
-                                        usersModel->currentUserSecret(),
-                                        true,
-                                        [waitModel, watCode, usersModel, userKey, this](auto err){
-                                            waitModel->confirm(watCode, !err);
-                                            if (!err) {
-                                                QMetaObject::invokeMethod(this,
-                                                                          "removePermisionPrivate",
-                                                                          Qt::QueuedConnection,
-                                                                          Q_ARG(QByteArray,
-                                                                                userKey));
-                                            }
-                                        });
-        waitModel->wait(watCode);
+    QmlNotificationService::Listner listner = [permision, userKey, this] (bool accepted) {
 
-    }
+        if (accepted) {
+            auto backEndModel = storage()->get<ClientModel>();
+            auto usersModel = storage()->get<UsersListModel>();
+            auto waitModel = storage()->get<WaitConfirmModel>();
+
+            if (backEndModel && usersModel && waitModel) {
+                int watCode = rand();
+                backEndModel->updateContactData(permision,
+                                                usersModel->currentUserSecret(),
+                                                true,
+                                                [waitModel, watCode, usersModel, userKey, this](auto err){
+                                                    waitModel->confirm(watCode, !err);
+                                                    if (!err) {
+                                                        QMetaObject::invokeMethod(this,
+                                                                                  "removePermisionPrivate",
+                                                                                  Qt::QueuedConnection,
+                                                                                  Q_ARG(QByteArray,
+                                                                                        userKey));
+                                                    }
+                                                });
+                waitModel->wait(watCode);
+
+            }
+        }
+
+    };
+
+    service->setQuestion(listner, tr("Remove access"),
+                         tr("Do you want to remove access to your cards for %0 user ?").
+                         arg(permision->getInfo()));
+
+
 }
 
 void PermisionsModel::init(const QSharedPointer<Interfaces::iDB> &db, const QSharedPointer<Interfaces::iModelsStorage> &global) {

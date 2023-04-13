@@ -61,5 +61,7 @@
         <file>languages/pl.qm</file>
         <file>languages/be.qm</file>
         <file>languages/ka.qm</file>
+        <file>languages/sr.qm</file>
+        <file>languages/sr-ME.qm</file>
     </qresource>
 </RCC>

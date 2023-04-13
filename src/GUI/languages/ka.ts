@@ -74,7 +74,7 @@
         <translation>გთხოვთ აირჩიოთ ფერი</translation>
     </message>
     <message>
-        <source>Appeearance page</source>
+        <source>Appeearance</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -548,10 +548,6 @@
         <translation>* მის შესავსებად დააწკაპუნეთ ბარათზე ღილაკზე „რედაქტირება“.</translation>
     </message>
     <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help3.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>* Enter the contact and other details of your establishment. In the item &quot;Bonus name&quot; it is necessary to indicate what the client will receive in the form of a bonus (product / service / discount / etc.).</source>
         <translation>* შეიყვანეთ თქვენი დაწესებულების საკონტაქტო და სხვა დეტალები. პუნქტში „ბონუსის სახელი“ აუცილებელია მიეთითოს რას მიიღებს კლიენტი ბონუსის სახით (პროდუქტი/მომსახურება/ფასდაკლება/ა.შ.).</translation>
     </message>
@@ -562,10 +558,6 @@
     <message>
         <source>* Customize the design of the card by clicking on this element at the bottom left of the card.</source>
         <translation>* ბარათის დიზაინის მორგება ამ ელემენტზე დაწკაპუნებით ბარათის ქვედა მარცხენა მხარეს.</translation>
-    </message>
-    <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help2.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
-        <translation></translation>
     </message>
     <message>
         <source>* A menu with design settings (background and text colors, logo, as well as printing) will open</source>
@@ -665,10 +657,6 @@
     <message>
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;In order to open the QR code, click on the item in the upper left corner of the screen. </source>
         <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp; &amp; NBSP;იმისათვის, რომ გახსნათ QR კოდი, დააჭირეთ ნივთს ეკრანის ზედა მარცხენა კუთხეში. </translation>
-    </message>
-    <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help1.jpg&quot; alt=&quot;tt&quot; width=&quot;100&quot;/&gt;</source>
-        <translation></translation>
     </message>
     <message>
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;A sidebar will open at the bottom of which there will be a QR code, you can click on it to enlarge it.</source>
@@ -809,10 +797,6 @@
         <translation>ბარათის ამოღება</translation>
     </message>
     <message>
-        <source>You trying to delete this card, do not worry a seller that has give out this card save all bonuses locally,  so after repeat visit you will be get all your removed bonuses again. Do you want to continue?</source>
-        <translation>თქვენ ცდილობთ წაშალოთ ეს ბარათი, არ ინერვიულოთ, გამყიდველი, რომელმაც გასცა ეს ბარათი, დაზოგავს ყველა ბონუსს ადგილობრივად, ასე რომ, როდესაც კვლავ მოინახულებთ, კვლავ მიიღებთ ყველა წაშლილ პრემიას. გსურთ გააგრძელოთ?</translation>
-    </message>
-    <message>
         <source>Sorry but not</source>
         <translation>ვწუხვარ, მაგრამ არ არსებობს</translation>
     </message>
@@ -848,6 +832,18 @@
         <source>Wow</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>You have bonuses!!!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On the %0 card you have %2 bonus (&quot;%1&quot;)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You&apos;re trying to delete the %0 card, All your data, your purchase and available bonuses will be removed! Do you want to continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RC::NetIndicatorModel</name>
@@ -869,6 +865,14 @@
     <message>
         <source>The Selected image does not contains a valid qr code. Try again.</source>
         <translation>არჩეული სურათი არ შეიცავს მოქმედ qr კოდს. Კიდევ სცადე.</translation>
+    </message>
+    <message>
+        <source>Remove access</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do you want to remove access to your cards for %0 user ?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

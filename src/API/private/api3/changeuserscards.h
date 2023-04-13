@@ -46,6 +46,9 @@ public:
 
     void setUser(const QByteArray &newUser);
 
+    int cardVersion() const;
+    void setCardVersion(int newCardVersion);
+
 protected:
     QDataStream &fromStream(QDataStream &stream) override;
     QDataStream &toStream(QDataStream &stream) const override;
@@ -57,6 +60,7 @@ private:
     QByteArray _secret;
     QByteArray _card;
     QByteArray _user;
+    int _cardVersion = 0;
 
 
 };
