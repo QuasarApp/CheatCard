@@ -36,6 +36,7 @@
 #include <qmlnotifyservice.h>
 #include <QDir>
 #include <QGuiApplication>
+#include <QClipboard>
 #include "models/userslistmodel.h"
 #include <CheatCardGui/ibilling.h>
 #include "models/settingsmodel.h"
@@ -108,6 +109,22 @@ QObject *MainModel::getAboutModel() {
 
 QObject *MainModel::getNetIndicatorModel() const {
     return _modelStorage->getRaw<NetIndicatorModel>();
+}
+
+QString MainModel::getClipboard() const {
+    QClipboard *clipboard = QGuiApplication::clipboard();
+    if (clipboard) {
+        return clipboard->text();
+    }
+
+    return "";
+}
+
+void MainModel::toClipboard(QString txt) const {
+    QClipboard *clipboard = QGuiApplication::clipboard();
+    if (clipboard) {
+        clipboard->setText(txt);
+    }
 }
 
 bool MainModel::handleImportUser(const QString &base64UserData) {

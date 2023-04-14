@@ -89,6 +89,8 @@ public:
     Q_INVOKABLE void configureFinished();
     Q_INVOKABLE QObject *getAboutModel();
     Q_INVOKABLE QObject *getNetIndicatorModel() const;
+    Q_INVOKABLE QString getClipboard() const;
+    Q_INVOKABLE void toClipboard(QString txt) const;
 
     QObject *cardsList() const;
     QObject *defaultLogosModel() const;

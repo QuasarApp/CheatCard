@@ -1,5 +1,5 @@
 //#
-//# Copyright (C) 2018 - 2022 QuasarApp.
+//# Copyright (C) 2018 - 2023 QuasarApp.
 //# Distributed under the GPLv3 software license, see the accompanying
 //# Everyone is permitted to copy and distribute verbatim copies
 //# of this license document, but changing it is not allowed.
@@ -16,14 +16,19 @@ CPage {
 
     property int imageSize: 80
 
-    implicitHeight: listContacts.height
+    implicitHeight: listContacts.height + rootContacts.padding * 2
     toolBarTitle: qsTr("Contact with developers")
+
+    background: Rectangle {
+        color: "transparent"
+    }
 
     contentItem: Flickable {
         id: flickable
         ScrollBar.vertical: ScrollBar {}
         contentHeight: listContacts.height
         clip: true
+
 
         ColumnLayout {
             id: listContacts
