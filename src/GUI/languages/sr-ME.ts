@@ -684,6 +684,10 @@
         <source>To get a cheat card, scan the QR code and follow the link.</source>
         <translation>Da biste dobili cheat card, skenirajte QR kod.</translation>
     </message>
+    <message>
+        <source>Copied in clipboard</source>
+        <translation>Kopirano u međuspremnik</translation>
+    </message>
 </context>
 <context>
     <name>PermissionsView</name>
