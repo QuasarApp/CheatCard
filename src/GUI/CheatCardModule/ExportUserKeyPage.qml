@@ -1,4 +1,4 @@
-//# Copyright (C) 2021-2021 QuasarApp.
+//# Copyright (C) 2021-2023 QuasarApp.
 //# Distributed under the GPLv3 software license, see the accompanying
 //# Everyone is permitted to copy and distribute verbatim copies
 //# of this license document, but changing it is not allowed.
@@ -18,7 +18,7 @@ import "Style"
 CPage {
 
     id : root
-    title: qsTr("Export user account")
+    toolBarTitle: qsTr("Export user account")
     implicitHeight: 0x0
     implicitWidth: 0x0
 
@@ -81,7 +81,8 @@ CPage {
 
             onClicked: {
                 imgQr.saveImage();
-                notificationService.setNotify(qsTr("Done"), qsTr("Backup code exported successful. The Backup Code Available in your documents' folder. See <b>%0</b> path").arg(root.model.userBackUpPath()));
+                notificationService.setNotify(qsTr("Done"),
+                                              qsTr("Backup code exported successful. The Backup Code Available in your documents' folder. See <b>%0</b> path").arg(root.model.userBackUpPath()));
             }
 
         }

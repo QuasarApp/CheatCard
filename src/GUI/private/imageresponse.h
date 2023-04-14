@@ -12,6 +12,10 @@ namespace RC {
 
 class DataBase;
 
+namespace Interfaces {
+class iDB;
+}
+
 /**
  * @brief The ImageResponse class This is image promise
  */
@@ -20,7 +24,8 @@ class ImageResponse : public QQuickImageResponse {
     Q_OBJECT
     // QQuickImageResponse interface
 public:
-    ImageResponse(const QString &id, const QSize &requestedSize, DataBase * db, QThread *thread);
+    ImageResponse(const QString &id, const QSize &requestedSize,
+                  const QSharedPointer<Interfaces::iDB> &db, QThread *thread);
     ~ImageResponse();
     QQuickTextureFactory *textureFactory() const override;
     QString errorString() const override;
@@ -33,7 +38,7 @@ private:
 
     void getDefaultImage(const QString &type, QImage &result) const;
     QH::AsyncLauncher *_launcher = nullptr;
-    DataBase *_db = nullptr;
+    QSharedPointer<Interfaces::iDB> _db;
     QImage _image;
     QString error;
 

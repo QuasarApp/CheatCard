@@ -1,5 +1,5 @@
 //#
-//# Copyright (C) 2022-2022 QuasarApp.
+//# Copyright (C) 2022-2023 QuasarApp.
 //# Distributed under the GPLv3 software license, see the accompanying
 //# Everyone is permitted to copy and distribute verbatim copies
 //# of this license document, but changing it is not allowed.
@@ -15,11 +15,10 @@ import "Style"
 
 CPage {
 
-    title: qsTr("Your Workers")
+    toolBarTitle: qsTr("Your Workers")
 
     id: root
     property var model: null
-    waitModel: (model)? model.waitModel: null
 
     contentItem:
         ColumnLayout {
@@ -92,22 +91,41 @@ CPage {
                     width: list.width
                     height: implicitHeight
 
-                    UserView {
-                        id: userView
-                        Layout.alignment: Qt.AlignHCenter
-                        Layout.fillWidth: true
-                        height: implicitHeight
-                        model: userObject
-                        userDefaultAvatar: (root.model)?
-                                               root.model.userDefaultAvatar(userID):
-                                               ""
-                        fCurrent: list.model && userID === list.model.currentUserId
-                        onClick: {
-                            if (list.model) {
-                                list.model.currentUserId = userID
+                    RowLayout {
+
+                                Item {
+                                    Layout.fillWidth: true
+                                }
+
+                                Item {
+                                    id: imagePlace
+
+                                    Layout.rowSpan: 2
+                                    Layout.fillHeight: true
+                                    Layout.fillWidth: true
+
+                                    Image {
+
+                                        id: userAvatarView
+                                        asynchronous: true
+                                        fillMode: Image.PreserveAspectFit
+
+                                        source: defaultAvatar
+                                        anchors.fill: parent
+
+                                    }
+
+                                }
+
+                                Label {
+                                    id: nameEditor
+                                    text: permisionDescription
+                                }
+
+                                Item {
+                                    Layout.fillWidth: true
+                                }
                             }
-                        }
-                    }
 
                     ToolButton {
                         icon.source: "qrc:/images/private/resources/Interface_icons/Right_topmenu.svg"
@@ -116,10 +134,8 @@ CPage {
                         font.pointSize: 14
 
                         onClicked: () => {
-                                       if (userObject) {
-                                           workerName.text = userObject.name
-                                       }
-                                       enternameDalog.currentRow = rowNumber
+                                       workerName.text = permisionDescription
+                                       enternameDalog.editableKey = permisionKey
                                        enternameDalog.open()
                                    }
                     }
@@ -131,7 +147,7 @@ CPage {
                         font.pointSize: 14
 
                         onClicked: () => {
-                                        list.model.removePermision(rowNumber)
+                                       list.model.removePermision(permisionKey)
                                    }
                     }
                 }
@@ -212,7 +228,7 @@ CPage {
     Dialog {
         id: enternameDalog
 
-        property int currentRow: 0
+        property var editableKey: null
 
         x: parent.width / 2 - enternameDalog.width / 2
         y: parent.height / 2 - enternameDalog.height / 2
@@ -222,7 +238,7 @@ CPage {
 
         onAccepted: {
             if (root.model) {
-                root.model.setNewDescription(currentRow, workerName.text);
+                root.model.setNewDescription(editableKey, workerName.text);
             }
 
         }

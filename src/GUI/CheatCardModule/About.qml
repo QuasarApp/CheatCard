@@ -1,5 +1,5 @@
 //#
-//# Copyright (C) 2018 - 2021 QuasarApp.
+//# Copyright (C) 2018 - 2023 QuasarApp.
 //# Distributed under the GPLv3 software license, see the accompanying
 //# Everyone is permitted to copy and distribute verbatim copies
 //# of this license document, but changing it is not allowed.
@@ -14,6 +14,8 @@ import QuasarAppCreditsModule 1.0
 
 Credits {
     property var model: null
+    property string toolBarTitle: qsTr("About application")
+
     state: "about"
     iconWidth: 150
     iconLogo: "qrc:/images/private/resources/Logo/CheatCard_Logo1.png"

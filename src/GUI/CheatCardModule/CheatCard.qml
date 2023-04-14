@@ -1,5 +1,5 @@
 //#
-//# Copyright (C) 2021-2021 QuasarApp.
+//# Copyright (C) 2021-2023 QuasarApp.
 //# Distributed under the GPLv3 software license, see the accompanying
 //# Everyone is permitted to copy and distribute verbatim copies
 //# of this license document, but changing it is not allowed.
@@ -21,8 +21,8 @@ ApplicationWindow {
     font.pointSize: 13
 
     //  Vertical mode
-    height: 640
-    width: 350
+    height: 800
+    width: 600
 
     SettingsKeys {
         id: settingsKeys
@@ -42,7 +42,9 @@ ApplicationWindow {
     }
 
     property var model: mainModel
-    property var user: (mainModel)? mainModel.currentUser: null
+    property var user: (model && model.usersListModel)?
+                           model.usersListModel.currentUserModel: null
+
     Material.primary: config.getStrValue(settingsKeys.COLOR_THEME)
     Material.accent: Material.primary
     Material.theme: (config.getValue(settingsKeys.DARK_THEME))? Material.Dark : Material.Light
@@ -110,10 +112,7 @@ ApplicationWindow {
             }
 
             Label {
-                text: (user)?
-                          qsTr("Hello ") + user.name +
-                          ((mainModel && mainModel.mode)? qsTr(" (work mode)"):"")
-                        : ""
+                text: activityProcessor.cuurentActivityTitle
 
                 font.pointSize: 14
                 elide: Label.ElideRight
@@ -218,7 +217,7 @@ ApplicationWindow {
             icon.source: "qrc:/images/private/resources/Interface_icons/key_push.svg"
             onClicked:  () => {
                             activityProcessor.newActivity("qrc:/CheatCardModule/ExportUserKeyPage.qml",
-                                                          mainModel.currentUser);
+                                                          user);
                         }
         }
     }
@@ -231,6 +230,7 @@ ApplicationWindow {
         initialItem: MainActivity {
             id: mainActivity
             model: mainModel
+            user: mainWindow.user
         }
     }
 
@@ -273,13 +273,6 @@ ApplicationWindow {
         id: userPanel
         y: header.height
         height: mainWindow.height - toolBar.height
-        property int isOpen: position
-        onIsOpenChanged: {
-            if (mainModel && !isOpen) {
-                mainModel.handleFirstDataSendet();
-            }
-        }
-
         contentItem: EditUserView {
             model: mainModel
             maximuWidth:  mainWindow.width - leftPadding - rightPadding
@@ -288,6 +281,10 @@ ApplicationWindow {
 
     NotificationServiceView {
         anchors.fill: parent;
+    }
+
+    WaitView {
+        model: mainModel.waitModel
     }
 
     Item {

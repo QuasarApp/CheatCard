@@ -1,5 +1,5 @@
 //#
-//# Copyright (C) 2021 - 2021 QuasarApp.
+//# Copyright (C) 2021 - 2023 QuasarApp.
 //# Distributed under the lgplv3 software license, see the accompanying
 //# Everyone is permitted to copy and distribute verbatim copies
 //# of this license document, but changing it is not allowed.
@@ -13,10 +13,11 @@ import QtMultimedia 5.15
 
 import QtQuick.Controls.Material 2.15
 
+import "Style"
 
-Page {
+CPage {
     id: rootSettins
-
+    toolBarTitle: qsTr("Settings")
     contentItem: Flickable {
         id: flickable
         ScrollBar.vertical: ScrollBar {}
@@ -131,7 +132,7 @@ Page {
                             id: colorPick
                             currentlyColor: Material.primary
                             implicitHeight: 0x0
-                            title: qsTr("Please choose a color")
+                            toolBarTitle: qsTr("Please choose a color")
 
                             footer: DialogButtonBox {
                                 onAccepted: () => {
@@ -324,24 +325,6 @@ Page {
                         font.bold: true
 
                         Layout.fillWidth: true
-                    }
-
-                    Button {
-                        text: qsTr("Check database location")
-                        Layout.fillWidth: true
-
-                        onClicked: {
-                            config.showDataBaseLocation();
-                        }
-                    }
-
-                    Button {
-                        text: qsTr("Export a database")
-                        Layout.fillWidth: true
-
-                        onClicked: {
-                            config.exportDataBase();
-                        }
                     }
 
                     Button {

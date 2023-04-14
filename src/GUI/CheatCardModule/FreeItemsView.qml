@@ -1,5 +1,5 @@
 //#
-//# Copyright (C) 2021-2021 QuasarApp.
+//# Copyright (C) 2021-2023 QuasarApp.
 //# Distributed under the GPLv3 software license, see the accompanying
 //# Everyone is permitted to copy and distribute verbatim copies
 //# of this license document, but changing it is not allowed.
@@ -15,7 +15,7 @@ import QtGraphicalEffects 1.15
 Frame {
     id: root
     property int freeItems: 0
-    property int userId: 0
+    property var userId: null
     property bool fSeller: (mainModel)? mainModel.mode: false
     implicitHeight: 0x0
     property var model: null
@@ -57,7 +57,7 @@ Frame {
             property int h: Math.min(root.width, root.height) * 0.5
 
             source: "image://cards/seal:" +
-                    ((root.model)? root.model.id : "0")
+                    ((root.model)? root.model.idbase64 : "0")
 
             opacity: 0
 
@@ -147,7 +147,7 @@ Frame {
 
                 onClicked: ()=> {
                                if (mainModel && model) {
-                                    mainModel.handleBonusGivOut(userId, model.id, giveFreeItems.value);
+                                    mainModel.handleBonusGivOut(userId, model.idRaw, giveFreeItems.value);
                                     enabled = false
                                     activityProcessor.popItem();
                                }

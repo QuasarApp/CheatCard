@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/DataBase">
+        <file>private/sql/SQLPatch_6.sql</file>
+        <file>private/sql/SQLPatch_7.sql</file>
+        <file>private/sql/SQLPatch_7_2.sql</file>
+    </qresource>
+</RCC>

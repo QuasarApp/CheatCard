@@ -1,5 +1,5 @@
 //#
-//# Copyright (C) 2021-2021 QuasarApp.
+//# Copyright (C) 2021-2023 QuasarApp.
 //# Distributed under the GPLv3 software license, see the accompanying
 //# Everyone is permitted to copy and distribute verbatim copies
 //# of this license document, but changing it is not allowed.
@@ -37,7 +37,7 @@ CPage {
                 implicitWidth: 0x0
 
                 id: selectTypePage
-                title: qsTr("Who are you?");
+                toolBarTitle: qsTr("Who are you?");
 
                 contentItem: Item {
                     ButtonGroup {
@@ -106,7 +106,7 @@ CPage {
 
                 focus: true
 
-                title: (!fSaller.checked)? qsTr("What is your name?") :
+                toolBarTitle: (!fSaller.checked)? qsTr("What is your name?") :
                                            qsTr("What is the name of your company?");
 
                 contentItem: Item {
@@ -142,7 +142,7 @@ CPage {
             }
 
             AppearanceCustomPage {
-                title: qsTr("Customize the appearance of your application.")
+                toolBarTitle: qsTr("Customize the appearance of your application.")
             }
 
             RegistrationFinishedPage {
@@ -151,7 +151,7 @@ CPage {
                                 if (!root.model)
                                     return;
 
-                                const object = root.model.currentUser;
+                                const object = root.model.usersListModel.currentUserModel;
 
                                 object.name = name.text;
 
@@ -164,7 +164,7 @@ CPage {
 
                                 if (backUp) {
                                     activityProcessor.newActivity("qrc:/CheatCardModule/ExportUserKeyPage.qml",
-                                                                  mainModel.currentUser);
+                                                                  object);
 
                                 }
 

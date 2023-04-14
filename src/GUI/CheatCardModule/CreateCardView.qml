@@ -3,10 +3,12 @@ import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
 
+import "Style"
 
-Page {
+CPage {
     id: root;
     property var model: null
+    toolBarTitle: qsTr("Create new card")
 
     Connections {
         target: model

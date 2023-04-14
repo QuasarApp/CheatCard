@@ -1,16 +1,18 @@
 #include "imageresponse.h"
-#include "CheatCard/database.h"
-#include "getsinglevalue.h"
+#include "params.h"
 
 #include <asynclauncher.h>
 #include <thread>
 #include <chrono>
+#include <QSharedPointer>
+
+#include <rci/core/idb.h>
 
 namespace RC {
 
 
 ImageResponse::ImageResponse(const QString &id, const QSize &requestedSize,
-                             DataBase *db, QThread *thread):
+                             const QSharedPointer<Interfaces::iDB> &db, QThread *thread):
     QQuickImageResponse() {
 
     _db = db;
@@ -58,16 +60,18 @@ QImage ImageResponse::prepareImage(const QString &id, const QSize &size) {
     }
 
     if (_db) {
-        unsigned int id = request.value(1).toUInt();
-        QH::PKG::GetSingleValue request(QH::DbAddress("cards", id), type);
-        auto dbObj = _db->db()->getObject(request);
+        QByteArray rawid = QByteArray::fromBase64(request.value(1).toLatin1());
+        auto dbObj = _db->getCardField(rawid, type);
 
-        if (!dbObj || dbObj->value().isNull()) {
+        if (dbObj.isNull()) {
+            QuasarAppUtils::Params::log("Image provider can't find image,"
+                                        " and use default image. Request: " + id,
+                                        QuasarAppUtils::Debug);
             getDefaultImage(type, result);
             return result;
         }
 
-        auto array = dbObj->value().toByteArray();
+        auto array = dbObj.toByteArray();
 
         if (array.size()) {
             result.loadFromData(array, "PNG");

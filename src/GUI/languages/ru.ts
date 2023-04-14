@@ -15,6 +15,10 @@
         <source>Developed by Quasar App Core team</source>
         <translation>Разработано командой Quasar App Core</translation>
     </message>
+    <message>
+        <source>About application</source>
+        <translation>О приложении</translation>
+    </message>
 </context>
 <context>
     <name>AdditionalInformationForSeller</name>
@@ -46,6 +50,10 @@
         <source>Watch help video</source>
         <translation>Посмотреть справочное видео</translation>
     </message>
+    <message>
+        <source>Additional information</source>
+        <translation>Дополнительная информация</translation>
+    </message>
 </context>
 <context>
     <name>AppearanceCustomPage</name>
@@ -65,12 +73,9 @@
         <source>Please choose a color</source>
         <translation>Пожалуйста, выберите цвет</translation>
     </message>
-</context>
-<context>
-    <name>CPage</name>
     <message>
-        <source>Please wait for response from server</source>
-        <translation>Пожалуйста, дождитесь ответа от сервера</translation>
+        <source>Appeearance</source>
+        <translation>Внешний вид</translation>
     </message>
 </context>
 <context>
@@ -111,10 +116,6 @@
 <context>
     <name>CheatCard</name>
     <message>
-        <source>Hello </source>
-        <translation>Приветствуем </translation>
-    </message>
-    <message>
         <source>Contact with developers</source>
         <translation>Связаться с нами</translation>
     </message>
@@ -135,10 +136,6 @@
         <translation>Поделиться</translation>
     </message>
     <message>
-        <source> (work mode)</source>
-        <translation> (Рабочий режим)</translation>
-    </message>
-    <message>
         <source>Create a card</source>
         <translation>Создать карту</translation>
     </message>
@@ -157,13 +154,17 @@
         <source>Random collor</source>
         <translation>Случайный цвет</translation>
     </message>
+    <message>
+        <source>Color values</source>
+        <translation>Насыщенность цвета</translation>
+    </message>
+    <message>
+        <source>#HTML</source>
+        <translation></translation>
+    </message>
 </context>
 <context>
     <name>Contacts</name>
-    <message>
-        <source>Go to our site. There you will get extended information about the CheatCard application and will be able to contact the developers.</source>
-        <translation>Переходите на наш сайт. Там вы получите расширенную информацию о приложении CheatCard и сможете связаться с разработчиками.</translation>
-    </message>
     <message>
         <source>Join to our telegram channel to get support and see the last changes.</source>
         <translation>Присоединяйтесь к нашему каналу Telegram, чтобы получить поддержку и увидеть последние изменения.</translation>
@@ -171,6 +172,21 @@
     <message>
         <source>Join to our Instagram channel to get support and see the last changes.</source>
         <translation>Присоединяйтесь к нашему каналу Instagram, чтобы получить поддержку и увидеть последние изменения.</translation>
+    </message>
+    <message>
+        <source>Go to discussions. There you will get extended help.</source>
+        <translation>Перейти к обсуждениям. Там вы получите расширенную помощь.</translation>
+    </message>
+    <message>
+        <source>Contact with developers</source>
+        <translation>Связаться с нами</translation>
+    </message>
+</context>
+<context>
+    <name>CreateCardView</name>
+    <message>
+        <source>Create new card</source>
+        <translation>Создать карту</translation>
     </message>
 </context>
 <context>
@@ -444,11 +460,22 @@
     </message>
 </context>
 <context>
-    <name>ItemsView</name>
+    <name>IncomeView</name>
     <message>
-        <source>Add</source>
-        <translation>Добавить</translation>
+        <source>Select the number of purchases that the customer has made.</source>
+        <translation>Выберите количество покупок, которые совершил клиент.</translation>
     </message>
+    <message>
+        <source>Seal</source>
+        <translation>Поставить штамп</translation>
+    </message>
+    <message>
+        <source>Check</source>
+        <translation>Проверить</translation>
+    </message>
+</context>
+<context>
+    <name>ItemsView</name>
     <message>
         <source>Images</source>
         <translation>Изображения</translation>
@@ -457,12 +484,28 @@
         <source>Do you want to put your picture? You can choose but the picture must be in png format!</source>
         <translation>Хотите разместить свою картинку? Вы можете выбрать, но картинка должна быть в формате png!</translation>
     </message>
+    <message>
+        <source>Gallery</source>
+        <translation>Галлерея</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>Сбросить</translation>
+    </message>
 </context>
 <context>
     <name>MainActivity</name>
     <message>
         <source>Search a card</source>
         <translation>Поиск карты</translation>
+    </message>
+    <message>
+        <source>Hello </source>
+        <translation>Привет </translation>
+    </message>
+    <message>
+        <source> (work mode)</source>
+        <translation> (Рабочий режим)</translation>
     </message>
 </context>
 <context>
@@ -486,14 +529,6 @@
     <message>
         <source>### How to use?</source>
         <translation>### Как использовать?</translation>
-    </message>
-    <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help3.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help2.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
-        <translation></translation>
     </message>
     <message>
         <source>### Create a card for your establishment</source>
@@ -587,6 +622,10 @@
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**IMPORTANT:** After you put at least one seal to the customer, the card cannot be edited. Instead, you can create a new map based on the old one. All customer data and their statistics will be automatically transferred to the corrected card.</source>
         <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**ВАЖНО:** После того, как вы поставили покупателю хотя бы одну печать, карточку нельзя редактировать. Вместо этого вы можете создать новую карту на основе старой. Все данные клиентов и их статистика будут автоматически перенесены на исправленную карту.</translation>
     </message>
+    <message>
+        <source>Help page</source>
+        <translation>Помощь</translation>
+    </message>
 </context>
 <context>
     <name>PageHelpVisitor</name>
@@ -631,12 +670,12 @@
         <translation>### Как использовать?</translation>
     </message>
     <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help1.jpg&quot; alt=&quot;tt&quot; width=&quot;100&quot;/&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>* Receive seal to card.</source>
         <translation>* Получите печать на карту.</translation>
+    </message>
+    <message>
+        <source>Help page</source>
+        <translation>Помощь</translation>
     </message>
 </context>
 <context>
@@ -644,6 +683,14 @@
     <message>
         <source>To get a cheat card, scan the QR code and follow the link.</source>
         <translation>Что бы получить Чит карту, просканируйте QR код.</translation>
+    </message>
+    <message>
+        <source>Share Application</source>
+        <translation>Поделится приложением</translation>
+    </message>
+    <message>
+        <source>Copied in clipboard</source>
+        <translation>Скопировано в буфер обмена</translation>
     </message>
 </context>
 <context>
@@ -733,10 +780,6 @@
         <translation>Прости, но нет</translation>
     </message>
     <message>
-        <source>Wow shit</source>
-        <translation>Воу чё за хрень</translation>
-    </message>
-    <message>
         <source>This qr code is invalid. Sorry... </source>
         <translation>Этот qr-код недействителен. Сорян... </translation>
     </message>
@@ -749,10 +792,6 @@
         <translation>Ваш секретный ключ импортирован</translation>
     </message>
     <message>
-        <source>Yor secret key and public key is not pair May be you scan not valid qr code ...</source>
-        <translation>Ваш секретный ключ и открытый ключ не совпадают. Возможно, вы отсканировали неверный qr-код ...</translation>
-    </message>
-    <message>
         <source>Operation not permitted</source>
         <translation>Операция не разрешена</translation>
     </message>
@@ -761,16 +800,8 @@
         <translation>Удалить карту</translation>
     </message>
     <message>
-        <source>You trying to delete this card, do not worry a seller that has give out this card save all bonuses locally,  so after repeat visit you will be get all your removed bonuses again. Do you want to continue?</source>
-        <translation>Вы пытаетесь удалить эту карту, не беспокойтесь, продавец, который выдал эту карту, сохранит все бонусы локально, поэтому после повторного посещения вы снова получите все ваши удаленные бонусы. Вы хотите продолжить?</translation>
-    </message>
-    <message>
         <source>The card reset to default successful but load default card from server failed, so you receive your card after new purchase in institution that has give out this card.</source>
         <translation>Сброс карты на значение по умолчанию выполнен успешно, но загрузить карту по умолчанию с сервера не удалось, поэтому вы получите карту после новой покупки в учреждении, выдавшем эту карту.</translation>
-    </message>
-    <message>
-        <source>We Have trouble</source>
-        <translation>У нас проблемы</translation>
     </message>
     <message>
         <source> You&apos;re trying to change the bonus rules. These changes will be saved as a new card. The old card continues to work correctly and all customers data will be saved. Do you want to continue?</source>
@@ -789,16 +820,36 @@
         <translation>Этот клиент не имеет никаких бонусов. сорян... </translation>
     </message>
     <message>
-        <source>Failed to sync data with server. Please check your internet connection and try to restore your data again</source>
-        <translation>Не удалось синхронизировать данные с сервером. Проверьте подключение к Интернету и попробуйте снова восстановить данные</translation>
-    </message>
-    <message>
         <source>We Have trouble: trouble code is %0</source>
         <translation>У нас проблема: код неисправности %0</translation>
     </message>
     <message>
         <source>Server sent the error message. Message: &quot;%0.&quot;  Sorry ;)</source>
         <translation>Сервер отправил сообщение об ошибке. Сообщение: &quot;%0&quot;. Извините ;)</translation>
+    </message>
+    <message>
+        <source>Your reserve QR code is deprecated</source>
+        <translation>Ваш резервный QR-код устарел</translation>
+    </message>
+    <message>
+        <source>It is still works, but in the next releases the support of this qr code will be dropped. Please. Create the new recovery Qr code.</source>
+        <translation>Он все еще работает, но в следующих версиях поддержка этого qr-кода будет прекращена. Пожалуйста. Создайте новый Qr-код восстановления.</translation>
+    </message>
+    <message>
+        <source>Wow</source>
+        <translation>Ого</translation>
+    </message>
+    <message>
+        <source>You have bonuses!!!</source>
+        <translation>У вас есть бонусы!!!</translation>
+    </message>
+    <message>
+        <source>On the %0 card you have %2 bonus (&quot;%1&quot;)</source>
+        <translation>На карте %0 у вас есть бонус %2 (&quot;%1&quot;)</translation>
+    </message>
+    <message>
+        <source>You&apos;re trying to delete the %0 card, All your data, your purchase and available bonuses will be removed! Do you want to continue?</source>
+        <translation>Вы пытаетесь удалить карту %0. Все ваши данные, ваша покупка и доступные бонусы будут удалены! Вы хотите продолжать?</translation>
     </message>
 </context>
 <context>
@@ -815,24 +866,20 @@
 <context>
     <name>RC::PermisionsModel</name>
     <message>
-        <source>Remove access for %0 </source>
-        <translation>Удалить доступ для %0 </translation>
-    </message>
-    <message>
-        <source>If You remove access for the %0 user, he cannot be use your cards anymore.</source>
-        <translation>Если Вы отключите доступ для пользователя %0, он больше не сможет пользоваться вашими картами.</translation>
-    </message>
-    <message>
-        <source> Do you want to continue?</source>
-        <translation> Вы хотите продолжить?</translation>
-    </message>
-    <message>
         <source>Oops</source>
         <translation>Упс</translation>
     </message>
     <message>
         <source>The Selected image does not contains a valid qr code. Try again.</source>
         <translation>Выбранное изображение не содержит действительного qr-кода. Попробуйте еще раз.</translation>
+    </message>
+    <message>
+        <source>Remove access</source>
+        <translation>Удалить доступ</translation>
+    </message>
+    <message>
+        <source>Do you want to remove access to your cards for %0 user ?</source>
+        <translation>Вы хотите закрыть доступ к своим картам для пользователя %0?</translation>
     </message>
 </context>
 <context>
@@ -861,10 +908,6 @@
         <translation>Последний визит</translation>
     </message>
     <message>
-        <source>Id</source>
-        <translation>Id</translation>
-    </message>
-    <message>
         <source>Purchases</source>
         <translation>Покупки</translation>
     </message>
@@ -887,29 +930,6 @@
     <message>
         <source>Passive</source>
         <translation>Пассивный</translation>
-    </message>
-</context>
-<context>
-    <name>RC::SettingsModel</name>
-    <message>
-        <source>Database location</source>
-        <translation>Расположение базы данных</translation>
-    </message>
-    <message>
-        <source>Failed to export database</source>
-        <translation>Не удалось экспортировать базу данных</translation>
-    </message>
-    <message>
-        <source>From %0 to %1</source>
-        <translation>Из %0 в %1</translation>
-    </message>
-    <message>
-        <source>Export the database finished successful</source>
-        <translation>Экспорт базы данных завершен успешно</translation>
-    </message>
-    <message>
-        <source>Internal access error with %0</source>
-        <translation>Внутренняя ошибка доступа с %0</translation>
     </message>
 </context>
 <context>
@@ -937,17 +957,6 @@
     <message>
         <source>Hmm, maybe you have a super slow internet connection... Try again</source>
         <translation>Хм, возможно, у вас очень медленное интернет-соединение... Попробуйте еще раз</translation>
-    </message>
-</context>
-<context>
-    <name>RC::WaitConnectionModel</name>
-    <message>
-        <source>We Have trouble</source>
-        <translation>У нас проблемы</translation>
-    </message>
-    <message>
-        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
-        <translation>Не удалось выдать бонус или штамп. Возможно, ваши локальные данные устарели, мы уже обновляем ваши локальные данные. Пожалуйста, попробуйте еще раз оформить бонус или штамп.</translation>
     </message>
 </context>
 <context>
@@ -1031,14 +1040,6 @@
         <translation>Темная тема</translation>
     </message>
     <message>
-        <source>Check database location</source>
-        <translation>Узнать расположение базы данных</translation>
-    </message>
-    <message>
-        <source>Export a database</source>
-        <translation>Экспорт базы данных</translation>
-    </message>
-    <message>
         <source>Diagnostic the application</source>
         <translation>Диагностика приложения</translation>
     </message>
@@ -1049,6 +1050,10 @@
     <message>
         <source>Work rules</source>
         <translation>Правила работы</translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation>Настройки</translation>
     </message>
 </context>
 <context>
@@ -1069,12 +1074,8 @@
 <context>
     <name>UserView</name>
     <message>
-        <source>Id:</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Name:</source>
-        <translation>Имя:</translation>
+        <source>User</source>
+        <translation>Пользователь</translation>
     </message>
 </context>
 <context>
@@ -1085,18 +1086,10 @@
     </message>
 </context>
 <context>
-    <name>WaitConnectView</name>
+    <name>WaitView</name>
     <message>
-        <source>Seal</source>
-        <translation>Печать</translation>
-    </message>
-    <message>
-        <source>Check</source>
-        <translation>Проверить</translation>
-    </message>
-    <message>
-        <source>Select the number of purchases that the customer has made.</source>
-        <translation>Выберите количество покупок, которые совершил клиент.</translation>
+        <source>Please wait for response from server</source>
+        <translation>Пожалуйста, дождитесь ответа от сервера</translation>
     </message>
 </context>
 </TS>

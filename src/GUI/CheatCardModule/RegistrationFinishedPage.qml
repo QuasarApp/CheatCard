@@ -9,7 +9,7 @@ CPage {
 
     signal finished(var backupData);
 
-    title: qsTr("Done!")
+    toolBarTitle: qsTr("Done!")
 
     contentItem: Item {
 

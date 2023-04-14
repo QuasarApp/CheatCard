@@ -1,15 +1,13 @@
 #include "securitytest.h"
 
-#include "testserver.h"
-#include <testseller.h>
-#include <testvisitor.h>
-#include "cheatcardtestshelper.h"
-#include <CheatCard/api/apiv1-5.h>
-#include <CheatCard/api/api0/userheader.h>
-#include <CheatCard/api/api0/user.h>
-#include <CheatCard/api/api0/card.h>
+#include "qtestcase.h"
+#include "testclient.h"
+#include "testutils.h"
 
-#define TEST_CHEAT_PORT 15001
+#include "cheatcardtestshelper.h"
+
+
+#define TEST_CHEAT_PORT 15004
 #define TEST_CHEAT_HOST "localhost"
 
 SecurityTest::SecurityTest() {
@@ -21,63 +19,46 @@ SecurityTest::~SecurityTest() {
 }
 
 void SecurityTest::test() {
-    QSharedPointer<TestSeller> seller;
-    QSharedPointer<TestVisitor> client;
-    QSharedPointer<TestServer> server;
+    auto network = CheatCardTestsHelper::deployNetwork(TEST_CHEAT_HOST, TEST_CHEAT_PORT, 4);
+    QVERIFY(network.clients.count() == 4);
 
-    qDebug() << "TEST API V1";
+    auto seller = *network.clients.begin();
+    auto card = CheatCardTestsHelper::makeCard(seller, 10);
 
-    seller = CheatCardTestsHelper::makeNode<TestSeller>();
+    auto client = *std::next(network.clients.begin());
+    auto badseller = *std::next(network.clients.begin(), 2);
+    auto childSeller = *std::next(network.clients.begin(), 3);
 
-    client = CheatCardTestsHelper::makeNode<TestVisitor>();
+    // all nodes should be know about clinet all
+    badseller->subscribeToUser(client->currntUserKey());
+    childSeller->subscribeToUser(client->currntUserKey());
 
-    server = CheatCardTestsHelper::makeNode<TestServer>();
-    seller->setCurrentUser(seller->getUser(CheatCardTestsHelper::testUserId()));
+    CheatCardTestsHelper::makeSealsFor(seller, client->currntUserKey(), card->cardId(), 30);
 
-    seller->addApiParser<RC::ApiV1_5>();
-    client->addApiParser<RC::ApiV1_5>();
-    server->addApiParser<RC::ApiV1_5>();
-    server->addApiParser<RC::ApiV1_5>();
-
-    secureTest(seller, client, server);
-
-}
-
-void SecurityTest::secureTest(const QSharedPointer<TestSeller> &seller,
-                              const QSharedPointer<TestVisitor> &client,
-                              const QSharedPointer<TestServer> &server) {
-
-    // random session
-    long long session = rand() * rand();
-
-    // run server
-    QVERIFY(server->run(TEST_CHEAT_HOST, TEST_CHEAT_PORT));
-
-    auto user = CheatCardTestsHelper::makeUser();
-    auto obj = QSharedPointer<RC::API::UserHeader>::create();
-
-    obj->setSessionId(session);
-    obj->setToken(user->getKey());
-    obj->setUserId(user->userId());
-
-    // 3619648333 This is card id from test database.
-    unsigned int cardId = CheatCardTestsHelper::testCardId();
-
-    addSeal(seller, client, server, user, cardId, 1, obj, TEST_CHEAT_HOST, TEST_CHEAT_PORT);
-
-    // make another sellre with some card.
-    auto seller2 = CheatCardTestsHelper::makeNode<TestSeller>();
-    auto newSellerUser = CheatCardTestsHelper::makeUser();
-    seller2->setCurrentUser(newSellerUser);
-    seller2->addApiParser<RC::ApiV1_5>();
-
-
-    obj->setSessionId(rand() * rand());
-    QVERIFY(seller2->incrementPurchase(obj, cardId, 10, TEST_CHEAT_HOST, TEST_CHEAT_PORT));
-
-    QVERIFY(wait([seller2]() {
-        // 1 - worong command
-        return seller2->getLastErrrorCode() == 1;
+    seller->incrementReceived(client->currntUserKey(), card->cardId(), 2);
+    QVERIFY(TestUtils::wait([client, card]() {
+        return client->getFreeItemsCount(client->currntUserKey(), card->cardId()) == 1;
     }, WAIT_TIME));
 
+
+    CheatCardTestsHelper::checkAccess(seller, network.server, client->currntUserKey(), card->cardId(), true);
+    CheatCardTestsHelper::checkAccess(badseller, network.server, client->currntUserKey(), card->cardId(), false);
+    CheatCardTestsHelper::checkAccess(childSeller, network.server, client->currntUserKey(), card->cardId(), false);
+
+    QVERIFY(seller->grantAccess(seller->getCurrentUser(), childSeller->currntUserKey()));
+    QVERIFY(TestUtils::wait([seller, childSeller]() {
+        return childSeller->getContact(seller->currntUserKey(), childSeller->currntUserKey());
+    }, WAIT_TIME));
+
+
+    CheatCardTestsHelper::checkAccess(childSeller, network.server, client->currntUserKey(), card->cardId(), true);
+
+    QVERIFY(seller->dropAccess(seller->getCurrentUser(), childSeller->currntUserKey()));
+    QVERIFY(TestUtils::wait([seller, childSeller]() {
+        return !childSeller->getContact(seller->currntUserKey(), childSeller->currntUserKey());
+    }, WAIT_TIME));
+
+    CheatCardTestsHelper::checkAccess(childSeller, network.server, client->currntUserKey(), card->cardId(), false);
+
+    QVERIFY(client->getPurchaseCount(client->currntUserKey(), card->cardId()) == 32);
 }

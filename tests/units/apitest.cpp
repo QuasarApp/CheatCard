@@ -1,10 +1,10 @@
 #include "apitest.h"
-#include "testserver.h"
+#include "testclient.h"
+#include "testutils.h"
 #include "cheatcardtestshelper.h"
 
-#include <CheatCard/api/apiv1-5.h>
-#include <CheatCard/api/api1-5/deletecardrequest.h>
-#include <CheatCard/api/api0/user.h>
+#define TEST_CHEAT_PORT 15005
+#define TEST_CHEAT_HOST "localhost"
 
 template<class Base>
 class ApiTester: public Base {
@@ -18,40 +18,20 @@ APITest::APITest() {
 }
 
 void APITest::test() {
-    testProcessDeleteCardRequest();
+    auto network = CheatCardTestsHelper::deployNetwork(TEST_CHEAT_HOST, TEST_CHEAT_PORT);
+    QVERIFY(network.clients.count() == 2);
+
+    auto card = CheatCardTestsHelper::makeCard(network.clients.begin().value(), 10);
+    auto seller = *network.clients.begin();
+    auto client = *std::next(network.clients.begin());
+
+    CheatCardTestsHelper::makeSeals(seller, client, card->cardId(), 30);
+
+    seller->incrementReceived(client->currntUserKey(), card->cardId(), 2);
+    QVERIFY(TestUtils::wait([client, card]() {
+        return client->getFreeItemsCount(client->currntUserKey(), card->cardId()) == 1;
+    }, WAIT_TIME));
 }
 
-void APITest::testProcessDeleteCardRequest() {
-    auto server = CheatCardTestsHelper::makeNode<TestServer>(":/sql/units/sql/TestSallerDb.sql", true);
-    server->addApiParser<ApiTester<RC::ApiV1_5>>();
-
-    // api parser 1.5
-    auto api = server->apiParsers().value(2).dynamicCast<ApiTester<RC::ApiV1_5>>();
-    QVERIFY(api);
-
-    auto request =  QSharedPointer<RC::APIv1_5::DeleteCardRequest>::create();
-    request->setSecret("random");
-    request->setCard(1990574875);
-
-    // try remove card with invalid secreet. must be failed
-    QVERIFY(!api->processDeleteCardRequest(request, nullptr, {}));
-
-    auto user = server->getUser(2936319662);
-    QVERIFY(user);
-    request->setSecret(user->secret());
-
-    QVERIFY(server->getCard(1990574875));
-    auto dataList = server->getAllUserCardsData(user->getKey(), {});
-    QVERIFY(dataList.size() == 2);
-
-    // try remove card with correct secreet. must be failed
-    QVERIFY(api->processDeleteCardRequest(request, nullptr, {}));
-
-    QVERIFY(!server->getCard(1990574875));
-    QVERIFY(server->getAllUserCardsData(user->getKey(), {}).size() == 1);
-
-    QVERIFY(server->getCard(1990574874));
-
-}
 
 

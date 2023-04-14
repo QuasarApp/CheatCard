@@ -13,7 +13,7 @@
         <file>CheatCardModule/EditUserView.qml</file>
         <file>qtquickcontrols2.conf</file>
         <file>CheatCardModule/ItemsView.qml</file>
-        <file>CheatCardModule/WaitConnectView.qml</file>
+        <file>CheatCardModule/IncomeView.qml</file>
         <file>CheatCardModule/FreeItemsView.qml</file>
         <file>CheatCardModule/MainActivity.qml</file>
         <file>CheatCardModule/QrScanner.qml</file>
@@ -52,6 +52,7 @@
         <file>CheatCardModule/UsersListView.qml</file>
         <file>CheatCardModule/UserView.qml</file>
         <file>CheatCardModule/PermissionsView.qml</file>
+        <file>CheatCardModule/WaitView.qml</file>
     </qresource>
     <qresource prefix="/CheatCardTr">
         <file>languages/en.qm</file>
@@ -60,6 +61,7 @@
         <file>languages/pl.qm</file>
         <file>languages/be.qm</file>
         <file>languages/ka.qm</file>
-
+        <file>languages/sr.qm</file>
+        <file>languages/sr-ME.qm</file>
     </qresource>
 </RCC>

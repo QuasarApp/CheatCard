@@ -1,0 +1,22 @@
+{
+    "bin": [
+        "src/App/CheatCard",
+        "src/App/CheatCard.exe"
+        ],
+    "clear": false,
+    "libDir": "@CMAKE_SOURCE_DIR@",
+    "name": "CheatCard",
+    "recursiveDepth": "10",
+    "deploySystem": false,
+    "qmlDir": "@CMAKE_SOURCE_DIR@/src",
+    "ignoreEnv": [
+        "@CMAKE_SOURCE_DIR@/Distro"
+        ],
+    "extraLib": "crypto",
+    "targetDir": "@CMAKE_SOURCE_DIR@/Distro",
+    "deployVersion": "@CHEAT_CARD_VERSION@",
+    "qif": true,
+    "zip": true,
+    "deb": true
+}
+

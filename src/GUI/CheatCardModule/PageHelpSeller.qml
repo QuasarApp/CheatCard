@@ -1,5 +1,5 @@
 //#
-//# Copyright (C) 2018 - 2021 QuasarApp.
+//# Copyright (C) 2018 - 2023 QuasarApp.
 //# Distributed under the GPLv3 software license, see the accompanying
 //# Everyone is permitted to copy and distribute verbatim copies
 //# of this license document, but changing it is not allowed.
@@ -14,6 +14,7 @@ import QuasarAppCreditsModule 1.0
 
 Credits {
     state: "about"
+    property string toolBarTitle: qsTr("Help page")
     iconWidth: 150
     listCustomInfo: [
         {
@@ -57,7 +58,7 @@ Credits {
             align: Label.AlignLeft
         },
         {
-            text: qsTr("<img src=\"qrc:/private/resources/help/Help3.jpg\" alt=\"tt\" width=\"300\"/>"),
+            text: ("<img src=\"qrc:/private/resources/help/Help3.jpg\" alt=\"tt\" width=\"300\"/>"),
             align: Label.AlignHCenter
         },
         {
@@ -73,7 +74,7 @@ Credits {
             align: Label.AlignLeft
         },
         {
-            text: qsTr("<img src=\"qrc:/private/resources/help/Help2.jpg\" alt=\"tt\" width=\"300\"/>"),
+            text: ("<img src=\"qrc:/private/resources/help/Help2.jpg\" alt=\"tt\" width=\"300\"/>"),
             align: Label.AlignHCenter
         },
         {

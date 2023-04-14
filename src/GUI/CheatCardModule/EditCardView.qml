@@ -1,5 +1,5 @@
 //#
-//# Copyright (C) 2022-2022 QuasarApp.
+//# Copyright (C) 2022-2023 QuasarApp.
 //# Distributed under the GPLv3 software license, see the accompanying
 //# Everyone is permitted to copy and distribute verbatim copies
 //# of this license document, but changing it is not allowed.
@@ -18,11 +18,19 @@ Page {
     id: root
     property var model: null
     property string fontColor: ""
-    Binding {
-        target: root
-        property: "fontColor"
-        value: (root.model)? model.fontColor : "#333333"
-    }
+    property string backgraundColor: ""
+    property string backgraundImage: ""
+    property string logoIamge: ""
+    property string seelImage: ""
+    property int freeIndexValue: 2
+    property alias cardName: cardTitle.text
+    property alias freeItemName: cardfreeItem.textField.text
+    property alias phone: cardphone.textField.text
+    property alias telegramm: cardTelegramm.textField.text
+    property alias instagramm: cardInstagramm.textField.text
+    property alias physicalAddress: cardphysicalAddress.textField.text
+    property alias webSite: cardwebSite.textField.text
+
     property bool editable: true
     property bool creating: false
 
@@ -30,7 +38,6 @@ Page {
     property bool cardInteractive: true
 
     property int purchasesNumber: (model)? model.purchasesNumber: 1
-    property int freeIndexCount :(model)? model.freeIndex: 0
     property int receivedItems: (model)? model.receivedItems: 0
     property int available: (model)? model.available: 0
 
@@ -60,24 +67,53 @@ Page {
         root.backSide = !root.backSide;
     }
 
+    Binding {
+        target: root
+        property: "fontColor"
+        value: (root.model)? model.fontColor : "#333333"
+    }
+
+    Binding {
+        target: root
+        property: "backgraundColor"
+        value: (root.model)? root.model.color : "#777777"
+    }
+
+    Binding {
+        target: root
+        property: "backgraundImage"
+        value: "image://cards/background:" + ((root.model)? root.model.idbase64  + ":" + root.model.cardVersion: "0")
+    }
+
+    Binding {
+        target: root
+        property: "logoIamge"
+        value: "image://cards/logo:" + ((root.model)? root.model.idbase64  + ":" + root.model.cardVersion : "0")
+    }
+
+    Binding {
+        target: root
+        property: "seelImage"
+        value: "image://cards/seal:" +
+               ((root.model)? root.model.idbase64  + ":" + root.model.cardVersion: "0")
+    }
+
+    Binding {
+        target: root
+        property: "freeIndexValue"
+        value: (root.model)? root.model.freeIndex : 2
+    }
+
     contentItem: ColumnLayout {
         anchors.fill: parent
 
         Rectangle {
             id: cardRectangle
 
-            property string seelTmpImage: ""
-
-
             Layout.alignment: Qt.AlignHCenter
             Layout.fillWidth: true
             Layout.fillHeight: true
-
-            Binding {
-                target: cardRectangle
-                property: "color"
-                value: (root.model)? root.model.color : "#777777"
-            }
+            color: root.backgraundColor
             radius: 10
             clip: false
 
@@ -86,11 +122,8 @@ Page {
                 fillMode: Image.PreserveAspectCrop
                 anchors.fill: parent
                 asynchronous: true
-                Binding {
-                    target: cardBackground
-                    property: "source"
-                    value: "image://cards/background:" + ((root.model)? root.model.id  + ":" + root.model.cardVersion: "0")
-                }
+
+                source: root.backgraundImage
 
                 layer.enabled: true
                 layer.effect: OpacityMask {
@@ -166,12 +199,7 @@ Page {
                     fillMode: Image.PreserveAspectFit
                     asynchronous: true
 
-                    Binding {
-                        target: cardLogoIamge
-                        property: "source"
-                        value: "image://cards/logo:" + ((root.model)? root.model.id  + ":" + root.model.cardVersion : "0")
-
-                    }
+                    source: root.logoIamge
                     Layout.alignment: Qt.AlignHCenter
 
                     Layout.rowSpan: 1
@@ -214,11 +242,6 @@ Page {
                         horizontalAlignment:  Label.AlignHCenter
                         Layout.fillWidth: true
                         text: (root.model)? root.model.title : ""
-                        onTextChanged: {
-                            if (!root.model)
-                                return
-                            root.model.title = text
-                        }
 
                         placeholderText: qsTr("Enter card title");
                         placeholderTextColor: "#c12300"
@@ -234,12 +257,6 @@ Page {
                         textField.text: (root.model)? root.model.telegramm : ""
                         textField.placeholderText: qsTr("Your telegramm");
                         textField.readOnly: !root.editable
-                        textField.onTextChanged: {
-                            if (!root.model)
-                                return
-
-                            root.model.telegramm = textField.text
-                        }
 
                         onClicked: () => {
                                        if (root.model)
@@ -261,11 +278,6 @@ Page {
                         textField.text: (root.model)? root.model.instagramm : ""
                         textField.placeholderText: qsTr("Your instagramm");
                         textField.readOnly: !root.editable
-                        textField.onTextChanged: {
-                            if (!root.model)
-                                return
-                            root.model.instagramm = textField.text
-                        }
 
                         onClicked: () => {
                                        if (root.model)
@@ -286,11 +298,6 @@ Page {
                         textField.text: (root.model)? root.model.physicalAddress : ""
                         textField.placeholderText: qsTr("Your physical address");
                         textField.readOnly: !root.editable
-                        textField.onTextChanged: {
-                            if (!root.model)
-                                return
-                            root.model.physicalAddress = textField.text
-                        }
 
                         onClicked: () => {
                                        if (root.model)
@@ -308,12 +315,6 @@ Page {
                         textField.color: fontColor
                         lineColor: fontColor
                         textField.text: (root.model)? root.model.webSite : ""
-
-                        textField.onTextChanged: {
-                            if (!root.model)
-                                return
-                            root.model.webSite = textField.text
-                        }
 
                         onClicked: () => {
                                        if (root.model)
@@ -336,12 +337,6 @@ Page {
                         lineColor: root.fontColor
                         textField.text: (root.model)? root.model.phone : ""
 
-                        textField.onTextChanged: {
-                            if (!root.model)
-                                return
-                            root.model.phone = textField.text
-                        }
-
                         onClicked: () => {
                                        if (root.model)
                                            root.model.openPhone();
@@ -363,12 +358,6 @@ Page {
                         lineColor: root.fontColor
                         textField.text: (root.model)? root.model.freeItem : ""
 
-                        textField.onTextChanged: {
-                            if (!root.model)
-                                return
-                            root.model.freeItem = textField.text
-                        }
-
                         textField.placeholderText: qsTr("Enter bonus name");
                         textField.placeholderTextColor: "#c12300"
 
@@ -389,13 +378,13 @@ Page {
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
                     columns: signCount / rows
-                    rows: Math.ceil(freeIndex.value / privateRoot.rowSignCount)
+                    rows: Math.ceil(root.freeIndexValue / privateRoot.rowSignCount)
 
-                    property int signCount: freeIndex.value + Number(freeRound.visible)
+                    property int signCount: root.freeIndexValue + Number(freeRound.visible)
 
                     Repeater {
                         id: reppit
-                        model: showSeals && freeIndex.value
+                        model: showSeals && Math.abs(root.freeIndexValue - 1)
                         delegate: signZone
                         Component {
                             id: signZone
@@ -407,11 +396,11 @@ Page {
                                 radius: Math.min(width, height) / 2
 
                                 Image {
-                                    id: seelImage
+                                    id: seelImageView
                                     mipmap: true;
                                     visible: Boolean(root.model) &&
                                              ((root.purchasesNumber %
-                                               freeIndex.value) > index)
+                                               root.freeIndexValue) > index)
                                     asynchronous: true
 
                                     anchors.centerIn: parent
@@ -419,28 +408,14 @@ Page {
                                     height: parent.width * 0.9
                                     fillMode: Image.PreserveAspectFit
 
-                                    Binding {
-                                        target: seelImage
-                                        property: "source"
-                                        value: "image://cards/seal:" +
-                                               ((root.model)? root.model.id  + ":" + root.model.cardVersion: "0")
-
-                                    }
+                                    source: root.seelImage
 
                                     layer.enabled: true
                                     layer.effect: OpacityMask {
                                         maskSource: Rectangle {
-                                            width: seelImage.width
-                                            height: seelImage.height
-                                            radius: Math.min(seelImage.height, seelImage.width)
-                                        }
-                                    }
-
-                                    Connections {
-                                        target: cardRectangle
-
-                                        function onSeelTmpImageChanged() {
-                                            seelImage.source = cardRectangle.seelTmpImage
+                                            width: seelImageView.width
+                                            height: seelImageView.height
+                                            radius: Math.min(seelImageView.height, seelImageView.width)
                                         }
                                     }
                                 }
@@ -456,8 +431,6 @@ Page {
                         Layout.maximumHeight: cardTitle.height
                         Layout.preferredWidth: height
                         radius: Math.min(width, height) / 2
-
-                        visible: freeIndex.value > privateRoot.rowSignCount && freeIndex.value % 2
 
                         Label {
                             text: "Free"
@@ -581,6 +554,11 @@ Page {
                 font.pointSize: 14
 
                 onClicked: () => {
+                               // reload Model data
+                               const tmpModel = root.model;
+                               root.model = null;
+                               root.model = tmpModel;
+
                                root.finished()
                            }
             }
@@ -636,10 +614,7 @@ Page {
                 from: 2
 
                 onValueChanged: () => {
-                                    if (!root.model)
-                                        return
-
-                                    root.model.freeIndex = freeIndex.value
+                                    root.freeIndexValue = value
                                 }
             }
 
@@ -661,6 +636,37 @@ Page {
                 enabled: cardTitle.text.length && cardfreeItem.textField.text.length
                 onClicked: () => {
                                if (root.model) {
+
+                                   // visual changes
+                                   root.model.fontColor = root.fontColor
+                                   root.model.color = root.backgraundColor
+
+                                   // check image type. if image start from the image prefix then it is image from database.
+                                   // we must to save only custom images pathes from the device
+                                   if (!root.backgraundImage.startsWith("image:")) {
+                                       root.model.setNewBackGround(root.backgraundImage)
+                                   }
+
+                                   if (!root.logoIamge.startsWith("image:")) {
+                                       root.model.setNewLogo(root.logoIamge)
+                                   }
+
+                                   if (!root.seelImage.startsWith("image:")) {
+                                       root.model.setNewSeel(root.seelImage)
+                                   }
+
+                                   // rooles changes
+                                   root.model.freeIndex = root.freeIndexValue
+                                   root.model.freeItem = root.freeItemName
+
+                                   // inforamtion changes
+                                   root.model.phone = root.phone
+                                   root.model.telegramm = root.telegramm
+                                   root.model.instagramm = root.instagramm
+                                   root.model.physicalAddress = root.physicalAddress
+                                   root.model.webSite = root.webSite
+                                   root.model.title = root.cardName
+
                                    root.finished()
                                    root.model.save()
                                }
@@ -718,76 +724,42 @@ Page {
     Component {
         id: selectImage
         ItemsView {
-            title: qsTr("Select Image")
+            toolBarTitle: qsTr("Select Image")
             id: sourceImages
             model: (mainModel)? mainModel.defaultBackgroundsModel: null
 
-            footer: DialogButtonBox {
-                onAccepted: () => {
-                                if (!root.model) {
-                                    return
-                                };
-
-                                const selectdeItem = sourceImages.currentSelectedItem;
-
-                                cardBackground.source = selectdeItem
-                                root.model.setNewBackGround(selectdeItem);
-                                activityProcessor.popItem();
-                            }
-
-                standardButtons: Dialog.Open
-            }
+            onSelected: (selectdeItem) => {
+                            root.backgraundImage = selectdeItem
+                            activityProcessor.popItem();
+                        }
         }
     }
 
     Component {
         id: defaultLogos
         ItemsView {
-            title: qsTr("Select card logo")
+            toolBarTitle: qsTr("Select card logo")
             id: sourceLogos
             model: (mainModel)? mainModel.defaultLogosModel: null
 
-            footer: DialogButtonBox {
-                onAccepted: () => {
-                                if (!root.model) {
-                                    return
-                                };
+            onSelected: (selectdeItem) => {
+                            root.logoIamge = selectdeItem
+                            activityProcessor.popItem();
 
-                                const selectdeItem = sourceLogos.currentSelectedItem;
-                                cardLogoIamge.source = selectdeItem
-                                root.model.setNewLogo(selectdeItem);
-                                activityProcessor.popItem();
-
-                            }
-
-                standardButtons: Dialog.Open
-            }
+                        }
         }
     }
 
     Component {
         id: defaultSeels
         ItemsView {
-            title: qsTr("Select card seal")
+            toolBarTitle: qsTr("Select card seal")
             id: sourceSeels
             model: (mainModel)? mainModel.defaultLogosModel: null
-
-            footer: DialogButtonBox {
-                onAccepted: () => {
-                                if (!root.model) {
-                                    return
-                                };
-
-                                const selectdeItem = sourceSeels.currentSelectedItem;
-
-                                cardRectangle.seelTmpImage = selectdeItem
-                                root.model.setNewSeel(selectdeItem);
-                                activityProcessor.popItem();
-
-                            }
-
-                standardButtons: Dialog.Open
-            }
+            onSelected: (selectdeItem) => {
+                            root.seelImage = selectdeItem
+                            activityProcessor.popItem();
+                        }
         }
     }
 
@@ -799,15 +771,12 @@ Page {
             id: colorPick
             currentlyColor: (root.model)? root.model.color: "#000000"
             implicitHeight: 0x0
-            title: qsTr("Please choose a color")
+            toolBarTitle: qsTr("Please choose a color")
 
 
             footer: DialogButtonBox {
                 onAccepted: () => {
-                                if (root.model) {
-                                    cardRectangle.color = colorPick.color
-                                    root.model.color = colorPick.color
-                                }
+                                root.backgraundColor = colorPick.color
                                 activityProcessor.popItem();
                             }
 
@@ -823,16 +792,12 @@ Page {
             id: colorPickFont
             currentlyColor: (root.model)? root.model.fontColor: "#000000"
 
-            title: qsTr("Please choose a color")
+            toolBarTitle: qsTr("Please choose a color")
 
             footer: DialogButtonBox {
                 onAccepted: () => {
-                                if (root.model) {
-                                    fontColor = colorPickFont.color
-                                    root.model.fontColor = colorPickFont.color
-                                }
+                                root.fontColor = colorPickFont.color
                                 activityProcessor.popItem();
-
                             }
 
                 standardButtons: Dialog.Open

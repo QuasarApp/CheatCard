@@ -15,6 +15,10 @@
         <source>Developed by Quasar App Core team</source>
         <translation>Developed by Quasar App Core team</translation>
     </message>
+    <message>
+        <source>About application</source>
+        <translation></translation>
+    </message>
 </context>
 <context>
     <name>AdditionalInformationForSeller</name>
@@ -46,6 +50,10 @@
         <source>Watch help video</source>
         <translation></translation>
     </message>
+    <message>
+        <source>Additional information</source>
+        <translation></translation>
+    </message>
 </context>
 <context>
     <name>AppearanceCustomPage</name>
@@ -65,11 +73,8 @@
         <source>Please choose a color</source>
         <translation>Please choose a color</translation>
     </message>
-</context>
-<context>
-    <name>CPage</name>
     <message>
-        <source>Please wait for response from server</source>
+        <source>Appeearance</source>
         <translation></translation>
     </message>
 </context>
@@ -111,10 +116,6 @@
 <context>
     <name>CheatCard</name>
     <message>
-        <source>Hello </source>
-        <translation>Hello </translation>
-    </message>
-    <message>
         <source>Contact with developers</source>
         <translation>Contact with devs</translation>
     </message>
@@ -135,10 +136,6 @@
         <translation>Share application</translation>
     </message>
     <message>
-        <source> (work mode)</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Create a card</source>
         <translation>Create a card</translation>
     </message>
@@ -157,19 +154,38 @@
         <source>Random collor</source>
         <translation>Random color</translation>
     </message>
+    <message>
+        <source>Color values</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>#HTML</source>
+        <translation></translation>
+    </message>
 </context>
 <context>
     <name>Contacts</name>
-    <message>
-        <source>Go to our site. There you will get extended information about the CheatCard application and will be able to contact the developers.</source>
-        <translation>Go to our site. There you will get extended information about the CheatCard application and will be able to contact the developers.</translation>
-    </message>
     <message>
         <source>Join to our telegram channel to get support and see the last changes.</source>
         <translation></translation>
     </message>
     <message>
         <source>Join to our Instagram channel to get support and see the last changes.</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Go to discussions. There you will get extended help.</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Contact with developers</source>
+        <translation>Contact with devs</translation>
+    </message>
+</context>
+<context>
+    <name>CreateCardView</name>
+    <message>
+        <source>Create new card</source>
         <translation></translation>
     </message>
 </context>
@@ -444,11 +460,22 @@
     </message>
 </context>
 <context>
-    <name>ItemsView</name>
+    <name>IncomeView</name>
     <message>
-        <source>Add</source>
-        <translation>Add</translation>
+        <source>Select the number of purchases that the customer has made.</source>
+        <translation></translation>
     </message>
+    <message>
+        <source>Seal</source>
+        <translation>Seal</translation>
+    </message>
+    <message>
+        <source>Check</source>
+        <translation>Check</translation>
+    </message>
+</context>
+<context>
+    <name>ItemsView</name>
     <message>
         <source>Images</source>
         <translation>Images</translation>
@@ -457,11 +484,27 @@
         <source>Do you want to put your picture? You can choose but the picture must be in png format!</source>
         <translation>Do you want to put your picture? You can choose but the picture must be in png format!</translation>
     </message>
+    <message>
+        <source>Gallery</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation></translation>
+    </message>
 </context>
 <context>
     <name>MainActivity</name>
     <message>
         <source>Search a card</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Hello </source>
+        <translation></translation>
+    </message>
+    <message>
+        <source> (work mode)</source>
         <translation></translation>
     </message>
 </context>
@@ -486,14 +529,6 @@
     <message>
         <source>### How to use?</source>
         <translation>### How to use?</translation>
-    </message>
-    <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help3.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help2.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
-        <translation></translation>
     </message>
     <message>
         <source>### Create a card for your establishment</source>
@@ -587,6 +622,10 @@
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**IMPORTANT:** After you put at least one seal to the customer, the card cannot be edited. Instead, you can create a new map based on the old one. All customer data and their statistics will be automatically transferred to the corrected card.</source>
         <translation></translation>
     </message>
+    <message>
+        <source>Help page</source>
+        <translation></translation>
+    </message>
 </context>
 <context>
     <name>PageHelpVisitor</name>
@@ -631,11 +670,11 @@
         <translation>### How to use?</translation>
     </message>
     <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help1.jpg&quot; alt=&quot;tt&quot; width=&quot;100&quot;/&gt;</source>
-        <translation>&lt;img src=&quot;qrc:/private/resources/help/Help1.jpg&quot; alt=&quot;tt&quot; width=&quot;100&quot;/&gt;</translation>
+        <source>* Receive seal to card.</source>
+        <translation></translation>
     </message>
     <message>
-        <source>* Receive seal to card.</source>
+        <source>Help page</source>
         <translation></translation>
     </message>
 </context>
@@ -644,6 +683,14 @@
     <message>
         <source>To get a cheat card, scan the QR code and follow the link.</source>
         <translation>To get a cheat card, scan the QR code and follow the link.</translation>
+    </message>
+    <message>
+        <source>Share Application</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Copied in clipboard</source>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -733,10 +780,6 @@
         <translation></translation>
     </message>
     <message>
-        <source>Wow shit</source>
-        <translation>Wow shit</translation>
-    </message>
-    <message>
         <source>This qr code is invalid. Sorry... </source>
         <translation>This qr code is invalid. Sorry... </translation>
     </message>
@@ -749,10 +792,6 @@
         <translation>Yor secret key are imported</translation>
     </message>
     <message>
-        <source>Yor secret key and public key is not pair May be you scan not valid qr code ...</source>
-        <translation>Yor secret key and public key is not pair May be you scan not valid qr code ...</translation>
-    </message>
-    <message>
         <source>Operation not permitted</source>
         <translation></translation>
     </message>
@@ -761,15 +800,7 @@
         <translation></translation>
     </message>
     <message>
-        <source>You trying to delete this card, do not worry a seller that has give out this card save all bonuses locally,  so after repeat visit you will be get all your removed bonuses again. Do you want to continue?</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>The card reset to default successful but load default card from server failed, so you receive your card after new purchase in institution that has give out this card.</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>We Have trouble</source>
         <translation></translation>
     </message>
     <message>
@@ -789,15 +820,35 @@
         <translation></translation>
     </message>
     <message>
-        <source>Failed to sync data with server. Please check your internet connection and try to restore your data again</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>We Have trouble: trouble code is %0</source>
         <translation></translation>
     </message>
     <message>
         <source>Server sent the error message. Message: &quot;%0.&quot;  Sorry ;)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Your reserve QR code is deprecated</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>It is still works, but in the next releases the support of this qr code will be dropped. Please. Create the new recovery Qr code.</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Wow</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>You have bonuses!!!</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>On the %0 card you have %2 bonus (&quot;%1&quot;)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>You&apos;re trying to delete the %0 card, All your data, your purchase and available bonuses will be removed! Do you want to continue?</source>
         <translation></translation>
     </message>
 </context>
@@ -815,23 +866,19 @@
 <context>
     <name>RC::PermisionsModel</name>
     <message>
-        <source>Remove access for %0 </source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>If You remove access for the %0 user, he cannot be use your cards anymore.</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source> Do you want to continue?</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Oops</source>
         <translation></translation>
     </message>
     <message>
         <source>The Selected image does not contains a valid qr code. Try again.</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Remove access</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Do you want to remove access to your cards for %0 user ?</source>
         <translation></translation>
     </message>
 </context>
@@ -861,10 +908,6 @@
         <translation>Last visit</translation>
     </message>
     <message>
-        <source>Id</source>
-        <translation>Id</translation>
-    </message>
-    <message>
         <source>Purchases</source>
         <translation>Purchases</translation>
     </message>
@@ -886,29 +929,6 @@
     </message>
     <message>
         <source>Passive</source>
-        <translation></translation>
-    </message>
-</context>
-<context>
-    <name>RC::SettingsModel</name>
-    <message>
-        <source>Database location</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Failed to export database</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>From %0 to %1</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Export the database finished successful</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Internal access error with %0</source>
         <translation></translation>
     </message>
 </context>
@@ -936,17 +956,6 @@
     </message>
     <message>
         <source>Hmm, maybe you have a super slow internet connection... Try again</source>
-        <translation></translation>
-    </message>
-</context>
-<context>
-    <name>RC::WaitConnectionModel</name>
-    <message>
-        <source>We Have trouble</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
         <translation></translation>
     </message>
 </context>
@@ -1031,14 +1040,6 @@
         <translation>Dark Theme</translation>
     </message>
     <message>
-        <source>Check database location</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Export a database</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Diagnostic the application</source>
         <translation></translation>
     </message>
@@ -1049,6 +1050,10 @@
     <message>
         <source>Work rules</source>
         <translation></translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation>Settings</translation>
     </message>
 </context>
 <context>
@@ -1069,11 +1074,7 @@
 <context>
     <name>UserView</name>
     <message>
-        <source>Id:</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Name:</source>
+        <source>User</source>
         <translation></translation>
     </message>
 </context>
@@ -1085,17 +1086,9 @@
     </message>
 </context>
 <context>
-    <name>WaitConnectView</name>
+    <name>WaitView</name>
     <message>
-        <source>Seal</source>
-        <translation>Seal</translation>
-    </message>
-    <message>
-        <source>Check</source>
-        <translation>Check</translation>
-    </message>
-    <message>
-        <source>Select the number of purchases that the customer has made.</source>
+        <source>Please wait for response from server</source>
         <translation></translation>
     </message>
 </context>

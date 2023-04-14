@@ -1,20 +1,30 @@
 #include "fixbrokenuserstest.h"
 #include "cheatcardtestshelper.h"
-#include <testseller.h>
+#include <testclient.h>
 #include <QtTest>
 #include <DoctorPillCore/doctortest.h>
-#include <CheatCard/pills/invaliduserspill.h>
-
+#include <QCryptographicHash>
 
 FixBrokenUsersTest::FixBrokenUsersTest() {
 
 }
 
 void FixBrokenUsersTest::test() {
-    auto app = CheatCardTestsHelper::makeNode<TestSeller>(":/sql/units/sql/bug_539.sqlite.sql");
+    auto app = CheatCardTestsHelper::makeNode<TestClient>({3});
     QVERIFY(app);
+
+    auto db = app->getDBObject();
+    auto testedPill = db->initPills("InvalidUsersPill");
+
+    // create a invalid user.
+    auto user = db->makeEmptyUser();
+    QVERIFY(user && user->isValid());
+    user->setSecret(QCryptographicHash::hash("wrong key", QCryptographicHash::Sha256));
+    QVERIFY(user->isValid());
+
+    QVERIFY(db->saveUser(user));
+
     DP::DoctorTest test;
 
-    QVERIFY(test.test({QSharedPointer<RC::InvalidUsersPill>::create(app->db())}, true));
-
+    QVERIFY(test.test(testedPill, true));
 }

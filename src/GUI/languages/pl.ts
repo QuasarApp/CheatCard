@@ -15,6 +15,10 @@
         <source>Developed by Quasar App Core team</source>
         <translation>Opracowany przez zespół Quasar App Core</translation>
     </message>
+    <message>
+        <source>About application</source>
+        <translation>O aplikacji</translation>
+    </message>
 </context>
 <context>
     <name>AdditionalInformationForSeller</name>
@@ -46,6 +50,10 @@
         <source>Watch help video</source>
         <translation>Obejrzyj wideo pomocy</translation>
     </message>
+    <message>
+        <source>Additional information</source>
+        <translation>Dodatkowe informacje</translation>
+    </message>
 </context>
 <context>
     <name>AppearanceCustomPage</name>
@@ -65,12 +73,9 @@
         <source>Please choose a color</source>
         <translation>Proszę wybrać kolor</translation>
     </message>
-</context>
-<context>
-    <name>CPage</name>
     <message>
-        <source>Please wait for response from server</source>
-        <translation>Proszę czekać na odpowiedź z serwera</translation>
+        <source>Appeearance</source>
+        <translation>Wygląd</translation>
     </message>
 </context>
 <context>
@@ -111,10 +116,6 @@
 <context>
     <name>CheatCard</name>
     <message>
-        <source>Hello </source>
-        <translation>Cześć </translation>
-    </message>
-    <message>
         <source>Contact with developers</source>
         <translatorcomment>Kontakt</translatorcomment>
         <translation>Kontakt z programistami</translation>
@@ -136,10 +137,6 @@
         <translation>Udostępnij aplikację</translation>
     </message>
     <message>
-        <source> (work mode)</source>
-        <translation> (tryb pracy)</translation>
-    </message>
-    <message>
         <source>Create a card</source>
         <translation>Utwórz kartę</translation>
     </message>
@@ -158,13 +155,17 @@
         <source>Random collor</source>
         <translation>Losowy kolor</translation>
     </message>
+    <message>
+        <source>Color values</source>
+        <translation>Wartości kolorów</translation>
+    </message>
+    <message>
+        <source>#HTML</source>
+        <translation></translation>
+    </message>
 </context>
 <context>
     <name>Contacts</name>
-    <message>
-        <source>Go to our site. There you will get extended information about the CheatCard application and will be able to contact the developers.</source>
-        <translation>Wejdź na naszą stronę. Tam otrzymasz rozszerzone informacje o aplikacji CheatCard i będziesz mógł skontaktować się z twórcami.</translation>
-    </message>
     <message>
         <source>Join to our telegram channel to get support and see the last changes.</source>
         <translation>Dołącz do naszego kanału telegramów, aby uzyskać wsparcie i zobaczyć ostatnie zmiany.</translation>
@@ -172,6 +173,21 @@
     <message>
         <source>Join to our Instagram channel to get support and see the last changes.</source>
         <translation>Dołącz do naszego kanału Instagram, aby uzyskać wsparcie i zobaczyć ostatnie zmiany.</translation>
+    </message>
+    <message>
+        <source>Go to discussions. There you will get extended help.</source>
+        <translation>Przejdź do dyskusji. Tam uzyskasz rozszerzoną pomoc.</translation>
+    </message>
+    <message>
+        <source>Contact with developers</source>
+        <translation>Kontakt z programistami</translation>
+    </message>
+</context>
+<context>
+    <name>CreateCardView</name>
+    <message>
+        <source>Create new card</source>
+        <translation>Utwórz nową kartę</translation>
     </message>
 </context>
 <context>
@@ -445,11 +461,22 @@
     </message>
 </context>
 <context>
-    <name>ItemsView</name>
+    <name>IncomeView</name>
     <message>
-        <source>Add</source>
-        <translation>Dodać</translation>
+        <source>Select the number of purchases that the customer has made.</source>
+        <translation>Wybierz liczbę zakupów dokonanych przez klienta.</translation>
     </message>
+    <message>
+        <source>Seal</source>
+        <translation>Foka</translation>
+    </message>
+    <message>
+        <source>Check</source>
+        <translation>Sprawdzać</translation>
+    </message>
+</context>
+<context>
+    <name>ItemsView</name>
     <message>
         <source>Images</source>
         <translation>Obrazy</translation>
@@ -458,12 +485,28 @@
         <source>Do you want to put your picture? You can choose but the picture must be in png format!</source>
         <translation>Chcesz umieścić swoje zdjęcie? Możesz wybrać, ale zdjęcie musi być w formacie png!</translation>
     </message>
+    <message>
+        <source>Gallery</source>
+        <translation>Galeria</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>Wyczyść</translation>
+    </message>
 </context>
 <context>
     <name>MainActivity</name>
     <message>
         <source>Search a card</source>
         <translation>Wyszukaj kartę</translation>
+    </message>
+    <message>
+        <source>Hello </source>
+        <translation>Cześć </translation>
+    </message>
+    <message>
+        <source> (work mode)</source>
+        <translation> (Tryb pracy)</translation>
     </message>
 </context>
 <context>
@@ -487,14 +530,6 @@
     <message>
         <source>### How to use?</source>
         <translation>### Jak używać?</translation>
-    </message>
-    <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help3.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help2.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
-        <translation></translation>
     </message>
     <message>
         <source>### Create a card for your establishment</source>
@@ -588,6 +623,10 @@
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**IMPORTANT:** After you put at least one seal to the customer, the card cannot be edited. Instead, you can create a new map based on the old one. All customer data and their statistics will be automatically transferred to the corrected card.</source>
         <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**WAŻNE:** Po nałożeniu co najmniej jednej pieczęci klientowi nie można edytować karty. Zamiast tego możesz utworzyć nową mapę na podstawie starej. Wszystkie dane klientów i ich statystyki zostaną automatycznie przeniesione na poprawioną kartę.</translation>
     </message>
+    <message>
+        <source>Help page</source>
+        <translation>Pomoc</translation>
+    </message>
 </context>
 <context>
     <name>PageHelpVisitor</name>
@@ -632,12 +671,12 @@
         <translation>### Jak używać?</translation>
     </message>
     <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help1.jpg&quot; alt=&quot;tt&quot; width=&quot;100&quot;/&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>* Receive seal to card.</source>
         <translation>* Odbierz pieczęć na kartę.</translation>
+    </message>
+    <message>
+        <source>Help page</source>
+        <translation>Pomoc</translation>
     </message>
 </context>
 <context>
@@ -645,6 +684,14 @@
     <message>
         <source>To get a cheat card, scan the QR code and follow the link.</source>
         <translation>Aby otrzymać oszukaną kartę, zeskanuj kod QR i skorzystaj z linku.</translation>
+    </message>
+    <message>
+        <source>Share Application</source>
+        <translation>Udostępnij aplikację</translation>
+    </message>
+    <message>
+        <source>Copied in clipboard</source>
+        <translation>Skopiowane do schowka</translation>
     </message>
 </context>
 <context>
@@ -734,10 +781,6 @@
         <translation>Przepraszam, ale nie</translation>
     </message>
     <message>
-        <source>Wow shit</source>
-        <translation>Wow cholera</translation>
-    </message>
-    <message>
         <source>This qr code is invalid. Sorry... </source>
         <translation>Ten kod QR jest nieprawidłowy. Przepraszam... </translation>
     </message>
@@ -750,10 +793,6 @@
         <translation>Twój klucz tajny został zaimportowany</translation>
     </message>
     <message>
-        <source>Yor secret key and public key is not pair May be you scan not valid qr code ...</source>
-        <translation>Twój klucz tajny i klucz publiczny nie są parą, może skanujesz nieprawidłowy kod qr ...</translation>
-    </message>
-    <message>
         <source>Operation not permitted</source>
         <translation>operacja niedozwolona</translation>
     </message>
@@ -762,16 +801,8 @@
         <translation>Usuń kartę</translation>
     </message>
     <message>
-        <source>You trying to delete this card, do not worry a seller that has give out this card save all bonuses locally,  so after repeat visit you will be get all your removed bonuses again. Do you want to continue?</source>
-        <translation>Próbujesz usunąć tę kartę, nie martw się sprzedawcą, który ją rozdał, zapisz wszystkie bonusy lokalnie, więc po powtórnej wizycie ponownie otrzymasz wszystkie usunięte bonusy. Czy chcesz kontynuować?</translation>
-    </message>
-    <message>
         <source>The card reset to default successful but load default card from server failed, so you receive your card after new purchase in institution that has give out this card.</source>
         <translation>Karta została zresetowana do domyślnej pomyślnie, ale wczytanie karty domyślnej z serwera nie powiodło się, więc otrzymasz kartę po nowym zakupie w instytucji, która ją wydała.</translation>
-    </message>
-    <message>
-        <source>We Have trouble</source>
-        <translation>Mamy kłopoty</translation>
     </message>
     <message>
         <source> You&apos;re trying to change the bonus rules. These changes will be saved as a new card. The old card continues to work correctly and all customers data will be saved. Do you want to continue?</source>
@@ -790,16 +821,36 @@
         <translation>Ten klient nie ma żadnych bonusów. Przepraszam... </translation>
     </message>
     <message>
-        <source>Failed to sync data with server. Please check your internet connection and try to restore your data again</source>
-        <translation>Nie udało się zsynchronizować danych z serwerem. Sprawdź połączenie internetowe i spróbuj ponownie przywrócić dane</translation>
-    </message>
-    <message>
         <source>We Have trouble: trouble code is %0</source>
         <translation>Wystąpił problem: jest problem z %0</translation>
     </message>
     <message>
         <source>Server sent the error message. Message: &quot;%0.&quot;  Sorry ;)</source>
         <translation>Serwer wysłał komunikat o błędzie. Wiadomość: „%0”. przepraszam ;)</translation>
+    </message>
+    <message>
+        <source>Your reserve QR code is deprecated</source>
+        <translation>Twój rezerwowy kod QR jest przestarzały</translation>
+    </message>
+    <message>
+        <source>It is still works, but in the next releases the support of this qr code will be dropped. Please. Create the new recovery Qr code.</source>
+        <translation>Nadal działa, ale w następnych wydaniach obsługa tego kodu qr zostanie usunięta. Proszę. Utwórz nowy kod Qr odzyskiwania.</translation>
+    </message>
+    <message>
+        <source>Wow</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>You have bonuses!!!</source>
+        <translation>Masz bonusy!!!</translation>
+    </message>
+    <message>
+        <source>On the %0 card you have %2 bonus (&quot;%1&quot;)</source>
+        <translation>Na karcie %0 masz bonus w wysokości %2 (&quot;%1&quot;)</translation>
+    </message>
+    <message>
+        <source>You&apos;re trying to delete the %0 card, All your data, your purchase and available bonuses will be removed! Do you want to continue?</source>
+        <translation>Próbujesz usunąć kartę %0. Wszystkie Twoje dane, zakupy i dostępne bonusy zostaną usunięte! Czy na pewno chcesz kontynuować?</translation>
     </message>
 </context>
 <context>
@@ -816,24 +867,20 @@
 <context>
     <name>RC::PermisionsModel</name>
     <message>
-        <source>Remove access for %0 </source>
-        <translation>Usuń dostęp dla %0 </translation>
-    </message>
-    <message>
-        <source>If You remove access for the %0 user, he cannot be use your cards anymore.</source>
-        <translation>Jeśli usuniesz dostęp dla użytkownika %0, nie będzie on mógł już używać twoich kart.</translation>
-    </message>
-    <message>
-        <source> Do you want to continue?</source>
-        <translation> Czy chcesz kontynuować?</translation>
-    </message>
-    <message>
         <source>Oops</source>
         <translation>Ups</translation>
     </message>
     <message>
         <source>The Selected image does not contains a valid qr code. Try again.</source>
         <translation>Wybrany obraz nie zawiera prawidłowego kodu QR. Spróbuj ponownie.</translation>
+    </message>
+    <message>
+        <source>Remove access</source>
+        <translation>Usuń dostęp</translation>
+    </message>
+    <message>
+        <source>Do you want to remove access to your cards for %0 user ?</source>
+        <translation>Czy chcesz usunąć dostęp do Twoich kart dla użytkownika %0 ?</translation>
     </message>
 </context>
 <context>
@@ -862,10 +909,6 @@
         <translation>Ostatnia wizyta</translation>
     </message>
     <message>
-        <source>Id</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Purchases</source>
         <translation>Zakupy</translation>
     </message>
@@ -888,29 +931,6 @@
     <message>
         <source>Passive</source>
         <translation>Bierny</translation>
-    </message>
-</context>
-<context>
-    <name>RC::SettingsModel</name>
-    <message>
-        <source>Database location</source>
-        <translation>Lokalizacja bazy danych</translation>
-    </message>
-    <message>
-        <source>Failed to export database</source>
-        <translation>Nie udało się wyeksportować bazy danych</translation>
-    </message>
-    <message>
-        <source>From %0 to %1</source>
-        <translation>Od %0 do %1</translation>
-    </message>
-    <message>
-        <source>Export the database finished successful</source>
-        <translation>Wyeksportowanie bazy danych zakończone pomyślnie</translation>
-    </message>
-    <message>
-        <source>Internal access error with %0</source>
-        <translation>Wewnętrzny błąd dostępu z %0</translation>
     </message>
 </context>
 <context>
@@ -938,17 +958,6 @@
     <message>
         <source>Hmm, maybe you have a super slow internet connection... Try again</source>
         <translation>Hmm, może masz bardzo wolne połączenie internetowe... Spróbuj ponownie</translation>
-    </message>
-</context>
-<context>
-    <name>RC::WaitConnectionModel</name>
-    <message>
-        <source>We Have trouble</source>
-        <translation>Mamy kłopoty</translation>
-    </message>
-    <message>
-        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
-        <translation>Nie udało się wystawić premii lub pieczątki. Być może Twoje dane lokalne są przestarzałe, już zaktualizowaliśmy Twoje dane lokalne. Spróbuj ponownie, aby wystawić premię lub pieczątkę.</translation>
     </message>
 </context>
 <context>
@@ -1032,14 +1041,6 @@
         <translation>Ciemny schemat</translation>
     </message>
     <message>
-        <source>Check database location</source>
-        <translation>Sprawdź lokalizację bazy danych</translation>
-    </message>
-    <message>
-        <source>Export a database</source>
-        <translation>Eksportuj bazę danych</translation>
-    </message>
-    <message>
         <source>Diagnostic the application</source>
         <translation>Diagnostyka aplikacji</translation>
     </message>
@@ -1050,6 +1051,10 @@
     <message>
         <source>Work rules</source>
         <translation>Zasady pracy</translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation>Ustawienia</translation>
     </message>
 </context>
 <context>
@@ -1070,12 +1075,8 @@
 <context>
     <name>UserView</name>
     <message>
-        <source>Id:</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Name:</source>
-        <translation>Nazwa:</translation>
+        <source>User</source>
+        <translation>Użytkownik</translation>
     </message>
 </context>
 <context>
@@ -1086,18 +1087,10 @@
     </message>
 </context>
 <context>
-    <name>WaitConnectView</name>
+    <name>WaitView</name>
     <message>
-        <source>Seal</source>
-        <translation>Foka</translation>
-    </message>
-    <message>
-        <source>Check</source>
-        <translation>Sprawdzać</translation>
-    </message>
-    <message>
-        <source>Select the number of purchases that the customer has made.</source>
-        <translation>Wybierz liczbę zakupów dokonanych przez klienta.</translation>
+        <source>Please wait for response from server</source>
+        <translation>Proszę czekać na odpowiedź z serwera</translation>
     </message>
 </context>
 </TS>

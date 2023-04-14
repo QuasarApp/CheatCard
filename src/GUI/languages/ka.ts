@@ -15,6 +15,10 @@
         <source>Developed by Quasar App Core team</source>
         <translation>შექმნილია Quasar App Core გუნდის მიერ</translation>
     </message>
+    <message>
+        <source>About application</source>
+        <translation>პროგრამის შესახებ</translation>
+    </message>
 </context>
 <context>
     <name>AdditionalInformationForSeller</name>
@@ -46,6 +50,10 @@
         <source>* Or You can contact with developers here:</source>
         <translation>* ან შეგიძლიათ დაუკავშირდეთ დეველოპერებს აქ:</translation>
     </message>
+    <message>
+        <source>Additional information</source>
+        <translation>დამატებითი ინფორმაცია</translation>
+    </message>
 </context>
 <context>
     <name>AppearanceCustomPage</name>
@@ -65,12 +73,9 @@
         <source>Please choose a color</source>
         <translation>გთხოვთ აირჩიოთ ფერი</translation>
     </message>
-</context>
-<context>
-    <name>CPage</name>
     <message>
-        <source>Please wait for response from server</source>
-        <translation>გთხოვთ დაელოდოთ პასუხს სერვერისგან</translation>
+        <source>Appeearance</source>
+        <translation>გარეგნობა</translation>
     </message>
 </context>
 <context>
@@ -111,14 +116,6 @@
 <context>
     <name>CheatCard</name>
     <message>
-        <source>Hello </source>
-        <translation>გამარჯობა </translation>
-    </message>
-    <message>
-        <source> (work mode)</source>
-        <translation> (სამუშაო რეჟიმი)</translation>
-    </message>
-    <message>
         <source>Create a card</source>
         <translation>შექმენით ბარათი</translation>
     </message>
@@ -157,13 +154,17 @@
         <source>Random collor</source>
         <translation>შემთხვევითი ფერი</translation>
     </message>
+    <message>
+        <source>Color values</source>
+        <translation>ფერის მნიშვნელობები</translation>
+    </message>
+    <message>
+        <source>#HTML</source>
+        <translation></translation>
+    </message>
 </context>
 <context>
     <name>Contacts</name>
-    <message>
-        <source>Go to our site. There you will get extended information about the CheatCard application and will be able to contact the developers.</source>
-        <translation>გადადით ჩვენს საიტზე. იქ მიიღებთ გაფართოებულ ინფორმაციას CheatCard აპლიკაციის შესახებ და შეძლებთ დაუკავშირდეთ დეველოპერებს.</translation>
-    </message>
     <message>
         <source>Join to our telegram channel to get support and see the last changes.</source>
         <translation>შემოუერთდით ჩვენს telegram არხს, რომ მიიღოთ მხარდაჭერა და ნახოთ ბოლო ცვლილებები.</translation>
@@ -171,6 +172,21 @@
     <message>
         <source>Join to our Instagram channel to get support and see the last changes.</source>
         <translation>შემოუერთდით ჩვენს Instagram არხს, რომ მიიღოთ მხარდაჭერა და ნახოთ ბოლო ცვლილებები.</translation>
+    </message>
+    <message>
+        <source>Go to discussions. There you will get extended help.</source>
+        <translation>გადადით დისკუსიებზე. იქ მიიღებთ გაფართოებულ დახმარებას.</translation>
+    </message>
+    <message>
+        <source>Contact with developers</source>
+        <translation>დაუკავშირდით დეველოპერებს</translation>
+    </message>
+</context>
+<context>
+    <name>CreateCardView</name>
+    <message>
+        <source>Create new card</source>
+        <translation>ახალი ბარათის შექმნა</translation>
     </message>
 </context>
 <context>
@@ -445,11 +461,22 @@
     </message>
 </context>
 <context>
-    <name>ItemsView</name>
+    <name>IncomeView</name>
     <message>
-        <source>Add</source>
-        <translation>დამატება</translation>
+        <source>Select the number of purchases that the customer has made.</source>
+        <translation>შეარჩიეთ შესყიდვების რაოდენობა, რაც გააკეთა მომხმარებელმა.</translation>
     </message>
+    <message>
+        <source>Seal</source>
+        <translation>ბეჭდვა</translation>
+    </message>
+    <message>
+        <source>Check</source>
+        <translation>ჩეკი</translation>
+    </message>
+</context>
+<context>
+    <name>ItemsView</name>
     <message>
         <source>Images</source>
         <translation>სურათები</translation>
@@ -458,12 +485,28 @@
         <source>Do you want to put your picture? You can choose but the picture must be in png format!</source>
         <translation>შენი სურათის დადება გინდა? თქვენ შეგიძლიათ აირჩიოთ, მაგრამ სურათი უნდა იყოს png ფორმატში!</translation>
     </message>
+    <message>
+        <source>Gallery</source>
+        <translation>გალერეა</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>გასუფთავება</translation>
+    </message>
 </context>
 <context>
     <name>MainActivity</name>
     <message>
         <source>Search a card</source>
         <translation>მოძებნეთ ბარათი</translation>
+    </message>
+    <message>
+        <source>Hello </source>
+        <translation>გამარჯობა </translation>
+    </message>
+    <message>
+        <source> (work mode)</source>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -505,10 +548,6 @@
         <translation>* მის შესავსებად დააწკაპუნეთ ბარათზე ღილაკზე „რედაქტირება“.</translation>
     </message>
     <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help3.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>* Enter the contact and other details of your establishment. In the item &quot;Bonus name&quot; it is necessary to indicate what the client will receive in the form of a bonus (product / service / discount / etc.).</source>
         <translation>* შეიყვანეთ თქვენი დაწესებულების საკონტაქტო და სხვა დეტალები. პუნქტში „ბონუსის სახელი“ აუცილებელია მიეთითოს რას მიიღებს კლიენტი ბონუსის სახით (პროდუქტი/მომსახურება/ფასდაკლება/ა.შ.).</translation>
     </message>
@@ -519,10 +558,6 @@
     <message>
         <source>* Customize the design of the card by clicking on this element at the bottom left of the card.</source>
         <translation>* ბარათის დიზაინის მორგება ამ ელემენტზე დაწკაპუნებით ბარათის ქვედა მარცხენა მხარეს.</translation>
-    </message>
-    <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help2.jpg&quot; alt=&quot;tt&quot; width=&quot;300&quot;/&gt;</source>
-        <translation></translation>
     </message>
     <message>
         <source>* A menu with design settings (background and text colors, logo, as well as printing) will open</source>
@@ -584,6 +619,10 @@
         <source>* Bonuses can be accumulated by the client, if the client has accumulated several bonuses, then on the issuance screen you can choose how many bonuses to issue, after which they will be written off from the category of available ones and will be transferred to the category received on the client&apos;s card.</source>
         <translation>* ბონუსების დაგროვება შესაძლებელია კლიენტის მიერ, თუ კლიენტმა დააგროვა რამდენიმე ბონუსი, მაშინ გაცემის ეკრანზე შეგიძლიათ აირჩიოთ რამდენი ბონუსი უნდა გასცეს, რის შემდეგაც ისინი ჩამოიწერება ხელმისაწვდომი კატეგორიიდან და გადაირიცხება კლიენტის ბარათზე მიღებული კატეგორია.</translation>
     </message>
+    <message>
+        <source>Help page</source>
+        <translation>დახმარება</translation>
+    </message>
 </context>
 <context>
     <name>PageHelpVisitor</name>
@@ -620,10 +659,6 @@
         <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp; &amp; NBSP;იმისათვის, რომ გახსნათ QR კოდი, დააჭირეთ ნივთს ეკრანის ზედა მარცხენა კუთხეში. </translation>
     </message>
     <message>
-        <source>&lt;img src=&quot;qrc:/private/resources/help/Help1.jpg&quot; alt=&quot;tt&quot; width=&quot;100&quot;/&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;A sidebar will open at the bottom of which there will be a QR code, you can click on it to enlarge it.</source>
         <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; გაიხსნება გვერდითი პანელი, რომლის ბოლოში იქნება QR კოდი, შეგიძლიათ დააწკაპუნოთ მასზე გასადიდებლად.</translation>
     </message>
@@ -635,12 +670,24 @@
         <source> </source>
         <translation></translation>
     </message>
+    <message>
+        <source>Help page</source>
+        <translation>დახმარება</translation>
+    </message>
 </context>
 <context>
     <name>PageShareApp</name>
     <message>
         <source>To get a cheat card, scan the QR code and follow the link.</source>
         <translation>cheat card-ის მისაღებად, დაასკანირეთ QR კოდი და მიჰყევით ბმულს.</translation>
+    </message>
+    <message>
+        <source>Share Application</source>
+        <translation>აპლიკაციის გაზიარება</translation>
+    </message>
+    <message>
+        <source>Copied in clipboard</source>
+        <translation>კოპირებულია ბუფერში</translation>
     </message>
 </context>
 <context>
@@ -714,18 +761,6 @@
 <context>
     <name>RC::MainModel</name>
     <message>
-        <source>We Have trouble</source>
-        <translation>პრობლემები გვაქვს</translation>
-    </message>
-    <message>
-        <source>Yor secret key and public key is not pair May be you scan not valid qr code ...</source>
-        <translation>თქვენი საიდუმლო გასაღები და საჯარო გასაღები არ არის დაწყვილებული, შესაძლოა თქვენ დაასკანიროთ არასწორი qr კოდი ...</translation>
-    </message>
-    <message>
-        <source>Wow shit</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>This qr code is invalid. Sorry... </source>
         <translation>ეს qr კოდი არასწორია... </translation>
     </message>
@@ -736,10 +771,6 @@
     <message>
         <source>Yor secret key are imported</source>
         <translation>თქვენი საიდუმლო გასაღები იმპორტირებულია</translation>
-    </message>
-    <message>
-        <source>Failed to sync data with server. Please check your internet connection and try to restore your data again</source>
-        <translation>სერვერთან მონაცემების სინქრონიზაცია ვერ მოხერხდა. გთხოვთ, შეამოწმოთ თქვენი ინტერნეტ კავშირი და ხელახლა სცადოთ თქვენი მონაცემების აღდგენა</translation>
     </message>
     <message>
         <source>Your customers already using this card!</source>
@@ -770,10 +801,6 @@
         <translation>ბარათის ამოღება</translation>
     </message>
     <message>
-        <source>You trying to delete this card, do not worry a seller that has give out this card save all bonuses locally,  so after repeat visit you will be get all your removed bonuses again. Do you want to continue?</source>
-        <translation>თქვენ ცდილობთ წაშალოთ ეს ბარათი, არ ინერვიულოთ, გამყიდველი, რომელმაც გასცა ეს ბარათი, დაზოგავს ყველა ბონუსს ადგილობრივად, ასე რომ, როდესაც კვლავ მოინახულებთ, კვლავ მიიღებთ ყველა წაშლილ პრემიას. გსურთ გააგრძელოთ?</translation>
-    </message>
-    <message>
         <source>Sorry but not</source>
         <translation>ვწუხვარ, მაგრამ არ არსებობს</translation>
     </message>
@@ -797,6 +824,30 @@
         <source>Server sent the error message. Message: &quot;%0.&quot;  Sorry ;)</source>
         <translation>სერვერმა გაუგზავნა შეცდომის შეტყობინება. შეტყობინება: &quot;%0.&quot; Ბოდიში ;)</translation>
     </message>
+    <message>
+        <source>Your reserve QR code is deprecated</source>
+        <translation>თქვენი სარეზერვო QR კოდი მოძველებულია</translation>
+    </message>
+    <message>
+        <source>It is still works, but in the next releases the support of this qr code will be dropped. Please. Create the new recovery Qr code.</source>
+        <translation>ის ჯერ კიდევ მუშაობს, მაგრამ შემდეგ გამოშვებებში ამ qr კოდის მხარდაჭერა გაუქმდება. გთხოვთ. შექმენით ახალი აღდგენის Qr კოდი.</translation>
+    </message>
+    <message>
+        <source>Wow</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>You have bonuses!!!</source>
+        <translation>თქვენ გაქვთ ბონუსები!</translation>
+    </message>
+    <message>
+        <source>On the %0 card you have %2 bonus (&quot;%1&quot;)</source>
+        <translation>ბარათზე %0 თქვენ გაქვთ %2 ბონუსი (&quot;%1&quot;)</translation>
+    </message>
+    <message>
+        <source>You&apos;re trying to delete the %0 card, All your data, your purchase and available bonuses will be removed! Do you want to continue?</source>
+        <translation>თქვენ ცდილობთ წაშლა %0 ბარათის, ყველა თქვენი მონაცემი, შესყიდვანი და ხელმისაწვდომი ბონუსები წაიშალება! გსურთ გაგრძელება?</translation>
+    </message>
 </context>
 <context>
     <name>RC::NetIndicatorModel</name>
@@ -812,24 +863,20 @@
 <context>
     <name>RC::PermisionsModel</name>
     <message>
-        <source>Remove access for %0 </source>
-        <translation>ამოიღეთ წვდომა %0-ისთვის </translation>
-    </message>
-    <message>
-        <source>If You remove access for the %0 user, he cannot be use your cards anymore.</source>
-        <translation>თუ თქვენ გაუქმებთ წვდომას %0 მომხმარებლისთვის, ის ვეღარ გამოიყენებს თქვენს ბარათებს.</translation>
-    </message>
-    <message>
-        <source> Do you want to continue?</source>
-        <translation> ინდა გააგრძელო?</translation>
-    </message>
-    <message>
         <source>Oops</source>
         <translation>უი</translation>
     </message>
     <message>
         <source>The Selected image does not contains a valid qr code. Try again.</source>
         <translation>არჩეული სურათი არ შეიცავს მოქმედ qr კოდს. Კიდევ სცადე.</translation>
+    </message>
+    <message>
+        <source>Remove access</source>
+        <translation>წვდომის მოხსნა</translation>
+    </message>
+    <message>
+        <source>Do you want to remove access to your cards for %0 user ?</source>
+        <translation>გსურთ წვდომის მოხსნა თქვენს ბარათებზე %0 მომხმარებელისთვის?</translation>
     </message>
 </context>
 <context>
@@ -852,10 +899,6 @@
     <message>
         <source>Name</source>
         <translation>სახელი</translation>
-    </message>
-    <message>
-        <source>Id</source>
-        <translation></translation>
     </message>
     <message>
         <source>Purchases</source>
@@ -887,29 +930,6 @@
     </message>
 </context>
 <context>
-    <name>RC::SettingsModel</name>
-    <message>
-        <source>Database location</source>
-        <translation>მონაცემთა ბაზის ადგილმდებარეობა</translation>
-    </message>
-    <message>
-        <source>Failed to export database</source>
-        <translation>მონაცემთა ბაზის ექსპორტი ვერ მოხერხდა</translation>
-    </message>
-    <message>
-        <source>From %0 to %1</source>
-        <translation>%0-დან %1-მდე</translation>
-    </message>
-    <message>
-        <source>Export the database finished successful</source>
-        <translation>მონაცემთა ბაზის ექსპორტი წარმატებით დასრულდა</translation>
-    </message>
-    <message>
-        <source>Internal access error with %0</source>
-        <translation>შიდა წვდომის შეცდომა %0-ით</translation>
-    </message>
-</context>
-<context>
     <name>RC::WaitConfirmModel</name>
     <message>
         <source>Not so fast!</source>
@@ -934,17 +954,6 @@
     <message>
         <source>Hmm, maybe you have a super slow internet connection... Try again</source>
         <translation>Hmm, შესაძლოა სუპერ ნელი ინტერნეტ კავშირი გაქვთ... სცადეთ ხელახლა</translation>
-    </message>
-</context>
-<context>
-    <name>RC::WaitConnectionModel</name>
-    <message>
-        <source>We Have trouble</source>
-        <translation>პრობლემები გვაქვს</translation>
-    </message>
-    <message>
-        <source>Failed to issue a bonus or stamp. Maybe your local data is deprecated,  we already update your local data.  Please try again make issue a bonus or stamp.</source>
-        <translation>ბონუსის ან შტამპის გაცემა ვერ მოხერხდა.შესაძლოა, თქვენი ადგილობრივი მონაცემები მოძველებულია, ჩვენ უკვე ვაახლებთ თქვენს ლოკალურ მონაცემებს.გთხოვთ, სცადოთ ხელახლა გამოუშვათ ბონუსი ან  შტამპი.</translation>
     </message>
 </context>
 <context>
@@ -1020,14 +1029,6 @@
         <translation>დეველოპერის პარამეტრები</translation>
     </message>
     <message>
-        <source>Check database location</source>
-        <translation>შეამოწმეთ მონაცემთა ბაზის ადგილმდებარეობა</translation>
-    </message>
-    <message>
-        <source>Export a database</source>
-        <translation>მონაცემთა ბაზის ექსპორტი</translation>
-    </message>
-    <message>
         <source>Diagnostic the application</source>
         <translation>განაცხადის დიაგნოსტიკა</translation>
     </message>
@@ -1046,6 +1047,10 @@
     <message>
         <source>Reset all settings</source>
         <translation>ყველა პარამეტრის გადატვირთვა</translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation>პარამეტრები</translation>
     </message>
 </context>
 <context>
@@ -1066,12 +1071,8 @@
 <context>
     <name>UserView</name>
     <message>
-        <source>Id:</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Name:</source>
-        <translation>სახელი:</translation>
+        <source>User</source>
+        <translation>მომხმარებელი</translation>
     </message>
 </context>
 <context>
@@ -1082,18 +1083,10 @@
     </message>
 </context>
 <context>
-    <name>WaitConnectView</name>
+    <name>WaitView</name>
     <message>
-        <source>Select the number of purchases that the customer has made.</source>
-        <translation>შეარჩიეთ შესყიდვების რაოდენობა, რაც გააკეთა მომხმარებელმა.</translation>
-    </message>
-    <message>
-        <source>Seal</source>
-        <translation>ბეჭდვა</translation>
-    </message>
-    <message>
-        <source>Check</source>
-        <translation>ჩეკი</translation>
+        <source>Please wait for response from server</source>
+        <translation>გთხოვთ დაელოდოთ პასუხს სერვერისგან</translation>
     </message>
 </context>
 </TS>

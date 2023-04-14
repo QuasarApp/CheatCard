@@ -5,6 +5,8 @@ import QtQuick.Layouts 1.15
 StackView {
     id: root
     property var model: null
+    property string cuurentActivityTitle: (currentItem && currentItem.toolBarTitle)?
+                                              currentItem.toolBarTitle: ""
 
     Connections {
         target: model
@@ -18,12 +20,6 @@ StackView {
 
         function onSigNewActivity(view, model) {
             root.newActivity(view, model);
-        }
-    }
-
-    onDepthChanged: {
-        if (depth <= 1 && mainModel) {
-            mainModel.handleFirstDataSendet();
         }
     }
 

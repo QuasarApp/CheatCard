@@ -70,13 +70,13 @@ _deps
 *_autogen*
 
 # cmake config files
-src/RCApp/Deploy/CheatCard.json
-src/CheatCardServer/Deploy/CheatCardServer.json
-src/RC/CheatCard/core_global.h
-src/RCApp/android/AndroidManifest.xml
-src/RCApp/android/build.gradle
-src/RCApp/apple/Info.plist
+src/App/Deploy/CheatCard.json
+src/Server/Deploy/CheatCardServer.json
 
-# Freeze Databases
-src/RC/private/sql/DataBase.sql
-tests/units/sql/TestSallerDb.sql
+src/RC/CheatCard/core_global.h
+src/App/android/AndroidManifest.xml
+src/App/android/build.gradle
+src/App/apple/Info.plist
+
+*global.h
+AndroidManifest.xml

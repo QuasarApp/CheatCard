@@ -1,5 +1,5 @@
 //#
-//# Copyright (C) 2021-2021 QuasarApp.
+//# Copyright (C) 2021-2023 QuasarApp.
 //# Distributed under the GPLv3 software license, see the accompanying
 //# Everyone is permitted to copy and distribute verbatim copies
 //# of this license document, but changing it is not allowed.
@@ -21,8 +21,11 @@ inline void initCheatCardResources() {
 
 namespace RC {
 
-class DataBase;
 class MainModel;
+
+namespace Interfaces {
+class iDB;
+}
 
 /**
  * @brief The CheatCard class
@@ -46,7 +49,7 @@ private:
      */
     void initLang();
 
-    DataBase * _db = nullptr;
+    QSharedPointer<Interfaces::iDB> _db;
     MainModel* _model = nullptr;
 };
 };

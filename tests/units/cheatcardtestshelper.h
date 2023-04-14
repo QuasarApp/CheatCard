@@ -1,21 +1,35 @@
+//#
+//# Copyright (C) 2022-2023 QuasarApp.
+//# Distributed under the GPLv3 software license, see the accompanying
+//# Everyone is permitted to copy and distribute verbatim copies
+//# of this license document, but changing it is not allowed.
+//#
+
+
 #ifndef CHEATCARDTESTSHELPER_H
 #define CHEATCARDTESTSHELPER_H
 
-#include "testdatabasewrapper.h"
-
+#include "api.h"
+#include <db.h>
 #include <QSharedPointer>
+#include <type_traits>
+#include <CheatCard/client.h>
 
-#include <CheatCard/seller.h>
-
+class TestClient;
+class TestServer;
 
 namespace RC {
-namespace API {
-class User;
+namespace Interfaces {
+class iUser;
 }
 }
 
-void softDeleteWrapDB(TestDataBaseWrapper* obj);
 void softDeleteWrapNode(RC::BaseNode* obj);
+
+struct NetworkResult {
+    QSharedPointer<TestServer> server;
+    QHash<QByteArray, QSharedPointer<TestClient>> clients;
+};
 
 class CheatCardTestsHelper
 {
@@ -23,34 +37,58 @@ public:
     CheatCardTestsHelper();
 
     template <class NodeType>
-    static QSharedPointer<NodeType> makeNode(const QString database = ":/sql/units/sql/TestSallerDb.sql",
-                                             bool forceUseCustomDb = false) {
+    static QSharedPointer<NodeType> makeNode(const QVector<unsigned short> &apiVesions,
+                                             const QString database = "") {
         srand(time(0) + rand());
-        QString randomNodeName = QByteArray::number(rand()).toHex() + typeid(NodeType).name();
+        QString randomNodeName = QByteArray::number(rand() % 0xffff).
+                                 toBase64(QByteArray::Base64UrlEncoding) + typeid(NodeType).name();
 
-        TestDataBaseWrapper* source;
-        if (std::is_base_of<RC::Seller,NodeType>::value || forceUseCustomDb) {
+        auto sallerDb = RC::DB::makeDb(1, randomNodeName, "", database);
+        auto user = makeUser();
 
-            source = new TestDataBaseWrapper(randomNodeName,
-                                             database);
-        } else {
-            source = new TestDataBaseWrapper(randomNodeName);
-        }
 
-        auto sallerDb = QSharedPointer<TestDataBaseWrapper>(source,
-                                                            softDeleteWrapDB);
-        if (!sallerDb->initSqlDb()) {
+        if (!sallerDb->init()) {
             return {};
         }
 
-        return QSharedPointer<NodeType>(new NodeType(sallerDb), softDeleteWrapNode);
+        if (!sallerDb->saveUser(user)) {
+            return {};
+        }
+
+        auto result = QSharedPointer<NodeType>(new NodeType(sallerDb, apiVesions), softDeleteWrapNode);
+
+        if constexpr (std::is_same_v<NodeType, TestClient>) {
+            result->setCurrntUserKey(user->getKey());
+        }
+
+        return result;
     }
 
-    static QSharedPointer<RC::API::User> makeUser();
-    static unsigned int testCardId();
-    static unsigned int testUserId();
-    static QByteArray testUserPublicKey();
-    static QByteArray testUserPrivKey();
+    static NetworkResult deployNetwork(QString host, int port,
+                                       unsigned int clientsCount = 2,
+                                       bool connectToServer = true);
+
+    static QSharedPointer<RC::Interfaces::iUser> makeUser();
+    static QSharedPointer<RC::Interfaces::iContacts> makeContact();
+    static QSharedPointer<RC::Interfaces::iCard> makeCard(const QSharedPointer<TestClient> &owner, unsigned int freeItemCount);
+    static void makeSeals(const QSharedPointer<TestClient>& seller,
+                          const QSharedPointer<TestClient>& client,
+                          const QByteArray& card,
+                          unsigned int sealCount);
+
+    static void makeSealsFor(const QSharedPointer<TestClient>& seller,
+                             const QByteArray& client,
+                             const QByteArray& card,
+                             unsigned int sealCount);
+
+    static void checkAccess(const QSharedPointer<TestClient> &seller,
+                            const QSharedPointer<TestServer> &server,
+                            const QByteArray &client,
+                            const QByteArray &cardId,
+                            bool shouldBe);
+private:
+    static const QSharedPointer<RC::Interfaces::iDB> &objectFactory();
+
 
 };
 

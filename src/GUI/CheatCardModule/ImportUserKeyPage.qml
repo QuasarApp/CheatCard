@@ -1,4 +1,4 @@
-//# Copyright (C) 2021-2021 QuasarApp.
+//# Copyright (C) 2021-2023 QuasarApp.
 //# Distributed under the GPLv3 software license, see the accompanying
 //# Everyone is permitted to copy and distribute verbatim copies
 //# of this license document, but changing it is not allowed.
@@ -15,7 +15,7 @@ import "Style"
 
 CPage {
     id: root;
-    title: qsTr("Import your cards data")
+    toolBarTitle: qsTr("Import your cards data")
 
     property var model: null
     property bool onlyScaner: false
