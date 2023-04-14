@@ -688,6 +688,10 @@
         <source>Share Application</source>
         <translation></translation>
     </message>
+    <message>
+        <source>Copied in clipboard</source>
+        <translation></translation>
+    </message>
 </context>
 <context>
     <name>PermissionsView</name>

@@ -84,6 +84,7 @@ Control {
 
                 imageSize: parent.width / 5
 
+                padding: 0
             }
 
         }

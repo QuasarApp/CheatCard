@@ -10,8 +10,9 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
+import "Style"
 
-Page {
+CPage {
 
     id: root
     property var model: null
@@ -30,48 +31,40 @@ Page {
         }
     }
 
-    contentItem: RowLayout {
+    contentItem:
+        GridLayout {
 
-            Item {
-                Layout.fillWidth: true
-            }
+        columns: 2
+        rows: 1
+        Item {
+            id: imagePlace
 
-            Item {
-                id: imagePlace
+            Layout.rowSpan: 1
+            Layout.minimumWidth: 50
+            Layout.minimumHeight: 50
 
-                Layout.rowSpan: 2
-                Layout.fillHeight: true
-                Layout.fillWidth: true
+            Image {
+                id: userAvatarView
+                asynchronous: true
+                fillMode: Image.PreserveAspectFit
 
-                Image {
+                source: (userAvatar.length)?
+                            userAvatar:
+                            "qrc:/images/private/resources/Logo/CheatCard_Logo1.png"
+                anchors.fill: parent
 
-                    id: userAvatarView
-                    asynchronous: true
-                    fillMode: Image.PreserveAspectFit
-
-                    source: (userAvatar.length)?
-                                userAvatar:
-                                "qrc:/images/private/resources/Logo/CheatCard_Logo1.png"
-                    anchors.fill: parent
-
-                }
-
-            }
-
-            GridLayout {
-
-                columns: 1
-                rows: 1
-
-                Label {
-                    id: nameEditor
-                    text: (root.model)? root.model.name: qsTr("User")
-                }
-
-            }
-
-            Item {
-                Layout.fillWidth: true
             }
         }
+
+        Label {
+            id: nameEditor
+            horizontalAlignment: Text.AlignLeft
+            Layout.alignment: Qt.AlignLeft
+            Layout.fillWidth: true
+
+            text: (root.model && root.model.name)? root.model.name: qsTr("User")
+        }
+    }
+
+
 }
