@@ -688,6 +688,10 @@
         <source>Share Application</source>
         <translation>Поділіться програмою</translation>
     </message>
+    <message>
+        <source>Copied in clipboard</source>
+        <translation>Скопійовано в буфер обміну</translation>
+    </message>
 </context>
 <context>
     <name>PermissionsView</name>

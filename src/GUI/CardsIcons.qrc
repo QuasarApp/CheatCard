@@ -110,5 +110,6 @@
         <file>private/resources/Interface_icons/search.svg</file>
         <file>private/resources/Interface_icons/shareApp.png</file>
         <file>private/resources/instagramm.png</file>
+        <file>private/resources/Interface_icons/copy.svg</file>
     </qresource>
 </RCC>

@@ -685,6 +685,10 @@
         <source>Share Application</source>
         <translation>აპლიკაციის გაზიარება</translation>
     </message>
+    <message>
+        <source>Copied in clipboard</source>
+        <translation>კოპირებულია ბუფერში</translation>
+    </message>
 </context>
 <context>
     <name>PermissionsView</name>
