@@ -164,6 +164,14 @@ ApplicationWindow {
                     }
                 }
 
+                OpacityAnimator {
+                    id: iconHideAnimation
+                    target: notificationsIcon
+                    from: 1
+                    to: 0
+                    duration: 1000
+                }
+
                 MouseArea {
                     anchors.fill: parent
                     onClicked: notificationService.showHistory()
@@ -190,7 +198,8 @@ ApplicationWindow {
                     notificationsIcon.visible = true
                     notificationsAnimation.running = true
                 } else {
-                    notificationsIcon.visible = false
+                    iconHideAnimation.running = true
+                    notificationsIcon.visible = iconHideAnimation.running
                 }
             }
         }
