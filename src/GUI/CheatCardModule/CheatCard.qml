@@ -186,7 +186,6 @@ ApplicationWindow {
         Connections {
             target: notificationService
             function onCountNotificationsChanged() {
-                console.log(notificationService.notificationsCount() > 0)
                 if(notificationService.notificationsCount() > 0) {
                     notificationsIcon.visible = true
                     notificationsAnimation.running = true
