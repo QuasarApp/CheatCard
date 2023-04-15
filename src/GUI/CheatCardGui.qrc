@@ -62,6 +62,6 @@
         <file>languages/be.qm</file>
         <file>languages/ka.qm</file>
         <file>languages/sr.qm</file>
-        <file>languages/sr-ME.qm</file>
+        <file>languages/sr_ME.qm</file>
     </qresource>
 </RCC>
