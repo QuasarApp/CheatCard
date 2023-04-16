@@ -21,7 +21,7 @@ LanguagesModel::LanguagesModel() {
     addLang("en", "English");
     addLang("ru", "Русский");
     addLang("sr", "Српски");
-    addLang("sr-ME", "Сrnogorski");
+    addLang("sr_ME", "Сrnogorski");
     addLang("pl", "Polski");
     addLang("uk", "Ukrainian");
     addLang("be", "Беларуский");
@@ -73,7 +73,7 @@ void LanguagesModel::selectLanguagge(const QString &lang, QObject* gui) {
 
     QLocale locale = QLocale(code);
     if (code.isEmpty() || lang == "Auto") {
-        code = QLocale::system().bcp47Name();
+        code = QLocale::system().bcp47Name().replace('-','_');
         locale = QLocale::system();
     }
 
@@ -91,7 +91,7 @@ void LanguagesModel::selectLanguagge(const QString &lang, QObject* gui) {
 
 QString LanguagesModel::getCurrentLanguage() {
     QLocale locate = QuasarAppUtils::Locales::currentLocate();
-    auto code = locate.bcp47Name();
+    auto code = locate.bcp47Name().replace('-','_');
     return _languagesMap.value(code, code);
 }
 
