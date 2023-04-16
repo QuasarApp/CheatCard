@@ -7,6 +7,7 @@
 #include <qaglobalutils.h>
 #include "imagesstoragemodel.h"
 #include <rci/core/idb.h>
+#include <qmlnotifyservice.h>
 
 namespace RC {
 
@@ -112,19 +113,46 @@ UsersListModel::importUser(const QSharedPointer<Interfaces::iUser> &user) {
 }
 
 void UsersListModel::removeUser(const QByteArray& userId) {
+
     int index = _users.indexOf(userId);
 
     if (index < 0)
         return;
 
-    beginRemoveRows({}, index, index);
+    auto service = QmlNotificationService::NotificationService::getService();
+    if (!service) {
+        return;
+    }
 
-    _cache.remove(userId);
-    _users.removeAt(index);
+    QmlNotificationService::Listner listner = [userId, index, this] (bool accepted) {
 
-    endRemoveRows();
+        if (accepted) {
 
-    emit usersCountChanged();
+            if (!db()->deleteUser(userId)) {
+                return;
+            }
+
+            beginRemoveRows({}, index, index);
+
+            _cache.remove(userId);
+            _users.removeAt(index);
+
+            endRemoveRows();
+
+            emit usersCountChanged();
+
+            if (_currentUser->userKey() == userId) {
+                setCurrentUser(QByteArray{});
+            }
+        }
+    };
+
+    auto userName = _cache.value(userId)->name();
+    service->setQuestion(listner, tr("Removing user from this device"),
+                         tr("You're trying to remove %0 user from this device."
+                            " All data and aceesses of this user will be removed."
+                            " Do you want to continue?").arg(userName));
+
 }
 
 QSharedPointer<UserModel>
