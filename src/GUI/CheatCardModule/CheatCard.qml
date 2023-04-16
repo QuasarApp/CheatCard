@@ -121,60 +121,14 @@ ApplicationWindow {
                 Layout.fillWidth: true
             }
 
-            Image {
+            ToolButton {
                 id: notificationsIcon
-                source: "qrc:/images/private/resources/Interface_icons/notification.svg"
-                sourceSize: Qt.size(parent.width / 40, parent.height / 40)
-                visible: false
-                fillMode: Image.PreserveAspectFit
-
-                ParallelAnimation {
-                    id: notificationsAnimation
-                    running: false
-
-                    OpacityAnimator {
-                        target: notificationsIcon
-                        from: 0
-                        to: 1
-                        duration: 4500
-                    }
-
-                    SequentialAnimation {
-
-                        RotationAnimator {
-                            target: notificationsIcon
-                            from: 0
-                            to: 25
-                            duration: 1500
-                        }
-
-                        RotationAnimator {
-                            target: notificationsIcon
-                            from: 25
-                            to: -25
-                            duration: 1500
-                        }
-
-                        RotationAnimator {
-                            target: notificationsIcon
-                            from: -25
-                            to: 0
-                            duration: 1500
-                        }
-                    }
-                }
-
-                OpacityAnimator {
-                    id: iconHideAnimation
-                    target: notificationsIcon
-                    from: 1
-                    to: 0
-                    duration: 1000
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: notificationService.showHistory()
+                icon.source: "qrc:/images/private/resources/Interface_icons/notification.svg"
+                font.bold: true
+                font.pointSize: 12
+                visible: notificationService.notificationsCount
+                onClicked: {
+                    notificationService.showHistory()
                 }
             }
 
@@ -188,19 +142,6 @@ ApplicationWindow {
                 enabled: !((model)? model.fFirst : false)
 
                 onClicked: mainMenu.popup(this, menuButton.x, menuButton.height)
-            }
-        }
-
-        Connections {
-            target: notificationService
-            function onCountNotificationsChanged() {
-                if(notificationService.notificationsCount() > 0) {
-                    notificationsIcon.visible = true
-                    notificationsAnimation.running = true
-                } else {
-                    iconHideAnimation.running = true
-                    notificationsIcon.visible = iconHideAnimation.running
-                }
             }
         }
     }
