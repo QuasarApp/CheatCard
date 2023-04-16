@@ -91,7 +91,11 @@ void AppDataBase::localdbPatches() {
                                    newUser->setName(user->name());
 
                                    if (newUser->getKey() != user->getKey()) {
+#ifdef QT_DEBUG
                                        return false;
+#else
+                                       continue;
+#endif
                                    }
 
                                    if (!database->insertObject(newUser, true)) {
