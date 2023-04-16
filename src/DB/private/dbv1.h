@@ -69,6 +69,7 @@ public:
     getAllUserFromCard(const QByteArray &cardId) const override;
     QList<QSharedPointer<Interfaces::iUser> >
     getAllUserWithPrivateKeys() const override;
+    QList<QSharedPointer<Interfaces::iUser>> getAllUsers() const override;
     QSharedPointer<Interfaces::iCard>
     getCard(const QByteArray &cardId) override;
     QList<QSharedPointer<Interfaces::iCard>>

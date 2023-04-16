@@ -15,7 +15,6 @@ namespace RC {
 namespace DBv0 {
 
 User::User() {
-    User::regenerateKeys();
 }
 
 void User::regenerateKeys(const QByteArray &newSecret) {

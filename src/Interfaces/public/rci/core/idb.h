@@ -238,6 +238,13 @@ public:
     getAllUserWithPrivateKeys() const = 0;
 
     /**
+     * @brief getAllUsers This method will return list of all users
+     * @return users list;
+     */
+    virtual QList<QSharedPointer<iUser>>
+    getAllUsers() const = 0;
+
+    /**
      * @brief getCard This method return card by id.
      * @param cardId This is card id.
      * @return card by id.
