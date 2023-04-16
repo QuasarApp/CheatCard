@@ -90,6 +90,10 @@ void AppDataBase::localdbPatches() {
                                    newUser->setFSaller(user->fSaller());
                                    newUser->setName(user->name());
 
+                                   if (newUser->getKey() != user->getKey()) {
+                                       return false;
+                                   }
+
                                    if (!database->insertObject(newUser, true)) {
                                        return false;
                                    }
