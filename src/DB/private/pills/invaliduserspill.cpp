@@ -44,7 +44,7 @@ bool InvalidUsersPill::diagnostic() {
     if (!_db )
         return false;
 
-    auto users = _db->getAllUserWithPrivateKeys();
+    auto users = _db->getAllUsers();
     if (users.isEmpty())
         return false;
 

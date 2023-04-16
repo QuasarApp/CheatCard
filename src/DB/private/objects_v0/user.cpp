@@ -15,7 +15,6 @@ namespace RC {
 namespace DBv0 {
 
 User::User() {
-    User::regenerateKeys();
 }
 
 void User::regenerateKeys(const QByteArray &newSecret) {
@@ -152,10 +151,6 @@ bool User::fSaller() const {
 
 void User::setFSaller(bool newFSaller) {
     _fSaller = newFSaller;
-
-    if (secret().isEmpty()) {
-        regenerateKeys();
-    }
 }
 
 const QString &User::name() const {
