@@ -29,8 +29,8 @@ ApplicationWindow {
     }
 
     // Horisontal mode
-//    height: 350
-//    width: 640
+    //    height: 350
+    //    width: 640
 
     onClosing: {
         // this is bad solution. but it is works fine.
@@ -80,7 +80,7 @@ ApplicationWindow {
 
                 onClicked: () => {
                                if (!enabled)
-                                   return;
+                               return;
 
                                if (activityProcessor.depth > 1) {
                                    activityProcessor.popItem();
@@ -121,6 +121,17 @@ ApplicationWindow {
                 Layout.fillWidth: true
             }
 
+            ToolButton {
+                id: notificationsIcon
+                icon.source: "qrc:/images/private/resources/Interface_icons/notification.svg"
+                font.bold: true
+                font.pointSize: 12
+                visible: notificationService.notificationsCount
+                onClicked: {
+                    notificationService.showHistory()
+                }
+            }
+
             NetIndicatorModel {}
 
             ToolButton {
@@ -149,7 +160,7 @@ ApplicationWindow {
                         }
         }
 
-        MenuItem {            
+        MenuItem {
             height: (visible)? ganeralMenuItem.height: 0
 
             text: qsTr("Contact with developers")
