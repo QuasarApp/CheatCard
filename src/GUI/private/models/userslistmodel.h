@@ -54,7 +54,7 @@ public:
 
     QSharedPointer<UserModel>
     importUser(const QSharedPointer<Interfaces::iUser>& user);
-    void removeUser(const QByteArray &userId);
+    Q_INVOKABLE void removeUser(const QByteArray &userId);
 
     const QHash<QByteArray, QSharedPointer<UserModel> > &
     cache() const;

@@ -930,6 +930,17 @@
     </message>
 </context>
 <context>
+    <name>RC::UsersListModel</name>
+    <message>
+        <source>Removing user from this device</source>
+        <translation>მომხმარებლის ამოშლა ამ მოწყობილობიდან</translation>
+    </message>
+    <message>
+        <source>You&apos;re trying to remove %0 user from this device. All data and aceesses of this user will be removed. Do you want to continue?</source>
+        <translation>თქვენ ცდილობთ ამოშალოთ %0 მომხმარებელი ამ მოწყობილობიდან. ამ მომხმარებლის ყველა მონაცემი და წვდომა წაიშლება. Გინდა გააგრძელო?</translation>
+    </message>
+</context>
+<context>
     <name>RC::WaitConfirmModel</name>
     <message>
         <source>Not so fast!</source>
