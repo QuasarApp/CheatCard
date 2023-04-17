@@ -65,4 +65,20 @@ int Server::getMaxCountConnections() const {
     return maxCountConnections;
 }
 
+bool Server::restoreCardsWithotRootSeals() {
+    const auto cards = db()->getAllCards();
+
+    for (const auto &card: cards) {
+        auto userCard = db()->makeEmptyUsersCard();
+        userCard->setCard(card->cardId());
+        userCard->setUser(card->ownerSignature());
+
+        if (!db()->saveUsersCard(userCard)) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 }

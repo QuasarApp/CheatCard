@@ -75,7 +75,7 @@ public:
     QList<QSharedPointer<Interfaces::iCard>>
     getAllCards() override;
     QList<QSharedPointer<Interfaces::iCard>>
-    getAllUserCards(const QByteArray &userKey) override;
+    getAllUserCards(const QByteArray &userKey, bool ignoreItself = false) override;
     QList<QSharedPointer<Interfaces::iCard>>
     getAllUserOwnCards(const QByteArray &userKey,
                        const QList<QSharedPointer<Interfaces::iContacts>>& masters = {}) override;

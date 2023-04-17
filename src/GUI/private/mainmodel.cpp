@@ -233,7 +233,7 @@ void RC::MainModel::refreshCardsData() {
                                                       masterKeys));
 
     // get list of included cards
-    _cardsListModel->setCards(_db->getAllUserCards(_currentUserKey));
+    _cardsListModel->setCards(_db->getAllUserCards(_currentUserKey, true));
 
     _cardsListModel->updateMetaData(_db->getAllUserData(_currentUserKey));
 }

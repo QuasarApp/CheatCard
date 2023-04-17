@@ -186,6 +186,7 @@ private:
     void auth(const QByteArray& userId, QH::AbstractNodeInfo *userNode);
 
     void restoreSubscribes();
+
     struct RequestsData {
         int time = 0;
         std::function<void(int err)> _cb;
