@@ -934,6 +934,17 @@
     </message>
 </context>
 <context>
+    <name>RC::UsersListModel</name>
+    <message>
+        <source>Removing user from this device</source>
+        <translation>Usuwanie użytkownika z tego urządzenia</translation>
+    </message>
+    <message>
+        <source>You&apos;re trying to remove %0 user from this device. All data and aceesses of this user will be removed. Do you want to continue?</source>
+        <translation>Próbujesz usunąć użytkownika %0 z tego urządzenia. Wszystkie dane i dostęp tego użytkownika zostaną usunięte. Czy chcesz kontynuować?</translation>
+    </message>
+</context>
+<context>
     <name>RC::WaitConfirmModel</name>
     <message>
         <source>Not so fast!</source>

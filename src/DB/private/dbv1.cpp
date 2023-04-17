@@ -442,7 +442,19 @@ DBv1::getAllUserFromCard(const QByteArray& cardId) const {
 QList<QSharedPointer<Interfaces::iUser> >
 DBv1::getAllUserWithPrivateKeys() const {
     QH::PKG::DBObjectsRequest<DB::User> request("Users",
-                                                "LENGTH(secret) AND secret IS NOT NULL");
+                                                "LENGTH(secret) == 32 AND secret IS NOT NULL");
+
+    auto result = db()->getObject(request);
+    if (!result)
+        return {};
+
+    return {result->data().begin(), result->data().end()} ;
+}
+
+QList<QSharedPointer<Interfaces::iUser> > DBv1::getAllUsers() const {
+
+    QH::PKG::DBObjectsRequest<DB::User> request("Users",
+                                                "");
 
     auto result = db()->getObject(request);
     if (!result)

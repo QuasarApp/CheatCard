@@ -122,10 +122,6 @@ bool User::fSaller() const {
 
 void User::setFSaller(bool newFSaller) {
     _fSaller = newFSaller;
-
-    if (secret().isEmpty()) {
-        regenerateKeys();
-    }
 }
 
 const QString &User::name() const {
