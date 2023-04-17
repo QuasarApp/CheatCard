@@ -606,7 +606,7 @@ bool DBv1::migrateUsersCardsToUsersData(const QByteArray &userKey) const {
 
     QH::PKG::DBObjectsRequest<DBv0::UsersCards> query("UsersCards",
                                                       "user=:user",
-                                                      {{"user", oldUserId}});
+                                                      {{":user", oldUserId}});
     auto result = db()->getObject(query);
     if (result && result->data().size()) {
         for (const auto& object: result->data()) {
