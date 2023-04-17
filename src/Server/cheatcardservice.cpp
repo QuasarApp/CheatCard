@@ -106,7 +106,10 @@ bool CheatCardService::handleReceive(const Patronum::Feature &data) {
     } else if (data.cmd() == "cardsList") {
         auto user = QByteArray::fromBase64(data.arg().toLatin1());
         sendResuylt(cardList(user));
+    } else if (data.cmd() == "fixCardOvners") {
+        sendResuylt((_server->restoreCardsWithotRootSeals())? "successful": "fail");
     }
+
 
     return true;
 }
@@ -119,6 +122,8 @@ QSet<Patronum::Feature> CheatCardService::supportedFeatures() {
     data << Patronum::Feature("state", {}, "return state");
     data << Patronum::Feature("backUp", "path to backup dir", "make back up of current database ");
     data << Patronum::Feature("setVerbose", "verbose level", "sets new verbose log level");
+    data << Patronum::Feature("fixCardOvners", "fix bug with cards", "try to fix bug if the owner not see own cards");
+
 
     return data;
 }

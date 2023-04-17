@@ -262,10 +262,11 @@ public:
     /**
      * @brief getAllUserCards This method will return list of available cards of the user with @a userKey key
      * @param userKey user key
+     * @param ignoreItselfCards - set to true for ignoe own cards.
      * @return cards list;
      */
     virtual QList<QSharedPointer<iCard>>
-    getAllUserCards(const QByteArray &userKey) = 0;
+    getAllUserCards(const QByteArray &userKey, bool ignoreItselfCards = false) = 0;
     /**
      * @brief getAllUserCards This method will return list of available cards of the user with @a userKey key
      * @param userKey user key

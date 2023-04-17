@@ -379,8 +379,13 @@ DBv1::getAllCards() {
 }
 
 QList<QSharedPointer<Interfaces::iCard> >
-DBv1::getAllUserCards(const QByteArray &userKey) {
+DBv1::getAllUserCards(const QByteArray &userKey, bool ignoreItself) {
     QString where = "id IN (SELECT card FROM UsersData WHERE user=:user)";
+
+    if (ignoreItself) {
+        where += " AND ownerSignature !=:user";
+    }
+
     QVariantMap toBind = {{":user", userKey}};
 
     QH::PKG::DBObjectsRequest<DB::Card> cardRequest("Cards", where, toBind);

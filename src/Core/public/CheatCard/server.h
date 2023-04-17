@@ -25,6 +25,9 @@ public:
     // AbstractNode interface
     int getMaxCountConnections() const;
 
+    // if user remove own user data but not card
+    bool restoreCardsWithotRootSeals();
+
 protected:
     void nodeConfirmend(QH::AbstractNodeInfo *node) override;
     void nodeConnected(QH::AbstractNodeInfo *node) override;
